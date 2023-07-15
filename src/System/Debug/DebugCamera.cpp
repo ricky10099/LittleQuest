@@ -118,7 +118,8 @@ public:
                 auto tgt_new_ = tgt_pos_ - cam_pos_;
 
                 auto rot_y = matrix::rotateY(mouse_vec_.x * 0.003f);
-                //auto rot_x = matrix::rotateAxis( right, -mouse_vec_.y * 0.003f );
+                // auto rot_x = matrix::rotateAxis( right, -mouse_vec_.y
+                // * 0.003f );
 
                 auto f_v = front;
                 f_v.y    = 0.0f;   // 地面に沿った平行な向きに進む

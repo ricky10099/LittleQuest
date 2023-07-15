@@ -3,8 +3,9 @@
 //! @brief  水面サンプルシーン
 //---------------------------------------------------------------------------
 #include "SceneWater.h"
-#include <System/Graphics/Model.h>
+
 #include <System/Component/ComponentCamera.h>
+#include <System/Graphics/Model.h>
 
 #include "System/SystemMain.h"   // ShowGrid
 
@@ -56,7 +57,8 @@ public:
         constexpr f32 attenuation = 0.994f;   // 減衰係数
 
         // 波動方程式 有限差分法
-        // 波の高さの変化の加速度に定数を掛けたもの = 現在の波の高さに「ラプラシアンフィルタ」を掛けたものと等価
+        // 波の高さの変化の加速度に定数を掛けたもの =
+        // 現在の波の高さに「ラプラシアンフィルタ」を掛けたものと等価
         // +---+---+---+
         // | 0 | 1 | 0 |
         // +---+---+---+
@@ -158,7 +160,8 @@ public:
     //! @param  [in]    impulse         力
     //! @retval true    正常に適用された場合
     //! @retval false   範囲外で適用出来なかった場合
-    //! @note 指定座標が水面よりも高い位置にある場合や範囲外の場合は適用されません
+    //! @note
+    //! 指定座標が水面よりも高い位置にある場合や範囲外の場合は適用されません
     bool addImpulse(const float3& p, f32 impulse)
     {
         // 水面よりも高い位置なら終了
@@ -364,11 +367,11 @@ void SceneWater::Draw()
     //----------------------------------------------------------
     {
         // 書式付き文字列の描画幅・高さ・行数を取得する
-        const char* message =
-            "[SPACE] ランダムで波紋を起こす   [L-click] クリックした場所に波紋を起こす [Z] 波をリセット";
-        s32 width;        // 幅
-        s32 height;       // 高さ
-        s32 line_count;   // 行数
+        const char* message = "[SPACE] ランダムで波紋を起こす   [L-click] "
+                              "クリックした場所に波紋を起こす [Z] 波をリセット";
+        s32         width;        // 幅
+        s32         height;       // 高さ
+        s32         line_count;   // 行数
         GetDrawFormatStringSize(&width, &height, &line_count, message);
 
         // センタリング

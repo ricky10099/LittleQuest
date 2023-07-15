@@ -3,6 +3,7 @@
 //! @brief  Ease補間サンプルシーン
 //---------------------------------------------------------------------------
 #include "SceneEaseCurve.h"
+
 #include "System/EaseCurve.h"
 #include "System/SystemMain.h"   // ShowGrid
 
@@ -88,8 +89,9 @@ void SceneEaseCurve::Draw()
         u32  stringWidth = GetDrawStringWidth(name, static_cast<int>(strlen(name)));
         auto fontColor   = GetColor(255, 255, 255);
 
-        DrawString(startX - 8 - stringWidth, y, name, fontColor);   // 左側 - 右詰め
-        DrawString(endX + 8, y, name, fontColor);                   // 右側 - 左詰め
+        DrawString(startX - 8 - stringWidth, y, name,
+                   fontColor);                      // 左側 - 右詰め
+        DrawString(endX + 8, y, name, fontColor);   // 右側 - 左詰め
 
         // 補間後の位置をボックスで表示
         drawMark(t_, y, fontColor);
@@ -109,8 +111,9 @@ void SceneEaseCurve::Draw()
         bool isOdd       = i & 1;   // 1:奇数 0:偶数
         auto fontColor   = isOdd ? GetColor(255, 128, 128) : GetColor(128, 255, 128);
 
-        DrawString(startX - 8 - stringWidth, y, easeName[type], fontColor);   // 左側 - 右詰め
-        DrawString(endX + 8, y, easeName[type], fontColor);                   // 右側 - 左詰め
+        DrawString(startX - 8 - stringWidth, y, easeName[type],
+                   fontColor);                                // 左側 - 右詰め
+        DrawString(endX + 8, y, easeName[type], fontColor);   // 右側 - 左詰め
 
         // 補間後の位置をボックスで表示
         drawMark(ease(t_), y, fontColor);

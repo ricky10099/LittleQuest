@@ -200,18 +200,19 @@ bool ShaderBase::compile()
         Microsoft::WRL::ComPtr<ID3DBlob> byte_code = nullptr;
         Microsoft::WRL::ComPtr<ID3DBlob> errors;
 
-        auto hr =
-            D3DCompile(source.data(),   // [in]  ソースコードのメモリ上のアドレス
-                       source.size(),   // [in]  ソースコードサイズ
-                       convertTo(source_path).c_str(),   // [in]  ソースコードのファイルパス(使用しない場合はnullptr)
-                       defines,                          // [in]  プリプロセッサマクロ定義
-                       D3D_COMPILE_STANDARD_FILE_INCLUDE,   // [in]  カスタムインクルード処理
-                       "main",                              // [in]  関数名
-                       target_names[type_],                 // [in]  シェーダーモデル名
-                       compile_flags,                       // [in]  コンパイラフラグ  (D3DCOMPILE_xxxx)
-                       0,                                   // [in]  コンパイラフラグ2 (D3DCOMPILE_FLAGS2_xxxx)
-                       &byte_code,                          // [out] コンパイルされたバイトコード
-                       &errors);                            // [out] エラーメッセージ
+        auto hr = D3DCompile(source.data(),                    // [in]  ソースコードのメモリ上のアドレス
+                             source.size(),                    // [in]  ソースコードサイズ
+                             convertTo(source_path).c_str(),   // [in]
+                             // ソースコードのファイルパス(使用しない場合はnullptr)
+                             defines,                             // [in]  プリプロセッサマクロ定義
+                             D3D_COMPILE_STANDARD_FILE_INCLUDE,   // [in]
+                                                                  // カスタムインクルード処理
+                             "main",                              // [in]  関数名
+                             target_names[type_],                 // [in]  シェーダーモデル名
+                             compile_flags,                       // [in]  コンパイラフラグ  (D3DCOMPILE_xxxx)
+                             0,            // [in]  コンパイラフラグ2 (D3DCOMPILE_FLAGS2_xxxx)
+                             &byte_code,   // [out] コンパイルされたバイトコード
+                             &errors);     // [out] エラーメッセージ
 
         // エラー警告出力
         if(errors != nullptr) {

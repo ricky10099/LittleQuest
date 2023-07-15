@@ -3,8 +3,9 @@
 //! @brief  キー入力とEffekseer
 //---------------------------------------------------------------------------
 #include "SceneInputKey.h"
-#include <System/Component/ComponentModel.h>
+
 #include <System/Component/ComponentCamera.h>
+#include <System/Component/ComponentModel.h>
 #include <System/Graphics/Animation.h>
 
 BP_CLASS_IMPL(SceneInputKey, u8"キー入力とEffekseer")
@@ -34,7 +35,8 @@ class Player : public Object
     //-------------------------------------------------------
     //! アニメーション定義
     //-------------------------------------------------------
-    // {アニメーション名, ファイル名, ファイル内のアニメーション番号, 再生速度}
+    // {アニメーション名, ファイル名, ファイル内のアニメーション番号,
+    // 再生速度}
     static const inline Animation::Desc desc_[] = {
         { "idle",  "data/Sample/Player/Anim/Idle2.mv1", 0,  1.0f},
         { "jump",  "data/Sample/Player/Anim/Jump2.mv1", 0,  1.0f},
@@ -103,7 +105,7 @@ public:
             //  後進
             if(IsKeyRepeat(KEY_INPUT_W)) {
                 key_release_frame_ = 0;
-                //animation_->play("walk2", true);
+                // animation_->play("walk2", true);
                 anim_status_ = 3;
                 per          = 0.025f;
                 move.z += 1.f;
@@ -111,7 +113,7 @@ public:
             //  前進
             if(IsKeyRepeat(KEY_INPUT_S)) {
                 key_release_frame_ = 0;
-                //animation_->play("walk1", true);
+                // animation_->play("walk1", true);
                 anim_status_ = 2;
                 move.z -= 1.f;
             }
@@ -129,7 +131,7 @@ public:
         // ジャンプ処理
         if(IsKeyOn(KEY_INPUT_SPACE)) {
             key_release_frame_ = 0;
-            //animation_->play("jump", false);
+            // animation_->play("jump", false);
             anim_status_ = 1;
             is_jump_     = true;
             is_loop      = false;

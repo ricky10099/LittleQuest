@@ -1,6 +1,7 @@
 ﻿#include "Shot.h"
-#include <System/Scene.h>
+
 #include <System/Component/ComponentCollisionSphere.h>
+#include <System/Scene.h>
 
 namespace Sample
 {
@@ -37,7 +38,8 @@ bool Shot::Init()
 
 void Shot::Update()
 {
-    // スピードに合わせて移動 AddTranslateには DeltaSecondの掛け合わせは不要
+    // スピードに合わせて移動 AddTranslateには
+    // DeltaSecondの掛け合わせは不要
     AddTranslate(vec_ * speed_);
 }
 

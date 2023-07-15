@@ -108,7 +108,8 @@ void load(Archive& arc, matrix& m)
     template <class Archive>                                                                                           \
     void cls::serialize(Archive& arc, [[maybe_unused]] std::uint32_t const ver)
 
-//! セーブ処理のみの時に使用します (CPPにて組み込む場合) (※現在処理されないと思われます)
+//! セーブ処理のみの時に使用します (CPPにて組み込む場合)
+//! (※現在処理されないと思われます)
 #define CEREAL_SAVE_CPP(cls, arc, ver)                                                                                 \
     template <class Archive>                                                                                           \
     void cls::save(Archive& arc, [[maybe_unused]] std::uint32_t const ver) const
@@ -119,8 +120,10 @@ void load(Archive& arc, matrix& m)
     template <class Archive>                                                                                           \
     void cls::load(Archive& arc, [[maybe_unused]] std::uint32_t const ver)
 
-//! ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します (CPPにて組み込む場合)
-//! @attention 変数名はconstruct以外使うと再定義になってしまうため変数化していない。
+//! ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します
+//! (CPPにて組み込む場合)
+//! @attention
+//! 変数名はconstruct以外使うと再定義になってしまうため変数化していない。
 #define CEREAL_LOAD_AND_CONSTRUCT_CPP(cls, arc, ver)                                                                   \
     template <class Archive>                                                                                           \
     void cls::load_and_construct(Archive&                             arc,                                             \
@@ -128,7 +131,8 @@ void load(Archive& arc, matrix& m)
                                  [[maybe_unused]] std::uint32_t const ver)
 
 //! ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します(外部)
-//! @attention 変数名はconstruct以外使うと再定義になってしまうため変数化していない。
+//! @attention
+//! 変数名はconstruct以外使うと再定義になってしまうため変数化していない。
 #define CEREAL_LOAD_AND_CONSTRUCT_BEGIN(cls, arc, ver)                                                                 \
     namespace cereal                                                                                                   \
     {                                                                                                                  \

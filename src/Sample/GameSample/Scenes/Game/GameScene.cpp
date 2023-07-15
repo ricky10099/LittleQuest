@@ -1,11 +1,12 @@
 ﻿#include "GameScene.h"
-#include "Objects/Mouse.h"
-#include "Objects/Enemy.h"
+
+#include <System/Component/ComponentCollisionModel.h>
+#include <System/Component/ComponentModel.h>
+
 #include "Objects/Box.h"
 #include "Objects/Camera.h"
-
-#include <System/Component/ComponentModel.h>
-#include <System/Component/ComponentCollisionModel.h>
+#include "Objects/Enemy.h"
+#include "Objects/Mouse.h"
 
 namespace Sample
 {

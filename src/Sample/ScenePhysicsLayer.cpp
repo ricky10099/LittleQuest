@@ -3,13 +3,13 @@
 //! @brief  物理衝突レイヤー分けサンプル
 //---------------------------------------------------------------------------
 #include "ScenePhysicsLayer.h"
-#include <System/Component/ComponentCamera.h>
 
+#include <System/Component/ComponentCamera.h>
+#include <System/Physics/PhysicsCharacter.h>   // キャラクターコントローラー
 #include <System/Physics/PhysicsEngine.h>
 #include <System/Physics/PhysicsLayer.h>
 #include <System/Physics/RigidBody.h>
 #include <System/Physics/Shape.h>
-#include <System/Physics/PhysicsCharacter.h>   // キャラクターコントローラー
 
 BP_CLASS_IMPL(ScenePhysicsLayer, u8"[Physics] 衝突レイヤー分けサンプル");
 

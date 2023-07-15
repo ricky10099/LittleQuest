@@ -66,14 +66,18 @@ public:
     void update(f32 dt);
 
     //  描画
-    //! @param  [in]    override_vs  上書きする頂点シェーダー (nullptrで無効化)
-    //! @param  [in]    override_ps  上書きするピクセルシェーダー (nullptrで無効化)
+    //! @param  [in]    override_vs  上書きする頂点シェーダー
+    //! (nullptrで無効化)
+    //! @param  [in]    override_ps  上書きするピクセルシェーダー
+    //! (nullptrで無効化)
     void render(ShaderVs* override_vs = nullptr, ShaderPs* override_ps = nullptr);
 
     //  メッシュ番号指定で描画
     //! @param  [in]    mesh_index   メッシュ番号
-    //! @param  [in]    override_vs  上書きする頂点シェーダー (nullptrで無効化)
-    //! @param  [in]    override_ps  上書きするピクセルシェーダー (nullptrで無効化)
+    //! @param  [in]    override_vs  上書きする頂点シェーダー
+    //! (nullptrで無効化)
+    //! @param  [in]    override_ps  上書きするピクセルシェーダー
+    //! (nullptrで無効化)
     void renderByMesh(s32 mesh_index, ShaderVs* override_vs = nullptr, ShaderPs* override_ps = nullptr);
 
     //@}
@@ -93,12 +97,14 @@ public:
     void useShader(bool use) { use_shader_ = use; }
 
     //  アニメーションを設定
-    //! @param  [in]    animation   関連付けるアニメーション(nullptrの場合は解除する)
+    //! @param  [in]    animation
+    //! 関連付けるアニメーション(nullptrの場合は解除する)
     void bindAnimation(Animation* animation);
 
     //  既存テクスチャをオーバーライドします
     //! @param  [in]    type    テクスチャの種類
-    //! @param  [in]    texture オーバーライドするテクスチャ(nullptrでオーバーライド解除)
+    //! @param  [in]    texture
+    //! オーバーライドするテクスチャ(nullptrでオーバーライド解除)
     void overrideTexture(Model::TextureType type, std::shared_ptr<Texture>& texture);
 
     //@}
@@ -120,7 +126,8 @@ public:
     bool isValid() const;
 
     // 利用可能な状態かどうか取得
-    //! @note   利用可能になっていない状態でDxLib MV1関連の関数を呼ぶと非同期ロードがブロッキングされます
+    //! @note   利用可能になっていない状態でDxLib
+    //! MV1関連の関数を呼ぶと非同期ロードがブロッキングされます
     bool isActive() const;
 
     // モデルリソースを取得
@@ -145,13 +152,14 @@ private:
     void on_initialize();
 
 private:
-    std::shared_ptr<ResourceModel> resource_model_;                    //!< モデルリソース
-    int                            mv1_handle_ = -1;                   //!< [DxLib] MV1モデルハンドル
-    std::wstring                   path_;                              //!< ファイルパス
-    bool                           use_shader_ = true;                 //!< シェーダーを使うかどうか
-    matrix                         mat_world_  = matrix::identity();   //!< ワールド行列
-    Animation*                     animation_  = nullptr;   //!< 関連付けられているアニメーション
-    bool                           need_initialize_ = true;   //!< 初期化要求フラグ true:初期化が必要 false:初期化済または完了で不要
+    std::shared_ptr<ResourceModel> resource_model_;                         //!< モデルリソース
+    int                            mv1_handle_ = -1;                        //!< [DxLib] MV1モデルハンドル
+    std::wstring                   path_;                                   //!< ファイルパス
+    bool                           use_shader_      = true;                 //!< シェーダーを使うかどうか
+    matrix                         mat_world_       = matrix::identity();   //!< ワールド行列
+    Animation*                     animation_       = nullptr;   //!< 関連付けられているアニメーション
+    bool                           need_initialize_ = true;      //!< 初期化要求フラグ true:初期化が必要
+                                                                 //!< false:初期化済または完了で不要
 
     //! 上書きするテクスチャ
     std::array<std::shared_ptr<Texture>, static_cast<s32>(Model::TextureType::CountMax)> overridedTextures_;

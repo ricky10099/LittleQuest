@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <System/Scene.h>
+
 #include "../Gauge.h"
 
 namespace Sample

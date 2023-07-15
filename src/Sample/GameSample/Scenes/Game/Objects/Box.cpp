@@ -1,8 +1,9 @@
 ﻿#include "Box.h"
-#include <System/Scene.h>
-#include <System/Component/ComponentModel.h>
-#include <System/Component/ComponentCollisionSphere.h>
+
 #include <System/Component/ComponentCollisionModel.h>
+#include <System/Component/ComponentCollisionSphere.h>
+#include <System/Component/ComponentModel.h>
+#include <System/Scene.h>
 #include <System/Utils/HelperLib.h>
 
 namespace Sample

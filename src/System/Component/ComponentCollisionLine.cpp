@@ -50,7 +50,7 @@ void ComponentCollisionLine::Draw()
 
     __super::Draw();
 
-    //auto trans = mul(inverse(collision_transform_), GetWorldMatrix());
+    // auto trans = mul(inverse(collision_transform_), GetWorldMatrix());
 
     SetUseLighting(FALSE);
     SetLightEnable(FALSE);
@@ -59,8 +59,8 @@ void ComponentCollisionLine::Draw()
     VECTOR pos1 = cast(line[0]);
     VECTOR pos2 = cast(line[1]);
 
-    //printfDx("{%2.1f, %2.1f, %2.1f}", pos1.x, pos1.y, pos1.z);
-    //printfDx("{%2.1f, %2.1f, %2.1f}", pos2.x, pos2.y, pos2.z);
+    // printfDx("{%2.1f, %2.1f, %2.1f}", pos1.x, pos1.y, pos1.z);
+    // printfDx("{%2.1f, %2.1f, %2.1f}", pos2.x, pos2.y, pos2.z);
 
     DrawLine3D(pos1, pos2, GetColor(255, 0, 0));
     SetLightEnable(TRUE);

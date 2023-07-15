@@ -1,6 +1,7 @@
 ﻿#include "SceneAttachModel.h"
-#include <System/Component/ComponentModel.h>
+
 #include <System/Component/ComponentAttachModel.h>
+#include <System/Component/ComponentModel.h>
 
 // ここにMenu設定を用意します
 BP_CLASS_IMPL(SceneAttachModel, u8"AttachModel 使用サンプル");
@@ -68,7 +69,8 @@ bool SceneAttachModel::Init()
         }
 
         // モデルに設定されているテクスチャを上書き
-        // model と this(Scene) をこの関数内で使用する modelはshared_ptrとして使うためコピーをとる
+        // model と this(Scene) をこの関数内で使用する
+        // modelはshared_ptrとして使うためコピーをとる
         model->SetProc(
             "ModelDraw",
             [model, this]() {
@@ -114,7 +116,8 @@ bool SceneAttachModel::Init()
 
 //! @brief シーン更新関数。ディスプレイリフレッシュレートに合わせて実行されます
 //! @param delta 1秒をベースとした1フレームの数値
-//! @detial deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
+//! @detial
+//! deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
 void SceneAttachModel::Update()
 {
 }

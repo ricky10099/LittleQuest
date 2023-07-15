@@ -1,4 +1,5 @@
 ﻿#include "SceneTestProc.h"
+
 #include <System/Component/ComponentModel.h>
 
 BP_CLASS_IMPL(SceneTestProc, u8"プロセステスト");
@@ -47,7 +48,8 @@ void SceneTestProc::InitSerialize()
     obj->SetAddProc(DrawTest);
     obj->SetAddProc(UpdateTest);
 
-    // Updateという名前で、Updateのタイミングにて処理追加 (引数をfloatにするとUpdateに追加)
+    // Updateという名前で、Updateのタイミングにて処理追加
+    // (引数をfloatにするとUpdateに追加)
     obj->SetProc("Update", []() { printfDx("Update!\n"); });
 
     // ABCという名前で、PreDrawのタイミングに処理追加
@@ -88,7 +90,8 @@ void SceneTestProc::InitSerialize()
             obj->AddRotationAxisXYZ({0, 1, 0});
     });
 
-    // デフォルトのPreUpdate()の優先を変更することもできます (obj::PreUpdate()の処理優先を変更しています)
+    // デフォルトのPreUpdate()の優先を変更することもできます
+    // (obj::PreUpdate()の処理優先を変更しています)
     Scene::GetCurrentScene()->SetPriority(obj, ProcTiming::PreUpdate, Priority::LOWEST);
 }
 

@@ -1,5 +1,5 @@
-﻿#include <System/Scene.h>
-#include <System/Component/ComponentModel.h>
+﻿#include <System/Component/ComponentModel.h>
+#include <System/Scene.h>
 
 // キャラクターの当たりはカプセルでつけます
 #include <System/Component/ComponentCollisionCapsule.h>
@@ -69,8 +69,8 @@ public:
             // 地面にあたっている判定状態ならばモードを変更
             auto owner = hitInfo.hit_collision_->GetOwnerPtr();
             if(owner->GetNameDefault() == u8"地面") {
-                //printfDx( "地面と当たった" );
-                // モードを当たったことにする
+                // printfDx( "地面と当たった" );
+                //  モードを当たったことにする
                 jump_mode = JumpMode::JUMP_TOUCHEDGROUND;
             }
         }
@@ -144,7 +144,8 @@ public:
         case JumpMode::JUMP_END:
             // アニメーションがおわったか?
             if(!model->IsPlaying()) {
-                // フットワークのアニメーションを出す (ブレンドを長めにしている)
+                // フットワークのアニメーションを出す
+                // (ブレンドを長めにしている)
                 model->PlayAnimation("idle", true, 1.0f);
 
                 // またジャンプできるようになにもしない状態に戻す
@@ -242,7 +243,8 @@ void Tutorial_07::GUI()
                     u8"浮き上がるタイミングはかって上に飛びあげます\n"
                     u8"コリジョンの重力に任せて落とすと楽にジャンプできます\n"
                     u8"ここでは行っていませんが、\n"
-                    u8"ジャンプ中は着地アクションが出ないようにポーズをかけることや\n"
+                    u8"ジャンプ中は着地アクションが出ないようにポーズをかけることや"
+                    u8"\n"
                     u8"アクション自体を分けて作成することも多く\n"
                     u8"着地になったら着地モーションを出すのが基本となります\n"
                     u8"\n"

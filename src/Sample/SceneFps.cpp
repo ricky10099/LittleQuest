@@ -3,10 +3,10 @@
 //! @brief  First Person Shooting サンプルシーン
 //---------------------------------------------------------------------------
 #include "SceneFps.h"
-#include <System/Component/ComponentModel.h>
-#include <System/Component/ComponentCamera.h>
-#include <System/Graphics/Animation.h>
 
+#include <System/Component/ComponentCamera.h>
+#include <System/Component/ComponentModel.h>
+#include <System/Graphics/Animation.h>
 #include <System/SystemMain.h>   // ShowGrid
 
 BP_CLASS_IMPL(SceneFps, u8"FPSサンプル")
@@ -196,7 +196,8 @@ void SceneFps::Update()
         // 相対位置
         matrix mat_world = matrix::translate(float3(0.0f, -0.3f, +0.25f));
 
-        // 腕モデルをカメラに装備させる (装備させたいワールド行列を後ろから掛ける)
+        // 腕モデルをカメラに装備させる
+        // (装備させたいワールド行列を後ろから掛ける)
         mat_world = mul(mat_world, mat_camera);
 
         model_->setWorldMatrix(mat_world);
@@ -238,8 +239,9 @@ void SceneFps::Update()
     else {
         // 左クリックしたら攻撃
         if(IsMouseRepeat(1)) {
-            animation_->play("stab", false, 0.125f);   // 攻撃アニメーション(動作が短いため高速に補間する)
-            is_attacked_ = true;                       // 攻撃中
+            animation_->play("stab", false,
+                             0.125f);   // 攻撃アニメーション(動作が短いため高速に補間する)
+            is_attacked_ = true;        // 攻撃中
         }
     }
 }
@@ -280,8 +282,8 @@ void SceneFps::Draw()
     //----------------------------------------------------------
     {
         model_->renderByMesh(0);   // 腕
-                                   //model_->renderByMesh(1);   // ハンドガン(ダミー)
-                                   //model_->renderByMesh(2);   // ナイフ(ダミー)
+                                   // model_->renderByMesh(1);   // ハンドガン(ダミー)
+                                   // model_->renderByMesh(2);   // ナイフ(ダミー)
     }
 
     //----------------------------------------------------------

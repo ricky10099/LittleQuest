@@ -1,7 +1,8 @@
 ﻿#include "Gauge.h"
+
+#include <DxLib.h>
 #include <System/Scene.h>
 #include <System/SystemMain.h>
-#include <DxLib.h>
 
 namespace Sample::GameSample
 {

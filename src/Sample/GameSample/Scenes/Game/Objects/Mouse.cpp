@@ -1,15 +1,16 @@
 ﻿#include "Mouse.h"
-#include "Enemy.h"
-#include "Shot.h"
-#include "../../Over/OverScene.h"
 
-#include <System/Component/ComponentModel.h>
+#include <System/Component/ComponentCamera.h>
+#include <System/Component/ComponentCollisionCapsule.h>
 #include <System/Component/ComponentCollisionModel.h>
 #include <System/Component/ComponentCollisionSphere.h>
-#include <System/Component/ComponentCollisionCapsule.h>
-#include <System/Component/ComponentCamera.h>
-#include <System/Component/ComponentTargetTracking.h>
+#include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
+#include <System/Component/ComponentTargetTracking.h>
+
+#include "../../Over/OverScene.h"
+#include "Enemy.h"
+#include "Shot.h"
 
 namespace Sample
 {
@@ -35,7 +36,7 @@ MousePtr Mouse::Create(const float3& pos, const float3& front)
     return mouse;
 }
 
-bool Mouse::Init()   //override
+bool Mouse::Init()   // override
 {
     __super::Init();
 
@@ -74,7 +75,7 @@ bool Mouse::Init()   //override
     return true;
 }
 
-void Mouse::Update()   //override
+void Mouse::Update()   // override
 {
     auto mdl        = GetComponent<ComponentModel>();
     auto near_enemy = TrackingNearEnemy(SharedThis());
@@ -82,7 +83,7 @@ void Mouse::Update()   //override
     if(mdl) {
         if(auto target = GetComponent<ComponentTargetTracking>()) {
             target->SetTargetObjectPtr(near_enemy);
-            //target->SetFrontVector(-mdl->GetMatrix().axisZ());
+            // target->SetFrontVector(-mdl->GetMatrix().axisZ());
         }
     }
 
@@ -103,7 +104,7 @@ void Mouse::Update()   //override
     auto   cam = Scene::GetObjectPtr<Camera>("PlayerCamera");
     float3 v   = GetTranslate() - cam->GetTranslate();
     mat        = HelperLib::Math::CreateMatrixByFrontVector(-v);
-#endif   //USE_MOUSE_CAMERA
+#endif   // USE_MOUSE_CAMERA
 
     if(IsKeyRepeat(KEY_INPUT_UP)) {
         float3 vec = mat.axisZ();
@@ -161,12 +162,12 @@ void Mouse::Update()   //override
 }
 
 // 基本描画の後に処理します
-void Mouse::LateDraw()   //override
+void Mouse::LateDraw()   // override
 {
     gauge_.Draw();
 }
 
-void Mouse::GUI()   //override
+void Mouse::GUI()   // override
 {
     __super::GUI();
 
@@ -181,7 +182,7 @@ void Mouse::GUI()   //override
     ImGui::End();
 }
 
-void Mouse::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)   //override
+void Mouse::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)   // override
 {
     // 次のownerのオブジェクトと当たった!
     auto owner = hitInfo.hit_collision_->GetOwnerPtr();
@@ -194,7 +195,7 @@ void Mouse::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)  
                 Scene::Change(Scene::GetScene<OverScene>());
         }
 
-        //Scene::ReleaseObject( owner );
+        // Scene::ReleaseObject( owner );
     }
 
     // 当たりで移動させる(これが無ければめり込みます)

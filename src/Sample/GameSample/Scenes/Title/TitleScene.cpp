@@ -1,4 +1,5 @@
 ﻿#include "TitleScene.h"
+
 #include "../Game/GameScene.h"
 
 namespace Sample

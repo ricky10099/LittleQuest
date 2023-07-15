@@ -108,8 +108,8 @@ void ComponentCollisionModel::GUI()
             float  matrixTranslation[3], matrixRotation[3], matrixScale[3];
             DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
             ImGui::DragFloat3((colname + u8"座標(T)").c_str(), matrixTranslation, 0.01f);
-            //ImGui::DragFloat3( u8"COL回転(R)", matrixRotation, 0.1f );
-            //ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
+            // ImGui::DragFloat3( u8"COL回転(R)", matrixRotation, 0.1f );
+            // ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
             RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, mat);
 
             if(ImGui::Button(u8"モデルにコリジョンを張り付ける")) {
@@ -209,7 +209,8 @@ const matrix ComponentCollisionModel::GetWorldMatrix() const
 
 //! @brief マップに対する正確な移動量を割り出す(傾きによる移動量)
 //! @param vec 動きたい移動量
-//! @param force 山に上る時の上りにくさ (1.0で普通に楽々上る ~ 3.0くらいだともう登れない )
+//! @param force 山に上る時の上りにくさ (1.0で普通に楽々上る
+//! ~ 3.0くらいだともう登れない )
 //! @return 実際動ける量
 float3 ComponentCollisionModel::checkMovement(float3 pos, float3 vec, float force)
 {

@@ -1,4 +1,5 @@
 ﻿#include "SceneTestComponent.h"
+
 #include <System/Component/ComponentModel.h>
 
 // ここにMenu設定を用意します
@@ -12,9 +13,10 @@ bool SceneTestComponent::Init()
     // Component単体では生成することはできません。あくまでObjectの機能として動作します
     // 作成すると自動的に以下の関数が呼ばれます
     // Init()   <= 最初に一度呼ばれます
-    // Update() <= ディスプレイリフレッシュレートに合わせて呼び出されます  例 60Hz : 1秒間に60回呼び出されます
-    // Draw()   <= Updateの後に呼び出されます。描画するのに適した関数です
-    // Exit()   <= 終了時に呼ばれる関数です
+    // Update() <= ディスプレイリフレッシュレートに合わせて呼び出されます  例
+    // 60Hz : 1秒間に60回呼び出されます Draw()   <=
+    // Updateの後に呼び出されます。描画するのに適した関数です Exit()   <=
+    // 終了時に呼ばれる関数です
 
     // Mouseという名前のオブジェクトを作成します
     auto obj = Scene::CreateObjectPtr<Object>()->SetName("Mouse");
@@ -42,7 +44,8 @@ bool SceneTestComponent::Init()
 
 //! @brief シーン更新関数。ディスプレイリフレッシュレートに合わせて実行されます
 //! @param delta 1秒をベースとした1フレームの数値
-//! @detial deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
+//! @detial
+//! deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
 void SceneTestComponent::Update()
 {
     // 上記で作成した MouseというObjectを取得します

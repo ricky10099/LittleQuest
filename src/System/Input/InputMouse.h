@@ -36,8 +36,10 @@ bool IsMouseRelease(int mouseID);
 
 //! 指定マウスボタンの長押し検証
 //! @param	[in]	mouseID	マウスのボタン種別
-//! @retval true	引数に指定されたマウスのボタンが長押し（2フレーム以上）されている
-//! @retval false	引数に指定されたマウスのボタンが押されていない（押されているフレーム数が1以下）
+//! @retval true
+//! 引数に指定されたマウスのボタンが長押し（2フレーム以上）されている
+//! @retval false
+//! 引数に指定されたマウスのボタンが押されていない（押されているフレーム数が1以下）
 bool IsMouseRepeat(int mouseID, u32 frame = 2);
 
 // Windowsポンプ命名規則

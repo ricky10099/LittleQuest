@@ -289,8 +289,8 @@ void ComponentModel::GUI()
     if(node_manipulate_) {
         matrix matx = MV1GetFrameLocalWorldMatrix(GetModel(), select_node_index_);
         auto   trns = GetOwner()->GetComponent<ComponentTransform>();
-        //matx		= mul( GetMatrix(), matx );
-        //matx		= mul( trns->GetMatrix(), matx );
+        // matx		= mul( GetMatrix(), matx );
+        // matx		= mul( trns->GetMatrix(), matx );
 
         float* mat_float = (float*)matx.f32_128_0;
         ShowGizmo(mat_float, gizmo_operation_, gizmo_mode_, reinterpret_cast<uint64_t>(this));

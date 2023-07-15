@@ -41,8 +41,10 @@ bool IsKeyRelease(int keyID);
 //! 指定キーの長押し検証
 //! @param	[in]	keyID	キー種別
 //! @param  [in]    frame   指定フレーム以上押されている[Default=2]
-//! @retval true	引数に指定されたキーが長押し（指定フレーム以上）されている
-//! @retval false	引数に指定されたキーが押されていない（押されているフレーム数が指定数未満）
+//! @retval true
+//! 引数に指定されたキーが長押し（指定フレーム以上）されている
+//! @retval false
+//! 引数に指定されたキーが押されていない（押されているフレーム数が指定数未満）
 bool IsKeyRepeat(int keyID, u32 frame = 2);
 
 //! 指定キーの長押し検証

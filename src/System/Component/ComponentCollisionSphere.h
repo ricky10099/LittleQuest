@@ -92,7 +92,7 @@ public:
 protected:
 #ifdef USE_JOLT_PHYSICS
     bool set_size_ = false;
-#endif                      //USE_JOLT_PHYSICS
+#endif                      // USE_JOLT_PHYSICS
     float radius_ = 1.0f;   //!< 半径
 
 private:

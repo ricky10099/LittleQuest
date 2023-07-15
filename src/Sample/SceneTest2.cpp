@@ -1,15 +1,17 @@
 ﻿#include "SceneTest2.h"
-#include "SceneTest1.h"
-#include <System/Component/ComponentModel.h>
-#include <System/Component/ComponentCollisionModel.h>
-#include <System/Component/ComponentCollisionSphere.h>
+
+#include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentCollisionCapsule.h>
 #include <System/Component/ComponentCollisionLine.h>
-#include <System/Component/ComponentCamera.h>
-#include <System/Component/ComponentTargetTracking.h>
+#include <System/Component/ComponentCollisionModel.h>
+#include <System/Component/ComponentCollisionSphere.h>
+#include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
+#include <System/Component/ComponentTargetTracking.h>
 
 #include <cmath>
+
+#include "SceneTest1.h"
 
 namespace Sample
 {
@@ -314,7 +316,7 @@ public:
         if(mdl)
             if(auto target = GetComponent<ComponentTargetTracking>()) {
                 target->SetTargetObjectPtr(near_enemy);
-                //target->SetFrontVector(-mdl->GetMatrix().axisZ());
+                // target->SetFrontVector(-mdl->GetMatrix().axisZ());
             }
 
         float3 move = float3(0, 0, 0);
@@ -334,22 +336,22 @@ public:
         auto   cam = Scene::GetObjectPtr<Camera>("PlayerCamera");
         float3 v   = GetTranslate() - cam->GetTranslate();
         mat        = HelperLib::Math::CreateMatrixByFrontVector(-v);
-#endif   //USE_MOUSE_CAMERA
+#endif   // USE_MOUSE_CAMERA
 
         if(IsKeyRepeat(KEY_INPUT_UP)) {
-            float3 vec = mat.axisZ();   //GetMatrix().axisZ();
+            float3 vec = mat.axisZ();   // GetMatrix().axisZ();
             move += -vec;
         }
         if(IsKeyRepeat(KEY_INPUT_RIGHT)) {
-            float3 vec = mat.axisX();   //GetMatrix().axisX();
+            float3 vec = mat.axisX();   // GetMatrix().axisX();
             move += -vec;
         }
         if(IsKeyRepeat(KEY_INPUT_DOWN)) {
-            float3 vec = mat.axisZ();   //GetMatrix().axisZ();
+            float3 vec = mat.axisZ();   // GetMatrix().axisZ();
             move += vec;
         }
         if(IsKeyRepeat(KEY_INPUT_LEFT)) {
-            float3 vec = mat.axisX();   //GetMatrix().axisX();
+            float3 vec = mat.axisX();   // GetMatrix().axisX();
             move += vec;
         }
 #if 1   // Animation
@@ -420,11 +422,11 @@ public:
             if(hit_point_ > 0) {
                 hit_point_--;
                 // HPゲージも減らす
-                //HP::player_hp--;
+                // HP::player_hp--;
                 HP::player_hp -= 1;
             }
 
-            //Scene::ReleaseObject( owner );
+            // Scene::ReleaseObject( owner );
         }
 
         // 当たりで移動させる(これが無ければめり込みます)
@@ -489,8 +491,8 @@ public:
         col->UseGravity();
 
         // カメラ
-        //auto camera = AddComponent<ComponentCamera>();
-        //camera->SetPositionAndTarget( { 0, 35, 60 }, { 0, 20, 0 } );
+        // auto camera = AddComponent<ComponentCamera>();
+        // camera->SetPositionAndTarget( { 0, 35, 60 }, { 0, 20, 0 } );
 
         return true;
     }
@@ -619,8 +621,9 @@ ObjectPtr TrackingNearEnemy(ObjectPtr player)
 bool SceneTest2::Init()
 {
     // カメラ
-    //auto cam = Scene::CreateObjectPtr<Object>()->AddComponent<ComponentCamera>();
-    //cam->SetPositionAndTarget( { 0, 35, -60 }, { 0, 20, 0 } );
+    // auto cam =
+    // Scene::CreateObjectPtr<Object>()->AddComponent<ComponentCamera>();
+    // cam->SetPositionAndTarget( { 0, 35, -60 }, { 0, 20, 0 } );
 
     // ステージ
 #ifdef USE_STAGE_FPS
@@ -703,7 +706,7 @@ void SceneTest2::Draw()
     // とりあえずTitleという文字を表示しておく
     DrawFormatString(100, 50, GetColor(255, 255, 255), "Title");
 
-    //HP::player_hp.Draw();
+    // HP::player_hp.Draw();
 }
 
 void SceneTest2::Exit()

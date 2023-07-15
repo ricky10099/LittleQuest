@@ -1,5 +1,5 @@
-﻿#include <System/Scene.h>
-#include <System/Component/ComponentFilterFade.h>
+﻿#include <System/Component/ComponentFilterFade.h>
+#include <System/Scene.h>
 #include <System/Utils/IniFileLib.h>
 
 namespace Tutorial
@@ -32,7 +32,7 @@ private:
 class Tutorial_12_Next : public Scene::Base
 {
 public:
-    //BP_CLASS_TYPE( Tutorial_12_Next, Scene::Base );
+    // BP_CLASS_TYPE( Tutorial_12_Next, Scene::Base );
 
     //! @brief 初期化
     //! @return 初期化が終わったか
@@ -187,6 +187,6 @@ void Tutorial_12_Next::Exit()
 {
 }
 
-//BP_CLASS_IMPL( Tutorial_12_Next, u8"(12Next)Tutorial シーン切り替え" );
+// BP_CLASS_IMPL( Tutorial_12_Next, u8"(12Next)Tutorial シーン切り替え" );
 
 }   // namespace Tutorial

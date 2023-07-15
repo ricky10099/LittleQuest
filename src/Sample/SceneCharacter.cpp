@@ -5,10 +5,9 @@
 #include "SceneCharacter.h"
 
 #include <System/Component/ComponentCamera.h>
-
+#include <System/Physics/PhysicsCharacter.h>   // キャラクターコントローラー
 #include <System/Physics/PhysicsEngine.h>
 #include <System/Physics/PhysicsLayer.h>
-#include <System/Physics/PhysicsCharacter.h>   // キャラクターコントローラー
 #include <System/Physics/RigidBody.h>
 #include <System/Physics/Shape.h>
 

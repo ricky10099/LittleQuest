@@ -218,7 +218,8 @@ public:
         //! オブジェクトの指定処理を削除する
         void resetProc(ObjectPtr obj, SlotProc& slot);
 
-        //! @brief コンポーネントの指定処理を指定優先で処理するように登録する
+        //! @brief
+        //! コンポーネントの指定処理を指定優先で処理するように登録する
         void setProc(ComponentPtr component, SlotProc& slot);
 
         //! @brief コンポーネントの指定処理を削除する
@@ -270,7 +271,8 @@ public:
 
     //! シーン切り替え
     //! @param scene 次に再生するシーン
-    //! @details 内部的には、SetNextScene() -> ChangeNextScene() が呼ばれています
+    //! @details 内部的には、SetNextScene() -> ChangeNextScene()
+    //! が呼ばれています
     static void Change(BasePtr scene);
 
     //! 次のシーンをセットする
@@ -290,10 +292,11 @@ public:
     //----------------------------------------------------------------
     //@{
     template <class T>
-    static std::shared_ptr<T> [[deprecated("命名変更 CreateObjectPtr()を使用してください")]] CreateObject(
-        bool     no_transform = false,
-        Priority update       = Priority::NORMAL,
-        Priority draw         = Priority::NORMAL)
+    static std::shared_ptr<T> [[deprecated("命名変更 "
+                                           "CreateObjectPtr()"
+                                           "を使用してください")]] CreateObject(bool     no_transform = false,
+                                                                                Priority update = Priority::NORMAL,
+                                                                                Priority draw   = Priority::NORMAL)
     {
         return CreateObjectPtr<T>(no_transform, update, draw);
     }
@@ -372,7 +375,8 @@ public:
     static void Init();
 
     //! @brief シーン更新前処理
-    //! @detail 基本的にはUpdate集団より先にで行いたいものをこの層で処理します
+    //! @detail
+    //! 基本的にはUpdate集団より先にで行いたいものをこの層で処理します
     static void PreUpdate();
 
     //! シーン更新
@@ -442,7 +446,8 @@ public:
 
     //! @brief オブジェクトサーチ&取得
     //! @tparam T 取得したいオブジェクトタイプ
-    //! @details 同じタイプのオブジェクトが複数あると先に見つかったものを返します
+    //! @details
+    //! 同じタイプのオブジェクトが複数あると先に見つかったものを返します
     //! @return オブジェクト
     template <class T>
     static std::vector<std::shared_ptr<T>> GetObjectsPtr()

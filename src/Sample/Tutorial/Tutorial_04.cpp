@@ -1,5 +1,5 @@
-﻿#include <System/Scene.h>
-#include <System/Input/InputKey.h>
+﻿#include <System/Input/InputKey.h>
+#include <System/Scene.h>
 
 namespace Tutorial
 {
@@ -105,12 +105,17 @@ void Tutorial_04::GUI()
         ImGui::Text("MouseInputの使用方法\n "   //
                     u8"\n"                      //
                     u8"IsMouse( 調べたいボタン )       :  押しているか判定できる\n"
-                    u8"IsMouseDown( 調べたいボタン )   :  現在のフレームで押したか判定できる\n"
-                    u8"IsMousUp( 調べたいボタン )      :  現在のフレームで離したか判定できる\n"
+                    u8"IsMouseDown( 調べたいボタン )   :  "
+                    u8"現在のフレームで押したか判定できる\n"
+                    u8"IsMousUp( 調べたいボタン )      :  "
+                    u8"現在のフレームで離したか判定できる\n"
                     u8"\n"
-                    u8"IsMouseOn( 調べたいボタン )     :  現在のフレームで押したか判定できる【IsMouseDown()と同じ】\n"
-                    u8"IsMouseRelase( 調べたいボタン ) :  押してないかどうか判定できる      【!IsMouse()と同じ】\n"
-                    u8"IsMouseRepeat( 調べたいボタン ) :  2フレーム以上押したか判定できる\n"
+                    u8"IsMouseOn( 調べたいボタン )     :  "
+                    u8"現在のフレームで押したか判定できる【IsMouseDown()と同じ】\n"
+                    u8"IsMouseRelase( 調べたいボタン ) :  "
+                    u8"押してないかどうか判定できる      【!IsMouse()と同じ】\n"
+                    u8"IsMouseRepeat( 調べたいボタン ) :  "
+                    u8"2フレーム以上押したか判定できる\n"
                     u8"\n"
                     u8"調べたいボタン:\n"
                     u8"   MOUSE_INPUT_LEFT   : 左ボタン\n"

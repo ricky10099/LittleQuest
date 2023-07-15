@@ -1,7 +1,8 @@
 ﻿#include "SceneObjectTracking.h"
+
+#include <System/Component/ComponentCollisionSphere.h>
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentTargetTracking.h>
-#include <System/Component/ComponentCollisionSphere.h>
 
 // ここにMenu設定を用意します
 BP_CLASS_IMPL(SceneObjectTracking, u8"Object Tracking 使用サンプル");
@@ -42,7 +43,8 @@ bool SceneObjectTracking::Init()
 
 //! @brief シーン更新関数。ディスプレイリフレッシュレートに合わせて実行されます
 //! @param delta 1秒をベースとした1フレームの数値
-//! @detial deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
+//! @detial
+//! deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
 void SceneObjectTracking::Update()
 {
 }

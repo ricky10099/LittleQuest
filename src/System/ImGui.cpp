@@ -144,31 +144,38 @@ void ImGuiInit()
         io.Fonts->AddFontFromFileTTF(font_path_meiryo.c_str(), 16.0f, &config, io.Fonts->GetGlyphRangesJapanese());
 
         // 中国簡体字 Chinese
-        //auto font_path_consolas = std::string(font_path) + "/consola.ttf";
-        //auto font_path_yahei   = std::string(font_path) + "/msyh.ttc";
-        //io.Fonts->AddFontFromFileTTF(font_path_consolas.c_str(), 12.0f, nullptr, io.Fonts->GetGlyphRangesDefault());
-        //io.Fonts->AddFontFromFileTTF(font_path_yahei.c_str(), 16.0f, &config, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
+        // auto font_path_consolas = std::string(font_path) + "/consola.ttf";
+        // auto font_path_yahei   = std::string(font_path) + "/msyh.ttc";
+        // io.Fonts->AddFontFromFileTTF(font_path_consolas.c_str(), 12.0f,
+        // nullptr, io.Fonts->GetGlyphRangesDefault());
+        // io.Fonts->AddFontFromFileTTF(font_path_yahei.c_str(), 16.0f, &config,
+        // io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
 
         // 中国繁体字
-        //auto font_path_consolas = std::string(font_path) + "/consola.ttf";
-        //auto font_path_yahei   = std::string(font_path) + "/msyh.ttc";
-        //io.Fonts->AddFontFromFileTTF(font_path_consolas.c_str(), 12.0f, nullptr, io.Fonts->GetGlyphRangesDefault());
-        //io.Fonts->AddFontFromFileTTF(font_path_yahei.c_str(), 16.0f, &config, io.Fonts->GetGlyphRangesChineseFull());
+        // auto font_path_consolas = std::string(font_path) + "/consola.ttf";
+        // auto font_path_yahei   = std::string(font_path) + "/msyh.ttc";
+        // io.Fonts->AddFontFromFileTTF(font_path_consolas.c_str(), 12.0f,
+        // nullptr, io.Fonts->GetGlyphRangesDefault());
+        // io.Fonts->AddFontFromFileTTF(font_path_yahei.c_str(), 16.0f, &config,
+        // io.Fonts->GetGlyphRangesChineseFull());
 
         // ロシア語 Russian
-        //auto font_path_tahoma = std::string(font_path) + "/tahomabd.ttf";
-        //auto font_path_tahoma = std::string(font_path) + "/tahoma.ttf";
-        //io.Fonts->AddFontFromFileTTF(font_path_tahoma.c_str(), 12.0f, nullptr, io.Fonts->GetGlyphRangesCyrillic());
+        // auto font_path_tahoma = std::string(font_path) + "/tahomabd.ttf";
+        // auto font_path_tahoma = std::string(font_path) + "/tahoma.ttf";
+        // io.Fonts->AddFontFromFileTTF(font_path_tahoma.c_str(), 12.0f,
+        // nullptr, io.Fonts->GetGlyphRangesCyrillic());
 
         // ベトナム語 Vietnamese
-        //auto font_path_tahoma = std::string(font_path) + "/tahomabd.ttf";
-        //auto font_path_tahoma = std::string(font_path) + "/tahoma.ttf";
-        //io.Fonts->AddFontFromFileTTF(font_path_tahoma.c_str(), 12.0f, nullptr, io.Fonts->GetGlyphRangesVietnamese());
+        // auto font_path_tahoma = std::string(font_path) + "/tahomabd.ttf";
+        // auto font_path_tahoma = std::string(font_path) + "/tahoma.ttf";
+        // io.Fonts->AddFontFromFileTTF(font_path_tahoma.c_str(), 12.0f,
+        // nullptr, io.Fonts->GetGlyphRangesVietnamese());
 
         // タイ語 Thai
-        //auto font_path_tahoma = std::string(font_path) + "/tahomabd.ttf";
-        //auto font_path_tahoma = std::string(font_path) + "/tahoma.ttf";
-        //io.Fonts->AddFontFromFileTTF(font_path_tahoma.c_str(), 12.0f, nullptr, io.Fonts->GetGlyphRangesThai());
+        // auto font_path_tahoma = std::string(font_path) + "/tahomabd.ttf";
+        // auto font_path_tahoma = std::string(font_path) + "/tahoma.ttf";
+        // io.Fonts->AddFontFromFileTTF(font_path_tahoma.c_str(), 12.0f,
+        // nullptr, io.Fonts->GetGlyphRangesThai());
     }
 
     //----------------------------------------------------------

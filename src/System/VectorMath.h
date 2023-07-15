@@ -122,7 +122,8 @@ public:
 
     // X軸中心の回転行列
     //! @param  [in]    radian  回転角度
-    //! @see https://ja.wikipedia.org/wiki/%E5%9B%9E%E8%BB%A2%E8%A1%8C%E5%88%97
+    //! @see
+    //! https://ja.wikipedia.org/wiki/%E5%9B%9E%E8%BB%A2%E8%A1%8C%E5%88%97
     static [[nodiscard]] matrix rotateX(f32 radian);
 
     // Y軸中心の回転行列
@@ -141,7 +142,8 @@ public:
     // [左手座標系] ビュー行列
     //! @param  [in]    eye         視点座標
     //! @param  [in]    look_at     注視点
-    //! @param  [in]    world_up    世界の上方向のベクトル(default:(0.0f, 1.0f, 0.0f))
+    //! @param  [in]    world_up 世界の上方向のベクトル(default:(0.0f, 1.0f,
+    //! 0.0f))
     static [[nodiscard]] matrix
     lookAtLH(const float3& eye, const float3& look_at, const float3& world_up = float3(0.0f, 1.0f, 0.0f));
 

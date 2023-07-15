@@ -37,7 +37,7 @@ std::string                 sel_item = "";
 
 std::string debug_scene_name;
 
-//auto BindObjectUpdate( ProcTiming proc, ObjectPtr obj )
+// auto BindObjectUpdate( ProcTiming proc, ObjectPtr obj )
 auto BindObject(ProcTiming proc, ObjectPtr obj)
 {
     using ObjectType = void (Object::*)();
@@ -58,8 +58,9 @@ auto BindObject(ProcTiming proc, ObjectPtr obj)
 
     return std::bind(func_table[static_cast<int>(proc)], obj.get());
 
-    //assert( !"処理がBindできません" );
-    //return std::bind( &Object::Update, obj.get(), std::placeholders::_1 );
+    // assert( !"処理がBindできません" );
+    // return std::bind( &Object::Update, obj.get(), std::placeholders::_1
+    // );
 }
 #if 0
 	auto BindObjectProc( ProcTiming proc, ObjectPtr obj )
@@ -96,7 +97,7 @@ auto BindObject(ProcTiming proc, ObjectPtr obj)
 	}
 #endif
 
-//auto BindComponentUpdate( ProcTiming proc, ComponentPtr cmp )
+// auto BindComponentUpdate( ProcTiming proc, ComponentPtr cmp )
 auto BindComponent(ProcTiming proc, ComponentPtr cmp)
 {
 #if 0
@@ -578,7 +579,8 @@ void Scene::functionSerialize(ObjectPtr obj)
     // オブジェクト
     if(!obj->GetStatus(Object::StatusBit::Serialized)) {
         obj->InitSerialize();
-        assert("継承先のInitSerialize()にて__super::InitSerialize()を入れてください." &&
+        assert("継承先のInitSerialize()にて__super::InitSerialize()"
+               "を入れてください." &&
                obj->GetStatus(Object::StatusBit::Serialized));
 
         // シリアライズされない処理を確認
@@ -600,7 +602,8 @@ void Scene::functionSerialize(ObjectPtr obj)
         }
         if(!component->GetStatus(Component::StatusBit::Serialized)) {
             component->InitSerialize();
-            assert("継承先のInitSerialize()にて__super::InitSerialize()を入れてください." &&
+            assert("継承先のInitSerialize()にて__super::InitSerialize()"
+                   "を入れてください." &&
                    component->GetStatus(Component::StatusBit::Serialized));
 
             checkSerialized(component);
@@ -853,7 +856,7 @@ void Scene::PreUpdate()
         // 継承し忘れの時のため
         Scene::Exit();
 
-        //ChangeNextScene();
+        // ChangeNextScene();
         scene_time = 0.0f;
     }
 
@@ -893,7 +896,7 @@ void Scene::PreUpdate()
                ((scene_pause && !scene_step) && !obj->GetStatus(Object::StatusBit::DisablePause)))
                 is_pause = true;
 
-            //if( !is_pause )
+            // if( !is_pause )
             {
                 // Init前状態
                 if(!obj->GetStatus(Object::StatusBit::Initialized)) {
@@ -1276,15 +1279,16 @@ void Scene::GUI()
         }
         ImGui::EndChild();
         /*
-		ImGui::ListBox( u8"シーン内オブジェクト", &select_object_index, listbox.data(), (int)listbox.size(), size );
-		if( select_object_index != -1 )
-		{
-			selectObject = current_scene_->GetObjectPtrVec()[ select_object_index ];
-			auto obj	 = selectObject.lock();
-			bool b		 = !obj->GetStatus( Object::StatusBit::ShowGUI );
-			obj->SetStatus( Object::StatusBit::ShowGUI, b );
-		}
-		*/
+                ImGui::ListBox( u8"シーン内オブジェクト", &select_object_index,
+           listbox.data(), (int)listbox.size(), size ); if( select_object_index
+           != -1 )
+                {
+                        selectObject = current_scene_->GetObjectPtrVec()[
+           select_object_index ]; auto obj	 = selectObject.lock(); bool b
+           = !obj->GetStatus( Object::StatusBit::ShowGUI ); obj->SetStatus(
+           Object::StatusBit::ShowGUI, b );
+                }
+                */
         auto ims       = ImGui::GetWindowSize();
         inspector_size = {ims.x, ims.y};
 
@@ -1612,9 +1616,10 @@ bool Scene::Load(std::string_view filename)
 //!	class SceneSample : public Scene::Base
 //!	{
 //!	public:
-//!		std::string Name() override {   //< シーンに名前をつける必要があります
-//!			return "Sample";            //< 別のシーンに同じ名前はを使用しないでください。
-//!		}                               //< SceneXXXXのXXXXを名前にするとよいと思います。
+//!		std::string Name() override {   //<
+//!シーンに名前をつける必要があります 			return "Sample";            //<
+//!別のシーンに同じ名前はを使用しないでください。 		} //<
+//!SceneXXXXのXXXXを名前にするとよいと思います。
 //!
 //!		bool Init() override
 //!		{
@@ -1645,7 +1650,8 @@ bool Scene::Load(std::string_view filename)
 //!	};
 //!	@endcode
 //!
-//!	@li 【簡易Scene使用方法】②シーンを切り替える (初期はGameMainで切り替えます)
+//!	@li 【簡易Scene使用方法】②シーンを切り替える
+//!(初期はGameMainで切り替えます)
 //!	@code
 //!	// 例: シーンを「SceneSample」に変更します
 //!	  Scene::Change( Scene::GetScene<SceneSample>() );

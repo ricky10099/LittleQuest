@@ -3,8 +3,9 @@
 //! @brief  定数バッファサンプルシーン
 //---------------------------------------------------------------------------
 #include "SceneConstantBuffer.h"
-#include <System/Graphics/Model.h>
+
 #include <System/Component/ComponentCamera.h>
+#include <System/Graphics/Model.h>
 
 BP_CLASS_IMPL(SceneConstantBuffer, u8"定数バッファサンプル");
 
@@ -105,7 +106,7 @@ void SceneConstantBuffer::Draw()
     // b4 = ModelInfo
     // HLSL側で指定されたレジスタ番号に設定します。
     // DXライブラリで0～3を使用しているため予約になっています。
-    //SetShaderConstantBuffer(cb_model_info_, DX_SHADERTYPE_VERTEX, 4);
+    // SetShaderConstantBuffer(cb_model_info_, DX_SHADERTYPE_VERTEX, 4);
     SetShaderConstantBuffer(cb_model_info_, DX_SHADERTYPE_PIXEL, 4);
 
     //----------------------------------------------------------

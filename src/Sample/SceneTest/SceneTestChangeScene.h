@@ -13,9 +13,11 @@ public:
     //! @return シーン初期化が終わったらtrueを返します
     bool Init() override;
 
-    //! @brief シーン更新関数。ディスプレイリフレッシュレートに合わせて実行されます
+    //! @brief
+    //! シーン更新関数。ディスプレイリフレッシュレートに合わせて実行されます
     //! @param delta 1秒をベースとした1フレームの数値
-    //! @detial deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
+    //! @detial
+    //! deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
     void Update() override;
 };
 
@@ -25,14 +27,16 @@ class SceneTestChangeScene2 : public Scene::Base
 {
 public:
     // メニューに出したくない場合はここは書かない
-    //BP_CLASS_TYPE( SceneTestChangeScene, Scene::Base );
+    // BP_CLASS_TYPE( SceneTestChangeScene, Scene::Base );
 
     //! @brief シーン初期化関数を継承します
     //! @return シーン初期化が終わったらtrueを返します
     bool Init() override;
 
-    //! @brief シーン更新関数。ディスプレイリフレッシュレートに合わせて実行されます
+    //! @brief
+    //! シーン更新関数。ディスプレイリフレッシュレートに合わせて実行されます
     //! @param delta 1秒をベースとした1フレームの数値
-    //! @detial deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
+    //! @detial
+    //! deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
     void Update() override;
 };

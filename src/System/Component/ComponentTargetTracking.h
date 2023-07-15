@@ -101,11 +101,13 @@ private:
     // @param ver バージョン
     CEREAL_SAVELOAD(arc, ver)
     {
-        arc(cereal::make_nvp("owner", owner_));                             //< オーナー
-        arc(cereal::make_nvp("tracking_status", tracking_status_.get()));   //< カメラステート
+        arc(cereal::make_nvp("owner", owner_));   //< オーナー
+        arc(cereal::make_nvp("tracking_status",
+                             tracking_status_.get()));   //< カメラステート
         arc(CEREAL_NVP(tracked_node_), CEREAL_NVP(tracked_node_index_));
         arc(CEREAL_NVP(front_vector_));
-        arc(CEREAL_NVP(tracking_object_), CEREAL_NVP(look_at_));   //< カメラ位置とターゲット
+        arc(CEREAL_NVP(tracking_object_),
+            CEREAL_NVP(look_at_));   //< カメラ位置とターゲット
         arc(CEREAL_NVP(limit_lr_), CEREAL_NVP(limit_ud_), CEREAL_NVP(limit_frame_));
 
         SetTrackingNode(tracked_node_);

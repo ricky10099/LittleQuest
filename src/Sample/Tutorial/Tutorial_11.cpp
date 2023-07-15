@@ -1,11 +1,11 @@
-﻿#include <System/Scene.h>
-#include <System/Component/Component.h>
-#include <System/Component/ComponentModel.h>
+﻿#include <System/Component/Component.h>
+#include <System/Component/ComponentCollisionCapsule.h>
 #include <System/Component/ComponentCollisionModel.h>
 #include <System/Component/ComponentCollisionSphere.h>
-#include <System/Component/ComponentCollisionCapsule.h>
-#include <System/Component/ComponentSpringArm.h>
+#include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentObjectController.h>
+#include <System/Component/ComponentSpringArm.h>
+#include <System/Scene.h>
 
 namespace Tutorial
 {
@@ -83,16 +83,18 @@ public:
 
         cam_obj->AddComponent<ComponentSpringArm>()
             ->SetSpringArmRotate({-45, 0, 0})   //< X軸周りで回転させ45度の角度からObjectを見る
-            ->SetSpringArmLength(30.0f)   //< Objectとの距離 (オブジェクトにはカメラがついている)
-            ->SetSpringArmOffset({0, 8, 0})   //< 少し上を見る
-            ->SetSpringArmObject(u8"ネズミ");   //< オブジェクトはネズミ(すでに存在しなければいけない)
+            ->SetSpringArmLength(30.0f)         //< Objectとの距離
+                                                //(オブジェクトにはカメラがついている)
+            ->SetSpringArmOffset({0, 8, 0})     //< 少し上を見る
+            ->SetSpringArmObject(u8"ネズミ");   //<
+            //オブジェクトはネズミ(すでに存在しなければいけない)
 
         cam_obj->AddComponent<ComponentCollisionSphere>()
             ->SetName(u8"CameraCollision")
             ->SetRadius(1.0f)
             ->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA)
-            ->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND |   //Ground
-                                   (u32)ComponentCollision::CollisionGroup::PLAYER |   //Player
+            ->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND |   // Ground
+                                   (u32)ComponentCollision::CollisionGroup::PLAYER |   // Player
                                    (u32)ComponentCollision::CollisionGroup::ENEMY      // Enemy
             );
 
