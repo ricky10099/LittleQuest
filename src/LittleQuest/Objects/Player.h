@@ -49,6 +49,17 @@ namespace LittleQuest {
             // @}
 
         private:
+            //! @brief プレイヤーステート
+            enum class PlayerState {
+                IDLE,       //!< 待機状態
+                WALK,       //!< 歩く
+                JUMP,       //!< ジャンプ
+                ATTACK1,    //!< 地面にタッチしたか
+                ATTACK2,    //!< 地面にタッチした!
+                ATTACK3,    //!< 終了アクション
+                DAMAGED,
+            };
+
             struct Material {
                     std::shared_ptr<Texture> albedo_;
                     std::shared_ptr<Texture> normal_;
@@ -58,12 +69,18 @@ namespace LittleQuest {
 
             std::vector<Material> materials_;
 
-            float speed_  = 1.0f;
+            PlayerState playerState = PlayerState::IDLE;
+
+            float speed_  = 0.5f;
             float rot_y_  = 0.0f;
             float rot_x_  = 0.0f;
             bool isAttack = false;
+            bool isCombo  = false;
 
-            void DoAttack();
+            void Idle();
+            void Walk(float3& position);
+            void Jump();
+            void Attack();
 
             void AttachSword();
     };

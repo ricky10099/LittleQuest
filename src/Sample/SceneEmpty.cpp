@@ -2,11 +2,8 @@
 
 BP_CLASS_IMPL(SceneEmpty, u8"Empty　シーンテスト");
 
-bool SceneEmpty::Init()
-{
+bool SceneEmpty::Init() {
     return true;
 }
 
-void SceneEmpty::Update()
-{
-}
+void SceneEmpty::Update() {}

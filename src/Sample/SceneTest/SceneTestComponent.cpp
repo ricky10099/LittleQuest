@@ -7,8 +7,7 @@ BP_CLASS_IMPL(SceneTestComponent, u8"SceneTest / Component使用方法サンプ�
 
 //! @brief シーン初期化関数を継承します
 //! @return シーン初期化が終わったらtrueを返します
-bool SceneTestComponent::Init()
-{
+bool SceneTestComponent::Init() {
     // Componentとは、個別の特殊な単体の能力持っている構造です。
     // Component単体では生成することはできません。あくまでObjectの機能として動作します
     // 作成すると自動的に以下の関数が呼ばれます
@@ -35,8 +34,8 @@ bool SceneTestComponent::Init()
 
     model->Load("data/Sample/Player/model.mv1");
     model->SetAnimation({
-        {"idle", "data/Sample/Player/Anim/Idle.mv1", 1, 1.0f}, // idle
-        {"jump", "data/Sample/Player/Anim/Jump.mv1", 1, 1.0f}  // jump
+        {"idle", "data/Sample/Player/Anim/Idle.mv1", 1, 1.0f},    // idle
+        {"jump", "data/Sample/Player/Anim/Jump.mv1", 1, 1.0f}     // jump
     });
 
     return true;
@@ -46,8 +45,7 @@ bool SceneTestComponent::Init()
 //! @param delta 1秒をベースとした1フレームの数値
 //! @detial
 //! deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
-void SceneTestComponent::Update()
-{
+void SceneTestComponent::Update() {
     // 上記で作成した MouseというObjectを取得します
     auto obj = Scene::GetObjectPtr<Object>("Mouse");
 
@@ -57,9 +55,9 @@ void SceneTestComponent::Update()
     obj->SetRotationAxisXYZ(new_rotate);
 
     // スペースを押すとジャンプする
-    if(IsKeyOn(KEY_INPUT_SPACE)) {
+    if (IsKeyOn(KEY_INPUT_SPACE)) {
         // モデルのコンポーネントを取得してアクションをジャンプにする
-        if(auto model = obj->GetComponent<ComponentModel>())
+        if (auto model = obj->GetComponent<ComponentModel>())
             model->PlayAnimation("jump");
     }
 }

@@ -14,68 +14,65 @@
 #include "LightManager.h"
 #include "SystemMain.h"
 
-namespace
-{
+namespace {
 #ifdef _DEBUG
-bool show_gui     = true;    //!< GUIの表示
-bool show_grid    = true;    //!< グリッドの表示
-bool show_fps     = true;    //!< FPSの表示
-bool debug_camera = false;   //!< デバッグカメラ
-bool show_debug   = true;
+    bool show_gui     = true;     //!< GUIの表示
+    bool show_grid    = true;     //!< グリッドの表示
+    bool show_fps     = true;     //!< FPSの表示
+    bool debug_camera = false;    //!< デバッグカメラ
+    bool show_debug   = true;
 #else
-bool show_gui     = true;    //!< GUIの表示
-bool show_grid    = true;    //!< グリッドの表示
-bool show_fps     = true;    //!< FPSの表示
-bool debug_camera = false;   //!< デバッグカメラ
-bool show_debug   = true;
+    bool show_gui     = true;     //!< GUIの表示
+    bool show_grid    = true;     //!< グリッドの表示
+    bool show_fps     = true;     //!< FPSの表示
+    bool debug_camera = false;    //!< デバッグカメラ
+    bool show_debug   = true;
 #endif
 
-u64 current_time_ = 0;      //!< 現在の時間 (単位:μsec)
-f32 delta_time_   = 0.0f;   //!< 1フレームの経過時間（CPUとGPU,
-                            //!< ScreenFlip()更新待ちすべて含む）
+    u64 current_time_ = 0;       //!< 現在の時間 (単位:μsec)
+    f32 delta_time_   = 0.0f;    //!< 1フレームの経過時間（CPUとGPU,
+                                 //!< ScreenFlip()更新待ちすべて含む）
 
-bool menu_active = false;
-bool menu_select = false;
+    bool menu_active = false;
+    bool menu_select = false;
 
-bool hide = false;
-//--------------------------------------------------------------
-//! @name   CPU負荷計測
-//--------------------------------------------------------------
-//@{
+    bool hide = false;
+    //--------------------------------------------------------------
+    //! @name   CPU負荷計測
+    //--------------------------------------------------------------
+    //@{
 
-u64 cpu_start_counter_    = 0;   //!< 1フレームの開始タイミングカウンター
-u64 cpu_profile_duration_ = 0;   //!< 1フレームのCPU処理時間(単位:μsec)
+    u64 cpu_start_counter_ = 0;    //!< 1フレームの開始タイミングカウンター
+    u64 cpu_profile_duration_ = 0;    //!< 1フレームのCPU処理時間(単位:μsec)
 
-//@}
+    //@}
 
-//! 物理シミュレーションの実体
-std::unique_ptr<physics::Engine> physics_engine_;
+    //! 物理シミュレーションの実体
+    std::unique_ptr<physics::Engine> physics_engine_;
 
-//! デバッグカメラの移動方法
-DebugCamera::Control control = DebugCamera::UnrealEngine;
+    //! デバッグカメラの移動方法
+    DebugCamera::Control control = DebugCamera::UnrealEngine;
 
-//! 光源管理
-LightManager light_manager_;
+    //! 光源管理
+    LightManager light_manager_;
 
-std::shared_ptr<Texture> texture_hdr_;   //!< HDRバッファ
+    std::shared_ptr<Texture> texture_hdr_;    //!< HDRバッファ
 
-std::shared_ptr<ShaderPs> shader_ps_tonemapping_;   // ピクセルシェーダー
+    std::shared_ptr<ShaderPs> shader_ps_tonemapping_;    // ピクセルシェーダー
 
-}   // namespace
+}    // namespace
 
 //---------------------------------------------------------------------------
 //! 1フレームのCPU処理時間を取得(単位:μsec)
 //---------------------------------------------------------------------------
-u64 GetCpuProfile()
-{
+u64 GetCpuProfile() {
     return cpu_profile_duration_;
 }
 
 //---------------------------------------------------------------------------
 //! パフォーマンスカウンターを取得 (単位:μsec)
 //---------------------------------------------------------------------------
-u64 GetPerformanceCounterMicroSec()
-{
+u64 GetPerformanceCounterMicroSec() {
     u64 counter = GetNowSysPerformanceCount();
     return ConvSysPerformanceCountToMicroSeconds(counter);
 }
@@ -83,110 +80,105 @@ u64 GetPerformanceCounterMicroSec()
 //---------------------------------------------------------------------------
 //! 経過時間計測をリセット
 //---------------------------------------------------------------------------
-void ResetDeltaTime()
-{
+void ResetDeltaTime() {
     current_time_ = GetPerformanceCounterMicroSec();
 }
 
 //---------------------------------------------------------------------------
 //! 1フレームの間に経過した時間を計算
 //---------------------------------------------------------------------------
-void UpdateDeltaTime()
-{
+void UpdateDeltaTime() {
     u64 last_time = current_time_;
     current_time_ = GetPerformanceCounterMicroSec();
-    delta_time_   = static_cast<f32>(current_time_ - last_time) * (1.0f / 1000.0f / 1000.0f);
+    delta_time_   = static_cast<f32>(current_time_ - last_time)
+                  * (1.0f / 1000.0f / 1000.0f);
 }
 
 //---------------------------------------------------------------------------
 //! 1フレームの間に経過した時間を取得
 //---------------------------------------------------------------------------
-f32 GetDeltaTime()
-{
+f32 GetDeltaTime() {
     return delta_time_;
 }
 
 //---------------------------------------------------------------------------
 // これを掛けると60FPSのときと基本的に同じ速さになる
 //---------------------------------------------------------------------------
-f32 GetDeltaTime60()
-{
+f32 GetDeltaTime60() {
     return delta_time_ * 60.0f;
 }
 
 //---------------------------------------------------------------------------
 // ツールなどで使用する際強制的にFPSを変更する
 //---------------------------------------------------------------------------
-void SetDeltaTime(f32 fps)
-{
+void SetDeltaTime(f32 fps) {
     delta_time_ = fps;
 }
 
 //---------------------------------------------------------------------------------
 //! グリッドの表示をON/OFFします
 //---------------------------------------------------------------------------------
-void ShowGrid(bool active)
-{
+void ShowGrid(bool active) {
     show_grid = active;
 }
 
 //===========================================================================
 // 数値スクロール表示用のリングバッファ
 //===========================================================================
-struct ScrollingBuffer
-{
-    u32                 offset_ = 0;   //!< データー先頭の位置
-    std::vector<ImVec2> data_;         //!< プロットデーター配列
+struct ScrollingBuffer {
+        u32 offset_ = 0;              //!< データー先頭の位置
+        std::vector<ImVec2> data_;    //!< プロットデーター配列
 
-    ScrollingBuffer(size_t max_size = 4096) { data_.reserve(max_size); }
-    void AddPoint(f32 t, f32 value)
-    {
-        // プロットする値
-        auto x = ImVec2(t, value);
+        ScrollingBuffer(size_t max_size = 4096) { data_.reserve(max_size); }
+        void AddPoint(f32 t, f32 value) {
+            // プロットする値
+            auto x = ImVec2(t, value);
 
-        if(data_.size() < data_.capacity()) {
-            // 新規追加
-            data_.emplace_back(std::move(x));
+            if (data_.size() < data_.capacity()) {
+                // 新規追加
+                data_.emplace_back(std::move(x));
+            } else {
+                // リングバッファとして再利用
+                data_[offset_] = x;
+                offset_ = (offset_ + 1) % static_cast<u32>(data_.capacity());
+            }
         }
-        else {
-            // リングバッファとして再利用
-            data_[offset_] = x;
-            offset_        = (offset_ + 1) % static_cast<u32>(data_.capacity());
+        void clear() {
+            data_.clear();
+            offset_ = 0;
         }
-    }
-    void clear()
-    {
-        data_.clear();
-        offset_ = 0;
-    }
 };
 
 //---------------------------------------------------------------------------
 //! FPSを表示します
 //! @param  [in]    delta   1フレームの経過時間(単位:秒)
 //---------------------------------------------------------------------------
-void ShowFps(f32 delta)
-{
-    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration |   // タイトルバー/スクロールバーなし
-                                    ImGuiWindowFlags_NoDocking |      // ドッキングなし
-                                    ImGuiWindowFlags_AlwaysAutoResize |     // 自動リサイズなし
-                                    ImGuiWindowFlags_NoSavedSettings |      // 保存しない
-                                    ImGuiWindowFlags_NoFocusOnAppearing |   // フォーカスしない
-                                    ImGuiWindowFlags_NoNav |   // キーやゲームパッドで操作対象にしない
-                                    ImGuiWindowFlags_NoMove;   // 移動させない
+void ShowFps(f32 delta) {
+    ImGuiWindowFlags window_flags =
+        ImGuiWindowFlags_NoDecoration |    // タイトルバー/スクロールバーなし
+        ImGuiWindowFlags_NoDocking |             // ドッキングなし
+        ImGuiWindowFlags_AlwaysAutoResize |      // 自動リサイズなし
+        ImGuiWindowFlags_NoSavedSettings |       // 保存しない
+        ImGuiWindowFlags_NoFocusOnAppearing |    // フォーカスしない
+        ImGuiWindowFlags_NoNav |    // キーやゲームパッドで操作対象にしない
+        ImGuiWindowFlags_NoMove;    // 移動させない
 
     //----------------------------------------------------------
     // 表示位置設定
     //----------------------------------------------------------
-    constexpr u32 corner = 2;   // 0:左上 1:右上 2:左下 3: 右下
+    constexpr u32 corner = 2;    // 0:左上 1:右上 2:左下 3: 右下
     {
-        constexpr f32        PADDING   = 10.0f;   // 余白部分
-        const ImGuiViewport* viewport  = ImGui::GetMainViewport();
-        ImVec2               work_pos  = viewport->WorkPos;   // WorkPosを使用するとメニューバーなどの位置を考慮した位置が取得できる
-        ImVec2               work_size = viewport->WorkSize;
-        ImVec2               window_pos, window_pos_pivot;
-        window_pos.x       = (corner & 1) ? (work_pos.x + work_size.x - PADDING) : (work_pos.x + PADDING);
-        window_pos.y       = (corner & 2) ? (work_pos.y + work_size.y - PADDING) : (work_pos.y + PADDING);
+        constexpr f32 PADDING         = 10.0f;    // 余白部分
+        const ImGuiViewport* viewport = ImGui::GetMainViewport();
+        ImVec2 work_pos =
+            viewport
+                ->WorkPos;    // WorkPosを使用するとメニューバーなどの位置を考慮した位置が取得できる
+        ImVec2 work_size = viewport->WorkSize;
+        ImVec2 window_pos, window_pos_pivot;
+        window_pos.x       = (corner & 1) ? (work_pos.x + work_size.x - PADDING)
+                                          : (work_pos.x + PADDING);
+        window_pos.y       = (corner & 2) ? (work_pos.y + work_size.y - PADDING)
+                                          : (work_pos.y + PADDING);
         window_pos_pivot.x = (corner & 1) ? 1.0f : 0.0f;
         window_pos_pivot.y = (corner & 2) ? 1.0f : 0.0f;
         ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
@@ -205,15 +197,16 @@ void ShowFps(f32 delta)
     // モニターのリフレッシュレートを取得 (Hz)
     s32 refresh_rate = 60;
     {
-        HDC hdc      = GetDC(GetMainWindowHandle());   // デバイスコンテキストの取得
-        refresh_rate = GetDeviceCaps(hdc, VREFRESH);   // リフレッシュレートの取得
-        ReleaseDC(GetMainWindowHandle(), hdc);         // デバイスコンテキストの解放
+        HDC hdc = GetDC(GetMainWindowHandle());    // デバイスコンテキストの取得
+        refresh_rate =
+            GetDeviceCaps(hdc, VREFRESH);    // リフレッシュレートの取得
+        ReleaseDC(GetMainWindowHandle(), hdc);    // デバイスコンテキストの解放
     }
 
     // 現在のフレームレート
     auto frame_rate = ImGui::GetIO().Framerate;
 
-    if(static_cast<f32>(refresh_rate) < ImGui::GetIO().Framerate) {
+    if (static_cast<f32>(refresh_rate) < ImGui::GetIO().Framerate) {
         frame_rate = static_cast<f32>(refresh_rate);
     }
 
@@ -223,7 +216,7 @@ void ShowFps(f32 delta)
     // 角を丸める
     ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 8.0f);
 
-    if(ImGui::Begin(u8"FPS計測", nullptr, window_flags)) {
+    if (ImGui::Begin(u8"FPS計測", nullptr, window_flags)) {
         //----------------------------------------------------------
         // フレームレートグラフを表示
         //----------------------------------------------------------
@@ -234,43 +227,51 @@ void ShowFps(f32 delta)
         t += delta;
 
         // 数値を0.0f～1.0fの範囲で設定する
-        f32  cpu_micro_sec = static_cast<f32>(cpu_profile_time);
-        auto ratio         = cpu_micro_sec / (1000.0f * 1000.0f / static_cast<f32>(refresh_rate));
+        f32 cpu_micro_sec = static_cast<f32>(cpu_profile_time);
+        auto ratio        = cpu_micro_sec
+                     / (1000.0f * 1000.0f / static_cast<f32>(refresh_rate));
 
-        cpu_data.AddPoint(t, ratio);   // CPU負荷
-        fps_data.AddPoint(t,
-                          frame_rate / static_cast<f32>(refresh_rate));   // フレームレート
+        cpu_data.AddPoint(t, ratio);    // CPU負荷
+        fps_data.AddPoint(
+            t,
+            frame_rate / static_cast<f32>(refresh_rate));    // フレームレート
 
         static float history = 10.0f;
 
-        constexpr ImPlotFlags flags = ImPlotFlags_NoInputs | ImPlotFlags_NoFrame;
+        constexpr ImPlotFlags flags =
+            ImPlotFlags_NoInputs | ImPlotFlags_NoFrame;
 
-        if(ImPlot::BeginPlot(u8"フレームレート & CPU負荷", ImVec2(-1.0f, 96.0f), flags)) {
-            constexpr ImPlotAxisFlags axis_flags = ImPlotAxisFlags_NoTickLabels | ImPlotAxisFlags_Lock;
+        if (ImPlot::BeginPlot(u8"フレームレート & CPU負荷",
+                              ImVec2(-1.0f, 96.0f), flags)) {
+            constexpr ImPlotAxisFlags axis_flags =
+                ImPlotAxisFlags_NoTickLabels | ImPlotAxisFlags_Lock;
 
             ImPlot::SetupAxes(NULL, NULL, flags, axis_flags);
             ImPlot::SetupAxisLimits(ImAxis_X1, t - history, t,
-                                    ImGuiCond_Always);   // 表示範囲
-            ImPlot::SetupAxisLimits(ImAxis_Y1, 0.0f,
-                                    1.01f);   // 上下数値の範囲(最大値目盛りを出すため1.01f)
+                                    ImGuiCond_Always);    // 表示範囲
+            ImPlot::SetupAxisLimits(
+                ImAxis_Y1, 0.0f,
+                1.01f);    // 上下数値の範囲(最大値目盛りを出すため1.01f)
             ImPlot::SetNextFillStyle(IMPLOT_AUTO_COL, 0.5f);
 
-            ImPlot::PlotShaded(u8"CPU負荷",                               // 名前
-                               &cpu_data.data_[0].x,                      // 時間軸t
-                               &cpu_data.data_[0].y,                      // 値
-                               static_cast<s32>(cpu_data.data_.size()),   // 配列数
-                               -INFINITY,                                 // 塗りつぶし範囲
-                               ImPlotShadedFlags_None,                    // ImPlotShadedFlags
-                               cpu_data.offset_,                          // 先頭オフセット
-                               sizeof(ImVec2));                           // 構造体あたりのサイズ
+            ImPlot::PlotShaded(
+                u8"CPU負荷",                                // 名前
+                &cpu_data.data_[0].x,                       // 時間軸t
+                &cpu_data.data_[0].y,                       // 値
+                static_cast<s32>(cpu_data.data_.size()),    // 配列数
+                -INFINITY,                 // 塗りつぶし範囲
+                ImPlotShadedFlags_None,    // ImPlotShadedFlags
+                cpu_data.offset_,          // 先頭オフセット
+                sizeof(ImVec2));           // 構造体あたりのサイズ
 
-            ImPlot::PlotLine("fps",                                     // 名前
-                             &fps_data.data_[0].x,                      // 時間軸t
-                             &fps_data.data_[0].y,                      // 値
-                             static_cast<s32>(fps_data.data_.size()),   // 配列数
-                             ImPlotShadedFlags_None,                    // ImPlotShadedFlags
-                             fps_data.offset_,                          // 先頭オフセット
-                             sizeof(ImVec2));                           // 構造体あたりのサイズ
+            ImPlot::PlotLine(
+                "fps",                                      // 名前
+                &fps_data.data_[0].x,                       // 時間軸t
+                &fps_data.data_[0].y,                       // 値
+                static_cast<s32>(fps_data.data_.size()),    // 配列数
+                ImPlotShadedFlags_None,                     // ImPlotShadedFlags
+                fps_data.offset_,    // 先頭オフセット
+                sizeof(ImVec2));     // 構造体あたりのサイズ
             ImPlot::EndPlot();
         }
         ImGui::SliderFloat(u8"履歴範囲", &history, 1, 30, "%.1f s");
@@ -281,18 +282,18 @@ void ShowFps(f32 delta)
     //----------------------------------------------------------
     ImGui::Separator();
     ImGui::Text(u8"FPS    : %3.2f fps (max:%3d fps)", frame_rate, refresh_rate);
-    ImGui::Text(u8"CPU負荷 : %3.2f ms", static_cast<f32>(cpu_profile_time) / 1000.0f);
+    ImGui::Text(u8"CPU負荷 : %3.2f ms",
+                static_cast<f32>(cpu_profile_time) / 1000.0f);
 
     // オーバーレイウィンドウ終了
     ImGui::End();
-    ImGui::PopStyleVar();   // 角を丸める設定を元に戻す
+    ImGui::PopStyleVar();    // 角を丸める設定を元に戻す
 }
 
 //---------------------------------------------------------------------------------
 //! 初期化
 //---------------------------------------------------------------------------------
-void SystemInit()
-{
+void SystemInit() {
     // 光源管理を初期化
     light_manager_.initialize();
 
@@ -304,11 +305,10 @@ void SystemInit()
 
     auto scene_name = ini.GetString("Scene", "Start");
     // 作成
-    auto* scene = CreateInstanceFromName<Scene::Base>(scene_name);
-    if(scene) {
+    auto* scene     = CreateInstanceFromName<Scene::Base>(scene_name);
+    if (scene) {
         Scene::Change(std::shared_ptr<Scene::Base>(scene));
-    }
-    else {
+    } else {
         // iniファイルの設定のクラスが見つからない場合はサンプルシーンを起動
         Scene::Change(std::make_shared<class SceneSample>());
     }
@@ -327,83 +327,88 @@ void SystemInit()
     //----------------------------------------------------------
     // 描画先テクスチャを作成
     //----------------------------------------------------------
-    texture_hdr_ = std::make_shared<Texture>(WINDOW_W, WINDOW_H, DXGI_FORMAT_R16G16B16A16_FLOAT);
+    texture_hdr_ = std::make_shared<Texture>(WINDOW_W, WINDOW_H,
+                                             DXGI_FORMAT_R16G16B16A16_FLOAT);
 
     // シェーダー読込
-    shader_ps_tonemapping_ = std::make_shared<ShaderPs>("data/Shader/ps_tonemapping");
+    shader_ps_tonemapping_ =
+        std::make_shared<ShaderPs>("data/Shader/ps_tonemapping");
 }
 
 //---------------------------------------------------------------------------------
 //! 更新
 //---------------------------------------------------------------------------------
-void SystemUpdate()
-{
+void SystemUpdate() {
     // 1フレームの間に経過した時間を計算 ⊿t
     UpdateDeltaTime();
 
     //----------------------------------------------------------
     // メインメニューバー
     //----------------------------------------------------------
-    if(show_gui) {
-        if(IsKeyOn(KEY_INPUT_LALT) || IsKeyOn(KEY_INPUT_RALT)) {
+    if (show_gui) {
+        if (IsKeyOn(KEY_INPUT_LALT) || IsKeyOn(KEY_INPUT_RALT)) {
             menu_active = !menu_active;
         }
 
         // F5キーでデバッグ表示変更
-        if(IsKeyOn(KEY_INPUT_F5)) {
+        if (IsKeyOn(KEY_INPUT_F5)) {
             show_debug = !show_debug;
             Scene::SetEdit(show_debug);
         }
         // F4キーでカメラ変更
-        if(IsKeyOn(KEY_INPUT_F4)) {
+        if (IsKeyOn(KEY_INPUT_F4)) {
             debug_camera = !debug_camera;
             DebugCamera::Use(debug_camera);
         }
 
-        if(IsKeyOn(KEY_INPUT_F6)) {
+        if (IsKeyOn(KEY_INPUT_F6)) {
             hide = !hide;
             HideMouse(hide);
         }
     }
 
     menu_select = false;
-    if(menu_active) {
-        if(ImGui::BeginMainMenuBar()) {
-            if(ImGui::BeginMenu("File")) {
+    if (menu_active) {
+        if (ImGui::BeginMainMenuBar()) {
+            if (ImGui::BeginMenu("File")) {
                 ImGui::EndMenu();
             }
 
-            if(ImGui::BeginMenu("Edit")) {
+            if (ImGui::BeginMenu("Edit")) {
                 ImGui::EndMenu();
             }
 
-            if(ImGui::BeginMenu("Scene")) {
+            if (ImGui::BeginMenu("Scene")) {
                 menu_select = true;
-                if(ImGui::BeginMenu(u8"シーン選択")) {
+                if (ImGui::BeginMenu(u8"シーン選択")) {
                     //------------------------------------------
                     // 登録されているシーンを列挙する
                     //------------------------------------------
                     auto& scene_base = Scene::Base::TypeInfo;
-                    for(auto* p = scene_base.child(); p; p = p->siblings()) {
+                    for (auto* p = scene_base.child(); p; p = p->siblings()) {
                         // 表示文字列
-                        std::string scene_name = std::string(p->className()) + " - " + p->descName();
+                        std::string scene_name =
+                            std::string(p->className()) + " - " + p->descName();
 
                         // 現在のシーンなら選択状態にする
                         bool selected = false;
-                        if(auto* current_scene = Scene::GetCurrentScene()) {
+                        if (auto* current_scene = Scene::GetCurrentScene()) {
                             selected = (current_scene->typeInfo() == p);
                         }
 
-                        if(ImGui::MenuItem(scene_name.c_str(), nullptr, selected)) {
-                            if(!selected) {   // 現在のシーン以外が新たに選択された場合
+                        if (ImGui::MenuItem(scene_name.c_str(), nullptr,
+                                            selected)) {
+                            if (!selected) {    // 現在のシーン以外が新たに選択された場合
 
-                                auto* scene = reinterpret_cast<Scene::Base*>(p->createInstance());
+                                auto* scene = reinterpret_cast<Scene::Base*>(
+                                    p->createInstance());
                                 // シーンジャンプ
-                                if(scene) {
+                                if (scene) {
                                     // デバッグカメラはOFFにしてからシーン切り替えを行います
                                     debug_camera = false;
                                     DebugCamera::Use(debug_camera);
-                                    Scene::Change(std::shared_ptr<Scene::Base>(scene));
+                                    Scene::Change(
+                                        std::shared_ptr<Scene::Base>(scene));
                                 }
                             }
                         }
@@ -411,8 +416,9 @@ void SystemUpdate()
 
                     ImGui::EndMenu();
                 }
-                if(ImGui::Button(u8"シーンリセット")) {
-                    auto inst = reinterpret_cast<Scene::Base*>(Scene::GetCurrentScene()->typeInfo()->createInstance());
+                if (ImGui::Button(u8"シーンリセット")) {
+                    auto inst = reinterpret_cast<Scene::Base*>(
+                        Scene::GetCurrentScene()->typeInfo()->createInstance());
                     Scene::GetCurrentScene()->Exit();
                     Scene::Change(std::shared_ptr<Scene::Base>(inst));
                 }
@@ -420,7 +426,7 @@ void SystemUpdate()
                 ImGui::EndMenu();
             }
 
-            if(ImGui::BeginMenu("Debug")) {
+            if (ImGui::BeginMenu("Debug")) {
                 menu_select = true;
                 ImGui::Checkbox(u8"グリッド表示", &show_grid);
                 ImGui::Checkbox(u8"FPS表示", &show_fps);
@@ -428,11 +434,14 @@ void SystemUpdate()
                 ImGui::Checkbox(u8"デバッグ表示(F5)", &show_debug);
                 ImGui::Separator();
                 ImGui::Checkbox(u8"デバッグカメラ(F4)", &debug_camera);
-                if(debug_camera) {
-                    if(ImGui::BeginMenu(u8"移動方式")) {
-                        ImGui::RadioButton("Unity", (int*)(&control), DebugCamera::Unity);
-                        ImGui::RadioButton("UnrealEngine", (int*)(&control), DebugCamera::UnrealEngine);
-                        ImGui::RadioButton("Maya", (int*)(&control), DebugCamera::Maya);
+                if (debug_camera) {
+                    if (ImGui::BeginMenu(u8"移動方式")) {
+                        ImGui::RadioButton("Unity", (int*)(&control),
+                                           DebugCamera::Unity);
+                        ImGui::RadioButton("UnrealEngine", (int*)(&control),
+                                           DebugCamera::UnrealEngine);
+                        ImGui::RadioButton("Maya", (int*)(&control),
+                                           DebugCamera::Maya);
                         ImGui::EndMenu();
                     }
                 }
@@ -441,13 +450,15 @@ void SystemUpdate()
                 ImGui::Separator();
                 Scene::SetEdit(show_debug);
                 ImGui::Separator();
-                ImGui::CheckboxFlags(u8"エディター配置",
-                                     (int*)&Scene::SceneStatus(),
-                                     1 << (int)Scene::EditorStatusBit::EditorPlacement);
-                if(Scene::GetEditorStatus(Scene::EditorStatusBit::EditorPlacement)) {
-                    ImGui::CheckboxFlags(u8"Always",
-                                         (int*)&Scene::SceneStatus(),
-                                         1 << (int)Scene::EditorStatusBit::EditorPlacement_Always);
+                ImGui::CheckboxFlags(
+                    u8"エディター配置", (int*)&Scene::SceneStatus(),
+                    1 << (int)Scene::EditorStatusBit::EditorPlacement);
+                if (Scene::GetEditorStatus(
+                        Scene::EditorStatusBit::EditorPlacement)) {
+                    ImGui::CheckboxFlags(
+                        u8"Always", (int*)&Scene::SceneStatus(),
+                        1 << (int)
+                                Scene::EditorStatusBit::EditorPlacement_Always);
                 }
 
                 ImGui::EndMenu();
@@ -474,8 +485,7 @@ void SystemUpdate()
     //----------------------------------------------------------
     // GUI処理&描画
     //----------------------------------------------------------
-    if(show_gui)
-        Scene::GUI();
+    if (show_gui) Scene::GUI();
 
     //----------------------------------------------------------
     // 物理シミュレーション前の処理
@@ -496,8 +506,7 @@ void SystemUpdate()
 //---------------------------------------------------------------------------------
 //! 描画
 //---------------------------------------------------------------------------------
-void SystemDraw()
-{
+void SystemDraw() {
     //----------------------------------------------------------
     // HDRの描画先を指定
     //----------------------------------------------------------
@@ -507,23 +516,28 @@ void SystemDraw()
     //----------------------------------------------------------
     // グリッドを描画
     //----------------------------------------------------------
-    if(Scene::IsEdit()) {
-        if(show_grid) {
-            constexpr f32 size = 64.0f;   // グリッドの範囲
+    if (Scene::IsEdit()) {
+        if (show_grid) {
+            constexpr f32 size = 64.0f;    // グリッドの範囲
 
-            for(f32 x = -size; x <= size; x += 1.0f) {
-                DrawLine3D(VGet(x, 0.0f, -size), VGet(x, 0.0f, +size), GetColor(224, 224, 224));
+            for (f32 x = -size; x <= size; x += 1.0f) {
+                DrawLine3D(VGet(x, 0.0f, -size), VGet(x, 0.0f, +size),
+                           GetColor(224, 224, 224));
             }
-            for(f32 z = -size; z <= size; z += 1.0f) {
-                DrawLine3D(VGet(-size, 0.0f, z), VGet(+size, 0.0f, z), GetColor(224, 224, 224));
+            for (f32 z = -size; z <= size; z += 1.0f) {
+                DrawLine3D(VGet(-size, 0.0f, z), VGet(+size, 0.0f, z),
+                           GetColor(224, 224, 224));
             }
 
             // X軸
-            DrawLine3D(VGet(-size, 0.0f, 0.0f), VGet(+size, 0.0f, 0.0f), GetColor(255, 64, 64));
+            DrawLine3D(VGet(-size, 0.0f, 0.0f), VGet(+size, 0.0f, 0.0f),
+                       GetColor(255, 64, 64));
             // Y軸
-            DrawLine3D(VGet(0.0f, -size, 0.0f), VGet(0.0f, +size, 0.0f), GetColor(64, 255, 64));
+            DrawLine3D(VGet(0.0f, -size, 0.0f), VGet(0.0f, +size, 0.0f),
+                       GetColor(64, 255, 64));
             // Z軸
-            DrawLine3D(VGet(0.0f, 0.0f, -size), VGet(0.0f, 0.0f, +size), GetColor(64, 64, 255));
+            DrawLine3D(VGet(0.0f, 0.0f, -size), VGet(0.0f, 0.0f, +size),
+                       GetColor(64, 64, 255));
         }
     }
 
@@ -538,10 +552,11 @@ void SystemDraw()
     SetRenderTarget(GetBackBuffer(), GetDepthStencil());
 
     // トーンマッピング適用
-    CopyToRenderTarget(GetBackBuffer(), texture_hdr_.get(), *shader_ps_tonemapping_);
+    CopyToRenderTarget(GetBackBuffer(), texture_hdr_.get(),
+                       *shader_ps_tonemapping_);
 
     // FPSの表示
-    if(show_fps) {
+    if (show_fps) {
         ShowFps(delta_time_);
     }
 }
@@ -549,8 +564,7 @@ void SystemDraw()
 //---------------------------------------------------------------------------------
 //! 終了
 //---------------------------------------------------------------------------------
-void SystemExit()
-{
+void SystemExit() {
     Scene::SaveEditor();
 
     Scene::Exit();
@@ -572,8 +586,7 @@ void SystemExit()
 //---------------------------------------------------------------------------------
 //	フレームの開始
 //---------------------------------------------------------------------------------
-void SystemBeginFrame()
-{
+void SystemBeginFrame() {
     // CPU計測開始
     cpu_start_counter_ = GetPerformanceCounterMicroSec();
 }
@@ -581,14 +594,12 @@ void SystemBeginFrame()
 //---------------------------------------------------------------------------------
 //	フレームの終了
 //---------------------------------------------------------------------------------
-void SystemEndFrame()
-{
+void SystemEndFrame() {
     // CPU計測終了
     u64 cpu_end_counter   = GetPerformanceCounterMicroSec();
     cpu_profile_duration_ = cpu_end_counter - cpu_start_counter_;
 }
 
-bool IsShowMenu()
-{
+bool IsShowMenu() {
     return menu_active && menu_select;
 }

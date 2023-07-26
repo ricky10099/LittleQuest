@@ -11,25 +11,24 @@ class Model;
 //===========================================================================
 //! 定数バッファサンプルシーン
 //===========================================================================
-class SceneConstantBuffer final : public Scene::Base
-{
-public:
-    BP_CLASS_TYPE(SceneConstantBuffer, Scene::Base);
+class SceneConstantBuffer final : public Scene::Base {
+    public:
+        BP_CLASS_TYPE(SceneConstantBuffer, Scene::Base);
 
-    //----------------------------------------------------------
-    //! @name   シーン関数
-    //----------------------------------------------------------
-    //@{
+        //----------------------------------------------------------
+        //! @name   シーン関数
+        //----------------------------------------------------------
+        //@{
 
-    virtual bool Init() override;     //!< 初期化
-    virtual void Update() override;   //!< 更新
-    virtual void Draw() override;     //!< 描画
-    virtual void Exit() override;     //!< 終了
-    virtual void GUI() override;      //!< GUI表示
+        virtual bool Init() override;      //!< 初期化
+        virtual void Update() override;    //!< 更新
+        virtual void Draw() override;      //!< 描画
+        virtual void Exit() override;      //!< 終了
+        virtual void GUI() override;       //!< GUI表示
 
-    //@}
+        //@}
 
-private:
-    std::shared_ptr<Model>    model_;       //!< 3Dモデル
-    std::shared_ptr<ShaderPs> shader_ps_;   //!< ピクセルシェーダー
+    private:
+        std::shared_ptr<Model> model_;           //!< 3Dモデル
+        std::shared_ptr<ShaderPs> shader_ps_;    //!< ピクセルシェーダー
 };

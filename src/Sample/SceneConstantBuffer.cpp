@@ -9,28 +9,25 @@
 
 BP_CLASS_IMPL(SceneConstantBuffer, u8"定数バッファサンプル");
 
-namespace
-{
+namespace {
 
-//==============================================================
-//! [定数バッファ] モデル情報
-//! HLSL側の定数バッファ定義と同じデーター構成にする必要があります
-//==============================================================
-struct ModelInfo
-{
-    float4 mesh_color_;   //!< モデルの色
-};
+    //==============================================================
+    //! [定数バッファ] モデル情報
+    //! HLSL側の定数バッファ定義と同じデーター構成にする必要があります
+    //==============================================================
+    struct ModelInfo {
+            float4 mesh_color_;    //!< モデルの色
+    };
 
-float color_[4]{1.0f, 0.0f, 0.0f, 1.0f};   //!< モデルの色
-int   cb_model_info_ = -1;                 //!< [DxLib] モデル情報定数バッファハンドル
+    float color_[4]{1.0f, 0.0f, 0.0f, 1.0f};    //!< モデルの色
+    int cb_model_info_ = -1;    //!< [DxLib] モデル情報定数バッファハンドル
 
-}   // namespace
+}    // namespace
 
 //---------------------------------------------------------------------------
 //! 初期化
 //---------------------------------------------------------------------------
-bool SceneConstantBuffer::Init()
-{
+bool SceneConstantBuffer::Init() {
     auto obj = Scene::CreateObjectPtr<Object>();
 
     //----------------------------------------------------------
@@ -51,7 +48,8 @@ bool SceneConstantBuffer::Init()
     //----------------------------------------------------------
 
     // ピクセルシェーダー
-    shader_ps_ = std::make_shared<ShaderPs>("data/Sample/ConstantBuffer/ps_model_cb", Model::PS_VARIANT_COUNT);
+    shader_ps_ = std::make_shared<ShaderPs>(
+        "data/Sample/ConstantBuffer/ps_model_cb", Model::PS_VARIANT_COUNT);
 
     //==========================================================
     // 定数バッファを作成
@@ -65,8 +63,7 @@ bool SceneConstantBuffer::Init()
 //! 更新
 //! @param  [in]    delta   経過時間
 //---------------------------------------------------------------------------
-void SceneConstantBuffer::Update()
-{
+void SceneConstantBuffer::Update() {
     f32 delta = GetDeltaTime();
 
     // Y軸中心の回転
@@ -98,8 +95,7 @@ void SceneConstantBuffer::Update()
 //---------------------------------------------------------------------------
 //! 描画
 //---------------------------------------------------------------------------
-void SceneConstantBuffer::Draw()
-{
+void SceneConstantBuffer::Draw() {
     //==========================================================
     // 定数バッファを設定
     //==========================================================
@@ -114,16 +110,15 @@ void SceneConstantBuffer::Draw()
     //----------------------------------------------------------
     // カスタムシェーダーを設定して描画することができます。
     // ピクセルシェーダーをカスタムします
-    ShaderVs* vs = nullptr;            // 頂点シェーダーはカスタムしない
-    ShaderPs* ps = shader_ps_.get();   //
+    ShaderVs* vs = nullptr;    // 頂点シェーダーはカスタムしない
+    ShaderPs* ps = shader_ps_.get();    //
     model_->render(vs, ps);
 }
 
 //---------------------------------------------------------------------------
 //! 終了
 //---------------------------------------------------------------------------
-void SceneConstantBuffer::Exit()
-{
+void SceneConstantBuffer::Exit() {
     //==========================================================
     // 定数バッファを解放
     //==========================================================
@@ -133,8 +128,7 @@ void SceneConstantBuffer::Exit()
 //---------------------------------------------------------------------------
 //! GUI表示
 //---------------------------------------------------------------------------
-void SceneConstantBuffer::GUI()
-{
+void SceneConstantBuffer::GUI() {
     ImGui::Separator();
     ImGui::ColorPicker4(u8"モデルの色", color_);
 }

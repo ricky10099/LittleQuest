@@ -1,24 +1,21 @@
 ﻿#include <System/Scene.h>
 
-namespace Sample
-{
-namespace GameSample
-{
-class OverScene : public Scene::Base
-{
-public:
-    BP_CLASS_TYPE(OverScene, Scene::Base);
+namespace Sample {
+    namespace GameSample {
+        class OverScene : public Scene::Base {
+            public:
+                BP_CLASS_TYPE(OverScene, Scene::Base);
 
-    bool Init() override;
+                bool Init() override;
 
-    void Update() override;
+                void Update() override;
 
-    void Draw() override;
+                void Draw() override;
 
-    void Exit() override;
+                void Exit() override;
 
-    void GUI() override;
-};
+                void GUI() override;
+        };
 
-}   // namespace GameSample
-}   // namespace Sample
+    }    // namespace GameSample
+}    // namespace Sample

@@ -3,18 +3,16 @@
 // ここにMenu設定を用意します
 BP_CLASS_IMPL(SceneTestObject, u8"SceneTest / Object使用方法サンプル");
 
-namespace
-{
-//! このファイル内で使用できるオブジェクト
-//! ただしこの確保方法はプログラムが存在する限りこのオブジェクトは存在するため注意が必要です
-ObjectPtr static_object = nullptr;
+namespace {
+    //! このファイル内で使用できるオブジェクト
+    //! ただしこの確保方法はプログラムが存在する限りこのオブジェクトは存在するため注意が必要です
+    ObjectPtr static_object = nullptr;
 
-}   // namespace
+}    // namespace
 
 //! @brief シーン初期化関数を継承します
 //! @return シーン初期化が終わったらtrueを返します
-bool SceneTestObject::Init()
-{
+bool SceneTestObject::Init() {
     // Objectとは、基本的に単なる箱です。機能(Component)と呼ばれるものをまとめておくことができます。
     // Objectには作成すると自動的に実行する以下の関数があります。
     // Init()   <= 最初に一度呼ばれます
@@ -54,8 +52,7 @@ bool SceneTestObject::Init()
 //! @param delta 1秒をベースとした1フレームの数値
 //! @detial
 //! deltaは、リフレッシュレートが違うと速度が変わってしまう部分を吸収するためにある
-void SceneTestObject::Update()
-{
+void SceneTestObject::Update() {
     // [[maybe_unused]] という[[]]
     // で囲まれたものは、コンパイラのワーニングを抑えるために使われています
     // 試しにこの[[maybe_unused]]をとってビルドすると「deltaが使用されてない」というようなエラーが出ます
@@ -78,8 +75,7 @@ void SceneTestObject::Update()
     obj->SetRotationAxisXYZ(new_rotate);
 }
 
-void SceneTestObject::Exit()
-{
+void SceneTestObject::Exit() {
     // 最終的にリークはしないが、このオブジェクトは別シーンに行っても残ってしまうので、
     // 利用しないのであればnullptrにして削除するほうが良いです
     // static_object = nullptr;

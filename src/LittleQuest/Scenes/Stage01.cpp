@@ -3,7 +3,7 @@
 //! @brief  Stage01シーン
 //---------------------------------------------------------------------------
 #include "Stage01.h"
-#include "Objects/Player.h"
+#include <LittleQuest/Objects/Player.h>
 
 #include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentCollisionModel.h>

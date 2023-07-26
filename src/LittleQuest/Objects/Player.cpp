@@ -32,7 +32,7 @@ namespace LittleQuest {
 
     bool Player::Init()    // override
     {
-        __super::Init();
+        Super::Init();
 
         // モデルコンポーネント(0.08倍)
         auto model = AddComponent<ComponentModel>(
@@ -41,13 +41,14 @@ namespace LittleQuest {
         model->SetScaleAxisXYZ({0.05f});    //
 
         model->SetAnimation(
-            {{"idle", "data/LittleQuest/Anim/Idle.mv1", 0, 1.0f},
-             {"jump", "data/Sample/Player/Anim/Jump.mv1", 1, 1.0f},
-             {"walk", "data/LittleQuest/Anim/Walk.mv1", 0, 1.0f},
-             {"walk2", "data/Sample/Player/Anim/Walk2.mv1", 1, 1.0f},
-             {"attack", "data/LittleQuest/Anim/Attack.mv1", 0, 1.0f}});
+            {{"idle", "data/LittleQuest/Anim/SwordIdle.mv1", 0, 1.0f},
+             {"jump", "data/LittleQuest/Anim/SwordJump.mv1", 0, 1.0f},
+             {"walk", "data/LittleQuest/Anim/SwordWalk.mv1", 0, 1.0f},
+             {"attack", "data/LittleQuest/Anim/SwordAttack.mv1", 0, 2.0f},
+             {"damaged", "data/LittleQuest/Anim/SwordDamaged.mv1", 0, 1.0f}});
 
-        // コリジョン(カプセル)
+        // modelPtr = GetComponent<ComponentModel>();
+        //  コリジョン(カプセル)
         auto col = AddComponent<ComponentCollisionCapsule>();    //
         col->SetTranslate({0, 0, 0});
         col->SetRadius(2.5);
@@ -67,102 +68,106 @@ namespace LittleQuest {
     }
 
     void Player::AttachSword() {
-        //----------------------------------------------------------------------------------
-        // 持たせるオブジェクト(Knife)
-        //----------------------------------------------------------------------------------
-        auto obj = Scene::CreateObjectPtr<Object>()->SetName("Knife");
-        obj->SetTranslate({0, 0, 0});
-        // オブジェクトにモデルをつける
-        if (auto model = obj->AddComponent<ComponentModel>()) {
-            model->Load("data/Sample/FPS_Knife/Knife_low.mv1");
-            model->SetRotationAxisXYZ({0, 0, 0});
-            model->SetScaleAxisXYZ({10.0f, 10.0f, 10.0f});
+        ////----------------------------------------------------------------------------------
+        //// 持たせるオブジェクト(Knife)
+        ////----------------------------------------------------------------------------------
+        // auto obj = Scene::CreateObjectPtr<Object>()->SetName("Knife");
+        // obj->SetTranslate({0, 0, 0});
+        //// オブジェクトにモデルをつける
+        // if (auto model = obj->AddComponent<ComponentModel>()) {
+        //     model->Load("data/Sample/FPS_Knife/Knife_low.mv1");
+        //     model->SetRotationAxisXYZ({0, 0, 0});
+        //     model->SetScaleAxisXYZ({10.0f, 10.0f, 10.0f});
 
-            // KnifeModelの標準描画をOFFする
-            model->SetStatus(Component::StatusBit::NoDraw, true);
+        //    // KnifeModelの標準描画をOFFする
+        //    model->SetStatus(Component::StatusBit::NoDraw, true);
 
-            // テクスチャ
-            {
-                // 刃物部分
-                Material mat{};
-                mat.albedo_ = std::make_shared<Texture>(
-                    "data/Sample/FPS_Knife/Knife_low_Iron.001_BaseColor.png");
-                mat.normal_ = std::make_shared<Texture>(
-                    "data/Sample/FPS_Knife/"
-                    "Knife_low_Iron.001_NormalOpenGLl.png");
-                mat.roughness_ = std::make_shared<Texture>(
-                    "data/Sample/FPS_Knife/Knife_low_Iron.001_Roughness.png");
-                mat.metalness_ = std::make_shared<Texture>(
-                    "data/Sample/FPS_Knife/Knife_low_Iron.001_Metallic.png");
-                materials_.push_back(mat);
-            }
-            {
-                // 鞘部分
-                Material mat{};
-                mat.albedo_ = std::make_shared<Texture>(
-                    "data/Sample/FPS_Knife/Knife_low_Lever.001_BaseColor.png");
-                mat.normal_ = std::make_shared<Texture>(
-                    "data/Sample/FPS_Knife/"
-                    "Knife_low_Lever.001_NormalOpenGLl.png");
-                mat.roughness_ = std::make_shared<Texture>(
-                    "data/Sample/FPS_Knife/Knife_low_Lever.001_Roughness.png");
-                mat.metalness_ = std::make_shared<Texture>(
-                    "data/Sample/FPS_Knife/Knife_low_Lever.001_Metallic.png");
-                materials_.push_back(mat);
-            }
+        //    // テクスチャ
+        //    {
+        //        // 刃物部分
+        //        Material mat{};
+        //        mat.albedo_ = std::make_shared<Texture>(
+        //            "data/Sample/FPS_Knife/Knife_low_Iron.001_BaseColor.png");
+        //        mat.normal_ = std::make_shared<Texture>(
+        //            "data/Sample/FPS_Knife/"
+        //            "Knife_low_Iron.001_NormalOpenGLl.png");
+        //        mat.roughness_ = std::make_shared<Texture>(
+        //            "data/Sample/FPS_Knife/Knife_low_Iron.001_Roughness.png");
+        //        mat.metalness_ = std::make_shared<Texture>(
+        //            "data/Sample/FPS_Knife/Knife_low_Iron.001_Metallic.png");
+        //        materials_.push_back(mat);
+        //    }
+        //    {
+        //        // 鞘部分
+        //        Material mat{};
+        //        mat.albedo_ = std::make_shared<Texture>(
+        //            "data/Sample/FPS_Knife/Knife_low_Lever.001_BaseColor.png");
+        //        mat.normal_ = std::make_shared<Texture>(
+        //            "data/Sample/FPS_Knife/"
+        //            "Knife_low_Lever.001_NormalOpenGLl.png");
+        //        mat.roughness_ = std::make_shared<Texture>(
+        //            "data/Sample/FPS_Knife/Knife_low_Lever.001_Roughness.png");
+        //        mat.metalness_ = std::make_shared<Texture>(
+        //            "data/Sample/FPS_Knife/Knife_low_Lever.001_Metallic.png");
+        //        materials_.push_back(mat);
+        //    }
 
-            // モデルに設定されているテクスチャを上書き
-            // model と this(Scene) をこの関数内で使用する
-            // modelはshared_ptrとして使うためコピーをとる
-            model->SetProc(
-                "ModelDraw",
-                [model, this]() {
-                    // この部分をDrawタイミングで使用する
-                    if (auto model_knife = model->GetModelClass()) {
-                        {
-                            auto& mat = materials_[0];
-                            model_knife->overrideTexture(
-                                Model::TextureType::Diffuse, mat.albedo_);
-                            model_knife->overrideTexture(
-                                Model::TextureType::Albedo, mat.albedo_);
-                            model_knife->overrideTexture(
-                                Model::TextureType::Normal, mat.normal_);
-                            model_knife->overrideTexture(
-                                Model::TextureType::Roughness, mat.roughness_);
-                            model_knife->overrideTexture(
-                                Model::TextureType::Metalness, mat.metalness_);
+        //    // モデルに設定されているテクスチャを上書き
+        //    // model と this(Scene) をこの関数内で使用する
+        //    // modelはshared_ptrとして使うためコピーをとる
+        //    model->SetProc(
+        //        "ModelDraw",
+        //        [model, this]() {
+        //            // この部分をDrawタイミングで使用する
+        //            if (auto model_knife = model->GetModelClass()) {
+        //                {
+        //                    auto& mat = materials_[0];
+        //                    model_knife->overrideTexture(
+        //                        Model::TextureType::Diffuse, mat.albedo_);
+        //                    model_knife->overrideTexture(
+        //                        Model::TextureType::Albedo, mat.albedo_);
+        //                    model_knife->overrideTexture(
+        //                        Model::TextureType::Normal, mat.normal_);
+        //                    model_knife->overrideTexture(
+        //                        Model::TextureType::Roughness,
+        //                        mat.roughness_);
+        //                    model_knife->overrideTexture(
+        //                        Model::TextureType::Metalness,
+        //                        mat.metalness_);
 
-                            model_knife->renderByMesh(0);    // 金属刃物部分
-                        }
+        //                    model_knife->renderByMesh(0);    // 金属刃物部分
+        //                }
 
-                        {
-                            auto& mat = materials_[1];
-                            model_knife->overrideTexture(
-                                Model::TextureType::Diffuse, mat.albedo_);
-                            model_knife->overrideTexture(
-                                Model::TextureType::Albedo, mat.albedo_);
-                            model_knife->overrideTexture(
-                                Model::TextureType::Normal, mat.normal_);
-                            model_knife->overrideTexture(
-                                Model::TextureType::Roughness, mat.roughness_);
-                            model_knife->overrideTexture(
-                                Model::TextureType::Metalness, mat.metalness_);
+        //                {
+        //                    auto& mat = materials_[1];
+        //                    model_knife->overrideTexture(
+        //                        Model::TextureType::Diffuse, mat.albedo_);
+        //                    model_knife->overrideTexture(
+        //                        Model::TextureType::Albedo, mat.albedo_);
+        //                    model_knife->overrideTexture(
+        //                        Model::TextureType::Normal, mat.normal_);
+        //                    model_knife->overrideTexture(
+        //                        Model::TextureType::Roughness,
+        //                        mat.roughness_);
+        //                    model_knife->overrideTexture(
+        //                        Model::TextureType::Metalness,
+        //                        mat.metalness_);
 
-                            model_knife->renderByMesh(1);    // 鞘部分
-                        }
-                    }
-                },
-                ProcTiming::Draw);
-        }
+        //                    model_knife->renderByMesh(1);    // 鞘部分
+        //                }
+        //            }
+        //        },
+        //        ProcTiming::Draw);
+        //}
 
-        if (auto attach = obj->AddComponent<ComponentAttachModel>()) {
-            // playerの右手にアタッチする
-            attach->SetAttachObject("Player", "mixamorig:RightHand");
-            // Knife回転量
-            attach->SetAttachRotate({0, -60, 180});
-            // Knifeオフセット
-            attach->SetAttachOffset({13, 10, 5});
-        }
+        // if (auto attach = obj->AddComponent<ComponentAttachModel>()) {
+        //     // playerの右手にアタッチする
+        //     attach->SetAttachObject("Player", "mixamorig:RightHand");
+        //     // Knife回転量
+        //     attach->SetAttachRotate({0, -60, 180});
+        //     // Knifeオフセット
+        //     attach->SetAttachOffset({13, 10, 5});
+        // }
     }
 
     void Player::Update()    // override
@@ -217,12 +222,27 @@ namespace LittleQuest {
                 move += vec;
             }
         }
-#if 1    // Animation
+
+        if (isAttack) {
+        } else if (length(move).x > 0) {
+            this->Walk(move);
+        } else {
+            this->Idle();
+        }
+
+#if 0    // Animation
         if (mdl) {
             if (isAttack) {
                 if (mdl->GetPlayAnimationName() != "attack")
                     mdl->PlayAnimationNoSame("attack");
-                if (mdl->GetAnimationTime() >= 1.2f) isAttack = false;
+                if ((mdl->GetAnimationTime() >= 0.3f || mdl->GetAnimationTime() >= 0.7f) && IsKeyDown(KEY_INPUT_C)) {
+                    isCombo = true;
+                }
+                if (mdl->GetAnimationTime() >= 0.6f && !isCombo) isAttack = false;
+                if (mdl->GetAnimationTime() >= 1.5f && !isCombo) {
+                    isAttack = false;
+                }
+
             } else if (length(move).x > 0) {
                 // 動いてる
                 move = normalize(move);
@@ -302,7 +322,33 @@ namespace LittleQuest {
         __super::OnHit(hitInfo);
     }
 
-    void Player::DoAttack() {
+    void Player::Idle() {
+        if (auto modelPtr = GetComponent<ComponentModel>()) {
+            if (modelPtr->GetPlayAnimationName() != "idle") {
+                modelPtr->PlayAnimation("idle", true);
+            }
+        }
+    }
+
+    void Player::Walk(float3& move) {
+        if (auto modelPtr = GetComponent<ComponentModel>()) {
+            // 動いてる
+            move = normalize(move);
+
+            float x     = -move.x;
+            float z     = -move.z;
+            float theta = atan2(x, z) * RadToDeg - rot_y_;
+            // モデルだけ回転 (ついてるカメラは回らない)
+            modelPtr->SetRotationAxisXYZ({0, theta, 0});
+
+            if (modelPtr->GetPlayAnimationName() != "walk")
+                modelPtr->PlayAnimation("walk", true);
+        }
+    }
+
+    void Player::Jump() {}
+
+    void Player::Attack() {
         /* auto mdl = GetComponent<ComponentModel>();
 
          if (mdl) {
