@@ -172,7 +172,7 @@ namespace LittleQuest {
 
     void Player::Update()    // override
     {
-        auto mdl = GetComponent<ComponentModel>();
+        // auto mdl = GetComponent<ComponentModel>();
         ////auto near_enemy = TrackingNearEnemy(SharedThis());
 
         // if (mdl) {
@@ -183,7 +183,7 @@ namespace LittleQuest {
         // }
 
         float3 move = float3(0, 0, 0);
-
+        isWalk      = false;
         if (IsKeyRepeat(KEY_INPUT_A)) {
             rot_y_ += -1.0f;
         }
@@ -196,6 +196,31 @@ namespace LittleQuest {
 
         if (IsKeyDown(KEY_INPUT_C)) {
             isAttack = true;
+
+            if (combo == 0) {
+                combo       = 1;
+                playerState = PlayerState::ATTACK1;
+            } else if (combo == 1) {
+                combo   = 2;
+                isCombo = true;
+            } else if (combo == 2) {
+                combo   = 3;
+                isCombo = true;
+            } else {
+                isCombo = false;
+                combo   = 0;
+            }
+
+            // if (playerState != PlayerState::ATTACK1
+            //     && playerState != PlayerState::ATTACK2) {
+            //     playerState = PlayerState::ATTACK1;
+            // } else if (playerState == PlayerState::ATTACK1) {
+            //     isCombo     = true;
+            // } else if (playerState == PlayerState::ATTACK2) {
+            //     isCombo     = true;
+            // } else {
+            //     isCombo = false;
+            // }
         }
 
 #ifdef USE_MOUSE_CAMERA
@@ -208,27 +233,56 @@ namespace LittleQuest {
             if (IsKeyRepeat(KEY_INPUT_UP)) {
                 float3 vec = mat.axisZ();
                 move += -vec;
+                isWalk      = true;
+                playerState = PlayerState::WALK;
             }
             if (IsKeyRepeat(KEY_INPUT_RIGHT)) {
                 float3 vec = mat.axisX();
                 move += -vec;
+                isWalk      = true;
+                playerState = PlayerState::WALK;
             }
             if (IsKeyRepeat(KEY_INPUT_DOWN)) {
                 float3 vec = mat.axisZ();
                 move += vec;
+                isWalk      = true;
+                playerState = PlayerState::WALK;
             }
             if (IsKeyRepeat(KEY_INPUT_LEFT)) {
                 float3 vec = mat.axisX();
                 move += vec;
+                isWalk      = true;
+                playerState = PlayerState::WALK;
             }
         }
 
-        if (isAttack) {
-        } else if (length(move).x > 0) {
-            this->Walk(move);
-        } else {
-            this->Idle();
+        if (!isWalk && !isAttack) {
+            playerState = PlayerState::IDLE;
         }
+
+        switch (playerState) {
+            case PlayerState::DAMAGED:
+
+                break;
+            case PlayerState::ATTACK1:
+                Attack();
+                break;
+            case PlayerState::JUMP:
+                break;
+            case PlayerState::WALK:
+                Walk(move);
+                break;
+            default:
+                Idle();
+                break;
+        }
+
+            /*if (isAttack) {
+            } else if (length(move).x > 0) {
+                this->Walk(move);
+            } else {
+                this->Idle();
+            }*/
 
 #if 0    // Animation
         if (mdl) {
@@ -284,6 +338,10 @@ namespace LittleQuest {
     void Player::LateDraw()    // override
     {
         // gauge_.Draw();
+        printfDx("\ncombo:%d", combo);
+        if (auto modelPtr = GetComponent<ComponentModel>()) {
+            printfDx("\nAnimation Time:%d", modelPtr->GetAnimationTime());
+        }
     }
 
     void Player::GUI()    // override
@@ -349,12 +407,36 @@ namespace LittleQuest {
     void Player::Jump() {}
 
     void Player::Attack() {
-        /* auto mdl = GetComponent<ComponentModel>();
+        if (auto modelPtr = GetComponent<ComponentModel>()) {
+            if (modelPtr->GetPlayAnimationName() != "attack") {
+                modelPtr->PlayAnimationNoSame("attack");
+            }
 
-         if (mdl) {
-             if (mdl->GetPlayAnimationName() != "attack")
-                 mdl->PlayAnimation("attack", true);
-         }*/
+            if (modelPtr->GetAnimationTime() > 0.6f && !isCombo) {
+                isAttack    = false;
+                combo       = 0;
+                playerState = PlayerState::IDLE;
+            }
+
+            if (modelPtr->GetAnimationTime() > 0.7f && !isCombo) {
+                isAttack    = false;
+                combo       = 0;
+                playerState = PlayerState::IDLE;
+            }
+
+            if (modelPtr->GetAnimationTime() > 0.5f && combo == 1 && isCombo) {
+                combo   = 2;
+                isCombo = false;
+            }
+        }
+    }
+
+    void Player::Damaged() {
+        if (auto modelPtr = GetComponent<ComponentModel>()) {
+            if (modelPtr->GetPlayAnimationName() != "damaged") {
+                modelPtr->PlayAnimationNoSame("damaged");
+            }
+        }
     }
 
     void Player::SetSpeed(float s) {

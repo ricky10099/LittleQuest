@@ -76,11 +76,13 @@ namespace LittleQuest {
             float rot_x_  = 0.0f;
             bool isAttack = false;
             bool isCombo  = false;
-
+            bool isWalk   = false;
+            int combo     = 0;
             void Idle();
             void Walk(float3& position);
             void Jump();
             void Attack();
+            void Damaged();
 
             void AttachSword();
     };
