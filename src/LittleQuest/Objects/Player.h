@@ -51,12 +51,12 @@ namespace LittleQuest {
         private:
             //! @brief プレイヤーステート
             enum class PlayerState {
-                IDLE,       //!< 待機状態
-                WALK,       //!< 歩く
-                JUMP,       //!< ジャンプ
-                ATTACK1,    //!< 地面にタッチしたか
-                ATTACK2,    //!< 地面にタッチした!
-                ATTACK3,    //!< 終了アクション
+                IDLE,      //!< 待機状態
+                WALK,      //!< 歩く
+                JUMP,      //!< ジャンプ
+                ATTACK,    //!< アタック
+                // ATTACK2,
+                // ATTACK3,
                 DAMAGED,
             };
 
@@ -71,13 +71,16 @@ namespace LittleQuest {
 
             PlayerState playerState = PlayerState::IDLE;
 
-            float speed_  = 0.5f;
-            float rot_y_  = 0.0f;
-            float rot_x_  = 0.0f;
-            bool isAttack = false;
-            bool isCombo  = false;
-            bool isWalk   = false;
-            int combo     = 0;
+            float speed_   = 0.5f;
+            float rot_y_   = 0.0f;
+            float rot_x_   = 0.0f;
+            bool isAttack  = false;
+            bool isCombo   = false;
+            bool isWalk    = false;
+            int combo      = 0;
+            bool canCombo2 = false;
+            bool canCombo3 = false;
+
             void Idle();
             void Walk(float3& position);
             void Jump();
