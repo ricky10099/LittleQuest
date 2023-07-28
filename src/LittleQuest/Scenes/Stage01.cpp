@@ -3,6 +3,7 @@
 //! @brief  Stage01シーン
 //---------------------------------------------------------------------------
 #include "Stage01.h"
+#include "../Objects/Camera.h"
 #include <LittleQuest/Objects/Player.h>
 
 #include <System/Component/ComponentCamera.h>
@@ -23,11 +24,11 @@ namespace LittleQuest {
     //---------------------------------------------------------------------------
     bool Stage01::Init() {
         // Camera
-        {
-            auto obj = Scene::CreateObjectPtr<Object>()->SetName(u8"Camera");
-            auto cam = obj->AddComponent<ComponentCamera>();
-            cam->SetPositionAndTarget({0, 20, 50}, {0, 10, 0});
-        }
+        /*  {
+              auto obj = Scene::CreateObjectPtr<Object>()->SetName(u8"Camera");
+              auto cam = obj->AddComponent<ComponentCamera>();
+              cam->SetPositionAndTarget({0, 20, 50}, {0, 10, 0});
+          }*/
 
         // Ground
         {
@@ -39,6 +40,26 @@ namespace LittleQuest {
         }
 
         auto player = Player::Create({0, 100, 0});
+        Camera::Create(player)->SetName("PlayerCamera");
+
+        auto obj = Scene::CreateObjectPtr<Object>()->SetName("Sword");
+        obj->SetTranslate({0, 0, 0});
+        // オブジェクトにモデルをつける
+        if (auto model = obj->AddComponent<ComponentModel>()) {
+            model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
+            // model->Load("data/Sample/FPS_Knife/Knife_low.mv1");
+            model->SetRotationAxisXYZ({0, 0, 0});
+            model->SetScaleAxisXYZ({0.003f, 0.003f, 0.003f});
+        }
+
+        if (auto attach = obj->AddComponent<ComponentAttachModel>()) {
+            // playerの右手にアタッチする
+            attach->SetAttachObject(player, "mixamorig:RightHand");
+            // Knife回転量
+            attach->SetAttachRotate({0, -60, 180});
+            // Knifeオフセット
+            attach->SetAttachOffset({13, 10, 5});
+        }
 
         return true;
     }

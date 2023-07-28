@@ -55,8 +55,6 @@ namespace LittleQuest {
                 WALK,      //!< 歩く
                 JUMP,      //!< ジャンプ
                 ATTACK,    //!< アタック
-                // ATTACK2,
-                // ATTACK3,
                 DAMAGED,
             };
 
@@ -88,5 +86,7 @@ namespace LittleQuest {
             void Damaged();
 
             void AttachSword();
+
+            int MouseWheelCounter;
     };
 }    // namespace LittleQuest
