@@ -3,8 +3,10 @@
 //! @brief  Stage01シーン
 //---------------------------------------------------------------------------
 #include "Stage01.h"
-#include "../Objects/Camera.h"
+
+#include <LittleQuest/Objects/Camera.h>
 #include <LittleQuest/Objects/Player.h>
+#include <LittleQuest/Objects/Enemy.h>
 
 #include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentCollisionModel.h>
@@ -42,6 +44,8 @@ bool Stage01::Init()
 
     auto player = Player::Create({0, 10, 0});
     Camera::Create(player)->SetName("PlayerCamera");
+
+    auto enemy = Enemy::Create({10, 20, 10});
 
     return true;
 }

@@ -31,23 +31,6 @@ public:
     void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
 
     // @}
-    //! @name 内部アクセス用
-    // @{
-
-    //! @brief スピードを設定する
-    //! @param s スピード
-    void SetSpeed(float s);
-
-    //! @brief スピードを取得する
-    //! @return 現在のスピード
-    float GetSpeed();
-
-    //! @brief 変数として扱う関数
-    //! @detail Set/Get系と比べデバックはしにくい
-    //! @return 現在のスピードの変数(speed_)
-    float& Speed();
-
-    // @}
 
 private:
     //! @brief ステート

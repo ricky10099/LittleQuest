@@ -43,26 +43,18 @@ bool Enemy::Init()   // override
     model->SetScaleAxisXYZ({0.05f});   //
 
     model->SetAnimation({
-        {"walk",  "data/Sample/Enemy/Walk.mv1", 1, 1.0f},
-        { "die", "data/Sample/Enemy/Death.mv1", 1, 1.0f}
+        {"walk",  "data/Sample/Enemy/Anim/Walk.mv1", 0, 1.0f},
+        { "die", "data/Sample/Enemy/Anim/Death.mv1", 1, 1.0f}
     });
+    model->PlayAnimation("walk", true);
 
-    // modelPtr = GetComponent<ComponentModel>();
-    //  コリジョン(カプセル)
+    // コリジョン(カプセル)
     auto col = AddComponent<ComponentCollisionCapsule>();   //
     col->SetTranslate({0, 0, 0});
     col->SetRadius(2.5);
     col->SetHeight(10);
-    col->UseGravity();
     col->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY);
-
-    /* auto target = AddComponent<ComponentTargetTracking>();
-            target->SetTrackingNode("mixamorig:Neck");
-            target->SetFrontVector({0, 0, -1});
-
-            target->SetTrackingLimitLeftRight({70, 70});
-
-            target->SetTrackingLimitUpDown({10, 10});*/
+    col->UseGravity();
 
     return true;
 }
@@ -78,10 +70,12 @@ void Enemy::LateDraw()   // override
 
 void Enemy::GUI()   // override
 {
+    Super::GUI();
 }
 
 void Enemy::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)   // override
 {
+    Super::OnHit(hitInfo);
 }
 
 void Enemy::Die()

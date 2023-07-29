@@ -203,6 +203,10 @@ void Player::LateDraw()   // override
     printfDx("\nisAttack: %i", isAttack);
     printfDx("\nisCombo: %i", isCombo);
     printfDx("\nGetMouseHWheelRotVol: %i", MouseWheelCounter);
+
+    auto sword = Scene::GetObjectPtr<Object>("PlayerSword");
+    auto col   = sword->GetComponent<ComponentCollisionModel>();
+    printfDx("\nCol name : %s", col->GetOwnerPtr()->GetName());
 }
 
 void Player::GUI()   // override
@@ -274,6 +278,7 @@ void Player::Attack()
 {
     auto sword = Scene::GetObjectPtr<Object>("PlayerSword");
     auto col   = sword->GetComponent<ComponentCollisionModel>();
+
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(combo == 1) {
             if(modelPtr->GetPlayAnimationName() != "attack1") {
