@@ -9,21 +9,21 @@ s32 WINDOW_H = 720;
 //---------------------------------------------------------------------------
 //! アプリケーションエントリーポイント
 //---------------------------------------------------------------------------
-int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance,
+int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE     hInstance,
                    _In_opt_ [[maybe_unused]] HINSTANCE hPrevInstance,
-                   _In_ [[maybe_unused]] LPSTR lpCmdLine,
-                   _In_ [[maybe_unused]] int nShowCmd) {
+                   _In_ [[maybe_unused]] LPSTR         lpCmdLine,
+                   _In_ [[maybe_unused]] int           nShowCmd)
+{
     // 高DPI対応
     SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
     SetOutApplicationLogValidFlag(FALSE);
 
     // Game.iniから読み込む
-    IniFileLib ini("Game.ini");
-    const bool is_fullscreen = ini.GetBool("System", "FullScreen");
-    const float2 screen_size =
-        ini.GetFloat2("System", "ScreenSize", {WINDOW_W, WINDOW_H});
-    const auto title_name = ini.GetString("System", "Title", "BaseProject2022");
+    IniFileLib   ini("Game.ini");
+    const bool   is_fullscreen = ini.GetBool("System", "FullScreen");
+    const float2 screen_size   = ini.GetFloat2("System", "ScreenSize", {WINDOW_W, WINDOW_H});
+    const auto   title_name    = ini.GetString("System", "Title", "BaseProject2022");
 
     WINDOW_W = static_cast<int>(screen_size.x);
     WINDOW_H = static_cast<int>(screen_size.y);
@@ -33,7 +33,7 @@ int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance,
     // ウィンドウモード / フルスクリーンモード 切り替え
     ChangeWindowMode(!is_fullscreen);
 
-    if (!is_fullscreen) {
+    if(!is_fullscreen) {
         // 高DPI対応のための自動リサイズを抑制するために手動でウィンドウサイズを指定。
         // 但し、フルスクリーンモードでこれを実行すると描画範囲が壊れるためウィンドウモード時のみ実行
         SetWindowSize(WINDOW_W, WINDOW_H);
@@ -41,7 +41,7 @@ int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance,
 
     SetBackgroundColor(0, 0, 0);
     SetMainWindowText(title_name.c_str());
-    SetAlwaysRunFlag(true);    // ウィンドウメッセージを常に実行
+    SetAlwaysRunFlag(true);   // ウィンドウメッセージを常に実行
 
     // DirectX11を使用するようにする(DxLib_Init関数前) - Effekseer対応
     SetUseDirect3DVersion(DX_DIRECT3D_11);
@@ -52,12 +52,12 @@ int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance,
     // 非同期読み込み処理を行うスレッドの数を設定
     SetASyncLoadThreadNum(4);
 
-    if (DxLib_Init() == -1) {
+    if(DxLib_Init() == -1) {
         return -1;
     }
 
     // Effekseerの初期化
-    if (Effekseer_Init(8000) == -1) {
+    if(Effekseer_Init(8000) == -1) {
         DxLib_End();
         return -1;
     }
@@ -80,7 +80,7 @@ int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance,
     InputKeyInit();
     InputPadInit();
     InputMouseInit();
-    RenderInit();    // Render初期化
+    RenderInit();   // Render初期化
     SystemInit();
     GameInit();
     ImGuiInit();
@@ -90,8 +90,7 @@ int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance,
     //----------------------------------------------------------
     // メインループ
     //----------------------------------------------------------
-    while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0
-           && !IsProcEnd()) {
+    while(ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0 && !IsProcEnd()) {
         // 1フレームの開始
         SystemBeginFrame();
 
@@ -107,7 +106,7 @@ int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance,
         InputMouseUpdate();
         ImGuiUpdate();
 
-        ShaderBase::updateFileWatcher();    // ファイル監視を更新
+        ShaderBase::updateFileWatcher();   // ファイル監視を更新
 
         // ---------------
         // 更新処理
@@ -144,10 +143,10 @@ int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance,
     InputMouseExit();
     GameExit();
     SystemExit();
-    RenderExit();    // Render終了
+    RenderExit();   // Render終了
 
     Effkseer_End();
-    WaitHandleASyncLoadAll();    // 非同期ロード中のハンドルを全て待つ
+    WaitHandleASyncLoadAll();   // 非同期ロード中のハンドルを全て待つ
     DxLib_End();
 
     return 0;

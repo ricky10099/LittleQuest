@@ -442,13 +442,11 @@ config_project("BaseProject", "WindowedApp")
 
 	-- フォルダ分け
 	vpaths {
-		["ヘッダー ファイル/*"] = {
+		["ファイル/*"] = {
 			path.join(SOURCE_PATH, "**.h"),
 			path.join(SOURCE_PATH, "**.hxx"),
 			path.join(SOURCE_PATH, "**.hpp"),
-			path.join(SOURCE_PATH, "**.inl")
-		},
-		["ソース ファイル/*"] = {
+			path.join(SOURCE_PATH, "**.inl"),
 			path.join(SOURCE_PATH, "**.c"),
 			path.join(SOURCE_PATH, "**.cxx"),
 			path.join(SOURCE_PATH, "**.cpp")

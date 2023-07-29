@@ -12,7 +12,8 @@
 
 BP_COMPONENT_IMPL(ComponentCollisionCapsule, u8"CapsuleCollision機能クラス");
 
-void ComponentCollisionCapsule::Init() {
+void ComponentCollisionCapsule::Init()
+{
     __super::Init();
 #ifdef USE_JOLT_PHYSICS
     float half_height = (height_ - radius_ * 2.0f) * 0.5f;
@@ -22,56 +23,60 @@ void ComponentCollisionCapsule::Init() {
     character_->setShape(shape::Capsule(half_height, radius_), pos);
     set_size_ = false;
 
-    listener_.SetComponent(std::dynamic_pointer_cast<ComponentCollisionCapsule>(
-        shared_from_this()));
+    listener_.SetComponent(std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this()));
 
     character_->setListener(&listener_);
 
     // 作成したときはPhysicsでの移動はしない
     SetCollisionStatus(CollisionBit::UsePhysics, false);
-#endif    // USE_JOLT_PHYSICS
+#endif   //USE_JOLT_PHYSICS
 }
 
-void ComponentCollisionCapsule::Update() {
+void ComponentCollisionCapsule::Update()
+{
 #ifdef USE_JOLT_PHYSICS
-    if (set_size_) Init();
-#endif    // USE_JOLT_PHYSICS
+    if(set_size_)
+        Init();
+#endif   //USE_JOLT_PHYSICS
 
     __super::Update();
 }
 
-void ComponentCollisionCapsule::PrePhysics() {
+void ComponentCollisionCapsule::PrePhysics()
+{
 #ifdef USE_JOLT_PHYSICS
     __super::PrePhysics();
 
     auto owner = GetOwner();
     auto mat   = mul(Matrix(), owner->GetMatrix());
 
-    if (update_delta_time_ <= 0.0f) update_delta_time_ = 1.0f / 60.0f;
+    if(update_delta_time_ <= 0.0f)
+        update_delta_time_ = 1.0f / 60.0f;
 
     float3 vec = {0, 0, 0};
-    if (IsCollisionStatus(CollisionBit::UsePhysics)) {
+    if(IsCollisionStatus(CollisionBit::UsePhysics)) {
         // Physicsでの移動
         vec = mat._41_42_43 - mul(Matrix(), owner->GetWorldMatrix())._41_42_43;
         vec *= (1.0f / update_delta_time_);
-    } else {
+    }
+    else {
         // ワープ
         character_->setPosition(mat._41_42_43);
         // Physics移動に変更
         SetCollisionStatus(CollisionBit::UsePhysics, true);
     }
-    #if 1
-    character_->setRotation(    // rotation
-        quaternion(             // quaternion {
+#if 1
+    character_->setRotation(   // rotation
+        quaternion(            // quaternion {
             {
-                {mat._11_12_13},    //
-                {mat._21_22_23},    //
-                {mat._31_32_33},    //
-            })                      // } quaternion
+                {mat._11_12_13},   //
+                {mat._21_22_23},   //
+                {mat._31_32_33},   //
+            })                     // } quaternion
     );
-    #endif
+#endif
     auto* physicsEngine = physics::Engine::instance();
-    // physicsEngine->setGravity( {0,-0.98,0} );
+    //physicsEngine->setGravity( {0,-0.98,0} );
 
     // OwnerのOldMatrixと現在のMatrixから移動量を割り出す
     auto old_pos = GetOwner()->GetOldWorldMatrix().translate();
@@ -79,26 +84,26 @@ void ComponentCollisionCapsule::PrePhysics() {
 
     float3 new_velocity = mov * (1.0f / update_delta_time_);
 
-    #if 1
+#if 1
     // 重力
-    if (use_gravity_)
-        gravity_ += physicsEngine->gravity()
-                    * 0.1f;    //< キャラが重力にて滑るため、0.1倍にしています
+    if(use_gravity_)
+        gravity_ += physicsEngine->gravity() * 0.1f;   //< キャラが重力にて滑るため、0.1倍にしています
 
     // プレイヤー操作
     new_velocity += vec + gravity_;
-    // character_->setMass( 600.0f );
+    //character_->setMass( 600.0f );
 
     // 速度を更新
     character_->setLinearVelocity(new_velocity);
 
     character_->update(update_delta_time_);
-    #endif
-#endif    // USE_JOLT_PHYSICS
+#endif
+#endif   //USE_JOLT_PHYSICS
 }
 
 // ここで当たり処理後の処理を行います
-void ComponentCollisionCapsule::PostUpdate() {
+void ComponentCollisionCapsule::PostUpdate()
+{
     __super::PostUpdate();
 
 #ifdef USE_JOLT_PHYSICS
@@ -110,17 +115,19 @@ void ComponentCollisionCapsule::PostUpdate() {
     auto own_mat = inverse(Matrix());
 
     // Collision中心位置の違いの調整
-    // float half_height = ( height_ - radius_ * 2 ) * 0.5f;
-    // own_mat._41_42_43 -= ( own_mat._21_22_23 * ( half_height + radius_ ) );
+    //float half_height = ( height_ - radius_ * 2 ) * 0.5f;
+    //own_mat._41_42_43 -= ( own_mat._21_22_23 * ( half_height + radius_ ) );
 
     GetOwner()->Matrix() = mat;
-    // mul( own_mat, mat );
+    //mul( own_mat, mat );
 #endif
 }
 
-void ComponentCollisionCapsule::Draw() {
+void ComponentCollisionCapsule::Draw()
+{
 #ifdef USE_JOLT_PHYSICS
-    if (character_ == nullptr) return;
+    if(character_ == nullptr)
+        return;
 
     float half_height = (height_ - radius_ * 2) * 0.5f;
 
@@ -135,8 +142,7 @@ void ComponentCollisionCapsule::Draw() {
 
     SetUseLighting(FALSE);
     SetLightEnable(FALSE);
-    DrawCapsule3D(cast(top), cast(bottom), radius_, 10, GetColor(0, 255, 0),
-                  GetColor(0, 0, 0), FALSE);
+    DrawCapsule3D(cast(top), cast(bottom), radius_, 10, GetColor(0, 255, 0), GetColor(0, 0, 0), FALSE);
     SetUseLighting(TRUE);
     SetLightEnable(TRUE);
 #else
@@ -146,7 +152,7 @@ void ComponentCollisionCapsule::Draw() {
 
     auto trans = GetWorldMatrix();
 
-    if (attach_node_ < 0) {
+    if(attach_node_ < 0) {
         // モデルアタッチしてない場合のみサイズ変更
         float sx = length(trans.axisVectorX());
         float sy = length(trans.axisVectorY());
@@ -160,9 +166,10 @@ void ComponentCollisionCapsule::Draw() {
     SetLightEnable(FALSE);
 
     // 半径に合わせて高さの再設定
-    if (height_ < radius * 2) height_ = radius * 2;
+    if(height_ < radius * 2)
+        height_ = radius * 2;
 
-    if (!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame))
+    if(!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame))
         return;
 
     float3 pos2 = trans.translate();
@@ -170,19 +177,26 @@ void ComponentCollisionCapsule::Draw() {
 
     float3 vec = normalize(pos2 - pos1);
 
-    DrawCapsule3D(cast(pos1 + vec * radius), cast(pos2 - vec * radius), radius,
-                  10, GetColor(0, 255, 0), GetColor(0, 0, 0), FALSE);
+    DrawCapsule3D(cast(pos1 + vec * radius),
+                  cast(pos2 - vec * radius),
+                  radius,
+                  10,
+                  GetColor(0, 255, 0),
+                  GetColor(0, 0, 0),
+                  FALSE);
     SetLightEnable(TRUE);
     SetUseLighting(TRUE);
 #endif
 }
 
-void ComponentCollisionCapsule::Exit() {
+void ComponentCollisionCapsule::Exit()
+{
     __super::Exit();
 }
 
 //! @brief GUI処理
-void ComponentCollisionCapsule::GUI() {
+void ComponentCollisionCapsule::GUI()
+{
     // 基底クラスのGUIはそのままは使用しない
     //__super::GUI();
 
@@ -194,37 +208,29 @@ void ComponentCollisionCapsule::GUI() {
     {
         ImGui::Separator();
 
-        auto ui_name =
-            std::string("Collision Capsule:") + std::to_string(collision_id_);
+        auto ui_name = std::string("Collision Capsule:") + std::to_string(collision_id_);
 
-        if (ImGui::TreeNode(ui_name.c_str())) {
-            if (ImGui::Button(u8"削除")) {
+        if(ImGui::TreeNode(ui_name.c_str())) {
+            if(ImGui::Button(u8"削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
             // コリジョン情報を出す
             GUICollisionData();
 
-            std::string colname =
-                u8"COL:" + std::to_string(collision_id_) + "/ ";
+            std::string colname = u8"COL:" + std::to_string(collision_id_) + "/ ";
 
             float* mat = GetMatrixFloat();
-            float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation,
-                                        matrixScale);
-            ImGui::DragFloat3((colname + u8"座標(T)").c_str(),
-                              matrixTranslation, 0.01f);
-            ImGui::DragFloat3((colname + u8"回転(R)").c_str(), matrixRotation,
-                              0.1f);
-            // ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
-            RecomposeMatrixFromComponents(matrixTranslation, matrixRotation,
-                                          matrixScale, mat);
+            float  matrixTranslation[3], matrixRotation[3], matrixScale[3];
+            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
+            ImGui::DragFloat3((colname + u8"座標(T)").c_str(), matrixTranslation, 0.01f);
+            ImGui::DragFloat3((colname + u8"回転(R)").c_str(), matrixRotation, 0.1f);
+            //ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
+            RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, mat);
 
-            ImGui::DragFloat((colname + u8"半径(R)").c_str(), &radius_, 0.01f,
-                             0.01f, 1000.0f, "%.2f");
+            ImGui::DragFloat((colname + u8"半径(R)").c_str(), &radius_, 0.01f, 0.01f, 1000.0f, "%.2f");
 
-            ImGui::DragFloat((colname + u8"高さ(H)").c_str(), &height_, 0.01f,
-                             0.01f, 1000.0f, "%.2f");
+            ImGui::DragFloat((colname + u8"高さ(H)").c_str(), &height_, 0.01f, 0.01f, 1000.0f, "%.2f");
 
             ImGui::TreePop();
         }
@@ -234,69 +240,63 @@ void ComponentCollisionCapsule::GUI() {
 
 //! @brief 半径の設定
 //! @param radius 半径
-ComponentCollisionCapsulePtr ComponentCollisionCapsule::SetRadius(
-    float radius) {
+ComponentCollisionCapsulePtr ComponentCollisionCapsule::SetRadius(float radius)
+{
 #ifdef USE_JOLT_PHYSICS
     set_size_ = true;
-#endif    // USE_JOLT_PHYSICS
+#endif   //USE_JOLT_PHYSICS
     radius_ = radius;
-    return std::dynamic_pointer_cast<ComponentCollisionCapsule>(
-        shared_from_this());
+    return std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this());
 }
 
 //! @brief 半径の取得
 //! @return 半径
-float ComponentCollisionCapsule::GetRadius() const {
+float ComponentCollisionCapsule::GetRadius() const
+{
     return radius_;
 }
 
-ComponentCollisionCapsulePtr ComponentCollisionCapsule::SetHeight(
-    float height) {
+ComponentCollisionCapsulePtr ComponentCollisionCapsule::SetHeight(float height)
+{
 #ifdef USE_JOLT_PHYSICS
     set_size_ = true;
-#endif    // USE_JOLT_PHYSICS
+#endif   //USE_JOLT_PHYSICS
     height_ = height;
-    return std::dynamic_pointer_cast<ComponentCollisionCapsule>(
-        shared_from_this());
+    return std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this());
 }
 
-float ComponentCollisionCapsule::GetHeight() {
+float ComponentCollisionCapsule::GetHeight()
+{
     return height_;
 }
 
 //! @brief 当たっているかを調べる
 //! @param col 相手のコリジョン
 //! @return HitInfoを返す
-ComponentCollisionCapsule::HitInfo ComponentCollisionCapsule::IsHit(
-    ComponentCollisionPtr col) {
+ComponentCollisionCapsule::HitInfo ComponentCollisionCapsule::IsHit(ComponentCollisionPtr col)
+{
     HitInfo info;
 
-    switch (col->GetCollisionType()) {
-        case ComponentCollision::CollisionType::LINE:
-            // @todo HitCheck_Line_Sphere()
-            break;
-        case ComponentCollision::CollisionType::TRIANGLE:
-            // @todo HitCheck_Sphere_Triangle()
-            break;
-        case ComponentCollision::CollisionType::SPHERE:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionCapsule>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionSphere>(col));
-            break;
+    switch(col->GetCollisionType()) {
+    case ComponentCollision::CollisionType::LINE:
+        // @todo HitCheck_Line_Sphere()
+        break;
+    case ComponentCollision::CollisionType::TRIANGLE:
+        // @todo HitCheck_Sphere_Triangle()
+        break;
+    case ComponentCollision::CollisionType::SPHERE:
+        return isHit(std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this()),
+                     std::dynamic_pointer_cast<ComponentCollisionSphere>(col));
+        break;
 
-        case ComponentCollision::CollisionType::CAPSULE:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionCapsule>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionCapsule>(col));
-            break;
-        case ComponentCollision::CollisionType::MODEL:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionCapsule>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionModel>(col));
-            break;
+    case ComponentCollision::CollisionType::CAPSULE:
+        return isHit(std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this()),
+                     std::dynamic_pointer_cast<ComponentCollisionCapsule>(col));
+        break;
+    case ComponentCollision::CollisionType::MODEL:
+        return isHit(std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this()),
+                     std::dynamic_pointer_cast<ComponentCollisionModel>(col));
+        break;
     }
 
     return info;
@@ -304,19 +304,21 @@ ComponentCollisionCapsule::HitInfo ComponentCollisionCapsule::IsHit(
 
 //! @brief ワールドMatrixの取得
 //! @return 他のコンポーネントも含めた位置
-const matrix ComponentCollisionCapsule::GetWorldMatrix() const {
+const matrix ComponentCollisionCapsule::GetWorldMatrix() const
+{
     auto transform = collision_transform_;
 
     auto obj = GetOwner();
-    if (attach_node_ >= 0) {
+    if(attach_node_ >= 0) {
         auto mdl = obj->GetComponent<ComponentModel>();
-        if (mdl) {
+        if(mdl) {
             transform = mul(transform, attach_node_matrix_);
         }
-    } else {
+    }
+    else {
         auto cmp = obj->GetComponent<ComponentTransform>();
-        if (cmp) {
-            transform = mul(transform, cmp->GetMatrix());
+        if(cmp) {
+            transform = mul(transform, cmp->GetWorldMatrix());
         }
     }
 

@@ -9,7 +9,8 @@
 //---------------------------------------------------------------------------
 //@{
 
-enum class PAD_NO : u32 {
+enum class PAD_NO : u32
+{
     PAD_NO1 = 0,
     PAD_NO2,
     PAD_NO3,
@@ -23,7 +24,8 @@ enum class PAD_NO : u32 {
 //! ボタン種別
 //---------------------------------------------------------------------------
 //@{
-enum class PAD_ID : u32 {
+enum class PAD_ID : u32
+{
     PAD_UP = 0,
     PAD_DOWN,
     PAD_LEFT,
@@ -81,10 +83,8 @@ bool IsPadRelease(PAD_ID padID, PAD_NO padNo = PAD_NO::PAD_NO1);
 //! 指定パッドのボタンの長押し押下検証
 //! @param	[in]	padID	パッドのボタン種別
 //! @param	[in]	padNo	パッドの種別(指定がなければPAD_NO1)
-//! @retval true
-//! 引数に指定されたパッドのボタンが長押し（2フレーム以上）されている
-//! @retval false
-//! 引数に指定されたパッドのボタンが押されていない（押されているフレーム数が1以下）
+//! @retval true	引数に指定されたパッドのボタンが長押し（2フレーム以上）されている
+//! @retval false	引数に指定されたパッドのボタンが押されていない（押されているフレーム数が1以下）
 bool IsPadRepeat(PAD_ID padID, PAD_NO padNo = PAD_NO::PAD_NO1, u32 frame = 2);
 
 //@}

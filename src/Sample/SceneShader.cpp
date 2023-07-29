@@ -3,17 +3,17 @@
 //! @brief  シェーダーサンプルシーン
 //---------------------------------------------------------------------------
 #include "SceneShader.h"
-
+#include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentFilterFade.h>
-#include <System/Component/ComponentModel.h>
 
 BP_CLASS_IMPL(SceneShader, u8"シェーダーサンプル");
 
 //---------------------------------------------------------------------------
 //! 初期化
 //---------------------------------------------------------------------------
-bool SceneShader::Init() {
+bool SceneShader::Init()
+{
     auto obj = Scene::CreateObjectPtr<Object>();
 
     // モデルコンポーネント
@@ -23,8 +23,7 @@ bool SceneShader::Init() {
     auto camera = obj->AddComponent<ComponentCamera>();
     camera->SetPerspective(60.0f);
     camera->SetPositionAndTarget({0.f, 6.f, -15.f}, {0.f, 5.f, 0.f});
-    // camera->SetCurrentCamera(); //<
-    // こちらは1つめのカメラの場合は必要ありません
+    // camera->SetCurrentCamera(); //< こちらは1つめのカメラの場合は必要ありません
 
     // フェードコンポーネント
     filter_fade_ = obj->AddComponent<ComponentFilterFade>();
@@ -46,7 +45,8 @@ bool SceneShader::Init() {
 //! 更新
 //! @param  [in]    delta   経過時間
 //---------------------------------------------------------------------------
-void SceneShader::Update() {
+void SceneShader::Update()
+{
     f32 delta = GetDeltaTime();
 
     // Y軸中心の回転
@@ -59,15 +59,16 @@ void SceneShader::Update() {
 //---------------------------------------------------------------------------
 //! 描画
 //---------------------------------------------------------------------------
-void SceneShader::Draw() {
+void SceneShader::Draw()
+{
     DrawFormatString(100, 50, GetColor(255, 255, 255), "ShaderDemo");
 
     //==========================================================
     // プリミティブの描画
     //==========================================================
 
-    SetDrawMode(DX_DRAWMODE_BILINEAR);    // テクスチャをバイリニア補間
-    SetTextureAddressMode(DX_TEXADDRESS_WRAP);    // テクスチャを繰り返し
+    SetDrawMode(DX_DRAWMODE_BILINEAR);           // テクスチャをバイリニア補間
+    SetTextureAddressMode(DX_TEXADDRESS_WRAP);   // テクスチャを繰り返し
 
     //----------------------------------------------------------
     // 床の描画
@@ -124,7 +125,7 @@ void SceneShader::Draw() {
         v[1].pos = {SIZE, 0.0f, 0.0f};
         v[2].pos = {0.0f, SIZE, 0.0f};
         v[3].pos = {SIZE, SIZE, 0.0f};
-        v[0].rhw = 1.0f;    // rhw = 1.0f 初期化は2D描画に必須
+        v[0].rhw = 1.0f;   // rhw = 1.0f 初期化は2D描画に必須
         v[1].rhw = 1.0f;
         v[2].rhw = 1.0f;
         v[3].rhw = 1.0f;
@@ -158,9 +159,13 @@ void SceneShader::Draw() {
 //---------------------------------------------------------------------------
 //! 終了
 //---------------------------------------------------------------------------
-void SceneShader::Exit() {}
+void SceneShader::Exit()
+{
+}
 
 //---------------------------------------------------------------------------
 //! GUI表示
 //---------------------------------------------------------------------------
-void SceneShader::GUI() {}
+void SceneShader::GUI()
+{
+}

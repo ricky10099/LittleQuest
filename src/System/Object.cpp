@@ -17,76 +17,77 @@
 #include <unordered_map>
 #include <string>
 
-namespace {
-    std::unordered_map<std::string, u64>
-        obj_names_id;    //!< 存在するオブジェクト名
-    std::unordered_map<std::string, u64>
-        obj_names_count;    //!< 存在するオブジェクト名
+namespace
+{
+std::unordered_map<std::string, u64> obj_names_id;      //!< 存在するオブジェクト名
+std::unordered_map<std::string, u64> obj_names_count;   //!< 存在するオブジェクト名
 
-    size_t obj_count = 0;
+size_t obj_count = 0;
 
-    std::vector<const char*> component_items = {
-        // 追加できるコンポーネントアイテムリスト
-        "Camera",               //< カメラ
-        "Collision Capsule",    //< カプセル(コリジョン)
-        "Collision Sphere",     //< スフィア(コリジョン)
-        "FilterFade",           //< フィルター
-        "Model",                //< モデル
-        "SpringArm",            //< スプリングアーム
-        "TargetTracking",       //< ターゲットトラッキング
-        "Transform",            //< トランスフォーム
-    };
-    int component_select_index = 0;
+std::vector<const char*> component_items = {
+    // 追加できるコンポーネントアイテムリスト
+    "Camera",              //< カメラ
+    "Collision Capsule",   //< カプセル(コリジョン)
+    "Collision Sphere",    //< スフィア(コリジョン)
+    "FilterFade",          //< フィルター
+    "Model",               //< モデル
+    "SpringArm",           //< スプリングアーム
+    "TargetTracking",      //< ターゲットトラッキング
+    "Transform",           //< トランスフォーム
+};
+int component_select_index = 0;
 
-    constexpr const char* const cap_item = "Component";
-    std::string sel_item                 = "";
+constexpr const char* const cap_item = "Component";
+std::string                 sel_item = "";
 
-    void CreateComponent(ObjectPtr obj) {
-        switch (component_select_index) {
-            case 0:
-                if (!obj->GetComponent<ComponentCamera>())
-                    obj->AddComponent<ComponentCamera>();
-                break;
-            case 1:
-                obj->AddComponent<ComponentCollisionCapsule>();
-                break;
-            case 2:
-                obj->AddComponent<ComponentCollisionSphere>();
-                break;
-            case 3:
-                if (!obj->GetComponent<ComponentFilterFade>())
-                    obj->AddComponent<ComponentFilterFade>();
-                break;
-            case 4:
-                if (!obj->GetComponent<ComponentModel>())
-                    obj->AddComponent<ComponentModel>();
-                break;
-            case 5:
-                if (!obj->GetComponent<ComponentSpringArm>())
-                    obj->AddComponent<ComponentSpringArm>();
-                break;
-            case 6:
-                if (!obj->GetComponent<ComponentTargetTracking>())
-                    obj->AddComponent<ComponentTargetTracking>();
-                break;
-            case 7:
-                if (!obj->GetComponent<ComponentTransform>())
-                    obj->AddComponent<ComponentTransform>();
-                break;
-        }
+void CreateComponent(ObjectPtr obj)
+{
+    switch(component_select_index) {
+    case 0:
+        if(!obj->GetComponent<ComponentCamera>())
+            obj->AddComponent<ComponentCamera>();
+        break;
+    case 1:
+        obj->AddComponent<ComponentCollisionCapsule>();
+        break;
+    case 2:
+        obj->AddComponent<ComponentCollisionSphere>();
+        break;
+    case 3:
+        if(!obj->GetComponent<ComponentFilterFade>())
+            obj->AddComponent<ComponentFilterFade>();
+        break;
+    case 4:
+        if(!obj->GetComponent<ComponentModel>())
+            obj->AddComponent<ComponentModel>();
+        break;
+    case 5:
+        if(!obj->GetComponent<ComponentSpringArm>())
+            obj->AddComponent<ComponentSpringArm>();
+        break;
+    case 6:
+        if(!obj->GetComponent<ComponentTargetTracking>())
+            obj->AddComponent<ComponentTargetTracking>();
+        break;
+    case 7:
+        if(!obj->GetComponent<ComponentTransform>())
+            obj->AddComponent<ComponentTransform>();
+        break;
     }
-}    // namespace
+}
+}   // namespace
 
 //! @brief 名前から、ユニークな名前を設定します
 //! @param name つけたい名前
 //! @return 通常はそのまま返しますが、同じ名前がある場合は違う名前に変更されます
-std::string Object::setUniqueName(const std::string& name) {
+std::string Object::setUniqueName(const std::string& name)
+{
     // 今の名前のものがほかにいないか?
     auto xname = std::string(GetNameDefault());
     auto xitr  = obj_names_count.find(xname);
-    if (xitr != obj_names_count.end()) {
+    if(xitr != obj_names_count.end()) {
         s64 count = --obj_names_count[xname];
-        if (count <= 0) {
+        if(count <= 0) {
             obj_names_count.erase(xname);
             obj_names_id.erase(xname);
         }
@@ -94,7 +95,7 @@ std::string Object::setUniqueName(const std::string& name) {
 
     auto itr = obj_names_id.find(name);
 
-    if (itr != obj_names_id.end()) {
+    if(itr != obj_names_id.end()) {
         // 登録済なら連番で別名をつける
         auto str = name + "_" + std::to_string(obj_names_id[name]);
         obj_names_id[name]++;
@@ -107,25 +108,28 @@ std::string Object::setUniqueName(const std::string& name) {
     return name;
 }
 
-Object::Object() {
+Object::Object()
+{
     SetName("object", true);
     obj_count++;
     SetStatus(StatusBit::Alive, true);
 }
 
-Object::~Object() {
+Object::~Object()
+{
     obj_count--;
 
     std::string str = "~Object:" + std::string(GetName()) + "\n";
     OutputDebugString(str.c_str());
 
     // すでにシーンが終了している?
-    if (obj_names_count.empty()) return;
+    if(obj_names_count.empty())
+        return;
 
     // この名前のものがほかにいないか?
-    auto name = std::string(GetNameDefault());
-    u64 count = --obj_names_count[name];
-    if (count == 0) {
+    auto name  = std::string(GetNameDefault());
+    u64  count = --obj_names_count[name];
+    if(count == 0) {
         obj_names_count.erase(name);
         obj_names_id.erase(name);
     }
@@ -134,7 +138,8 @@ Object::~Object() {
 //! @brief 初期化処理
 //! @retval true : 初期化が終わっている
 //! @retval false : 初期化未完了(別スレッドロードなどで)
-bool Object::Init() {
+bool Object::Init()
+{
     SetStatus(StatusBit::ShowGUI, true);
     SetStatus(StatusBit::Initialized, true);
     SetStatus(StatusBit::Serialized, false);
@@ -143,30 +148,40 @@ bool Object::Init() {
 
 //! @brief 更新
 //! @param delta 更新秒数
-void Object::Update() {}
+void Object::Update()
+{
+}
 
 //! @brief 遅い更新
 //! @param delta 更新秒数
-void Object::LateUpdate() {}
+void Object::LateUpdate()
+{
+}
 
 //! @brief 描画
-void Object::Draw() {}
+void Object::Draw()
+{
+}
 
 //! @brief 描画
-void Object::LateDraw() {}
+void Object::LateDraw()
+{
+}
 
 //! @brief 終了
-void Object::Exit() {
+void Object::Exit()
+{
     SetStatus(Object::StatusBit::Exited, true);
 }
 
 //! @brief GUI処理
-void Object::GUI() {
+void Object::GUI()
+{
     // GUI処理
     ImGui::Begin(name_.c_str());
     {
         //　シーンで選択されている場合はフォーカスする
-        if (Scene::SelectObjectWindow(shared_from_this()))
+        if(Scene::SelectObjectWindow(shared_from_this()))
             ImGui::SetKeyboardFocusHere(-1);
 
         // 使用しているコンポーネント数
@@ -174,43 +189,42 @@ void Object::GUI() {
 
         char name[256];
         sprintf_s(name, "%s", name_.c_str());
-        if (ImGui::InputText(u8"名前", name, 256,
-                             ImGuiInputTextFlags_EnterReturnsTrue)) {
+        if(ImGui::InputText(u8"名前", name, 256, ImGuiInputTextFlags_EnterReturnsTrue)) {
             name_default_ = name;
             name_         = setUniqueName(name);
         }
-        if (ImGui::Button(u8"Save")) {
+        if(ImGui::Button(u8"Save")) {
             Save(name);
         }
         ImGui::SameLine();
-        if (ImGui::Button(u8"Load")) {
+        if(ImGui::Button(u8"Load")) {
             Load(name);
         }
 
         //------------------------------------------
         // 登録されているComponentを列挙する
         //------------------------------------------
-        auto& component = Component::TypeInfo;
+        auto&                                 component      = Component::TypeInfo;
         static ClassComponentType<Component>* component_type = nullptr;
 
-        if (ImGui::BeginCombo(cap_item, sel_item.data())) {
-            for (auto* p = component.child(); p; p = p->siblings()) {
+        if(ImGui::BeginCombo(cap_item, sel_item.data())) {
+            for(auto* p = component.child(); p; p = p->siblings()) {
                 // 表示文字列
-                std::string object_name =
-                    std::string(p->className()) + " - " + p->descName();
+                std::string object_name = std::string(p->className()) + " - " + p->descName();
 
                 bool is_selected = (sel_item == object_name);
-                if (ImGui::Selectable(object_name.data(), is_selected)) {
+                if(ImGui::Selectable(object_name.data(), is_selected)) {
                     sel_item       = object_name;
                     component_type = (ClassComponentType<Component>*)p;
                 }
-                if (is_selected) ImGui::SetItemDefaultFocus();
+                if(is_selected)
+                    ImGui::SetItemDefaultFocus();
             }
             ImGui::EndCombo();
         }
 #if 1
-        if (ImGui::Button("AddComponent")) {
-            if (component_type)
+        if(ImGui::Button("AddComponent")) {
+            if(component_type)
                 component_type->createComponentPtr(SharedThis());
         }
 #endif
@@ -224,15 +238,15 @@ void Object::GUI() {
 		}
 #endif
         // 状態制御
-        if (ImGui::TreeNode(u8"状態(Status)")) {
+        if(ImGui::TreeNode(u8"状態(Status)")) {
             // Updateしない
             bool noUpdate = GetStatus(StatusBit::NoUpdate);
             // Drawしない
-            bool noDraw   = GetStatus(StatusBit::NoDraw);
+            bool noDraw = GetStatus(StatusBit::NoDraw);
             // Pauseしない
             bool disPause = GetStatus(StatusBit::DisablePause);
             // ポーズ中(ゲームポーズとは別)
-            bool isPause  = GetStatus(StatusBit::IsPause);
+            bool isPause = GetStatus(StatusBit::IsPause);
 
             ImGui::Checkbox(u8"更新OFF", &noUpdate);
             ImGui::Checkbox(u8"描画OFF", &noDraw);
@@ -247,7 +261,7 @@ void Object::GUI() {
             ImGui::Separator();
             ImGui::TreePop();
         }
-        if (!GetComponent<ComponentSequencer>())
+        if(!GetComponent<ComponentSequencer>())
             Scene::SetGUIObjectDetailSize();
     }
     ImGui::End();
@@ -256,29 +270,36 @@ void Object::GUI() {
 }
 
 //! @brief 更新前処理
-void Object::PreUpdate() {
+void Object::PreUpdate()
+{
     //初期配置されていない場合はワープさせる
-    if (!GetStatus(StatusBit::Located)) {
+    if(!GetStatus(StatusBit::Located)) {
         UseWarp();
     }
 }
 
 //! @brief 更新後処理
-void Object::PostUpdate() {
+void Object::PostUpdate()
+{
     SetStatus(StatusBit::Located, true);
 }
 
 //! @brief 描画前処理
-void Object::PreDraw() {}
+void Object::PreDraw()
+{
+}
 
 //! @brief 描画後処理
-void Object::PostDraw() {}
+void Object::PostDraw()
+{
+}
 
 //! @brief 物理シミュレーション前処理
-void Object::PrePhysics() {
+void Object::PrePhysics()
+{
 #ifdef USE_JOLT_PHYSICS
 #else
-    if (GetComponent<ComponentTransform>()) {
+    if(GetComponent<ComponentTransform>()) {
         float3 g = gravity_;
         Matrix()._41_42_43 += gravity_;
         gravity_ = 0.0f;
@@ -287,70 +308,79 @@ void Object::PrePhysics() {
 }
 
 //! シリアライズでもどらないユーザー処理関数などを設定
-void Object::InitSerialize() {
+void Object::InitSerialize()
+{
     SetStatus(StatusBit::Serialized, true);
 }
 
-void Object::UseWarp() {
-    if (auto trns = GetComponent<ComponentTransform>()) trns->PostUpdate();
+void Object::UseWarp()
+{
+    if(auto trns = GetComponent<ComponentTransform>())
+        trns->PostUpdate();
 }
 
-void Object::RegisterCurrentScene(ObjectPtr obj) {
+void Object::RegisterCurrentScene(ObjectPtr obj)
+{
     Scene::GetCurrentScene()->PreRegister(obj);
 
     obj->AddComponent<ComponentTransform>();
 
     bool ret = obj->Init();
-    if (ret) {
-        assert("継承先のInit()にて__super::Init()を入れてください."
-               && obj->GetStatus(Object::StatusBit::Initialized));
+    if(ret) {
+        assert("継承先のInit()にて__super::Init()を入れてください." && obj->GetStatus(Object::StatusBit::Initialized));
     }
 }
 
 //! @brief ステータスの設定
 //! @param b セットするビット
 //! @param on 状態
-void Object::SetStatus(StatusBit b, bool on) {
+void Object::SetStatus(StatusBit b, bool on)
+{
     on ? status_.on(b) : status_.off(b);
 }
 
 //! @brief ステータス取得
 //! @param b 取得するビット
 //! @return 状態
-bool Object::GetStatus(StatusBit b) {
+bool Object::GetStatus(StatusBit b)
+{
     return status_.is(b);
 }
 
 //! @brief 名前の取得
 //! @return 名前(string_view)
-std::string_view Object::GetName() const {
+std::string_view Object::GetName() const
+{
     return name_;
 }
 
 //! @brief 番号なしの名前の取得 (オブジェクトを消す際に使える)
 //! @return 名前(string_view)
-std::string_view Object::GetNameDefault() const {
+std::string_view Object::GetNameDefault() const
+{
     return name_default_;
 }
 
 //! @brief 実際にObject newされ、deleteしてない数
 //! @return 存在するObject
-size_t Object::ExistObjectCount() {
+size_t Object::ExistObjectCount()
+{
     return obj_count;
 }
 
 //! @brief コンポーネントの削除チェック
-void Object::ModifyComponents() {
+void Object::ModifyComponents()
+{
     auto& components = GetComponents();
-    for (int i = (int)components.size() - 1; i >= 0; --i) {
+    for(int i = (int)components.size() - 1; i >= 0; --i) {
         auto& c = components[i];
-        if (c->status_.is(Component::StatusBit::Exited)) {
+        if(c->status_.is(Component::StatusBit::Exited)) {
             auto comp = components.begin() + i;
 
             ComponentWeakPtr weak_comp = *comp;
-            components.erase(comp);    //解放処理(自動delete)
+            components.erase(comp);   //解放処理(自動delete)
 
-            if (weak_comp.lock() != nullptr) {
+            if(weak_comp.lock() != nullptr) {
                 // どこかに残っているので一旦確保
                 leak_components_.push_back(weak_comp);
             }
@@ -360,11 +390,12 @@ void Object::ModifyComponents() {
 
 //! コンポーネント削除
 //! @param [in] component 削除するコンポーネント
-void Object::RemoveComponent(ComponentPtr component) {
-    for (int i = (int)components_.size() - 1; i >= 0; --i) {
+void Object::RemoveComponent(ComponentPtr component)
+{
+    for(int i = (int)components_.size() - 1; i >= 0; --i) {
         auto& c = components_[i];
 
-        if (c == component) {
+        if(c == component) {
             c->Exit();
             break;
         }
@@ -372,28 +403,32 @@ void Object::RemoveComponent(ComponentPtr component) {
 }
 
 //! @brief コンポーネントをすべて削除する
-void Object::RemoveAllComponents() {
-    for (int i = (int)components_.size() - 1; i >= 0; --i) {
+void Object::RemoveAllComponents()
+{
+    for(int i = (int)components_.size() - 1; i >= 0; --i) {
         auto& c = components_[i];
         c->Exit();
-        assert("__super::Exit() を継承先の Exit()　にて使用してください."
-               && c->status_.is(Component::StatusBit::Exited));
+        assert("__super::Exit() を継承先の Exit()　にて使用してください." &&
+               c->status_.is(Component::StatusBit::Exited));
     }
 }
 
-void Object::RemoveAllProcesses() {
-    for (auto& t : proc_timings_) {
+void Object::RemoveAllProcesses()
+{
+    for(auto& t : proc_timings_) {
         auto& p = t.second;
-        if (p.connect_.valid()) p.connect_.disconnect();
+        if(p.connect_.valid())
+            p.connect_.disconnect();
 
         p.proc_ = nullptr;
     }
     proc_timings_.clear();
 
-    for (auto& cmp : this->components_) {
-        for (auto& t : cmp->proc_timings_) {
+    for(auto& cmp : this->components_) {
+        for(auto& t : cmp->proc_timings_) {
             auto& p = t.second;
-            if (p.connect_.valid()) p.connect_.disconnect();
+            if(p.connect_.valid())
+                p.connect_.disconnect();
 
             p.proc_ = nullptr;
         }
@@ -403,7 +438,8 @@ void Object::RemoveAllProcesses() {
 
 //! @brief   使用している名前リストを消去する
 //! @details ステージ移行などでオブジェクトが消去されたときに呼ぶ
-void Object::ClearObjectNames() {
+void Object::ClearObjectNames()
+{
     obj_names_id.clear();
     obj_names_count.clear();
 }
@@ -416,7 +452,8 @@ void Object::ClearObjectNames() {
 
 //! @brief TransformのMatrix情報を取得します
 //! @return ComponentTransform の Matrix
-matrix& Object::Matrix() {
+matrix& Object::Matrix()
+{
     auto cmp = GetComponent<ComponentTransform>();
 
     assert(cmp && "このオブジェクトは、ComponentTransformが存在していません。位置移動はできません");
@@ -424,7 +461,8 @@ matrix& Object::Matrix() {
     return cmp->Matrix();
 }
 
-const matrix& Object::GetMatrix() const {
+const matrix& Object::GetMatrix() const
+{
     auto cmp = GetComponent<ComponentTransform>();
 
     assert(cmp && "このオブジェクトは、ComponentTransformが存在していません。位置移動はできません");
@@ -434,7 +472,8 @@ const matrix& Object::GetMatrix() const {
 
 //! @brief ワールドMatrixの取得
 //! @return 他のコンポーネントも含めた位置
-const matrix Object::GetOldWorldMatrix() const {
+const matrix Object::GetOldWorldMatrix() const
+{
     auto cmp = GetComponent<ComponentTransform>();
 
     assert(cmp && "このオブジェクトは、ComponentTransformが存在していません。位置移動はできません");
@@ -442,17 +481,30 @@ const matrix Object::GetOldWorldMatrix() const {
     return cmp->GetOldWorldMatrix();
 }
 
-int Object::GetVersion() {
+//! @brief ワールドMatrixの設定
+
+void Object::SetWorldMatrix(const matrix& mat)
+{
+    if(auto cmp = GetComponent<ComponentTransform>()) {
+        cmp->SetWorldMatrix(mat);
+    }
+}
+
+int Object::GetVersion()
+{
     return cereal::detail::Version<Object>::version;
 }
 
-bool Object::Save(std::string_view filename) {
+bool Object::Save(std::string_view filename)
+{
     std::string name = std::string(filename);
-    if (filename.empty()) name = GetName();
+    if(filename.empty())
+        name = GetName();
 
     HelperLib::File::CreateFolder(".\\data\\_save\\object");
     std::ofstream file(".\\data\\_save\\object\\" + name + ".txt");
-    if (!file) return false;
+    if(!file)
+        return false;
 
     // 存在するオブジェクトをセーブする
     {
@@ -466,16 +518,20 @@ bool Object::Save(std::string_view filename) {
     return true;
 }
 
-bool Object::Load(std::string_view filename) {
+bool Object::Load(std::string_view filename)
+{
     std::string name = std::string(filename);
-    if (filename.empty()) name = GetName();
+    if(filename.empty())
+        name = GetName();
 
     // 正規のデータがあれば先に読み込みをおこなう
     std::ifstream file(".\\data\\Load\\object\\" + name + ".txt");
 
-    if (!file.is_open()) file.open(".\\data\\_save\\object\\" + name + ".txt");
+    if(!file.is_open())
+        file.open(".\\data\\_save\\object\\" + name + ".txt");
 
-    if (!file) return false;
+    if(!file)
+        return false;
 
     // 存在するオブジェクトをセーブする
     {
@@ -511,14 +567,12 @@ bool Object::Load(std::string_view filename) {
 //! @code
 //! 　
 //!     auto obj = Scene::CreateObjectPtr<Object>();
-//!     auto item = Scene::CreateObjectPtr<Item>();    //<
-//!     ItemはObjectから継承したクラス
+//!     auto item = Scene::CreateObjectPtr<Item>();    //< ItemはObjectから継承したクラス
 //!
 //!     // 名前を変えることも可能です。(GUI上でも名前が変わります)
 //!     item->SetName("WhiteItem");
 //!
-//!     Scene::CreateObjectPtr<Player>()->SetName("RedPlayer"); //<
-//!     変数に捉えない場合。取得方法にて取得する。
+//!     Scene::CreateObjectPtr<Player>()->SetName("RedPlayer"); //< 変数に捉えない場合。取得方法にて取得する。
 //! 　
 //! @endcode
 //!
@@ -526,11 +580,9 @@ bool Object::Load(std::string_view filename) {
 //! @code
 //! 　
 //!     // 存在しているPlayerのオブジェクトを取得します
-//!     auto player = Scene::GetObjectPtr<Player>();   //<
-//!     Playerクラスが一つしかない場合はこれでOK
+//!     auto player = Scene::GetObjectPtr<Player>();   //< Playerクラスが一つしかない場合はこれでOK
 //!
-//!     auto red_player = Scene::GetObjectPtr<Player>("RedPlayer");   //<
-//!     複数の時は名前も指定しないと別のものが取れる可能性がある
+//!     auto red_player = Scene::GetObjectPtr<Player>("RedPlayer");   //< 複数の時は名前も指定しないと別のものが取れる可能性がある
 //! 　
 //! @endcode
 //!
@@ -539,8 +591,7 @@ bool Object::Load(std::string_view filename) {
 //! 　
 //!     // 存在しているオブジェクトを削除します
 //!
-//!     Scene::ReleaseObject<Player>();   //<
-//!     Playerクラスが一つしかない場合はこれでOK
+//!     Scene::ReleaseObject<Player>();   //< Playerクラスが一つしかない場合はこれでOK
 //! 　
 //!		Scene::ReleaseObject("RedPlayer"); //< 名前指定で削除する場合
 //!
@@ -554,15 +605,12 @@ bool Object::Load(std::string_view filename) {
 //! public:
 //!     bool Init() override
 //!     {
-//!         __super::Init();    //<
-//!         Object内でInitが必要なものを定義します※忘れるとASSERTが出ます
+//!         __super::Init();    //< Object内でInitが必要なものを定義します※忘れるとASSERTが出ます
 //!
 //!         // 処理化処理をかく
 //!
-//!         return true;        //< 初期化が終了したら trueで返してください
-//!         (※現状機能不完全)
-//!                             //
-//!                             falseの場合は、もう一度Init()が呼ばれます。(ロード完了で次へ進むなどの場合を想定しています)
+//!         return true;        //< 初期化が終了したら trueで返してください (※現状機能不完全)
+//!                             //  falseの場合は、もう一度Init()が呼ばれます。(ロード完了で次へ進むなどの場合を想定しています)
 //!     }
 //!
 //!     void Update() override
@@ -577,8 +625,7 @@ bool Object::Load(std::string_view filename) {
 //!
 //!     void Exit() override
 //!     {
-//!         __super::Exit();    //<
-//!         Object内でExitの終了も呼びます　※忘れるとASSERTが出ます
+//!         __super::Exit();    //< Object内でExitの終了も呼びます　※忘れるとASSERTが出ます
 //!         // 終了処理を行う
 //!     }
 //!

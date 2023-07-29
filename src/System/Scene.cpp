@@ -6,7 +6,7 @@
 #include <System/Component/ComponentCollision.h>
 #include <System/Component/ComponentSequencer.h>
 #include <System/Debug/DebugCamera.h>
-#include <System/SystemMain.h>    // ResetDeltaTime
+#include <System/SystemMain.h>   // ResetDeltaTime
 
 #include <algorithm>
 
@@ -15,45 +15,52 @@
 //=============================================================
 BP_BASE_IMPL_ABSOLUTE(Scene::Base, u8"シーン基底");
 
-namespace {
+namespace
+{
 #ifdef _DEBUG
-    bool scene_edit = true;    //!< エディター状態
+bool scene_edit = true;   //!< エディター状態
 #else
-    bool scene_edit = false;    //!< エディター状態
+bool scene_edit = false;   //!< エディター状態
 #endif
-    bool scene_pause    = false;    //!< ポーズ中
-    bool scene_step     = false;    //!< 1フレームスキップ
-    float scene_time    = 0.0f;     //!< タイマー
-    float scene_overlap = 0.0f;    //!< シーン切り替えオーバーラップ
+bool  scene_pause   = false;   //!< ポーズ中
+bool  scene_step    = false;   //!< 1フレームスキップ
+float scene_time    = 0.0f;    //!< タイマー
+float scene_overlap = 0.0f;    //!< シーン切り替えオーバーラップ
 
-    bool scene_change_next = false;    //!< 次のシーンへ移行する
+bool scene_change_next = false;   //!< 次のシーンへ移行する
 
-    int select_object_index = 0;    //!< GUIでセレクトされているオブジェクト
-    std::weak_ptr<Object> selectObject;
+int                   select_object_index = 0;   //!< GUIでセレクトされているオブジェクト
+std::weak_ptr<Object> selectObject;
 
-    constexpr const char* const cap_item = "Object";
-    std::string sel_item                 = "";
+constexpr const char* const cap_item = "Object";
+std::string                 sel_item = "";
 
-    std::string debug_scene_name;
+std::string debug_scene_name;
 
-    // auto BindObjectUpdate( ProcTiming proc, ObjectPtr obj )
-    auto BindObject(ProcTiming proc, ObjectPtr obj) {
-        using ObjectType = void (Object::*)();
+//auto BindObjectUpdate( ProcTiming proc, ObjectPtr obj )
+auto BindObject(ProcTiming proc, ObjectPtr obj)
+{
+    using ObjectType = void (Object::*)();
 
-        ObjectType func_table[] = {
-            &Object::PreUpdate,  &Object::Update,     &Object::LateUpdate,
-            &Object::PrePhysics, &Object::PostUpdate, &Object::PreDraw,
-            &Object::Draw,       &Object::LateDraw,   &Object::PostDraw,
-        };
+    ObjectType func_table[] = {
+        &Object::PreUpdate,
+        &Object::Update,
+        &Object::LateUpdate,
+        &Object::PrePhysics,
+        &Object::PostUpdate,
+        &Object::PreDraw,
+        &Object::Draw,
+        &Object::LateDraw,
+        &Object::PostDraw,
+    };
 
-        assert(static_cast<u32>(proc) < static_cast<u32>(ProcTiming::NUM));
+    assert(static_cast<u32>(proc) < static_cast<u32>(ProcTiming::NUM));
 
-        return std::bind(func_table[static_cast<int>(proc)], obj.get());
+    return std::bind(func_table[static_cast<int>(proc)], obj.get());
 
-        // assert( !"処理がBindできません" );
-        // return std::bind( &Object::Update, obj.get(), std::placeholders::_1
-        // );
-    }
+    //assert( !"処理がBindできません" );
+    //return std::bind( &Object::Update, obj.get(), std::placeholders::_1 );
+}
 #if 0
 	auto BindObjectProc( ProcTiming proc, ObjectPtr obj )
 	{
@@ -73,7 +80,7 @@ namespace {
 		if( ProcTiming::PrePhysics == proc )
 			return std::bind( &Object::PrePhysics, obj.get() );
 
-    #if 0
+#if 0
 		if ( ProcTiming::Shadow == proc )
 			return std::bind( &Object::Shadow, obj.get() );
 		if ( ProcTiming::Gbuffer == proc )
@@ -82,15 +89,16 @@ namespace {
 			return std::bind( &Object::Light, obj.get() );
 		if ( ProcTiming::HDR == proc )
 			return std::bind( &Object::HDR, obj.get() );
-    #endif
+#endif
 		// ない場合は一旦Drawで
 		assert( !"処理がBindできません" );
 		return std::bind( &Object::Draw, obj.get() );
 	}
 #endif
 
-    // auto BindComponentUpdate( ProcTiming proc, ComponentPtr cmp )
-    auto BindComponent(ProcTiming proc, ComponentPtr cmp) {
+//auto BindComponentUpdate( ProcTiming proc, ComponentPtr cmp )
+auto BindComponent(ProcTiming proc, ComponentPtr cmp)
+{
 #if 0
     if(ProcTiming::PreUpdate == proc)
         return std::bind(&Component::PreUpdate, cmp.get(), std::placeholders::_1);
@@ -112,7 +120,7 @@ namespace {
     if(ProcTiming::PostDraw == proc)
         return std::bind(&Component::PostDraw, cmp.get(), std::placeholders::_1);
 
-    #if 0
+#if 0
 		if ( ProcTiming::Shadow == proc )
 			return std::bind( &Object::Shadow, cmp.get(), std::placeholders::_1 );
 		if ( ProcTiming::Gbuffer == proc )
@@ -121,25 +129,29 @@ namespace {
 			return std::bind( &Object::Light, cmp.get(), std::placeholders::_1 );
 		if ( ProcTiming::HDR == proc )
 			return std::bind( &Object::HDR, cmp.get(), std::placeholders::_1 );
-    #endif
+#endif
 
     assert(!"処理がBindできません");
     return std::bind(&Component::Update, cmp.get(), std::placeholders::_1);
 #endif
-        using ComponentType = void (Component::*)();
+    using ComponentType = void (Component::*)();
 
-        ComponentType func_table[] = {
-            &Component::PreUpdate,  &Component::Update,
-            &Component::LateUpdate, &Component::PrePhysics,
-            &Component::PostUpdate, &Component::PreDraw,
-            &Component::Draw,       &Component::LateDraw,
-            &Component::PostDraw,
-        };
+    ComponentType func_table[] = {
+        &Component::PreUpdate,
+        &Component::Update,
+        &Component::LateUpdate,
+        &Component::PrePhysics,
+        &Component::PostUpdate,
+        &Component::PreDraw,
+        &Component::Draw,
+        &Component::LateDraw,
+        &Component::PostDraw,
+    };
 
-        assert(static_cast<u32>(proc) < static_cast<u32>(ProcTiming::NUM));
+    assert(static_cast<u32>(proc) < static_cast<u32>(ProcTiming::NUM));
 
-        return std::bind(func_table[static_cast<int>(proc)], cmp.get());
-    }
+    return std::bind(func_table[static_cast<int>(proc)], cmp.get());
+}
 #if 0
 	auto BindComponentProc( ProcTiming proc, ComponentPtr cmp )
 	{
@@ -159,7 +171,7 @@ namespace {
 		if( ProcTiming::PrePhysics == proc )
 			return std::bind( &Component::PrePhysics, cmp.get() );
 
-    #if 0
+#if 0
 		if ( ProcTiming::Shadow == proc )
 			return std::bind( &Object::Shadow, cmp.get() );
 		if ( ProcTiming::Gbuffer == proc )
@@ -168,33 +180,36 @@ namespace {
 			return std::bind( &Object::Light, cmp.get() );
 		if ( ProcTiming::HDR == proc )
 			return std::bind( &Object::HDR, cmp.get() );
-    #endif
+#endif
 		// ない場合は一旦Drawで
 		assert( !"処理がBindできません" );
 		return std::bind( &Component::Draw, cmp.get() );
 	}
 #endif
 
-    ObjectWeakPtrVec leak_objs;
+ObjectWeakPtrVec leak_objs;
 
-}    // namespace
+}   // namespace
 
-Scene::BasePtr Scene::current_scene_ = nullptr;    //!< 現在のシーン
-Scene::BasePtr Scene::next_scene_    = nullptr;    //!< 変更シーン
-Scene::BasePtrMap Scene::scenes_     = {};         //!< 存在する全シーン
-Status<Scene::EditorStatusBit> Scene::editor_status_;    //!< シーン状態
-float2 Scene::inspector_size{300, 300};
-float2 Scene::object_detail_size{300, 452};
+Scene::BasePtr                 Scene::current_scene_ = nullptr;   //!< 現在のシーン
+Scene::BasePtr                 Scene::next_scene_    = nullptr;   //!< 変更シーン
+Scene::BasePtrMap              Scene::scenes_        = {};        //!< 存在する全シーン
+Status<Scene::EditorStatusBit> Scene::editor_status_;             //!< シーン状態
+float2                         Scene::inspector_size{300, 300};
+float2                         Scene::object_detail_size{300, 452};
 
 //=============================================================
 // シーンクラス処理
 //=============================================================
 
 //! 初期化処理
-Scene::Base::Base() {}
+Scene::Base::Base()
+{
+}
 
 //! 終了処理
-Scene::Base::~Base() {
+Scene::Base::~Base()
+{
     UnregisterAll();
 }
 
@@ -202,8 +217,8 @@ Scene::Base::~Base() {
 //! @param obj 優先を変更したいオブジェクト
 //! @param timing 固定処理
 //! @param priority 設定する優先
-void Scene::Base::SetPriority(ObjectPtr obj, ProcTiming timing,
-                              Priority priority) {
+void Scene::Base::SetPriority(ObjectPtr obj, ProcTiming timing, Priority priority)
+{
     // 以前いるプライオリティから削除し、
     // 設定したい優先に設定する
     auto& proc     = obj->GetProc(GetProcTimingName(timing), timing);
@@ -218,8 +233,8 @@ void Scene::Base::SetPriority(ObjectPtr obj, ProcTiming timing,
 //!	@param component 優先を変更したいコンポーネント
 //!	@param timing 固定処理
 //!	@param priority 設定する優先
-void Scene::Base::SetPriority(ComponentPtr component, ProcTiming timing,
-                              Priority priority) {
+void Scene::Base::SetPriority(ComponentPtr component, ProcTiming timing, Priority priority)
+{
     constexpr int prio_component_offset = 10;
     // 以前いるプライオリティから削除し、
     // 設定したい優先に設定する
@@ -231,32 +246,34 @@ void Scene::Base::SetPriority(ComponentPtr component, ProcTiming timing,
     setProc(component, proc);
 }
 
-void Scene::Base::PreRegister(ObjectPtr obj, Priority update, Priority draw) {
+void Scene::Base::PreRegister(ObjectPtr obj, Priority update, Priority draw)
+{
     {
         auto itr = std::find(pre_objects_.begin(), pre_objects_.end(), obj);
         // すでに存在している?
-        if (itr != pre_objects_.end()) return;
+        if(itr != pre_objects_.end())
+            return;
     }
     {
         auto itr = std::find(objects_.begin(), objects_.end(), obj);
         // すでに存在している?
-        if (itr != objects_.end()) return;
+        if(itr != objects_.end())
+            return;
     }
 
     // 処理を追加
-    auto& proc_update =
-        obj->GetProc(GetProcTimingName(ProcTiming::Update), ProcTiming::Update);
+    auto& proc_update     = obj->GetProc(GetProcTimingName(ProcTiming::Update), ProcTiming::Update);
     proc_update.priority_ = update;
-    auto& proc_draw =
-        obj->GetProc(GetProcTimingName(ProcTiming::Draw), ProcTiming::Draw);
-    proc_draw.priority_ = draw;
+    auto& proc_draw       = obj->GetProc(GetProcTimingName(ProcTiming::Draw), ProcTiming::Draw);
+    proc_draw.priority_   = draw;
 
     pre_objects_.push_back(obj);
 }
 
-void Scene::Base::Register(ObjectPtr obj, Priority update, Priority draw) {
+void Scene::Base::Register(ObjectPtr obj, Priority update, Priority draw)
+{
     auto itr = std::find(objects_.begin(), objects_.end(), obj);
-    if (itr != objects_.end()) {
+    if(itr != objects_.end()) {
         // すでに存在している
         return;
     }
@@ -264,72 +281,63 @@ void Scene::Base::Register(ObjectPtr obj, Priority update, Priority draw) {
     // 処理を追加
     objects_.push_back(obj);
 
-    auto& proc_preupdate = obj->GetProc(
-        GetProcTimingName(ProcTiming::PreUpdate), ProcTiming::PreUpdate);
+    auto& proc_preupdate     = obj->GetProc(GetProcTimingName(ProcTiming::PreUpdate), ProcTiming::PreUpdate);
     proc_preupdate.timing_   = ProcTiming::PreUpdate;
     proc_preupdate.priority_ = update;
     proc_preupdate.proc_     = BindObject(ProcTiming::PreUpdate, obj);
     proc_preupdate.dirty_    = false;
     setProc(obj, proc_preupdate);
 
-    auto& proc_update =
-        obj->GetProc(GetProcTimingName(ProcTiming::Update), ProcTiming::Update);
+    auto& proc_update     = obj->GetProc(GetProcTimingName(ProcTiming::Update), ProcTiming::Update);
     proc_update.timing_   = ProcTiming::Update;
     proc_update.priority_ = update;
     proc_update.proc_     = BindObject(ProcTiming::Update, obj);
     proc_update.dirty_    = false;
     setProc(obj, proc_update);
 
-    auto& proc_late_update = obj->GetProc(
-        GetProcTimingName(ProcTiming::LateUpdate), ProcTiming::LateUpdate);
+    auto& proc_late_update     = obj->GetProc(GetProcTimingName(ProcTiming::LateUpdate), ProcTiming::LateUpdate);
     proc_late_update.timing_   = ProcTiming::LateUpdate;
     proc_late_update.priority_ = update;
     proc_late_update.proc_     = BindObject(ProcTiming::LateUpdate, obj);
     proc_late_update.dirty_    = false;
     setProc(obj, proc_late_update);
 
-    auto& proc_pre_physics = obj->GetProc(
-        GetProcTimingName(ProcTiming::PrePhysics), ProcTiming::PrePhysics);
+    auto& proc_pre_physics     = obj->GetProc(GetProcTimingName(ProcTiming::PrePhysics), ProcTiming::PrePhysics);
     proc_pre_physics.timing_   = ProcTiming::PrePhysics;
     proc_pre_physics.priority_ = update;
     proc_pre_physics.proc_     = BindObject(ProcTiming::PrePhysics, obj);
     proc_pre_physics.dirty_    = false;
     setProc(obj, proc_pre_physics);
 
-    auto& proc_postupdate = obj->GetProc(
-        GetProcTimingName(ProcTiming::PostUpdate), ProcTiming::PostUpdate);
+    auto& proc_postupdate     = obj->GetProc(GetProcTimingName(ProcTiming::PostUpdate), ProcTiming::PostUpdate);
     proc_postupdate.timing_   = ProcTiming::PostUpdate;
     proc_postupdate.priority_ = update;
     proc_postupdate.proc_     = BindObject(ProcTiming::PostUpdate, obj);
     proc_postupdate.dirty_    = false;
     setProc(obj, proc_postupdate);
 
-    auto& proc_predraw   = obj->GetProc(GetProcTimingName(ProcTiming::PreDraw),
-                                        ProcTiming::PreDraw);
-    proc_predraw.timing_ = ProcTiming::PreDraw;
+    auto& proc_predraw     = obj->GetProc(GetProcTimingName(ProcTiming::PreDraw), ProcTiming::PreDraw);
+    proc_predraw.timing_   = ProcTiming::PreDraw;
     proc_predraw.priority_ = draw;
     proc_predraw.proc_     = BindObject(ProcTiming::PreDraw, obj);
     proc_predraw.dirty_    = false;
     setProc(obj, proc_predraw);
 
-    auto& proc_draw =
-        obj->GetProc(GetProcTimingName(ProcTiming::Draw), ProcTiming::Draw);
+    auto& proc_draw     = obj->GetProc(GetProcTimingName(ProcTiming::Draw), ProcTiming::Draw);
     proc_draw.timing_   = ProcTiming::Draw;
     proc_draw.priority_ = draw;
     proc_draw.proc_     = BindObject(ProcTiming::Draw, obj);
     proc_draw.dirty_    = false;
     setProc(obj, proc_draw);
 
-    auto& proc_latedraw = obj->GetProc(GetProcTimingName(ProcTiming::LateDraw),
-                                       ProcTiming::LateDraw);
+    auto& proc_latedraw     = obj->GetProc(GetProcTimingName(ProcTiming::LateDraw), ProcTiming::LateDraw);
     proc_latedraw.timing_   = ProcTiming::LateDraw;
     proc_latedraw.priority_ = draw;
     proc_latedraw.proc_     = BindObject(ProcTiming::LateDraw, obj);
     proc_latedraw.dirty_    = false;
     setProc(obj, proc_latedraw);
 
-    auto& proc_postdraw = obj->GetProc(GetProcTimingName(ProcTiming::PostDraw),
-                                       ProcTiming::PostDraw);
+    auto& proc_postdraw     = obj->GetProc(GetProcTimingName(ProcTiming::PostDraw), ProcTiming::PostDraw);
     proc_postdraw.timing_   = ProcTiming::PostDraw;
     proc_postdraw.priority_ = draw;
     proc_postdraw.proc_     = BindObject(ProcTiming::PostDraw, obj);
@@ -337,9 +345,10 @@ void Scene::Base::Register(ObjectPtr obj, Priority update, Priority draw) {
     setProc(obj, proc_postdraw);
 }
 
-void Scene::Base::RegisterForLoad(ObjectPtr obj) {
+void Scene::Base::RegisterForLoad(ObjectPtr obj)
+{
     auto itr = std::find(objects_.begin(), objects_.end(), obj);
-    if (itr != objects_.end()) {
+    if(itr != objects_.end()) {
         // すでに存在している
         return;
     }
@@ -347,44 +356,36 @@ void Scene::Base::RegisterForLoad(ObjectPtr obj) {
     // 処理を追加
     objects_.push_back(obj);
 
-    auto& proc_preupdate = obj->GetProc(
-        GetProcTimingName(ProcTiming::PreUpdate), ProcTiming::PreUpdate);
+    auto& proc_preupdate  = obj->GetProc(GetProcTimingName(ProcTiming::PreUpdate), ProcTiming::PreUpdate);
     proc_preupdate.dirty_ = true;
 
-    auto& proc_update =
-        obj->GetProc(GetProcTimingName(ProcTiming::Update), ProcTiming::Update);
+    auto& proc_update  = obj->GetProc(GetProcTimingName(ProcTiming::Update), ProcTiming::Update);
     proc_update.dirty_ = true;
 
-    auto& proc_late_update = obj->GetProc(
-        GetProcTimingName(ProcTiming::LateUpdate), ProcTiming::LateUpdate);
+    auto& proc_late_update  = obj->GetProc(GetProcTimingName(ProcTiming::LateUpdate), ProcTiming::LateUpdate);
     proc_late_update.dirty_ = true;
 
-    auto& proc_pre_physics = obj->GetProc(
-        GetProcTimingName(ProcTiming::PrePhysics), ProcTiming::PrePhysics);
+    auto& proc_pre_physics  = obj->GetProc(GetProcTimingName(ProcTiming::PrePhysics), ProcTiming::PrePhysics);
     proc_pre_physics.dirty_ = true;
 
-    auto& proc_postupdate = obj->GetProc(
-        GetProcTimingName(ProcTiming::PostUpdate), ProcTiming::PostUpdate);
+    auto& proc_postupdate  = obj->GetProc(GetProcTimingName(ProcTiming::PostUpdate), ProcTiming::PostUpdate);
     proc_postupdate.dirty_ = true;
 
-    auto& proc_predraw  = obj->GetProc(GetProcTimingName(ProcTiming::PreDraw),
-                                       ProcTiming::PreDraw);
+    auto& proc_predraw  = obj->GetProc(GetProcTimingName(ProcTiming::PreDraw), ProcTiming::PreDraw);
     proc_predraw.dirty_ = true;
 
-    auto& proc_draw =
-        obj->GetProc(GetProcTimingName(ProcTiming::Draw), ProcTiming::Draw);
+    auto& proc_draw  = obj->GetProc(GetProcTimingName(ProcTiming::Draw), ProcTiming::Draw);
     proc_draw.dirty_ = true;
 
-    auto& proc_latedraw  = obj->GetProc(GetProcTimingName(ProcTiming::LateDraw),
-                                        ProcTiming::LateDraw);
+    auto& proc_latedraw  = obj->GetProc(GetProcTimingName(ProcTiming::LateDraw), ProcTiming::LateDraw);
     proc_latedraw.dirty_ = true;
 
-    auto& proc_postdraw  = obj->GetProc(GetProcTimingName(ProcTiming::PostDraw),
-                                        ProcTiming::PostDraw);
+    auto& proc_postdraw  = obj->GetProc(GetProcTimingName(ProcTiming::PostDraw), ProcTiming::PostDraw);
     proc_postdraw.dirty_ = true;
 }
 
-void Scene::Base::Unregister(ObjectPtr obj) {
+void Scene::Base::Unregister(ObjectPtr obj)
+{
     auto itr = std::find(objects_.begin(), objects_.end(), obj);
 
     obj->RemoveAllProcesses();
@@ -395,50 +396,55 @@ void Scene::Base::Unregister(ObjectPtr obj) {
     objects_.erase(itr);
 }
 
-void Scene::Base::UnregisterAll() {
+void Scene::Base::UnregisterAll()
+{
     // オブジェクトを消去 (自動delete)
-    for (auto& obj : objects_) {
+    for(auto& obj : objects_) {
         obj->RemoveAllComponents();
         obj->ModifyComponents();
 
         obj->RemoveAllProcesses();
     }
-    for (auto obj : objects_)
+    for(auto obj : objects_)
         leak_objs.push_back(obj);
 
     objects_.clear();
 
     // シグナルカット
-    for (auto& s : signals_)
+    for(auto& s : signals_)
         s.disconnect_all();
 }
 
 //! 同じシーンタイプがいないかチェックする
-bool Scene::Base::IsSceneExist(const BasePtr& scene) {
+bool Scene::Base::IsSceneExist(const BasePtr& scene)
+{
     auto it = scenes_.find(scene->typeInfo()->className());
 
-    if (it != scenes_.end()) {
+    if(it != scenes_.end()) {
         // まだ生きている同じタイプのシーンがあり、それが自分ではない
-        if (it->second != scene) return true;
+        if(it->second != scene)
+            return true;
     }
 
     return false;
 }
 
-void Scene::Base::SetScene(const BasePtr& scene) {
+void Scene::Base::SetScene(const BasePtr& scene)
+{
     auto name = scene->typeInfo()->className();
 
     auto it = scenes_.find(name);
-    if (it != scenes_.end()) {
+    if(it != scenes_.end()) {
         scenes_[name] = scene;
     }
 }
 
-void Scene::Base::ReleaseScene(const BasePtr& scene) {
+void Scene::Base::ReleaseScene(const BasePtr& scene)
+{
     auto name = scene->typeInfo()->className();
 
     auto it = scenes_.find(name);
-    if (it != scenes_.end()) {
+    if(it != scenes_.end()) {
         scenes_.erase(name);
     }
 }
@@ -447,58 +453,58 @@ void Scene::Base::ReleaseScene(const BasePtr& scene) {
 //! @param obj オブジェクト
 //! @param timing 指定処理
 //! @param priority 指定優先
-void Scene::Base::setProc(ObjectPtr obj, SlotProc& slot) {
+void Scene::Base::setProc(ObjectPtr obj, SlotProc& slot)
+{
     auto& proc = obj->GetProc(slot.GetName(), slot.GetTiming());
 
-    if (slot.func_ == nullptr) {
-        proc.SetProc(slot.GetName(), slot.GetTiming(), slot.GetPriority(),
-                     slot.GetProc());
-        proc.connect_ = current_scene_->GetSignals(slot.GetTiming())
-                            .connect(proc.proc_, (int)proc.priority_);
-    } else {
-        proc.SetAddProc(slot.GetAddProc(), slot.GetTiming(),
-                        slot.GetPriority());
+    if(slot.func_ == nullptr) {
+        proc.SetProc(slot.GetName(), slot.GetTiming(), slot.GetPriority(), slot.GetProc());
+        proc.connect_ = current_scene_->GetSignals(slot.GetTiming()).connect(proc.proc_, (int)proc.priority_);
+    }
+    else {
+        proc.SetAddProc(slot.GetAddProc(), slot.GetTiming(), slot.GetPriority());
         auto p         = proc.GetAddProc().get();
         auto ptr       = std::bind(&Callable::Exec, p);
         proc.GetProc() = ptr;
-        proc.connect_  = current_scene_->GetSignals(slot.GetTiming())
-                            .connect(proc.proc_, (int)proc.priority_);
+        proc.connect_  = current_scene_->GetSignals(slot.GetTiming()).connect(proc.proc_, (int)proc.priority_);
     }
 }
 
 //! @brief オブジェクトの指定処理を削除する
 //! @param obj 削除するオブジェクト
 //! @param timing 指定処理
-void Scene::Base::resetProc(ObjectPtr obj, SlotProc& slot) {
+void Scene::Base::resetProc(ObjectPtr obj, SlotProc& slot)
+{
     // 以前いるconnectから削除
-    if (slot.connect_.valid()) slot.connect_.disconnect();
+    if(slot.connect_.valid())
+        slot.connect_.disconnect();
 }
 
 //! @brief コンポーネントの指定処理を指定優先で処理するように登録する
 //! @param component コンポーネント
 //! @param timing 指定処理
 //! @param priority 指定優先
-void Scene::Base::setProc(ComponentPtr component, SlotProc& slot) {
+void Scene::Base::setProc(ComponentPtr component, SlotProc& slot)
+{
     auto& proc = component->GetProc(slot.GetName(), slot.GetTiming());
-    if (slot.GetProc() == nullptr) {
-        slot.SetProc(slot.GetName(), slot.GetTiming(), slot.GetPriority(),
-                     BindComponent(slot.GetTiming(), component));
+    if(slot.GetProc() == nullptr) {
+        slot.SetProc(slot.GetName(), slot.GetTiming(), slot.GetPriority(), BindComponent(slot.GetTiming(), component));
     }
 
-    proc.SetProc(slot.GetName(), slot.GetTiming(), slot.GetPriority(),
-                 slot.GetProc());
+    proc.SetProc(slot.GetName(), slot.GetTiming(), slot.GetPriority(), slot.GetProc());
 
     // 設定したい優先に設定する
-    proc.connect_ = current_scene_->GetSignals(slot.GetTiming())
-                        .connect(proc.proc_, (int)proc.priority_);
+    proc.connect_ = current_scene_->GetSignals(slot.GetTiming()).connect(proc.proc_, (int)proc.priority_);
 }
 
 //! @brief コンポーネントの指定処理を削除する
 //! @param component 削除するオブジェクト
 //! @param timing 指定処理
-void Scene::Base::resetProc(ComponentPtr component, SlotProc& slot) {
+void Scene::Base::resetProc(ComponentPtr component, SlotProc& slot)
+{
     // 以前いるプライオリティから削除
-    if (slot.connect_.valid()) slot.connect_.disconnect();
+    if(slot.connect_.valid())
+        slot.connect_.disconnect();
 }
 
 //----------------------------------------------------------------------
@@ -506,26 +512,27 @@ void Scene::Base::resetProc(ComponentPtr component, SlotProc& slot) {
 //----------------------------------------------------------------------
 //@{
 
-bool Scene::Base::Save(const std::string_view filename) {
+bool Scene::Base::Save(const std::string_view filename)
+{
     // imguiで変更したstringはサイズを間違えていることがあるため
     // 一旦char*に変更したものをstring化する
     // 違う場合は、string + stringがうまく表示されなくなる
     std::string name = std::string(filename.data());
-    if (filename.empty()) {
+    if(filename.empty()) {
         name = typeInfo()->className();
     }
 
     HelperLib::File::CreateFolder(".\\data\\_save\\");
-    std::string fname = ".\\data\\_save\\" + name + ".txt";
+    std::string   fname = ".\\data\\_save\\" + name + ".txt";
     std::ofstream file(fname);
-    if (!file) return false;
+    if(!file)
+        return false;
 
     // 存在するオブジェクトをセーブする
     {
         cereal::JSONOutputArchive o_archive(file);
         {
-            o_archive(CEREAL_NVP(objects_), CEREAL_NVP(status_.get()),
-                      cereal::make_nvp("time_", scene_time));
+            o_archive(CEREAL_NVP(objects_), CEREAL_NVP(status_.get()), cereal::make_nvp("time_", scene_time));
         }
     }
     file.close();
@@ -533,29 +540,31 @@ bool Scene::Base::Save(const std::string_view filename) {
     return true;
 }
 
-bool Scene::Base::Load(const std::string_view filename) {
+bool Scene::Base::Load(const std::string_view filename)
+{
     UnregisterAll();
     Scene::CheckLeak();
 
     std::string name = std::string(filename.data());
-    if (filename.empty()) {
+    if(filename.empty()) {
         name = typeInfo()->className();
     }
 
     // 正規のデータがあれば先に読み込みをおこなう
     std::ifstream file(".\\data\\Load\\" + name + ".txt");
 
-    if (!file.is_open()) file.open(".\\data\\_save\\" + name + ".txt");
+    if(!file.is_open())
+        file.open(".\\data\\_save\\" + name + ".txt");
 
-    if (!file) return false;
+    if(!file)
+        return false;
 
     // 存在するオブジェクトをロードする
     {
         cereal::JSONInputArchive i_archive(file);
         {
             // 昔のものが time_で確保されているため、こちらで対応する
-            i_archive(CEREAL_NVP(objects_), CEREAL_NVP(status_.get()),
-                      cereal::make_nvp("time_", scene_time));
+            i_archive(CEREAL_NVP(objects_), CEREAL_NVP(status_.get()), cereal::make_nvp("time_", scene_time));
         }
         // 処理のシリアライズは再度行う
         status_.off(StatusBit::Serialized);
@@ -564,63 +573,58 @@ bool Scene::Base::Load(const std::string_view filename) {
 }
 //@}
 
-void Scene::functionSerialize(ObjectPtr obj) {
+void Scene::functionSerialize(ObjectPtr obj)
+{
     // オブジェクト
-    if (!obj->GetStatus(Object::StatusBit::Serialized)) {
+    if(!obj->GetStatus(Object::StatusBit::Serialized)) {
         obj->InitSerialize();
-        assert(
-            "継承先のInitSerialize()にて__super::InitSerialize()"
-            "を入れてください."
-            && obj->GetStatus(Object::StatusBit::Serialized));
+        assert("継承先のInitSerialize()にて__super::InitSerialize()を入れてください." &&
+               obj->GetStatus(Object::StatusBit::Serialized));
 
         // シリアライズされない処理を確認
         checkSerialized(obj);
     }
 
     // コンポーネントシグナル設定
-    for (auto component : obj->GetComponents()) {
-        if (!component->GetStatus(Component::StatusBit::Initialized)) {
-            for (ProcTiming i = ProcTiming::PreUpdate;
-                 (int)i <= (int)ProcTiming::PostDraw;
-                 i = (ProcTiming)((int)i + 1)) {
+    for(auto component : obj->GetComponents()) {
+        if(!component->GetStatus(Component::StatusBit::Initialized)) {
+            for(ProcTiming i = ProcTiming::PreUpdate; (int)i <= (int)ProcTiming::PostDraw;
+                i            = (ProcTiming)((int)i + 1)) {
                 auto& proc = component->GetProc(GetProcTimingName(i), i);
                 current_scene_->setProc(component, proc);
                 proc.ResetDirty();
             }
             component->Init();
-            assert("継承先のInit()にて__super::Init()を入れてください."
-                   && component->GetStatus(Component::StatusBit::Initialized));
+            assert("継承先のInit()にて__super::Init()を入れてください." &&
+                   component->GetStatus(Component::StatusBit::Initialized));
         }
-        if (!component->GetStatus(Component::StatusBit::Serialized)) {
+        if(!component->GetStatus(Component::StatusBit::Serialized)) {
             component->InitSerialize();
-            assert(
-                "継承先のInitSerialize()にて__super::InitSerialize()"
-                "を入れてください."
-                && component->GetStatus(Component::StatusBit::Serialized));
+            assert("継承先のInitSerialize()にて__super::InitSerialize()を入れてください." &&
+                   component->GetStatus(Component::StatusBit::Serialized));
 
             checkSerialized(component);
         }
     }
 }
 
-void Scene::checkSerialized(ObjectPtr obj) {
+void Scene::checkSerialized(ObjectPtr obj)
+{
     // 標準のUpdate以外のシグナルを復旧
-    for (auto& sig : obj->proc_timings_) {
+    for(auto& sig : obj->proc_timings_) {
         auto& dat = sig.second;
-        if (dat.GetName() == GetProcTimingName(dat.GetTiming())) {
-            dat.SetProc(dat.GetName(), dat.GetTiming(), dat.GetPriority(),
-                        BindObject(dat.GetTiming(), obj));
+        if(dat.GetName() == GetProcTimingName(dat.GetTiming())) {
+            dat.SetProc(dat.GetName(), dat.GetTiming(), dat.GetPriority(), BindObject(dat.GetTiming(), obj));
         }
     }
 
     // 処理がnullptrのものがないかチェック
 
-    for (auto itr = obj->proc_timings_.begin();
-         itr != obj->proc_timings_.end();) {
-        auto& proc               = *itr;
-        [[maybe_unused]] auto& p = proc.second;
+    for(auto itr = obj->proc_timings_.begin(); itr != obj->proc_timings_.end();) {
+        auto&                  proc = *itr;
+        [[maybe_unused]] auto& p    = proc.second;
 
-        if (p.GetProc() == nullptr && p.GetAddProc() == nullptr) {
+        if(p.GetProc() == nullptr && p.GetAddProc() == nullptr) {
             assert(
                 0 &&
                 "SetProcで追加した処理がSerializeされません。処理をProcAddProc()で作成して登録するか、初期化する同じシーンを選択しInitSerialize()で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
@@ -632,23 +636,22 @@ void Scene::checkSerialized(ObjectPtr obj) {
     }
 }
 
-void Scene::checkSerialized(ComponentPtr comp) {
+void Scene::checkSerialized(ComponentPtr comp)
+{
     // 標準のシグナルを復旧
-    for (auto& sig : comp->proc_timings_) {
+    for(auto& sig : comp->proc_timings_) {
         auto& dat = sig.second;
-        if (dat.GetName() == GetProcTimingName(dat.GetTiming())) {
-            dat.SetProc(dat.GetName(), dat.GetTiming(), dat.GetPriority(),
-                        BindComponent(dat.GetTiming(), comp));
+        if(dat.GetName() == GetProcTimingName(dat.GetTiming())) {
+            dat.SetProc(dat.GetName(), dat.GetTiming(), dat.GetPriority(), BindComponent(dat.GetTiming(), comp));
         }
     }
 
     // 処理がnullptrのものがないかチェック
-    for (auto itr = comp->proc_timings_.begin();
-         itr != comp->proc_timings_.end();) {
-        auto& proc               = *itr;
-        [[maybe_unused]] auto& p = proc.second;
+    for(auto itr = comp->proc_timings_.begin(); itr != comp->proc_timings_.end();) {
+        auto&                  proc = *itr;
+        [[maybe_unused]] auto& p    = proc.second;
 
-        if (p.GetProc() == nullptr && p.GetAddProc() == nullptr) {
+        if(p.GetProc() == nullptr && p.GetAddProc() == nullptr) {
             assert(
                 0 &&
                 "SetProcで追加した処理がSerializeされません。処理をProcAddProc()で作成して登録するか、初期化する同じシーンを選択しInitSerialize()で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
@@ -660,12 +663,14 @@ void Scene::checkSerialized(ComponentPtr comp) {
     }
 }
 
-void Scene::checkNextAlive() {
-    if (current_scene_) {
+void Scene::checkNextAlive()
+{
+    if(current_scene_) {
         // シーン切り替えで前の状態を確保する?
-        if (current_scene_->GetStatus(Base::StatusBit::AliveInAnotherScene)) {
+        if(current_scene_->GetStatus(Base::StatusBit::AliveInAnotherScene)) {
             Scene::Base::SetScene(current_scene_);
-        } else {
+        }
+        else {
             Scene::Base::ReleaseScene(current_scene_);
         }
     }
@@ -674,22 +679,27 @@ void Scene::checkNextAlive() {
 //=============================================================
 // シーン処理
 //=============================================================
-void Scene::ReleaseObject(std::string_view name) {
-    if (current_scene_) {
+void Scene::ReleaseObject(std::string_view name)
+{
+    if(current_scene_) {
         auto obj = GetObjectPtr<Object>(name);
-        if (obj) obj->SetStatus(Object::StatusBit::Alive, false);
+        if(obj)
+            obj->SetStatus(Object::StatusBit::Alive, false);
     }
 }
 
-void Scene::ReleaseObject(ObjectPtr obj) {
-    if (current_scene_ && obj) obj->SetStatus(Object::StatusBit::Alive, false);
+void Scene::ReleaseObject(ObjectPtr obj)
+{
+    if(current_scene_ && obj)
+        obj->SetStatus(Object::StatusBit::Alive, false);
 }
 
 //! 次のシーンをセットする
-void Scene::SetNextScene(BasePtr scene) {
+void Scene::SetNextScene(BasePtr scene)
+{
     checkNextAlive();
 
-    if (scene && Base::IsSceneExist(scene)) {
+    if(scene && Base::IsSceneExist(scene)) {
         // 同じ名前のシーンを削除
         // TODO log/ensure処理
         assert(
@@ -698,9 +708,10 @@ void Scene::SetNextScene(BasePtr scene) {
         Base::ReleaseScene(scene);
     }
 
-    if (current_scene_ == nullptr) {
+    if(current_scene_ == nullptr) {
         current_scene_ = scene;
-    } else {
+    }
+    else {
         next_scene_       = scene;
         scene_change_next = true;
     }
@@ -710,34 +721,35 @@ void Scene::SetNextScene(BasePtr scene) {
     Object::ClearObjectNames();
 }
 
-void Scene::CheckLeak() {
+void Scene::CheckLeak()
+{
     bool found = false;
-    for (auto scene : scenes_) {
+    for(auto scene : scenes_) {
         // 登録シーンの中にあるか?
-        if (current_scene_ == scene.second) {
+        if(current_scene_ == scene.second) {
             found = true;
             break;
         }
     }
 
-    if (!found) {
+    if(!found) {
         // objectが解放できていない?
         ObjectWeakPtrVec objs = leak_objs;
         leak_objs.clear();
-        for (auto obj : objs) {
-            if (auto o = obj.lock()) {
+        for(auto obj : objs) {
+            if(auto o = obj.lock()) {
                 // コンポーネントをとらえてシーン移動しようとしている
                 bool leak = false;
-                for (auto weak_cmp : o->leak_components_) {
-                    if (auto cmp = weak_cmp.lock()) leak = true;
+                for(auto weak_cmp : o->leak_components_) {
+                    if(auto cmp = weak_cmp.lock())
+                        leak = true;
                 }
 
-                if (leak) {
+                if(leak) {
                     std::string str =
                         "オブジェクト名: " + std::string(o->GetName()) +
                         "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
-                    MessageBox(GetMainWindowHandle(), str.c_str(),
-                               "Objectが正しく解放できませんでした.", MB_OK);
+                    MessageBox(GetMainWindowHandle(), str.c_str(), "Objectが正しく解放できませんでした.", MB_OK);
                 }
                 // リークとしてとらえておく
                 leak_objs.push_back(obj);
@@ -747,35 +759,36 @@ void Scene::CheckLeak() {
 }
 
 //! 次のシーンに切り替える
-void Scene::ChangeNextScene() {
+void Scene::ChangeNextScene()
+{
     bool found = false;
-    for (auto scene : scenes_) {
+    for(auto scene : scenes_) {
         // 登録シーンの中にあるか?
-        if (current_scene_ == scene.second) {
+        if(current_scene_ == scene.second) {
             found = true;
             break;
         }
     }
 
     current_scene_ = next_scene_;
-    if (!found) {
+    if(!found) {
         // objectが解放できていない?
         ObjectWeakPtrVec objs = leak_objs;
         leak_objs.clear();
-        for (auto obj : objs) {
-            if (auto o = obj.lock()) {
+        for(auto obj : objs) {
+            if(auto o = obj.lock()) {
                 // コンポーネントをとらえてシーン移動しようとしている
                 bool leak = false;
-                for (auto weak_cmp : o->leak_components_) {
-                    if (auto cmp = weak_cmp.lock()) leak = true;
+                for(auto weak_cmp : o->leak_components_) {
+                    if(auto cmp = weak_cmp.lock())
+                        leak = true;
                 }
 
-                if (leak) {
+                if(leak) {
                     std::string str =
                         "オブジェクト名: " + std::string(o->GetName()) +
                         "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
-                    MessageBox(GetMainWindowHandle(), str.c_str(),
-                               "Objectが正しく解放できませんでした.", MB_OK);
+                    MessageBox(GetMainWindowHandle(), str.c_str(), "Objectが正しく解放できませんでした.", MB_OK);
                 }
                 // リークとしてとらえておく
                 leak_objs.push_back(obj);
@@ -784,35 +797,39 @@ void Scene::ChangeNextScene() {
     }
 
     // 終了の際は、確実にWindowを閉じます
-    if (current_scene_ == nullptr) {
+    if(current_scene_ == nullptr) {
         DestroyWindow(GetMainWindowHandle());
     }
 
     next_scene_       = nullptr;
     scene_change_next = false;
 
-    scene_pause = false;    // ポーズ解除
+    scene_pause = false;   // ポーズ解除
 }
 
 //! 現在アクティブなシーンを取得します
-Scene::Base* Scene::GetCurrentScene() {
+Scene::Base* Scene::GetCurrentScene()
+{
     return current_scene_.get();
 }
 
 //! 初期化処理
-void Scene::Init() {
+void Scene::Init()
+{
     // ここではObjはInitしない
     // Worldが出来上がり、その後、
     // 個別にオブジェクトは作成されるため
     // Update内で、Initする形をとる
 
     debug_scene_name = current_scene_->typeInfo()->className();
-    if (next_scene_) debug_scene_name = next_scene_->typeInfo()->className();
+    if(next_scene_)
+        debug_scene_name = next_scene_->typeInfo()->className();
 }
 
-void Scene::Change(BasePtr scene) {
+void Scene::Change(BasePtr scene)
+{
     // すでに存在している?
-    if (scene && Base::IsSceneExist(scene)) {
+    if(scene && Base::IsSceneExist(scene)) {
         // とらえているシーンに切り替える
         SetNextScene(scenes_[scene->typeInfo()->className()]);
         return;
@@ -821,92 +838,91 @@ void Scene::Change(BasePtr scene) {
     SetNextScene(scene);
 }
 
-void Scene::PreUpdate() {
-    if (IsKeyOn(KEY_INPUT_F1)) scene_pause = !scene_pause;
+void Scene::PreUpdate()
+{
+    if(IsKeyOn(KEY_INPUT_F1))
+        scene_pause = !scene_pause;
 
-    if (IsKeyOn(KEY_INPUT_F2)) scene_step = true;
+    if(IsKeyOn(KEY_INPUT_F2))
+        scene_step = true;
 
-    if (next_scene_ != nullptr || scene_change_next) {
+    if(next_scene_ != nullptr || scene_change_next) {
         // シーン切り替え
         current_scene_->Exit();
 
         // 継承し忘れの時のため
         Scene::Exit();
 
-        // ChangeNextScene();
+        //ChangeNextScene();
         scene_time = 0.0f;
     }
 
-    if (current_scene_) {
-        if (!current_scene_->GetStatus(Scene::Base::StatusBit::Initialized)) {
+    if(current_scene_) {
+        if(!current_scene_->GetStatus(Scene::Base::StatusBit::Initialized)) {
             // ログ
             bool initialized = current_scene_->Init();
-            current_scene_->SetStatus(Scene::Base::StatusBit::Initialized,
-                                      initialized);
+            current_scene_->SetStatus(Scene::Base::StatusBit::Initialized, initialized);
 
             // シーン初期化でブロッキングロードをしていた場合に時間経過が大きくなるためリセット
             ResetDeltaTime();
         }
         // シーン初期化できてない場合は Objectも初期化しない
-        if (!current_scene_->GetStatus(Scene::Base::StatusBit::Initialized))
+        if(!current_scene_->GetStatus(Scene::Base::StatusBit::Initialized))
             return;
 
         // オブジェクト仮登録しているものを本登録に変更
-        for (auto obj : current_scene_->pre_objects_) {
-            auto& proc_update = obj->GetProc(
-                GetProcTimingName(ProcTiming::Update), ProcTiming::Update);
-            auto& proc_draw = obj->GetProc(GetProcTimingName(ProcTiming::Draw),
-                                           ProcTiming::Draw);
+        for(auto obj : current_scene_->pre_objects_) {
+            auto& proc_update = obj->GetProc(GetProcTimingName(ProcTiming::Update), ProcTiming::Update);
+            auto& proc_draw   = obj->GetProc(GetProcTimingName(ProcTiming::Draw), ProcTiming::Draw);
 
-            current_scene_->Register(obj, proc_update.priority_,
-                                     proc_draw.priority_);
+            current_scene_->Register(obj, proc_update.priority_, proc_draw.priority_);
         }
         // 仮登録のクリア
         current_scene_->pre_objects_.clear();
 
-        if (!current_scene_->GetStatus(Scene::Base::StatusBit::Serialized)) {
+        if(!current_scene_->GetStatus(Scene::Base::StatusBit::Serialized)) {
             current_scene_->InitSerialize();
             current_scene_->SetStatus(Scene::Base::StatusBit::Serialized, true);
         }
 
         // 処理優先とポーズのチェック
-        for (auto& obj : current_scene_->GetObjectPtrVec()) {
+        for(auto& obj : current_scene_->GetObjectPtrVec()) {
             // ポーズ中
             bool is_pause = false;
-            if (obj->GetStatus(Object::StatusBit::IsPause)
-                || ((scene_pause && !scene_step)
-                    && !obj->GetStatus(Object::StatusBit::DisablePause)))
+            if(obj->GetStatus(Object::StatusBit::IsPause) ||
+               ((scene_pause && !scene_step) && !obj->GetStatus(Object::StatusBit::DisablePause)))
                 is_pause = true;
 
-            // if( !is_pause )
+            //if( !is_pause )
             {
                 // Init前状態
-                if (!obj->GetStatus(Object::StatusBit::Initialized)) {
+                if(!obj->GetStatus(Object::StatusBit::Initialized)) {
                     bool ret = obj->Init();
-                    if (!ret) continue;    //!< 初期化未終了
+                    if(!ret)
+                        continue;   //!< 初期化未終了
 
-                    assert("継承先のInit()にて__super::Init()を入れてください."
-                           && obj->GetStatus(Object::StatusBit::Initialized));
+                    assert("継承先のInit()にて__super::Init()を入れてください." &&
+                           obj->GetStatus(Object::StatusBit::Initialized));
                 }
 
                 functionSerialize(obj);
             }
 #if 1
             // dirtyのチェック
-            for (auto& timing : obj->proc_timings_) {
+            for(auto& timing : obj->proc_timings_) {
                 auto& proc = timing.second;
-                if (proc.IsDirty()) {
+                if(proc.IsDirty()) {
                     current_scene_->resetProc(obj, proc);
                     current_scene_->setProc(obj, proc);
                     proc.ResetDirty();
                 }
             }
 
-            for (auto& comp : obj->components_) {
+            for(auto& comp : obj->components_) {
                 // Componentのdirtyのチェック
-                for (auto& timing : comp->proc_timings_) {
+                for(auto& timing : comp->proc_timings_) {
                     auto& proc = timing.second;
-                    if (proc.IsDirty()) {
+                    if(proc.IsDirty()) {
                         current_scene_->resetProc(comp, proc);
                         current_scene_->setProc(comp, proc);
                         proc.ResetDirty();
@@ -918,28 +934,30 @@ void Scene::PreUpdate() {
 #if 1
             // オブジェクトのUpdate
             // TODO is_pause または NoUpdateが変化したときのみ処理をする
-            if (obj->GetStatus(Object::StatusBit::NoUpdate) || is_pause) {
-                for (auto& sig : obj->proc_timings_) {
-                    if ((int)sig.second.IsUpdate()) sig.second.connect_.block();
+            if(obj->GetStatus(Object::StatusBit::NoUpdate) || is_pause) {
+                for(auto& sig : obj->proc_timings_) {
+                    if((int)sig.second.IsUpdate())
+                        sig.second.connect_.block();
                 }
 
                 // コンポーネントのUpdate
-                for (auto& component : obj->GetComponents()) {
-                    for (auto& sig : component->proc_timings_) {
-                        if ((int)sig.second.IsUpdate())
+                for(auto& component : obj->GetComponents()) {
+                    for(auto& sig : component->proc_timings_) {
+                        if((int)sig.second.IsUpdate())
                             sig.second.connect_.block();
                     }
                 }
-            } else {
-                for (auto& sig : obj->proc_timings_) {
-                    if ((int)sig.second.IsUpdate())
+            }
+            else {
+                for(auto& sig : obj->proc_timings_) {
+                    if((int)sig.second.IsUpdate())
                         sig.second.connect_.unblock();
                 }
 
                 // コンポーネントのUpdate
-                for (auto& component : obj->GetComponents()) {
-                    for (auto& sig : component->proc_timings_) {
-                        if ((int)sig.second.IsUpdate())
+                for(auto& component : obj->GetComponents()) {
+                    for(auto& sig : component->proc_timings_) {
+                        if((int)sig.second.IsUpdate())
                             sig.second.connect_.unblock();
                     }
                 }
@@ -948,28 +966,31 @@ void Scene::PreUpdate() {
 
 #if 1
             // オブジェクトのDraw
-            if (obj->GetStatus(Object::StatusBit::NoDraw)) {
-                for (auto& sig : obj->proc_timings_) {
-                    if ((int)sig.second.IsDraw()) sig.second.connect_.block();
+            if(obj->GetStatus(Object::StatusBit::NoDraw)) {
+                for(auto& sig : obj->proc_timings_) {
+                    if((int)sig.second.IsDraw())
+                        sig.second.connect_.block();
                 }
 
                 // コンポーネント
-                for (auto& component : obj->GetComponents()) {
-                    for (auto& sig : component->proc_timings_) {
-                        if ((int)sig.second.IsDraw())
+                for(auto& component : obj->GetComponents()) {
+                    for(auto& sig : component->proc_timings_) {
+                        if((int)sig.second.IsDraw())
                             sig.second.connect_.block();
                     }
                 }
-            } else {
-                for (auto& sig : obj->proc_timings_) {
-                    if ((int)sig.second.IsDraw()) sig.second.connect_.unblock();
+            }
+            else {
+                for(auto& sig : obj->proc_timings_) {
+                    if((int)sig.second.IsDraw())
+                        sig.second.connect_.unblock();
                 }
 
                 // コンポーネント
                 // NoDrawはここでおさえない
-                for (auto& component : obj->GetComponents()) {
-                    for (auto& sig : component->proc_timings_) {
-                        if ((int)sig.second.IsDraw())
+                for(auto& component : obj->GetComponents()) {
+                    for(auto& sig : component->proc_timings_) {
+                        if((int)sig.second.IsDraw())
                             sig.second.connect_.unblock();
                     }
                 }
@@ -981,17 +1002,18 @@ void Scene::PreUpdate() {
 }
 
 //! 更新処理
-void Scene::Update() {
+void Scene::Update()
+{
     f32 delta = GetDeltaTime();
 
-    if (current_scene_) {
-        if (!scene_pause || scene_step) {
+    if(current_scene_) {
+        if(!scene_pause || scene_step) {
             current_scene_->Update();
         }
 
         current_scene_->GetSignals(ProcTiming::Update)();
 
-        if (!scene_pause || scene_step) {
+        if(!scene_pause || scene_step) {
             current_scene_->LateUpdate();
             scene_time += delta;
         }
@@ -999,8 +1021,9 @@ void Scene::Update() {
     }
 }
 
-void Scene::PrePhysics() {
-    if (current_scene_) {
+void Scene::PrePhysics()
+{
+    if(current_scene_) {
         current_scene_->PrePhysics();
 
         current_scene_->GetSignals(ProcTiming::PrePhysics)();
@@ -1010,16 +1033,19 @@ void Scene::PrePhysics() {
     }
 }
 
-void Scene::PostUpdate() {
-    if (current_scene_) {
+void Scene::PostUpdate()
+{
+    if(current_scene_) {
         current_scene_->PostUpdate();
         current_scene_->GetSignals(ProcTiming::PostUpdate)();
     }
 }
 
-void Scene::Draw() {
+void Scene::Draw()
+{
     // シーンが無ければ何もしない
-    if (!current_scene_) return;
+    if(!current_scene_)
+        return;
 
     // シーンPreDrawの実行
     current_scene_->PreDraw();
@@ -1046,18 +1072,18 @@ void Scene::Draw() {
     scene_step = false;
 
     // 未使用のコンポーネントを削除
-    for (auto obj : current_scene_->GetObjectPtrVec()) {
+    for(auto obj : current_scene_->GetObjectPtrVec()) {
         obj->ModifyComponents();
     }
 
     // 終了した場合( Exit()を呼んだ場合 )
-    for (int i = (int)current_scene_->GetObjectPtrVec().size() - 1; i >= 0;
-         --i) {
+    for(int i = (int)current_scene_->GetObjectPtrVec().size() - 1; i >= 0; --i) {
         auto obj = current_scene_->GetObjectPtrVec()[i];
-        if (!obj->GetStatus(Object::StatusBit::Alive)) {
-            if (!obj->GetStatus(Object::StatusBit::Exited)) obj->Exit();
+        if(!obj->GetStatus(Object::StatusBit::Alive)) {
+            if(!obj->GetStatus(Object::StatusBit::Exited))
+                obj->Exit();
         }
-        if (obj->GetStatus(Object::StatusBit::Exited)) {
+        if(obj->GetStatus(Object::StatusBit::Exited)) {
             current_scene_->Unregister(obj);
             continue;
         }
@@ -1066,10 +1092,11 @@ void Scene::Draw() {
     // PauseSystem::DrawPause();
 }
 
-void Scene::Exit() {
-    if (current_scene_) {
-        for (auto& obj : current_scene_->GetObjectPtrVec()) {
-            if (!obj->GetStatus(Object::StatusBit::Exited)) {
+void Scene::Exit()
+{
+    if(current_scene_) {
+        for(auto& obj : current_scene_->GetObjectPtrVec()) {
+            if(!obj->GetStatus(Object::StatusBit::Exited)) {
                 obj->Exit();
             }
         }
@@ -1084,132 +1111,127 @@ void Scene::Exit() {
 }
 
 template <class T>
-void Scene::Base::PreRegister(T* obj, Priority update, Priority draw) {
+void Scene::Base::PreRegister(T* obj, Priority update, Priority draw)
+{
     auto obj_ptr = std::shared_ptr<T>(obj);
     PreRegister(obj_ptr, update, draw);
 }
 
-void Scene::GUI() {
-    bool is_select_ok =
-        !ImGui::IsWindowHovered(
-            ImGuiHoveredFlags_AnyWindow
-            | ImGuiHoveredFlags_AllowWhenBlockedByActiveItem)    // Hover
-        && !ImGuizmo::IsOver()                                   // Guizom
-        && !IsShowMenu();                                        // ShowMenu
+void Scene::GUI()
+{
+    bool is_select_ok = !ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow |
+                                                ImGuiHoveredFlags_AllowWhenBlockedByActiveItem)   // Hover
+                        && !ImGuizmo::IsOver()                                                    // Guizom
+                        && !IsShowMenu();                                                         // ShowMenu
 
     // オブジェクトPICK
-    if (IsMouseOn(MOUSE_INPUT_LEFT) && is_select_ok) {
-        auto obj   = PickObject(GetMouseX(), GetMouseY());
-        auto objs  = current_scene_->GetObjectPtrVec();
-        size_t max = objs.size();
+    if(IsMouseOn(MOUSE_INPUT_LEFT) && is_select_ok) {
+        auto   obj  = PickObject(GetMouseX(), GetMouseY());
+        auto   objs = current_scene_->GetObjectPtrVec();
+        size_t max  = objs.size();
 
-        for (int i = 0; i < max; i++) {
-            if (obj == objs[i]) {
+        for(int i = 0; i < max; i++) {
+            if(obj == objs[i]) {
                 select_object_index = i;
-                selectObject =
-                    current_scene_->GetObjectPtrVec()[select_object_index];
+                selectObject        = current_scene_->GetObjectPtrVec()[select_object_index];
             }
         }
     }
 
     // エディター状態でなければGUIは出ない
-    if (!scene_edit) return;
+    if(!scene_edit)
+        return;
 
     // シーンが無ければ何もしない
-    if (!current_scene_) return;
+    if(!current_scene_)
+        return;
 
-    ImGui::PushStyleColor(ImGuiCol_TitleBgActive,
-                          ImVec4(0.0f, 0.7f, 0.2f, 1.0f));
+    ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(0.0f, 0.7f, 0.2f, 1.0f));
     ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(0.0f, 0.3f, 0.1f, 1.0f));
 
     // GUIウインドウ設定
-    SetGUIWindow(SETGUI_ATTACH_RIGHT, 0, (int)inspector_size.x,
-                 (int)inspector_size.y);
+    SetGUIWindow(SETGUI_ATTACH_RIGHT, 0, (int)inspector_size.x, (int)inspector_size.y);
 
     // シーンのGUIを表示
-    std::string name =
-        "Scene : " + std::string(current_scene_->typeInfo()->className());
+    std::string name = "Scene : " + std::string(current_scene_->typeInfo()->className());
 
     auto flags = ImGuiWindowFlags_None;
-    if (GetEditorStatus(EditorStatusBit::EditorPlacement))
+    if(GetEditorStatus(EditorStatusBit::EditorPlacement))
         flags = ImGuiWindowFlags_NoCollapse;
 
     ImGui::Begin(name.c_str(), (bool*)nullptr, flags);
     {
-        ImGui::InputText(u8"名前", debug_scene_name.data(), 1024,
-                         ImGuiInputTextFlags_EnterReturnsTrue);
+        ImGui::InputText(u8"名前", debug_scene_name.data(), 1024, ImGuiInputTextFlags_EnterReturnsTrue);
 
-        if (ImGui::Button("Save")) {
+        if(ImGui::Button("Save")) {
             Save(debug_scene_name);
         }
         ImGui::SameLine();
-        if (ImGui::Button("Load")) {
+        if(ImGui::Button("Load")) {
             Load(debug_scene_name.data());
         }
 
-        if (ImGui::TreeNode(u8"登録シーン")) {
+        if(ImGui::TreeNode(u8"登録シーン")) {
             ImGui::Text(u8"シーン数 : %d", GetSceneCount());
             ImGui::Text(u8"TODO: 存在シーン列挙");
             ImGui::Text(u8"全Object数 : %d", Object::ExistObjectCount());
 
-            if (leak_objs.size() > 0)
-                ImGui::TextColored({1, 0, 0, 1}, u8"LeakObject数 : %d",
-                                   leak_objs.size());
+            if(leak_objs.size() > 0)
+                ImGui::TextColored({1, 0, 0, 1}, u8"LeakObject数 : %d", leak_objs.size());
             ImGui::TreePop();
         }
 
         ImGui::DragFloat(u8"経過時間", &scene_time, 0.1f, 0, 0, "%.2f");
-        ImGui::Text(u8"シーン内Object数 : %d",
-                    current_scene_->GetObjectPtrVec().size());
+        ImGui::Text(u8"シーン内Object数 : %d", current_scene_->GetObjectPtrVec().size());
 
         //------------------------------------------
         // 登録されているObjectを列挙する
         //------------------------------------------
-        auto& object                                = Object::TypeInfo;
+        auto&                           object      = Object::TypeInfo;
         static ClassObjectType<Object>* object_type = nullptr;
 
-        if (ImGui::BeginCombo(cap_item, sel_item.data())) {
+        if(ImGui::BeginCombo(cap_item, sel_item.data())) {
             // Object本体
             {
                 // 表示文字列
-                std::string object_name =
-                    std::string(object.className()) + " - " + object.descName();
+                std::string object_name = std::string(object.className()) + " - " + object.descName();
 
                 bool is_selected = (sel_item == object_name);
-                if (ImGui::Selectable(object_name.data(), is_selected)) {
+                if(ImGui::Selectable(object_name.data(), is_selected)) {
                     sel_item    = object_name;
                     object_type = &object;
                 }
-                if (is_selected) ImGui::SetItemDefaultFocus();
+                if(is_selected)
+                    ImGui::SetItemDefaultFocus();
             }
 
-            for (auto* p = object.child(); p; p = p->siblings()) {
+            for(auto* p = object.child(); p; p = p->siblings()) {
                 // 表示文字列
-                std::string object_name =
-                    std::string(p->className()) + " - " + p->descName();
+                std::string object_name = std::string(p->className()) + " - " + p->descName();
 
                 bool is_selected = (sel_item == object_name);
-                if (ImGui::Selectable(object_name.data(), is_selected)) {
+                if(ImGui::Selectable(object_name.data(), is_selected)) {
                     sel_item    = object_name;
                     object_type = (ClassObjectType<Object>*)p;
                 }
-                if (is_selected) ImGui::SetItemDefaultFocus();
+                if(is_selected)
+                    ImGui::SetItemDefaultFocus();
             }
             ImGui::EndCombo();
         }
-        if (ImGui::Button("Create Object") && object_type != nullptr) {
+        if(ImGui::Button("Create Object") && object_type != nullptr) {
             object_type->createObjectPtr();
         }
-        if (auto obj = SelectObjectPtr()) {
+        if(auto obj = SelectObjectPtr()) {
             ImGui::SameLine();
-            if (ImGui::Button("Delete Object")) {
+            if(ImGui::Button("Delete Object")) {
                 Scene::ReleaseObject(obj);
             }
         }
 
         std::vector<const char*> listbox;
         listbox.reserve(current_scene_->GetObjectPtrVec().size());
-        for (auto& obj : current_scene_->GetObjectPtrVec()) {
+        for(auto& obj : current_scene_->GetObjectPtrVec()) {
             listbox.emplace_back(obj->GetName().data());
         }
 
@@ -1217,38 +1239,36 @@ void Scene::GUI() {
 
         //  シーン オブジェクトインスペクタ
         auto xy = ImGui::GetWindowSize();
-        ImGui::BeginChild(ImGui::GetID((void*)Scene::GUI),
-                          ImVec2(xy.x - 40, 150), ImGuiWindowFlags_NoTitleBar);
+        ImGui::BeginChild(ImGui::GetID((void*)Scene::GUI), ImVec2(xy.x - 40, 150), ImGuiWindowFlags_NoTitleBar);
         {
-            for (int i = 0; i < size; i++) {
+            for(int i = 0; i < size; i++) {
                 auto obj = current_scene_->GetObjectPtrVec()[i];
-                if (!Scene::GetEditorStatus(EditorStatusBit::EditorPlacement)) {
+                if(!Scene::GetEditorStatus(EditorStatusBit::EditorPlacement)) {
                     ImGui::CheckboxFlags(std::to_string(i).c_str(),
                                          (int*)&obj->status_,
                                          1 << (int)Object::StatusBit::ShowGUI);
                     ImGui::SameLine();
                 }
-                if (ImGui::Selectable(obj->GetName().data(),
-                                      select_object_index == i)) {
+                if(ImGui::Selectable(obj->GetName().data(), select_object_index == i)) {
                     select_object_index = i;
-                    selectObject =
-                        current_scene_->GetObjectPtrVec()[select_object_index];
+                    selectObject        = current_scene_->GetObjectPtrVec()[select_object_index];
                 }
             }
-            for (int i = 0; i < leak_objs.size(); i++) {
+            for(int i = 0; i < leak_objs.size(); i++) {
                 auto weak_obj = leak_objs[i];
                 auto obj      = weak_obj.lock();
-                if (obj == nullptr) continue;
+                if(obj == nullptr)
+                    continue;
 
-                if (!Scene::GetEditorStatus(EditorStatusBit::EditorPlacement)) {
+                if(!Scene::GetEditorStatus(EditorStatusBit::EditorPlacement)) {
                     ImGui::CheckboxFlags(std::to_string(i).c_str(),
                                          (int*)&obj->status_,
                                          1 << (int)Object::StatusBit::ShowGUI);
                     ImGui::SameLine();
                 }
-                if (ImGui::Selectable(
-                        obj->GetName().data(), select_object_index == i + size,
-                        ImGuiSelectableFlags_::ImGuiSelectableFlags_Disabled)) {
+                if(ImGui::Selectable(obj->GetName().data(),
+                                     select_object_index == i + size,
+                                     ImGuiSelectableFlags_::ImGuiSelectableFlags_Disabled)) {
                     select_object_index = i + size;
                     selectObject        = leak_objs[select_object_index - size];
                 }
@@ -1256,16 +1276,15 @@ void Scene::GUI() {
         }
         ImGui::EndChild();
         /*
-                ImGui::ListBox( u8"シーン内オブジェクト", &select_object_index,
-           listbox.data(), (int)listbox.size(), size ); if( select_object_index
-           != -1 )
-                {
-                        selectObject = current_scene_->GetObjectPtrVec()[
-           select_object_index ]; auto obj	 = selectObject.lock(); bool b
-           = !obj->GetStatus( Object::StatusBit::ShowGUI ); obj->SetStatus(
-           Object::StatusBit::ShowGUI, b );
-                }
-                */
+		ImGui::ListBox( u8"シーン内オブジェクト", &select_object_index, listbox.data(), (int)listbox.size(), size );
+		if( select_object_index != -1 )
+		{
+			selectObject = current_scene_->GetObjectPtrVec()[ select_object_index ];
+			auto obj	 = selectObject.lock();
+			bool b		 = !obj->GetStatus( Object::StatusBit::ShowGUI );
+			obj->SetStatus( Object::StatusBit::ShowGUI, b );
+		}
+		*/
         auto ims       = ImGui::GetWindowSize();
         inspector_size = {ims.x, ims.y};
 
@@ -1280,58 +1299,62 @@ void Scene::GUI() {
     ImGui::PopStyleColor();
 
     size_t size = current_scene_->GetObjectPtrVec().size();
-    for (int i = 0; i < size; i++) {
+    for(int i = 0; i < size; i++) {
         auto obj = current_scene_->GetObjectPtrVec()[i];
-        if (obj->GetStatus(Object::StatusBit::ShowGUI)) {
+        if(obj->GetStatus(Object::StatusBit::ShowGUI)) {
             // GUIウインドウ設定
-            if (Scene::GetEditorStatus(
-                    Scene::EditorStatusBit::EditorPlacement)) {
-                if (i != select_object_index) {
+            if(Scene::GetEditorStatus(Scene::EditorStatusBit::EditorPlacement)) {
+                if(i != select_object_index) {
                     continue;
                 }
 
-                Scene::SetGUIWindow(
-                    Scene::SETGUI_ATTACH_RIGHT, (int)inspector_size.y,
-                    (int)object_detail_size.x, (int)object_detail_size.y);
+                Scene::SetGUIWindow(Scene::SETGUI_ATTACH_RIGHT,
+                                    (int)inspector_size.y,
+                                    (int)object_detail_size.x,
+                                    (int)object_detail_size.y);
             }
 
             obj->SetStatus(Object::StatusBit::CalledGUI, false);
             obj->GUI();
-            assert("継承先のGUI()にて__super::GUI()を入れてください."
-                   && obj->GetStatus(Object::StatusBit::CalledGUI));
+            assert("継承先のGUI()にて__super::GUI()を入れてください." && obj->GetStatus(Object::StatusBit::CalledGUI));
 
-            for (auto component : obj->GetComponents()) {
-                if (component->GetStatus(Component::StatusBit::ShowGUI))
+            for(auto component : obj->GetComponents()) {
+                if(component->GetStatus(Component::StatusBit::ShowGUI))
                     component->GUI();
 #ifdef _DEBUG
 //          obj->Checker();
-#endif    //_DEBUG
+#endif   //_DEBUG
             }
         }
     }
 }
 
-bool Scene::IsPause() {
+bool Scene::IsPause()
+{
     return scene_pause && !scene_step;
 }
 
-float Scene::GetTime() {
+float Scene::GetTime()
+{
     return scene_time;
 }
 
-void Scene::SetEdit(bool edit) {
+void Scene::SetEdit(bool edit)
+{
     scene_edit = edit;
 }
 
-const bool Scene::IsEdit() {
+const bool Scene::IsEdit()
+{
     return scene_edit;
 }
 
 //! @brief ComponentCollisionの当たり判定を行う
-void Scene::CheckComponentCollisions() {
+void Scene::CheckComponentCollisions()
+{
     // オブジェの数を取得
     int obj_num = (int)current_scene_->GetObjectPtrVec().size();
-    for (int obj_index = 0; obj_index < obj_num; obj_index++) {
+    for(int obj_index = 0; obj_index < obj_num; obj_index++) {
         // 調べるオブジェクト
         auto obj = current_scene_->GetObjectPtrVec()[obj_index];
 
@@ -1339,10 +1362,9 @@ void Scene::CheckComponentCollisions() {
         auto cols = obj->GetComponents<ComponentCollision>();
         {
             // コリジョンの検査
-            for (auto col_1 : cols) {
+            for(auto col_1 : cols) {
                 // 相手オブジェクトの取得
-                for (int other_index = obj_index + 1; other_index < obj_num;
-                     other_index++) {
+                for(int other_index = obj_index + 1; other_index < obj_num; other_index++) {
                     std::vector<ComponentCollision::HitInfo> hitInfos;
 
                     // 相手オブジェクト
@@ -1351,29 +1373,29 @@ void Scene::CheckComponentCollisions() {
                     auto cols2 = obj2->GetComponents<ComponentCollision>();
 
                     // 相手コリジョンの検査
-                    for (auto col_2 : cols2) {
-                        if (!col_1->IsGroupHit(col_2)) continue;
+                    for(auto col_2 : cols2) {
+                        if(!col_1->IsGroupHit(col_2))
+                            continue;
 
                         //! @todo オブジェクトの当たりをチェックする
                         ComponentCollision::HitInfo hitInfo;
                         hitInfo = col_1->IsHit(col_2);
 
-                        if (hitInfo.hit_) {
+                        if(hitInfo.hit_) {
                             // 押し戻し量再計算
                             float3 push{hitInfo.push_ * 0.5f};
                             float3 other_push{-hitInfo.push_ * 0.5f};
-                            col_1->CalcPush(col_2, hitInfo.push_, &push,
-                                            &other_push);
+                            col_1->CalcPush(col_2, hitInfo.push_, &push, &other_push);
 
                             // 相手か自分がオーバーラップする設定ならば押しあたりは発生しないようにする
                             // オーバーラップする場合は当たりをすり抜ける
-                            if (col_1->IsOverlap(col_2->GetCollisionGroup())) {
+                            if(col_1->IsOverlap(col_2->GetCollisionGroup())) {
                                 push       = {0, 0, 0};
                                 other_push = {0, 0, 0};
                             }
 
                             // 相手もオーバーラップする場合は当たりをすり抜ける
-                            if (col_2->IsOverlap(col_1->GetCollisionGroup())) {
+                            if(col_2->IsOverlap(col_1->GetCollisionGroup())) {
                                 push       = {0, 0, 0};
                                 other_push = {0, 0, 0};
                             }
@@ -1396,12 +1418,13 @@ void Scene::CheckComponentCollisions() {
 }
 
 //! セレクトしているオブジェクトかをチェックする
-bool Scene::SelectObjectWindow(const ObjectPtr& object) {
+bool Scene::SelectObjectWindow(const ObjectPtr& object)
+{
     auto obj = selectObject.lock();
-    if (obj != nullptr) {
+    if(obj != nullptr) {
         auto sel_name = obj->GetName();
         auto my_name  = object->GetName();
-        if (object->GetName() == obj->GetName()) {
+        if(object->GetName() == obj->GetName()) {
             selectObject.reset();
             return true;
         }
@@ -1409,27 +1432,31 @@ bool Scene::SelectObjectWindow(const ObjectPtr& object) {
     return false;
 }
 
-ObjectPtr Scene::SelectObjectPtr() {
-    if (current_scene_ == nullptr) return nullptr;
+ObjectPtr Scene::SelectObjectPtr()
+{
+    if(current_scene_ == nullptr)
+        return nullptr;
 
     int size = (int)current_scene_->GetObjectPtrVec().size();
 
-    if (size <= select_object_index) return nullptr;
+    if(size <= select_object_index)
+        return nullptr;
 
     auto Object = current_scene_->GetObjectPtrVec()[select_object_index];
     return Object;
 }
 
-void Scene::SetGUIObjectDetailSize() {
+void Scene::SetGUIObjectDetailSize()
+{
     auto ims           = ImGui::GetWindowSize();
     object_detail_size = {ims.x, ims.y};
 }
 
-void Scene::SetGUIWindow(int posx, int posy, int width, int height) {
-    if (Scene::GetEditorStatus(Scene::EditorStatusBit::EditorPlacement)) {
+void Scene::SetGUIWindow(int posx, int posy, int width, int height)
+{
+    if(Scene::GetEditorStatus(Scene::EditorStatusBit::EditorPlacement)) {
         auto mode = ImGuiCond_Once;
-        if (Scene::GetEditorStatus(
-                Scene::EditorStatusBit::EditorPlacement_Always))
+        if(Scene::GetEditorStatus(Scene::EditorStatusBit::EditorPlacement_Always))
             mode = ImGuiCond_Always;
 
         int game_width = 0, game_height = 0;
@@ -1437,19 +1464,23 @@ void Scene::SetGUIWindow(int posx, int posy, int width, int height) {
         GetWindowSize(&game_width, &game_height);
         GetWindowPosition(&game_posx, &game_posy);
 
-        if (posx == SETGUI_ATTACH_LEFT) {
+        if(posx == SETGUI_ATTACH_LEFT) {
             posx = game_posx - width;
-        } else if (posx == SETGUI_ATTACH_RIGHT) {
+        }
+        else if(posx == SETGUI_ATTACH_RIGHT) {
             posx = game_posx + game_width + 8;
-        } else {
+        }
+        else {
             posx += game_posx;
         }
 
-        if (posy == SETGUI_ATTACH_TOP) {
+        if(posy == SETGUI_ATTACH_TOP) {
             posy = game_posy - height;
-        } else if (posy == SETGUI_ATTACH_BOTTOM) {
+        }
+        else if(posy == SETGUI_ATTACH_BOTTOM) {
             posy = game_posy + game_height;
-        } else {
+        }
+        else {
             posy += game_posy;
         }
 
@@ -1458,53 +1489,57 @@ void Scene::SetGUIWindow(int posx, int posy, int width, int height) {
     }
 }
 
-ObjectPtr Scene::PickObject(int x, int y) {
+ObjectPtr Scene::PickObject(int x, int y)
+{
     auto wcam = GetCurrentCamera();
     auto cam  = wcam.lock();
-    if (cam == nullptr) return nullptr;
+    if(cam == nullptr)
+        return nullptr;
 
     ComponentCamera::CameraRay ray = cam->MousePositionRay(x, y);
 
     auto vec = normalize(ray.end - ray.start) * 5.0f;
 
-    DrawCapsule3D(cast(ray.start + vec), cast(ray.end), 0.05f, 30,
-                  GetColor(255, 0, 0), GetColor(255, 0, 0), TRUE);
+    DrawCapsule3D(cast(ray.start + vec), cast(ray.end), 0.05f, 30, GetColor(255, 0, 0), GetColor(255, 0, 0), TRUE);
 
-    float min         = FLT_MAX;
+    float     min     = FLT_MAX;
     ObjectPtr min_obj = nullptr;
 
-    for (auto& obj : current_scene_->GetObjectPtrVec()) {
+    for(auto& obj : current_scene_->GetObjectPtrVec()) {
         auto mdl = obj->GetComponent<ComponentModel>();
-        if (mdl) {
+        if(mdl) {
             MV1SetupCollInfo(mdl->GetModel(), -1, 8, 8, 8);
-            MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
-                mdl->GetModel(), -1, cast(ray.start), cast(ray.end));
-            if (result.HitFlag) {
-                float near_len =
-                    length(cast(result.HitPosition) - cam->GetPosition());
-                if (near_len < min) min_obj = obj;
+            MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(mdl->GetModel(), -1, cast(ray.start), cast(ray.end));
+            if(result.HitFlag) {
+                float near_len = length(cast(result.HitPosition) - cam->GetPosition());
+                if(near_len < min)
+                    min_obj = obj;
             }
         }
     }
     return min_obj;
 }
 
-ComponentCameraWeakPtr Scene::GetCurrentCamera() {
+ComponentCameraWeakPtr Scene::GetCurrentCamera()
+{
     // デバック中であればデバックカメラを返す
-    if (DebugCamera::IsUse()) return DebugCamera::GetCamera();
+    if(DebugCamera::IsUse())
+        return DebugCamera::GetCamera();
 
     // 通常のカレントカメラを返す
     return ComponentCamera::GetCurrentCamera();
 }
 
-ComponentCameraWeakPtr Scene::SetCurrentCamera(std::string_view name) {
-    if (auto obj = GetObjectPtr<Object>(name)) {
-        if (auto cam = obj->GetComponent<ComponentCamera>())
+ComponentCameraWeakPtr Scene::SetCurrentCamera(std::string_view name)
+{
+    if(auto obj = GetObjectPtr<Object>(name)) {
+        if(auto cam = obj->GetComponent<ComponentCamera>())
             cam->SetCurrentCamera();
     }
 
     // デバック中であればデバックカメラを返す
-    if (DebugCamera::IsUse()) return DebugCamera::GetCamera();
+    if(DebugCamera::IsUse())
+        return DebugCamera::GetCamera();
 
     // 通常のカレントカメラを返す
     return ComponentCamera::GetCurrentCamera();
@@ -1515,11 +1550,13 @@ ComponentCameraWeakPtr Scene::SetCurrentCamera(std::string_view name) {
 //----------------------------------------------------------------------
 //@{
 
-void Scene::SaveEditor() {
+void Scene::SaveEditor()
+{
     HelperLib::File::CreateFolder(".\\data\\_save\\");
-    std::string name = ".\\data\\_save\\Editor.txt";
+    std::string   name = ".\\data\\_save\\Editor.txt";
     std::ofstream file(name);
-    if (!file) return;
+    if(!file)
+        return;
 
     // 存在するオブジェクトをセーブする
     {
@@ -1533,10 +1570,12 @@ void Scene::SaveEditor() {
     file.close();
 }
 
-void Scene::LoadEditor() {
-    std::string name = ".\\data\\_save\\Editor.txt";
+void Scene::LoadEditor()
+{
+    std::string   name = ".\\data\\_save\\Editor.txt";
     std::ifstream file(name);
-    if (!file) return;
+    if(!file)
+        return;
 
     // 存在するオブジェクトをセーブする
     std::stringstream ss;
@@ -1550,11 +1589,13 @@ void Scene::LoadEditor() {
     }
 }
 
-bool Scene::Save(std::string_view filename) {
+bool Scene::Save(std::string_view filename)
+{
     return current_scene_->Save(filename);
 }
 
-bool Scene::Load(std::string_view filename) {
+bool Scene::Load(std::string_view filename)
+{
     return current_scene_->Load(filename);
 }
 
@@ -1571,10 +1612,9 @@ bool Scene::Load(std::string_view filename) {
 //!	class SceneSample : public Scene::Base
 //!	{
 //!	public:
-//!		std::string Name() override {   //<
-//!シーンに名前をつける必要があります 			return "Sample"; //<
-//!別のシーンに同じ名前はを使用しないでください。 		} //<
-//! SceneXXXXのXXXXを名前にするとよいと思います。
+//!		std::string Name() override {   //< シーンに名前をつける必要があります
+//!			return "Sample";            //< 別のシーンに同じ名前はを使用しないでください。
+//!		}                               //< SceneXXXXのXXXXを名前にするとよいと思います。
 //!
 //!		bool Init() override
 //!		{
@@ -1605,8 +1645,7 @@ bool Scene::Load(std::string_view filename) {
 //!	};
 //!	@endcode
 //!
-//!	@li 【簡易Scene使用方法】②シーンを切り替える
-//!(初期はGameMainで切り替えます)
+//!	@li 【簡易Scene使用方法】②シーンを切り替える (初期はGameMainで切り替えます)
 //!	@code
 //!	// 例: シーンを「SceneSample」に変更します
 //!	  Scene::Change( Scene::GetScene<SceneSample>() );

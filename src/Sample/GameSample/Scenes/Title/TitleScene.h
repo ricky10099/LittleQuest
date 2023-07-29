@@ -1,23 +1,26 @@
 ﻿#include <System/Scene.h>
 
-namespace Sample {
-    namespace GameSample {
-        class TitleScene : public Scene::Base {
-            public:
-                BP_CLASS_TYPE(TitleScene, Scene::Base);
+namespace Sample
+{
+namespace GameSample
+{
+class TitleScene : public Scene::Base
+{
+public:
+    BP_CLASS_TYPE(TitleScene, Scene::Base);
 
-                std::string Name() { return "GameSample/TitleScene"; }
+    std::string Name() { return "GameSample/TitleScene"; }
 
-                bool Init() override;
+    bool Init() override;
 
-                void Update() override;
+    void Update() override;
 
-                void Draw() override;
+    void Draw() override;
 
-                void Exit() override;
+    void Exit() override;
 
-                void GUI() override;
-        };
+    void GUI() override;
+};
 
-    }    // namespace GameSample
-}    // namespace Sample
+}   // namespace GameSample
+}   // namespace Sample

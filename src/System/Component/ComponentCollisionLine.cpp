@@ -16,14 +16,16 @@ BP_COMPONENT_IMPL(ComponentCollisionLine, u8"SphereCollision機能クラス");
 //-----------------------------------------------
 //! @brief 初期化
 //-----------------------------------------------
-void ComponentCollisionLine::Init() {
+void ComponentCollisionLine::Init()
+{
     __super::Init();
 }
 
 //-----------------------------------------------
 //! @brief 更新
 //-----------------------------------------------
-void ComponentCollisionLine::Update() {
+void ComponentCollisionLine::Update()
+{
     __super::Update();
 }
 
@@ -31,7 +33,8 @@ void ComponentCollisionLine::Update() {
 //! @brief 更新後の処理
 //! ここで当たり処理後の処理を行います
 //-----------------------------------------------
-void ComponentCollisionLine::PostUpdate() {
+void ComponentCollisionLine::PostUpdate()
+{
     __super::PostUpdate();
     old_transform_ = GetWorldMatrix();
 }
@@ -39,36 +42,39 @@ void ComponentCollisionLine::PostUpdate() {
 //-----------------------------------------------
 //! @brief 描画
 //-----------------------------------------------
-void ComponentCollisionLine::Draw() {
+void ComponentCollisionLine::Draw()
+{
     //エディターモードや、ShowInGameフラグがない場合は、表示しない
-    if (!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame))
+    if(!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame))
         return;
 
     __super::Draw();
 
-    // auto trans = mul(inverse(collision_transform_), GetWorldMatrix());
+    //auto trans = mul(inverse(collision_transform_), GetWorldMatrix());
 
     SetUseLighting(FALSE);
     SetLightEnable(FALSE);
 
-    auto line   = GetWorldLine();
+    auto   line = GetWorldLine();
     VECTOR pos1 = cast(line[0]);
     VECTOR pos2 = cast(line[1]);
 
-    // printfDx("{%2.1f, %2.1f, %2.1f}", pos1.x, pos1.y, pos1.z);
-    // printfDx("{%2.1f, %2.1f, %2.1f}", pos2.x, pos2.y, pos2.z);
+    //printfDx("{%2.1f, %2.1f, %2.1f}", pos1.x, pos1.y, pos1.z);
+    //printfDx("{%2.1f, %2.1f, %2.1f}", pos2.x, pos2.y, pos2.z);
 
     DrawLine3D(pos1, pos2, GetColor(255, 0, 0));
     SetLightEnable(TRUE);
     SetUseLighting(TRUE);
 }
 
-void ComponentCollisionLine::Exit() {
+void ComponentCollisionLine::Exit()
+{
     __super::Exit();
 }
 
 //! @brief GUI処理
-void ComponentCollisionLine::GUI() {
+void ComponentCollisionLine::GUI()
+{
     // 基底クラスのGUIはそのままは使用しない
     //__super::GUI();
 
@@ -79,37 +85,33 @@ void ComponentCollisionLine::GUI() {
     ImGui::Begin(obj_name.data());
     {
         ImGui::Separator();
-        auto ui_name =
-            std::string("Collision Line:") + std::to_string(collision_id_);
-        if (ImGui::TreeNode(ui_name.c_str())) {
-            if (ImGui::Button(u8"削除")) {
+        auto ui_name = std::string("Collision Line:") + std::to_string(collision_id_);
+        if(ImGui::TreeNode(ui_name.c_str())) {
+            if(ImGui::Button(u8"削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
             // コリジョン情報を出す
             GUICollisionData();
 
-            std::string colname =
-                u8"COL:" + std::to_string(collision_id_) + "/ ";
+            std::string colname = u8"COL:" + std::to_string(collision_id_) + "/ ";
 
-            auto line   = GetLine();
+            auto   line = GetLine();
             float3 pos1 = line[0];
             float3 pos2 = line[1];
 
             bool change = false;
-            change |= ImGui::DragFloat3((colname + u8" Start").data(),
-                                        (float*)&pos1, 0.1f);
-            change |= ImGui::DragFloat3((colname + u8" End").data(),
-                                        (float*)&pos2, 0.1f);
+            change |= ImGui::DragFloat3((colname + u8" Start").data(), (float*)&pos1, 0.1f);
+            change |= ImGui::DragFloat3((colname + u8" End").data(), (float*)&pos2, 0.1f);
 
-            if (HelperLib::Math::NearlyEqual(pos1.x, pos2.x)
-                && HelperLib::Math::NearlyEqual(pos1.y, pos2.y)
-                && HelperLib::Math::NearlyEqual(pos1.z, pos2.z)) {
+            if(HelperLib::Math::NearlyEqual(pos1.x, pos2.x) && HelperLib::Math::NearlyEqual(pos1.y, pos2.y) &&
+               HelperLib::Math::NearlyEqual(pos1.z, pos2.z)) {
                 pos2 += {0, 0, 0.01};
             }
 
             // StartかEndが変更されていたら再設定する
-            if (change) SetLine(pos1, pos2);
+            if(change)
+                SetLine(pos1, pos2);
 
             ImGui::TreePop();
         }
@@ -119,10 +121,9 @@ void ComponentCollisionLine::GUI() {
 
 //! @brief ローカル座標系でのラインの設定
 //! @return 自分のSharedPtr
-ComponentCollisionLinePtr ComponentCollisionLine::SetLine(float3 start,
-                                                          float3 end) {
-    auto mat = HelperLib::Math::CreateMatrixByFrontVector(end - start,
-                                                          {0, 1, 0}, true);
+ComponentCollisionLinePtr ComponentCollisionLine::SetLine(float3 start, float3 end)
+{
+    auto mat = HelperLib::Math::CreateMatrixByFrontVector(end - start, {0, 1, 0}, true);
     SetMatrix(mat);
     SetTranslate(start);
 
@@ -133,7 +134,8 @@ ComponentCollisionLinePtr ComponentCollisionLine::SetLine(float3 start,
 
 //! @brief ローカル座標系でのラインの取得
 //! @return {開始, 終了} (std::array<float3,2>)
-std::array<float3, 2> ComponentCollisionLine::GetLine() const {
+std::array<float3, 2> ComponentCollisionLine::GetLine() const
+{
     std::array<float3, 2> line;
 
     line[0] = GetTranslate();
@@ -144,7 +146,8 @@ std::array<float3, 2> ComponentCollisionLine::GetLine() const {
 
 //! @brief ワールド座標系でのラインの取得
 //! @return {開始, 終了} (std::array<float3,2>)
-std::array<float3, 2> ComponentCollisionLine::GetWorldLine() const {
+std::array<float3, 2> ComponentCollisionLine::GetWorldLine() const
+{
     auto line = GetLine();
 
     auto trans = mul(inverse(collision_transform_), GetWorldMatrix());
@@ -158,36 +161,30 @@ std::array<float3, 2> ComponentCollisionLine::GetWorldLine() const {
 //! @brief 当たっているかを調べる
 //! @param col 相手のコリジョン
 //! @return HitInfoを返す
-ComponentCollisionLine::HitInfo ComponentCollisionLine::IsHit(
-    ComponentCollisionPtr col) {
+ComponentCollisionLine::HitInfo ComponentCollisionLine::IsHit(ComponentCollisionPtr col)
+{
     HitInfo info;
 
-    switch (col->GetCollisionType()) {
-        case ComponentCollision::CollisionType::LINE:
-            // ラインどうしは現状ヒットしない
-            // @todo HitCheck_Line_Line()
-            break;
-        case ComponentCollision::CollisionType::TRIANGLE:
-            // @todo HitCheck_Line_Triangle()
-            break;
-        case ComponentCollision::CollisionType::SPHERE:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionLine>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionSphere>(col));
-            break;
-        case ComponentCollision::CollisionType::CAPSULE:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionLine>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionCapsule>(col));
-            break;
-        case ComponentCollision::CollisionType::MODEL:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionLine>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionModel>(col));
-            break;
+    switch(col->GetCollisionType()) {
+    case ComponentCollision::CollisionType::LINE:
+        // ラインどうしは現状ヒットしない
+        // @todo HitCheck_Line_Line()
+        break;
+    case ComponentCollision::CollisionType::TRIANGLE:
+        // @todo HitCheck_Line_Triangle()
+        break;
+    case ComponentCollision::CollisionType::SPHERE:
+        return isHit(std::dynamic_pointer_cast<ComponentCollisionLine>(shared_from_this()),
+                     std::dynamic_pointer_cast<ComponentCollisionSphere>(col));
+        break;
+    case ComponentCollision::CollisionType::CAPSULE:
+        return isHit(std::dynamic_pointer_cast<ComponentCollisionLine>(shared_from_this()),
+                     std::dynamic_pointer_cast<ComponentCollisionCapsule>(col));
+        break;
+    case ComponentCollision::CollisionType::MODEL:
+        return isHit(std::dynamic_pointer_cast<ComponentCollisionLine>(shared_from_this()),
+                     std::dynamic_pointer_cast<ComponentCollisionModel>(col));
+        break;
     }
 
     return info;
@@ -195,16 +192,18 @@ ComponentCollisionLine::HitInfo ComponentCollisionLine::IsHit(
 
 //! @brief ワールドMatrixの取得
 //! @return 他のコンポーネントも含めた位置
-const matrix ComponentCollisionLine::GetWorldMatrix() const {
+const matrix ComponentCollisionLine::GetWorldMatrix() const
+{
     matrix transform = collision_transform_;
 
     auto obj = GetOwner();
-    if (attach_node_ >= 0) {
+    if(attach_node_ >= 0) {
         auto mdl = obj->GetComponent<ComponentModel>();
-        if (mdl) {
+        if(mdl) {
             transform = mul(transform, attach_node_matrix_);
         }
-    } else {
+    }
+    else {
         matrix mat = obj->GetMatrix();
         transform  = mul(transform, mat);
     }

@@ -10,14 +10,15 @@ BP_COMPONENT_IMPL(ComponentModel, u8"Model機能クラス");
 
 //! @brief モデルロード
 //! @param path ロードするモデル(.MV1/.MQO/.Xなど)
-void ComponentModel::Load(std::string_view path) {
+void ComponentModel::Load(std::string_view path)
+{
     model_status_.off(ModelBit::ErrorFileNotFound);
     model_status_.on(ModelBit::SetFileAlready);
 
     path_ = path;
 
     // ファイルが存在しているか?
-    if (!HelperLib::File::CheckFileExistence(path_)) {
+    if(!HelperLib::File::CheckFileExistence(path_)) {
         // ロードできなかった
         model_status_.on(ModelBit::ErrorFileNotFound);
         model_status_.off(ModelBit::Initialized);
@@ -26,10 +27,11 @@ void ComponentModel::Load(std::string_view path) {
     }
 
     bool result = model_->load(path_);
-    if (!result) {
+    if(!result) {
         // ロードできなかった
         model_status_.on(ModelBit::ErrorFileNotFound);
-    } else {
+    }
+    else {
         // ロード済み
         model_status_.on(ModelBit::Initialized);
     }
@@ -40,29 +42,30 @@ void ComponentModel::Load(std::string_view path) {
 
 //! @brief モデル更新
 //! @param delta 1フレームの秒数
-void ComponentModel::Update() {
+void ComponentModel::Update()
+{
     float delta = GetDeltaTime();
 
     // モデルが存在しているならばTransform設定を行う
-    if (IsValid()) {
+    if(IsValid()) {
         // アニメーションがあり再生している?
-        if (animation_ && animation_->isValid() && animation_->isPlaying()) {
+        if(animation_ && animation_->isValid() && animation_->isPlaying()) {
             animation_->update(delta);
             animation_time_ += delta;
 
             // 進めた結果終了した場合はOldとして確保
-            if (animation_->isPlaying()) {
+            if(animation_->isPlaying()) {
                 old_animation_name_ = current_animation_name_;
             }
         }
 
         auto mat  = model_transform_;
         auto trns = GetOwner()->GetComponent<ComponentTransform>();
-        if (trns) {
-            mat = mul(mat, trns->GetMatrix());
+        if(trns) {
+            mat = mul(mat, trns->GetWorldMatrix());
         }
 
-        if (model_) {
+        if(model_) {
             // ワールド行列を設定
             model_->setWorldMatrix(mat);
 
@@ -73,13 +76,17 @@ void ComponentModel::Update() {
 }
 
 //! @brief モデル描画
-void ComponentModel::Draw() {
-    if (!model_status_.is(ModelBit::Initialized)) return;
+void ComponentModel::Draw()
+{
+    if(!model_status_.is(ModelBit::Initialized))
+        return;
 
     // Drawはここで抑えておく
-    if (GetStatus(Component::StatusBit::NoDraw)) return;
+    if(GetStatus(Component::StatusBit::NoDraw))
+        return;
 
-    if (model_ == nullptr) return;
+    if(model_ == nullptr)
+        return;
 
     // ワールド行列を設定(コリジョン移動分)
     model_->setWorldMatrix(GetWorldMatrix());
@@ -92,13 +99,15 @@ void ComponentModel::Draw() {
 }
 
 //! @brief 終了処理
-void ComponentModel::Exit() {
+void ComponentModel::Exit()
+{
     __super::Exit();
     // 解放必要なし
 }
 
 //! @brief GUI処理
-void ComponentModel::GUI() {
+void ComponentModel::GUI()
+{
     // オーナーの取得
     assert(GetOwner());
     auto obj_name = GetOwner()->GetName();
@@ -107,27 +116,30 @@ void ComponentModel::GUI() {
     {
         ImGui::Separator();
 
-        if (!ImGui::IsWindowFocused()) node_manipulate_ = false;
+        if(!ImGui::IsWindowFocused())
+            node_manipulate_ = false;
 
         // モデルコンポーネント表示
-        if (ImGui::TreeNode("Model")) {
-            if (ImGui::Button(u8"削除")) {
+        if(ImGui::TreeNode("Model")) {
+            if(ImGui::Button(u8"削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
             // シェーダー利用設定
             bool shader = UseShader();
-            if (ImGui::Checkbox(u8"UseShader", &shader)) {
+            if(ImGui::Checkbox(u8"UseShader", &shader)) {
                 model_status_.set(ModelBit::UseShader, shader);
             }
 
             // ロード完了チェックフラグ
             bool loaded = IsValid();
 
-            ImGui::BeginDisabled(true);    // UI上の編集不可(ReadOnly)
+            ImGui::BeginDisabled(true);   // UI上の編集不可(ReadOnly)
             {
-                if (loaded) ImGui::Checkbox(u8"【LoadOK】", &loaded);
-                else ImGui::TextColored({1, 0, 0, 1}, u8"【LoadNG】");
+                if(loaded)
+                    ImGui::Checkbox(u8"【LoadOK】", &loaded);
+                else
+                    ImGui::TextColored({1, 0, 0, 1}, u8"【LoadNG】");
             }
             ImGui::EndDisabled();
 
@@ -136,7 +148,7 @@ void ComponentModel::GUI() {
             // モデルファイル名
             char file_name[1024];
             sprintf_s(file_name, "%s", path_.c_str());
-            if (ImGui::InputText(u8"File", file_name, 1024)) {
+            if(ImGui::InputText(u8"File", file_name, 1024)) {
                 path_ = file_name;
                 model_status_.off(ModelBit::Initialized);
                 Load(path_);
@@ -145,95 +157,77 @@ void ComponentModel::GUI() {
 
             auto GUIAnimation = [this]() {
                 constexpr int item_count = 5;
-                auto flags = ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders
-                             | ImGuiTableFlags_Sortable |    //
-                             ImGuiTableFlags_SizingFixedSame
-                             | ImGuiTableFlags_ScrollY;
+                auto flags = ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_Sortable |   //
+                             ImGuiTableFlags_SizingFixedSame | ImGuiTableFlags_ScrollY;
 
                 bool change = false;
 
-                if (animations_desc_.empty()) {
-                    if (ImGui::Button(u8"アニメーション追加"))
+                if(animations_desc_.empty()) {
+                    if(ImGui::Button(u8"アニメーション追加"))
                         animations_desc_.push_back({});
-                } else {
-                    if (ImGui::TreeNode(u8"アニメーション")) {
-                        if (ImGui::Button(u8"Play", ImVec2(100, 20))) {
-                            if (!current_animation_name_.empty()) {
-                                PlayAnimation(current_animation_name_,
-                                              anim_loop_);
+                }
+                else {
+                    if(ImGui::TreeNode(u8"アニメーション")) {
+                        if(ImGui::Button(u8"Play", ImVec2(100, 20))) {
+                            if(!current_animation_name_.empty()) {
+                                PlayAnimation(current_animation_name_, anim_loop_);
                             }
                         }
                         ImGui::SameLine();
                         ImGui::Checkbox(u8"ループ", &anim_loop_);
 
-                        if (ImGui::BeginTable("table1", item_count, flags)) {
-                            for (int row = 0; row < animations_desc_.size();) {
+                        if(ImGui::BeginTable("table1", item_count, flags)) {
+                            for(int row = 0; row < animations_desc_.size();) {
                                 auto& desc = animations_desc_[row];
                                 ImGui::TableNextRow();
 
                                 {
                                     ImGui::SetNextItemWidth(0);
                                     ImGui::TableSetColumnIndex(0);
-                                    std::string radio =
-                                        std::string(u8"##radio_anm_row")
-                                        + std::to_string(row);
-                                    if (ImGui::RadioButton(
-                                            radio.c_str(),
-                                            current_animation_name_
-                                                == desc.name_)) {
+                                    std::string radio = std::string(u8"##radio_anm_row") + std::to_string(row);
+                                    if(ImGui::RadioButton(radio.c_str(), current_animation_name_ == desc.name_)) {
                                         current_animation_name_ = desc.name_;
                                     }
                                     ImGui::SameLine();
                                     ImGui::SetNextItemWidth(0);
                                     ImGui::TableSetColumnIndex(0);
-                                    std::string id =
-                                        std::string(u8"削除##anm_row")
-                                        + std::to_string(row);
-                                    if (ImGui::Button(id.c_str())) {
-                                        animations_desc_.erase(
-                                            animations_desc_.begin() + row);
+                                    std::string id = std::string(u8"削除##anm_row") + std::to_string(row);
+                                    if(ImGui::Button(id.c_str())) {
+                                        animations_desc_.erase(animations_desc_.begin() + row);
                                         continue;
                                     }
                                     ImGui::SameLine();
 
                                     ImGui::SetNextItemWidth(100);
                                     ImGui::TableSetColumnIndex(1);
-                                    ImGui::PushID(row * item_count
-                                                  + 0);    // assign unique id
-                                    change |= ImGui::InputText(
-                                        "##v", &desc.name_,
-                                        ImGuiInputTextFlags_EnterReturnsTrue);
+                                    ImGui::PushID(row * item_count + 0);   // assign unique id
+                                    change |=
+                                        ImGui::InputText("##v", &desc.name_, ImGuiInputTextFlags_EnterReturnsTrue);
                                     ImGui::PopID();
 
                                     ImGui::SetNextItemWidth(500);
                                     ImGui::TableSetColumnIndex(2);
-                                    ImGui::PushID(row * item_count
-                                                  + 1);    // assign unique id
-                                    change |= ImGui::InputText(
-                                        "##v", &desc.file_path_);
+                                    ImGui::PushID(row * item_count + 1);   // assign unique id
+                                    change |= ImGui::InputText("##v", &desc.file_path_);
                                     ImGui::PopID();
 
                                     ImGui::SetNextItemWidth(80);
                                     ImGui::TableSetColumnIndex(3);
-                                    ImGui::PushID(row * item_count
-                                                  + 2);    // assign unique id
-                                    change |= ImGui::InputInt(
-                                        "##v", (int*)&desc.animation_index_);
+                                    ImGui::PushID(row * item_count + 2);   // assign unique id
+                                    change |= ImGui::InputInt("##v", (int*)&desc.animation_index_);
                                     ImGui::PopID();
 
                                     ImGui::SetNextItemWidth(80);
                                     ImGui::TableSetColumnIndex(4);
-                                    ImGui::PushID(row * item_count
-                                                  + 3);    // assign unique id
-                                    change |= ImGui::InputFloat(
-                                        "##v", &desc.animation_speed_);
+                                    ImGui::PushID(row * item_count + 3);   // assign unique id
+                                    change |= ImGui::InputFloat("##v", &desc.animation_speed_);
                                     ImGui::PopID();
                                 }
                                 row++;
                             }
                             ImGui::EndTable();
                         }
-                        if (ImGui::Button(u8"アニメーション追加"))
+                        if(ImGui::Button(u8"アニメーション追加"))
                             animations_desc_.push_back({});
 
                         ImGui::TreePop();
@@ -241,7 +235,7 @@ void ComponentModel::GUI() {
                 }
 
                 // 再登録
-                if (change) {
+                if(change) {
                     SetAnimation(animations_desc_);
                 }
             };
@@ -249,50 +243,41 @@ void ComponentModel::GUI() {
             GUIAnimation();
 
             // アニメーション名
-            if (IsPlaying()) {
+            if(IsPlaying()) {
                 ImGui::TextColored({0.5, 1, 0.5, 1}, u8"アニメーション再生中");
-                ImGui::Text(u8"[%3.2f]%s", animation_time_,
-                            GetPlayAnimationName().data());
+                ImGui::Text(u8"[%3.2f]%s", animation_time_, GetPlayAnimationName().data());
                 ImGui::Separator();
             }
 
             // モデル姿勢
-            if (ImGui::TreeNode(u8"モデル姿勢")) {
-                ImGui::DragFloat4(u8"Ｘ軸", model_transform_.f32_128_0, 0.01f,
-                                  -10000.0f, 10000.0f, "%.2f");
-                ImGui::DragFloat4(u8"Ｙ軸", model_transform_.f32_128_1, 0.01f,
-                                  -10000.0f, 10000.0f, "%.2f");
-                ImGui::DragFloat4(u8"Ｚ軸", model_transform_.f32_128_2, 0.01f,
-                                  -10000.0f, 10000.0f, "%.2f");
-                ImGui::DragFloat4(u8"座標", model_transform_.f32_128_3, 0.01f,
-                                  -10000.0f, 10000.0f, "%.2f");
+            if(ImGui::TreeNode(u8"モデル姿勢")) {
+                ImGui::DragFloat4(u8"Ｘ軸", model_transform_.f32_128_0, 0.01f, -10000.0f, 10000.0f, "%.2f");
+                ImGui::DragFloat4(u8"Ｙ軸", model_transform_.f32_128_1, 0.01f, -10000.0f, 10000.0f, "%.2f");
+                ImGui::DragFloat4(u8"Ｚ軸", model_transform_.f32_128_2, 0.01f, -10000.0f, 10000.0f, "%.2f");
+                ImGui::DragFloat4(u8"座標", model_transform_.f32_128_3, 0.01f, -10000.0f, 10000.0f, "%.2f");
                 ImGui::Separator();
                 ImGui::TreePop();
             }
 
             // 姿勢を TRSで変更できるように設定
             float* mat = model_transform_.f32_128_0;
-            float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation,
-                                        matrixScale);
-            ImGui::DragFloat3(u8"座標(T)", matrixTranslation, 0.01f,
-                              -100000.00f, 100000.0f, "%.2f");
-            ImGui::DragFloat3(u8"回転(R)", matrixRotation, 0.1f, -360.0f,
-                              360.0f, "%.2f");
-            ImGui::DragFloat3(u8"スケール(S)", matrixScale, 0.01f, 0.00f,
-                              1000.0f, "%.2f");
-            RecomposeMatrixFromComponents(matrixTranslation, matrixRotation,
-                                          matrixScale, mat);
+            float  matrixTranslation[3], matrixRotation[3], matrixScale[3];
+            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
+            ImGui::DragFloat3(u8"座標(T)", matrixTranslation, 0.01f, -100000.00f, 100000.0f, "%.2f");
+            ImGui::DragFloat3(u8"回転(R)", matrixRotation, 0.1f, -360.0f, 360.0f, "%.2f");
+            ImGui::DragFloat3(u8"スケール(S)", matrixScale, 0.01f, 0.00f, 1000.0f, "%.2f");
+            RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, mat);
 
-            if (ImGui::TreeNode("Model:Nodes")) {
+            if(ImGui::TreeNode("Model:Nodes")) {
                 node_manipulate_ = false;
                 auto list        = GetNodesNamePChar();
-                ImGui::ListBox(u8"ノード名", &select_node_index_, list.data(),
-                               (int)list.size(), 10);
-                if (select_node_index_ < list.size()) node_manipulate_ = true;
+                ImGui::ListBox(u8"ノード名", &select_node_index_, list.data(), (int)list.size(), 10);
+                if(select_node_index_ < list.size())
+                    node_manipulate_ = true;
 
                 ImGui::TreePop();
-            } else {
+            }
+            else {
                 node_manipulate_ = false;
             }
 
@@ -301,16 +286,14 @@ void ComponentModel::GUI() {
     }
     ImGui::End();
 
-    if (node_manipulate_) {
-        matrix matx =
-            MV1GetFrameLocalWorldMatrix(GetModel(), select_node_index_);
-        auto trns = GetOwner()->GetComponent<ComponentTransform>();
-        // matx		= mul( GetMatrix(), matx );
-        // matx		= mul( trns->GetMatrix(), matx );
+    if(node_manipulate_) {
+        matrix matx = MV1GetFrameLocalWorldMatrix(GetModel(), select_node_index_);
+        auto   trns = GetOwner()->GetComponent<ComponentTransform>();
+        //matx		= mul( GetMatrix(), matx );
+        //matx		= mul( trns->GetMatrix(), matx );
 
         float* mat_float = (float*)matx.f32_128_0;
-        ShowGizmo(mat_float, gizmo_operation_, gizmo_mode_,
-                  reinterpret_cast<uint64_t>(this));
+        ShowGizmo(mat_float, gizmo_operation_, gizmo_mode_, reinterpret_cast<uint64_t>(this));
 #if 0
 		// Gizmoを表示するためのMatrixをDxLibから取得
 		auto camera_view = GetCameraViewMatrix();
@@ -360,9 +343,9 @@ void ComponentModel::GUI() {
     }
 }
 
-ComponentModelPtr ComponentModel::SetAnimation(
-    const std::vector<Animation::Desc> anims) {
-    if (model_) {
+ComponentModelPtr ComponentModel::SetAnimation(const std::vector<Animation::Desc> anims)
+{
+    if(model_) {
         // エディター用アニメーション設定用
         animations_desc_ = anims;
 
@@ -376,46 +359,56 @@ ComponentModelPtr ComponentModel::SetAnimation(
     return std::dynamic_pointer_cast<ComponentModel>(shared_from_this());
 }
 
-void ComponentModel::PlayAnimationNoSame(std::string_view name, bool loop,
-                                         float blend_time, float start_time) {
-    if (current_animation_name_ == name) return;
+void ComponentModel::PlayAnimationNoSame(std::string_view name, bool loop, float blend_time, float start_time)
+{
+    if(current_animation_name_ == name)
+        return;
 
     PlayAnimation(name, loop, blend_time, start_time);
 }
 
-void ComponentModel::PlayAnimation(std::string_view name, bool loop,
-                                   float blend_time, float start_time) {
-    if (animation_) {
+void ComponentModel::PlayAnimation(std::string_view name, bool loop, float blend_time, float start_time)
+{
+    if(animation_) {
         animation_->play(name, loop, blend_time, start_time);
         current_animation_name_ = name;
         animation_time_         = 0.0f;
     }
 }
 
-bool ComponentModel::IsPlaying() {
-    if (animation_) return animation_->isPlaying();
+bool ComponentModel::IsPlaying()
+{
+    if(animation_)
+        return animation_->isPlaying();
 
     return false;
 }
 
-void ComponentModel::PlayPause(bool is_pause) {
-    if (animation_) animation_->pause(is_pause);
+void ComponentModel::PlayPause(bool is_pause)
+{
+    if(animation_)
+        animation_->pause(is_pause);
 }
 
-bool ComponentModel::IsPaused() {
-    if (animation_) return animation_->isPaused();
+bool ComponentModel::IsPaused()
+{
+    if(animation_)
+        return animation_->isPaused();
 
     return false;
 }
 
-bool ComponentModel::IsAnimationValid() {
-    if (animation_) return animation_->isValid();
+bool ComponentModel::IsAnimationValid()
+{
+    if(animation_)
+        return animation_->isValid();
 
     return false;
 }
 
-const std::string_view ComponentModel::GetPlayAnimationName() {
-    if (IsPlaying()) {
+const std::string_view ComponentModel::GetPlayAnimationName()
+{
+    if(IsPlaying()) {
         return current_animation_name_;
     }
 
@@ -423,8 +416,9 @@ const std::string_view ComponentModel::GetPlayAnimationName() {
     return "";
 }
 
-const std::string_view ComponentModel::GetOldPlayAnimationName() {
-    if (IsPlaying()) {
+const std::string_view ComponentModel::GetOldPlayAnimationName()
+{
+    if(IsPlaying()) {
         // 既に再生されている場合は前のアニメーション名を返す
         return old_animation_name_;
     }
@@ -433,19 +427,23 @@ const std::string_view ComponentModel::GetOldPlayAnimationName() {
     return current_animation_name_;
 }
 
-const float ComponentModel::GetAnimationTime() {
-    if (IsPlaying()) return animation_time_;
+const float ComponentModel::GetAnimationTime()
+{
+    if(IsPlaying())
+        return animation_time_;
 
     return 0.0f;
 }
 
-std::vector<std::string_view> ComponentModel::GetNodesName() {
-    if (nodes_name_.empty()) {
+std::vector<std::string_view> ComponentModel::GetNodesName()
+{
+    if(nodes_name_.empty()) {
         int num = MV1GetFrameNum(GetModel());
-        if (num <= 0) return nodes_name_;
+        if(num <= 0)
+            return nodes_name_;
 
         nodes_name_.reserve(num);
-        for (int i = 0; i < num; i++) {
+        for(int i = 0; i < num; i++) {
             nodes_name_.emplace_back(MV1GetFrameName(GetModel(), i));
         }
     }
@@ -453,23 +451,25 @@ std::vector<std::string_view> ComponentModel::GetNodesName() {
     return nodes_name_;
 }
 
-std::vector<const char*> ComponentModel::GetNodesNamePChar() {
+std::vector<const char*> ComponentModel::GetNodesNamePChar()
+{
     std::vector<const char*> listbox;
-    auto names = GetNodesName();
+    auto                     names = GetNodesName();
 
     listbox.reserve(names.size());
 
-    for (auto& name : names) {
+    for(auto& name : names) {
         listbox.emplace_back(name.data());
     }
 
     return listbox;
 }
 
-int ComponentModel::GetNodeIndex(std::string_view name) {
+int ComponentModel::GetNodeIndex(std::string_view name)
+{
     auto names = GetNodesName();
-    for (int i = 0; i < names.size(); i++) {
-        if (names[i] == name) {
+    for(int i = 0; i < names.size(); i++) {
+        if(names[i] == name) {
             return i;
         }
     }
@@ -477,17 +477,19 @@ int ComponentModel::GetNodeIndex(std::string_view name) {
     return -1;
 }
 
-float3 ComponentModel::GetNodePosition(std::string_view name, bool local) {
+float3 ComponentModel::GetNodePosition(std::string_view name, bool local)
+{
     int index = GetNodeIndex(name);
-    if (index >= 0) {
+    if(index >= 0) {
         return GetNodePosition(index, local);
     }
     // 存在せず(初期位置)
     return {0, 0, 0};
 }
 
-float3 ComponentModel::GetNodePosition(int no, bool local) {
-    if (local) {
+float3 ComponentModel::GetNodePosition(int no, bool local)
+{
+    if(local) {
         // ローカル座標で取得
         auto mat = MV1GetFrameLocalMatrix(GetModel(), no);
         return {mat.m[3][0], mat.m[3][1], mat.m[3][2]};
@@ -497,17 +499,19 @@ float3 ComponentModel::GetNodePosition(int no, bool local) {
     return {mat.m[3][0], mat.m[3][1], mat.m[3][2]};
 }
 
-matrix ComponentModel::GetNodeMatrix(std::string_view name, bool local) {
+matrix ComponentModel::GetNodeMatrix(std::string_view name, bool local)
+{
     int index = GetNodeIndex(name);
-    if (index >= 0) {
+    if(index >= 0) {
         return GetNodeMatrix(index, local);
     }
     // 存在せず(初期位置)
     return matrix::identity();
 }
 
-matrix ComponentModel::GetNodeMatrix(int no, bool local) {
-    if (local) {
+matrix ComponentModel::GetNodeMatrix(int no, bool local)
+{
+    if(local) {
         // ローカル座標で取得
         return MV1GetFrameLocalMatrix(GetModel(), no);
     }
@@ -519,13 +523,15 @@ matrix ComponentModel::GetNodeMatrix(int no, bool local) {
 //! @brief ワールドMatrixの取得
 //! @return 他のコンポーネントも含めた位置
 
-const matrix ComponentModel::GetWorldMatrix() const {
+const matrix ComponentModel::GetWorldMatrix() const
+{
     return mul(GetMatrix(), GetOwner()->GetWorldMatrix());
 }
 
 //! @brief 1フレーム前のワールドMatrixの取得
 //! @return 他のコンポーネントも含めた位置
 
-const matrix ComponentModel::GetOldWorldMatrix() const {
+const matrix ComponentModel::GetOldWorldMatrix() const
+{
     return mul(GetMatrix(), GetOwner()->GetOldWorldMatrix());
 }

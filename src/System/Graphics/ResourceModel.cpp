@@ -8,13 +8,14 @@
 //---------------------------------------------------------------------------
 //! コンストラクタ
 //---------------------------------------------------------------------------
-ResourceModel::ResourceModel(std::string_view path) {
+ResourceModel::ResourceModel(std::string_view path)
+{
     //-----------------------------------------------------------------------
     // MV1モデルの読み込み
     //-----------------------------------------------------------------------
     auto model_path = std::string(path);
     // パスの保存
-    path_           = convertTo(model_path);
+    path_ = convertTo(model_path);
 
     // ハンドルの非同期読み込み処理が完了したら呼ばれる関数
     auto finish_callback = [](int mv1_handle, void* data) {
@@ -22,7 +23,7 @@ ResourceModel::ResourceModel(std::string_view path) {
 
         // ジオメトリのキャッシュファイルが無かったら作成する
         auto* model_cache = resource->model_cache_.get();
-        if (!model_cache->isExist()) {
+        if(!model_cache->isExist()) {
             model_cache->save(mv1_handle);
 
             // 読み込みなおす
@@ -43,13 +44,11 @@ ResourceModel::ResourceModel(std::string_view path) {
     //----------------------------------------------------------
     // 非同期読み込み
     //----------------------------------------------------------
-    SetUseASyncLoadFlag(
-        cache_result);    // キャッシュファイルが無かった場合はブロッキングロードにする
+    SetUseASyncLoadFlag(cache_result);   // キャッシュファイルが無かった場合はブロッキングロードにする
     {
         // モデルの読み込み
         mv1_handle_ = MV1LoadModel(model_path.c_str());
-        SetASyncLoadFinishCallback(mv1_handle_,
-                                   (void (*)(int, void*))finish_callback, this);
+        SetASyncLoadFinishCallback(mv1_handle_, (void (*)(int, void*))finish_callback, this);
     }
     SetUseASyncLoadFlag(false);
 };
@@ -57,15 +56,17 @@ ResourceModel::ResourceModel(std::string_view path) {
 //---------------------------------------------------------------------------
 //! デストラクタ
 //---------------------------------------------------------------------------
-ResourceModel::~ResourceModel() {
+ResourceModel::~ResourceModel()
+{
     MV1DeleteModel(mv1_handle_);
 }
 
 //---------------------------------------------------------------------------
 //! 読み込み完了まで待つ
 //---------------------------------------------------------------------------
-void ResourceModel::waitForReadFinish() {
-    if (isActive() == false) {
+void ResourceModel::waitForReadFinish()
+{
+    if(isActive() == false) {
         WaitHandleASyncLoad(mv1_handle_);
     }
 }
@@ -73,34 +74,39 @@ void ResourceModel::waitForReadFinish() {
 //---------------------------------------------------------------------------
 //! [DxLib] MV1ハンドルを取得
 //---------------------------------------------------------------------------
-ResourceModel::operator int() const {
+ResourceModel::operator int() const
+{
     return mv1_handle_;
 }
 
 //---------------------------------------------------------------------------
 //! モデルキャッシュを取得
 //---------------------------------------------------------------------------
-ModelCache* ResourceModel::modelCache() const {
+ModelCache* ResourceModel::modelCache() const
+{
     return model_cache_.get();
 }
 
 //---------------------------------------------------------------------------
 //! ファイルパスを取得
 //---------------------------------------------------------------------------
-const std::wstring& ResourceModel::path() const {
+const std::wstring& ResourceModel::path() const
+{
     return path_;
 }
 
 //---------------------------------------------------------------------------
 //! 初期化が正しく成功しているかどうか
 //---------------------------------------------------------------------------
-bool ResourceModel::isValid() const {
+bool ResourceModel::isValid() const
+{
     return mv1_handle_ != -1;
 }
 
 //---------------------------------------------------------------------------
 //! 描画可能な状態かどうか取得
 //---------------------------------------------------------------------------
-bool ResourceModel::isActive() const {
+bool ResourceModel::isActive() const
+{
     return active_;
 }
