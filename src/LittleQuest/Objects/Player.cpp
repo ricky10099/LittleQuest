@@ -3,6 +3,7 @@
 
 #include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentCollisionCapsule.h>
+#include <System/Component/ComponentCollisionLine.h>
 #include <System/Component/ComponentCollisionModel.h>
 #include <System/Component/ComponentCollisionSphere.h>
 #include <System/Component/ComponentModel.h>
@@ -31,21 +32,21 @@ PlayerPtr Player::Create(const float3& pos, const float3& front)
     player->SetTranslate(pos);
 
     {
-        auto sword = Scene::CreateObjectPtr<Object>()->SetName("PlayerSword");
-        sword->SetTranslate({0, 0, 0});
+        auto sword = Sword::Create("PlayerSword", float3{0, 0, 0});
+        //    //sword->SetTranslate({0, 0, 0});
 
-        // オブジェクトにモデルをつける
-        if(auto model = sword->AddComponent<ComponentModel>()) {
-            model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
-            // model->Load("data/Sample/FPS_Knife/Knife_low.mv1");
-            model->SetRotationAxisXYZ({0, 0, 0});
-            model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
-        }
+        //    //// オブジェクトにモデルをつける
+        //    //if(auto model = sword->AddComponent<ComponentModel>()) {
+        //    //    model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
+        //    //    // model->Load("data/Sample/FPS_Knife/Knife_low.mv1");
+        //    //    model->SetRotationAxisXYZ({0, 0, 0});
+        //    //    model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
+        //    ////}
 
-        if(auto cmp_mdl = sword->AddComponent<ComponentCollisionModel>()) {
-            cmp_mdl->AttachToModel(true);
-            cmp_mdl->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ETC);
-        }
+        //    //if(auto cmp_mdl = sword->AddComponent<ComponentCollisionModel>()) {
+        //    //    cmp_mdl->AttachToModel(true);
+        //    //    cmp_mdl->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ETC);
+        //    //}
 
         if(auto attach = sword->AddComponent<ComponentAttachModel>()) {
             // playerの右手にアタッチする
@@ -56,7 +57,6 @@ PlayerPtr Player::Create(const float3& pos, const float3& front)
             attach->SetAttachOffset({10, 13, -3});
         }
     }
-
     return player;
 }
 
@@ -81,13 +81,20 @@ bool Player::Init()   // override
 
     // modelPtr = GetComponent<ComponentModel>();
     //  コリジョン(カプセル)
-    auto col = AddComponent<ComponentCollisionCapsule>();   //
-    col->SetTranslate({0, 0, 0});
-    col->SetRadius(2.5);
-    col->SetHeight(10);
-    col->UseGravity();
-    col->SetCollisionGroup(ComponentCollision::CollisionGroup::PLAYER);
+    if(auto colCap = AddComponent<ComponentCollisionCapsule>()) {
+        colCap->SetTranslate({0, 0, 0});
+        colCap->SetRadius(2.5);
+        colCap->SetHeight(10);
+        colCap->UseGravity();
+        colCap->SetCollisionGroup(ComponentCollision::CollisionGroup::PLAYER);
+    }
 
+    if(auto colLine = AddComponent<ComponentCollisionLine>()) {
+        colLine->AttachToModel("mixamorig:RightHand");
+        colLine->SetTranslate({0, 0, 0});
+        colLine->SetLine(float3{0, 15, 0}, float3{110, 15, 1});
+        colLine->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
+    }
     /* auto target = AddComponent<ComponentTargetTracking>();
             target->SetTrackingNode("mixamorig:Neck");
             target->SetFrontVector({0, 0, -1});
@@ -96,11 +103,17 @@ bool Player::Init()   // override
 
             target->SetTrackingLimitUpDown({10, 10});*/
 
+    /*auto sword = Sword::Create();*/
+
     return true;
 }
 
 void Player::Update()   // override
 {
+    if(!sword) {
+        sword = Scene::GetObjectPtr<Sword>("PlayerSword");
+    }
+
     auto   mat  = GetMatrix();
     float3 move = float3(0, 0, 0);
     isWalk      = false;
@@ -204,9 +217,9 @@ void Player::LateDraw()   // override
     printfDx("\nisCombo: %i", isCombo);
     printfDx("\nGetMouseHWheelRotVol: %i", MouseWheelCounter);
 
-    auto sword = Scene::GetObjectPtr<Object>("PlayerSword");
-    auto col   = sword->GetComponent<ComponentCollisionModel>();
-    printfDx("\nCol name : %s", col->GetOwnerPtr()->GetName());
+    //auto sword = Scene::GetObjectPtr<Object>("PlayerSword");
+    //auto col   = sword->GetComponent<ComponentCollisionModel>();
+    //printfDx("\nCol name : %s", col->GetOwnerPtr()->GetName());
 }
 
 void Player::GUI()   // override
@@ -276,18 +289,20 @@ void Player::Jump()
 
 void Player::Attack()
 {
-    auto sword = Scene::GetObjectPtr<Object>("PlayerSword");
-    auto col   = sword->GetComponent<ComponentCollisionModel>();
+    //auto sword = Scene::GetObjectPtr<Object>("PlayerSword");
+    //auto col   = sword->GetComponent<ComponentCollisionModel>();
 
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(combo == 1) {
             if(modelPtr->GetPlayAnimationName() != "attack1") {
                 modelPtr->PlayAnimationNoSame("attack1");
+                sword->Attack();
             }
             if(modelPtr->GetAnimationTime() > 0.9f) {
                 if(!isCombo) {
-                    isAttack    = false;
-                    combo       = 0;
+                    isAttack = false;
+                    combo    = 0;
+
                     playerState = PlayerState::IDLE;
                 }
                 else {
@@ -335,8 +350,9 @@ void Player::Attack()
         }
 
         if(combo == 0) {
-            isAttack    = false;
-            isCombo     = false;
+            isAttack = false;
+            isCombo  = false;
+            sword->FinishAttack();
             playerState = PlayerState::IDLE;
         }
     }

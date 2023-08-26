@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "Sword.h"
+
 #include <System/Scene.h>
 
 namespace LittleQuest
@@ -88,7 +90,7 @@ private:
     void Attack();
     void Damaged();
 
-    static void AttachSword();
+    SwordPtr sword;
 
     int MouseWheelCounter;
 };

@@ -44,7 +44,7 @@ bool Enemy::Init()   // override
 
     model->SetAnimation({
         {"walk",  "data/Sample/Enemy/Anim/Walk.mv1", 0, 1.0f},
-        { "die", "data/Sample/Enemy/Anim/Death.mv1", 1, 1.0f}
+        { "die", "data/Sample/Enemy/Anim/Death.mv1", 0, 1.0f}
     });
     model->PlayAnimation("walk", true);
 
@@ -61,11 +61,18 @@ bool Enemy::Init()   // override
 
 void Enemy::Update()   // override
 {
+    if(isDie)
+        return;
+
+    if(this->HP <= 0) {
+        this->Die();
+    }
 }
 
 // 基本描画の後に処理します
 void Enemy::LateDraw()   // override
 {
+    printfDx("\nEnemy HP: %i", HP);
 }
 
 void Enemy::GUI()   // override
@@ -78,13 +85,20 @@ void Enemy::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)  
     Super::OnHit(hitInfo);
 }
 
+void Enemy::Damaged(int damage)
+{
+    this->HP -= damage;
+}
+
 void Enemy::Die()
 {
     if(auto modelPtr = GetComponent<ComponentModel>()) {
-        if(modelPtr->GetPlayAnimationName() != "damaged") {
-            modelPtr->PlayAnimationNoSame("damaged");
+        if(modelPtr->GetPlayAnimationName() != "die") {
+            modelPtr->PlayAnimationNoSame("die");
+            RemoveComponent<ComponentCollisionCapsule>();
         }
     }
+    this->isDie = true;
 }
 
 }   // namespace LittleQuest

@@ -4,17 +4,17 @@
 
 namespace LittleQuest
 {
-USING_PTR(Enemy);
+USING_PTR(Sword);
 
 //! @brief プレイヤー Mouse
 //! @detail Draw()は存在しません。Object標準にて描画されます
-class Enemy : public Object
+class Sword : public Object
 {
 public:
-    BP_OBJECT_TYPE(Enemy, Object);
+    BP_OBJECT_TYPE(Sword, Object);
 
     //! @brief 生成関数
-    static EnemyPtr Create(const float3& pos, const float3& front = {0, 0, 1});
+    static SwordPtr Create(std::string name, const float3& pos);
 
     //! @name システムオーバーライド系
     // @{
@@ -31,24 +31,18 @@ public:
     void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
 
     // @}
+    void Attack();
 
-    void Damaged(int damage);
+    void FinishAttack();
+
+    void Attach();
+
+    void SetAtkVal(int atkVal);
+
+    int GetAtkVal();
 
 private:
-    //! @brief ステート
-    enum class EnemyState
-    {
-        IDLE,     //!< 待機状態
-        WALK,     //!< 歩く
-        JUMP,     //!< ジャンプ
-        ATTACK,   //!< アタック
-        DAMAGED,
-    };
-
-    void Die();
-
-    int HP = 100;
-
-    bool isDie = false;
+    bool isAttack = false;
+    int  atkVal;
 };
 }   // namespace LittleQuest
