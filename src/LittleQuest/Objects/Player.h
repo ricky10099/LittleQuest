@@ -1,7 +1,9 @@
 ﻿#pragma once
 
 #include "Sword.h"
+#include "Enemy.h"
 
+#include <vector>
 #include <System/Scene.h>
 
 namespace LittleQuest
@@ -92,6 +94,10 @@ private:
 
     SwordPtr sword;
 
+    int atkVal;
+
     int MouseWheelCounter;
+
+    std::vector<Enemy*> attackList;
 };
 }   // namespace LittleQuest

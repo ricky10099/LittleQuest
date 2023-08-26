@@ -1,5 +1,6 @@
 ﻿#include "Player.h"
 #include "Camera.h"
+#include "Enemy.h"
 
 #include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentCollisionCapsule.h>
@@ -33,20 +34,20 @@ PlayerPtr Player::Create(const float3& pos, const float3& front)
 
     {
         auto sword = Sword::Create("PlayerSword", float3{0, 0, 0});
-        //    //sword->SetTranslate({0, 0, 0});
+        sword->SetTranslate({0, 0, 0});
 
-        //    //// オブジェクトにモデルをつける
-        //    //if(auto model = sword->AddComponent<ComponentModel>()) {
-        //    //    model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
-        //    //    // model->Load("data/Sample/FPS_Knife/Knife_low.mv1");
-        //    //    model->SetRotationAxisXYZ({0, 0, 0});
-        //    //    model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
-        //    ////}
+        // オブジェクトにモデルをつける
+        if(auto model = sword->AddComponent<ComponentModel>()) {
+            model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
+            // model->Load("data/Sample/FPS_Knife/Knife_low.mv1");
+            model->SetRotationAxisXYZ({0, 0, 0});
+            model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
+        }
 
-        //    //if(auto cmp_mdl = sword->AddComponent<ComponentCollisionModel>()) {
-        //    //    cmp_mdl->AttachToModel(true);
-        //    //    cmp_mdl->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ETC);
-        //    //}
+        //if(auto cmp_mdl = sword->AddComponent<ComponentCollisionModel>()) {
+        //    cmp_mdl->AttachToModel(true);
+        //    cmp_mdl->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::WEAPON);
+        //}
 
         if(auto attach = sword->AddComponent<ComponentAttachModel>()) {
             // playerの右手にアタッチする
@@ -94,6 +95,8 @@ bool Player::Init()   // override
         colLine->SetTranslate({0, 0, 0});
         colLine->SetLine(float3{0, 15, 0}, float3{110, 15, 1});
         colLine->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
+        colLine->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
+        colLine->SetName("SwordCol");
     }
     /* auto target = AddComponent<ComponentTargetTracking>();
             target->SetTrackingNode("mixamorig:Neck");
@@ -104,6 +107,8 @@ bool Player::Init()   // override
             target->SetTrackingLimitUpDown({10, 10});*/
 
     /*auto sword = Sword::Create();*/
+
+    atkVal = 50;
 
     return true;
 }
@@ -240,9 +245,33 @@ void Player::GUI()   // override
 
 void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)   // override
 {
-    // 次のownerのオブジェクトと当たった!
-    auto owner = hitInfo.hit_collision_->GetOwnerPtr();
-    printfDx("\nHit:%s", owner->GetName().data());
+    if(hitInfo.collision_->GetName() == "Player") {
+        // 次のownerのオブジェクトと当たった!
+        auto owner = hitInfo.hit_collision_->GetOwnerPtr();
+        printfDx("\nBody Hit:%s", owner->GetName().data());
+    }
+
+    if(hitInfo.collision_->GetName() == "SwordCol") {
+        auto* owner = hitInfo.hit_collision_->GetOwner();
+        printfDx("\nSword Hit:%s", owner->GetName().data());
+        if(isAttack) {
+            if(auto enemy = dynamic_cast<Enemy*>(owner)) {
+                bool inList = false;
+                for(int i = 0; i < attackList.size(); i++) {
+                    if(&attackList[i] == &enemy) {
+                        inList = true;
+                        break;
+                    }
+                }
+                if(!inList) {
+                    attackList.push_back(enemy);
+                    enemy->Damaged(this->atkVal);
+                }
+
+                //attackList.push_back(enemy);
+            }
+        }
+    }
 
     // if (owner->GetNameDefault() == "Enemy") {
     //     if (gauge_.Value() > 0) {
