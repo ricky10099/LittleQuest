@@ -22,8 +22,11 @@ bool Camera::Init()
 
     // カメラの当たり判定
     auto col = AddComponent<ComponentCollisionSphere>();
-    col->SetRadius(2.0f);
+    col->SetRadius(1.0f);
     col->SetMass(0.0f);
+    col->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
+    col->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND |
+                              (u32)ComponentCollision::CollisionGroup::WALL);
 
     // スプリングアーム設定
     auto spring_arm = AddComponent<ComponentSpringArm>();
@@ -57,8 +60,8 @@ void Camera::Update()
 
     if(rot_.x > 70)
         rot_.x = 70;
-    if(rot_.x < -40)
-        rot_.x = -40;
+    if(rot_.x < -70)
+        rot_.x = -70;
     // 足しこんだ回転を利用する
     spring_arm->SetSpringArmRotate(rot_);
 }

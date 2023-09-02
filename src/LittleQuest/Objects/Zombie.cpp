@@ -70,7 +70,7 @@ void Zombie::Update()   // override
 // 基本描画の後に処理します
 void Zombie::LateDraw()   // override
 {
-    printfDx("\n%s HP: %i", this->GetName().data(), HP);
+    Super::LateDraw();
 }
 
 void Zombie::GUI()   // override

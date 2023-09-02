@@ -73,6 +73,11 @@ void Stage01::Update()
         enemies.push_back(enemy);
     }
 
+    if(IsKeyDown(KEY_INPUT_HOME)) {
+        auto enemy = Mutant::Create({15, 20, 15});
+        enemies.push_back(enemy);
+    }
+
     for(int i = 0; i < enemies.size(); i++) {
         if(enemies[i]->getDieTimer() == 0) {
             Scene::ReleaseObject(enemies[i]);

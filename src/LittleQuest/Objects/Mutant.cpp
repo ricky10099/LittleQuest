@@ -56,6 +56,8 @@ bool Mutant::Init()   // override
     col->SetHeight(10);
     col->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY);
     col->UseGravity();
+
+    setHP(200);
     return true;
 }
 
@@ -67,6 +69,7 @@ void Mutant::Update()   // override
 // 基本描画の後に処理します
 void Mutant::LateDraw()   // override
 {
+    Super::LateDraw();
 }
 
 void Mutant::GUI()   // override

@@ -57,6 +57,7 @@ void Enemy::Update()   // override
 // 基本描画の後に処理します
 void Enemy::LateDraw()   // override
 {
+    printfDx("\n%s HP: %i", this->GetName().data(), HP);
 }
 
 void Enemy::GUI()   // override

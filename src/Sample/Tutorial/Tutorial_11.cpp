@@ -87,7 +87,7 @@ public:
                                                 //(オブジェクトにはカメラがついている)
             ->SetSpringArmOffset({0, 8, 0})     //< 少し上を見る
             ->SetSpringArmObject(u8"ネズミ");   //<
-            //オブジェクトはネズミ(すでに存在しなければいけない)
+        //オブジェクトはネズミ(すでに存在しなければいけない)
 
         cam_obj->AddComponent<ComponentCollisionSphere>()
             ->SetName(u8"CameraCollision")

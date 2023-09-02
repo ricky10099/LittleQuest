@@ -147,24 +147,28 @@ void Player::Update()   // override
     if(!isAttack) {
         if(IsKeyRepeat(KEY_INPUT_W)) {
             float3 vec = mat.axisZ();
+            vec.y      = 0;
             move += -vec;
             isWalk      = true;
             playerState = PlayerState::WALK;
         }
         if(IsKeyRepeat(KEY_INPUT_D)) {
             float3 vec = mat.axisX();
+            vec.y      = 0;
             move += -vec;
             isWalk      = true;
             playerState = PlayerState::WALK;
         }
         if(IsKeyRepeat(KEY_INPUT_S)) {
             float3 vec = mat.axisZ();
+            vec.y      = 0;
             move += vec;
             isWalk      = true;
             playerState = PlayerState::WALK;
         }
         if(IsKeyRepeat(KEY_INPUT_A)) {
             float3 vec = mat.axisX();
+            vec.y      = 0;
             move += vec;
             isWalk      = true;
             playerState = PlayerState::WALK;
@@ -293,6 +297,10 @@ void Player::Idle()
 
 void Player::Walk(float3& move)
 {
+    if(move.x == 0 || move.z == 0) {
+        return;
+    }
+
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         // 動いてる
         move = normalize(move);
