@@ -21,7 +21,8 @@ class SceneAnimation::Character final : public Object
     // idle/jump/walk/walk2はアニメーションファイル内の
     // 0番目には何も入っていないため1番で登録
     //-------------------------------------------------------
-    // {アニメーション名, ファイル名, ファイル内のアニメーション番号, 再生速度}
+    // {アニメーション名, ファイル名, ファイル内のアニメーション番号,
+    // 再生速度}
     static const inline Animation::Desc desc_[] = {
         {  "idle",   "data/Sample/Player/Anim/Idle.mv1", 1, 1.0f},
         {  "jump",   "data/Sample/Player/Anim/Jump.mv1", 1, 1.0f},
@@ -64,7 +65,8 @@ public:
         // アニメーションを再生
         //-------------------------------------------------------
         f32 start_time = GetRand(100) * 0.2f;   // ランダムにアニメーション再生開始位置を設定
-        animation_->play("dance4", true, 1.0f, start_time);   // is_loop = true
+        animation_->play("dance4", true, 1.0f,
+                         start_time);   // is_loop = true
 
         // 初期済にする。GUIは非表示。
         SetStatus(StatusBit::Initialized, true);
@@ -84,7 +86,8 @@ public:
             // アニメーションをランダムで選択
             u32 animation_index = (rand() >> 9) % std::size(desc_);
             f32 start_time = GetRand(100) * 0.2f;   // ランダムにアニメーション再生開始位置を設定
-            animation_->play(desc_[animation_index].name_, true, 1.0f, start_time);   // is_loop = true
+            animation_->play(desc_[animation_index].name_, true, 1.0f,
+                             start_time);   // is_loop = true
         }
 
         // アニメーション再生時間を進める

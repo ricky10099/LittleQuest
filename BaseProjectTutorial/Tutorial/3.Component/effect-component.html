@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>3.6 エフェクト表示機能(ComponentEffect)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>エフェクト表示機能(ComponentEffect)</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>ComponentEffectとは</h1>
+      エフェクトを表示することができるコンポーネントです<br />
+      GUIには、以下の機能があります<br />
+      <div style="margin: 30px">
+        <img src="res/effect-component-1.png" />
+      </div>
+      <table>
+        <tr>
+          <th>File</th>
+          <td>Effekseerのファイルを指定できます。</td>
+        </tr>
+        <tr>
+          <th>エフェクト姿勢</th>
+          <td>
+            エフェクトそのもののオフセット座標・回転・スケールを設定できます
+          </td>
+        </tr>
+      </table>
+
+      <br />
+      <h1>ComponentEffectの使用方法</h1>
+
+      エフェクトの作成方法の例
+      <pre><code class="language-cpp">
+ // 初期作成でロードしない
+auto effect = obj-&#62;AddComponent&#60;ComponentEffect&#62;();
+
+ // 初期作成と同時にロードする例(Effekseerのエフェクトファイルを指定できます)
+auto effect = obj-&#62;AddComponent&#60;ComponentEffect&#62;( "data/Sample/Effects/Laser01.efkefc" );
+      </code></pre>
+
+      <br />
+      モデルの取得方法の例
+      <pre><code class="language-cpp">
+if ( auto effect = obj-&#62;GetComponent&#60;ComponentEffect&#62;() )
+{
+    // オブジェクトにAddComponentされている場合は、
+    // このスコープで、effectとして使用可能
+    // AddComponentされていなければ、このスコープは飛ばされて無視されます
+}
+      </code></pre>
+
+      <br />
+      <h2>　途中でのモデルのロードの例</h2>
+      <pre><code class="language-cpp">
+effect-&#62;Load( "data/Sample/Effects/Laser01.efkefc"  );  // mv1のモデルを途中でロードします
+      </code></pre>
+
+      <br />
+      <h2>　エフェクトの再生</h2>
+      <pre><code class="language-cpp">
+effect-&#62;Play();  // エフェクトを再生します
+
+effect-&#62;Play(true);  // エフェクトをループ再生します
+      </code></pre>
+
+      <br />
+      <h2>　エフェクトの再生スピードの設定の例</h2>
+      <pre><code class="language-cpp">
+effect-&#62;SetPlaySpeed( 2.5f );  // エフェクトを再生スピードを2.5倍にします
+      </code></pre>
+
+      <h2>　エフェクトの再生スピードの取得(float)</h2>
+      speedに倍率が入ります<br />
+      <pre><code class="language-cpp">
+auto speed = effect-&#62;GetPlaySpeed();
+      </code></pre>
+
+      <h2>　エフェクトの再生中かどうか</h2>
+      再生しているとtrueになります。<br />
+      下の例では、「<b>!</b>」をつけて再生してないときをチェックしています<br />
+      <pre><code class="language-cpp">
+// ! をつけると not の意味
+if ( !effect-&#62;IsPlaying() )
+{
+  // エフェクトを再生していなければここに来ます
+}
+      </code></pre>
+      <br />
+
+      <h2>　エフェクト再生のポーズと解除</h2>
+      <pre><code class="language-cpp">
+effect-&#62;PlayPause();  // エフェクトの再生を止める        
+
+effect-&#62;PlayPause();  // エフェクトの再生解除        
+      </code></pre>
+      <br />
+
+      <h2>　エフェクト再生のポーズと解除</h2>
+      <pre><code class="language-cpp">
+if ( effect-&#62;IsPaused() )
+{
+  //エフェクトが再生中断している場合はここに来る
+}        
+      </code></pre>
+      <br />
+
+      <h2>　エフェクトが有効か調べる</h2>
+      <pre><code class="language-cpp">
+// ! をつけて有効でない場合を調べる
+if ( !effect-&#62;IsValid() )
+{
+  //有効でない、つまりエフェクトがロードされていない場合はここに来る
+}        
+      </code></pre>
+      <br />
+
+      <h2>　エフェクト再生時間の取得</h2>
+      // 再生開始からの時間を取得できます。<br />
+      <pre><code class="language-cpp">
+auto time = effect-&#62;GetEffectTime();
+      </code></pre>
+      <br />
+
+      <h2>　エフェクトのMatrix(位置・回転・スケール)を取得できます</h2>
+      <pre><code class="language-cpp">
+auto mat = effect-&#62;GetMatrix();
+      </code></pre>
+      <br />
+
+      <h2>
+        　エフェクトのワールド座標系Matrix(位置・回転・スケール)を取得できます
+      </h2>
+      オーナーのObjectの位置に依存します。<br />
+      <pre><code class="language-cpp">
+auto mat = effect-&#62;GetWorldMatrix();
+      </code></pre>
+      <br />
+
+      <h2>
+        　エフェクトの1フレーム前のワールド座標系Matrix(位置・回転・スケール)を取得できます
+      </h2>
+      オーナーのObjectの位置に依存します。<br />
+      <pre><code class="language-cpp">
+auto mat = effect-&#62;GetOldWorldMatrix();
+      </code></pre>
+      <br />
+
+      <br />
+      エフェクトの姿勢に関しましては、以下の内容で、transformとある部分を、effectに読み替えて使用します。<br />
+      effectを作成、取得した後、以下のようにeffectのTransformにかかわる部分を取得できます。<br />
+      objectのTrasformとは別に存在し、objectの動作にも影響し、さらにその子供のような動作をします。<br />
+      <a href="transform-component.html">Transform機能(ComponentTransform)</a>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="collision-component.html"
+        ><span>前回</span>コリジョン機能(ComponentCollision系)</a
+      >
+      <a class="button-next" href="springarm-component.html"
+        ><span>次回</span> スプリングアーム機能(ComponentSpringArm)</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

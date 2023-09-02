@@ -138,7 +138,7 @@ private:
     CapsuleListener listener_;
     // 重力加速度
     float3 gravity_ = 0.0f;
-#endif   //USE_JOLT_PHYSICS
+#endif   // USE_JOLT_PHYSICS
     //--------------------------------------------------------------------
     //! @name Cereal処理
     //--------------------------------------------------------------------

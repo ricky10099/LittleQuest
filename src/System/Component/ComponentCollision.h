@@ -477,7 +477,7 @@ protected:
 
     float difficult_to_climb_ = 1.0f;
 
-    //bool is_overlap_ = false;
+    // bool is_overlap_ = false;
 
     std::string name_ = "None";
 

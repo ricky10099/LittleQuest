@@ -13,8 +13,9 @@ class Enemy : public Object
 public:
     BP_OBJECT_TYPE(Enemy, Object);
 
-    //! @brief 生成関数
-    static EnemyPtr Create(const float3& pos, const float3& front = {0, 0, 1});
+    ////! @brief 生成関数
+    //static EnemyPtr Create(const float3& pos,
+    //                       const float3& front = {0, 0, 1}, const std::string name);
 
     //! @name システムオーバーライド系
     // @{
@@ -32,23 +33,29 @@ public:
 
     // @}
 
-    void Damaged(int damage);
+    virtual void Damaged(int damage);
 
-private:
+    float getDieTimer();
+
+protected:
+    virtual void Die();
+
+    void setHP(int HP = 100);
+
     //! @brief ステート
     enum class EnemyState
     {
         IDLE,     //!< 待機状態
         WALK,     //!< 歩く
-        JUMP,     //!< ジャンプ
+        JUMP,     //!< ジャンプz
         ATTACK,   //!< アタック
         DAMAGED,
     };
 
-    void Die();
-
     int HP = 100;
 
     bool isDie = false;
+
+    float dieTimer = 300;
 };
 }   // namespace LittleQuest

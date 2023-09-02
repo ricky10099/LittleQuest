@@ -31,7 +31,8 @@ bool show_debug   = true;
 #endif
 
 u64 current_time_ = 0;      //!< 現在の時間 (単位:μsec)
-f32 delta_time_   = 0.0f;   //!< 1フレームの経過時間（CPUとGPU, ScreenFlip()更新待ちすべて含む）
+f32 delta_time_   = 0.0f;   //!< 1フレームの経過時間（CPUとGPU,
+                            //!< ScreenFlip()更新待ちすべて含む）
 
 bool menu_active = false;
 bool menu_select = false;
@@ -110,7 +111,10 @@ f32 GetDeltaTime()
 //---------------------------------------------------------------------------
 f32 GetDeltaTime60()
 {
-    return delta_time_ * 60.0f;
+    f32 ps = delta_time_ * 60.0f;
+    if(ps > 3.0f)
+        ps = 1.0f;
+    return ps;
 }
 
 //---------------------------------------------------------------------------
@@ -236,8 +240,9 @@ void ShowFps(f32 delta)
         f32  cpu_micro_sec = static_cast<f32>(cpu_profile_time);
         auto ratio         = cpu_micro_sec / (1000.0f * 1000.0f / static_cast<f32>(refresh_rate));
 
-        cpu_data.AddPoint(t, ratio);                                         // CPU負荷
-        fps_data.AddPoint(t, frame_rate / static_cast<f32>(refresh_rate));   // フレームレート
+        cpu_data.AddPoint(t, ratio);   // CPU負荷
+        fps_data.AddPoint(t,
+                          frame_rate / static_cast<f32>(refresh_rate));   // フレームレート
 
         static float history = 10.0f;
 
@@ -247,8 +252,10 @@ void ShowFps(f32 delta)
             constexpr ImPlotAxisFlags axis_flags = ImPlotAxisFlags_NoTickLabels | ImPlotAxisFlags_Lock;
 
             ImPlot::SetupAxes(NULL, NULL, flags, axis_flags);
-            ImPlot::SetupAxisLimits(ImAxis_X1, t - history, t, ImGuiCond_Always);   // 表示範囲
-            ImPlot::SetupAxisLimits(ImAxis_Y1, 0.0f, 1.01f);   // 上下数値の範囲(最大値目盛りを出すため1.01f)
+            ImPlot::SetupAxisLimits(ImAxis_X1, t - history, t,
+                                    ImGuiCond_Always);   // 表示範囲
+            ImPlot::SetupAxisLimits(ImAxis_Y1, 0.0f,
+                                    1.01f);   // 上下数値の範囲(最大値目盛りを出すため1.01f)
             ImPlot::SetNextFillStyle(IMPLOT_AUTO_COL, 0.5f);
 
             ImPlot::PlotShaded(u8"CPU負荷",                               // 名前

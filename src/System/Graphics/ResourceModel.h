@@ -34,7 +34,8 @@ public:
     bool isValid() const;
 
     // 描画可能な状態かどうか取得
-    //! @note   描画可能になっていない状態でMV1関数を呼ぶとブロッキングされます
+    //! @note
+    //! 描画可能になっていない状態でMV1関数を呼ぶとブロッキングされます
     bool isActive() const;
 
 private:

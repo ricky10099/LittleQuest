@@ -316,8 +316,8 @@ void ScenePhysics::ResetPhysics()
             float3 position = float3((x - WIDTH / 2) * 1.5f, y * 1.5f + 2.0f, 0.0f);
 
             // やや位置をずらして崩れやすくする
-            //position.x += rand() * 0.0001f;
-            //position.z += rand() * 0.0001f;
+            // position.x += rand() * 0.0001f;
+            // position.z += rand() * 0.0001f;
 
             // 座標設定
             rigid_body->setPosition(position);

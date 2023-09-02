@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>逆引き</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>逆引き</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html#000"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      >
+      </iframe>
+    </side>
+    <main>
+      <h1>キャラをキーで移動させたい</h1>
+      <br />
+      1.　シーンを用意します。シーンの作成は「
+      <a href="./rr_002.html">シーンはどのようにつくるの?</a>
+      」を参考にしてください。<br />
+
+      2.　必要なインクルードを追加します。<br />
+      3.　シーンの<b>Init()</b>内にて、<b>カメラオブジェクト</b>と
+      <b>キャラオブジェクト</b>を用意し、<br />
+      　　キャラオブジェクトに<b>オブジェクトコントローラー</b>をつけて移動させます。<br />
+
+      <br />
+      <b>
+        ※これ以前のサンプルのカメラの位置が異なります。(キャラ移動のため)<br />
+        ※下記の例は「Gaming」というシーンで実行しています。<br />
+        <br />
+        <font color="red">
+          このサンプルには地面がないため、キャラにコリジョンや重力を使用していません。<br />
+          地面に沿った動作がいる場合は、「
+          <a href="rr_006.html"> キャラを地面に立たせたい</a>
+          」を参考にしてください。
+        </font>
+      </b>
+
+      <div class="box5">
+        <h2>　Gaming.cpp</h2>
+        <pre><code class="language-cpp">#include "Gaming.h"
+#include &#60;System/Component/ComponentModel.h&#62;   //&#60; ※モデルを使用するのでこちらを追加する②
+#include &#60;System/Component/ComponentCamera.h&#62;  //&#60; ※カメラを使用するのでこちらを追加する②
+#include &#60;System/Component/ComponentObjectController.h&#62;  //&#60; ※操作を使用するのでこちらを追加する②
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief 初期化
+    //! @return 初期化済み
+    bool Gaming::Init()
+    {
+        __super::Init();
+
+        // -----------------------------------------------------------------------------------------
+        // 以下の内容を追加 ③
+        // -----------------------------------------------------------------------------------------
+
+        // 表示のためのカメラを作成
+        {
+            Scene::CreateObjectPtr&#60;Object&#62;()                        //&#60; Object作成
+                -&#62;SetName("Camera")                                 //&#60; 名前設定
+                -&#62;AddComponent&#60;ComponentCamera&#62;()                   //&#60; カメラ
+                -&#62;SetPerspective(45)                                //&#60; 画角
+                -&#62;SetPositionAndTarget({0, 15, 50}, {0, 10, 0});   //&#60; カメラ位置と見るところ
+
+            // ※上記のように auto 変数にとらえずある程度羅列することができる
+        }
+        // キャラオブジェクトの作成
+        {
+            auto obj = Scene::CreateObjectPtr&#60;Object&#62;();
+            
+            // オブジェクトにモデル能力を追加します
+            obj-&#62;AddComponent&#60;ComponentModel&#62;("data/Sample/Player/model.mv1");
+
+            auto ctrl = obj-&#62;AddComponent&#60;ComponentObjectController&#62;();
+            ctrl-&#62;SetMoveSpeed( 0.1f );   //&#62; 移動スピード
+            ctrl-&#62;SetRotateSpeed( 3.0f ); //&#62; 回転スピード
+
+            // カーソルで移動させるようにする(標準はWASD)
+            ctrl-&#62;SetKeys( 
+              KEY_INPUT_UP,     //&#60; 上
+              KEY_INPUT_DOWN,   //&#60; 下
+              KEY_INPUT_LEFT,   //&#60; 左
+              KEY_INPUT_RIGHT   //&#60; 右
+            );
+
+            obj-&#62;SetTranslate({0,0,0});
+        }
+
+        // 最初に1回動作する
+        // ただし trueを返さなければ Initに何回も来る
+        // trueにしない限り、updateは以降は動作しません。
+        return true;
+    }
+
+    //! @brief 更新
+    void Gaming::Update()
+    {
+        __super::Update();
+
+        // 毎フレーム動作する
+    }
+
+    //! @brief 描画
+    void Gaming::Draw()
+    {
+        __super::Draw();
+
+    }
+
+    //! @brief GUI表示
+    void Gaming::GUI()
+    {
+        __super::GUI();
+
+    }
+
+    // ALT-Menuで表示される名前
+    BP_CLASS_IMPL( Gaming, u8"MyGameゲームシーン" );
+}
+</code></pre>
+      </div>
+      <br />
+    </main>
+    <br />
+    <br />
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

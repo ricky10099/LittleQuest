@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>3.別オブジェクト同期機能(ComponentAttachModel)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>別オブジェクト同期機能(ComponentAttachModel)</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>ComponentAttachModelとは</h1>
+      オブジェクトを別のオブジェクトに張り付けたいときに使用します。<br />
+      SpringArmと同等の機能を有していますが、<br />
+      <b>プレイヤー</b>に、<b>剣</b>を持たせたいなど<br />
+      別のオブジェクト(剣など)を親(プレイヤー)のノードに張り付けるイメージです。<br />
+      この場合は、<b>「剣」にこのコンポーネントをAddComponent</b>します<br />
+      <br />
+      <b>GUI</b>には、次のような設定項目があります。
+      <div style="margin: 30px">
+        <img src="res/attach-model-component-1.png" />
+      </div>
+
+      <br />
+      <table>
+        <tr>
+          <th>AttachObject</th>
+          <td>張り付けたいオブジェクトを選択します</td>
+        </tr>
+        <tr>
+          <th>Node</th>
+          <td>張り付けたいモデルのノードを指定できます</td>
+        </tr>
+        <tr>
+          <th>AttachModel回転</th>
+          <td>
+            自分の座標系に合わせて回転をします(自分の3軸を見ながら調整します)
+          </td>
+        </tr>
+        <tr>
+          <th>AttachModelオフセット</th>
+          <td>
+            親座標に合わせたオフセット調整(ノード位置の3軸を見ながら調整します)
+          </td>
+        </tr>
+      </table>
+
+      <br />
+      <h1>ComponentAttachModelの使用方法</h1>
+      <br />
+      基本的に銃や装備を最初から複数持たせておき、描画ON/OFFで調整するのが楽です。<br />
+      ただし、アイテム数が100個などになると持ち方は工夫しなければなりません。<br />
+      100個の装備を最初からすべて用意して張り付けているとメモリも非常に多く使用してしまいます。<br />
+      また表示してなくても処理もかかってしまいます<br />
+      <br />
+      この場合、先に100種類のオブジェクトを用意し、個別にオブジェクトをアイテムデータとしてセーブしておくのも手です。<br />
+      同じ親であれば、ロードするだけで瞬時にその位置に張り付くでしょう<br />
+      <br />
+
+      <h2>　GUI上でオブジェクトをセーブし、そのオブジェクトをロードする例</h2>
+      <div style="margin: 30px">
+        <img src="res/object-save-load.gif" />
+      </div>
+      <b>セーブ</b
+      >したオブジェクトは、<b>data/_save/object</b>の中にセーブされます。<br />
+      GUIでロードテストしたい場合は、セーブしたファイル名と同じ名前のオブジェクトを作成してロードしてください<br />
+      C++からロードする際には、以下の方法でロードできます<br />
+      <pre><code class="language-cpp">
+Scene::CreateObjectPtr&#60;Object&#62;()
+  -&#62;Load( オブジェクト名 );
+      </code></pre>
+      <br />
+      <br />
+
+      <h2>　ComponentAttachModelの使用方法の作成方法の例</h2>
+      以下はオブジェクトにAttachModelをつけています <br />
+      オブジェクトは、あくまでAttachObjectの方向を向きます。<br />
+      基本的にはアイテムオブジェクトにつけて、親オブジェクトを追跡する時に使います<br />
+      <pre><code class="language-cpp">
+auto attach_model = obj-&#62;AddComponent&#60;ComponentAttachModel&#62;();
+      </code></pre>
+      <br />
+
+      <h2>　AttachModelの取得方法</h2>
+      <pre><code class="language-cpp">
+if (auto attach_model = obj-&#62;GetComponent&#60;ComponentSpringArm&#62;())
+{
+    // objにAttachModelコンポーネントがある場合はこのスコープでattach_modelとして使用することができます
+}
+      </code></pre>
+
+      <h2>　AttachModelのターゲットのオブジェクト(AttachObject)の設定</h2>
+      <pre><code class="language-cpp">
+// attach_objectのノード名の所をターゲットにする        
+attach_model-&#62;SetAttachObject( attach_object, [ノード名] );
+
+ // オブジェクトの名前でもターゲットにできます
+attach_model-&#62;SetAttachObject( オブジェクトの名前, [ノード名] );
+      </code></pre>
+      <br />
+
+      <h2>　AttachModelのターゲットのオブジェクトの取得</h2>
+      <pre><code class="language-cpp">
+auto obj = attach_model-&#62;GetAttachObject(); // objにターゲットが入ります。
+      </code></pre>
+      ※ObjectWeakPtrのタイプで取得します(Objectが消去されると取得内容も勝手にnullptrとなる)<br />
+      <br />
+
+      <h2>　　AttachModelのターゲットの中心からのずれの指定</h2>
+      <pre><code class="language-cpp">
+attach_model-&#62;SetAttachOffset( { 5, 3, 0 } ); // ターゲットの3軸から、X+=5, Y+=3の位置に張り付ける
+      </code></pre>
+      <br />
+
+      <h2>　TIPS</h2>
+      アイテムをキャラに張り付けるコツ<br />
+      <ul class="menu">
+        <li>ComponentAttachModelは、アイテムにつけましょう</li>
+        <li>AttachObjectにキャラを指定します</li>
+        <li>
+          張り付けたいノード位置はComponentModelのModel:Nodesにて位置を確認しましょう(ノードをクリックするとその位置の3軸が現れます)
+        </li>
+        <li>張り付けたいノード位置をComponentAttachModelのNodeに指定します</li>
+        <li>
+          AttachModel回転にて、モデルを正しい方向に合わせます。(<b>アイテムの3軸</b>に対して回転するイメージ)
+        </li>
+        <li>
+          AttachModelオフセットにて、モデルを正しい位置に合わせます。(<b>キャラのノードの3軸</b>に対して移動するイメージ)
+        </li>
+      </ul>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="springarm-component.html"
+        ><span>前回</span> スプリングアーム機能(ComponentSpringArm)</a
+      >
+      <a class="button-next" href="target-tracking-component.html"
+        ><span>前回</span>
+        ターゲットトラッキング機能(ComponentTargetTracking)</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

@@ -1,0 +1,238 @@
+body {
+  font-family: 游ゴシック, "Yu Gothic Medium", メイリオ, Meiryo,
+    "ヒラギノ角ゴ ProN W3", HiraKakuProN-W3, Verdana, Helvetica, Arial,
+    sans-serif;
+  tab-size: 4;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 5px;
+  width: 100vw;
+
+  font-weight: 600;
+  font-size: 3.5rem;
+  /* text-align: center; */
+  padding: 0 0.4em 0.2em;
+  border-bottom: 3px solid #2589d0;
+  background-color: #ffffff;
+  color: #333333;
+  z-index: 10;
+}
+
+side {
+  float: left;
+  width: 25%;
+  height: 90%;
+  scroll-behavior: auto;
+  position: fixed;
+  top: 120px;
+  left: 5px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+side::-webkit-scrollbar {
+  display: none;
+}
+
+main {
+  margin-top: 100px;
+  float: right;
+  width: 73%;
+}
+
+next {
+  float: right;
+  display: flex;
+  margin: 30px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  padding: 0.5em 0.7em;
+  border-left: 5px solid #2589d0;
+  border-bottom: 3px solid #d2d2d2;
+  background-color: #f2f2f2;
+  color: #333333;
+}
+
+h2 {
+  font-size: 1rem;
+  position: relative;
+  padding: 0.5em 1.2em;
+  color: #333333;
+}
+
+h2::before,
+h2::after {
+  display: inline-block;
+  position: absolute;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border: 2px solid #2589d0;
+  content: "";
+}
+
+h2::before {
+  top: calc(50% - 3px);
+  left: 0;
+}
+
+h2::after {
+  top: calc(50% + 3px);
+  left: 5px;
+}
+
+ul.menu {
+  list-style-type: none;
+  padding: 1em;
+  border: 2px solid #2589d0;
+}
+ul.menu li {
+  display: flex;
+  align-items: center;
+  gap: 0 5px;
+  padding: 0.3em;
+}
+
+ul.menu li::before {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20fill%3D%22%232589d0%22%20d%3D%22M8.2%2C20.6l-7.8-7.8c-0.5-0.5-0.5-1.2%2C0-1.7L2%2C9.4c0.5-0.5%2C1.2-0.5%2C1.7%2C0L9%2C14.7L20.3%2C3.4c0.5-0.5%2C1.2-0.5%2C1.7%2C0l1.7%2C1.7%20c0.5%2C0.5%2C0.5%2C1.2%2C0%2C1.7L9.8%2C20.6C9.4%2C21.1%2C8.6%2C21.1%2C8.2%2C20.6L8.2%2C20.6z%22%2F%3E%3C%2Fsvg%3E");
+  content: "";
+}
+
+.box1 {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  font-weight: bold;
+  border: solid 3px #000000;
+}
+.box5 {
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  border: double 5px #4ec4d3;
+}
+
+.button-next {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-width: 80px;
+  margin: 10px 50px 30px 150px;
+  padding: 0.9em 2em;
+  border: none;
+  border-radius: 5px;
+  background-color: #2589d0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1em;
+  width: 20vw;
+}
+
+.button-next:hover {
+  background-color: #1579c0;
+}
+
+.button-next span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -1.75em;
+  left: -2.5em;
+  padding: 1em 1.5em;
+  border: 2px solid #2589d0;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #2589d0;
+  font-size: 0.7em;
+}
+
+.button-next span::after {
+  position: absolute;
+  bottom: 0.3em;
+  right: 0;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: #fff;
+  clip-path: polygon(40% 0, 100% 100%, 0% 90%);
+  content: "";
+}
+
+ol.menu {
+  counter-reset: number; /*数字をリセット*/
+  list-style-type: none !important; /*数字を一旦消す*/
+  padding: 0.5em;
+  background: #f5faff;
+  border: solid 2px #4fa1e7;
+}
+ol.menu li {
+  position: relative;
+  padding-left: 30px;
+  line-height: 1.5em;
+  padding: 0.5em 0.5em 0.5em 30px;
+}
+
+ol.menu li:before {
+  /* 以下数字をつける */
+  position: absolute;
+  counter-increment: number;
+  content: counter(number);
+  /*以下数字のデザイン変える*/
+  display: inline-block;
+  background: #5c9ee7;
+  color: white;
+  font-family: "Avenir", "Arial Black", "Arial", sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  border-radius: 50%;
+  left: 0;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  /*以下 上下中央寄せのため*/
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+ol.number {
+  counter-reset: section;
+  list-style-type: none;
+}
+
+ol.number li::before {
+  counter-increment: section;
+  content: counters(section, ".") " ";
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 1px 5px;
+}
+
+.fixed {
+  position: fixed;
+  top: 120px;
+  left: 5px;
+  overflow: auto;
+}
+
+td,
+th {
+  padding: 10px;
+}
+th {
+  background: #10a0e0;
+  color: #fff;
+}
+td {
+  background: #dedede;
+}

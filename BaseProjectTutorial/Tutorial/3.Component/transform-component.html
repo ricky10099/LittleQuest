@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>3.1.Transform機能(ComponentTransform)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>Transform機能(ComponentTransform)</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>ComponentTransformの機能</h1>
+      GUIで説明してきたのでお分かりかと思いますが、<br />
+      位置・回転・スケールを変更したり確認したりできるコンポーネントです。<br />
+      このコンポーネントは基本的にObjectと同じ処理ですのでこの方法を使う必要はありません。<br />
+      <a href="2.Object/transform-2.html">Transformをプログラムで使用する方法</a
+      >と全く同じ効果なのでこちらを使うメリットはとくにはありません<br />
+
+      <h1>ComponentTransformの使い方</h1>
+      <ul class="menu">
+        <pre><code class="language-cpp">
+// objはすでに作成済みのObject。
+// 取得することで可能になります
+if (auto transform = obj-&#62;GetComponent&#60;ComponentTransform&#62;() )
+{
+    // ここでtransformが ComponentTransformとして使用可能となります。
+    // 下記のコードはこの中で利用可能です
+}
+      </code></pre>
+      </ul>
+
+      <hr />
+      <h2>　移動方法</h2>
+      移動に関しては以下の種類あります
+      <ul class="menu">
+        <li>
+          位置を指定して移動 <b>(GUIで位置を入れていることに匹敵します)</b
+          ><br />
+        </li>
+        <pre><code class="language-cpp">
+float3 位置 = {100,0,0};
+transform-&#62;SetTranslate( 位置 );  // 位置(100,0,0)に移動します
+        </code></pre>
+        <br />
+        <li>今の位置から、指定移動量で<b>ワールド座標系</b>で移動<br /></li>
+        <pre><code class="language-cpp">
+float3 移動量 = {1,0,0};
+transform-&#62;AddTranslate( 移動量 );  // 今の位置より(1,0,0)だけワールド座標で移動します
+        </code></pre>
+        <li>今の位置から、指定移動量で<b>ローカル座標系</b>で移動<br /></li>
+        <pre><code class="language-cpp">
+float3 移動量 = {1,0,0};
+transform-&#62;AddTranslate( 移動量, true );  // 今の位置より(1,0,0)だけローカル座標で移動します
+        </code></pre>
+        <div style="display: flex">
+          <div>
+            <b>ワールド座標系</b
+            ><img src="../2.Object/res/transform-world.png" />
+          </div>
+          <div>
+            <b>ローカル座標系</b
+            ><img src="../2.Object/res/transform-local.png" />
+          </div>
+        </div>
+      </ul>
+
+      <hr />
+      <h2>　回転方法</h2>
+      回転方法には数種類の方法が用意されています<br />
+      軸に対し、以下のような回転動作を行います<br />
+      <br />
+      　　　<img src="../2.Object/res/object-rot.png" /><br />
+      <br />
+      <font color="red">X軸</font>では前後に倒れるような回転<br />
+      <font color="green">Y軸</font>では左右に向くような回転<br />
+      <font color="blue">Z軸</font>では横に寝るような回転<br />
+      <b>※軸に対して常に時計回りの方向がプラスとなります</b><br />
+      <a href="transform-1.html">移動・回転・スケール</a>もご覧ください
+
+      <ul class="menu">
+        <li>
+            角度を指定してその方向を向く
+            <b>(GUIに角度を入れているのに匹敵します)</b>
+        </li>
+        <pre><code class="language-cpp">
+// グローバル方向が北とすると、東の方向を向くことになります
+float3 回転 = { 0, 90, 0 };
+transform-&#62;SetRotationAxisXYZ( 回転 ); // グローバルに対し常にY軸回転90度の方向を向く
+        </code></pre>
+        <li>今の回転角度から、指定回転を行う</li>
+        <pre><code class="language-cpp">
+// Updateなどで行うと常に回転し続けます
+float3 加回転 = { 0, 1, 0 };
+transform-&#62;AddRotationAxisXYZ( 加回転 ); // 現在の回転から、Y軸回転1度回転する
+        </code></pre>
+      </ul>
+      <br />
+      <ul class="menu">
+        <li>指定ベクトルの方向に向ける</li>
+        <pre><code class="language-cpp">
+// いきなり指定した方向ベクトルに向けます
+float3 方向 = { 100, 100, 0 };
+transform-&#62;SetRotationToVector( 方向 ); // 方向(100,100,0)の方向に向けます
+        </code></pre>
+        <li>
+          指定ベクトルの方向にベクトル向ける(ComponentModelなどに利用できる)
+        </li>
+        <pre><code class="language-cpp">
+// いきなり指定した方向ベクトルに向けます(Objectの方向も考慮されます)
+float3 方向 = { 100, 100, 0 };
+transform-&#62;SetRotationToVectorOnParent( 方向 ); // 方向(100,100,0)の方向に向けます
+        </code></pre>
+      </ul>
+      <br />
+      <ul class="menu">
+        <li>指定位置の位置に向ける</li>
+        <pre><code class="language-cpp">
+// いきなり指定した位置の方向に向けます(自動的にObjectの方向も考慮されます)
+float3 位置 = { 100, 100, 0 };
+transform-&#62;SetRotationToPosition( 加回転 ); // 現在の位置で、位置(100,100,0)の方向に向けます
+        </code></pre>
+        <li>※SetRotationToPositionOnParent は存在しません</li>
+        </code></pre>
+      </ul>
+      <br />
+      <ul class="menu">
+        <li>指定ベクトルの方向に少しだけ向ける(回転制限あり)</li>
+        <pre><code class="language-cpp">
+// 指定した方向ベクトルに少しだけ向けます
+float3 方向 = { 100, 100, 0 };
+float3 制限角度 = 3.0f;
+transform-&#62;SetRotationToVectorWithLimit( 方向, 制限角度 ); // 方向(100,100,0)の方向に制限角度分(3.0f度)向けます
+        </code></pre>
+        <li>
+          指定ベクトルの方向に少しだけ向ける(回転制限あり、ComponentModelなどに利用できる)
+        </li>
+        <pre><code class="language-cpp">
+// 指定した方向ベクトルに少しだけ向けます(Objectの回転も考慮します)
+float3 方向 = { 100, 100, 0 };
+float3 制限角度 = 3.0f;
+transform-&#62;SetRotationToVectorOnParentWithLimit( 方向, 制限角度 ); // 方向(100,100,0)の方向に制限角度分(3.0f度)向けます
+        </code></pre>
+      </ul>
+      <br />
+      <ul class="menu">
+        <li>指定位置の位置に少しだけ向ける(回転制限あり)</li>
+        <pre><code class="language-cpp">
+// 指定位置方向に少しだけ向けます(自動的にObjectの回転も考慮します)
+float3 方向 = { 100, 100, 0 };
+float3 制限角度 = 3.0f;
+transform-&#62;SetRotationToPositionWithLimit( 方向, 制限角度 ); // 方向(100,100,0)の方向に制限角度分(3.0f度)向けます
+        </code></pre>
+        <li>
+          ※SetRotationToPositionOnParentWithLimitは存在しません
+        </li>
+      </ul>
+
+      <hr />
+      <h2>　拡大縮小方法</h2>
+      拡大縮小は以下の方法のみ用意してあります<br />
+      <ul class="menu">
+        <li>スケールの設定</li>
+        <pre><code class="language-cpp">
+// 指定したスケーリングサイズに設定します
+float3 スケール = { 2.0f, 2.0f, 2.0f };
+transform-&#62;SetScaleAxisXYZ( スケール ); // スケール(2,2,2)、2倍のスケールに設定する
+        </code></pre>
+      </ul>
+
+      <hr />
+      <h2>　位置取得方法</h2>
+      取得には2種類存在します
+      <ul class="menu">
+        <li>基本の位置取得方法<br /></li>
+        <pre><code class="language-cpp">
+float3 位置 = transform-&#62;GetTranslate();  // 位置が取得できます
+        </code></pre>
+        <li>書き換え可能位置取得<br /></li>
+        <pre><code class="language-cpp">
+float3&amp;	位置 = transform-&#62;Translate();  // 位置が取得できますが参照です。よってその後の書き換えが可能。
+位置 = {100,100,100}; // 位置を(100,100,100)に移動させる。 SetTranslateと同等。
+        </code></pre>
+      </ul>
+
+      <hr />
+      <h2>　回転取得方法</h2>
+      取得方法は以下のものを用意しています
+      <ul class="menu">
+        <li>基本の位置取得方法<br /></li>
+        <pre><code class="language-cpp">
+float3 軸回転 = transform-&#62;GetRotationAxisXYZ();  // X軸Y軸Z軸に対する回転が取得できます
+        </code></pre>
+      </ul>
+
+      <hr />
+      <h2>　スケール取得方法</h2>
+      取得方法は以下のものを用意しています
+      <ul class="menu">
+        <li>基本の位置取得方法<br /></li>
+        <pre><code class="language-cpp">
+float3 軸スケール = transform-&#62;GetScaleAxisXYZ();  // X軸Y軸Z軸に対するスケールが取得できます
+        </code></pre>
+      </ul>
+
+      <hr />
+      <h2>　Matrix(位置・回転・スケール)の取得方法</h2>
+      <ul class="menu">
+        <pre><code class="language-cpp">
+matrix コンポーネントのMatrix = transform-&#62;GetMatrix();  // Matrixが取得できます
+        </code></pre>
+      </ul>
+      ComponentModelなどのMatrixは、ObjectのMatrixの影響を受けます。<br />
+      実際のMatrixは、こちらで取得するほうが楽です<br />
+      <ul class="menu">
+        <pre><code class="language-cpp">
+matrix ワールド座標系Matrix = transform-&#62;GetWorldMatrix();  // 親に依存したMatrixが取得されます
+        </code></pre>
+      </ul>
+      1フレーム前のワールド座標系Matrix<br />
+      <ul class="menu">
+        <pre><code class="language-cpp">
+matrix ワールド座標系Matrix = transform-&#62;GetOldWorldMatrix();  // 以前の親に依存したMatrixが取得されます
+        </code></pre>
+      </ul>
+
+      <h2>　Transformの向いている方向からターゲットへの角度を取得</h2>
+      <ul class="menu">
+        <pre><code class="language-cpp">
+// 自分の向きからターゲットの角度を取得します
+float3 ターゲット座標 = {100,0,100}
+matrix ワールド座標系Matrix = transform-&#62;GetDegreeToPosition( ターゲット座標 );
+        </code></pre>
+
+        <pre><code class="language-cpp">
+// 自分の向きからターゲットの角度を取得します
+float3 ターゲット方向 = target_obj-&#62;GetTranslate() - transform-&#62;GetTranslate();
+matrix ワールド座標系Matrix = transform-&#62;GetDegreeToVector( ターゲット方向 );
+        </code></pre>
+      </ul>
+
+      <br />
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="component.html"
+        ><span>前回</span>Component(コンポーネント)</a
+      >
+      <a class="button-next" href="model-component.html"
+        ><span>次回</span> モデル表示機能(ComponentModel)</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

@@ -49,13 +49,16 @@ bool SceneTest1::Init()
         ->SetTranslate({3, 0, 0})            //< 3,0,0 に移動
         ->SetRotationAxisXYZ({0, 180, 0});   //< 向きを180度回す
 
-    // 自動的に別の名前がつく"object_1"となる (objectという名前はすでにないが一度付いたことになる)
+    // 自動的に別の名前がつく"object_1"となる
+    // (objectという名前はすでにないが一度付いたことになる)
     auto obj2 = Scene::CreateObjectPtr<Object>()->SetName("obj2");   //< オブジェクト作成
     obj2->AddComponent<ComponentCollisionSphere>();                  //< 作成時につなげてしまうと
-    obj2->AddComponent<ComponentCamera>();   //< コンポーネントが返されるのでつなげれません
+    obj2->AddComponent<ComponentCamera>();                           //<
+        //コンポーネントが返されるのでつなげれません
 
     // ComponentTransformを使わないObjectサンプル
-    Scene::CreateObjectPtr<Object>("no-transform", true);   //->SetName( "no-transform" );
+    Scene::CreateObjectPtr<Object>("no-transform",
+                                   true);   //->SetName( "no-transform" );
 
     // 次の追加は不十分な処理です。(シリアライズセーブされません)
     // シーンのInitSerialzeまたは、Object継承でInitSerialize()にてSetProcを行ってください

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>逆引き</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>逆引き</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html#000"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      >
+      </iframe>
+    </side>
+    <main>
+      <h1>3Dの上に2Dの絵をのせたい</h1>
+      1.　シーンを用意します。シーンの作成は「
+      <a href="./rr_002.html">シーンはどのようにつくるの?</a>
+      」を参考にしてください。<br />
+      2.　Gaming.h/Gaming.cppにて、LateDraw()関数を用意します。(ここに2Dを描きます)<br />
+      3.　3D表現に必要なインクルードを追加します。<br />
+      4.　シーンの<b>Init()</b>内にて、
+      <b>地形オブジェクト</b>と<b>カメラオブジェクト</b>を追加します<br />
+      ソースが長くなるため、今回はキャラは置きません<br />
+
+      5.　シーンの<b>Init()</b>内にて、
+      2Dイメージをロードします(LoadGraphにて)<br />
+      6.　シーンが終わる際に2Dイメージを解放します(無くてもアプリ終了の時に解放される)<br />
+
+      <br />
+      <b> ※下記の例は「Gaming」というシーンで実行しています<br /> </b><br />
+      <b>
+        ※6についてはシーンごとに解放するほうが理想的です。Switchなどメモリが少ないマシンでは、<br />
+        　必要ないメモリはできるだけ使用しないようにしなければ、途中でメモリ不足を起こします。<br />
+      </b>
+
+      <div class="box5">
+        <h2>　Gaming.h</h2>
+        <pre><code class="language-cpp">#include &#60;System/Scene.h&#62;
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief タイトルシーン
+    class Gaming : public Scene::Base
+    {
+    public:
+        //! シーンとして認識する (これでAltメニューで表示できます)
+        BP_CLASS_TYPE( Gaming, Scene::Base );
+
+        //! @brief 初期化
+        //! @return 初期化済み
+        bool Init() override;
+
+        //! @brief 更新
+        void Update() override;
+
+        //! @brief 描画
+        void Draw() override;
+
+        //--------------------------------------------------------------
+        // 追加部分　②
+        //--------------------------------------------------------------
+        //! @brief 遅い描画
+        void LateDraw() override;
+        //--------------------------------------------------------------
+
+        //! @brief GUI表示
+        void GUI() override;
+
+        //--------------------------------------------------------------
+        // 追加部分　⑥
+        //-------------------------------------------------------------- 
+        //! @brief 終了処理
+        void Exit() override; 
+        //--------------------------------------------------------------
+
+    private:
+        // イメージの変数
+        int image_ = -1;
+        float2 pos_ = {0,0};
+    };
+}</code></pre>
+      </div>
+
+      <div class="box5">
+        <h2>　Gaming.cpp</h2>
+        <pre><code class="language-cpp">#include "Gaming.h"
+#include &#60;System/Component/ComponentModel.h&#62;   //&#60; ※モデルを使用するのでこちらを追加する③
+#include &#60;System/Component/ComponentCamera.h&#62;  //&#60; ※カメラを使用するのでこちらを追加する③
+#include &#60;System/Component/ComponentCollisionModel.h&#62;   //&#60; ※コリジョンモデルを使用するのでこちらを追加する③
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief 初期化
+    //! @return 初期化済み
+    bool Gaming::Init()
+    {
+        __super::Init();
+
+        // -----------------------------------------------------------------------------------------
+        // 以下の内容を追加 ④
+        // -----------------------------------------------------------------------------------------
+        // 地形オブジェクトの作成
+        {
+            auto obj = Scene::CreateObjectPtr&#60;Object&#62;();
+            
+            // オブジェクトにモデル能力を追加します
+            obj-&#62;AddComponent&#60;ComponentModel&#62;("data/Sample/SwordBout/Stage/Stage00.mv1");
+
+            obj-&#62;AddComponent&#60;ComponentCollisionModel&#62;()  //
+                -&#62;AttachToModel();    //&#60; GUIでの 「モデルにコリジョンを張り付ける」動作
+
+            obj-&#62;SetTranslate({0,0,0});
+        }
+
+        // 表示のためのカメラを作成
+        {
+            Scene::CreateObjectPtr&#60;Object&#62;()                        //&#60; Object作成
+                -&#62;SetName("Camera")                                 //&#60; 名前設定
+                -&#62;AddComponent&#60;ComponentCamera&#62;()                   //&#60; カメラ
+                -&#62;SetPerspective(45)                                //&#60; 画角
+                -&#62;SetPositionAndTarget({0, 15, -50}, {0, 10, 0});   //&#60; カメラ位置と見るところ
+
+            // ※上記のように auto 変数にとらえずある程度羅列することができる
+        }
+        // -----------------------------------------------------------------------------------------
+        // 以下の内容を追加 ④
+        // -----------------------------------------------------------------------------------------
+        // 地形オブジェクトの作成
+        {
+            // 3Dのコインだが、サンプルとしてイメージとして仮で使用する
+            image_ = LoadGraph( "data/Sample/Coin/textures/Coin_Gold_albedo.png");
+        }
+        // -----------------------------------------------------------------------------------------
+    
+        // 最初に1回動作する
+        // ただし trueを返さなければ Initに何回も来る
+        // trueにしない限り、updateは以降は動作しません。
+        return true;
+    }
+
+    //! @brief 更新
+    void Gaming::Update()
+    {
+        __super::Update();
+
+        // 毎フレーム動作する
+    }
+
+    //! @brief 描画
+    void Gaming::Draw()
+    {
+        __super::Draw();
+
+    }
+
+    //--------------------------------------------------------------
+    // 追加部分 ②
+
+    //! @brief 描画
+    void Gaming::LateDraw()
+    {
+        __super::LateDraw();
+
+        DrawGraph( pos_.x, pos_.y, image_, TRUE );
+    }
+
+    //--------------------------------------------------------------
+
+    //! @brief GUI表示
+    void Gaming::GUI()
+    {
+        __super::GUI();
+
+        // 位置調整用 
+        // この関数には、float[2] のポインタを渡す必要がある 
+        ImGui::DragFloat2( "Pos", (float*)&pos_ );
+    }
+    //--------------------------------------------------------------
+    // 追加部分　⑥
+    //-------------------------------------------------------------- 
+    //! @brief 終了処理
+    void Gaming::Exit() 
+    {
+        __super::Exit();
+
+        // ロードしたイメージを解放します
+        DeleteGraph( image_ );
+    }
+    //--------------------------------------------------------------
+
+
+    // ALT-Menuで表示される名前
+    BP_CLASS_IMPL( Gaming, u8"MyGameゲームシーン" );
+}
+</code></pre>
+      </div>
+      <br />
+    </main>
+    <br />
+    <br />
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

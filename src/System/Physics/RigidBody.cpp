@@ -111,7 +111,8 @@ public:
 
     //! 位置を設定
     //! @param  [in]    position    設定座標
-    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか
+    //! true:アクティブにする false:アクティブにしない
     virtual void setPosition(const float3& position, bool is_activate = true) override
     {
         physics::Engine::bodyInterface()->SetPosition(body_id_,
@@ -136,7 +137,8 @@ public:
 
     //! 回転姿勢を設定
     //! @param  [in]    rot         設定角度
-    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか
+    //! true:アクティブにする false:アクティブにしない
     virtual void setRotation(const quaternion& rot, bool is_activate = true) override
     {
         JPH::QuatArg q = castJPH(rot);
@@ -168,12 +170,14 @@ public:
     //@}
     //-----------------------------------------------------------
     //! @name   速度と角速度
-    //! @details LinearVelocityは重心の速度であり、物体の位置と一致しない場合がありますので補正してください。
+    //! @details
+    //! LinearVelocityは重心の速度であり、物体の位置と一致しない場合がありますので補正してください。
     //-----------------------------------------------------------
     //@{
 
     //! 速度と角速度を逆算して設定
-    //! target_position/target_rotation に delta_time 秒で位置するようにボディの速度を設定する。
+    //! target_position/target_rotation に delta_time
+    //! 秒で位置するようにボディの速度を設定する。
     //! 必要に応じてボディをアクティブにします。
     virtual void
     moveKinematic(const float3& target_position, const quaternion& target_rotation, f32 delta_time) override
@@ -328,7 +332,8 @@ public:
 
     //! 動的/静的/キネマティックを切り替え
     //! @param  [in]    motion_type 動作タイプ
-    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか
+    //! true:アクティブにする false:アクティブにしない
     virtual void setMotionType(physics::MotionType motion_type, bool is_activate = true) override
     {
         physics::Engine::bodyInterface()->SetMotionType(body_id_,

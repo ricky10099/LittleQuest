@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>逆引き</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>逆引き</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html#000"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      >
+      </iframe>
+    </side>
+    <main>
+      <h1>移動、待機アニメーションを使いたい</h1>
+      <br />
+      1.　シーンを用意します。シーンの作成は「
+      <a href="./rr_002.html">シーンはどのようにつくるの?</a>
+      」を参考にしてください。<br />
+
+      2.　必要なインクルードを追加します。<br />
+      3.　シーンの<b>Init()</b>内にて、<b>カメラオブジェクト</b>と
+      <b>Playerオブジェクト</b>と<b>Enemy(敵)オブジェクト</b>を用意します<br />
+
+      4.　Update()にて、敵の方向をプレイヤーのほうに向けます。<br />
+      5.　Update()にて、敵を前にすすめます。<br />
+      6.　Init()にて、Playerのアニメーションを追加します<br />
+      7.　Init()にて、Enemyのアニメーションを追加します<br />
+      8.　Update()にて、敵の移動時に歩きモーション、止まる時に止まるモーションを指定します<br />
+
+      <br />
+      <b>
+        ※1～5までは「
+        <a href="./rr_010.html"> モデルの向きに合わせて移動させたい </a>
+        」の処理とある程度同じです。<br />
+        敵はアニメーションの関係上Bossにして移動とストップを行っています<br />
+        <br />
+        ※サンプルのカメラの位置はプレイヤーの後ろになっています。<br />
+        ※下記の例は「Gaming」というシーンで実行しています。<br />
+        <br />
+        <font color="red">
+          このサンプルには地面がないため、キャラにコリジョンや重力を使用していません。<br />
+          地面に沿った動作がいる場合は、「
+          <a href="rr_006.html"> キャラを地面に立たせたい</a>
+          」を参考にしてください。
+        </font>
+      </b>
+
+      <div class="box5">
+        <h2>　Gaming.cpp</h2>
+        <pre><code class="language-cpp">#include "Gaming.h"
+#include &#60;System/Component/ComponentModel.h&#62;   //&#60; ※モデルを使用するのでこちらを追加する②
+#include &#60;System/Component/ComponentCamera.h&#62;  //&#60; ※カメラを使用するのでこちらを追加する②
+#include &#60;System/Component/ComponentObjectController.h&#62;  //&#60; ※操作を使用するのでこちらを追加する②
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief 初期化
+    //! @return 初期化済み
+    bool Gaming::Init()
+    {
+        __super::Init();
+
+        // -----------------------------------------------------------------------------------------
+        // 以下の内容を追加 ③
+        // -----------------------------------------------------------------------------------------
+
+        // 表示のためのカメラを作成
+        {
+            Scene::CreateObjectPtr&#60;Object&#62;()                        //&#60; Object作成
+                -&#62;SetName("Camera")                                 //&#60; 名前設定
+                -&#62;AddComponent&#60;ComponentCamera&#62;()                   //&#60; カメラ
+                -&#62;SetPerspective(45)                                //&#60; 画角
+                -&#62;SetPositionAndTarget({0, 15, 50}, {0, 10, 0});    //&#60; カメラ位置と見るところ
+
+            // ※上記のように auto 変数にとらえずある程度羅列することができる
+        }
+        // キャラオブジェクトの作成
+        {
+            auto obj = Scene::CreateObjectPtr&#60;Object&#62;()             //&#60; Object作成
+                -&#62;SetName("Player");                                //&#60; 名前設定
+            
+            // オブジェクトにモデル能力を追加します
+            // ※アニメーション追加のため、model にとらえています
+            auto model = obj-&#62;AddComponent&#60;ComponentModel&#62;("data/Sample/Player/model.mv1");
+
+            // -------------------------------------------------------------
+            // Playerのアニメーションを追加 ⑥
+            // -------------------------------------------------------------
+            // 追加した「モデル」にアニメーションを準備することでアクションを可能にします。
+            // { アニメーションタグ(自由につけれます), ファイル名, 番号, スピード }
+            // 番号は「tools/DxLibModelViewer_64bit.exe」にて番号を確認する必要があります
+            model->SetAnimation({
+                {  "idle",   "data/Sample/Player/Anim/Idle.mv1", 1, 1.0f},
+                {  "jump",   "data/Sample/Player/Anim/Jump.mv1", 1, 1.0f},
+                {  "walk",   "data/Sample/Player/Anim/Walk.mv1", 1, 1.0f},
+            });
+
+            // アニメーションはObjectControllerにより、自動的に"walk","idle"が選択されます
+            auto ctrl = obj-&#62;AddComponent&#60;ComponentObjectController&#62;();
+            ctrl-&#62;SetMoveSpeed( 0.2f );   //&#62; 移動スピード
+            ctrl-&#62;SetRotateSpeed( 10.0f ); //&#62; 回転スピード
+
+            obj-&#62;SetTranslate({0,0,0});
+        }
+        // 敵オブジェクトの作成
+        {
+            auto obj = Scene::CreateObjectPtr&#60;Object&#62;()             //&#60; Object作成
+                -&#62;SetName("Enemy");                                 //&#60; 名前設定
+            
+            // オブジェクトにモデル能力を追加します
+            // ※アニメーション追加のため、model にとらえています
+            auto model = obj-&#62;AddComponent&#60;ComponentModel&#62;("data/Sample/Boss/model.mv1");
+            // -------------------------------------------------------------
+            // Playerのアニメーションを追加 ⑦
+            // -------------------------------------------------------------
+            // 追加した「モデル」にアニメーションを準備することでアクションを可能にします。
+            // { アニメーションタグ(自由につけれます), ファイル名, 番号, スピード }
+            // 番号は「tools/DxLibModelViewer_64bit.exe」にて番号を確認する必要があります
+            model->SetAnimation( {
+              { "idle", "data/Sample/Boss/Anim/Idle.mv1", 0, 1.0f },
+              { "walk", "data/Sample/Boss/Anim/Walk.mv1", 0, 1.0f },
+            } );
+
+            obj-&#62;SetTranslate({30,0,-30});
+        }
+        // -----------------------------------------------------------------------------------------
+
+        // 最初に1回動作する
+        // ただし trueを返さなければ Initに何回も来る
+        // trueにしない限り、updateは以降は動作しません。
+        return true;
+    }
+
+    //! @brief 更新
+    void Gaming::Update()
+    {
+        // 毎フレーム動作する
+        __super::Update();
+
+        //-------------------------------------------------------------------------------
+        // 敵の方向をプレイヤーのほうに向ける　④
+        //-------------------------------------------------------------------------------
+        auto player = Scene::GetObjectPtr&#60;Object&#62;("Player");
+        auto enemy  = Scene::GetObjectPtr&#60;Object&#62;("Enemy");
+
+        // プレイヤーとエネミーが存在している時のみ
+        if (player && enemy)
+        {
+            // プレイヤーの方向に、敵の向きを最大3度回転させます
+            enemy-&#62;SetRotationToPositionWithLimit( player-&#62;GetTranslate(), 3.0f );
+
+            // プレイヤーと敵の距離
+            float len = length( player-&#62;GetTranslate() - enemy-&#62;GetTranslate() );
+
+            if(len &#62; 10)
+            {
+                //-------------------------------------------------------------------------------
+                // 距離があれば敵のアニメーションを歩きにする　⑧
+                //-------------------------------------------------------------------------------
+                // 敵のモデルのアニメーションを"walk"にする
+                if( auto model = enemy-&#62;GetComponent&#60;ComponentModel&#62;() )
+                    model-&#62;PlayAnimationNoSame( "walk", true );
+
+                //-------------------------------------------------------------------------------
+                // 敵を前に進める　⑤
+                //-------------------------------------------------------------------------------
+                // モデルの向きはGizmoを見る限り-Zの方向を向いていることがわかる
+                enemy-&#62;AddTranslate( { 0, 0, -0.1 }, true );
+            }
+            else
+            {
+                //-------------------------------------------------------------------------------
+                // 動かなければ敵のアニメーションを止まる動作にする　⑧
+                //-------------------------------------------------------------------------------
+                // 敵のモデルのアニメーションを"idle"にする
+                if( auto model = enemy-&#62;GetComponent&#60;ComponentModel&#62;() )
+                    model-&#62;PlayAnimationNoSame( "idle", true );
+            }
+        }
+        //-------------------------------------------------------------------------------
+    }
+
+    //! @brief 描画
+    void Gaming::Draw()
+    {
+        __super::Draw();
+
+    }
+
+    //! @brief GUI表示
+    void Gaming::GUI()
+    {
+        __super::GUI();
+
+    }
+
+    // ALT-Menuで表示される名前
+    BP_CLASS_IMPL( Gaming, u8"MyGameゲームシーン" );
+}
+</code></pre>
+      </div>
+      <br />
+    </main>
+    <br />
+    <br />
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

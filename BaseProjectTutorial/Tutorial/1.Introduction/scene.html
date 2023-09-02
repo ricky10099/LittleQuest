@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>1.8 Scene</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>Scene</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>VisualStudioでのプログラミング</h1>
+      先ほどまではGUIで、<b>「Tutorial_01」</b>にどんどん追加していきましたが、<br />
+      実は<b>「Tutorial_01」</b>は<b>Scene(シーン)</b>です。<br />
+      <br />
+      <b>Scene</b
+      >とは、「タイトル」や「プレイヤーセレクト」「ゲーム中」や「ゲームオーバー」<br />
+      それぞれのシーンを合わせて一つのゲームを作っていくイメージとなります。<br />
+      <br />
+      「Unity」「UnrealEngine」 では<b>レベル(地形)</b>と呼ばれるもので、<br />
+      テストレベルも用意しながらゲームを完成させていきます。<br />
+      <br />
+      <h3><b>テストをする環境は非常に大事</b>です</h3>
+      <br />
+      その簡単なテストシーンにて<b>問題を単純化</b>させ、<b>正しく動作していることを確認</b>してから、<br />
+      <b>実際のゲームに組み込む</b>ようにしましょう。<br />
+      <br />
+      BPでは必ずSceneを作成し、それを実行する必要があります。<br />
+      といってもSceneは単なる簡単な土台で、構造的にも難しいものではありません。<br />
+      Sceneは、以下のようなプログラムになります。<br />
+      <div class="box5">
+        <pre><code class="language-cpp">
+//! @brief チュートリアルシーン
+class Tutorial : public Scene::Base
+{
+public:
+  BP_CLASS_TYPE( Tutorial, Scene::Base );
+
+  //! @brief 初期化
+  //! @return 初期化済み
+  bool Init() override
+  {
+    // 最初に1回動作する
+    // ただし trueを返さなければ Initに何回も来る仕様。
+    return true;
+  }
+
+  //! @brief 更新
+  void Update() override
+  {
+    // 毎フレーム動作する
+  }
+
+private:
+  // 必要であれば変数をここに追加する
+};
+BP_CLASS_IMPL( Tutorial, u8"Tutorialのシーン" );
+      </code></pre>
+
+        ※ 注釈にある 「//! @brief」 は
+        Doxygenと呼ばれる注釈から設計ドキュメントを<br />
+        自動的に作成する仕組みを利用するためにこのような記述となっています
+        <br />
+      </div>
+      <h2>　Scene(シーン)作成にて守らないといけないこと</h2>
+      <ul class="menu">
+        <li>必ず Scene::Base を<b>「継承」</b>する必要がある</li>
+        <li>
+          「public:」の下に
+          <b>BP_CLASS_TYPE</b>( シーン名, Scene::Base ) と入れる
+        </li>
+        <li>
+          基本的にCPPにて、<b>BP_CLASS_IMPL</b>( シーン名, u8"～シーンの説明～")
+          を入れる
+        </li>
+      </ul>
+      <font color="red"
+        >「class」を利用するため、「class」と「継承」は理解する必要があります。</font
+      ><br /><br />
+      ※上記のクラスでは、「Tutorial」という名前でシーンが作られます。<br />
+      「Game.ini」の「Start = 」で名前を設定するとそのシーンからスタートできます
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="system.html"><span>前回</span>BPシステム</a>
+      <a class="button-next" href="../2.Object/object.html"
+        ><span>次回</span> Object</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

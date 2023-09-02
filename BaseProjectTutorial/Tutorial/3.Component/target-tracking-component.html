@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>3.ターゲットトラッキング機能(ComponentTargetTracking)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>ターゲットトラッキング機能(ComponentTargetTracking)</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>ComponentTargetTrackingとは</h1>
+      ComponentModelのモデルのボーンのMatrix(位置・回転・スケール)を変化させます<br />
+      <b>
+        TargetTrackingを利用する場合、そのオーナー(Object)は、必ずComponentModelを持っている必要があります
+      </b>
+      <br />
+      <b>BP2022</b>
+      は、直接マトリクスを差し替える形でTrackingを行っていたため、<br />
+      現状のモデルの向きなどを常に考慮する必要がありました。<br />
+      <b>BP2023</b>
+      では、差分を使う形で常に現状のアニメーション状態に対して、どれだけ回転しているか、<br />
+      というものをもって処理するように変更しています。これによりモデルの向きは、<br />
+      どの方向の向きのモデルか、というものだけ、設定するだけでよくなりました。<br />
+      また、徐々にそちらに向けるなどの機能が追加されています<br />
+      <br />
+
+      <h2>　利用方法として</h2>
+
+      <ul class="menu">
+        <li>プレイヤーの顔を敵の方向に向ける(首の向きを敵に向ける)</li>
+        <li>プレイヤーの銃を敵の方向に向ける(腰の向きを敵に向ける)</li>
+        などが考えられます
+      </ul>
+
+      <br />
+      <b>GUI</b>には、次のような設定項目があります。
+      <div style="margin: 30px">
+        <img src="res/target-tracking-component-1.png" />
+      </div>
+
+      <br />
+      <table>
+        <tr>
+          <th>トラッキングノード</th>
+          <td>追従するノード(回転などを行うノード)</td>
+        </tr>
+        <tr>
+          <th>ターゲットオブジェクト</th>
+          <td>
+            追跡したいオブジェクト(これが存在する場合は<b>ターゲットポイント</b>は出ない)
+          </td>
+        </tr>
+        <tr>
+          <th>ターゲットポイント</th>
+          <td>
+            追跡したい場所(<b>ターゲットオブジェクト</b>がある場合は使用できない)
+          </td>
+        </tr>
+        <tr>
+          <th>左右角度制限</th>
+          <td>
+            通常の状態よりどれだけ回転を許容するか(首が後ろに向いたりしないようにする)
+          </td>
+        </tr>
+        <tr>
+          <th>上下角度制限</th>
+          <td>
+            通常の状態よりどれだけ回転を許容するか(首だけが真上を向いたりしないようにする)
+          </td>
+        </tr>
+        <tr>
+          <th>前ベクトル</th>
+          <td>モデルの前ベクトルを設定しておきます</td>
+        </tr>
+      </table>
+
+      <br />
+      <h1>ComponentTargetTrackingの使用方法</h1>
+
+      <h2>　コンポーネントの作成方法の例</h2>
+      auto変数trackingなどにとらえ、その関数内にて設定を行うことができます。<br />
+      <pre><code class="language-cpp">
+auto tracking = obj-&#62;AddComponent&#60;ComponentTracking&#62;();
+      </code></pre>
+      <br />
+
+      <h2>　コンポーネントの取得方法</h2>
+      <pre><code class="language-cpp">
+if (auto tracking = obj-&#62;GetComponent&#60;ComponentTracking&#62;())
+{
+    // objにTargetTrackingコンポーネントがある場合はこのスコープでtrackingとして使用することができます
+}
+      </code></pre>
+      <br />
+
+      <h2>　トラッキングノードの設定</h2>
+      <pre><code class="language-cpp">
+ // "mixamorig:Neck"というノードをトラッキングノードとする        
+tracking-&#62;SetTrackingNode( "mixamorig:Neck" ); 
+
+// id番号のノードをトラッキングノードとする
+tracking-&#62;SetTrackingNode( id ); 
+      </code></pre>
+      <br />
+
+      <h2>　ターゲットオブジェクトの設定</h2>
+      <pre><code class="language-cpp">
+tracking-&#62;SetTargetObjectPtr( target_object ); // target_objectをターゲットにします。
+
+tracking-&#62;SetTargetObjectPtr( "enemy_01" ); // オブジェクトの名前でもターゲットにできます。
+      </code></pre>
+      <br />
+
+      <h2>　ターゲットのオブジェクトの取得</h2>
+      <pre><code class="language-cpp">
+auto obj = tracking-&#62;GetTargetObjectPtr(); // objにターゲットが入ります。
+      </code></pre>
+      <br />
+
+      <h2>　ターゲットポイントの設定</h2>
+      <pre><code class="language-cpp">
+tracking-&#62;SetTargetPoint( { 0, 50, 0 } ); // {0,50,0}の位置に トラッキングノードを向ける
+      </code></pre>
+      <br />
+
+      <h2>　トラッキング制限の設定</h2>
+      // 上下角度は90度が限界です
+      <pre><code class="language-cpp">
+tracking-&#62;SetTrackingLimitLeftRight( { 30, 40 } ); // 左:30度 右:40度 で回転制限をつけます
+
+tracking-&#62;SetTrackingLimitUpDown( { 30, 10 } ); // 上:30度 下:10度 で回転制限をつけます
+      </code></pre>
+      <br />
+
+      <h2>　トラッキングのフレーム単位での制限を設定</h2>
+      フレームは、60FPSを基準としています<br />
+      <pre><code class="language-cpp">
+tracking-&#62;SetTrackingFrameLimit( 3 ); // 上下、左右個別で、一度に3度以上動かなくする
+      </code></pre>
+      <br />
+
+      <h2>　モデルの前ベクトルの設定</h2>
+      トラッキングするモデルの前ベクトルを設定します
+      <pre><code class="language-cpp">
+tracking-&#62;SetTrackingFrontVector( { 0, 0, 1 } ); // Z軸プラスを前にするモデルを使用します
+      </code></pre>
+      <br />
+
+      <h2>　TIPS</h2>
+      ターゲットトラッキングのコツ<br />
+      <ul class="menu">
+        <li>
+          ComponentTargetTrackingは、トラッキングしたいモデルを持っているObjectにつけます
+        </li>
+        <li>
+          モデルの向いている方向を確認し、前ベクトルの向きに設定します(ほとんどの場合は-Z軸の方向を向いています)
+        </li>
+        <li>
+          見たい相手の位置か、オブジェクトを設定します。(オブジェクトを設定するとそのオブジェクトが動いたらそれに追従します)
+        </li>
+        <li>
+          向きの回転に制限をつけます。上下角度には限界があります。90度以上になりません。
+        </li>
+        <li>
+          向き回転の限界角度の設定をします。いきなりその角度以上の回転はしません。(デフォルトで5度となっています)
+          <b>(2023から)</b>
+        </li>
+      </ul>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="attach-model-component.html">
+        <span>前回</span> 別モデル同期機能(ComponentAttachModel)
+      </a>
+      <a class="button-next" href="filterfade-component.html">
+        <span>次回</span> フィルターフェード機能(ComponentAttachModel)
+      </a>
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

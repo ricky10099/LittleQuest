@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>3.2 モデル表示機能(ComponentModel)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>モデル表示機能(ComponentModel)</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>ComponentModelとは</h1>
+      モデルを表示することができるコンポーネントです<br />
+      GUIには、以下の機能があります<br />
+      <table>
+        <tr>
+          <th>Use Shader</th>
+          <td>BPに組み込まれているシェーダーを使用するかどうか</td>
+        </tr>
+        <tr>
+          <th>File</th>
+          <td>mv1のファイル名をいれるとロードされます</td>
+        </tr>
+        <tr>
+          <th>アニメーション</th>
+          <td>アニメーション名とそのファイル、indexとスピードを指定できます</td>
+        </tr>
+        <tr>
+          <th>モデルの姿勢</th>
+          <td>モデルそのもののオフセット座標・回転・スケールを設定できます</td>
+        </tr>
+      </table>
+
+      <br />
+      <h1>ComponentModelの使用方法</h1>
+
+      <br />
+      <h2>モデルの作成方法の例</h2>
+      <pre><code class="language-cpp">
+ // 初期作成でロードしない
+auto model = obj-&#62;AddComponent&#60;ComponentModel&#62;();
+
+ // 初期作成と同時にロードする
+auto model = obj-&#62;AddComponent&#60;ComponentModel&#62;( "data/Sample/Player/model.mv1" );
+      </code></pre>
+      modelとしてとらえることで、このスコープ内でmodelを使ってアニメーションなどを設定をすることができます。<br />
+      設定などが必要ない場合は、わざわざ変数にとらえる必要もありません。<br />
+
+      <br />
+      <h2>モデルの取得方法の例</h2>
+      Init()で作成し、Update()でそのモデルを取得したいときなど。<br />
+      <pre><code class="language-cpp">
+if ( auto model = obj-&#62;GetComponent&#60;ComponentModel&#62;() )
+{
+    // オブジェクトにAddComponentされている場合は、
+    // このスコープで、modelとして使用可能
+    // AddComponentされていなければ、このスコープは飛ばされて無視されます
+}
+      </code></pre>
+
+      <br />
+      <h2>　Shaderの切り替え</h2>
+      <pre><code class="language-cpp">
+model-&#62;UseShader( true );  // シェーダーを有効とします
+model-&#62;UseShader( false );  // シェーダーを無効とします
+      </code></pre>
+
+      <br />
+      <h2>　途中でのモデルのロードの例</h2>
+      <pre><code class="language-cpp">
+model-&#62;Load( "data/Sample/Player/model.mv1" );  // mv1のモデルを途中でロードします
+      </code></pre>
+      <br />
+      <h2>　アニメーションのロードの例</h2>
+      存在する分だけつなげて宣言します<br />
+      <pre><code class="language-cpp">
+model-&#62;SetAnimation( {
+    { "idle", "data/Sample/Player/Anim/Idle2.mv1", 0, 1.0f },	// Idle
+    { "jump", "data/Sample/Player/Anim/Jump2.mv1", 0, 1.0f }	// Jump
+} );
+      </code></pre>
+      ※
+      アニメーション名、アニメーションファイル、アニメーションインデックス、スピード<br />
+      の順に項目を並べます。(アニメーションインデックスを調べる場合はViewerで調べる必要があります)<br />
+      <br />
+      <h2>　アニメーション再生</h2>
+      <pre><code class="language-cpp">
+model-&#62;PlayAnimation( アニメーション名, [ ループ, ブレンド時間, 開始時間 ]);
+      </code></pre>
+      SetAnimationで指定した、アニメーション名を入れて再生します。<br />
+      ループさせるかどうか、ブレンド時間、開始時間は省略できます。<br />
+      <br />
+
+      <h2>　アニメーション再生確認</h2>
+      <pre><code class="language-cpp">
+if ( model-&#62;IsPlaying() )
+{
+    // 再生中ならばここに来る
+}
+      </code></pre>
+      アニメーションが再生中かどうか。再生中であれば、trueが、<br />
+      再生中でなければ falseが返ります。<br />
+
+      <h2>　アニメーション停止および解除</h2>
+      <pre><code class="language-cpp">
+model-&#62;PlayPause();      // アニメーション再生を停止します。
+model-&#62;PlayPause(false); // アニメーション停止を解除します。
+      </code></pre>
+      <br />
+
+      <h2>　アニメーション停止中かチェックする</h2>
+      <pre><code class="language-cpp">
+if ( model-&#62;IsPaused() )
+{
+    // 停止中であればここに来る
+}
+      </code></pre>
+      <br />
+
+      <h2>　アニメーション再生中のアニメーション名を返す</h2>
+      <pre><code class="language-cpp">
+auto name = model-&#62;GetPlayAnimationName(); // name に再生中のアニメーション名を取得します
+      </code></pre>
+      <br />
+
+      <h2>　アニメーション再生したアニメーション名を返す</h2>
+      <pre><code class="language-cpp">
+auto old_name = model-&#62;GetOldPlayAnimationName(); // old_name に前に再生させたアニメーション名を取得します
+      </code></pre>
+      既にIsPlayingにてアニメーションが終わっている場合は、終わる前のアニメーションを返します<br />
+      既に次のものが再生されている場合は、その前に再生したアニメーションを返します<br />
+      <br />
+
+      <h2>　アニメーション再生時間を返します</h2>
+      <pre><code class="language-cpp">
+auto anim_time = model-&#62;GetAnimationTime(); // anim_time に前に再生してからの時間が入ります(秒)
+      </code></pre>
+      <br />
+
+      <h2>　モデルのすべてのノード名を返します</h2>
+      <pre><code class="language-cpp">
+// 取得する例
+auto nodes = model-&#62;GetNodesName(); // nods すべてのノードが取得されます。(std::vector)
+
+for( auto node : nodes )
+{
+    // ここで node をひとつづつノードを取得できます。
+}
+      </code></pre>
+
+      <br />
+      <h2>　ノード名からID番号を返します</h2>
+      <pre><code class="language-cpp">
+// IDを取得する例
+auto id = model-&#62;GetNodeIndex( "mixamorig:RHand" ); // "mixamorig:RHand"というノードのID番号を返します
+      </code></pre>
+      存在しない場合は、「-1」を返します。<br />
+      基本的にノード名からマトリクスなどは取得できます。<br />
+      ただそのマトリクス取得に関しては、内部でIDの取得を行うため、少しだけ低速です。<br />
+      高速化を行う際には、先にIDで取得してそれでマトリクス取得すると良いです<br />
+      <br />
+
+      <h2>　指定ノードの位置を取得する(名前から)</h2>
+      <pre><code class="language-cpp">
+// 位置を取得する例
+// 配置したモデルの"mixamorig:RHand"というノード位置を取得します(float3)
+auto pos = model-&#62;GetNodePosition( "mixamorig:RHand" );
+
+// モデルそのものの"mixamorig:RHand"というノード位置を取得します(float3)
+auto id = model-&#62;GetNodePosition( "mixamorig:RHand", true );
+      </code></pre>
+      存在しない場合は、「0,0,0」を返します。<br />
+      ただ<b>(0,0,0)というノード位置は存在する可能性もある</b>ため、存在しないノードは、<b>GetNodeIndex()</b>で先に調べておくことをお勧めします<br />
+      <br />
+
+      <h2>　指定ノードの位置を取得する(ID番号から)</h2>
+      <pre><code class="language-cpp">
+// 位置を取得する例
+// 配置したモデルの id番号のノード位置を取得します(float3)
+auto pos = model-&#62;GetNodePosition( id ); //
+
+// モデルそのもののid番号のノード位置を取得します(float3)
+auto id = model-&#62;GetNodePosition( id, true );
+      </code></pre>
+      存在しない場合は、「0,0,0」を返します。<br />
+      <br />
+      <h2>　指定ノードのMatrix(位置・回転・スケール)を取得する(名前から)</h2>
+      <pre><code class="language-cpp">
+// ノードのMatrix(位置・回転・スケール)を取得する例
+// 配置したモデルの"mixamorig:RHand"というノードのMatrixを取得します(matrix)
+auto pos = model-&#62;GetNodeMatrix( "mixamorig:RHand" );
+
+// モデルそのものの"mixamorig:RHand"というノードのMatrixを取得します(matrix)
+auto id = model-&#62;GetNodeMatrix( "mixamorig:RHand", true );
+      </code></pre>
+      存在しない場合は、matrix::identity()を返します。<br />
+      ただ存在しないノードが考えられる場合は、<b>GetNodeIndex()</b>で先に調べておくことをお勧めします<br />
+      <br />
+
+      <h2>　指定ノードのMatrix(位置・回転・スケール)を取得する(ID番号から)</h2>
+      <pre><code class="language-cpp">
+// ノードのMatrix(位置・回転・スケール)を取得する例
+// 配置したモデルのid番号ノードのMatrixを取得します(matrix)
+auto pos = model-&#62;GetNodeMatrix( id );
+
+// モデルそのもののid番号ノードのMatrixを取得します(matrix)
+auto id = model-&#62;GetNodeMatrix( id, true );
+      </code></pre>
+      存在しない場合は、matrix::identity()を返します。<br />
+      ただ存在しないノードが考えられる場合は、<b>GetNodeIndex()</b>で先に調べておくことをお勧めします<br />
+
+      <br />
+      <br />
+      モデルの姿勢に関しましては、以下の内容で、transformとある部分を、modelに読み替えて使用します。<br />
+      modelを作成、取得した後、以下のようにmodelのTransformにかかわる部分を取得できます。<br />
+      objectのTrasformとは別に存在し、objectの動作にも影響し、さらにその子供のような動作をします。<br />
+      <a href="transform-component.html">Transform機能(ComponentTransform)</a>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="transform-component.html"
+        ><span>前回</span>Transform機能(ComponentTransform)</a
+      >
+      <a class="button-next" href="camera-component.html"
+        ><span>次回</span> カメラ機能(ComponentCamera)</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

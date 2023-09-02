@@ -72,8 +72,10 @@ public:
 
     //! @brief カメラの更新タイミングを設定する
     //! @param timing 処理するタイミング
-    //! @detail ProcTiming::PreUpdate カメラを設定してそれに対してオブジェクトを動かす時に利用する
-    //! @detail ProcTiming::Update プレイヤーをカメラを設定して追いかける時などに利用する(Default)
+    //! @detail ProcTiming::PreUpdate
+    //! カメラを設定してそれに対してオブジェクトを動かす時に利用する
+    //! @detail ProcTiming::Update
+    //! プレイヤーをカメラを設定して追いかける時などに利用する(Default)
     void SetUpdateTiming(ProcTiming timing)
     {
         if(timing == ProcTiming::Update) {
@@ -178,11 +180,13 @@ private:
     //! @param ver バージョン
     CEREAL_SAVELOAD(arc, ver)
     {
-        arc(CEREAL_NVP(owner_));                                             //< オーナー
-        arc(CEREAL_NVP(camera_status_.get()));                               //< カメラステート
-        arc(CEREAL_NVP(position_), CEREAL_NVP(look_at_), CEREAL_NVP(up_));   //< カメラ位置とターゲット
-        arc(CEREAL_NVP(aspect_ratio_), CEREAL_NVP(fovy_));                   //< アスペクト比と画角
-        arc(CEREAL_NVP(near_z_), CEREAL_NVP(far_z_));                        //< Near/Far
+        arc(CEREAL_NVP(owner_));                 //< オーナー
+        arc(CEREAL_NVP(camera_status_.get()));   //< カメラステート
+        arc(CEREAL_NVP(position_), CEREAL_NVP(look_at_),
+            CEREAL_NVP(up_));   //< カメラ位置とターゲット
+        arc(CEREAL_NVP(aspect_ratio_),
+            CEREAL_NVP(fovy_));                         //< アスペクト比と画角
+        arc(CEREAL_NVP(near_z_), CEREAL_NVP(far_z_));   //< Near/Far
         arc(CEREAL_NVP(current_camera_));
         arc(cereal::make_nvp("Component", cereal::base_class<Component>(this)));
 

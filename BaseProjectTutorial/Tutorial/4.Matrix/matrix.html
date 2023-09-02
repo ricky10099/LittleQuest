@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>Matrix(マトリクスとは)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>Matrix</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        style="width: 100%; height: 50vw"
+      ></iframe>
+    </side>
+    <main>
+      <h1>Matrixとは</h1>
+      <b>matrix</b>で表され、
+      <b>姿勢と位置とサイズ</b>
+      が同時に入っている変数です<br />
+      <b>BPのマトリクス</b>は<b> 4 x 4 (16要素)</b>の
+      <b>float</b> で構成されています<br /><br />
+
+      <b>Object</b>ごとに持っており、 BPでは、以下の所に<font size="5"
+        ><b>隠れて表示</b></font
+      >されています
+
+      <div style="margin: 30px">
+        <img src="../4.Matrix/res/matrix.png" />
+      </div>
+
+      float4 となっているが上から、ベクトルが4つあると思っていただきたい<br />
+      3Dでのベクトル が float3の(X,Y,Z)で
+      <font color="blue"><b>方向</b></font>
+      を表すことがわからない場合は、
+      <a href="../4.Matrix/vector.html"> <b>Vector</b> </a>
+      の項目を確認してください<br /><br />
+      <table>
+        <tr>
+          <th colspan="5">matrixの要素</th>
+        </tr>
+        <tr>
+          <th><font color="darkred">X軸ベクトル</font></th>
+          <td>
+            <b><font color="blue">X</font></b>
+          </td>
+          <td>
+            <b><font color="blue">Y</font></b>
+          </td>
+          <td>
+            <b><font color="blue">Z</font></b>
+          </td>
+          <td>必ず0.0</td>
+        </tr>
+        <tr>
+          <th><font color="darkgreen">Y軸ベクトル</font></th>
+          <td>
+            <b><font color="blue">X</font></b>
+          </td>
+          <td>
+            <b><font color="blue">Y</font></b>
+          </td>
+          <td>
+            <b><font color="blue">Z</font></b>
+          </td>
+          <td>必ず0.0</td>
+        </tr>
+        <tr>
+          <th><font color="darkblue">Z軸ベクトル</font></th>
+          <td>
+            <b><font color="blue">X</font></b>
+          </td>
+          <td>
+            <b><font color="blue">Y</font></b>
+          </td>
+          <td>
+            <b><font color="blue">Z</font></b>
+          </td>
+          <td>必ず0.0</td>
+        </tr>
+        <tr>
+          <th>位置ベクトル</th>
+          <td>
+            <b><font color="green">X</font></b>
+          </td>
+          <td>
+            <b><font color="green">Y</font></b>
+          </td>
+          <td>
+            <b><font color="green">Z</font></b>
+          </td>
+          <td>0.0か1.0</td>
+        </tr>
+      </table>
+      <br />
+      ここから<font size="8">Matrix</font>はいったいどのようなものか、その<font
+        size="8"
+        >答え</font
+      >は・・・
+
+      <div style="margin: 30px">
+        <img src="../4.Matrix/res/matrix_core.png" />
+      </div>
+
+      <font size="8"> <b>こいつです</b> </font>
+      <br />
+      <b>Matrix</b>
+      は難しくてわからん、という人は多いですが、実は<b>この矢印</b>、だったのです…。<br /><br />
+
+      ということで今から<font size="5"><b>難しく考えている</b></font
+      >ところを<font size="5">
+        <b>簡単</b>
+      </font>
+      に考えていきましょう。
+      <div class="box5">
+        <h2>
+          <font color="darkgreen" size="5">
+            <b>　マトリクスって数値を知っておく必要があるの?</b>
+          </font>
+        </h2>
+        全く必要なし。<br />
+        マトリクスの中にはそっち向いている、位置はここ、という情報が入っているます。<br />
+        ただマトリクスの中の数値なんてなんて知る必要はないです。<br />
+        先生たちも、今実際ゲーム中のキャラ見て、「あー、いまこんな感じね」、という事しか考えてません。<br /><br />
+      </div>
+
+      <div class="box5">
+        <h2>
+          <font color="darkgreen" size="5">
+            <b>　マトリクスはどこにあるの? 設定とかどうするの?</b>
+          </font>
+        </h2>
+        以下のようにすると、マトリクスを取得できます。
+        <pre><code class="language-cpp">auto mat = obj-&#62;GetMatrix(); //&#60; objのマトリクスをmatに入れます</code></pre>
+        <br />
+
+        また、設定はMatrix一括でしか行えず、
+        <pre><code class="language-cpp">obj-&#62;SetMatrix( mat ); //&#60; objのマトリクスにmatを設定します</code></pre>
+
+        <br />
+        BPでは、取得と設定は、基本これしかしないです。
+      </div>
+
+      <div class="box5">
+        <h2>
+          <font color="darkgreen" size="5">
+            <b>　設定するマトリクスはどうやって作るの?</b>
+          </font>
+        </h2>
+        移動のマトリクスを作れます
+        <pre><code class="language-cpp">auto move = matrix::translate( {1,0,0} ); //&#60; Xの方向に1移動させる</code></pre>
+        <br />
+
+        Y軸回転のマトリクスを作れます
+        <pre><code class="language-cpp">auto rot = matrix::rotateY( 角度 * DegToRad ); //&#60; Y軸で角度分回転します</code></pre>
+        <br />
+
+        auto型でとらえていますが、matrix型となります。<br />
+        これらを実践では掛けて使用します。<br />
+      </div>
+
+      <font color="darkred" size="5">
+        <b>ここからは上の項目を使った実践編</b>
+      </font>
+
+      <div class="box5">
+        <h2>
+          <font color="darkgreen" size="5">
+            <b>　obj-&#62;AddTranslate({1,0,0})とほぼ同じことをしたい</b>
+          </font>
+        </h2>
+
+        <pre><code class="language-cpp">auto move = matrix::translate( {1,0,0} ); //&#60; Xの方向に1移動
+obj-&#62;SetMatrix( mul( obj-&#62;GetMatrix(), move ) );</code></pre>
+        マトリクスは足さない。掛けていくのです。<br />
+        matrixの掛け算は、* でないく、mul()を使います。<br />
+        <pre><code class="language-cpp">auto C = mul( A, B );</code></pre>
+        A * <b>B</b> = C という形となります。<br />
+        <b>Bを強調している理由</b>は次でわかります
+      </div>
+
+      <div class="box5">
+        <h2>
+          <font color="darkgreen" size="5">
+            <b>　obj-&#62;AddTranslate({1,0,0}, true)とほぼ同じことをしたい</b>
+          </font>
+        </h2>
+
+        <pre><code class="language-cpp">auto move = matrix::translate( {1,0,0} ); //&#60; Xの方向に1移動
+obj-&#62;SetMatrix( mul( move, obj-&#62;GetMatrix() ) );</code></pre>
+        反対にするだけです。<br />
+        こうすることでobjの向きのX軸で移動するのです<br />
+        <pre><code class="language-cpp">auto C = mul( A, B );</code></pre>
+        A * <b>B</b> = C <br />
+        つまり
+        <font size="6"> <b>B</b>があくまでベースとなる軸 </font>
+        と考えてください。<br />
+        先ほどの上の項目は、あくまでBに配置されているのは移動行列で、<br />
+        グローバルと一致した方向を示していることがわかるかと思います<br />
+      </div>
+
+      <div class="box5">
+        <h2>
+          <font color="darkgreen" size="5">
+            <b>　obj-&#62;AddRotationAxisXYZ({0,1,0})とほぼ同じことをしたい</b>
+          </font>
+        </h2>
+
+        <pre><code class="language-cpp">auto rot =  matrix::rotateY( 1 * DegToRad ); //&#60; Y軸1度回転
+obj-&#62;SetMatrix( mul( obj-&#62;GetMatrix(), rot ) );</code></pre>
+        わかると思いますが、Y軸が真上を向いてない場合、これだとグローバルに合わせて回転してしまいます。<br />
+        <b> BPでは現在ローカル回転は用意していません。 </b><br />
+        Y軸が傾いた際のobjのY軸で回転するには、
+        <pre><code class="language-cpp">auto rot =  matrix::rotateY( 1 * DegToRad ); //&#60; Y軸1度回転
+obj-&#62;SetMatrix( mul( rot, obj-&#62;GetMatrix() ) );</code></pre>
+        とする必要があります。
+      </div>
+
+      <div class="box5">
+        <h2>
+          <font color="darkgreen" size="5">
+            <b>　BP関数では不可能。複数の動作を一回で反映させる方法</b>
+          </font>
+        </h2>
+        上の動作、移動と回転を同時に行うと計算が軽くなります
+
+        <pre><code class="language-cpp">auto rot =  matrix::rotateY( 1 * DegToRad ); //&#60; Y軸1度回転
+auto move = matrix::translate( {1,0,0} ); //&#60; Xの方向に1移動
+
+// Update前にこれを計算しておく(掛け合わせの順番で動作は変わります)
+auto two_calc = mul( move, rot );</code></pre>
+        <br />
+        アップデートでは以下を行う(通常動作は1回になるので軽くなる)
+        <pre><code class="language-cpp">obj-&#62;SetMatrix( mul( obj-&#62;GetMatrix(), two_calc ) );</code></pre>
+      </div>
+
+      <div class="box5">
+        <h2>
+          <font color="darkgreen" size="5">
+            <b>
+              　角度とポジション別でええやん、ややこしいMatrixとか必要なくない?
+            </b>
+          </font>
+        </h2>
+        <font size="4">
+          実際<b>PS/XBox/Swich</b>での3Dプログラムでは角度で計算されることはまずないです。<br />
+        </font>
+        <b>
+          角度計算は遅いんです。 よってBPはそこが遅い。<br />
+          <font size="5">
+            実開発では角度なんてややこしくなるだけで使いません!<br />
+          </font>
+        </b>
+        <br />
+        <font size="4"> 「そんなわけないだろ!」 </font>
+        と感じる人は3Dの素人です。<br />
+        <br />
+        ではなぜ
+        <font size="5"> <b>BPが角度で指定</b> </font>
+        するプログラム環境を用意しているのか?<br />
+        それは初めて3Dに触れる学生さんたちができるだけ<br />
+        迷わないように使えるようにするためです。<br />
+        <br />
+        普段よく使われる角度とは違う<b>ラジアン</b>の存在、<br />
+        4x4の聞いたこともない回転移動スケールが入った<b>マトリクス</b>の存在、<br />
+        複数の<b>座標空間</b>の3Dの考え方と計算、<br />
+        これらを前提で3D授業が始まると、私の経験上、<br />
+        始まったタイミングで既に終焉を迎える人が多々いたためです。<br />
+        <br />
+        そこで<font size="5"><b>まずは3Dになれる</b></font>
+        ことが大事だと考えました。 <br />
+        <br />
+        Matrixは非常に効率的な形をしています。<br />
+        実は<font size="5"> 回転と移動はまとまってないと大変 </font
+        >という場面が多いのです<br />
+
+        <pre><code class="language-cpp">auto obj = Scene::CreateObjectPtr&#60;Object&#62;()		//&#60; Object作成
+        -&#62;SetName( u8"オブジェクトA" )	        //&#60; 名前設定
+        -&#62;SetRotation( { 0, 30, 0 } );	        //&#60; Y軸で30度回転
+        -&#62;SetTranslate( { 5, 0, 3 } );	        //&#60; X軸,Z軸でに少し移動</code></pre>
+
+        例えばこの<b>オブジェクトA</b>を違う<b>オブジェクトB</b>にくっつけて、このAをだけを中心で回転させたいとき、<br />
+        位置も移動して、しかも回転しているので、オプションのような感じで周りを回るはずですが、<br />
+        これ、角度とポジションだけで可能ですか?<br />
+        <br />
+        やるとしても、回転するときにポジションは円のように移動させる必要もあるし、<br />
+        さらにBが移動や回転したらもうAの計算はかなり無理な感じがしませんか?
+        <br /><br />
+        でもこれMatrixなら<font size="5"> <b> ほぼ一撃 </b></font>
+        でできちゃうんです。
+        <br />
+        <font size="6">Matrixにしたい理由</font>は、<br />
+        <font size="6">
+          <b> 他のオブジェクトの影響をうけても、移動や回転もさせたいから </b>
+          <br />
+        </font>
+        これをやるためといっても過言ではないです<br />
+        <br />
+        さらにAがくっついたオブジェクトBがさらに違うオブジェクトCにくっついて回っていたとしても問題ないです。<br />
+        本来マトリクスは実はこの部分の
+        <font size="6">ややこしさを解決する味方</font>
+        なのです<br />
+      </div>
+
+      <div class="box5">
+        <h2>
+          <font color="darkgreen" size="5">
+            <b>　ObjectAをObjectBに引っ付けて動作させたい</b>
+          </font>
+        </h2>
+        <pre><code class="language-cpp">auto obj_b_mat = obj_b-&#62;GetMatrix();
+
+// BPでは、当たりなどの移動処理が終了した後、PostUpdate()にて行う必要があります。
+// 最終の表示位置を設定します(設定しても1frameしか有効になりません)
+// これを使うオブジェクトobj内にComponentSpringArm、ComponentAttachModelがあると動作は保証されません
+obj-&#62;SetWorldMatrix( mul( obj-&#62;GetMatrix(), ob_b_mat ) );</code></pre>
+      </div>
+
+      <font size="6"> ※「ほぼ同じ」と書いてある部分について<br /> </font>
+      正しくは、フレームレートに合わせた回転が必要となります。(BP関数は自動的に行います)<br />
+      これをやらないと144hzのモニターのものと、60hzのモニターにつなぐことで<br />
+      処理スピードが変わってしまいます。 移動や、回転数値に<br />
+      <pre><code class="language-cpp">float delta = GetDeltaTime60();</code></pre>
+      を掛けることで同じ動作となります。
+
+      <br />
+      <br />
+      <font size="6">
+        ※ ここでは、Matrixを矢印ととらえたため、<br />
+        あえてスケールを説明しておりません。<br />
+        (見た目の矢印の大きさが可変しないためです)<br />
+      </font>
+      <b>実際にはMatrixには、スケールも存在しています。</b><br />
+      X軸、Y軸、Z軸は、1の大きさを普通としますが、別に数値を変えると軸の大きさは可変になるはずです。<br />
+      つまり、軸の大きさを1から変化させることでスケールとなります。X,Y,Zそれぞれの方向に大きさを持っています。<br />
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="vector.html"
+        ><span>前回</span> Vector(ベクトルとは)</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

@@ -81,20 +81,31 @@ void Tutorial_02::GUI()
                     u8"void Exit() override;"
                     u8"void GUI() override;"
                     u8"\n"
-                    u8"オーバーライド可能として用意されている関数は以下のものになります\n"                //
-                    u8"bool Init()                : 初期化(シーン実行時1回のみ)\n"                        //
-                    u8"void Update( float delta ) : 更新  (ディスプレイ表示周期で発生します)\n"           //
-                    u8"void Draw()                : 描画  (ディスプレイ表示周期で発生します)\n"           //
-                    u8"void GUI()                 : この説明( 情報をWindowで表示するためにあります )\n"   //
-                    u8"void Exit()                : シーン終了(終了時に1回のみ)\n"
+                    u8"オーバーライド可能として用意されている関数は以下のものに"
+                    u8"なります\n"   //
+                    u8"bool Init()                : "
+                    u8"初期化(シーン実行時1回のみ)\n"   //
+                    u8"void Update( float delta ) : 更新  "
+                    u8"(ディスプレイ表示周期で発生します)\n"   //
+                    u8"void Draw()                : 描画  "
+                    u8"(ディスプレイ表示周期で発生します)\n"   //
+                    u8"void GUI()                 : この説明( "
+                    u8"情報をWindowで表示するためにあります )\n"   //
+                    u8"void Exit()                : "
+                    u8"シーン終了(終了時に1回のみ)\n"
                     u8"\n"   //
                     u8"void PreUpdate()           : Updateの前の処理\n"
-                    u8"void PrePhysics()          : Updateの後、アクション後、物理挙動当たり処理前\n"
-                    u8"void PostUpdate()          : Updateの後、アクション後、物理挙動当たり判定後 PreDraw前の処理\n"
+                    u8"void PrePhysics()          : "
+                    u8"Updateの後、アクション後、物理挙動当たり処理前\n"
+                    u8"void PostUpdate()          : "
+                    u8"Updateの後、アクション後、物理挙動当たり判定後 "
+                    u8"PreDraw前の処理\n"
                     u8"\n"
                     u8"void PreDraw()             : 描画前に呼ばれる\n"
-                    u8"void LateDraw()            : 標準の描画の後の描画するために使用する(上に置く2Dなど)\n"
-                    u8"void PostDraw()            : Drawの後の処理として利用する\n");
+                    u8"void LateDraw()            : "
+                    u8"標準の描画の後の描画するために使用する(上に置く2Dなど)\n"
+                    u8"void PostDraw()            : "
+                    u8"Drawの後の処理として利用する\n");
     }
     ImGui::End();
 }

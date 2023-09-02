@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>1.7 BPシステム</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>BPシステム</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>Editor移動方法</h1>
+      カメラ設定してわかったと思いますが、<br />
+      ComponentCameraがあると基本的にはそれを通して画面が出てきます<br />
+      <br />
+      ただ全体的な画面を第三者視点で見たいときもあります。<br />
+      <br />
+      その場合は、<b>F4</b>を押してみましょう。<br />
+      四つ角にカメラ設定が出てきます。<br />
+      この状態では、自由にデバッグカメラで動き回れます<br />
+      <br />
+      <b>UnrealEngine</b>に慣れていれば、ほぼそのまま操作が可能です。<br />
+      <br />
+      <a
+        href="https://zenn.dev/daichi_gamedev/books/unreal-engine-tutorial/viewer/editor-viewport"
+        >UE5 カメラ操作の参考ページ</a
+      >
+      <br />
+      ただし特殊な操作、AltキーやC,Zなどには対応させていません。(いずれまた対応します)<br />
+      <br />
+      <h1>ポーズ機能</h1>
+      <h2>　<b>F1</b> でポーズがかけれます。</h2>
+      <h2>　その状態で<b>F2</b>でコマ送りができます</h2>
+      開発時にポーズ機能は非常に大事です。これがあるのとないのとでは<br />
+      次のような状態でのデバッグ能力に非常に差が出てきます<br />
+      <ul class="menu">
+        <li>
+          弾が当たっている状態でポーズして、その状態で実際にVisualStudioでブレイクして、うまく動かない当たり判定を確認したい
+        </li>
+        <li>コマ送りで正しいアニメーションが出ているか確認したい</li>
+        <li>タイミング良くキーを押したい(IsKeyDown()など)</li>
+      </ul>
+      <br />
+      <h1>GUIのON/OFF</h1>
+      <h2>　<b>F5</b> GUI表示のON/OFFができます。</h2>
+      当たり判定が当たっているか、座標位置やオブジェクトは正しい状態なのかなど、<br />
+      デバッグは常にGUIを使って行いましょう。<br / >
+      <br />
+      <h1>カーソルON/OFF</h1>
+      <h2>　F6　でカーソル表示を消したりつけたりできます。</h2>
+      マウスにて、見る方向を回転したりするときに使えます。<br />
+      逆にGUIを使いたい場合は、ONに切り替えるとUIが使えます。<br />
+      <br />
+      <h1>ALT-MENUについて</h1>
+      ゲーム中にALTキーを押すとメニューが開きます<br />
+      ここから新たにシーンをロードやUIの設定等も行うことが可能です。<br />
+      <div style="margin: 30px">
+        <img src="res/alt-menu.png" />
+      </div>
+      <ul class="menu">
+        <li>Scene選択</li>
+        作成されているサンプルシーンや、自分で作成したシーンがここに出てきます<br />
+        自由にジャンプすることができます<br />
+        「シーンリセット」は今読み込んでいるシーンを最初から実行します
+        <div style="margin: 30px">
+          <img src="res/alt-scene.png" />
+        </div>
+      </ul>
+      <ul class="menu">
+        <li>Debug機能</li>
+        <table>
+          <tr>
+            <th>グリッド表示</th>
+            <td>
+              画面にグリッドを表示します(ComponentModelが一つも出てないと出ません)
+            </td>
+          </tr>
+          <tr>
+            <th>FPS表示</th>
+            <td>処理落ちや今の処理の重さを確認できます</td>
+          </tr>
+          <tr>
+            <th>デバッグ表示</th>
+            <td>F5キーと全く同じで、UIをON/OFFできます</td>
+          </tr>
+          <tr>
+            <th>デバッグカメラ</th>
+            <td>F4キーと全く同じで、デバッグカメラ状態をON/OFFできます</td>
+          </tr>
+          <tr>
+            <th>エディター配置</th>
+            <td>
+              UnityやUE5のように右側に一つにまとめて表示します。チェックしなければ、多数のオブジェクトのウインドが出てきます
+            </td>
+          </tr>
+          <tr>
+            <th>Always</th>
+            <td>
+              エディター配置の時のみ。チェックすると常にGUIが右に張り付きます
+            </td>
+          </tr>
+        </table>
+        <div style="margin: 30px">
+          <img src="res/alt-debug.png" />
+        </div>
+        <div style="margin: 30px">
+          <b>
+            OFFの時
+            はオブジェクトの表示ウインドウを選択して選び複数確認するモードです
+          </b>
+          <img src="res/debug-editor-off.png" />
+          <br />
+          <br />
+          <b
+            >ONの時
+            はUnity/UnrealEngineと同じでシーンウインドウで選択したものを情報表示する配置です</b
+          >
+          <img src="res/debug-editor-on.png" />
+        </div>
+      </ul>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="gui-6.html"
+        ><span>前回</span>GUIでプログラミング(追従カメラ)</a
+      >
+      <a class="button-next" href="scene.html"><span>次回</span> Scene</a>
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

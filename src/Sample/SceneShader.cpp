@@ -23,7 +23,8 @@ bool SceneShader::Init()
     auto camera = obj->AddComponent<ComponentCamera>();
     camera->SetPerspective(60.0f);
     camera->SetPositionAndTarget({0.f, 6.f, -15.f}, {0.f, 5.f, 0.f});
-    // camera->SetCurrentCamera(); //< こちらは1つめのカメラの場合は必要ありません
+    // camera->SetCurrentCamera(); //<
+    // こちらは1つめのカメラの場合は必要ありません
 
     // フェードコンポーネント
     filter_fade_ = obj->AddComponent<ComponentFilterFade>();

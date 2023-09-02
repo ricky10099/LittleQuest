@@ -1,16 +1,17 @@
 ﻿#include "Player.h"
-#include "Camera.h"
-#include "Enemy.h"
 
+#include <System/Component/ComponentAttachModel.h>
 #include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentCollisionCapsule.h>
 #include <System/Component/ComponentCollisionLine.h>
 #include <System/Component/ComponentCollisionModel.h>
 #include <System/Component/ComponentCollisionSphere.h>
 #include <System/Component/ComponentModel.h>
-#include <System/Component/ComponentAttachModel.h>
 #include <System/Component/ComponentSpringArm.h>
 #include <System/Component/ComponentTargetTracking.h>
+
+#include "Camera.h"
+#include "Enemy.h"
 
 namespace LittleQuest
 {
@@ -39,15 +40,9 @@ PlayerPtr Player::Create(const float3& pos, const float3& front)
         // オブジェクトにモデルをつける
         if(auto model = sword->AddComponent<ComponentModel>()) {
             model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
-            // model->Load("data/Sample/FPS_Knife/Knife_low.mv1");
             model->SetRotationAxisXYZ({0, 0, 0});
             model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
         }
-
-        //if(auto cmp_mdl = sword->AddComponent<ComponentCollisionModel>()) {
-        //    cmp_mdl->AttachToModel(true);
-        //    cmp_mdl->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::WEAPON);
-        //}
 
         if(auto attach = sword->AddComponent<ComponentAttachModel>()) {
             // playerの右手にアタッチする
@@ -96,15 +91,16 @@ bool Player::Init()   // override
         colLine->SetLine(float3{0, 15, 0}, float3{110, 15, 1});
         colLine->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
         colLine->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
+        colLine->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
         colLine->SetName("SwordCol");
     }
     /* auto target = AddComponent<ComponentTargetTracking>();
-            target->SetTrackingNode("mixamorig:Neck");
-            target->SetFrontVector({0, 0, -1});
+                target->SetTrackingNode("mixamorig:Neck");
+                target->SetFrontVector({0, 0, -1});
 
-            target->SetTrackingLimitLeftRight({70, 70});
+                target->SetTrackingLimitLeftRight({70, 70});
 
-            target->SetTrackingLimitUpDown({10, 10});*/
+                target->SetTrackingLimitUpDown({10, 10});*/
 
     /*auto sword = Sword::Create();*/
 
@@ -197,11 +193,11 @@ void Player::Update()   // override
     }
 
     /*if (isAttack) {
-            } else if (length(move).x > 0) {
-                this->Walk(move);
-            } else {
-                this->Idle();
-            }*/
+                } else if (length(move).x > 0) {
+                    this->Walk(move);
+                } else {
+                    this->Idle();
+                }*/
 
     move *= speed_ * GetDeltaTime60();
 
@@ -222,9 +218,9 @@ void Player::LateDraw()   // override
     printfDx("\nisCombo: %i", isCombo);
     printfDx("\nGetMouseHWheelRotVol: %i", MouseWheelCounter);
 
-    //auto sword = Scene::GetObjectPtr<Object>("PlayerSword");
-    //auto col   = sword->GetComponent<ComponentCollisionModel>();
-    //printfDx("\nCol name : %s", col->GetOwnerPtr()->GetName());
+    // auto sword = Scene::GetObjectPtr<Object>("PlayerSword");
+    // auto col   = sword->GetComponent<ComponentCollisionModel>();
+    // printfDx("\nCol name : %s", col->GetOwnerPtr()->GetName());
 }
 
 void Player::GUI()   // override
@@ -258,17 +254,17 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
             if(auto enemy = dynamic_cast<Enemy*>(owner)) {
                 bool inList = false;
                 for(int i = 0; i < attackList.size(); i++) {
-                    if(&attackList[i] == &enemy) {
+                    if(attackList[i] == enemy->GetName().data()) {
                         inList = true;
                         break;
                     }
                 }
                 if(!inList) {
-                    attackList.push_back(enemy);
+                    attackList.push_back(enemy->GetName().data());
                     enemy->Damaged(this->atkVal);
                 }
 
-                //attackList.push_back(enemy);
+                // attackList.push_back(enemy);
             }
         }
     }
@@ -318,14 +314,15 @@ void Player::Jump()
 
 void Player::Attack()
 {
-    //auto sword = Scene::GetObjectPtr<Object>("PlayerSword");
-    //auto col   = sword->GetComponent<ComponentCollisionModel>();
+    // auto sword = Scene::GetObjectPtr<Object>("PlayerSword");
+    // auto col   = sword->GetComponent<ComponentCollisionModel>();
 
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(combo == 1) {
             if(modelPtr->GetPlayAnimationName() != "attack1") {
                 modelPtr->PlayAnimationNoSame("attack1");
-                sword->Attack();
+                /*sword->Attack();*/
+                attackList.clear();
             }
             if(modelPtr->GetAnimationTime() > 0.9f) {
                 if(!isCombo) {
@@ -347,6 +344,7 @@ void Player::Attack()
         if(combo == 2) {
             if(modelPtr->GetPlayAnimationName() != "attack2") {
                 modelPtr->PlayAnimationNoSame("attack2");
+                attackList.clear();
             }
             if(modelPtr->GetAnimationTime() > 0.9f) {
                 if(!isCombo) {
@@ -369,6 +367,7 @@ void Player::Attack()
         if(combo == 3) {
             if(modelPtr->GetPlayAnimationName() != "attack3") {
                 modelPtr->PlayAnimationNoSame("attack3");
+                attackList.clear();
             }
             if(modelPtr->GetAnimationTime() > 0.9f) {
                 isAttack    = false;

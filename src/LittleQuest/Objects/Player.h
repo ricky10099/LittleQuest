@@ -1,10 +1,11 @@
 ﻿#pragma once
 
-#include "Sword.h"
-#include "Enemy.h"
+#include <System/Scene.h>
 
 #include <vector>
-#include <System/Scene.h>
+
+#include "Enemy.h"
+#include "Sword.h"
 
 namespace LittleQuest
 {
@@ -98,6 +99,6 @@ private:
 
     int MouseWheelCounter;
 
-    std::vector<Enemy*> attackList;
+    std::vector<std::string_view> attackList;
 };
 }   // namespace LittleQuest

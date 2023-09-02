@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>1.5 GUIでコリジョン(Collision)設定</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>GUIでコリジョン(Collision)設定</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>モデルコリジョンコンポーネント</h1>
+      この章は<a href="gui-5.html">前章「GUIで移動テスト」</a
+      >で行った状態の続きとなります。<br />
+      <br />
+      まずは地面のモデル形状に合わせたコリジョンを作成しましょう<br />
+      以下のようにGroundに対して動作を行います。
+      <br />
+      <div style="margin: 30px">
+        <img src="res/collision-1.gif" />
+      </div>
+
+      <ol class="menu">
+        <li>
+          Groundに「ComponentCollisionModel
+          モデルコリジョン機能クラス」をAddComponentします
+        </li>
+        <li>
+          Collision Model内にある、「モデルにコリジョンを張り付ける」を選びます
+        </li>
+      </ol>
+      これでモデル形状にあったコリジョンが出来上がります<br />
+
+      <br />
+      <hr />
+      <h1>カプセルコリジョンコンポーネント</h1>
+      次にPlayerにカプセルコリジョンを割り当てます<br />
+      <div style="margin: 30px">
+        <img src="res/collision-2.gif" />
+      </div>
+
+      <ol class="menu">
+        <li>
+          Playerに「ComponentCollisionCapsule
+          カプセルコリジョン機能クラス」をAddComponentします
+        </li>
+        <li>
+          Collision Capsule内にある、高さ、半径を調整します (高さ13.0,
+          半径3.0くらいが良いかと思われます)
+        </li>
+      </ol>
+
+      この状態で W/A/S/D キーを押すと地面に潜らずに移動します。<br />
+      ただし、このままだと宙に浮いてしまうため、このコリジョンに重力をつけましょう。<br />
+      <div style="margin: 30px">
+        <img src="res/collision-3.gif" />
+      </div>
+
+      <ol class="menu">
+        <li>
+          Collision Capsule内にある、「重力を使用する」にチェックを入れます
+        </li>
+      </ol>
+      <br />
+      次はキャラに追従するカメラを作ります<br />
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="gui-4.html"
+        ><span>前回</span>GUIで移動テスト</a
+      >
+      <a class="button-next" href="gui-6.html"
+        ><span>次回</span> GUIで追従カメラ設定</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

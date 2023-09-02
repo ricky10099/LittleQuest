@@ -30,7 +30,8 @@ public:
         col1->SetName("Body");
         col1->UseGravity();
 
-        // コリジョン(Sphere) 2つめの当たり(当たりのコンポーネントは複数持てます)
+        // コリジョン(Sphere)
+        // 2つめの当たり(当たりのコンポーネントは複数持てます)
         auto col2 = AddComponent<ComponentCollisionSphere>()   //< コリジョン
                         ->SetTranslate({0, 0, 0})
                         ->SetRadius(0.5);
@@ -103,9 +104,12 @@ bool SceneTestCollision::Init()
     //----------------------------------------------------------------------------------
     {
         auto obj = Scene::CreateObjectPtr<Object>()->SetName("Ground");
-        //obj->AddComponent<ComponentModel>( "data/Sample/SwordBout/Stage/Stage00.mv1" );
+        // obj->AddComponent<ComponentModel>(
+        // "data/Sample/SwordBout/Stage/Stage00.mv1" );
         obj->AddComponent<ComponentModel>("data/Sample/FPS_Industrial/Map.mv1")->SetScaleAxisXYZ({2, 2, 2});
-        //obj->AddComponent<ComponentModel>( "data/Sample/空色町1.52/sorairo1.52.mv1" )->SetScaleAxisXYZ( { 2, 2, 2 } );
+        // obj->AddComponent<ComponentModel>(
+        // "data/Sample/空色町1.52/sorairo1.52.mv1" )->SetScaleAxisXYZ( { 2, 2,
+        // 2 } );
 
         // モデルのコリジョン設定
         obj->AddComponent<ComponentCollisionModel>()->AttachToModel();

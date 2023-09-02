@@ -99,7 +99,7 @@ bool Enemy::Init()   // override
 
 //! @brief 処理更新
 //! @param delta フレーム時間
-void Enemy::Update()   //override
+void Enemy::Update()   // override
 {
     auto mdl = GetComponent<ComponentModel>();
 
@@ -141,7 +141,7 @@ void Enemy::Update()   //override
 }
 
 //! @brief GUI処理
-void Enemy::GUI()   //override
+void Enemy::GUI()   // override
 {
     __super::GUI();
 
@@ -157,7 +157,7 @@ void Enemy::GUI()   //override
 
 //! @brief 当たりのコールバック
 //! @param hitInfo
-void Enemy::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)   //override
+void Enemy::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)   // override
 {
     // 当たりで移動させる(これが無ければめり込みます)
     __super::OnHit(hitInfo);

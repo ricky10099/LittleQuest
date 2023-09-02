@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>3.コリジョン機能(ComponentCollision)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>コリジョン機能(ComponentCollision系)</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>ComponentCollisionとは</h1>
+      コリジョンどうしの当たりを行い、お互いにめり込まないようにしたり、<br />
+      当たりを判定したりすることができます<br />
+      <br />
+      現状のコリジョンコンポーネントには、次のタイプが存在しています。
+      <br />
+      <br />
+      <table>
+        <tr>
+          <th>球 (ComponentCollisionSphere)</th>
+          <td>球状の当たり。中心からの距離で判定するため判定速度が速い</td>
+          <td><img src="res/collision-sphere.png" /></td>
+        </tr>
+        <tr>
+          <th>カプセル (ComponentCollisionCapsule)</th>
+          <td>
+            カプセル状の当たり。基本縦にして使用し、プレイヤーや敵の胴体として使用できます
+          </td>
+          <td><img src="res/collision-capsule.png" /></td>
+        </tr>
+        <tr>
+          <th>モデル形状 (ComponentCollisionModel)</th>
+          <td>
+            地形や障害物につけて上に乗ったりできる。モデル形状どうしは当たり判定はしていない
+          </td>
+          <td><img src="res/collision-model.png" /></td>
+        </tr>
+        <tr>
+          <th>線 (ComponentCollisionLine)</th>
+          <td>銃などにつけて、弾丸などで当たる先のものをとらえるのに使える</td>
+          <td><img src="res/collision-line.png" /></td>
+        </tr>
+      </table>
+
+      <br />
+      <h1>ComponentCollision系の共通の設定方法</h1>
+      例えば、当たり判定にて、Playerの剣には敵の胴体には当てたいが、<br />
+      カメラや、アイテムには当てたくない事や、ボスはプレイヤーから押し戻されたくないなど、<br />
+      様々な状態が存在します。<br />
+      このようなものは、Collisionに設定で可能となります。<br />
+      <div style="margin: 30px">
+        <img src="res/collision-status.png" />
+      </div>
+
+      <table>
+        <tr>
+          <th>① コリジョンタイプ</th>
+          <td>Sphere/Capsule/Model/Lineのタイプが現状存在します</td>
+        </tr>
+        <tr>
+          <th>② コリジョングループ</th>
+          <td>
+            自分が所属するグループを示します。相手からこのグループをHit指定されないと当たりません
+          </td>
+        </tr>
+        <tr>
+          <th colspan="2">③ デバッグ用項目</th>
+        </tr>
+        <tr>
+          <td>　<b>ヒットしない</b></td>
+          <td>
+            強制的に当たらないようにします。テストで当たりを外したいときに利用できます
+          </td>
+        </tr>
+        <tr>
+          <td>　<b>ゲーム中表示</b></td>
+          <td>リリースモード、デバッグ表示OFFの時もデバッグ表示されます</td>
+        </tr>
+        <tr>
+          <th>④ Hitするグループ</th>
+          <td>
+            自分がヒットするグループを設定できます。自分の所属するグループとは関係ありません
+          </td>
+        </tr>
+        <tr>
+          <th>⑤ オーバーラップするグループ</th>
+          <td>
+            当たる当たりに当たっても内部まで入り込みます。押し当りを発生させたくない場合に使用します
+          </td>
+        </tr>
+        <tr>
+          <th colspan="2">⑥ 重力に関する項目</th>
+        </tr>
+        <tr>
+          <td><b>　重力を使用する</b></td>
+          <td>
+            下に落ちるような動作をします。重力加速度で毎フレーム位置が更新されます
+          </td>
+        </tr>
+        <tr>
+          <td><b>　重力加速度</b></td>
+          <td>重力加速度の大きさと方向を個別に決めれます</td>
+        </tr>
+        <tr>
+          <th>⑦質量</th>
+          <td>
+            質量(重さ)の大きさを示します。質量が小さいもので大きいものを動かすのは難しくなります
+          </td>
+        </tr>
+        <tr>
+          <th colspan="2">⑧ モデル連動に関する動作項目</th>
+        </tr>
+        <tr>
+          <td><b>　AttachNode</b></td>
+          <td>モデルに連動させるようにする</td>
+        </tr>
+        <tr>
+          <td><b>　Node</b></td>
+          <td>連動したいモデルのノードを指定できます</td>
+        </tr>
+        <tr>
+          <th>⑨タイプ個別の内容</th>
+          <td>ここはタイプ設定により内容が異なります</td>
+        </tr>
+      </table>
+      <br />
+      <hr />
+
+      <h2>　コリジョン(球)をつける</h2>
+      <pre><code class="language-cpp">
+auto collision = obj-&#62;AddComponent&#60;ComponentCollisionSphere&#62;();
+      </code></pre>
+
+      <h2>　上記のコリジョンに名前をつける (例はテストという名前となる)</h2>
+      <pre><code class="language-cpp">
+collision-&#62;SetName(u8"テスト");
+      </code></pre>
+
+      <h2>
+        　コリジョン(球)作成と同時に名前をつける (例はテストという名前となる)
+      </h2>
+      <pre><code class="language-cpp">
+auto collision = obj-&#62;AddComponent&#60;ComponentCollisionSphere&#62;()
+    -&#62;SetName(u8"テスト");
+      </code></pre>
+
+      <h2>　グループの設定</h2>
+      <pre><code class="language-cpp">
+collision-&#62;SetCollisionGroup( CollisionGroup::PLAYER );    // 所属するグループを「PLAYER」とします
+      </code></pre>
+      <br />
+
+      <h2>　Hitグループの設定</h2>
+      「ヒットするグループ」の「ENEMY」「GROUND」「ITEM」をチェックする効果を与えます<br />
+      それ以外はチェックを外します<br />
+      <pre><code class="language-cpp">
+// 当るグループは「ENEMY」「GROUND」「ITEM」とします
+collision-&#62;SetHitCollisionGroup( CollisionGroup::ENEMY | CollisionGroup::GROUND | CollisionGroup::ITEM );    
+      </code></pre>
+      <br />
+      ※グループの概念ですが、あくまでグループは、Aグループ、Bグループという感覚と変わりません。<br />
+      <br />
+      ただ、ゲームを作る際に、A, B, C, Dなどより、PLAYER, ENEMY, GROUND,
+      ITEM,<br />
+      などとするほうが扱いやすいと感じるため、そのように設定しています<br />
+      実際作成中に敵をGROUNDグループとすることも可能で、GROUNDグループ全体を敵として扱うことも可能ですが<br />
+      それをすると後で見直したときに非常にわかりにくい状態となります。<br />
+      <br />
+      よって、プレイヤーは、PLAYERグループ、敵は、ENEMYなどと設定するのが良いかと思われます。
+      <br />
+      <hr />
+      <h2>オーバーラップする</h2>
+      オーバーラップにチェックするとそのタイプへの押しあたりの影響がなくなります。<br />
+      ただし、すり抜けるようになりますが、OnHitの当たり判定には来ます。<br />
+
+      <h2>　重力の設定</h2>
+      重力を使用する、をチェックするのと同じ効果を与えます<br />
+      <pre><code class="language-cpp">
+// Collisionの重力を有効にします
+collision-&#62;UseGravity();    
+
+// Collisionの重力を無効にします
+collision-&#62;UseGravity( false );    
+      </code></pre>
+      <br />
+      <h2>　質量の設定</h2>
+      重さを与えます。他の当たりから押される場合に影響します
+      <pre><code class="language-cpp">
+// Collisionの質量を10にします
+float 質量 = 10.0f;
+collision-&#62;SetMass( 質量 );    
+      </code></pre>
+      <br />
+
+      <h2>　コリジョンをモデルに連動させる</h2>
+      <pre><code class="language-cpp">
+// Collisionを「mixamorig::Neck」というノードに張り付ける
+collision-&#62;AttachToModel( "mixamorig::Neck" );    
+
+// モデル連動を外す
+collision-&#62;AttachToModel( -1 );    
+      </code></pre>
+      <div style="margin: 30px">
+        <img src="res/collision-component-attachnode.png" />
+      </div>
+      GUIで、上記のように設定したのと同義である
+
+      <hr />
+      <h1>ComponentCollisionSphereの使用方法</h1>
+      <h2>　コリジョンの作成</h2>
+      <pre><code class="language-cpp">
+auto collision = obj-&#62;AddComponent&#60;ComponentCollisionSphere&#62;();
+      </code></pre>
+
+      <h2>　コリジョンのサイズを設定する</h2>
+      <div id="COL_CAP"></div>
+      <pre><code class="language-cpp">
+collision-&#62;SetRadius( 3.0f );      // 球コリジョンの半径を<b>3.0</b> にする
+      </code></pre>
+      <br />
+      <h1>ComponentCollisionCapsuleの使用方法</h1>
+      <h2>　コリジョンの作成</h2>
+      <pre><code class="language-cpp">
+auto collision = obj-&#62;AddComponent&#60;ComponentCollisionCapsule&#62;();
+      </code></pre>
+
+      <h2>　コリジョンの横半径を設定する</h2>
+      <pre><code class="language-cpp">
+collision-&#62;SetRadius( 3.0f );      // コリジョンの半径を<b>3.0</b> にする
+      </code></pre>
+
+      <h2>　コリジョンの横半径を設定する</h2>
+      <pre><code class="language-cpp">
+collision-&#62;SetHeight( 5.0f );      // コリジョンの高さを<b>5.0</b> にする
+      </code></pre>
+
+      <br />
+      <h1>ComponentCollisionModelの使用方法</h1>
+      <h2>　コリジョンの作成</h2>
+      <pre><code class="language-cpp">
+auto collision = obj-&#62;AddComponent&#60;ComponentCollisionModel&#62;();
+      </code></pre>
+
+      <h2>　コリジョンの当たりに合わせる</h2>
+      <pre><code class="language-cpp">
+collision-&#62;AttachToModel();      // コリジョンをモデルに合わせる
+      </code></pre>
+
+      <br />
+      <h1>ComponentCollisionLineの使用方法</h1>
+      <h2>　コリジョンの作成</h2>
+      <pre><code class="language-cpp">
+auto collision = obj-&#62;AddComponent&#60;ComponentCollisionLine&#62;();
+      </code></pre>
+
+      <h2>　コリジョンの当たりに合わせる</h2>
+      <pre><code class="language-cpp">
+float3 start = { 0, 0, 0 };
+float3 start = { 0.0f, 0.0f, 100.0f };
+collision-&#62;SetLine( start, end );      // Z軸方向にラインを飛ばす
+      </code></pre>
+      上記のようなラインを銃のモデルなどにアタッチして使用すると狙っているものを見つけることができる
+      <br />
+      <br />
+      <h1>コリジョンどうしの当たりの判定をおこなう方法</h1>
+      オブジェクトどうしで当たり判定を行うには、オブジェクトを継承する必要があります。<br />
+      <pre><code class="language-cpp">
+class TestObject : public Object
+{
+public:
+    BP_OBJECT_TYPE( TestObject, Object );
+
+    void OnHit( const ComponentCollision::HitInfo& hitInfo ) override
+    {
+        // ここに当たった時の処理を書きます
+
+
+        // 最後にこれを入れてください。ここでめり込みの解消を行っています。
+        __super::OnHit( hitInfo );
+    }
+}
+BP_OBJECT_IMPL( Object, u8"TestObject" );
+      </code></pre>
+      <br />
+      Create時に、今まで使用していたObjectを上記のオブジェクトに変更します<br />
+      継承したオブジェクトを作成する必要があります。<br />
+      <pre><code class="language-cpp">
+auto object = Screne::CreateObjectPtr&#60; <b>ObjectTest</b> &#62;()
+      </code></pre>
+
+      <br />
+      また、OnHitで受け渡されるパラメータは以下のものが入っています。<br />
+      <table>
+        <tr>
+          <th colspan="2">ComponentCollision::HitInfo</th>
+        </tr>
+        <tr>
+          <th>hit_</th>
+          <td>
+            ヒットしたかどうか。OnHit()に来ている地点で当たっています。必ずtrueとなります。
+          </td>
+        </tr>
+        <tr>
+          <th>hit_collision_</th>
+          <td>
+            当たった相手のコリジョンコンポーネント。ここから相手のコリジョン情報がもらえます。
+          </td>
+        </tr>
+        <tr>
+          <th>hit_position_</th>
+          <td>
+            当たった相手のコリジョンと当たった位置。基本的に自分のコリジョンとの中間地点を示す。
+          </td>
+        </tr>
+        <tr>
+          <th>collision_</th>
+          <td>
+            当たった自分のコリジョンコンポーネント。ここから自分のコリジョン情報がもらえます。
+          </td>
+        </tr>
+        <tr>
+          <th>hit_position_</th>
+          <td>
+            当たった自分のコリジョンと当たった位置。基本的に相手のコリジョンとの中間地点を示す。
+          </td>
+        </tr>
+        <tr>
+          <th>push_</th>
+          <td>
+            押し戻し量。ここを変化させることでめり込み量も変化させることができるが、<br />
+            質量により計算された結果となるため、基本的には、システムに任せるほうが良い。
+          </td>
+        </tr>
+      </table>
+
+      <h2>　TIPS</h2>
+      <ul class="menu">
+        <li>
+          コリジョンに名前をつけておくと以下の関数で相手のコリジョンの名前を取得できます
+        </li>
+        <pre><code class="language-cpp">
+// 相手のコリジョンについている名前を取得できます
+auto enemy_col_name = hit_collision_-&#62;GetName();
+// 自分のコリジョンについている名前を取得できます
+auto my_col_name    = collision_-&#62;GetName();
+        </code></pre>
+
+        <li>コリジョンから相手のオブジェクトの名前も取得できます</li>
+        <pre><code class="language-cpp">
+// 相手のコリジョンについている名前を取得できます
+auto enemy_name = hit_collision_-&#62;GetOwner()-&#62;GetNameDefault();
+// 自分の名前を取得できます
+auto my_name    = collision_-&#62;GetOwner()-&#62;GetNameDefault();
+        </code></pre>
+        ※ Defaultで取得すると、複数ある場合のナンバーが付きません。
+      </ul>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="camera-component.html"
+        ><span>前回</span> カメラ機能(CameraComponent)</a
+      >
+      <a class="button-next" href="effect-component.html"
+        ><span>次回</span> エフェクト機能(EffectComponent)</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

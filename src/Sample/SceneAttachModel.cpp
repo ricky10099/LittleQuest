@@ -68,7 +68,8 @@ bool SceneAttachModel::Init()
         }
 
         // モデルに設定されているテクスチャを上書き
-        // model と this(Scene) をこの関数内で使用する modelはshared_ptrとして使うためコピーをとる
+        // model と this(Scene) をこの関数内で使用する
+        // modelはshared_ptrとして使うためコピーをとる
         model->SetProc(
             "ModelDraw",
             [model, this]() {

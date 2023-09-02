@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>1.Introduction</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>Introduction</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>Windowsプログラミング</h1>
+      Windowsのプログラムは、基本的にwinmain()から始まります。<br />
+      DxLibを使う場合もここに処理が追加されます。<br />
+      <br />
+      BPも、WinMain.cppから実行されており、メインループより、<br />
+      各種の処理が行われています。
+
+      <h1>BP2023とは</h1>
+      BP本体はDxLibの上でエンジンフレームワーク的な構成になっています。<br />
+      構成は次のようになっています。<br />
+      <div class="box5">
+        <pre><code>
+📂BaseProject
+  📂.build            ソリューションなどプロジェクト
+  📂bin               BPに必要なツール類
+  📂data              リソース(テクスチャ、モデル、Textなど) iniファイル
+  📂document          ドキュメント類 (Doxygenなど)
+  📂dxlib             DxLib本体
+  📂opensource        その他オープンソース類 (一部変更済み)
+  📂src             
+    📂Game            各自で作成したゲームをここで作成する
+    📂Sample          チュートリアルや参考サンプル類 【※提出する際に最終的に削除します】
+    📂System          BPのシステム類
+  📂tools             MV1のモデルビューワーなど
+  📄.editorconfig     セーブの際のフォーマット形式の統一のため
+  📄.gitattributes    gitの際のフォーマット形式の統一のため
+  📄.gitignore        git管理外ファイル
+  📄@cleanup.bat      必要最低限のファイル以外を削除する
+  📄@code_format.bat  フォーマット形式をBPで管理しているものに変更する
+  📄@code_metrics.bat CCCCのコードメトリクス計測を行います
+  📄@count_lines.bat  ライン数を計測します
+  📄@doxygen.bat      現状のソースのDoxygenファイルを作成します
+  📄@make.bat         ビルドのみ行います
+  📄@open.bat         VisualStudioを起動します
+  📄imgui.ini         GUIデバッグ情報(基本変更する必要はありません)
+  📄premake5.lua      ビルド後のソリューション設定
+  📄README.md         注意書きなど<div id="BP_START"></div>
+      </code></pre>
+      </div>
+      <br />
+      <h2>　BPの起動方法</h2>
+      <div id="BP_START_INI"></div>
+      <ul class="menu">
+        <li>@open.bat を実行すると VisualStudioが起動します</li>
+        <li>そのままVisualStudio上にてビルド、実行を行うことができます。</li>
+        <li>
+          「Debug」「Release」にあわせて動作します。通常はDebugモードにて動作させ、最終で見せるものはReleaseモードにします。
+        </li>
+      </ul>
+
+      <br />
+      <h2>　任意のシーンを実行</h2>
+      <ul class="menu">
+        <li>Game.iniを開きます</li>
+        <li>Start = Tutorial_02 などに変更します</li>
+        <li><img src="res/bp-scene-ini.png" /></li>
+      </ul>
+      <font color="red">
+        <b>
+          ※「Game.ini」がない場合は、同じフォルダにある「Game.ini.setting」をコピーして、<br />
+          　それの名前を「Game.ini」に変更して使用してください<br />
+        </b>
+      </font>
+      <br />
+      <br />
+    </main>
+    <br />
+    <br />
+    <next>
+      <div class="botton-next" />
+      <a class="button-next" href="gui.html"
+        ><span>次回</span>GUIでプログラミング</a
+      >
+    </next>
+    <br />
+    <br />
+
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

@@ -3,7 +3,9 @@
 //! @brief  Stage01シーン
 //---------------------------------------------------------------------------
 #pragma once
+#include <LittleQuest/Objects/Enemy.h>
 
+#include <vector>
 #include <System/Scene.h>
 
 namespace LittleQuest
@@ -24,14 +26,6 @@ public:
     void GUI() override;      //!< GUI表示
 
 private:
-    struct Material
-    {
-        std::shared_ptr<Texture> albedo_;
-        std::shared_ptr<Texture> normal_;
-        std::shared_ptr<Texture> roughness_;
-        std::shared_ptr<Texture> metalness_;
-    };
-
-    std::vector<Material> materials_;
+    std::vector<EnemyPtr> enemies;
 };
 }   // namespace LittleQuest

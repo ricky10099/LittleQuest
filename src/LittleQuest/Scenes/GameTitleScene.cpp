@@ -1,4 +1,5 @@
 ﻿#include "GameTitleScene.h"
+
 #include "Stage01.h"
 
 namespace LittleQuest

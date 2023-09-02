@@ -70,7 +70,8 @@ public:
     bool is_valid() const;
 
     // 描画可能な状態かどうか取得
-    //! @note   描画可能になっていない状態でMV1関数を呼ぶとブロッキングされます
+    //! @note
+    //! 描画可能になっていない状態でMV1関数を呼ぶとブロッキングされます
     bool is_active() const;
 
     //@}
@@ -83,12 +84,13 @@ protected:
     void on_initialize();
 
 protected:
-    u32               width_  = 0;       //!< 幅
-    u32               height_ = 0;       //!< 高さ
-    int               handle_ = -1;      //!< [DxLib] Graphicハンドル
-    std::wstring      path_;             //!< ファイルパス
-    std::atomic<bool> active_ = false;   //!< アクティブ状態 true:利用可能 false:ロード未完了
-    std::atomic<bool> need_initialize_ = false;   //!< 初期化要求フラグ true:初期化が必要 false:初期化済または完了で不要
+    u32               width_  = 0;                //!< 幅
+    u32               height_ = 0;                //!< 高さ
+    int               handle_ = -1;               //!< [DxLib] Graphicハンドル
+    std::wstring      path_;                      //!< ファイルパス
+    std::atomic<bool> active_          = false;   //!< アクティブ状態 true:利用可能 false:ロード未完了
+    std::atomic<bool> need_initialize_ = false;   //!< 初期化要求フラグ true:初期化が必要
+                                                  //!< false:初期化済または完了で不要
 
     Microsoft::WRL::ComPtr<ID3D11Resource>           d3d_resource_;   //!< D3Dリソース(Texture2D/3D)
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> d3d_srv_;        //!< D3D ShaderResource View

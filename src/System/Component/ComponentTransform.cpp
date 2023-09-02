@@ -150,8 +150,9 @@ void ComponentTransform::GUI()
         ShowGizmo(ptr, gizmo_operation_, gizmo_mode_, reinterpret_cast<uint64_t>(this));
 
         // キーにより、Manipulateの処理を変更する
-        // TODO : 一旦UE4に合わせておくが、のちにEditor.iniで設定できるようにする
-        // W = Translate / E = Rotate / R = Scale (Same UE5)
+        // TODO :
+        // 一旦UE4に合わせておくが、のちにEditor.iniで設定できるようにする W =
+        // Translate / E = Rotate / R = Scale (Same UE5)
         if(!ImGui::IsAnyItemActive()) {
             if(ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_W))
                 gizmo_operation_ = ImGuizmo::TRANSLATE;

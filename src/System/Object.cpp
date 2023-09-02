@@ -567,12 +567,14 @@ bool Object::Load(std::string_view filename)
 //! @code
 //! 　
 //!     auto obj = Scene::CreateObjectPtr<Object>();
-//!     auto item = Scene::CreateObjectPtr<Item>();    //< ItemはObjectから継承したクラス
+//!     auto item = Scene::CreateObjectPtr<Item>();    //<
+//!     ItemはObjectから継承したクラス
 //!
 //!     // 名前を変えることも可能です。(GUI上でも名前が変わります)
 //!     item->SetName("WhiteItem");
 //!
-//!     Scene::CreateObjectPtr<Player>()->SetName("RedPlayer"); //< 変数に捉えない場合。取得方法にて取得する。
+//!     Scene::CreateObjectPtr<Player>()->SetName("RedPlayer"); //<
+//!     変数に捉えない場合。取得方法にて取得する。
 //! 　
 //! @endcode
 //!
@@ -580,9 +582,11 @@ bool Object::Load(std::string_view filename)
 //! @code
 //! 　
 //!     // 存在しているPlayerのオブジェクトを取得します
-//!     auto player = Scene::GetObjectPtr<Player>();   //< Playerクラスが一つしかない場合はこれでOK
+//!     auto player = Scene::GetObjectPtr<Player>();   //<
+//!     Playerクラスが一つしかない場合はこれでOK
 //!
-//!     auto red_player = Scene::GetObjectPtr<Player>("RedPlayer");   //< 複数の時は名前も指定しないと別のものが取れる可能性がある
+//!     auto red_player = Scene::GetObjectPtr<Player>("RedPlayer");   //<
+//!     複数の時は名前も指定しないと別のものが取れる可能性がある
 //! 　
 //! @endcode
 //!
@@ -591,7 +595,8 @@ bool Object::Load(std::string_view filename)
 //! 　
 //!     // 存在しているオブジェクトを削除します
 //!
-//!     Scene::ReleaseObject<Player>();   //< Playerクラスが一つしかない場合はこれでOK
+//!     Scene::ReleaseObject<Player>();   //<
+//!     Playerクラスが一つしかない場合はこれでOK
 //! 　
 //!		Scene::ReleaseObject("RedPlayer"); //< 名前指定で削除する場合
 //!
@@ -605,12 +610,15 @@ bool Object::Load(std::string_view filename)
 //! public:
 //!     bool Init() override
 //!     {
-//!         __super::Init();    //< Object内でInitが必要なものを定義します※忘れるとASSERTが出ます
+//!         __super::Init();    //<
+//!         Object内でInitが必要なものを定義します※忘れるとASSERTが出ます
 //!
 //!         // 処理化処理をかく
 //!
-//!         return true;        //< 初期化が終了したら trueで返してください (※現状機能不完全)
-//!                             //  falseの場合は、もう一度Init()が呼ばれます。(ロード完了で次へ進むなどの場合を想定しています)
+//!         return true;        //< 初期化が終了したら trueで返してください
+//!         (※現状機能不完全)
+//!                             //
+//!                             falseの場合は、もう一度Init()が呼ばれます。(ロード完了で次へ進むなどの場合を想定しています)
 //!     }
 //!
 //!     void Update() override
@@ -625,7 +633,8 @@ bool Object::Load(std::string_view filename)
 //!
 //!     void Exit() override
 //!     {
-//!         __super::Exit();    //< Object内でExitの終了も呼びます　※忘れるとASSERTが出ます
+//!         __super::Exit();    //<
+//!         Object内でExitの終了も呼びます　※忘れるとASSERTが出ます
 //!         // 終了処理を行う
 //!     }
 //!

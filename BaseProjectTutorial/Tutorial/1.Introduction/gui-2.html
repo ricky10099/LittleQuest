@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>1.2 GUIでカメラ(Camera)設定</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>GUIでカメラ(Camera)設定</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>カメラの調整</h1>
+      この章は<a href="gui.html">前章「GUIでプログラミング」</a
+      >で行った状態の続きとなります。<br />
+      <br />
+      前章で行った最後の画面は、地面の足元を見ている感じになっているので、<br />
+      正面を眺めるようなカメラに調整してみましょう<br />
+      <br />
+      カメラの設定には、<br />
+      Cameraオブジェクトそのものを操作して調整する方法<br />
+      ComponentCamera(▼Camera部分)を調整して設定する方法<br />
+      の2通りがあります<br />
+      <br />
+      今回はキャラに付随することや地面にもぐるなどは考慮せずに構築しますので<br />
+      ComponentCameraを調整する方法で行います<br />
+      <br />
+      オブジェクトには、「Camera」と「Ground」が存在しますが、<br />
+      GUIで、Cameraを選択してください<br />
+      <br />
+      <font color="red">※注意</font
+      >　画面の地面をクリックしてしまうと「Ground」が選択されてしまいます<br />
+      <br />
+      カメラの設定を以下のようにしてみましょう。
+      <div style="margin: 30px">
+        <img src="res/camera-1.png" />
+      </div>
+      前を向いたような画面になったと思います。<br />
+      項目は以下のようなものが存在しており、次の意味となります。<br />
+      <table style="margin: 30px">
+        <tr>
+          <th>カメラ座標</th>
+          <td>カメラの位置です。3D空間内の位置となります。</td>
+        </tr>
+        <tr>
+          <th>注視点</th>
+          <td>見ている位置です。こちらも3D空間内の位置となります。</td>
+        </tr>
+        <tr>
+          <th>上ベクトル</th>
+          <td>
+            カメラの上方向です【基本的に(0,1,0)から変更する必要はありません】
+          </td>
+        </tr>
+        <tr>
+          <th>Near</th>
+          <td>
+            カメラのどれくらい近くから映るようにするか(<font color="red"
+              >0にしてはいけません</font
+            >)
+          </td>
+        </tr>
+        <tr>
+          <th>Far</th>
+          <td>どこまで離れているところまで映るようにするか</td>
+        </tr>
+      </table>
+      以下のような項目に合わせてマウスをドラッグしながら、左右にマウスを動かしてみましょう。<br />
+      すると項目の数値をリアルタイムに増減させることができます。<br />
+      <div style="margin: 30px">
+        <img src="res/camera-2.png" />
+      </div>
+
+      <ul class="menu">
+        <li>上記の項目を変更し、自分の思うカメラを設定してみましょう</li>
+      </ul>
+
+      <br />
+      <h2>　以降で使用する最終的なカメラの設定</h2>
+      <b>この章以降の内容としては、カメラは以下の設定で進めます。</b>
+      <div style="margin: 30px">
+        <img src="res/camera-3.png" />
+      </div>
+      以下のような画面になっていれば成功です
+      <div style="margin: 30px">
+        <img src="res/camera-4.png" width="50%" height="50%" />
+      </div>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="gui.html"
+        ><span>前回</span>GUIでプログラミング</a
+      >
+      <a class="button-next" href="gui-3.html"
+        ><span>次回</span> GUIでプレイヤー(Player)設定</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

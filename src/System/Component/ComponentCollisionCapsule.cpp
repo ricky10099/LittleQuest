@@ -29,7 +29,7 @@ void ComponentCollisionCapsule::Init()
 
     // 作成したときはPhysicsでの移動はしない
     SetCollisionStatus(CollisionBit::UsePhysics, false);
-#endif   //USE_JOLT_PHYSICS
+#endif   // USE_JOLT_PHYSICS
 }
 
 void ComponentCollisionCapsule::Update()
@@ -37,7 +37,7 @@ void ComponentCollisionCapsule::Update()
 #ifdef USE_JOLT_PHYSICS
     if(set_size_)
         Init();
-#endif   //USE_JOLT_PHYSICS
+#endif   // USE_JOLT_PHYSICS
 
     __super::Update();
 }
@@ -76,7 +76,7 @@ void ComponentCollisionCapsule::PrePhysics()
     );
 #endif
     auto* physicsEngine = physics::Engine::instance();
-    //physicsEngine->setGravity( {0,-0.98,0} );
+    // physicsEngine->setGravity( {0,-0.98,0} );
 
     // OwnerのOldMatrixと現在のMatrixから移動量を割り出す
     auto old_pos = GetOwner()->GetOldWorldMatrix().translate();
@@ -91,14 +91,14 @@ void ComponentCollisionCapsule::PrePhysics()
 
     // プレイヤー操作
     new_velocity += vec + gravity_;
-    //character_->setMass( 600.0f );
+    // character_->setMass( 600.0f );
 
     // 速度を更新
     character_->setLinearVelocity(new_velocity);
 
     character_->update(update_delta_time_);
 #endif
-#endif   //USE_JOLT_PHYSICS
+#endif   // USE_JOLT_PHYSICS
 }
 
 // ここで当たり処理後の処理を行います
@@ -115,11 +115,11 @@ void ComponentCollisionCapsule::PostUpdate()
     auto own_mat = inverse(Matrix());
 
     // Collision中心位置の違いの調整
-    //float half_height = ( height_ - radius_ * 2 ) * 0.5f;
-    //own_mat._41_42_43 -= ( own_mat._21_22_23 * ( half_height + radius_ ) );
+    // float half_height = ( height_ - radius_ * 2 ) * 0.5f;
+    // own_mat._41_42_43 -= ( own_mat._21_22_23 * ( half_height + radius_ ) );
 
     GetOwner()->Matrix() = mat;
-    //mul( own_mat, mat );
+    // mul( own_mat, mat );
 #endif
 }
 
@@ -225,7 +225,7 @@ void ComponentCollisionCapsule::GUI()
             DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
             ImGui::DragFloat3((colname + u8"座標(T)").c_str(), matrixTranslation, 0.01f);
             ImGui::DragFloat3((colname + u8"回転(R)").c_str(), matrixRotation, 0.1f);
-            //ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
+            // ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
             RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, mat);
 
             ImGui::DragFloat((colname + u8"半径(R)").c_str(), &radius_, 0.01f, 0.01f, 1000.0f, "%.2f");
@@ -244,7 +244,7 @@ ComponentCollisionCapsulePtr ComponentCollisionCapsule::SetRadius(float radius)
 {
 #ifdef USE_JOLT_PHYSICS
     set_size_ = true;
-#endif   //USE_JOLT_PHYSICS
+#endif   // USE_JOLT_PHYSICS
     radius_ = radius;
     return std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this());
 }
@@ -260,7 +260,7 @@ ComponentCollisionCapsulePtr ComponentCollisionCapsule::SetHeight(float height)
 {
 #ifdef USE_JOLT_PHYSICS
     set_size_ = true;
-#endif   //USE_JOLT_PHYSICS
+#endif   // USE_JOLT_PHYSICS
     height_ = height;
     return std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this());
 }

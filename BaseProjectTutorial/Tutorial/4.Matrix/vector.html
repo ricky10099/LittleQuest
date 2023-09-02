@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>Vector(ベクトルとは)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>Vector</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        style="width: 100%; height: 50vw"
+      ></iframe>
+    </side>
+    <main>
+      <h1>Vectorとは</h1>
+      <b>float2</b>(二次元)や <b>float3</b>(三次元)で表され、
+      <font color="green"><b>座標</b></font>
+      や
+      <font color="blue"><b>方向</b></font>
+      として利用できます<br />
+
+      <div class="box5">
+        <h2>
+          <font color="green"><b>　座標として利用</b></font> <br />
+        </h2>
+        ■ プレイヤーの位置<br />
+        ■ アイテムの位置 <br />
+        ■ 敵出現の位置 など<br />
+        <br />
+
+        <b>プログラムでの利用方法の例</b><br />
+        X座標:100 Y座標:10 Z座標 1 に配置します
+        <pre><code class="language-cpp">obj-&#62;SetTranslate( { 100.0f, 10.0f, 1.0f } );</code></pre>
+        <br />
+        position(float3)に座標を取得します
+        <pre><code class="language-cpp">auto postion = obj-&#62;GetTranslate();</code></pre>
+      </div>
+
+      <div class="box5">
+        <h2>
+          <font color="blue"><b>　方向として利用</b></font> <br />
+        </h2>
+        ■ プレイヤーの向き
+        (BP関数では角度を利用しているためあまり利用しません)<br />
+        ■ 敵への方向 など<br />
+        <br />
+
+        <b>プログラムでの利用方法</b><br />
+        敵の方向ベクトルの方向に進めます
+        <pre><code class="language-cpp">// 自分のポジション
+auto my_postion    = my_object-&#62;GetTranslate();
+// 敵のポジション
+auto enemy_postion = enemy_object-&#62;GetTranslate();
+
+// 敵の位置から自分の位置を引くと、vec に敵への方向ベクトル(正規化してないもの)が入ります
+auto vec = enemy_position - my_position;
+
+// 当然以下のようにすると自分の位置は、敵の位置に到着しますよね (いきなりそこに行ってほしくはないが・・・)
+// my_position += vec;
+
+// ということで その方向のまま、1 の長さにしてしまいます
+// つまり方向も、float3の(X,Y,Z)の3要素で表現できることがわかると思います
+vec = normalize( vec );
+
+// その状態で例えば3.0のスピードで敵の方向に進めるのは以下となります
+my_object-&#62;AddTranslate( 3.0f * vec );</code></pre>
+      </div>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="../3.Component/sequencer-component.html">
+        <span>前回</span> シーケンサー機能(ComponentSequencer)
+      </a>
+      <a class="button-next" href="matrix.html"
+        ><span>次回</span> Matrix(マトリクスとは)</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

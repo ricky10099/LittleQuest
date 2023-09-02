@@ -61,7 +61,8 @@ public:
 
     //! 位置を設定
     //! @param  [in]    position    設定座標
-    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか
+    //! true:アクティブにする false:アクティブにしない
     virtual void setPosition(const float3& position, bool is_activate = true) = 0;
 
     //! 位置を取得
@@ -72,7 +73,8 @@ public:
 
     //! 回転姿勢を設定
     //! @param  [in]    rot         設定角度
-    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか
+    //! true:アクティブにする false:アクティブにしない
     virtual void setRotation(const quaternion& rot, bool is_activate = true) = 0;
 
     //! 回転姿勢を設定
@@ -87,7 +89,8 @@ public:
     //@}
     //-----------------------------------------------------------
     //! @name   速度と角速度
-    //! @details LinearVelocityは重心の速度であり、物体の位置と一致しない場合がありますので補正してください。
+    //! @details
+    //! LinearVelocityは重心の速度であり、物体の位置と一致しない場合がありますので補正してください。
     //-----------------------------------------------------------
     //@{
 
@@ -95,7 +98,8 @@ public:
     //! @param  [in]    target_position 目標の位置
     //! @param  [in]    target_rotation 目標の回転姿勢
     //! @param  [in]    delta_time      所要時間
-    //! target_position/target_rotation に delta_time 秒で位置するようにボディの速度を設定します。
+    //! target_position/target_rotation に delta_time
+    //! 秒で位置するようにボディの速度を設定します。
     //! 必要に応じてボディをアクティブにします。
     virtual void moveKinematic(const float3& target_position, const quaternion& target_rotation, f32 delta_time) = 0;
 
@@ -202,7 +206,8 @@ public:
 
     //! 動的/静的/キネマティックを切り替え
     //! @param  [in]    motion_type 動作タイプ
-    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか
+    //! true:アクティブにする false:アクティブにしない
     virtual void setMotionType(physics::MotionType motion_type, bool is_activate = true) = 0;
 
     //! ワールド空間の逆慣性テンソルを取得する

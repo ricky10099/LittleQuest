@@ -105,7 +105,7 @@ void SceneConstantBuffer::Draw()
     // b4 = ModelInfo
     // HLSL側で指定されたレジスタ番号に設定します。
     // DXライブラリで0～3を使用しているため予約になっています。
-    //SetShaderConstantBuffer(cb_model_info_, DX_SHADERTYPE_VERTEX, 4);
+    // SetShaderConstantBuffer(cb_model_info_, DX_SHADERTYPE_VERTEX, 4);
     SetShaderConstantBuffer(cb_model_info_, DX_SHADERTYPE_PIXEL, 4);
 
     //----------------------------------------------------------

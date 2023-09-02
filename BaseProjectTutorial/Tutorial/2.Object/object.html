@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>2.Object</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>Object</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        style="width: 100%; height: 50vw"
+      ></iframe>
+    </side>
+    <main>
+      <h1>Objectとは</h1>
+      <b>プレイヤー</b
+      >や<b>敵</b>、<b>アイテム</b>などの物体として利用できます。<br />
+      <br />
+      <b>Object</b>は<b>Component(機能)</b>を入れるための入れ物です。<br />
+      通常Objectを作成すると<b>「ComponentTransform」</b>は同時に追加されます<br />
+      よって位置の移動、姿勢(回転・拡大縮小)の変更は、最初からできる状態になります。<br />
+      <br />
+      UnrealEngineやUnityに触れたことがある人は、<br />
+      <b>UnrealEngine</b>でいうところの<b>Actor</b>,<br />
+      <b>Unity</b>でいうところの<b>GameObject</b>と<br />
+      ほぼ同じと考えるとわかりやすいかと思います<br />
+      <br />
+      <b>BPのオブジェクトの概念と他のエンジンと同じもの</b>
+      <table>
+        <tr>
+          <th colspan="2">エンジン類でのオブジェクトの概念</th>
+        </tr>
+        <tr>
+          <th>BaseProject</th>
+          <td>Object</td>
+        </tr>
+        <tr>
+          <th>Unity</th>
+          <td>GameObject</td>
+        </tr>
+        <tr>
+          <th>UnrealEngine</th>
+          <td>Actor</td>
+        </tr>
+      </table>
+
+      <hr />
+
+      <h2>　オブジェクトの作成方法</h2>
+      <b>※GUIでプログラミングの時の「Create Object」に匹敵します</b><br />
+
+      <div class="box5">
+        基本はauto変数にとらえることを考えてください。
+        <pre><code class="language-cpp">
+auto obj = Scene::CreateObjectPtr&#60;Object&#62;();
+        </code></pre>
+        作成したオブジェクトにはそれぞれ個別の名前をつけることができます。<br />
+        <pre><code class="language-cpp">
+obj-&#62;SetName(u8"テスト");
+        </code></pre>
+        <br />
+        以下の例はオブジェクト作成とともに名前に<b>オブジェクト</b>という名前をつける例です。
+        <pre><code class="language-cpp">
+auto obj = Scene::CreateObjectPtr&#60;Object&#62;()
+    -&#62;SetName(u8"オブジェクト");
+        </code></pre>
+        名前を設定することにより、作成した関数(例えばInit())とは別の関数(例えばUpdate())にて、<br />
+        名前でシーンにいるオブジェクトを取得することができます。<br />
+        <br />
+        オブジェクトの名前を取得します<br />
+        ただしこの名前は、同じ名前がある場合、後ろに数値がついているものが返されます<br />
+        <pre><code class="language-cpp">
+auto name = obj-&#62;GetName(); // "Enemy"という名前を複数のオブジェクトにつけると、"Enemy_001"などが返ってくる
+        </code></pre>
+
+        <br />
+        完全に自分でつけた名前を取得したいときは以下を命令を指定してください
+        <pre><code class="language-cpp">
+auto name = obj-&#62;GetNameDefault();  // SetNameで、"Enemy"とつけていると、必ず"Enemy"と返ってくる
+        </code></pre>
+      </div>
+
+      <br />
+      <hr />
+      <h2>　Objectの取得方法</h2>
+      以下の例は、<br />
+      <b>オブジェクト</b>
+      という名前をつけたObjectを取得することができます。<br />
+      <b>if</b>
+      でとらえると、取得したいオブジェクトがない場合、無視することができます。<br />
+      もし<b>if</b>を定義してない場合、オブジェクトを取得できず、nullptrとなるため、<br />
+      その後の処理でクラッシュしてしまいます。<br />
+      <div class="box5">
+        <b>
+          ◎正しい方法 (ソース内や、エンジン内でオブジェクトを消去しても問題なし)
+        </b>
+        <pre><code class="language-cpp">
+if( auto obj1 = Scene::GetObjectPtr&#60;Object&#62;( u8"オブジェクト" ) ) 
+{ 
+  // ここで obj1 に "オブジェクト"という名前のオブジェクトが取得されていることは保証されます。
+  // nameは、必ず存在するため、オブジェクトの名前を取得できます。
+  auto name = obj1-&#62;GetName();
+}
+        </code></pre>
+        <br />
+        <b>
+          ×危険な方法　(ソース内や、エンジン内でオブジェクトを消去すると例外クラッシュする)
+        </b>
+        <pre><code class="language-cpp">
+auto obj2 = Scene::GetObjectPtr&#60;Object&#62;( u8"オブジェクト" );
+// もし"オブジェクト"という名前が付いたオブジェクトがいない場合は下記は、実行できずにクラッシュします
+auto name = obj2-&#62;GetName();
+        </code></pre>
+      </div>
+
+      <h2>　複数のObjectの取得方法</h2>
+      <b>Objects</b>となっていることに注意
+      <br />
+
+      <div class="box5">
+        <b> クラスを指定して取得する方法 </b>
+        <pre><code class="language-cpp">
+for( auto obj : Scene::GetObjectsPtr&#60;Enemy&#62;() ) 
+{ 
+  // ここに来る場合 obj がEnemyクラスということが保証されます。
+  // nameは、必ず存在するため、オブジェクトの名前を取得できます。
+  auto name = obj-&#62;GetName();  
+}
+        </code></pre>
+        <br />
+        <b> 名前を指定して取得する方法 </b>
+        <pre><code class="language-cpp">
+for( auto obj : Scene::GetObjectsPtr&#60;Object&#62;( u8"オブジェクト" ) ) 
+{ 
+  // ここに来る場合 obj に "オブジェクト"という名前のオブジェクトが取得されていることは保証されます。
+  // nameは、必ず存在するため、オブジェクトの名前を取得できます。
+  auto name = obj-&#62;GetName();  //&#60; 複数いる場合は実際の名前は"オブジェクト_001"とかになる可能性はあります
+}
+        </code></pre>
+      </div>
+      <br />
+
+      <hr />
+
+      <h2>　Objectの利用方法</h2>
+      <div class="box5">
+        以下の例は、<br />
+        <b>シーンの初期化　Init()にて</b><br />
+        ・Objectを1つ作成<br />
+        ・Objectの名前を「オブジェクト壱」という名前にする<br />
+        <br />
+        <b>シーンの更新処理　Update()にて</b><br />
+        ・「オブジェクト壱」をシーンからobjという変数に取得<br />
+        ・objを回転などを行う<br />
+        <br />
+        という例です。<br />
+        <a href="../1.Introduction/scene.html">Scene</a>
+        を参考に以下のソースを組み込むことができるはずです。
+        <pre><code class="language-cpp">
+bool Tutorial::Init()
+{
+    Scene::CreateObjectPtr&#60;Object&#62;()	  //&#60; Object作成
+        -&#62;SetName( u8"オブジェクト壱" )	  //&#60; 名前設定
+        -&#62;SetTranslate( { -2, 0, 0 } );	  //&#60; 位置設定(x=-2, y=0, z=0)
+
+    return true;
+}
+
+void Tutorial::Update()
+{
+    // オブジェクトを取得 
+    // if文を使用して取得するのが良い。
+    // もし「オブジェクト壱」が削除されていると、
+    // objは、nullptrとなり、これをアクセスするとクラッシュするためである
+    if( auto obj = Scene::GetObjectPtr&#60;Object&#62;( u8"オブジェクト壱" ) )
+    {
+        // そのオブジェクトをY軸回転で、角度1度回す
+        obj-&#62;AddRotationAxisXYZ( { 0, 1, 0 } );
+        // そのオブジェクトをZ軸方向に、0.01動かす (グローバルのZ軸)
+        obj-&#62;AddTranslate( { 0, 0, 0.01f } );
+    }
+}
+        </code></pre>
+      </div>
+
+      <hr />
+      <font color="green"><b>■Object セーブ・ロード</b></font>
+      <br />
+      セーブもGUIだけでなく、プログラムで行うことができます。<br />
+      RPGゲームなど現在の情報をセーブするのにも使えます。<br />
+      例では作成されたオブジェクト(obj)の内容をセーブします
+      <pre><code class="language-cpp">
+obj-&#62;Save( ファイル名 );
+      </code></pre>
+      <br />
+      ロードもプログラムで行うことができます。<br />
+      GUIで作成されたオブジェクト、またはRPGなどでセーブした情報をロードします
+      <pre><code class="language-cpp">
+Scene::CreateObjectPtr&#60;Object&#62;()
+  -&#62;Load( ファイル名 );
+      </code></pre>
+
+      <br />
+
+      <hr />
+      <font color="red"><b>■NG事項</b></font>
+      <br />
+      Objectは、わざわざ変数として、class変数やグローバル変数にとらえる必要はありません。<br />
+      上記の関数を使用して、auto変数で取得してください。<br />
+      逆に<b>std::shared_ptr</b>でとらえると解放できずに、クラッシュしてしまいます。<br />
+      <div class="box5">
+        <br />
+        <pre><code class="language-cpp">
+class TestScene
+{
+  // シーン領域に、以下のようにとらえると終了時、クラッシュします
+  ObjectPtr item;
+};
+
+// グローバル領域にとらえてもいけません、以下のようにとらえると終了時、クラッシュします
+ObjectPtr player;
+        </code></pre>
+
+        <br />
+        <font color="red"><b>■どうしても変数としてとらえたい場合</b></font
+        ><br />
+        何度も取得するのに時間がかかるなどは、とらえたい時があります。<br />
+        その場合は、std::weak_ptrとしてとらえる必要があります<br />
+
+        <pre><code class="language-cpp">
+class TestScene
+{
+public:
+  // shared_ptrで返す関数を作っておくと便利です
+  ObjectPtr GetItem()
+  {
+    if (auto item = item_.lock()) // ここで std::shared_ptrに変更する
+      return item;
+
+    return nullptr;
+  }
+
+private:
+  // 所有権をもたない参照のポインタでとらえる
+  ObjectWeakPtr item_;
+};
+
+// グローバル領域でも所有権をもたない参照のポインタでとらえることができる
+ObjectWeakPtr player_weak;
+        </code></pre>
+        <br />
+        以下のような感じで利用します item
+        は途中で削除されても最後まで残っていても問題ありません。
+        <pre><code class="language-cpp">
+auto scene = static_cast&#60;TestScene&#62;( Scene::GetCurrentScene() );
+if ( auto item = scene-&#62;GetItem() )
+{
+  // オブジェクトがあればここで処理できます
+  // ない場合は無視されます
+}
+        </code></pre>
+      </div>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="../1.Introduction/scene.html"
+        ><span>前回</span>Scene</a
+      >
+      <a class="button-next" href="transform-1.html"
+        ><span>次回</span> 移動・回転・スケール</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

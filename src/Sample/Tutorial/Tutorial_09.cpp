@@ -36,14 +36,16 @@ BP_CLASS_IMPL(Tutorial_09, u8"(9)Tutorial Componentの作り方");
 
 //! ■コンポーネントの作成方法
 //! 1. Component○○○○という名前をつけ、Componentから継承させます
-//! 2. BP_COMPONENT_TYPE( Component○○○○, Component ); というものをクラス内のpublicに書きます
-//! 3. cpp に、BP_COMPONENT_IMPL( Component○○○○, u8"ここに処理機能を書いておく" ); を追加します
+//! 2. BP_COMPONENT_TYPE( Component○○○○, Component );
+//! というものをクラス内のpublicに書きます
+//! 3. cpp に、BP_COMPONENT_IMPL( Component○○○○,
+//! u8"ここに処理機能を書いておく" ); を追加します
 //! 4. Init(), Update(), Draw()などにその機能を追加します
 //! 5. セーブ/ロードを可能にするには、
 //!    CEREAL_SAVELOAD()、CEREAL_REGISTER_TYPE()、CEREAL_REGISTER_POLYMORPHIC_RELATION()
 //!    を追加する必要があります(セーブロードが必要なければ書かなくても良い)
-//! 6. あとは、オブジェクト内で、AddComponent<Component○○○○>() で追加するだけです
-//! ※使用するにはインクルードをする必要があります
+//! 6. あとは、オブジェクト内で、AddComponent<Component○○○○>()
+//! で追加するだけです ※使用するにはインクルードをする必要があります
 //!   GameホルダにComponentを作りそこで用意するのが良いです
 //! #include <Game/Component/Component○○○○.h> などとします
 class ComponentSamplePlayerController : public Component
@@ -61,11 +63,13 @@ public:
         // 処理されるときは必ずOwnerは存在しますので基本的にnullptrチェックは必要ありません
         auto owner = GetOwner();
 
-        // オーナーのMatrix( 位置、回転情報、スケール )を取得しておきます
+        // オーナーのMatrix( 位置、回転情報、スケール
+        // )を取得しておきます
         matrix mat = owner->GetMatrix();
 
         // カレントのカメラ(現在映しているカメラ)を取得する
-        // カメラが存在すればカメラの向きに合わせて移動する (先のmatを差し替えている)
+        // カメラが存在すればカメラの向きに合わせて移動する
+        // (先のmatを差し替えている)
         if(auto camera = Scene::GetCurrentCamera().lock()) {
             auto vec = camera->GetTarget() - camera->GetPosition();
             vec.y    = 0.0f;   //< y軸は考慮しない

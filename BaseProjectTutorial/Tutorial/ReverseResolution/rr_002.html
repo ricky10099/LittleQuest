@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>逆引き</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>逆引き</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html#000"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      >
+      </iframe>
+    </side>
+    <main>
+      <h1>シーンはどのようにつくるの?</h1>
+      1. Gameフォルダの中にScenesというフォルダを作成しましょう。 <br />
+      2. その中に Title.cpp / Title.h などの名前のファイルを作成します。 <br />
+      <div style="margin: 30px">
+        <img src="res/scene_folder.png" />
+      </div>
+      3. Title.cpp/ Title.h は以下の内容にします。<br />
+      4. プロジェクトをオープンします(@open.batを実行)<br />
+      5. BP実行での初期シーンにするには、「
+      <a href="../1.Introduction/intro.html#BP_START_INI">任意のシーンを実行</a>
+      」に沿って、書かれているTutoiral_01の所を、Titleに変更して、実行してください<br />
+      <br />
+      <b>
+        ※あくまで例は「Title」というシーンですが、<br />
+        　その名前を「Gaming」「SelectCharacter」「GameOver」などにするだけで異なるシーンが作れます
+        <br />
+        <br />
+        <font color="red">
+          また、例では「自分の名前のフォルダ」となっていますが、<br />
+          日本語ではない自分の名前のフォルダに入れてください。BPではフォルダ名に日本語は使えません。
+        </font>
+      </b>
+
+      <div class="box5">
+        <h2>　Title.h</h2>
+        <pre><code class="language-cpp">#include &#60;System/Scene.h&#62;
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief タイトルシーン
+    class Title : public Scene::Base
+    {
+    public:
+        //! シーンとして認識する (これでAltメニューで表示できます)
+        BP_CLASS_TYPE( Title, Scene::Base );
+
+        //! @brief 初期化
+        //! @return 初期化済み
+        bool Init() override;
+
+        //! @brief 更新
+        void Update() override;
+
+        //! @brief 描画
+        void Draw() override;
+
+        //! @brief GUI表示
+        void GUI() override;
+
+    private:
+        // 必要であれば変数をここに追加する
+    };
+}</code></pre>
+      </div>
+
+      <div class="box5">
+        <h2>　Title.cpp</h2>
+        <pre><code class="language-cpp">#include "Title.h"
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief 初期化
+    //! @return 初期化済み
+    bool Title::Init()
+    {
+        __super::Init();
+
+        // 最初に1回動作する
+        // ただし trueを返さなければ Initに何回も来る
+        // trueにしない限り、updateは以降は動作しません。
+        return true;
+    }
+
+    //! @brief 更新
+    void Title::Update()
+    {
+        __super::Update();
+
+        // 毎フレーム動作する
+    }
+
+    //! @brief 描画
+    void Title::Draw()
+    {
+        __super::Draw();
+
+    }
+
+    //! @brief GUI表示
+    void Title::GUI()
+    {
+        __super::GUI();
+
+    }
+
+    // ALT-Menuで表示される名前
+    BP_CLASS_IMPL( Title, u8"MyGameタイトルシーン" );
+}
+</code></pre>
+      </div>
+      <br />
+    </main>
+    <br />
+    <br />
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

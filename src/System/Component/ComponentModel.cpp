@@ -54,7 +54,7 @@ void ComponentModel::Update()
             animation_time_ += delta;
 
             // 進めた結果終了した場合はOldとして確保
-            if(animation_->isPlaying()) {
+            if(!animation_->isPlaying()) {
                 old_animation_name_ = current_animation_name_;
             }
         }
@@ -289,8 +289,8 @@ void ComponentModel::GUI()
     if(node_manipulate_) {
         matrix matx = MV1GetFrameLocalWorldMatrix(GetModel(), select_node_index_);
         auto   trns = GetOwner()->GetComponent<ComponentTransform>();
-        //matx		= mul( GetMatrix(), matx );
-        //matx		= mul( trns->GetMatrix(), matx );
+        // matx		= mul( GetMatrix(), matx );
+        // matx		= mul( trns->GetMatrix(), matx );
 
         float* mat_float = (float*)matx.f32_128_0;
         ShowGizmo(mat_float, gizmo_operation_, gizmo_mode_, reinterpret_cast<uint64_t>(this));

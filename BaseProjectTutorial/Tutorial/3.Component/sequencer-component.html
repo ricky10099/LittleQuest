@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>3.シーケンサー機能(ComponentSequencer)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>シーケンサー機能(ComponentSequencer)</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>ComponentSequencerとは</h1>
+      <b>デモシーン</b>
+      を用意するため多数のオブジェクトなどを動作させ、演出を作成するための機能です<br />
+      <br />
+
+      <h2>　利用方法として</h2>
+
+      <ul class="menu">
+        <li>デモシーンの作成や、そのクオリティアップを図ることができる</li>
+        <li>作成は、すべてGUIで行います</li>
+        <li>発生タイミングは、プログラムから呼びます</li>
+      </ul>
+
+      <br />
+      <b>GUI</b>は、別途次のようなウインドウで用意されます。
+      <div style="margin: 30px">
+        <img src="res/sequencer-component-1.png" />
+      </div>
+
+      <ol class="menu">
+        <li>開始時間　　　　　　　　デフォルトは「0」となります。</li>
+        <li>終了時間　　　　　　　　デフォルトは「300」(5秒)となります。</li>
+        <li>
+          処理メーター　　　　　　どの位置に何をするかはこのメーター位置で指定します
+        </li>
+        <li>「Play」　　　　　　　　作成したデモ動作を見ることができます</li>
+        <li>「オブジェクトの追加」　作成したデモ動作を見ることができます</li>
+      </ol>
+
+      <b>
+        開始時間、終了時間は、クリックすると数値入力が可能になります。
+        長くしたり短くしたりすることができます
+      </b>
+      <br />
+      <font color="Red">
+        現在横スクロールに対応しておらず、全メモリが収まる形になります<br />
+        使いにくいため、この辺りは修正が必要となると思われます<br />
+      </font>
+
+      <br />
+      <h1>ComponentSequencerでデモを作成する方法</h1>
+      <h2>Tutorial_10 Sequencerの使い方にシーン選択します</h2>
+      「Tutorial_10 Sequencerの使い方」のシーンで、作成の説明をします。<br />
+      GUIでシーン選択の方法がわからない場合は、
+      <a href="../1.Introduction/system.html" target="_top">BPシステム</a>
+      を確認してください。<br />
+      <br />
+
+      選択するとシーンには、<br />
+      <ul class="menu">
+        <li>「標準カメラ」</li>
+        <li>「地形」</li>
+        <li>「Mouse」</li>
+        <li>「Boss」</li>
+        <li>「Sequencer」</li>
+      </ul>
+      が用意されています。<br />
+      <br />
+
+      <h2>　Sequencerの「オブジェクト追加」のボタンを押してみましょう</h2>
+      <ul class="menu">
+        <b> オブジェクトを状態いれることができる枠が現れます。 </b>
+        <table>
+          <tr>
+            <th>Position</th>
+            <td>オブジェクトの位置を設定できます</td>
+          </tr>
+          <tr>
+            <th>Rotation</th>
+            <td>オブジェクトの回転状態を設定できます</td>
+          </tr>
+          <tr>
+            <th>Scale</th>
+            <td>オブジェクトのスケール状態を設定できます</td>
+          </tr>
+          <tr>
+            <th>Animation</th>
+            <td>オブジェクトのアニメーション状態を設定できます</td>
+          </tr>
+          <tr>
+            <th>Effect</th>
+            <td>
+              エフェクトを設定できます。位置や回転はオブジェクト位置に依存します
+            </td>
+          </tr>
+          <tr>
+            <th>NAME</th>
+            <td>
+              オブジェクトの名前のです。ここに書いた名前のオブジェクトを動作させることができます。<br />
+              Tutorial_10に最初からある、「Mouse」「Boss」をいれるとそれらが動作するようになります
+            </td>
+          </tr>
+        </table>
+      </ul>
+
+      ここでは、「Mouse」を指定してください<br />
+      <font color="green">Mouse</font>とオブジェクト名として出てきます<br />
+      <br />
+      <h2>　Positionの使用方法</h2>
+      <b>初期位置を設定</b><br />
+      Positionのラインの「0」辺りで、右クリックすると、「キーの作成」というものが出てきます。<br />
+      そこでクリックするとキーが作成できます。初期位置を設定します<br />
+      <div style="margin: 30px">
+        <img src="res/sequencer-pos-1.gif" />
+      </div>
+      <b>移動後の位置を設定</b><br />
+      同じようにPositionのラインの「40」辺りで、右クリックし、キーを作成してください<br />
+      その後、位置を設定し、「Play」を押してみましょう<br />
+      <div style="margin: 30px">
+        <img src="res/sequencer-pos-2.gif" />
+      </div>
+      「Mouse」のキャラが移動したら成功です。<br />
+      <br />
+      このようにどの時間でどの位置で、どの方向を向いているのかを設定し、<br />
+      Playを押すとシーケンサーが再生されます。<br />
+      また、タイムバーを左右に移動させると、その動作も確認できます<br />
+      <div style="margin: 30px">
+        <img src="res/sequencer-pos-3.gif" />
+      </div>
+
+      <h1>TODO アニメーション</h1>
+      工事中
+      <h1>TODO Effect</h1>
+      工事中
+      <br />
+
+      <h1>シーケンサーデータのSave</h1>
+      オブジェクトをセーブすることで残すことができます。
+      間違えてセーブしてしまう可能性もあるため、 作成したら、<br />
+      <b> data/_save/object/Sequencer.txt </b>
+      のデータをコピーして別名で残しておくことをお勧めします<br />
+      <div style="margin: 30px">
+        <img src="res/sequencer-save-1.png" />
+      </div>
+
+      <h2>　コンポーネントの作成方法</h2>
+      <pre><code class="language-cpp">
+auto sequencer = obj-&#62;AddComponent&#60;ComponentSequencer&#62;();
+      </code></pre>
+      <br />
+
+      <h2>　コンポーネントの取得方法</h2>
+      <pre><code class="language-cpp">
+if (auto sequencer = obj-&#62;GetComponent&#60;ComponentSequencer&#62;())
+{
+    // objにSequencerコンポーネントがある場合はこのスコープでsequencerとして使用することができます
+}
+      </code></pre>
+      <br />
+
+      <h2>　シーケンサーの開始</h2>
+      <pre><code class="language-cpp">
+if( sequencer-&#62;Load( "Sequencer" ) ) // セーブしたファイル名を入れてください(.txtは必要なし)
+{
+    // ロードされた場合(シーケンサがオブジェクトは変わっているので取り直す)
+    if( sequencer = Scene::GetObjectPtr&#62;Object&#60;("Sequencer"))
+    {
+        //再生する
+        if(auto seq = sequencer-&#62;GetComponent&#62;ComponentSequencer&#60;())
+            seq-&#62;Play();
+    }
+}
+      </code></pre>
+      <br />
+
+      <h2>　シーケンサーが実行中かチェック</h2>
+      <pre><code class="language-cpp">
+if( sequencer-&#62;IsPlaying() )
+{
+    // シーケンサーが実行中ならばここに来ます
+}
+      </code></pre>
+      <br />
+
+      <h2>　シーケンサーをストップします</h2>
+      <pre><code class="language-cpp">
+sequencer-&#62;Stop();
+      </code></pre>
+      <br />
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="filterfade-component.html">
+        <span>前回</span> フィルターフェード機能(ComponentFilterFade)
+      </a>
+      <a class="button-next" href="../4.Matrix/vector.html"
+        ><span>次回</span> Vector(ベクトルとは)
+      </a>
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

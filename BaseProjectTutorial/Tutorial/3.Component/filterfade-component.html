@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>3.フィルターフェード機能(ComponentFilterFade)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>フィルターフェード機能(ComponentFilterFade)</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>ComponentFilterFadeとは</h1>
+      画面をモザイク描画にできるFilterFade機能です<br />
+      同じような機能を実装し、利用することでクオリティアップが見込めます<br />
+      <br />
+
+      <h2>　利用方法として</h2>
+
+      <ul class="menu">
+        <li>シーンの切り替え時に利用してクオリティアップを図ることができる</li>
+      </ul>
+
+      <br />
+      <b>GUI</b>には、次のような設定項目があります。
+      <div style="margin: 30px">
+        <img src="res/filterfade-component-1.png" />
+      </div>
+
+      <table>
+        <tr>
+          <th>フェード係数</th>
+          <td>アルファによるフェード段階</td>
+        </tr>
+        <tr>
+          <th>モザイクの最大幅</th>
+          <td>モザイクの最大の大きさ</td>
+        </tr>
+      </table>
+
+      <br />
+      <h1>ComponentTargetTrackingの使用方法</h1>
+
+      <b>SceneTestChangeScene</b>のような使い方が良いと思われます<br />
+      次のシーンへ行く前に、FadeOutをして、終了するまで待ち、<br />
+      その後別のシーンにて、FadeInで待つ感じになるかと思います。<br />
+      <br />
+
+      <h2>　コンポーネントの作成方法</h2>
+      <pre><code class="language-cpp">
+auto fade = obj-&#62;AddComponent&#60;ComponentFilterFade&#62;();
+      </code></pre>
+      <br />
+
+      <h2>　コンポーネントの取得方法</h2>
+      <pre><code class="language-cpp">
+if (auto fade = obj-&#62;GetComponent&#60;ComponentFilterFade&#62;())
+{
+    // objにFilterFadeコンポーネントがある場合はこのスコープでfadeとして使用することができます
+}
+      </code></pre>
+      <br />
+
+      <h2>　フェードアウト開始</h2>
+      <pre><code class="language-cpp">
+float フェードアウト時間 = 0.5f;
+fade-&#62;StartFadeOut( フェードアウト時間 ); // フェードアウト時間は省略できます (0.5秒となります)
+      </code></pre>
+      <br />
+
+      <h2>　フェードアウト中かチェック</h2>
+      <pre><code class="language-cpp">
+if (fade-&#62;IsFadeOut())
+{
+    // フェードアウト中ならばここに来ます
+}
+      </code></pre>
+      <br />
+
+      <h2>　フェードイン開始</h2>
+      <pre><code class="language-cpp">
+float フェードイン時間 = 0.5f;
+fade-&#62;StartFadeIn( フェードイン時間 ); // フェードイン時間は省略できます (0.5秒となります)
+      </code></pre>
+      <br />
+
+      <h2>　フェードイン中かチェック</h2>
+      <pre><code class="language-cpp">
+if (fade-&#62;IsFadeIn())
+{
+    // フェードイン中ならばここに来ます
+}
+      </code></pre>
+      <br />
+
+      <h2>　フェードが完全に終了しているかチェック</h2>
+      <pre><code class="language-cpp">
+if (fade-&#62;IsFinishFade())
+{
+    // フェードイン中、アウト中などまだ処理が残っている場合ここに来ます
+}
+      </code></pre>
+      <br />
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="target-tracking-component.html">
+        <span>前回</span> ターゲットトラッキング機能(ComponentTargetTracking)
+      </a>
+      <a class="button-next" href="sequencer-component.html">
+        <span>次回</span> シーケンサー機能(ComponentSequencer)
+      </a>
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

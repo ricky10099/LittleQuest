@@ -33,7 +33,8 @@ ComponentFilterFade::ComponentFilterFade()
     shader_ps_ = std::make_shared<ShaderPs>("data/Shader/ps_filter_fade");
 
     // ワークテクスチャ作成
-    //! @todo ここで作成するワークテクスチャは一時バッファのため、全体で共有利用するほうが良い。
+    //! @todo
+    //! ここで作成するワークテクスチャは一時バッファのため、全体で共有利用するほうが良い。
     texture_work_ = std::make_shared<Texture>(WINDOW_W, WINDOW_H, DXGI_FORMAT_R8G8B8A8_UNORM);
 
     //-----------------------------------------------

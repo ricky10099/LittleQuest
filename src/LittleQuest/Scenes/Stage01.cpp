@@ -5,13 +5,16 @@
 #include "Stage01.h"
 
 #include <LittleQuest/Objects/Camera.h>
-#include <LittleQuest/Objects/Player.h>
 #include <LittleQuest/Objects/Enemy.h>
+#include <LittleQuest/Objects/Zombie.h>
+#include <LittleQuest/Objects/Mutant.h>
+#include <LittleQuest/Objects/Player.h>
+#include <LittleQuest/Scenes/GameOverScene.h>
 
+#include <System/Component/ComponentAttachModel.h>
 #include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentCollisionModel.h>
 #include <System/Component/ComponentModel.h>
-#include <System/Component/ComponentAttachModel.h>
 
 namespace LittleQuest
 {
@@ -29,10 +32,11 @@ bool Stage01::Init()
 {
     // Camera
     /*  {
-              auto obj = Scene::CreateObjectPtr<Object>()->SetName(u8"Camera");
-              auto cam = obj->AddComponent<ComponentCamera>();
-              cam->SetPositionAndTarget({0, 20, 50}, {0, 10, 0});
-          }*/
+                  auto obj =
+           Scene::CreateObjectPtr<Object>()->SetName(u8"Camera"); auto cam =
+           obj->AddComponent<ComponentCamera>(); cam->SetPositionAndTarget({0,
+           20, 50}, {0, 10, 0});
+              }*/
 
     // Ground
     {
@@ -45,7 +49,15 @@ bool Stage01::Init()
     auto player = Player::Create({0, 10, 0});
     Camera::Create(player)->SetName("PlayerCamera");
 
-    auto enemy = Enemy::Create({10, 20, 10});
+    {
+        auto enemy = Zombie::Create({10, 20, 10});
+        enemies.push_back(enemy);
+    }
+
+    {
+        auto enemy = Mutant::Create({15, 20, 15});
+        enemies.push_back(enemy);
+    }
 
     return true;
 }
@@ -56,6 +68,21 @@ bool Stage01::Init()
 //---------------------------------------------------------------------------
 void Stage01::Update()
 {
+    if(IsKeyDown(KEY_INPUT_INSERT)) {
+        auto enemy = Zombie::Create({10, 20, 10});
+        enemies.push_back(enemy);
+    }
+
+    for(int i = 0; i < enemies.size(); i++) {
+        if(enemies[i]->getDieTimer() == 0) {
+            Scene::ReleaseObject(enemies[i]);
+            enemies.erase(enemies.begin() + i);
+        }
+    }
+
+    if(enemies.size() == 0) {
+        Scene::Change(Scene::GetScene<GameOverScene>());
+    }
 }
 
 //---------------------------------------------------------------------------

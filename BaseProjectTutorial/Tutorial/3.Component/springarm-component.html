@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>3.スプリングアーム機能(ComponentSpringArm)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>スプリングアーム機能(ComponentSpringArm)</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>ComponentSpringArmとは</h1>
+      オブジェクトとオブジェクトをスプリング状の棒で結ぶ役割をします<br />
+      利用方法としましては、片方のオブジェクトを<b>プレイヤー</b>、もう片方を<b>カメラ</b>とし、<br />
+      それをつなげて、ある一定距離で追跡カメラで操作するなどに利用できます。<br />
+      <br />
+      <b>GUI</b>には、次のような設定項目があります。
+      <div style="margin: 30px">
+        <img src="res/springarm-component-1.png" />
+      </div>
+
+      <br />
+      <table>
+        <tr>
+          <th>Object</th>
+          <td>追従するオブジェクトを選択できます</td>
+        </tr>
+        <tr>
+          <th>SpringArm回転</th>
+          <td>
+            X軸(横軸[上下に回転])、Y軸(縦軸[左右に回転])、Z軸(無視)での回転角度を意味します
+          </td>
+        </tr>
+        <tr>
+          <th>SpringArmオフセット</th>
+          <td>オブジェクトの中心点より、どれだけ移動した地点にArmをつけるか</td>
+        </tr>
+        <tr>
+          <th>SpringArmの長さ</th>
+          <td>オブジェクトどうしの距離を示します</td>
+        </tr>
+        <tr>
+          <th>SpringArmの固さ</th>
+          <td>棒自体の固さです固いほど短くなったりぶれたりしません</td>
+        </tr>
+        <tr>
+          <th>SpringArmの戻り</th>
+          <td>戻り量の反動が大きいとぶれも大きくなります</td>
+        </tr>
+      </table>
+
+      <br />
+      <h1>ComponentSpringArmの使用方法</h1>
+
+      <h2>　Armの作成方法の例</h2>
+      以下はオブジェクトにSpringArmをつけています <br />
+      オブジェクトは、あくまでObjectの方向を向きます。<br />
+      基本的にはカメラにつけて、オブジェクトを追跡するなどに使えます<br />
+      <pre><code class="language-cpp">
+auto arm = obj-&#62;AddComponent&#60;ComponentSpringArm&#62;();
+      </code></pre>
+      <br />
+
+      <h2>　SpringArmの取得方法</h2>
+      <pre><code class="language-cpp">
+if (auto arm = obj-&#62;GetComponent&#60;ComponentSpringArm&#62;())
+{
+    // objにSpringArmコンポーネントがある場合はこのスコープでarmとして使用することができます
+}
+      </code></pre>
+
+      <h2>　SpringArmの長さの設定と取得</h2>
+      <pre><code class="language-cpp">
+arm-&#62;SetSpringArmLength( 20.0f ); // SpringArmの長さを20.0fにします 
+
+float len = arm-&#62;GetSpringArmLength(); // lenにSpringArmの長さが入ります
+      </code></pre>
+      <br />
+
+      <h2>　SpringArmのターゲットのオブジェクトの設定</h2>
+      <pre><code class="language-cpp">
+arm-&#62;SetSpringArmObject( target_object ); // target_objectをターゲットにします。
+
+arm-&#62;SetSpringArmObject( オブジェクトの名前 ); // オブジェクトの名前でもターゲットにできます。
+      </code></pre>
+      <br />
+
+      <h2>　SpringArmのターゲットのオブジェクトの取得</h2>
+      <pre><code class="language-cpp">
+auto obj = arm-&#62;GetSpringArmObject(); // objにSpringArmのターゲットが入ります。
+      </code></pre>
+      ※ObjectWeakPtrのタイプで取得します(Objectが消去されると取得内容も勝手にnullptrとなる)<br />
+      <br />
+
+      <h2>　SpringArmのターゲットの中心からのずれの指定</h2>
+      <pre><code class="language-cpp">
+arm-&#62;SetSpringArmOffset( { 0, 5, 0 } ); // ターゲットの少し上にArmをつなげます
+      </code></pre>
+      <br />
+
+      <h2>　TIPS</h2>
+      カメラにつけて回転させる場合のコツ<br />
+      <ul class="menu">
+        <li>ComponentSpringArmは、カメラにつけましょう</li>
+        <li>
+          カメラを上下左右に動かしたいときは、<b
+            >SetSpringArmRotate( { 上下, 左右, 0 } )</b
+          >で増減させます。
+        </li>
+        <li>
+          オブジェクトとカメラの位置を一致させて、カメラと同じ位置に<b>CollisionSphere</b>をつけ、障害物に潜らないようにします
+        </li>
+        <li>
+          ターゲットオブジェクトは、足元が中心点になるものが多いので、少しだけ上を見るように<b>SetSpringArmOffset</b>で上を見る
+        </li>
+        <li>
+          上下は90度(真上から見る)まで行くとおかしくなりますので、最大でも<b>-89度～89度</b>ほどでとどめる必要があります
+        </li>
+      </ul>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="effect-component.html"
+        ><span>前回</span> エフェクト機能(ComponentEffect)</a
+      >
+      <a class="button-next" href="attach-model-component.html"
+        ><span>次回</span> 別オブジェクト同期機能(ComponentAttachModel)</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

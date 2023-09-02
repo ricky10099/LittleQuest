@@ -279,13 +279,13 @@ public:
     }
 
     /**
-     * @brief           プロセス設定
-     * @param proc_name プロセス名
-     * @param func      処理
-     * @param timing    タイミング
-     * @param prio      処理優先
-     * @return          プロセス
-    */
+         * @brief           プロセス設定
+         * @param proc_name プロセス名
+         * @param func      処理
+         * @param timing    タイミング
+         * @param prio      処理優先
+         * @return          プロセス
+         */
     SlotProc& SetProc(const std::string& proc_name,
                       ProcTimingFunc     func,
                       ProcTiming         timing = ProcTiming::Update,
@@ -362,7 +362,8 @@ public:
 
     //! 全コンポーネントの取得
     //! @return コンポーネントそのものを受け取る
-    //! @attention auto& で受け取ってください。(autoで受け取ると別物になります【C++17】)
+    //! @attention auto&
+    //! で受け取ってください。(autoで受け取ると別物になります【C++17】)
     ComponentPtrVec& GetComponents()
     {
         return components_;
@@ -449,8 +450,8 @@ std::shared_ptr<T> Object::AddComponent(Args... args)
     ptr->Construct(shared_from_this(), std::forward<Args>(args)...);
 
     std::shared_ptr<T> component = std::shared_ptr<T>(ptr);
-    // std::shared_ptr<T> comp = std::make_shared<T>(shared_from_this(), std::forward<Args>(args)...);
-    // comp->Init();
+    // std::shared_ptr<T> comp = std::make_shared<T>(shared_from_this(),
+    // std::forward<Args>(args)...); comp->Init();
     components_.push_back(component);
 
     return component;

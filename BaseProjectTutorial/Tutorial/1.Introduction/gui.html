@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>1.1 Scene</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>GUIでプログラミング</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>GUIについて</h1>
+      BPを実行するとわかりますが、GUIが用意されています<br />
+      <b>シーン名</b
+      >や<b>経過時間</b>や、存在する<b>オブジェクト</b>の情報がGUIに出てきます<br />
+      <div style="margin: 30px">
+        <img src="res/scene-gui.png" />
+      </div>
+      <ol class="menu">
+        <li>シーンの名前</li>
+        <li>シーンが始まってからの経過時間</li>
+        <li>
+          シーン内に存在するオブジェクト数。その下の枠にオブジェクトが出ます
+        </li>
+        <li>シーン内に存在するオブジェクト。図では何も存在していません</li>
+      </ol>
+
+      今まで行ってきたプログラミングは、プログラムや調整の結果が違ったら、<br />
+      一度終了しプログラム内の数値を変えてビルド、実行を繰り返していたと思います<br />
+      しかしこれではゲーム作成におけるイテレーションが非常に悪く、時間もかかります<br />
+      <br />
+      BPでは作った後はGUIである程度調整してからその数値を覚えておいて、<br />
+      再度プログラムすることや調整することができます<br />
+      <br />
+      調整の際の<b>イテレーションの良さは非常に大事</b>です<br />
+      良いゲームは、作成ではなく、調整に多くの時間を費やします<br />
+      <b>ゲームの良し悪しはこれで決まる</b>と言っても過言ではありません<br />
+      <br />
+      ゲームを作成する場合は、まず簡単なオブジェクトを作成して、<br />
+      <b>テストすることが大事</b>です<br />
+      <br />
+      そして足りない必要なパーツ(Component)を作こと。これを繰り返して<br />
+      レゴブロックのように組み立てることができるプログラムシステムを目指しましょう<br />
+      <br />
+      今のBPはまだ不完全です。最後にはあなたの力が必要です<br />
+      C++でありながら、高速なプログラムを可能とし、<br />
+      何度も調整を繰り返せる自分の最高のゲーム作りの環境を手に入れましょう<br />
+      <br />
+
+      <h1>まずはGUIでプログラミングをしてみよう</h1>
+      果たして、これをプログラミングと呼んでよいのか…<br />
+      <br />
+      ただ巷では「Scratch」というビジュアル的なプログラミングや<br />
+      「Unity」「UnrealEngine」という、いわゆるゲームエンジンというものが存在します。<br />
+      <b>BPもエンジンの力を持っています</b>。試してみましょう。<br />
+      <br />
+
+      <hr />
+      <h2>　Objectの生成</h2>
+      のちの章に出てきますが、BPには、<b>Object</b>という仕組みがあります。<br />
+      これは、「プレイヤー」になったり、「敵」になったり、<br />
+      「アイテム」や「地面」になったりする　<b>もの「Object(オブジェクト)」</b>です。<br />
+      <br />
+      「Unity」でいうところの「GameObject」<br />
+      「UnrealEngine」でいうところの「Actor」に相当します<br />
+      <br />
+      BPでは、C++のプログラムからだけではなく、GUIからも作成することができます。<br />
+      <div style="margin: 30px">
+        <img src="res/gui-select-object.png" />
+      </div>
+      <ul class="menu">
+        <li>「Object」の横の▼をクリックします</li>
+        <li>一番上にある「Object - Objectクラス」を選択します</li>
+      </ul>
+      <div style="margin: 30px">
+        <img src="res/gui-create-object.png" />
+      </div>
+      <ul class="menu">
+        <li>
+          「Create
+          Object」と書かれたボタンをクリックすると<b>「Object」</b>を作成できます
+        </li>
+      </ul>
+      この時、特にゲーム画面に変化はありませんが<b>「GUI」</b>には変化があり、<br />
+      上の<b>④</b>には、<b>「object」</b>というものが現れ、
+      以下のような<b>「GUI」</b>も現れています<br />
+      <div style="margin: 30px">
+        <img src="res/object-1.png" />
+      </div>
+
+      <h1>カメラの作成</h1>
+      とりあえず何も見えてないのでカメラを作ろうと思います。<br />
+      <br />
+      今作成した<b>object 名前</b>、とあるところを、
+      <b>Camera</b>という名前に変えておきましょう。<br />
+      <br />
+      Cameraという名前ですが、ここではわかりやすいように名前を変更しているだけです。<br />
+      まだカメラとは全く関係のないオブジェクトです<br />
+      <br />
+
+      カメラにするには、次に、Objectを選択したときと、同じように、<br />
+      Componentの横にある▼を押して、「ComponentCamera -
+      Camera機能クラス」を選択してください。<br />
+      最後に AddComponentをクリックします。
+
+      <div style="margin: 30px">
+        <img src="res/object-camera.png" />
+      </div>
+
+      <ul class="menu">
+        <li>
+          名前を<b>Camera</b>に変更する
+          (何をするオブジェクトかわかりやすいように)
+        </li>
+        <li>
+          Componentの横にある▼を押して、「ComponentCamera - Camera機能クラス」
+          を選択する
+        </li>
+        <li>AddComponentをクリックする</li>
+      </ul>
+      以上で作成した<b>オブジェクト(Camera)</b>に<b>カメラの機能(ComponentCamera)</b>を追加できました<br />
+      ※<b>オブジェクト(Camera)</b>の項目の下に、<b>▼Camera</b>というものが<br />
+      下の欄に出てきていれば成功です<br />
+      <br />
+      ただ、まだ真っ暗ですので、つぎはわかりやすい<b>地面を配置</b>したいと思います<br />
+      <br />
+      <h1>地面の配置</h1>
+      <br />
+      以下のように地面のオブジェクトを作成し、<b>モデル能力(ComponentModel)</b>を追加して、<br />
+      地面モデルを表示してみましょう<br />
+      <div style="margin: 30px">
+        <img src="res/object-ground.gif" />
+      </div>
+
+      GUIが上記のようになるためには以下の動作を行います
+      <ul class="menu">
+        <li>
+          先ほどのカメラと同じく「Object - Objectクラス」を選択しておきます
+        </li>
+
+        <li>
+          Create
+          Objectをクリック　　　　　　　　　　　　　　　⇒　　<b>object-1</b>というオブジェクトが発生します
+        </li>
+        <li>
+          object-1の名前を<b>Ground</b>に変更する　　　　　　　　　⇒　　2番目のオブジェクトがGroundにかわる
+        </li>
+        <li>
+          「ComponentModel -
+          Model機能クラス」を選択し、AddComponentをクリックする　　⇒　▼Modelが出てくる
+        </li>
+        <li>
+          ▼Modelを開き、<font color="red">[NG]</font
+          >となっているFileの項目に、<b>data/Sample/SwordBout/Stage/Stage00.mv1</b>と入れる
+        </li>
+        <li>かなり下を見ているが、地面がモデルが画面に表示される</li>
+      </ul>
+      <br />
+      以下のような画面になれば成功です
+      <div style="margin: 30px">
+        <img src="res/ground-screen.png" width="50%" height="50%" />
+      </div>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="intro.html"><span>前回</span>Introduction</a>
+      <a class="button-next" href="gui-2.html"
+        ><span>次回</span> GUIでカメラ(Camera)設定</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

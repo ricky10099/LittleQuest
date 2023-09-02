@@ -18,7 +18,8 @@ Type rootTypeInfo("root", 0, nullptr);
 // warning C26495: 変数 'Type::child_' が初期化されていません。
 // 警告を抑制。グローバル変数領域の初期値nullptrを利用した起動時処理のため意図的に初期化していません。
 // nullptrで初期化すると起動時初期化順序によっては上書きでツリー構造を破壊してしまいます。
-// WinMain() 実行前に動作するためSTLコンテナなどアロケーションを必要とする実装も不可
+// WinMain()
+// 実行前に動作するためSTLコンテナなどアロケーションを必要とする実装も不可
 #pragma warning(push)
 #pragma warning(disable : 26495)
 

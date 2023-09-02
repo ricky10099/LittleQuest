@@ -64,7 +64,8 @@ public:
     //  上下左右の角度から注視点を設定
     //! @param  [in]    horizontal_angle    左右方向の水平回転角度
     //! @param  [in]    vertical_angle      上下方向の垂直回転角度
-    //! @attention 位置からの相対方向から設定するため setPosition() の後に設定してください。
+    //! @attention 位置からの相対方向から設定するため setPosition()
+    //! の後に設定してください。
     Frustum& setLookAt(f32 horizontal_angle, f32 vertical_angle);
 
     //  画角を設定

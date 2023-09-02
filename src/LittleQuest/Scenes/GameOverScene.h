@@ -16,6 +16,9 @@ public:
     void Exit() override;
 
     void GUI() override;
+
+private:
+    int image = -1;
 };
 
 }   // namespace LittleQuest

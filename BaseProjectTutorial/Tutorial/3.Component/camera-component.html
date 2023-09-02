@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>3.カメラ機能(ComponentCamera)</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>カメラ機能(ComponentCamera)</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        width="100%"
+        height="90%"
+      ></iframe>
+    </side>
+    <main>
+      <h1>ComponentCameraとは</h1>
+      3D描画するためのカメラ位置、注視点などを設定することができる機能です<br />
+      <br />
+      次のような設定項目があります。
+      <br />
+      <br />
+      <table>
+        <tr>
+          <th>カメラ座標</th>
+          <td>カメラの位置を示します(自分のオブジェクトからの相対位置)</td>
+        </tr>
+        <tr>
+          <th>注視点</th>
+          <td>カメラが見る位置(自分のオブジェクトからの相対位置)</td>
+        </tr>
+        <tr>
+          <th>上ベクトル</th>
+          <td>カメラが上と定める軸方向</td>
+        </tr>
+        <tr>
+          <th>Near</th>
+          <td>カメラが映る最小の距離(これ以下はカメラに映りません)</td>
+        </tr>
+        <tr>
+          <th>Far</th>
+          <td>カメラが映る最大の距離(これ以上はカメラに映りません)</td>
+        </tr>
+        <tr>
+          <th>画角</th>
+          <td>カメラの画角</td>
+        </tr>
+      </table>
+
+      <br />
+      <h1>ComponentCameraの使用方法</h1>
+
+      <ul class="menu">
+        <h2>　カメラの作成方法の例</h2>
+        <pre><code class="language-cpp">
+ // 初期作成でロードしない
+auto camera = obj-&#62;AddComponent&#60;ComponentCamera&#62;();
+      </code></pre>
+        <br />
+
+        <h2>　カメラの取得方法</h2>
+        <pre><code class="language-cpp">
+if (auto camera = obj-&#62;GetComponent&#60;ComponentCamera&#62;())
+{
+    // objにカメラコンポーネントがある場合はこのスコープでcameraとして使用することができます
+}
+      </code></pre>
+      </ul>
+      <br />
+      <ul class="menu">
+        <h2>　カメラの画角の設定</h2>
+        <pre><code class="language-cpp">
+camera-&#62;SetPerspective( 45 ); // 画角を45度に設定します
+      </code></pre>
+      </ul>
+
+      <br />
+      <ul class="menu">
+        <h2>　カメラの位置・注視点を設定</h2>
+        <pre><code class="language-cpp">
+// カメラの位置を  ( 0, 5, -50 ) に設定
+// カメラの注視点を( 0, 0, 0 ) に設定
+camera-&#62;SetPositionAndTarget( { 0, 5, -50 }, { 0, 0, 0 } );
+      </code></pre>
+        <br />
+        <b>
+          ※この注視点の状態はあくまでコンポーネントのオーナー(Object)が{0,0,0}の位置で回転してないときになります。<br />
+          もし、オーナー(Object)が{1,0,0}にいるならば、{1,5,-50},{1,0,0}を指定している形になります。<br />
+        </b>
+      </ul>
+
+      <br />
+      <h2>　複数のカメラを切り替える方法</h2>
+      ゲームを作成していると、複数のカメラを切り替えたいときがあります。<br />
+      その場合は以下のようにすると、切り替えることができます。<br />
+      <div class="box5">
+        <pre><code class="language-cpp">
+// 「カメラ1」の作成
+{
+  auto cam = Scene::CreateObjectPtr&#60;Object&#62;()-&#62;SetName(u8"カメラ1");
+  auto camera = cam1-&#62;AddComponent&#60;ComponentCamera&#62;()
+  // 
+  camera-&#62;SetPositionAndTarget( { 0, 5, -50 }, { 0, 0, 0 } );
+
+  // カメラオブジェクトを移動(カメラの位置、注視点も一緒に移動します)
+  cam-&#62;SetTranslate( {30,0,0} );
+}
+
+// 「カメラ2」の作成
+{
+  auto cam2 = Scene::CreateObjectPtr&#60;Object&#62;()-&#62;SetName(u8"カメラ2");
+  cam2-&#62;AddComponent&#60;ComponentCamera&#62;()
+
+  // カメラオブジェクトを移動(カメラの位置、注視点も一緒に移動します)
+  cam2-&#62;SetTranslate( {-10,0,0} );
+}
+
+// 「カメラ1」で確認したいとき
+Scene::SetCurrentCamera(u8"カメラ1");
+
+// 「カメラ2」で確認したいとき
+Scene::SetCurrentCamera(u8"カメラ2");
+      </code></pre>
+      </div>
+
+      <h2>　TIPS</h2>
+      <ul class="menu">
+        ※
+        普通に考えると、Nearは、極端に小さく、Farを極端に大きくすると映らないものがないため、<br />
+        良いように感じるかもしれません<br />
+        <b>しかしその方法はダメなのです</b
+        ><br />
+        <br />
+        理由は、そこの大きさで、Z-Depthと呼ばれる奥行きを生成します。<br />
+        このZ-Depthは一定の大きさ(16bitなど)をそのNear-Farの大きさに合わせて当分で割り振ります。<br />
+        <br />
+        例えば、16bitのZ-Depthだと、基本的に65536段階までしか持つことができません。<br />
+        その状態で、0.01 ～ 100000
+        などとすると、どう考えても、65535段階よりも多い刻み方をしなければなりませんが、それは不可能です。<br />
+        <br />
+        5500と、5501の距離は異なるはずですが、同じ位置、と認識されてしまう可能性があることになります。<br />
+        その場合、奥にあるはずのものが手前に出てきてしまい、ちらつきが出てくる可能性があります。覚えておきましょう。<br />
+        ちらつきが出る場合、Z-Depthが大きすぎる可能性があります。<br />
+      </ul>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="model-component.html"
+        ><span>前回</span> モデル表示機能(ComponentModel)</a
+      >
+      <a class="button-next" href="collision-component.html"
+        ><span>次回</span> コリジョン機能(ComponentCollision系)</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>
