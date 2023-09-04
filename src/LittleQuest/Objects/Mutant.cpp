@@ -60,7 +60,16 @@ bool Mutant::Init()   // override
 
     setHP(200);
 
-    state = EnemyState::IDLE;
+    startPoint = this->GetTranslate();
+    patrolPoint.push_back(startPoint);
+
+    endPoint = startPoint + float3{150, 0, 0};
+    patrolPoint.push_back(endPoint);
+
+    currPoint = 0;
+    goal      = patrolPoint[currPoint + 1];
+
+    state = EnemyState::PATROL;
 
     return true;
 }
@@ -68,15 +77,6 @@ bool Mutant::Init()   // override
 void Mutant::Update()   // override
 {
     Super::Update();
-
-    switch(state) {
-    case EnemyState::ATTACK:
-        Attack();
-        break;
-    case EnemyState::IDLE:
-        Idle();
-        break;
-    }
 }
 
 // 基本描画の後に処理します
@@ -107,6 +107,16 @@ void Mutant::Attack()
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         modelPtr->PlayAnimationNoSame("attack");
     }
+}
+
+void Mutant::Damaged(int damage)
+{
+    Super::Damaged(damage);
+}
+
+void Mutant::Die()
+{
+    Super::Die();
 }
 
 }   // namespace LittleQuest

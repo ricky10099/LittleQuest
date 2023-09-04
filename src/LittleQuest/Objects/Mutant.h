@@ -32,10 +32,13 @@ public:
     void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
 
     // @}
+    void Damaged(int damage) override;
 
 protected:
     void Idle() override;
 
     void Attack() override;
+
+    void Die() override;
 };
 }   // namespace LittleQuest

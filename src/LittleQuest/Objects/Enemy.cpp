@@ -40,11 +40,25 @@ bool Enemy::Init()   // override
 
     setHP();
 
+    state = EnemyState::IDLE;
+
+    if(!patrolPoint.empty()) {
+        currPoint = 0;
+        goal      = patrolPoint[currPoint + 1];
+        state     = EnemyState::PATROL;
+    }
+
+    animationFrame = 0;
+
     return true;
 }
 
 void Enemy::Update()   // override
 {
+    //auto curPos = GetTranslate();
+
+    animationFrame++;
+
     if(isDie) {
         dieTimer--;
         return;
@@ -53,17 +67,54 @@ void Enemy::Update()   // override
     if(this->HP <= 0) {
         this->Die();
     }
+
+    float3 move;
+
+    switch(state) {
+    case EnemyState::DAMAGED:
+        CheckDamageAnimation();
+        break;
+    case EnemyState::ATTACK:
+        Attack();
+        break;
+    case EnemyState::PATROL:
+        Patrol(move);
+        break;
+    default:
+        Idle();
+        break;
+    }
+
+    move *= speed_ * GetDeltaTime60();
+    // 地面移動スピードを決定する
+    AddTranslate(move);
 }
 
 // 基本描画の後に処理します
 void Enemy::LateDraw()   // override
 {
     printfDx("\n%s HP: %i", this->GetName().data(), HP);
+    printfDx("\n%s state: %i", this->GetName().data(), state);
+    if(auto modelPtr = GetComponent<ComponentModel>()) {
+        printfDx("\n%s %s Animation Time:%f",
+                 this->GetName().data(),
+                 modelPtr->GetPlayAnimationName().data(),
+                 modelPtr->GetAnimationTime());
+        printfDx("\n%s %s Animation frame:%i",
+                 this->GetName().data(),
+                 modelPtr->GetPlayAnimationName().data(),
+                 animationFrame);
+    }
+    printfDx("\ngoalx: %f", goal[0]);
+    printfDx("\ncurpoint: %i", currPoint);
+    printfDx("\nnowx: %f", this->GetTranslate().x);
 }
 
 void Enemy::GUI()   // override
 {
     Super::GUI();
+
+    ImGui::DragFloat(u8"goal座標(T)", &goal[0], 0.01f);
 }
 
 void Enemy::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)   // override
@@ -81,12 +132,47 @@ void Enemy::Idle()
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(HP > 0) {
             modelPtr->PlayAnimation("idle");
+            animationFrame = 0;
         }
+    }
+}
+
+void Enemy::Patrol(float3& move)
+{
+    auto pos = GetTranslate();
+    pos.y    = 0;
+    move     = goal - pos;
+
+    if(abs(move.x) <= float1{1} && abs(move.z) <= float1{1}) {
+        currPoint++;
+        currPoint %= patrolPoint.size();
+    }
+    goal = patrolPoint[currPoint];
+    if(length(move).x > 0) {
+        // 動いてる
+        move = normalize(move);
+
+        float x     = -move.x;
+        float z     = -move.z;
+        float theta = atan2(x, z) * RadToDeg - rot_y_;
+
+        // 軸ごと回転 (カメラも一緒に回る)
+        SetRotationAxisXYZ({0, theta, 0});
     }
 }
 
 void Enemy::Attack()
 {
+}
+
+void Enemy::CheckDamageAnimation()
+{
+    if(auto modelPtr = GetComponent<ComponentModel>()) {
+        if(modelPtr->GetPlayAnimationName() == "damaged")
+            if(animationFrame >= 40) {
+                state = EnemyState::IDLE;
+            }
+    }
 }
 
 void Enemy::Damaged(int damage)
@@ -95,8 +181,10 @@ void Enemy::Damaged(int damage)
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(HP > 0) {
             modelPtr->PlayAnimation("damaged");
+            animationFrame = 0;
         }
     }
+    state = EnemyState::DAMAGED;
 }
 
 void Enemy::Die()
@@ -104,6 +192,7 @@ void Enemy::Die()
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(modelPtr->GetPlayAnimationName() != "die") {
             modelPtr->PlayAnimationNoSame("die");
+            animationFrame = 0;
             RemoveComponent<ComponentCollisionCapsule>();
             this->isDie = true;
         }

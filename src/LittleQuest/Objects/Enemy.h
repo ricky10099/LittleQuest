@@ -45,14 +45,19 @@ protected:
 
     virtual void Idle();
 
+    virtual void Patrol(float3& move);
+
     virtual void Attack();
+
+    virtual void CheckDamageAnimation();
 
     void setHP(int HP = 100);
 
     //! @brief ステート
     enum class EnemyState
     {
-        IDLE,     //!< 待機状態
+        IDLE,   //!< 待機状態
+        PATROL,
         WALK,     //!< 歩く
         RUN,      //!< ジャンプz
         ATTACK,   //!< アタック
@@ -65,6 +70,17 @@ protected:
 
     bool isDie = false;
 
+    float3 startPoint;
+    float3 endPoint;
+    float3 goal;
+
+    std::vector<float3> patrolPoint;
+    int                 currPoint;
+
+    int animationFrame;
+
+    float speed_   = 0.3f;
+    float rot_y_   = 0.0f;
     float dieTimer = 300;
 };
 }   // namespace LittleQuest
