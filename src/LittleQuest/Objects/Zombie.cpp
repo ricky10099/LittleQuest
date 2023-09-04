@@ -83,14 +83,14 @@ void Zombie::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
     Super::OnHit(hitInfo);
 }
 
-void Zombie::Damaged(int damage)
+void Zombie::Idle()
 {
-    Super::Damaged(damage);
+    Super::Idle();
 }
 
-void Zombie::Die()
+void Zombie::Attack()
 {
-    Super::Die();
+    Super::Attack();
 }
 
 }   // namespace LittleQuest

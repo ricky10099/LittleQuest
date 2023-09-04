@@ -15,8 +15,8 @@ bool GameOverScene::Init()
 void GameOverScene::Update()
 {
     //// 3秒たったらタイトルへ
-    //if (Scene::GetTime() >= 3.0f)
-    //    Scene::Change(Scene::GetScene<GameTitleScene>());
+    // if (Scene::GetTime() >= 3.0f)
+    //     Scene::Change(Scene::GetScene<GameTitleScene>());
     if(IsKeyOn(KEY_INPUT_RETURN))
         Scene::Change(Scene::GetScene<GameTitleScene>());
 }
@@ -24,7 +24,7 @@ void GameOverScene::Update()
 void GameOverScene::Draw()
 {
     // とりあえずTitleという文字を表示しておく
-    //DrawFormatString(100, 50, GetColor(255, 0, 0), "GameOver");
+    // DrawFormatString(100, 50, GetColor(255, 0, 0), "GameOver");
     DrawGraph(0, 0, image, TRUE);
 }
 

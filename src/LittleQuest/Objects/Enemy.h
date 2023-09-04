@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "player.h"
+
 #include <System/Scene.h>
 
 namespace LittleQuest
@@ -14,8 +16,9 @@ public:
     BP_OBJECT_TYPE(Enemy, Object);
 
     ////! @brief 生成関数
-    //static EnemyPtr Create(const float3& pos,
-    //                       const float3& front = {0, 0, 1}, const std::string name);
+    // static EnemyPtr Create(const float3& pos,
+    //                        const float3& front = {0, 0, 1}, const
+    //                        std::string name);
 
     //! @name システムオーバーライド系
     // @{
@@ -40,6 +43,10 @@ public:
 protected:
     virtual void Die();
 
+    virtual void Idle();
+
+    virtual void Attack();
+
     void setHP(int HP = 100);
 
     //! @brief ステート
@@ -47,10 +54,12 @@ protected:
     {
         IDLE,     //!< 待機状態
         WALK,     //!< 歩く
-        JUMP,     //!< ジャンプz
+        RUN,      //!< ジャンプz
         ATTACK,   //!< アタック
         DAMAGED,
     };
+
+    EnemyState state;
 
     int HP = 100;
 

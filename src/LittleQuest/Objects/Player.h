@@ -65,16 +65,6 @@ private:
         DAMAGED,
     };
 
-    struct Material
-    {
-        std::shared_ptr<Texture> albedo_;
-        std::shared_ptr<Texture> normal_;
-        std::shared_ptr<Texture> roughness_;
-        std::shared_ptr<Texture> metalness_;
-    };
-
-    static std::vector<Material> materials_;
-
     PlayerState playerState = PlayerState::IDLE;
 
     float speed_    = 0.5f;

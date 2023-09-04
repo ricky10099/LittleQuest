@@ -18,10 +18,11 @@ namespace LittleQuest
 //! @detail BP_OBJECT_TYPEとセットで用意する
 BP_OBJECT_IMPL(Enemy, "LittleQuest/Enemy");
 
-//EnemyPtr Enemy::Create(const float3& pos, const float3& front, const std::string name) {
-//    // 箱の作成
-//    auto enemy = Scene::CreateObjectPtr<Enemy>();
-//    enemy->SetName(name);
+// EnemyPtr Enemy::Create(const float3& pos, const float3& front, const
+// std::string name) {
+//     // 箱の作成
+//     auto enemy = Scene::CreateObjectPtr<Enemy>();
+//     enemy->SetName(name);
 
 //    // vecの方向に向ける
 //    auto mat = HelperLib::Math::CreateMatrixByFrontVector(front);
@@ -75,9 +76,27 @@ void Enemy::setHP(int HP)
     this->HP = HP;
 }
 
+void Enemy::Idle()
+{
+    if(auto modelPtr = GetComponent<ComponentModel>()) {
+        if(HP > 0) {
+            modelPtr->PlayAnimation("idle");
+        }
+    }
+}
+
+void Enemy::Attack()
+{
+}
+
 void Enemy::Damaged(int damage)
 {
     this->HP -= damage;
+    if(auto modelPtr = GetComponent<ComponentModel>()) {
+        if(HP > 0) {
+            modelPtr->PlayAnimation("damaged");
+        }
+    }
 }
 
 void Enemy::Die()

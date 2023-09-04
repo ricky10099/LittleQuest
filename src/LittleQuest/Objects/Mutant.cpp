@@ -42,10 +42,11 @@ bool Mutant::Init()   // override
     model->SetScaleAxisXYZ({0.05f});   //
 
     model->SetAnimation({
-        {   "idle",  "data/LittleQuest/Anim/MutantIdle.mv1", 0, 1.0f},
-        {    "run",   "data/LittleQuest/Anim/MutantRun.mv1", 0, 1.0f},
-        {"damaged",   "data/LittleQuest/Anim/HitToBody.mv1", 0, 1.0f},
-        {    "die", "data/LittleQuest/Anim/MutantDying.mv1", 0, 1.0f}
+        {   "idle",    "data/LittleQuest/Anim/MutantIdle.mv1", 0, 1.0f},
+        {    "run",     "data/LittleQuest/Anim/MutantRun.mv1", 0, 1.0f},
+        { "attack", "data/LittleQuest/Anim/MutantSwiping.mv1", 0, 1.0f},
+        {"damaged",     "data/LittleQuest/Anim/HitToBody.mv1", 0, 1.0f},
+        {    "die",   "data/LittleQuest/Anim/MutantDying.mv1", 0, 1.0f}
     });
     model->PlayAnimation("idle", true);
 
@@ -58,12 +59,24 @@ bool Mutant::Init()   // override
     col->UseGravity();
 
     setHP(200);
+
+    state = EnemyState::IDLE;
+
     return true;
 }
 
 void Mutant::Update()   // override
 {
     Super::Update();
+
+    switch(state) {
+    case EnemyState::ATTACK:
+        Attack();
+        break;
+    case EnemyState::IDLE:
+        Idle();
+        break;
+    }
 }
 
 // 基本描画の後に処理します
@@ -82,13 +95,17 @@ void Mutant::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
     Super::OnHit(hitInfo);
 }
 
-void Mutant::Damaged(int damage)
+void Mutant::Idle()
 {
-    this->HP -= damage;
     if(auto modelPtr = GetComponent<ComponentModel>()) {
-        if(HP > 0) {
-            modelPtr->PlayAnimation("damaged");
-        }
+        modelPtr->PlayAnimationNoSame("idle");
+    }
+}
+
+void Mutant::Attack()
+{
+    if(auto modelPtr = GetComponent<ComponentModel>()) {
+        modelPtr->PlayAnimationNoSame("attack");
     }
 }
 

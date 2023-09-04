@@ -33,8 +33,9 @@ public:
 
     // @}
 
-    void Damaged(int damage) override;
-
 protected:
+    void Idle() override;
+
+    void Attack() override;
 };
 }   // namespace LittleQuest
