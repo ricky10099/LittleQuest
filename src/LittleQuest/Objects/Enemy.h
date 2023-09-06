@@ -47,6 +47,9 @@ protected:
 
     virtual void Patrol(float3& move);
 
+    virtual void PatrolWait(float time);
+    virtual void PatrolWaiting(float deltaTime);
+
     virtual void Attack();
 
     virtual void CheckDamageAnimation();
@@ -58,6 +61,7 @@ protected:
     {
         IDLE,   //!< 待機状態
         PATROL,
+        WAIT,
         WALK,     //!< 歩く
         RUN,      //!< ジャンプz
         ATTACK,   //!< アタック
@@ -79,6 +83,7 @@ protected:
 
     int animationFrame;
 
+    float waitTime;
     float speed_   = 0.3f;
     float rot_y_   = 0.0f;
     float dieTimer = 300;

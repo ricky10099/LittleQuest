@@ -37,6 +37,8 @@ public:
 protected:
     void Idle() override;
 
+    void Patrol(float3& move) override;
+
     void Attack() override;
 
     void Die() override;

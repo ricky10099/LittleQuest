@@ -8,6 +8,7 @@
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
 #include <System/Component/ComponentTargetTracking.h>
+//#include <System/SystemMain.h>
 
 #include "Camera.h"
 
@@ -55,8 +56,8 @@ bool Enemy::Init()   // override
 
 void Enemy::Update()   // override
 {
-    //auto curPos = GetTranslate();
-
+    // auto curPos = GetTranslate();
+    float deltaTime = GetDeltaTime();
     animationFrame++;
 
     if(isDie) {
@@ -76,6 +77,9 @@ void Enemy::Update()   // override
         break;
     case EnemyState::ATTACK:
         Attack();
+        break;
+    case EnemyState::WAIT:
+        PatrolWaiting(deltaTime);
         break;
     case EnemyState::PATROL:
         Patrol(move);
@@ -108,6 +112,7 @@ void Enemy::LateDraw()   // override
     printfDx("\ngoalx: %f", goal[0]);
     printfDx("\ncurpoint: %i", currPoint);
     printfDx("\nnowx: %f", this->GetTranslate().x);
+    printfDx("\ntime: %f", GetDeltaTime());
 }
 
 void Enemy::GUI()   // override
@@ -146,7 +151,11 @@ void Enemy::Patrol(float3& move)
     if(abs(move.x) <= float1{1} && abs(move.z) <= float1{1}) {
         currPoint++;
         currPoint %= patrolPoint.size();
+
+        PatrolWait(2.f);
+        return;
     }
+
     goal = patrolPoint[currPoint];
     if(length(move).x > 0) {
         // 動いてる
@@ -158,6 +167,24 @@ void Enemy::Patrol(float3& move)
 
         // 軸ごと回転 (カメラも一緒に回る)
         SetRotationAxisXYZ({0, theta, 0});
+    }
+}
+
+void Enemy::PatrolWait(float time)
+{
+    state = EnemyState::WAIT;
+    if(auto modelPtr = GetComponent<ComponentModel>()) {
+        modelPtr->PlayAnimationNoSame("idle");
+    }
+    waitTime = time;
+}
+
+void Enemy::PatrolWaiting(float deltaTime)
+{
+    waitTime -= deltaTime;
+
+    if(waitTime <= 0.0f) {
+        state = EnemyState::PATROL;
     }
 }
 

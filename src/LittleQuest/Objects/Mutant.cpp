@@ -102,6 +102,15 @@ void Mutant::Idle()
     }
 }
 
+void Mutant::Patrol(float3& move)
+{
+    if(auto modelPtr = GetComponent<ComponentModel>()) {
+        modelPtr->PlayAnimationNoSame("run");
+    }
+
+    Super::Patrol(move);
+}
+
 void Mutant::Attack()
 {
     if(auto modelPtr = GetComponent<ComponentModel>()) {

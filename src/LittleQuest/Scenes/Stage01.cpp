@@ -32,11 +32,11 @@ bool Stage01::Init()
 {
     // Camera
     /*  {
-                      auto obj =
-               Scene::CreateObjectPtr<Object>()->SetName(u8"Camera"); auto cam =
-               obj->AddComponent<ComponentCamera>();
-           cam->SetPositionAndTarget({0, 20, 50}, {0, 10, 0});
-                  }*/
+                          auto obj =
+                   Scene::CreateObjectPtr<Object>()->SetName(u8"Camera"); auto
+           cam = obj->AddComponent<ComponentCamera>();
+               cam->SetPositionAndTarget({0, 20, 50}, {0, 10, 0});
+                      }*/
 
     // Ground
     {
