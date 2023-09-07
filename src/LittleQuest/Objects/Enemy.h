@@ -45,12 +45,14 @@ protected:
 
     virtual void Idle();
 
+    virtual bool FindPlayer();
+
     virtual void Patrol(float3& move);
 
     virtual void PatrolWait(float time);
     virtual void PatrolWaiting(float deltaTime);
 
-    virtual void Attack();
+    virtual void Attack(float3& move);
 
     virtual void CheckDamageAnimation();
 
@@ -62,8 +64,6 @@ protected:
         IDLE,   //!< 待機状態
         PATROL,
         WAIT,
-        WALK,     //!< 歩く
-        RUN,      //!< ジャンプz
         ATTACK,   //!< アタック
         DAMAGED,
     };
@@ -71,21 +71,26 @@ protected:
     EnemyState state;
 
     int HP = 100;
+    int animationFrame;
+    int isFoundPlayer;
 
-    bool isDie = false;
-
-    float3 startPoint;
-    float3 endPoint;
-    float3 goal;
-
+    float3              startPoint;
+    float3              endPoint;
+    float3              goal;
     std::vector<float3> patrolPoint;
     int                 patrolIndex;
+    float               waitTime;
 
-    int animationFrame;
+    const float speedBase   = 0.3f;
+    const float walkVal     = 0.3f;
+    const float runVal      = 1.f;
+    float       speedFactor = 1.0f;
 
-    float waitTime;
-    float speed_   = 0.3f;
-    float rot_y_   = 0.0f;
+    float degree;
+
+    float rot_y = 0.0f;
+
+    bool  isDie    = false;
     float dieTimer = 300;
 };
 }   // namespace LittleQuest

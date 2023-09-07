@@ -35,11 +35,9 @@ public:
     void Damaged(int damage) override;
 
 protected:
-    void Idle() override;
-
     void Patrol(float3& move) override;
 
-    void Attack() override;
+    //void Attack() override;
 
     void Die() override;
 };

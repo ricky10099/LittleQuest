@@ -60,10 +60,10 @@ bool Mutant::Init()   // override
 
     setHP(200);
 
-    startPoint = this->GetTranslate();
+    startPoint = this->GetTranslate() - float3{50, 0, 0};
     patrolPoint.push_back(startPoint);
 
-    endPoint = startPoint + float3{150, 0, 0};
+    endPoint = this->GetTranslate() + float3{50, 0, 0};
     patrolPoint.push_back(endPoint);
 
     patrolIndex = 1;
@@ -95,13 +95,6 @@ void Mutant::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
     Super::OnHit(hitInfo);
 }
 
-void Mutant::Idle()
-{
-    if(auto modelPtr = GetComponent<ComponentModel>()) {
-        modelPtr->PlayAnimationNoSame("idle", true);
-    }
-}
-
 void Mutant::Patrol(float3& move)
 {
     if(auto modelPtr = GetComponent<ComponentModel>()) {
@@ -111,12 +104,12 @@ void Mutant::Patrol(float3& move)
     Super::Patrol(move);
 }
 
-void Mutant::Attack()
-{
-    if(auto modelPtr = GetComponent<ComponentModel>()) {
-        modelPtr->PlayAnimationNoSame("attack");
-    }
-}
+//void Mutant::Attack()
+//{
+//    if(auto modelPtr = GetComponent<ComponentModel>()) {
+//        modelPtr->PlayAnimationNoSame("attack");
+//    }
+//}
 
 void Mutant::Damaged(int damage)
 {

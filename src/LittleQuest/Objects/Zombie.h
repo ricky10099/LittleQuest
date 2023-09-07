@@ -36,7 +36,5 @@ public:
 
 protected:
     void Idle() override;
-
-    void Attack() override;
 };
 }   // namespace LittleQuest
