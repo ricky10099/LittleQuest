@@ -66,8 +66,8 @@ bool Mutant::Init()   // override
     endPoint = startPoint + float3{150, 0, 0};
     patrolPoint.push_back(endPoint);
 
-    currPoint = 0;
-    goal      = patrolPoint[currPoint + 1];
+    patrolIndex = 1;
+    goal        = patrolPoint[patrolIndex];
 
     state = EnemyState::PATROL;
 
@@ -98,14 +98,14 @@ void Mutant::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
 void Mutant::Idle()
 {
     if(auto modelPtr = GetComponent<ComponentModel>()) {
-        modelPtr->PlayAnimationNoSame("idle");
+        modelPtr->PlayAnimationNoSame("idle", true);
     }
 }
 
 void Mutant::Patrol(float3& move)
 {
     if(auto modelPtr = GetComponent<ComponentModel>()) {
-        modelPtr->PlayAnimationNoSame("run");
+        modelPtr->PlayAnimationNoSame("run", true);
     }
 
     Super::Patrol(move);

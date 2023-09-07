@@ -95,12 +95,12 @@ bool Player::Init()   // override
         colLine->SetName("SwordCol");
     }
     /* auto target = AddComponent<ComponentTargetTracking>();
-                        target->SetTrackingNode("mixamorig:Neck");
-                        target->SetFrontVector({0, 0, -1});
+                            target->SetTrackingNode("mixamorig:Neck");
+                            target->SetFrontVector({0, 0, -1});
 
-                        target->SetTrackingLimitLeftRight({70, 70});
+                            target->SetTrackingLimitLeftRight({70, 70});
 
-                        target->SetTrackingLimitUpDown({10, 10});*/
+                            target->SetTrackingLimitUpDown({10, 10});*/
 
     /*auto sword = Sword::Create();*/
 
@@ -197,11 +197,11 @@ void Player::Update()   // override
     }
 
     /*if (isAttack) {
-                        } else if (length(move).x > 0) {
-                            this->Walk(move);
-                        } else {
-                            this->Idle();
-                        }*/
+                            } else if (length(move).x > 0) {
+                                this->Walk(move);
+                            } else {
+                                this->Idle();
+                            }*/
 
     move *= speed_ * GetDeltaTime60();
 

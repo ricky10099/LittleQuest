@@ -79,7 +79,7 @@ protected:
     float3 goal;
 
     std::vector<float3> patrolPoint;
-    int                 currPoint;
+    int                 patrolIndex;
 
     int animationFrame;
 

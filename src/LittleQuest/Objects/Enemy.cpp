@@ -43,11 +43,11 @@ bool Enemy::Init()   // override
 
     state = EnemyState::IDLE;
 
-    if(!patrolPoint.empty()) {
-        currPoint = 0;
-        goal      = patrolPoint[currPoint + 1];
-        state     = EnemyState::PATROL;
-    }
+    //if (!patrolPoint.empty()) {
+    //    currPoint = 0;
+    //    goal      = patrolPoint[currPoint + 1];
+    //    state     = EnemyState::PATROL;
+    //}
 
     animationFrame = 0;
 
@@ -110,9 +110,10 @@ void Enemy::LateDraw()   // override
                  animationFrame);
     }
     printfDx("\ngoalx: %f", goal[0]);
-    printfDx("\ncurpoint: %i", currPoint);
+    printfDx("\ncurpoint: %i", patrolIndex);
     printfDx("\nnowx: %f", this->GetTranslate().x);
-    printfDx("\ntime: %f", GetDeltaTime());
+    printfDx("\nx: %f", float3(goal - GetTranslate())[0]);
+    printfDx("\nx: %f", float3(goal - GetTranslate())[2]);
 }
 
 void Enemy::GUI()   // override
@@ -136,7 +137,7 @@ void Enemy::Idle()
 {
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(HP > 0) {
-            modelPtr->PlayAnimation("idle");
+            modelPtr->PlayAnimationNoSame("idle");
             animationFrame = 0;
         }
     }
@@ -149,14 +150,14 @@ void Enemy::Patrol(float3& move)
     move     = goal - pos;
 
     if(abs(move.x) <= float1{1} && abs(move.z) <= float1{1}) {
-        currPoint++;
-        currPoint %= patrolPoint.size();
+        patrolIndex++;
+        patrolIndex %= patrolPoint.size();
+        goal = patrolPoint[patrolIndex];
 
         PatrolWait(2.f);
         return;
     }
 
-    goal = patrolPoint[currPoint];
     if(length(move).x > 0) {
         // 動いてる
         move = normalize(move);
@@ -174,7 +175,7 @@ void Enemy::PatrolWait(float time)
 {
     state = EnemyState::WAIT;
     if(auto modelPtr = GetComponent<ComponentModel>()) {
-        modelPtr->PlayAnimationNoSame("idle");
+        modelPtr->PlayAnimation("idle");
     }
     waitTime = time;
 }
