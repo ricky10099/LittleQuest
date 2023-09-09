@@ -45,7 +45,7 @@ bool Mutant::Init()   // override
         {  "idle",    "data/LittleQuest/Anim/MutantIdle.mv1", 0, 1.0f},
         {   "run",     "data/LittleQuest/Anim/MutantRun.mv1", 0, 1.0f},
         {"attack", "data/LittleQuest/Anim/MutantSwiping.mv1", 0, 1.0f},
-        {"getHit",     "data/LittleQuest/Anim/HitToBody.mv1", 0, 1.0f},
+        {"getHit",     "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
         {   "die",   "data/LittleQuest/Anim/MutantDying.mv1", 0, 1.0f}
     });
     model->PlayAnimation("idle", true);

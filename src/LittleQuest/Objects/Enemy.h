@@ -45,13 +45,14 @@ protected:
 
     virtual void Idle();
 
-    virtual bool FindPlayer();
+    virtual bool isFoundPlayer();
 
     virtual void Patrol(float3& move);
 
     virtual void PatrolWait(float time);
     virtual void PatrolWaiting(float deltaTime);
 
+    virtual void ChasePlayer(float3& move);
     virtual void Attack(float3& move);
 
     virtual void CheckDamageAnimation();
@@ -64,16 +65,24 @@ protected:
         IDLE,   //!< 待機状態
         PATROL,
         WAIT,
+        CHASING,
         ATTACK,   //!< アタック
         GET_HIT,
         DEAD,
     };
-
     EnemyState state;
+
+    enum class AnimCheck
+    {
+        IDLE,
+        GETTING_HIT,
+        ATTACKING,
+    };
+    AnimCheck animCheck;
 
     int HP = 100;
     int animationFrame;
-    int isFoundPlayer;
+    //int isFoundPlayer;
 
     float3              startPoint;
     float3              endPoint;

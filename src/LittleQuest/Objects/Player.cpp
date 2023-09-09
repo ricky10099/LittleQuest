@@ -101,9 +101,9 @@ bool Player::Init()   // override
 
 void Player::Update()   // override
 {
-    //if (!sword) {
-    //    sword = Scene::GetObjectPtr<Sword>("PlayerSword");
-    //}
+    // if (!sword) {
+    //     sword = Scene::GetObjectPtr<Sword>("PlayerSword");
+    // }
 
     auto   mat  = GetMatrix();
     float3 move = float3(0, 0, 0);
@@ -187,11 +187,11 @@ void Player::Update()   // override
     }
 
     /*if (isAttack) {
-                                } else if (length(move).x > 0) {
-                                    this->Walk(move);
-                                } else {
-                                    this->Idle();
-                                }*/
+                                    } else if (length(move).x > 0) {
+                                        this->Walk(move);
+                                    } else {
+                                        this->Idle();
+                                    }*/
 
     move *= speed_ * GetDeltaTime60();
 
