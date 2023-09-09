@@ -60,10 +60,9 @@ bool Player::Init()   // override
 {
     Super::Init();
 
-    // モデルコンポーネント(0.08倍)
+    // モデルコンポーネント(0.05倍)
     auto model = AddComponent<ComponentModel>("data/LittleQuest/Model/Guard/Guard.mv1");
-
-    model->SetScaleAxisXYZ({0.05f});   //
+    model->SetScaleAxisXYZ({0.05f});
 
     model->SetAnimation({
         {   "idle",         "data/LittleQuest/Anim/SwordIdle.mv1", 0, 1.0f},
@@ -94,15 +93,6 @@ bool Player::Init()   // override
         colLine->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
         colLine->SetName("SwordCol");
     }
-    /* auto target = AddComponent<ComponentTargetTracking>();
-                            target->SetTrackingNode("mixamorig:Neck");
-                            target->SetFrontVector({0, 0, -1});
-
-                            target->SetTrackingLimitLeftRight({70, 70});
-
-                            target->SetTrackingLimitUpDown({10, 10});*/
-
-    /*auto sword = Sword::Create();*/
 
     atkVal = 50;
 
@@ -111,9 +101,9 @@ bool Player::Init()   // override
 
 void Player::Update()   // override
 {
-    if(!sword) {
-        sword = Scene::GetObjectPtr<Sword>("PlayerSword");
-    }
+    //if (!sword) {
+    //    sword = Scene::GetObjectPtr<Sword>("PlayerSword");
+    //}
 
     auto   mat  = GetMatrix();
     float3 move = float3(0, 0, 0);
@@ -197,11 +187,11 @@ void Player::Update()   // override
     }
 
     /*if (isAttack) {
-                            } else if (length(move).x > 0) {
-                                this->Walk(move);
-                            } else {
-                                this->Idle();
-                            }*/
+                                } else if (length(move).x > 0) {
+                                    this->Walk(move);
+                                } else {
+                                    this->Idle();
+                                }*/
 
     move *= speed_ * GetDeltaTime60();
 
@@ -265,7 +255,7 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
                 }
                 if(!inList) {
                     attackList.push_back(enemy->GetName().data());
-                    enemy->Damaged(this->atkVal);
+                    enemy->GetHit(this->atkVal);
                 }
 
                 // attackList.push_back(enemy);
@@ -312,7 +302,7 @@ void Player::Walk(float3& move)
         modelPtr->SetRotationAxisXYZ({0, theta, 0});
 
         if(modelPtr->GetPlayAnimationName() != "walk")
-            modelPtr->PlayAnimation("walk", true);
+            modelPtr->PlayAnimation("walk", true, 0.2f, 14.0f);
     }
 }
 
@@ -328,7 +318,7 @@ void Player::Attack()
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(combo == 1) {
             if(modelPtr->GetPlayAnimationName() != "attack1") {
-                modelPtr->PlayAnimationNoSame("attack1");
+                modelPtr->PlayAnimation("attack1");
                 /*sword->Attack();*/
                 attackList.clear();
             }
@@ -386,9 +376,8 @@ void Player::Attack()
         }
 
         if(combo == 0) {
-            isAttack = false;
-            isCombo  = false;
-            sword->FinishAttack();
+            isAttack    = false;
+            isCombo     = false;
             playerState = PlayerState::IDLE;
         }
     }

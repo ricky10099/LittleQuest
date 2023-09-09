@@ -12,7 +12,7 @@
     <header>逆引き</header>
     <side>
       <iframe
-        src="../js-css/menu.html#008"
+        src="../js-css/menu.html#000"
         frameborder="0"
         width="100%"
         height="90%"
@@ -20,8 +20,268 @@
       </iframe>
     </side>
     <main>
-      <h1>工事中</h1>
-      しばらくお待ちください。
+      <h1>ジャンプを行いたい</h1>
+      キャラをジャンプさせるには、地面のコリジョン、キャラにもコリジョンが必要となります。<br />
+
+      <br />
+      1.　シーン(ここではGaming)を用意します。シーンの作成は「
+      <a href="./rr_002.html">シーンはどのようにつくるの?</a>
+      」を参考にしてください。<br />
+      2.　下記のような<b>Player.h</b>と<b>Player.cpp</b>を
+      <b>Game/Objects</b>内に用意します。<br />
+
+      3.　Update内で、キーでジャンプするようにします。(ここではスペースにしています)<br />
+      　　※キャラは「<b>慣性の法則</b>」にて同じ速度で上に移動し続けるようにします<br />
+      　　コリジョンに重力「<b>万有引力の法則</b>」を追加して(<b>UseGravity</b>)、自動的に落下するようにします<br />
+      4.　落下して地面に着地したときに、再度最初からジャンプを可能にするため、<br />
+      　　ジャンプしていない状態へ変更します
+
+      <br />
+      5.　シーンの<b>Init()</b>内にて、
+      <b>地形オブジェクト</b>と<b>カメラオブジェクト</b>を追加します<br />
+      6.　シーンの<b>Init()</b>内にて、先にで作成した
+      <b>Playerオブジェクト</b>
+      をシーンに作成します。<br />
+
+      <br />
+      <b>
+        ※下記の例は「Gaming」というシーンで実行しています。<br />
+
+        <br />
+        <font color="red">
+          Playerのコリジョンカプセルには、重力を設定しています。(UseGravity())<br />
+          これにより勝手に地面に落ちる(地球にいるのと同じ)状態となります。<br />
+          重力が無ければ、飛び続けて宇宙空間と同じ状態となります。
+        </font>
+      </b>
+
+      <div class="box5">
+        <h2>　Player.h</h2>
+        <pre><code class="language-cpp">#include &#60;System/Scene.h&#62;
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! Ptr関係のType定義
+    USING_PTR( Player );
+
+    //! @brief キャラクラス
+    class Player : public Object
+    {
+    public:
+        // オブジェクト宣言
+        BP_OBJECT_TYPE( Player, Object );
+
+        //! @brief 初期化
+        //! @return 初期化済み
+        //! モデルやコリジョンなど初期化するために必要
+        bool Init() override;
+
+        //! @brief 更新
+        //! キーを確認してジャンプ状態を更新するために必要
+        void Update() override;
+
+        //! @brief 当たり判定
+        //! 地面と当たったか見るために必要
+        void OnHit( const ComponentCollision::HitInfo&amp; hit_info ) override;
+
+        //! @brief GUI設定
+        //! GUIでジャンプ力を調整したいために用意
+        void GUI() override;
+
+    private:
+        //-------------------------------------------------------------
+        // ジャンプさせるために変数追加 ③
+        //-------------------------------------------------------------
+
+        // ジャンプしていることを示します
+        bool is_jump_ = false;
+
+        // ジャンプスピード
+        float jump_speed_ = 1.0f;
+
+        //-------------------------------------------------------------
+
+    };
+}</code></pre>
+        <br />
+        <h2>　Player.cpp</h2>
+        <pre><code class="language-cpp">#include "Player.h"
+#include &#60;System/Scene.h&#62;
+#include &#60;System/Component/ComponentModel.h&#62;  //&#60; ※モデルを使用する
+#include &#60;System/Component/ComponentCamera.h&#62;  //&#60; ※カメラを使用する
+#include &#60;System/Component/ComponentCollisionCapsule.h&#62;  //&#60; ※コリジョンカプセルを使用する
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief 初期化
+    //! @return 初期化済み
+    bool Player::Init()
+    {
+        __super::Init();
+
+        // 自分にモデル能力を追加します
+        AddComponent&#60;ComponentModel&#62;("data/Sample/Player/model.mv1");
+
+        // 自分にコリジョン能力を追加します
+        AddComponent&#60;ComponentCollisionCapsule&#62;()  //
+            -&#62;SetRadius(2.5f)
+            -&#62;SetHeight(13.0f)
+            -&#62;UseGravity();     //&#60; 重力をつける
+
+        // とりあえず位置は(0, 0, 0)に設定しておく
+        SetTranslate({ 0, 0, 0 });
+
+        return true;
+    }
+
+    //! @brief 更新
+    void Player::Update()
+    {
+        __super::Update();
+
+        //--------------------------------------------------
+        // スペースキーが押されたらジャンプする ③
+        //--------------------------------------------------
+        if (Input::IsKeyDown( KEY_INPUT_SPACE ))
+        {
+            // ジャンプを開始する
+            is_jump_ = true;
+        }
+
+        // ジャンプしていたら慣性の法則にしたがって上に移動させる 
+        if (is_jump_)
+        {
+            AddTranslate( { 0, jump_speed_, 0 } );
+        }
+        //--------------------------------------------------
+    }
+
+    //! @brief 当たり判定
+    void Player::OnHit( const ComponentCollision::HitInfo&amp; hit_info )
+    {
+        __super::OnHit( hit_info );
+
+        //--------------------------------------------------------------------------
+        // 地形と当たった場合は、ジャンプしてないようにする　④
+        //--------------------------------------------------------------------------
+        auto hit_owner_name = hit_info.hit_collision_-&#62;GetOwner()-&#62;GetName();
+        if (hit_owner_name == "Ground")
+        {
+            // ジャンプを終了する
+            is_jump_ = false;
+        }
+        //--------------------------------------------------------------------------
+    }
+
+    //! @brief GUI設定
+    void Player::GUI()
+    {
+        __super::GUI();
+
+			  ImGui::Begin( GetName().data() );
+        {
+            ImGui::Separator();
+
+            ImGui::DragFloat( u8"Jump速度", &jump_speed_, 0.01f, 0.01f, 10.0f, "%2.2f" );
+        }
+        ImGui::End();
+    }
+}
+// オブジェクトとしての定義(GUI CreateObjectで作成できるようにする)
+BP_OBJECT_IMPL( MyGame::Player, u8"MyGame::Player" );
+
+// シリアライズ用の処理(クラスの状態をゲーム途中でセーブロードができるようにする)
+CEREAL_REGISTER_TYPE( MyGame::Player )
+CEREAL_REGISTER_POLYMORPHIC_RELATION( Object, MyGame::Player )
+</code></pre>
+      </div>
+
+      <div class="box5">
+        <h2>　Gaming.cpp</h2>
+        <pre><code class="language-cpp">
+#include "Gaming.h"
+#include &#60;Game/Objects/Player.h&#62;   //&#60; ※プレイヤークラスを使用する
+#include &#60;System/Component/ComponentModel.h&#62;   //&#60; ※モデルを使用するのでこちらを追加する②
+#include &#60;System/Component/ComponentCamera.h&#62;  //&#60; ※カメラを使用するのでこちらを追加する②
+#include &#60;System/Component/ComponentCollisionModel.h&#62;   //&#60; ※コリジョンモデルを使用するのでこちらを追加する②
+#include &#60;System/Component/ComponentCollisionCapsule.h&#62;   //&#60; ※コリジョンカプセルを使用するのでこちらを追加する②
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief 初期化
+    //! @return 初期化済み
+    bool Gaming::Init()
+    {
+        __super::Init();
+
+        // -----------------------------------------------------------------------------------------
+        // 以下の内容を追加 ⑤
+        // -----------------------------------------------------------------------------------------
+        // 地形オブジェクトの作成
+        {
+            auto obj = Scene::CreateObjectPtr&#60;Object&#62;() //&#60; オブジェクト作成
+                    -&#62;SetName("Ground");                //&#60; 地形の名前
+            
+            // オブジェクトにモデル能力を追加します
+            obj-&#62;AddComponent&#60;ComponentModel&#62;("data/Sample/SwordBout/Stage/Stage00.mv1");
+
+            obj-&#62;AddComponent&#60;ComponentCollisionModel&#62;()  //
+                -&#62;AttachToModel();    //&#60; GUIでの 「モデルにコリジョンを張り付ける」動作
+
+            obj-&#62;SetTranslate({0,0,0});
+        }
+
+        // 表示のためのカメラを作成
+        {
+            Scene::CreateObjectPtr&#60;Object&#62;()                        //&#60; Object作成
+                -&#62;SetName("Camera")                                 //&#60; 名前設定
+                -&#62;AddComponent&#60;ComponentCamera&#62;()                   //&#60; カメラ
+                -&#62;SetPerspective(45)                                //&#60; 画角
+                -&#62;SetPositionAndTarget({0, 15, -50}, {0, 10, 0});   //&#60; カメラ位置と見るところ
+
+            // ※上記のように auto 変数にとらえずある程度羅列することができる
+        }
+        // -----------------------------------------------------------------------------------------
+        // 以下の内容を追加 ⑥
+        // -----------------------------------------------------------------------------------------
+        // Playerオブジェクトの作成
+        Scene::CreateObjectPtr&#60;Player&#62;();
+
+        // -----------------------------------------------------------------------------------------
+
+        // 最初に1回動作する
+        // ただし trueを返さなければ Initに何回も来る
+        // trueにしない限り、updateは以降は動作しません。
+        return true;
+    }
+
+    //! @brief 更新
+    void Gaming::Update()
+    {
+        __super::Update();
+
+        // 毎フレーム動作する
+    }
+
+    //! @brief 描画
+    void Gaming::Draw()
+    {
+        __super::Draw();
+
+    }
+
+    //! @brief GUI表示
+    void Gaming::GUI()
+    {
+        __super::GUI();
+
+    }
+
+    // ALT-Menuで表示される名前
+    BP_CLASS_IMPL( Gaming, u8"MyGameゲームシーン" );
+}</code></pre>
+      </div>
+      <br />
     </main>
     <br />
     <br />

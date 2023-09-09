@@ -19,7 +19,7 @@ BP_OBJECT_IMPL(Mutant, "LittleQuest/Mutant");
 MutantPtr Mutant::Create(const float3& pos, const float3& front)
 {
     // 箱の作成
-    auto enemy = Scene::CreateObjectPtr<Mutant>();
+    auto enemy = Scene::CreateObjectDelayInitialize<Mutant>();
     enemy->SetName("Mutant");
 
     // vecの方向に向ける
@@ -42,11 +42,11 @@ bool Mutant::Init()   // override
     model->SetScaleAxisXYZ({0.05f});   //
 
     model->SetAnimation({
-        {   "idle",    "data/LittleQuest/Anim/MutantIdle.mv1", 0, 1.0f},
-        {    "run",     "data/LittleQuest/Anim/MutantRun.mv1", 0, 1.0f},
-        { "attack", "data/LittleQuest/Anim/MutantSwiping.mv1", 0, 1.0f},
-        {"damaged",     "data/LittleQuest/Anim/HitToBody.mv1", 0, 1.0f},
-        {    "die",   "data/LittleQuest/Anim/MutantDying.mv1", 0, 1.0f}
+        {  "idle",    "data/LittleQuest/Anim/MutantIdle.mv1", 0, 1.0f},
+        {   "run",     "data/LittleQuest/Anim/MutantRun.mv1", 0, 1.0f},
+        {"attack", "data/LittleQuest/Anim/MutantSwiping.mv1", 0, 1.0f},
+        {"getHit",     "data/LittleQuest/Anim/HitToBody.mv1", 0, 1.0f},
+        {   "die",   "data/LittleQuest/Anim/MutantDying.mv1", 0, 1.0f}
     });
     model->PlayAnimation("idle", true);
 
@@ -104,16 +104,16 @@ void Mutant::Patrol(float3& move)
     Super::Patrol(move);
 }
 
-//void Mutant::Attack()
+// void Mutant::Attack()
 //{
-//    if(auto modelPtr = GetComponent<ComponentModel>()) {
-//        modelPtr->PlayAnimationNoSame("attack");
-//    }
-//}
+//     if(auto modelPtr = GetComponent<ComponentModel>()) {
+//         modelPtr->PlayAnimationNoSame("attack");
+//     }
+// }
 
-void Mutant::Damaged(int damage)
+void Mutant::GetHit(int damage)
 {
-    Super::Damaged(damage);
+    Super::GetHit(damage);
 }
 
 void Mutant::Die()

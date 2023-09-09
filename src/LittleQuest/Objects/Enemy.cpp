@@ -8,7 +8,7 @@
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
 #include <System/Component/ComponentTargetTracking.h>
-//#include <System/SystemMain.h>
+// #include <System/SystemMain.h>
 
 #include "Camera.h"
 
@@ -19,22 +19,6 @@ namespace LittleQuest
 //! @detail BP_OBJECT_TYPEとセットで用意する
 BP_OBJECT_IMPL(Enemy, "LittleQuest/Enemy");
 
-// EnemyPtr Enemy::Create(const float3& pos, const float3& front, const
-// std::string name) {
-//     // 箱の作成
-//     auto enemy = Scene::CreateObjectPtr<Enemy>();
-//     enemy->SetName(name);
-
-//    // vecの方向に向ける
-//    auto mat = HelperLib::Math::CreateMatrixByFrontVector(front);
-//    enemy->SetMatrix(mat);
-
-//    // posの位置に設定
-//    enemy->SetTranslate(pos);
-
-//    return enemy;
-//}
-
 bool Enemy::Init()   // override
 {
     Super::Init();
@@ -43,11 +27,11 @@ bool Enemy::Init()   // override
 
     state = EnemyState::IDLE;
 
-    //if (!patrolPoint.empty()) {
-    //    currPoint = 0;
-    //    goal      = patrolPoint[currPoint + 1];
-    //    state     = EnemyState::PATROL;
-    //}
+    if(!patrolPoint.empty()) {
+        patrolIndex = 0;
+        goal        = patrolPoint[patrolIndex + 1];
+        state       = EnemyState::PATROL;
+    }
 
     animationFrame = 0;
 
@@ -58,30 +42,30 @@ bool Enemy::Init()   // override
 
 void Enemy::Update()   // override
 {
-    // auto curPos = GetTranslate();
     float deltaTime = GetDeltaTime();
     animationFrame++;
-
-    if(FindPlayer() && state != EnemyState::DAMAGED) {
-        state = EnemyState::ATTACK;
-    }
-    else {
-        state = EnemyState::PATROL;
-    }
 
     if(isDie) {
         dieTimer--;
         return;
     }
 
-    if(this->HP <= 0) {
-        this->Die();
+    //if (this->HP <= 0) {
+    //    this->Die();
+    //}
+    if(state != EnemyState::GET_HIT) {
+        if(FindPlayer()) {
+            state = EnemyState::ATTACK;
+        }
+        else {
+            state = EnemyState::PATROL;
+        }
     }
 
     float3 move;
 
     switch(state) {
-    case EnemyState::DAMAGED:
+    case EnemyState::GET_HIT:
         CheckDamageAnimation();
         break;
     case EnemyState::ATTACK:
@@ -120,9 +104,9 @@ void Enemy::LateDraw()   // override
     }
     printfDx("\ngoalx: %f", goal[0]);
     printfDx("\ncurpoint: %i", patrolIndex);
-    printfDx("\nnowx: %f", this->GetTranslate().x);
+    printfDx("\nnowx: %f", this->GetTranslate()[0]);
     printfDx("\nx: %f", float3(goal - GetTranslate())[0]);
-    printfDx("\nx: %f", float3(goal - GetTranslate())[2]);
+    printfDx("\nz: %f", float3(goal - GetTranslate())[2]);
     printfDx("\nisFound: %i", isFoundPlayer);
     printfDx("\ntargetDegree: %f", degree);
 }
@@ -169,7 +153,7 @@ bool Enemy::FindPlayer()
     //    if (fabsf(targetDegree) < 90.f) {
     //        return true;
     //    } else {
-    //a        return false;
+    // a        return false;
     //    }
     float3 distance = player->GetTranslate() - this->GetTranslate();
     distance        = abs(distance);
@@ -232,7 +216,7 @@ void Enemy::Attack(float3& move)
 {
     auto player = Scene::GetObjectPtr<Player>("Player");
     auto pos    = GetTranslate();
-    //pos.y       = 0;
+    // pos.y       = 0;
     move          = player->GetTranslate() - pos;
     auto modelPtr = GetComponent<ComponentModel>();
     if(abs(move.x) <= float1{5} && abs(move.z) <= float1{5}) {
@@ -260,34 +244,36 @@ void Enemy::Attack(float3& move)
 void Enemy::CheckDamageAnimation()
 {
     if(auto modelPtr = GetComponent<ComponentModel>()) {
-        if(modelPtr->GetPlayAnimationName() == "damaged")
-            if(animationFrame >= 40) {
+        if(modelPtr->GetPlayAnimationName() == "getHit")
+            if(modelPtr->GetAnimationTime() > 40) {
                 state = EnemyState::IDLE;
             }
     }
 }
 
-void Enemy::Damaged(int damage)
+void Enemy::GetHit(int damage)
 {
     this->HP -= damage;
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(HP > 0) {
-            modelPtr->PlayAnimation("damaged");
+            modelPtr->PlayAnimation("getHit");
+            state          = EnemyState::GET_HIT;
             animationFrame = 0;
         }
+        else {
+            this->Die();
+        }
     }
-    state = EnemyState::DAMAGED;
+    state = EnemyState::GET_HIT;
 }
 
 void Enemy::Die()
 {
     if(auto modelPtr = GetComponent<ComponentModel>()) {
-        if(modelPtr->GetPlayAnimationName() != "die") {
-            modelPtr->PlayAnimationNoSame("die");
-            animationFrame = 0;
-            RemoveComponent<ComponentCollisionCapsule>();
-            this->isDie = true;
-        }
+        modelPtr->PlayAnimationNoSame("die");
+        animationFrame = 0;
+        RemoveComponent<ComponentCollisionCapsule>();
+        this->isDie = true;
     }
 }
 

@@ -36,7 +36,7 @@ public:
 
     // @}
 
-    virtual void Damaged(int damage);
+    virtual void GetHit(int damage);
 
     float getDieTimer();
 
@@ -65,7 +65,8 @@ protected:
         PATROL,
         WAIT,
         ATTACK,   //!< アタック
-        DAMAGED,
+        GET_HIT,
+        DEAD,
     };
 
     EnemyState state;

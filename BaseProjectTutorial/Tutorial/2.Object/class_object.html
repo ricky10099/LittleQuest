@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../js-css/style.css" />
+    <title>2.Object</title>
+    <link href="../js-css/prism.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>Object</header>
+    <side>
+      <iframe
+        src="../js-css/menu.html"
+        frameborder="0"
+        style="width: 100%; height: 50vw"
+      ></iframe>
+    </side>
+    <main>
+      <h1>専用Objectのクラス化</h1>
+      <b>プレイヤー</b>
+      や<b>敵</b>や
+      <b>アイテム</b>
+      などは、<b>Objectクラス</b> をそのまま使用せず、<br />
+      専用のクラスとして持つほうが管理がしやすいです。<br /><br />
+      また<b>ComponentHit</b> を使用しない限り、<br />
+      他のObjectとの当たりを把握するには、必ずクラスを作る必要があります。<br />
+      ※2023.9.1ではComponentHitは存在していません。<br />
+      <br />
+
+      <b>ここでは「Player」という専用のオブジェクトを作成する例を示します</b
+      ><br />
+      <b>
+        また、namespace は
+        「MyGame」としておりますが、自分のゲームの名前に変更して使用してください
+      </b>
+
+      <div class="box5">
+        <b>Player.h</b><br />
+        <pre><code class="language-cpp">//! @brief Playerクラス
+#include &#60;System/Scene.h&#62;
+
+namespace MyGame //&#60;　自分のゲームの名前に変更しましょう
+{
+    //! Ptr関係のType定義
+    USING_PTR( Player );
+
+    //! Playerクラス
+    class Player : public Object
+    {
+    public:
+        BP_OBJECT_TYPE( Player, Object );
+        //! @brief 初期化
+        //! @return 初期化済み
+        bool Init() override;
+
+        //! @brief 更新
+        void Update() override;
+
+        //! @brief 描画
+        void Draw() override;
+
+        //! @brief GUI表示
+        void GUI() override;
+
+    private:
+
+    };
+}</code></pre>
+        <br />
+        <b>Player.cpp</b><br />
+        <pre><code class="language-cpp">
+#include "Player.h"
+
+namespace MyGame //&#60;　自分のゲームの名前に変更しましょう
+{
+    bool Player::Init()	 //override
+    {
+        __super::Init();
+
+        // モデルコンポーネント(0.08倍)
+        auto model = AddComponent&#60;ComponentModel&#62;( "data/Sample/Player/model.mv1" );
+
+        model-&#62;SetAnimation( { 
+            { "idle", "data/Sample/Player/Anim/Idle.mv1", 1, 1.0f },
+            { "jump", "data/Sample/Player/Anim/Jump.mv1", 1, 1.0f },
+            { "walk", "data/Sample/Player/Anim/Walk.mv1", 1, 1.0f }, 
+        } );
+
+        // コリジョン(カプセル)
+        auto col = AddComponent&#60;ComponentCollisionCapsule&#62;();	//
+        col-&#62;SetTranslate( { 0, 0, 0 } );
+        col-&#62;SetRadius( 2.5 );
+        col-&#62;SetHeight( 13 );
+        col-&#62;UseGravity();
+
+        return true;
+    }
+
+    void Player::GUI()	//override
+    {
+        __super::GUI();
+    }
+}
+
+// オブジェクトとしての定義(GUI CreateObjectで作成できるようにする)
+BP_OBJECT_IMPL( MyGame::Player, u8"MyGame::Player" );
+
+// シリアライズ用の処理(クラスの状態をゲーム途中でセーブロードができるようにする)
+CEREAL_REGISTER_TYPE( MyGame::Player )
+CEREAL_REGISTER_POLYMORPHIC_RELATION( Object, MyGame::Player )</code></pre>
+      </div>
+
+      <br />
+      <h2>　BP_OBJECT命令の効果</h2>
+      <div class="box5">
+        <pre><code class="language-cpp">BP_OBJECT_TYPE( Player, Object );
+BP_OBJECT_IMPL( MyGame::Player, u8"MyGame::Player" );</code></pre>
+        <br />
+        <b>
+          上記をクラスに設定をすることで、GUIにてObjectに新たなタイプが発生します。<br />
+          <br />
+          ObjectからPlayerは継承されている、ということを示し、<br />
+          その名前は「MyGame::Player」とする、という宣言です。<br />
+          <br />
+
+          BP_OBJECT_TYPEは、.h内に記述<br />
+          BP_OBJECT_IMPLは、.cppに記述します。<br />
+
+          ※上記のMyGameを外し、namespaceの中に記述することも可能です。<br />
+          <br />
+          こうすることでGUIでプログラミングでの「
+          <font color="red"> Create Object </font>
+          」でも使用可能となります。
+        </b>
+        <div style="margin: 30px">
+          <img src="res/create_obj.png" />
+        </div>
+      </div>
+
+      <br />
+      <h2>　CEREAL命令の効果</h2>
+      <div class="box5">
+        <pre><code class="language-cpp">
+CEREAL_REGISTER_TYPE( MyGame::Player )
+CEREAL_REGISTER_POLYMORPHIC_RELATION( Object, MyGame::Player )</code></pre>
+        <br />
+        <b>
+          上記をクラスに設定をすることで、オブジェクトの途中状態のセーブ、ロードが可能になります。<br />
+          CPPのnamespaceの外に記述する必要があります。<br />
+          <br />
+          クラス名「MyGame::Player」<br />
+          ObjectからMyGame::Playerは継承されている、ということを示しています<br />
+          ※ BP_OBJECT
+          と基本的に同じです。(今後1つにまとめた命令を作る可能性があります)
+          <br />
+          <br />
+
+          下記の例は作成したObjectをGUI上でセーブ、ロードしている例です<br />
+        </b>
+        <div style="margin: 30px">
+          <img width="100%" src="res/SaveLoad.gif" />
+        </div>
+      </div>
+
+      <br />
+      <h2>　専用オブジェクトの作成方法</h2>
+      <div class="box5">
+        <pre><code class="language-cpp">auto obj = Scene::CreateObjectPtr&#60;Player&#62;();</code></pre>
+        <br />
+        <b>
+          ※GUIでプログラミングでの「Create Object」でも使用可能となります。
+        </b>
+      </div>
+      <br />
+      <h2>　オブジェクトのセーブ方法</h2>
+      <div class="box5">
+        <br />
+        <b> 「data/_save/Test.txt」にオブジェクトデータがセーブされます </b>
+        <pre><code class="language-cpp">obj-&#62;Save( "Test.txt" );</code></pre>
+        <br />
+        <br /><br />
+        <b> 「data/_save/Test.txt」にオブジェクトデータがロードされます </b>
+        <pre><code class="language-cpp">obj-&#62;Load( "Test.txt" );</code></pre>
+        <br />
+        ※objは、objectであれば、継承しているしてないは関係ありません。
+      </div>
+    </main>
+    <br />
+    <br />
+    <next>
+      <a class="button-next" href="../1.Introduction/scene.html"
+        ><span>前回</span>Scene</a
+      >
+      <a class="button-next" href="transform-1.html"
+        ><span>次回</span> 移動・回転・スケール</a
+      >
+    </next>
+    <script src="../js-css/prism.js"></script>
+  </body>
+</html>

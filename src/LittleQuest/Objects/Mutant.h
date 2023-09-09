@@ -32,12 +32,12 @@ public:
     void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
 
     // @}
-    void Damaged(int damage) override;
+    void GetHit(int damage) override;
 
 protected:
     void Patrol(float3& move) override;
 
-    //void Attack() override;
+    // void Attack() override;
 
     void Die() override;
 };

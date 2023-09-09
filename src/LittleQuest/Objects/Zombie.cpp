@@ -88,10 +88,10 @@ void Zombie::Idle()
     Super::Idle();
 }
 
-//void Zombie::Attack()
+// void Zombie::Attack()
 //{
-//    Super::Attack();
-//}
+//     Super::Attack();
+// }
 
 }   // namespace LittleQuest
 
