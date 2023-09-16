@@ -1,5 +1,7 @@
 ﻿#include "Enemy.h"
+#include "../Components/ComponentHP.h"
 
+#include <System/Component/Component.h>
 #include <System/Component/ComponentAttachModel.h>
 #include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentCollisionCapsule.h>
@@ -35,6 +37,8 @@ bool Enemy::Init()   // override
     }
 
     animCheck = AnimCheck::IDLE;
+
+    //auto HP = AddComponent<ComponentHP>()->SetHP(200);
 
     return true;
 }
@@ -105,8 +109,9 @@ void Enemy::LateDraw()   // override
                  this->GetName().data(),
                  modelPtr->GetPlayAnimationName().data(),
                  modelPtr->GetAnimationTime());
-        //printfDx("\n%s %s Animation frame:%i", this->GetName().data(),
-        //         modelPtr->GetPlayAnimationName().data(), animationFrame);
+        // printfDx("\n%s %s Animation frame:%i", this->GetName().data(),
+        //          modelPtr->GetPlayAnimationName().data(),
+        //          animationFrame);
     }
     printfDx("\ngoalx: %f", goal[0]);
     printfDx("\ncurpoint: %i", patrolIndex);
@@ -139,7 +144,7 @@ void Enemy::Idle()
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(HP > 0) {
             modelPtr->PlayAnimationNoSame("idle", true);
-            //animationFrame = 0;
+            // animationFrame = 0;
         }
     }
 }
@@ -276,6 +281,8 @@ void Enemy::CheckDamageAnimation()
 void Enemy::GetHit(int damage)
 {
     this->HP -= damage;
+    auto hpcomponent = GetComponent<ComponentHP>();
+    hpcomponent->TakeDamage(damage);
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(HP > 0) {
             modelPtr->PlayAnimation("getHit", false, 0.25f);
@@ -293,7 +300,7 @@ void Enemy::Die()
 {
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         modelPtr->PlayAnimationNoSame("die");
-        //animationFrame = 0;
+        // animationFrame = 0;
         RemoveComponent<ComponentCollisionCapsule>();
         this->isDie = true;
     }

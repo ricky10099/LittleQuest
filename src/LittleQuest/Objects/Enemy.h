@@ -82,8 +82,8 @@ protected:
     AnimCheck animCheck;
 
     int HP = 100;
-    //int animationFrame;
-    // int isFoundPlayer;
+    // int animationFrame;
+    //  int isFoundPlayer;
 
     float3              startPoint;
     float3              endPoint;

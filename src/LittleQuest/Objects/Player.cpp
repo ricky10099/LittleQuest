@@ -187,11 +187,11 @@ void Player::Update()   // override
     }
 
     /*if (isAttack) {
-                                        } else if (length(move).x > 0) {
-                                            this->Walk(move);
-                                        } else {
-                                            this->Idle();
-                                        }*/
+                                            } else if (length(move).x > 0) {
+                                                this->Walk(move);
+                                            } else {
+                                                this->Idle();
+                                            }*/
 
     move *= speed_ * GetDeltaTime60();
 

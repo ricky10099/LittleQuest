@@ -1,5 +1,7 @@
 ﻿#include "Mutant.h"
+#include "../Components/ComponentHP.h"
 
+#include <System/Component/Component.h>
 #include <System/Component/ComponentAttachModel.h>
 #include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentCollisionCapsule.h>
@@ -28,6 +30,8 @@ MutantPtr Mutant::Create(const float3& pos, const float3& front)
 
     // posの位置に設定
     enemy->SetTranslate(pos);
+    auto hp = enemy->AddComponent<ComponentHP>();
+    hp->SetHP(200);
 
     return enemy;
 }

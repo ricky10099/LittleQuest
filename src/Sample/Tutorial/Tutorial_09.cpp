@@ -137,7 +137,7 @@ bool Tutorial_09::Init()
     obj->AddComponent<ComponentSamplePlayerController>();
     obj->AddComponent<ComponentModel>("data/Sample/Player/model.mv1")   // モデル
         ->SetScaleAxisXYZ({0.08f});                                     //大きさ設定
-
+    auto a = obj->GetComponent<ComponentSamplePlayerController>();
     return true;
 }
 

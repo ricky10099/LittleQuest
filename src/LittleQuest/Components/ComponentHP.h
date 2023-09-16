@@ -28,6 +28,8 @@ public:
 
     void Update() override;
 
+    void Draw() override;
+
     void GUI() override;
 
     void SetHP(int HP);
