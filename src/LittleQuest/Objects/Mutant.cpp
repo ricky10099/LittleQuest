@@ -34,6 +34,12 @@ MutantPtr Mutant::Create(const float3& pos, const float3& front)
 
 bool Mutant::Init()   // override
 {
+    startPoint = this->GetTranslate() - float3{50, 0, 0};
+    patrolPoint.push_back(startPoint);
+
+    endPoint = this->GetTranslate() + float3{50, 0, 0};
+    patrolPoint.push_back(endPoint);
+
     Super::Init();
 
     // モデルコンポーネント(0.08倍)
@@ -43,6 +49,7 @@ bool Mutant::Init()   // override
 
     model->SetAnimation({
         {  "idle",    "data/LittleQuest/Anim/MutantIdle.mv1", 0, 1.0f},
+        {  "walk", "data/LittleQuest/Anim/MutantWalking.mv1", 0, 1.0f},
         {   "run",     "data/LittleQuest/Anim/MutantRun.mv1", 0, 1.0f},
         {"attack", "data/LittleQuest/Anim/MutantSwiping.mv1", 0, 1.0f},
         {"getHit",     "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
@@ -59,17 +66,6 @@ bool Mutant::Init()   // override
     col->UseGravity();
 
     setHP(200);
-
-    startPoint = this->GetTranslate() - float3{50, 0, 0};
-    patrolPoint.push_back(startPoint);
-
-    endPoint = this->GetTranslate() + float3{50, 0, 0};
-    patrolPoint.push_back(endPoint);
-
-    patrolIndex = 1;
-    goal        = patrolPoint[patrolIndex];
-
-    state = EnemyState::PATROL;
 
     return true;
 }
@@ -93,23 +89,18 @@ void Mutant::GUI()   // override
 void Mutant::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)   // override
 {
     Super::OnHit(hitInfo);
+
+    // attack anim 1.3s ダメージ発生
 }
 
 void Mutant::Patrol(float3& move)
 {
     if(auto modelPtr = GetComponent<ComponentModel>()) {
-        modelPtr->PlayAnimationNoSame("run", true);
+        modelPtr->PlayAnimationNoSame("walk", true);
     }
 
     Super::Patrol(move);
 }
-
-// void Mutant::Attack()
-//{
-//     if(auto modelPtr = GetComponent<ComponentModel>()) {
-//         modelPtr->PlayAnimationNoSame("attack");
-//     }
-// }
 
 void Mutant::GetHit(int damage)
 {

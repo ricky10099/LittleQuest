@@ -25,18 +25,16 @@ bool Enemy::Init()   // override
 
     setHP();
 
-    state = EnemyState::IDLE;
+    state     = EnemyState::IDLE;
+    prevState = state;
 
     if(!patrolPoint.empty()) {
-        patrolIndex = 0;
-        goal        = patrolPoint[patrolIndex + 1];
+        patrolIndex = 1;
+        goal        = patrolPoint[patrolIndex];
         state       = EnemyState::PATROL;
     }
 
-    animCheck      = AnimCheck::IDLE;
-    animationFrame = 0;
-
-    // isFoundPlayer = false;
+    animCheck = AnimCheck::IDLE;
 
     return true;
 }
@@ -44,17 +42,13 @@ bool Enemy::Init()   // override
 void Enemy::Update()   // override
 {
     float deltaTime = GetDeltaTime();
-    animationFrame++;
 
     if(isDie) {
         dieTimer--;
         return;
     }
 
-    // if (this->HP <= 0) {
-    //     this->Die();
-    // }
-    if(state != EnemyState::GET_HIT) {
+    if(state != EnemyState::GET_HIT && state != EnemyState::ATTACK && state != EnemyState::WAIT) {
         if(isFoundPlayer()) {
             state = EnemyState::CHASING;
         }
@@ -86,7 +80,7 @@ void Enemy::Update()   // override
         Attack(move);
         break;
     case EnemyState::WAIT:
-        PatrolWaiting(deltaTime);
+        Waiting(deltaTime);
         break;
     case EnemyState::PATROL:
         Patrol(move);
@@ -111,10 +105,8 @@ void Enemy::LateDraw()   // override
                  this->GetName().data(),
                  modelPtr->GetPlayAnimationName().data(),
                  modelPtr->GetAnimationTime());
-        printfDx("\n%s %s Animation frame:%i",
-                 this->GetName().data(),
-                 modelPtr->GetPlayAnimationName().data(),
-                 animationFrame);
+        //printfDx("\n%s %s Animation frame:%i", this->GetName().data(),
+        //         modelPtr->GetPlayAnimationName().data(), animationFrame);
     }
     printfDx("\ngoalx: %f", goal[0]);
     printfDx("\ncurpoint: %i", patrolIndex);
@@ -147,7 +139,7 @@ void Enemy::Idle()
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(HP > 0) {
             modelPtr->PlayAnimationNoSame("idle", true);
-            animationFrame = 0;
+            //animationFrame = 0;
         }
     }
 }
@@ -190,7 +182,7 @@ void Enemy::Patrol(float3& move)
         patrolIndex %= patrolPoint.size();
         goal = patrolPoint[patrolIndex];
 
-        PatrolWait(2.f);
+        Wait(2.f);
         return;
     }
 
@@ -208,21 +200,22 @@ void Enemy::Patrol(float3& move)
     }
 }
 
-void Enemy::PatrolWait(float time)
+void Enemy::Wait(float time)
 {
-    state = EnemyState::WAIT;
+    prevState = state;
+    state     = EnemyState::WAIT;
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         modelPtr->PlayAnimationNoSame("idle", true, 0.3f);
     }
     waitTime = time;
 }
 
-void Enemy::PatrolWaiting(float deltaTime)
+void Enemy::Waiting(float deltaTime)
 {
     waitTime -= deltaTime;
 
     if(waitTime <= 0.0f) {
-        state = EnemyState::PATROL;
+        state = prevState;
     }
 }
 
@@ -232,8 +225,9 @@ void Enemy::ChasePlayer(float3& move)
     auto pos    = GetTranslate();
     move        = player->GetTranslate() - pos;
 
-    if(abs(move.x) <= float1{1.5} && abs(move.z) <= float1{1.5}) {
-        state = EnemyState::ATTACK;
+    if(abs(move.x) <= float1{5} && abs(move.z) <= float1{5}) {
+        prevState = state;
+        state     = EnemyState::ATTACK;
         return;
     }
 
@@ -256,32 +250,10 @@ void Enemy::ChasePlayer(float3& move)
 
 void Enemy::Attack(float3& move)
 {
-    //auto player   = Scene::GetObjectPtr<Player>("Player");
-    //auto pos      = GetTranslate();
-    //// pos.y       = 0;
-    //move          = player->GetTranslate() - pos;
-    auto modelPtr = GetComponent<ComponentModel>();
-    /* if (abs(move.x) <= float1{5} && abs(move.z) <= float1{5}) {*/
-    modelPtr->PlayAnimationNoSame("attack", false, 0.5f);
-    //    animCheck = AnimCheck::ATTACKING;
-    //    move = 0;
-
-    //} else {
-    //
-    //}
-
-    //if (length(move).x > 0) {
-    //    // 動いてる
-    //    move = normalize(move);
-
-    //    float x     = -move.x;
-    //    float z     = -move.z;
-    //    float theta = atan2(x, z) * RadToDeg - rot_y;
-
-    //    // 軸ごと回転 (カメラも一緒に回る)
-    //    SetRotationAxisXYZ({0, theta, 0});
-    //    speedFactor = runVal;
-    //}
+    if(auto modelPtr = GetComponent<ComponentModel>()) {
+        modelPtr->PlayAnimationNoSame("attack", false, 0.5f);
+        animCheck = AnimCheck::ATTACKING;
+    }
 }
 
 void Enemy::CheckDamageAnimation()
@@ -295,8 +267,7 @@ void Enemy::CheckDamageAnimation()
         }
         else if(modelPtr->GetPlayAnimationName() == "attack") {
             if(modelPtr->GetAnimationTime() > 2.2f) {
-                state     = EnemyState::IDLE;
-                animCheck = AnimCheck::IDLE;
+                Wait(.5f);
             }
         }
     }
@@ -308,6 +279,7 @@ void Enemy::GetHit(int damage)
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         if(HP > 0) {
             modelPtr->PlayAnimation("getHit", false, 0.25f);
+            prevState = state;
             state     = EnemyState::GET_HIT;
             animCheck = AnimCheck::GETTING_HIT;
         }
@@ -321,7 +293,7 @@ void Enemy::Die()
 {
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         modelPtr->PlayAnimationNoSame("die");
-        animationFrame = 0;
+        //animationFrame = 0;
         RemoveComponent<ComponentCollisionCapsule>();
         this->isDie = true;
     }

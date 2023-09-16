@@ -49,8 +49,8 @@ protected:
 
     virtual void Patrol(float3& move);
 
-    virtual void PatrolWait(float time);
-    virtual void PatrolWaiting(float deltaTime);
+    virtual void Wait(float time);
+    virtual void Waiting(float deltaTime);
 
     virtual void ChasePlayer(float3& move);
     virtual void Attack(float3& move);
@@ -71,6 +71,7 @@ protected:
         DEAD,
     };
     EnemyState state;
+    EnemyState prevState;
 
     enum class AnimCheck
     {
@@ -81,8 +82,8 @@ protected:
     AnimCheck animCheck;
 
     int HP = 100;
-    int animationFrame;
-    //int isFoundPlayer;
+    //int animationFrame;
+    // int isFoundPlayer;
 
     float3              startPoint;
     float3              endPoint;

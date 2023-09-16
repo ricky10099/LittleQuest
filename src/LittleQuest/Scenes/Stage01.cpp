@@ -10,6 +10,7 @@
 #include <LittleQuest/Objects/Mutant.h>
 #include <LittleQuest/Objects/Player.h>
 #include <LittleQuest/Scenes/GameOverScene.h>
+#include <LittleQuest/Scenes/GameWinScene.h>
 
 #include <System/Component/ComponentAttachModel.h>
 #include <System/Component/ComponentCamera.h>
@@ -32,11 +33,12 @@ bool Stage01::Init()
 {
     // Camera
     /*  {
-                                      auto obj =
-                               Scene::CreateObjectPtr<Object>()->SetName(u8"Camera");
-                   auto cam = obj->AddComponent<ComponentCamera>();
-                           cam->SetPositionAndTarget({0, 20, 50}, {0, 10, 0});
-                                  }*/
+                                          auto obj =
+                                   Scene::CreateObjectPtr<Object>()->SetName(u8"Camera");
+                       auto cam = obj->AddComponent<ComponentCamera>();
+                               cam->SetPositionAndTarget({0, 20, 50}, {0, 10,
+           0});
+                                      }*/
 
     // Ground
     {
@@ -86,7 +88,7 @@ void Stage01::Update()
     }
 
     if(enemies.size() == 0) {
-        Scene::Change(Scene::GetScene<GameOverScene>());
+        Scene::Change(Scene::GetScene<GameWinScene>());
     }
 }
 
