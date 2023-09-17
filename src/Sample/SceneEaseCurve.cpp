@@ -4,15 +4,14 @@
 //---------------------------------------------------------------------------
 #include "SceneEaseCurve.h"
 #include "System/EaseCurve.h"
-#include "System/SystemMain.h"   // ShowGrid
+#include "System/SystemMain.h"    // ShowGrid
 
 BP_CLASS_IMPL(SceneEaseCurve, u8"Ease補間サンプル")
 
 //---------------------------------------------------------------------------
 //! 初期化
 //---------------------------------------------------------------------------
-bool SceneEaseCurve::Init()
-{
+bool SceneEaseCurve::Init() {
     // グリッド表示をOFF
     ShowGrid(false);
 
@@ -23,12 +22,11 @@ bool SceneEaseCurve::Init()
 //! 更新
 //! @param  [in]    delta   経過時間
 //---------------------------------------------------------------------------
-void SceneEaseCurve::Update()
-{
+void SceneEaseCurve::Update() {
     // 時間を経過させる
     f32 delta = GetDeltaTime();
 
-    t_ += delta * 0.5f;   // 1/2の速度
+    t_ += delta * 0.5f;    // 1/2の速度
 
     // 0.0f～1.0fを繰り返し
     t_ = fmodf(t_, 1.0f);
@@ -37,16 +35,21 @@ void SceneEaseCurve::Update()
 //---------------------------------------------------------------------------
 //! 描画
 //---------------------------------------------------------------------------
-void SceneEaseCurve::Draw()
-{
+void SceneEaseCurve::Draw() {
     // Easeカーブ名
     static const char* easeName[]{
-        "InSine",     "OutSine",      "InOutSine", "InQuad",     "OutQuad",       //
-        "InOutQuad",  "InCubic",      "OutCubic",  "InOutCubic", "InQuart",       //
-        "OutQuart",   "InOutQuart",   "InQuint",   "OutQuint",   "InOutQuint",    //
-        "InExpo",     "OutExpo",      "InOutExpo", "InCirc",     "OutCirc",       //
-        "InOutCirc",  "InBack",       "OutBack",   "InOutBack",  "InElastic",     //
-        "OutElastic", "InOutElastic", "InBounce",  "OutBounce",  "InOutBounce",   //
+        "InSine",     "OutSine",      "InOutSine",
+        "InQuad",     "OutQuad",    //
+        "InOutQuad",  "InCubic",      "OutCubic",
+        "InOutCubic", "InQuart",    //
+        "OutQuart",   "InOutQuart",   "InQuint",
+        "OutQuint",   "InOutQuint",    //
+        "InExpo",     "OutExpo",      "InOutExpo",
+        "InCirc",     "OutCirc",    //
+        "InOutCirc",  "InBack",       "OutBack",
+        "InOutBack",  "InElastic",    //
+        "OutElastic", "InOutElastic", "InBounce",
+        "OutBounce",  "InOutBounce",    //
     };
 
     constexpr u32 startX = 400;
@@ -56,7 +59,8 @@ void SceneEaseCurve::Draw()
     auto drawMark = [&](f32 t, u32 y, u32 color) {
         u32 boxSize = 16;
 
-        u32 boxX = static_cast<u32>(lerp(float1(startX), float1(endX - boxSize), t));
+        u32 boxX =
+            static_cast<u32>(lerp(float1(startX), float1(endX - boxSize), t));
         u32 boxY = y;
         DrawFillBox(boxX, boxY, boxX + boxSize, boxY + boxSize, color);
     };
@@ -69,7 +73,7 @@ void SceneEaseCurve::Draw()
     //----------------------------------------------------------
     // 各Ease補間の結果を並べて表示
     //----------------------------------------------------------
-    SetFontSize(18);   // 文字フォントの大きさ
+    SetFontSize(18);    // 文字フォントの大きさ
 
     // スタートライン
     DrawLineAA(startX, 20, startX, 690, GetColor(0, 128, 255), 4.0f);
@@ -82,15 +86,16 @@ void SceneEaseCurve::Draw()
     //----------------------------------------------------------
     {
         // 補間関数名を表示
-        u32         y    = 80 + -2 * 20;
+        u32 y            = 80 + -2 * 20;
         const char* name = "LINEAR";
 
-        u32  stringWidth = GetDrawStringWidth(name, static_cast<int>(strlen(name)));
-        auto fontColor   = GetColor(255, 255, 255);
+        u32 stringWidth =
+            GetDrawStringWidth(name, static_cast<int>(strlen(name)));
+        auto fontColor = GetColor(255, 255, 255);
 
         DrawString(startX - 8 - stringWidth, y, name,
-                   fontColor);                      // 左側 - 右詰め
-        DrawString(endX + 8, y, name, fontColor);   // 右側 - 左詰め
+                   fontColor);                       // 左側 - 右詰め
+        DrawString(endX + 8, y, name, fontColor);    // 右側 - 左詰め
 
         // 補間後の位置をボックスで表示
         drawMark(t_, y, fontColor);
@@ -99,20 +104,22 @@ void SceneEaseCurve::Draw()
     //----------------------------------------------------------
     // Ease補間の表示
     //----------------------------------------------------------
-    for(u32 i = 0; i < GetEaseFunctionMaxCount(); ++i) {
-        u32 type = i;   //補間関数の種類
+    for (u32 i = 0; i < GetEaseFunctionMaxCount(); ++i) {
+        u32 type = i;    //補間関数の種類
 
         auto ease = GetEaseFunction(static_cast<EaseType>(type));
 
         // 補間関数名を表示
-        u32  y           = 80 + i * 20;
-        u32  stringWidth = GetDrawStringWidth(easeName[type], static_cast<int>(strlen(easeName[type])));
-        bool isOdd       = i & 1;   // 1:奇数 0:偶数
-        auto fontColor   = isOdd ? GetColor(255, 128, 128) : GetColor(128, 255, 128);
+        u32 y           = 80 + i * 20;
+        u32 stringWidth = GetDrawStringWidth(
+            easeName[type], static_cast<int>(strlen(easeName[type])));
+        bool isOdd = i & 1;    // 1:奇数 0:偶数
+        auto fontColor =
+            isOdd ? GetColor(255, 128, 128) : GetColor(128, 255, 128);
 
         DrawString(startX - 8 - stringWidth, y, easeName[type],
-                   fontColor);                                // 左側 - 右詰め
-        DrawString(endX + 8, y, easeName[type], fontColor);   // 右側 - 左詰め
+                   fontColor);    // 左側 - 右詰め
+        DrawString(endX + 8, y, easeName[type], fontColor);    // 右側 - 左詰め
 
         // 補間後の位置をボックスで表示
         drawMark(ease(t_), y, fontColor);
@@ -122,8 +129,7 @@ void SceneEaseCurve::Draw()
 //---------------------------------------------------------------------------
 //! 終了
 //---------------------------------------------------------------------------
-void SceneEaseCurve::Exit()
-{
+void SceneEaseCurve::Exit() {
     // グリッド表示をON
     ShowGrid(true);
 }
@@ -131,6 +137,4 @@ void SceneEaseCurve::Exit()
 //---------------------------------------------------------------------------
 //! GUI表示
 //---------------------------------------------------------------------------
-void SceneEaseCurve::GUI()
-{
-}
+void SceneEaseCurve::GUI() {}

@@ -9,8 +9,7 @@
 //---------------------------------------------------------------------------
 //@{
 
-enum class PAD_NO : u32
-{
+enum class PAD_NO : u32 {
     PAD_NO1 = 0,
     PAD_NO2,
     PAD_NO3,
@@ -24,8 +23,7 @@ enum class PAD_NO : u32
 //! ボタン種別
 //---------------------------------------------------------------------------
 //@{
-enum class PAD_ID : u32
-{
+enum class PAD_ID : u32 {
     PAD_UP = 0,
     PAD_DOWN,
     PAD_LEFT,
