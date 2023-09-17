@@ -90,7 +90,7 @@ namespace LittleQuest {
 
             float rot_y = 0.0f;
 
-            bool isDie     = false;
+            bool isDie         = false;
             float destroyTimer = 5;
     };
 }    // namespace LittleQuest

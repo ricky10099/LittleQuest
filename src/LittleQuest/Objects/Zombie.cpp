@@ -55,7 +55,7 @@ namespace LittleQuest {
         col->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY);
         col->UseGravity();
 
-        //setHP(50);
+        // setHP(50);
 
         return true;
     }

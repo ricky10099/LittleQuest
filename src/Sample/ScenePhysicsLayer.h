@@ -35,7 +35,7 @@ class ScenePhysicsLayer final : public Scene::Base {
         std::shared_ptr<Model> model_cone_;      //!< 三角コーン
 
         std::shared_ptr<physics::Character>
-            character_;    //!< キャラクターコントローラー
+            character_;                                      //!< キャラクターコントローラー
         std::shared_ptr<physics::RigidBody> body_floor_;     //!< 床
         std::shared_ptr<physics::RigidBody> rigid_body0_;    //!< 剛体
         std::shared_ptr<physics::RigidBody> rigid_body1_;    //!< 剛体

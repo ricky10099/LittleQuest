@@ -101,7 +101,7 @@ namespace Tutorial {
     bool Tutorial_12::Init() {
         //
         Scene::CreateObjectPtr<
-            Object>()    // タイトルとかゲームのプレイヤーなど
+            Object>()                            // タイトルとかゲームのプレイヤーなど
             ->SetName("Obj-Camera")              //
             ->AddComponent<ComponentCamera>()    //< 標準カメラ
             ->SetPerspective(45)                 //< 画角

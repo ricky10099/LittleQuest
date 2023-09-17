@@ -1,4 +1,7 @@
 ﻿#include "Player.h"
+#include "Enemy.h"
+#include "Camera.h"
+
 #include "../Components/ComponentHP.h"
 #include <LittleQuest/Scenes/GameOverScene.h>
 
@@ -11,9 +14,6 @@
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
 #include <System/Component/ComponentTargetTracking.h>
-
-#include "Camera.h"
-#include "Enemy.h"
 
 namespace LittleQuest {
 
@@ -114,9 +114,9 @@ namespace LittleQuest {
 
         // #ifdef USE_MOUSE_CAMERA
         // カメラ方向を取得してその方向に動かす
-        auto cam = Scene::GetObjectPtr<Camera>("PlayerCamera");
-        float3 v = GetTranslate() - cam->GetTranslate();
-        mat      = HelperLib::Math::CreateMatrixByFrontVector(-v);
+        auto cam        = Scene::GetObjectPtr<Camera>("PlayerCamera");
+        float3 v        = GetTranslate() - cam->GetTranslate();
+        mat             = HelperLib::Math::CreateMatrixByFrontVector(-v);
         float camLength = cam->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
         // カメラ距離の調整
         camLength -= GetMouseWheelRotVol() * 3;
@@ -286,8 +286,8 @@ namespace LittleQuest {
                 // 攻撃判定終わる時間
                 if (modelPtr->GetAnimationTime() > 0.9f) {
                     if (!isCombo) {
-                        isAttack = false;
-                        combo    = 0;
+                        isAttack    = false;
+                        combo       = 0;
                         playerState = PlayerState::IDLE;
                     } else {
                         combo   = 2;

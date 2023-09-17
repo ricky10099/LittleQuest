@@ -1,4 +1,5 @@
 ﻿#include "Enemy.h"
+#include "Camera.h"
 #include "../Components/ComponentHP.h"
 
 #include <System/Component/Component.h>
@@ -10,8 +11,6 @@
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
 #include <System/Component/ComponentTargetTracking.h>
-
-#include "Camera.h"
 
 namespace LittleQuest {
 
@@ -32,7 +31,7 @@ namespace LittleQuest {
             state       = EnemyState::PATROL;
         }
 
-        isAttack  = false;
+        isAttack = false;
         isBusy   = false;
 
         return true;
@@ -49,9 +48,9 @@ namespace LittleQuest {
         }
 
         // アニメション中断させないため
-        //if (state != EnemyState::GET_HIT && state != EnemyState::ATTACK
+        // if (state != EnemyState::GET_HIT && state != EnemyState::ATTACK
         //    && state != EnemyState::WAIT) {
-        if (!isBusy){
+        if (!isBusy) {
             if (isFoundPlayer()) {
                 state = EnemyState::CHASING;
             } else {
@@ -127,7 +126,7 @@ namespace LittleQuest {
     }
 
     bool Enemy::isFoundPlayer() {
-        auto player     = Scene::GetObjectPtr<Player>("Player");
+        auto player = Scene::GetObjectPtr<Player>("Player");
 
         // TODO:プレイヤーが前にいるかどうか
         //    float3 front  = this->GetTranslate() + float3{0, 0, 1};
@@ -197,7 +196,7 @@ namespace LittleQuest {
         waitTime -= deltaTime;
 
         if (waitTime <= 0.0f) {
-            state = EnemyState::IDLE;
+            state     = EnemyState::IDLE;
             animCheck = AnimCheck::NONE;
             isBusy    = false;
         }

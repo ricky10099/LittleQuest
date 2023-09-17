@@ -12,19 +12,15 @@ namespace LittleQuest {
         float3 ownerPos = owner->GetTranslate();
         VECTOR worldVec = cast(ownerPos);
         worldVec.y += 11;
-        pos2D      = ConvWorldPosToScreenPos(worldVec);
+        pos2D = ConvWorldPosToScreenPos(worldVec);
     }
 
     void ComponentHP::Draw() {
         Super::Draw();
-        DrawFillBox(pos2D.x - 101, pos2D.y - 1, pos2D.x + 101, pos2D.y + 11,
-                    GetColor(255, 0, 0));
-        DrawFillBox(pos2D.x - 100, pos2D.y,
-                    pos2D.x - 100 + ((currHP / (float)maxHP) * 200),
-                    pos2D.y + 10, GetColor(255, 255, 0));
-
-        printfDx("\ncurrHP: %i", currHP);
-        printfDx("\nmaxHP: %i", maxHP);
+        DrawFillBox((int)pos2D.x - 101, (int)pos2D.y - 1, (int)pos2D.x + 101, (int)pos2D.y + 11, GetColor(255, 0, 0));
+        DrawFillBox((int)pos2D.x - 100, (int)pos2D.y, 
+                    (int)(pos2D.x - 100 + ((currHP / (float)maxHP) * 200)), (int)pos2D.y + 10,
+                    GetColor(255, 255, 0));
     }
 
     void ComponentHP::GUI() {

@@ -28,23 +28,23 @@ class SceneFps final : public Scene::Base {
 
         std::shared_ptr<Model> model_field_;    //!< 背景3Dモデル
 
-        std::shared_ptr<Model> model_;            //!< 3Dモデル
-        std::shared_ptr<Animation> animation_;    //!< アニメーション
-        std::shared_ptr<Texture> tex_diffuse_;    //!< ディフューズテクスチャ
+        std::shared_ptr<Model> model_;             //!< 3Dモデル
+        std::shared_ptr<Animation> animation_;     //!< アニメーション
+        std::shared_ptr<Texture> tex_diffuse_;     //!< ディフューズテクスチャ
         std::shared_ptr<Texture> tex_specular_;    //!< スペキュラーテクスチャ
-        std::shared_ptr<Texture> tex_albedo_;    //!< アルベドテクスチャ
-        std::shared_ptr<Texture> tex_normal_;    //!< 法線テクスチャ
-        std::shared_ptr<Texture> tex_ao_;    //!< AmbientOcclusionテクスチャ
+        std::shared_ptr<Texture> tex_albedo_;      //!< アルベドテクスチャ
+        std::shared_ptr<Texture> tex_normal_;      //!< 法線テクスチャ
+        std::shared_ptr<Texture> tex_ao_;          //!< AmbientOcclusionテクスチャ
 
-        std::shared_ptr<Model> model_knife_;         //!< 3Dモデル
-        std::shared_ptr<Texture> tex_kn0_albedo_;    //!< アルベドテクスチャ
-        std::shared_ptr<Texture> tex_kn0_normal_;    //!< 法線テクスチャ
+        std::shared_ptr<Model> model_knife_;            //!< 3Dモデル
+        std::shared_ptr<Texture> tex_kn0_albedo_;       //!< アルベドテクスチャ
+        std::shared_ptr<Texture> tex_kn0_normal_;       //!< 法線テクスチャ
         std::shared_ptr<Texture> tex_kn0_roughness_;    //!< ラフネステクスチャ
         std::shared_ptr<Texture>
             tex_kn0_metalness_;    //!< メタルネステクスチャ
 
-        std::shared_ptr<Texture> tex_kn1_albedo_;    //!< アルベドテクスチャ
-        std::shared_ptr<Texture> tex_kn1_normal_;    //!< 法線テクスチャ
+        std::shared_ptr<Texture> tex_kn1_albedo_;       //!< アルベドテクスチャ
+        std::shared_ptr<Texture> tex_kn1_normal_;       //!< 法線テクスチャ
         std::shared_ptr<Texture> tex_kn1_roughness_;    //!< ラフネステクスチャ
         std::shared_ptr<Texture>
             tex_kn1_metalness_;    //!< メタルネステクスチャ

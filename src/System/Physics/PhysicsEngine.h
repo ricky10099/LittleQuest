@@ -25,8 +25,8 @@ namespace physics {
     //--------------------------------------------------------------
     struct RayCastResult {
             u64 body_id_;    // ボディID
-            f32 t_;    // 衝突点のパラメーターt  hit_position = start + t * (end
-                       // - start)
+            f32 t_;          // 衝突点のパラメーターt  hit_position = start + t * (end
+                             // - start)
     };
 
     //===========================================================================

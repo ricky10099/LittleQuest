@@ -19,7 +19,7 @@ class ComponentCamera : public Component {
         virtual void Update() override;        //!< カメラ更新
         virtual void PostUpdate() override;    //!< カメラ更新
         virtual void Draw()
-            override;    //!< 標準カメラや別のカメラから見た時のカメラモデルを表示する
+            override;                    //!< 標準カメラや別のカメラから見た時のカメラモデルを表示する
         virtual void Exit() override;    //!< カメラ終了処理
         virtual void GUI() override;     //!< カメラGUI処理
 
@@ -118,10 +118,10 @@ class ComponentCamera : public Component {
         //! モデルステータス
         //---------------------------------------------------------------------------
         enum struct CameraBit : u32 {
-            Initialized,       //!< 初期化済み
-            EnableTimeLine,    //!< TimelineComponentを利用して移動する
-            ChangeReq,         //!< カレントカメラ変更リクエスト
-            Current,           //!< 現状のカレントのカメラ
+            Initialized,           //!< 初期化済み
+            EnableTimeLine,        //!< TimelineComponentを利用して移動する
+            ChangeReq,             //!< カレントカメラ変更リクエスト
+            Current,               //!< 現状のカレントのカメラ
             UpdateOnPreUpdate,     //!< PreUpdate時に更新する
             UpdateOnUpdate,        //!< Update時に更新する
             UpdateOnPostUpdate,    //!< PostUpdate時に更新する
@@ -147,7 +147,7 @@ class ComponentCamera : public Component {
         float far_z_        = 10000.0f;        //!< Far
 
         matrix
-            mat_view_;    //!< ビュー行列。Updateで計算、Draw手前で使用している
+            mat_view_;       //!< ビュー行列。Updateで計算、Draw手前で使用している
         matrix mat_proj_;    //!< 投影行列。Updateで計算、Draw手前で使用している
 
         Frustum frustum_{};
@@ -184,7 +184,7 @@ class ComponentCamera : public Component {
             arc(CEREAL_NVP(position_), CEREAL_NVP(look_at_),
                 CEREAL_NVP(up_));    //< カメラ位置とターゲット
             arc(CEREAL_NVP(aspect_ratio_),
-                CEREAL_NVP(fovy_));    //< アスペクト比と画角
+                CEREAL_NVP(fovy_));                          //< アスペクト比と画角
             arc(CEREAL_NVP(near_z_), CEREAL_NVP(far_z_));    //< Near/Far
             arc(CEREAL_NVP(current_camera_));
             arc(cereal::make_nvp("Component",

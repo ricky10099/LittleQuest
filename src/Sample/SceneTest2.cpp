@@ -25,7 +25,8 @@ namespace Sample {
         constexpr int HP_BAR_H = 50;
         class HpGauge {
             public:
-                HpGauge(int hp = 100) : hp_(hp), damage_(hp), org_hp_(hp) {
+                HpGauge(int hp = 100)
+                    : hp_(hp), damage_(hp), org_hp_(hp) {
                     // 位置
                     pos_ = float3(WINDOW_W - (HP_BAR_W + 20), 0, 50);
                 }
@@ -107,9 +108,9 @@ namespace Sample {
             private:
                 float3 pos_ = float3(0, 0, 0);    // 位置
                 int hp_;                          // HP（水色のバー）
-                int damage_;    // ダメージ（赤色のバー）
+                int damage_;                      // ダメージ（赤色のバー）
                 int damage_frame_ =
-                    0;    // ダメージが与えられた後、赤いゲージが減るまで待つ用
+                    0;          // ダメージが与えられた後、赤いゲージが減るまで待つ用
                 int org_hp_;    // HPの基本量
         };
 

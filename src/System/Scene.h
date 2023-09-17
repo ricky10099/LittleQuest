@@ -68,7 +68,7 @@ class Scene {
                 virtual void Exit(){};                   //!< 終了
                 virtual void GUI(){};                    //!< GUI表示
 
-                virtual void PreUpdate(){};    //!< 更新前処理
+                virtual void PreUpdate(){};     //!< 更新前処理
                 virtual void LateUpdate(){};    //!< 通常更新の後更新処理
                 virtual void PrePhysics(){};    //!< 物理前(アクション後)処理
                 virtual void PostUpdate(){};    //!< 更新後(物理後)処理
@@ -248,8 +248,8 @@ class Scene {
                 void resetProc(ComponentPtr component, SlotProc& slot);
 
                 ObjectPtrVec
-                    pre_objects_;    //!< シーンに存在させるオブジェクト(仮登録)
-                ObjectPtrVec objects_;    //!< シーンに存在するオブジェクト
+                    pre_objects_;             //!< シーンに存在させるオブジェクト(仮登録)
+                ObjectPtrVec objects_;        //!< シーンに存在するオブジェクト
                 Status<StatusBit> status_;    //!< 状態
 
                 // プロセスタイミングによるシグナル (実行処理)

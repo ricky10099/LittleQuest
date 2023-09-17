@@ -24,7 +24,7 @@ namespace {
     bool scene_pause    = false;    //!< ポーズ中
     bool scene_step     = false;    //!< 1フレームスキップ
     float scene_time    = 0.0f;     //!< タイマー
-    float scene_overlap = 0.0f;    //!< シーン切り替えオーバーラップ
+    float scene_overlap = 0.0f;     //!< シーン切り替えオーバーラップ
 
     bool scene_change_next = false;    //!< 次のシーンへ移行する
 
@@ -41,9 +41,15 @@ namespace {
         using ObjectType = void (Object::*)();
 
         ObjectType func_table[] = {
-            &Object::PreUpdate,  &Object::Update,     &Object::LateUpdate,
-            &Object::PrePhysics, &Object::PostUpdate, &Object::PreDraw,
-            &Object::Draw,       &Object::LateDraw,   &Object::PostDraw,
+            &Object::PreUpdate,
+            &Object::Update,
+            &Object::LateUpdate,
+            &Object::PrePhysics,
+            &Object::PostUpdate,
+            &Object::PreDraw,
+            &Object::Draw,
+            &Object::LateDraw,
+            &Object::PostDraw,
         };
 
         assert(static_cast<u32>(proc) < static_cast<u32>(ProcTiming::NUM));
@@ -129,10 +135,14 @@ namespace {
         using ComponentType = void (Component::*)();
 
         ComponentType func_table[] = {
-            &Component::PreUpdate,  &Component::Update,
-            &Component::LateUpdate, &Component::PrePhysics,
-            &Component::PostUpdate, &Component::PreDraw,
-            &Component::Draw,       &Component::LateDraw,
+            &Component::PreUpdate,
+            &Component::Update,
+            &Component::LateUpdate,
+            &Component::PrePhysics,
+            &Component::PostUpdate,
+            &Component::PreDraw,
+            &Component::Draw,
+            &Component::LateDraw,
             &Component::PostDraw,
         };
 
@@ -179,9 +189,9 @@ namespace {
 
 }    // namespace
 
-Scene::BasePtr Scene::current_scene_ = nullptr;    //!< 現在のシーン
-Scene::BasePtr Scene::next_scene_    = nullptr;    //!< 変更シーン
-Scene::BasePtrMap Scene::scenes_     = {};         //!< 存在する全シーン
+Scene::BasePtr Scene::current_scene_ = nullptr;          //!< 現在のシーン
+Scene::BasePtr Scene::next_scene_    = nullptr;          //!< 変更シーン
+Scene::BasePtrMap Scene::scenes_     = {};               //!< 存在する全シーン
 Status<Scene::EditorStatusBit> Scene::editor_status_;    //!< シーン状態
 float2 Scene::inspector_size{300, 300};
 float2 Scene::object_detail_size{300, 452};
@@ -223,10 +233,10 @@ void Scene::Base::SetPriority(ComponentPtr component, ProcTiming timing,
     constexpr int prio_component_offset = 10;
     // 以前いるプライオリティから削除し、
     // 設定したい優先に設定する
-    auto& proc     = component->GetProc(GetProcTimingName(timing), timing);
-    proc.timing_   = timing;
-    proc.priority_ = Priority((int)(priority) + prio_component_offset);
-    proc.proc_     = BindComponent(timing, component);
+    auto& proc                          = component->GetProc(GetProcTimingName(timing), timing);
+    proc.timing_                        = timing;
+    proc.priority_                      = Priority((int)(priority) + prio_component_offset);
+    proc.proc_                          = BindComponent(timing, component);
     resetProc(component, proc);
     setProc(component, proc);
 }
@@ -304,9 +314,9 @@ void Scene::Base::Register(ObjectPtr obj, Priority update, Priority draw) {
     proc_postupdate.dirty_    = false;
     setProc(obj, proc_postupdate);
 
-    auto& proc_predraw   = obj->GetProc(GetProcTimingName(ProcTiming::PreDraw),
-                                        ProcTiming::PreDraw);
-    proc_predraw.timing_ = ProcTiming::PreDraw;
+    auto& proc_predraw     = obj->GetProc(GetProcTimingName(ProcTiming::PreDraw),
+                                          ProcTiming::PreDraw);
+    proc_predraw.timing_   = ProcTiming::PreDraw;
     proc_predraw.priority_ = draw;
     proc_predraw.proc_     = BindObject(ProcTiming::PreDraw, obj);
     proc_predraw.dirty_    = false;
@@ -320,16 +330,16 @@ void Scene::Base::Register(ObjectPtr obj, Priority update, Priority draw) {
     proc_draw.dirty_    = false;
     setProc(obj, proc_draw);
 
-    auto& proc_latedraw = obj->GetProc(GetProcTimingName(ProcTiming::LateDraw),
-                                       ProcTiming::LateDraw);
+    auto& proc_latedraw     = obj->GetProc(GetProcTimingName(ProcTiming::LateDraw),
+                                           ProcTiming::LateDraw);
     proc_latedraw.timing_   = ProcTiming::LateDraw;
     proc_latedraw.priority_ = draw;
     proc_latedraw.proc_     = BindObject(ProcTiming::LateDraw, obj);
     proc_latedraw.dirty_    = false;
     setProc(obj, proc_latedraw);
 
-    auto& proc_postdraw = obj->GetProc(GetProcTimingName(ProcTiming::PostDraw),
-                                       ProcTiming::PostDraw);
+    auto& proc_postdraw     = obj->GetProc(GetProcTimingName(ProcTiming::PostDraw),
+                                           ProcTiming::PostDraw);
     proc_postdraw.timing_   = ProcTiming::PostDraw;
     proc_postdraw.priority_ = draw;
     proc_postdraw.proc_     = BindObject(ProcTiming::PostDraw, obj);
@@ -622,8 +632,7 @@ void Scene::checkSerialized(ObjectPtr obj) {
 
         if (p.GetProc() == nullptr && p.GetAddProc() == nullptr) {
             assert(
-                0 &&
-                "SetProcで追加した処理がSerializeされません。処理をProcAddProc()で作成して登録するか、初期化する同じシーンを選択しInitSerialize()で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
+                0 && "SetProcで追加した処理がSerializeされません。処理をProcAddProc()で作成して登録するか、初期化する同じシーンを選択しInitSerialize()で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
 
             itr = obj->proc_timings_.erase(itr);
             continue;
@@ -650,8 +659,7 @@ void Scene::checkSerialized(ComponentPtr comp) {
 
         if (p.GetProc() == nullptr && p.GetAddProc() == nullptr) {
             assert(
-                0 &&
-                "SetProcで追加した処理がSerializeされません。処理をProcAddProc()で作成して登録するか、初期化する同じシーンを選択しInitSerialize()で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
+                0 && "SetProcで追加した処理がSerializeされません。処理をProcAddProc()で作成して登録するか、初期化する同じシーンを選択しInitSerialize()で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
 
             itr = comp->proc_timings_.erase(itr);
             continue;
@@ -693,8 +701,7 @@ void Scene::SetNextScene(BasePtr scene) {
         // 同じ名前のシーンを削除
         // TODO log/ensure処理
         assert(
-            0 &&
-            "すでに同じタイプのシーンが用意されています。前のシーンは「無視」を押すことで削除して進めることができます");
+            0 && "すでに同じタイプのシーンが用意されています。前のシーンは「無視」を押すことで削除して進めることができます");
         Base::ReleaseScene(scene);
     }
 
@@ -734,8 +741,7 @@ void Scene::CheckLeak() {
 
                 if (leak) {
                     std::string str =
-                        "オブジェクト名: " + std::string(o->GetName()) +
-                        "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
+                        "オブジェクト名: " + std::string(o->GetName()) + "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
                     MessageBox(GetMainWindowHandle(), str.c_str(),
                                "Objectが正しく解放できませんでした.", MB_OK);
                 }
@@ -772,8 +778,7 @@ void Scene::ChangeNextScene() {
 
                 if (leak) {
                     std::string str =
-                        "オブジェクト名: " + std::string(o->GetName()) +
-                        "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
+                        "オブジェクト名: " + std::string(o->GetName()) + "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
                     MessageBox(GetMainWindowHandle(), str.c_str(),
                                "Objectが正しく解放できませんでした.", MB_OK);
                 }

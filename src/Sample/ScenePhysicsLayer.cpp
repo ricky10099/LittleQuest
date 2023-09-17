@@ -186,7 +186,7 @@ void ScenePhysicsLayer::Update() {
         // 操作
         //----------------------------------------------------------
         float3 move_direction(0.0f, 0.0f, 0.0f);    // 移動ベクトル
-        f32 character_speed_ = 1.0f;    // キャラクターの移動速度スケール
+        f32 character_speed_ = 1.0f;                // キャラクターの移動速度スケール
 
         if (IsKeyRepeat(KEY_INPUT_A)) {
             move_direction.x -= 1.0f;
@@ -312,7 +312,7 @@ void ScenePhysicsLayer::Draw() {
         // 位置の上側に表示
 
         s32 x =
-            static_cast<s32>(screen_position.x) - width / 2;    // センタリング
+            static_cast<s32>(screen_position.x) - width / 2;     // センタリング
         s32 y = static_cast<s32>(screen_position.y) - height;    // 上詰め
 
         DrawFormatString(x - 1, y - 1, GetColor(0, 0, 0), message);
@@ -538,7 +538,7 @@ void ScenePhysicsLayer::ResetPhysics() {
     //==========================================================
     body_floor_ = physics::createRigidBody(
         shape::Box{float3(63.0f, 1.0f, 63.0f)},
-        MyLayer::Static,    // [Layer] 動かないオブジェクト
+        MyLayer::Static,                 // [Layer] 動かないオブジェクト
         physics::MotionType::Static);    // 静的
     body_floor_->setPosition(float3(0.0f, -1.0f, 0.0f));
 

@@ -29,6 +29,6 @@ class SceneCharacter final : public Scene::Base {
         std::shared_ptr<physics::RigidBody> body_mesh_;    //!< 床
 
         std::shared_ptr<physics::Character>
-            character_;    //!< キャラクターコントローラー
+            character_;                                   //!< キャラクターコントローラー
         std::shared_ptr<physics::RigidBody> body_env_;    //!< 地形衝突情報
 };
