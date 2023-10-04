@@ -144,34 +144,42 @@ namespace LittleQuest {
             }
         }
 
-        if (!isAttack) {
+        /*if (!isAttack) */{
             if (IsKeyRepeat(KEY_INPUT_W)) {
                 float3 vec = mat.axisZ();
                 vec.y      = 0;
                 move += -vec;
-                isWalk      = true;
-                playerState = PlayerState::WALK;
+                if (!isAttack) {
+                    isWalk      = true;
+                    playerState = PlayerState::WALK;
+                }
             }
             if (IsKeyRepeat(KEY_INPUT_D)) {
                 float3 vec = mat.axisX();
                 vec.y      = 0;
                 move += -vec;
+                if (!isAttack) {
                 isWalk      = true;
                 playerState = PlayerState::WALK;
+                }
             }
             if (IsKeyRepeat(KEY_INPUT_S)) {
                 float3 vec = mat.axisZ();
                 vec.y      = 0;
                 move += vec;
+                if (!isAttack) {
                 isWalk      = true;
                 playerState = PlayerState::WALK;
+                }
             }
             if (IsKeyRepeat(KEY_INPUT_A)) {
                 float3 vec = mat.axisX();
                 vec.y      = 0;
                 move += vec;
+                if (!isAttack) {
                 isWalk      = true;
                 playerState = PlayerState::WALK;
+                }
             }
         }
 #pragma endregion
@@ -184,7 +192,7 @@ namespace LittleQuest {
             case PlayerState::DAMAGED:
                 break;
             case PlayerState::ATTACK:
-                Attack();
+                Attack(move);
                 break;
             case PlayerState::JUMP:
                 break;
@@ -196,7 +204,7 @@ namespace LittleQuest {
                 break;
         }
 
-        move *= speed_ * GetDeltaTime60();
+        move *= speed_ * !isAttack * GetDeltaTime60();
 
         // 地面移動スピードを決定する
         AddTranslate(move);
@@ -275,10 +283,15 @@ namespace LittleQuest {
 
     void Player::Jump() {}
 
-    void Player::Attack() {
+    void Player::Attack(float3& move) {
         if (auto modelPtr = GetComponent<ComponentModel>()) {
+
             if (combo == 1) {
                 if (modelPtr->GetPlayAnimationName() != "attack1") {
+                    float x     = -move.x;
+                    float z     = -move.z;
+                    float theta = atan2(x, z) * RadToDeg - rot_y_;
+                    modelPtr->SetRotationAxisXYZ({0, theta, 0});
                     modelPtr->PlayAnimation("attack1");
                     attackList.clear();
                 }
@@ -302,6 +315,10 @@ namespace LittleQuest {
 
             if (combo == 2) {
                 if (modelPtr->GetPlayAnimationName() != "attack2") {
+                    float x     = -move.x;
+                    float z     = -move.z;
+                    float theta = atan2(x, z) * RadToDeg - rot_y_;
+                    modelPtr->SetRotationAxisXYZ({0, theta, 0});
                     modelPtr->PlayAnimationNoSame("attack2");
                     attackList.clear();
                 }
@@ -324,6 +341,10 @@ namespace LittleQuest {
 
             if (combo == 3) {
                 if (modelPtr->GetPlayAnimationName() != "attack3") {
+                    float x     = -move.x;
+                    float z     = -move.z;
+                    float theta = atan2(x, z) * RadToDeg - rot_y_;
+                    modelPtr->SetRotationAxisXYZ({0, theta, 0});
                     modelPtr->PlayAnimationNoSame("attack3");
                     attackList.clear();
                 }

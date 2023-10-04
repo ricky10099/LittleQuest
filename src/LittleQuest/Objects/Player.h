@@ -79,7 +79,7 @@ namespace LittleQuest {
             void Idle();
             void Walk(float3& position);
             void Jump();
-            void Attack();
+            void Attack(float3& position);
 
             SwordPtr sword;
 
