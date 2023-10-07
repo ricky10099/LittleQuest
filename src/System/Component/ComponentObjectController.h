@@ -66,7 +66,7 @@ class ComponentObjectController : public Component {
 
         ObjectWeakPtr target_;
         float target_cam_side_speed_ =
-            3.0f;                            //!< ロックオン時のカーソル移動速度
+            3.0f;    //!< ロックオン時のカーソル移動速度
         float target_cam_up_down = 10.0f;    //!< ターゲットを見る際の上下固定
 
         //--------------------------------------------------------------------

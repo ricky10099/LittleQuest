@@ -208,7 +208,7 @@ bool ModelCache::save(int mv1_handle) const {
     stream.write(reinterpret_cast<char*>(&file_version), sizeof(file_version));
 
     u32 vertex_count = static_cast<u32>(varray.size());    // 頂点数
-    u32 index_count  = static_cast<u32>(iarray.size());    // インデックス数
+    u32 index_count = static_cast<u32>(iarray.size());    // インデックス数
     stream.write(reinterpret_cast<char*>(&vertex_count), sizeof(vertex_count));
     stream.write(reinterpret_cast<char*>(&index_count), sizeof(index_count));
 

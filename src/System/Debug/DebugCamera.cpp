@@ -119,7 +119,7 @@ namespace DebugCamera {
                         // * 0.003f );
 
                         auto f_v = front;
-                        f_v.y    = 0.0f;    // 地面に沿った平行な向きに進む
+                        f_v.y = 0.0f;    // 地面に沿った平行な向きに進む
 
                         tgt_pos_ = mul(float4(tgt_new_, 1), rot_y).xyz
                                    + cam_pos_ + f_v * (-mouse_vec_.y);
@@ -140,7 +140,7 @@ namespace DebugCamera {
                     cam->SetCameraStatus(
                         ComponentCamera::CameraBit::DebugCamera, true);
 
-                    SetCameraViewMatrix(mat_view_);             // ビュー行列
+                    SetCameraViewMatrix(mat_view_);    // ビュー行列
                     SetupCamera_ProjectionMatrix(mat_proj_);    // 投影行列
                 }
             }

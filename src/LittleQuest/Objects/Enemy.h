@@ -71,6 +71,10 @@ namespace LittleQuest {
             };
             AnimCheck animCheck;
 
+            ObjectWeakPtr player;
+
+            //巡行関係
+            bool isPatrol;
             float3 startPoint;
             float3 endPoint;
             float3 goal;
@@ -82,7 +86,7 @@ namespace LittleQuest {
             bool isHitPlayer;
 
             const float speedBase = 0.3f;
-            const float walkVal   = 0.3f;
+            const float walkVal   = 0.5f;
             const float runVal    = 1.f;
             float speedFactor     = 1.0f;
 

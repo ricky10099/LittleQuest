@@ -33,8 +33,12 @@ namespace LittleQuest {
         // posの位置に設定
         player->SetTranslate(pos);
 
+        auto HP = player->AddComponent<ComponentHP>();
+        HP->SetHP(100);
+
         {
-            auto sword = Sword::Create("PlayerSword", float3{0, 0, 0});
+            auto sword = Scene::CreateObjectPtr<Object>(
+                "PlayerSword" /*, float3{0, 0, 0}*/);
             sword->SetTranslate({0, 0, 0});
 
             // オブジェクトにモデルをつける
@@ -53,9 +57,6 @@ namespace LittleQuest {
                 attach->SetAttachOffset({10, 13, -3});
             }
         }
-
-        auto HP = player->AddComponent<ComponentHP>();
-        HP->SetHP(100);
 
         return player;
     }
@@ -87,7 +88,8 @@ namespace LittleQuest {
             colCap->SetRadius(2.5);
             colCap->SetHeight(10);
             colCap->UseGravity();
-            colCap->SetCollisionGroup(ComponentCollision::CollisionGroup::PLAYER);
+            colCap->SetCollisionGroup(
+                ComponentCollision::CollisionGroup::PLAYER);
         }
 
         // コリジョン(武器)
@@ -95,8 +97,10 @@ namespace LittleQuest {
             colLine->AttachToModel("mixamorig:RightHand");
             colLine->SetTranslate({0, 0, 0});
             colLine->SetLine(float3{0, 15, 0}, float3{110, 15, 1});
-            colLine->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
-            colLine->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
+            colLine->SetCollisionGroup(
+                ComponentCollision::CollisionGroup::WEAPON);
+            colLine->SetHitCollisionGroup(
+                (u32)ComponentCollision::CollisionGroup::ENEMY);
             colLine->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
             colLine->SetName("SwordCol");
         }
@@ -114,10 +118,11 @@ namespace LittleQuest {
 
         // #ifdef USE_MOUSE_CAMERA
         // カメラ方向を取得してその方向に動かす
-        auto cam        = Scene::GetObjectPtr<Camera>("PlayerCamera");
-        float3 v        = GetTranslate() - cam->GetTranslate();
-        mat             = HelperLib::Math::CreateMatrixByFrontVector(-v);
-        float camLength = cam->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
+        auto cam = Scene::GetObjectPtr<Camera>("PlayerCamera");
+        float3 v = GetTranslate() - cam->GetTranslate();
+        mat      = HelperLib::Math::CreateMatrixByFrontVector(-v);
+        float camLength =
+            cam->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
         // カメラ距離の調整
         camLength -= GetMouseWheelRotVol() * 3;
         if (camLength < 10) {
@@ -144,7 +149,7 @@ namespace LittleQuest {
             }
         }
 
-        /*if (!isAttack) */{
+        /*if (!isAttack) */ {
             if (IsKeyRepeat(KEY_INPUT_W)) {
                 float3 vec = mat.axisZ();
                 vec.y      = 0;
@@ -159,8 +164,8 @@ namespace LittleQuest {
                 vec.y      = 0;
                 move += -vec;
                 if (!isAttack) {
-                isWalk      = true;
-                playerState = PlayerState::WALK;
+                    isWalk      = true;
+                    playerState = PlayerState::WALK;
                 }
             }
             if (IsKeyRepeat(KEY_INPUT_S)) {
@@ -168,8 +173,8 @@ namespace LittleQuest {
                 vec.y      = 0;
                 move += vec;
                 if (!isAttack) {
-                isWalk      = true;
-                playerState = PlayerState::WALK;
+                    isWalk      = true;
+                    playerState = PlayerState::WALK;
                 }
             }
             if (IsKeyRepeat(KEY_INPUT_A)) {
@@ -177,8 +182,8 @@ namespace LittleQuest {
                 vec.y      = 0;
                 move += vec;
                 if (!isAttack) {
-                isWalk      = true;
-                playerState = PlayerState::WALK;
+                    isWalk      = true;
+                    playerState = PlayerState::WALK;
                 }
             }
         }
@@ -216,10 +221,23 @@ namespace LittleQuest {
         // gauge_.Draw();
         printfDx("\ncombo:%d", combo);
         if (auto modelPtr = GetComponent<ComponentModel>()) {
+            float* mat = modelPtr->GetMatrixFloat();
+            float matrixTranslation[3], matrixRotation[3], matrixScale[3];
+            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation,
+                                        matrixScale);
             printfDx("\nAnimation Time:%f", modelPtr->GetAnimationTime());
+            printfDx("\nmodel rotx:%f", modelPtr->GetRotationAxisXYZ().x);
+            printfDx("\nmodel roty:%f", matrixRotation[1]);
+            printfDx("\nmodel rotz:%f", modelPtr->GetRotationAxisXYZ().z);
         }
         printfDx("\nisAttack: %i", isAttack);
         printfDx("\nisCombo: %i", isCombo);
+        float x, y, z;
+
+        printfDx("\nMatAYx: %f %f %f", GetMatrix().axisX().x,
+                 GetMatrix().axisX().y, GetMatrix().axisX().z);
+        printfDx("\nMatAYz: %f %f %f", GetRotationAxisXYZ().z,
+                 GetMatrix().axisZ().y, GetMatrix().axisZ().z);
     }
 
     void Player::GUI()    // override
@@ -227,7 +245,8 @@ namespace LittleQuest {
         Super::GUI();
     }
 
-    void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
+    void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo&
+                           hitInfo)    // override
     {
         // 武器の衝突判定
         if (hitInfo.collision_->GetName() == "SwordCol") {
@@ -271,10 +290,7 @@ namespace LittleQuest {
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             move = normalize(move);
 
-            float x     = -move.x;
-            float z     = -move.z;
-            float theta = atan2(x, z) * RadToDeg - rot_y_;
-            modelPtr->SetRotationAxisXYZ({0, theta, 0});
+            this->SetModelRotation(move);
 
             if (modelPtr->GetPlayAnimationName() != "walk")
                 modelPtr->PlayAnimation("walk", true, 0.2f, 14.0f);
@@ -284,14 +300,12 @@ namespace LittleQuest {
     void Player::Jump() {}
 
     void Player::Attack(float3& move) {
-        if (auto modelPtr = GetComponent<ComponentModel>()) {
 
+        if (auto modelPtr = GetComponent<ComponentModel>()) {
             if (combo == 1) {
                 if (modelPtr->GetPlayAnimationName() != "attack1") {
-                    float x     = -move.x;
-                    float z     = -move.z;
-                    float theta = atan2(x, z) * RadToDeg - rot_y_;
-                    modelPtr->SetRotationAxisXYZ({0, theta, 0});
+                    this->SetModelRotation(move);
+                    //modelPtr->SetRotationAxisXYZ({0, theta, 0});
                     modelPtr->PlayAnimation("attack1");
                     attackList.clear();
                 }
@@ -315,10 +329,8 @@ namespace LittleQuest {
 
             if (combo == 2) {
                 if (modelPtr->GetPlayAnimationName() != "attack2") {
-                    float x     = -move.x;
-                    float z     = -move.z;
-                    float theta = atan2(x, z) * RadToDeg - rot_y_;
-                    modelPtr->SetRotationAxisXYZ({0, theta, 0});
+                    this->SetModelRotation(move);
+                    // modelPtr->SetRotationAxisXYZ({0, theta, 0});
                     modelPtr->PlayAnimationNoSame("attack2");
                     attackList.clear();
                 }
@@ -341,10 +353,8 @@ namespace LittleQuest {
 
             if (combo == 3) {
                 if (modelPtr->GetPlayAnimationName() != "attack3") {
-                    float x     = -move.x;
-                    float z     = -move.z;
-                    float theta = atan2(x, z) * RadToDeg - rot_y_;
-                    modelPtr->SetRotationAxisXYZ({0, theta, 0});
+                    this->SetModelRotation(move);
+                    // modelPtr->SetRotationAxisXYZ({0, theta, 0});
                     modelPtr->PlayAnimationNoSame("attack3");
                     attackList.clear();
                 }
@@ -364,13 +374,23 @@ namespace LittleQuest {
         }
     }
 
+    void Player::SetModelRotation(float3& move) {
+        if (auto modelPtr = GetComponent<ComponentModel>()) {
+            if (move.x != 0 || move.z != 0) {
+                float x     = -move.x;
+                float z     = -move.z;
+                float theta = atan2(x, z) * RadToDeg;
+                modelPtr->SetRotationAxisXYZ({0, theta, 0});
+            }
+        }
+    }
+
     void Player::GetHit(int damage) {
         auto hpcomponent = GetComponent<ComponentHP>();
         hpcomponent->TakeDamage(damage);
 
         if (auto modelPtr = GetComponent<ComponentModel>()) {
-            if (hpcomponent->GetHP() > 0)
-                modelPtr->PlayAnimation("getHit");
+            if (hpcomponent->GetHP() > 0) modelPtr->PlayAnimation("getHit");
             else {
                 Scene::Change(Scene::GetScene<GameOverScene>());
             }

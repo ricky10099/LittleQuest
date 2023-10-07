@@ -30,7 +30,7 @@ bool FileWatcher::initialize(const wchar_t* path,
         FILE_SHARE_READ | FILE_SHARE_WRITE
             | FILE_SHARE_DELETE,    // [in] 共有モード
         nullptr,                    // [in] セキュリティ属性
-        OPEN_EXISTING,              // [in] フォルダが存在する場合にのみ成功
+        OPEN_EXISTING,    // [in] フォルダが存在する場合にのみ成功
         FILE_FLAG_BACKUP_SEMANTICS
             | FILE_FLAG_OVERLAPPED,    // [in] ReadDirectoryChangesW用
         nullptr);                      //
@@ -171,14 +171,14 @@ bool FileWatcher::start() {
     // 呼び出しで、前回通知後からの変更をまとめて受け取ることができる
     // バッファがあふれた場合はサイズ0で応答が返される
     if (!ReadDirectoryChangesW(
-            handle_directory_,                     // 対象ディレクトリ
-            buffer_.data(),                        // 通知を格納するバッファ
+            handle_directory_,    // 対象ディレクトリ
+            buffer_.data(),       // 通知を格納するバッファ
             static_cast<DWORD>(buffer_.size()),    // バッファサイズ
-            true,                                  // サブディレクトリを対象にするかどうか
-            filter,                                // 変更通知を受け取るフィルタ
-            nullptr,                               // (結果サイズ, 非同期なので未使用)
-            &overlapped_,                          // 非同期I/Oバッファ
-            nullptr                                // (完了ルーチン, 未使用)
+            true,      // サブディレクトリを対象にするかどうか
+            filter,    // 変更通知を受け取るフィルタ
+            nullptr,         // (結果サイズ, 非同期なので未使用)
+            &overlapped_,    // 非同期I/Oバッファ
+            nullptr          // (完了ルーチン, 未使用)
             )) {
         // 開始できなかった場合のエラー
         return false;

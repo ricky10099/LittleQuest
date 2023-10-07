@@ -18,12 +18,13 @@ namespace LittleQuest {
     //! @detail BP_OBJECT_TYPEとセットで用意する
     BP_OBJECT_IMPL(Mutant, "LittleQuest/Mutant");
 
-    MutantPtr Mutant::Create(const float3& pos, const float3& front) {
+    MutantPtr Mutant::Create(const float3& pos, bool isPatrol) {
         // 箱の作成
         auto enemy = Scene::CreateObjectDelayInitialize<Mutant>();
         enemy->SetName("Mutant");
 
         // vecの方向に向ける
+        const float3& front = {0, 0, 1};
         auto mat = HelperLib::Math::CreateMatrixByFrontVector(front);
         enemy->SetMatrix(mat);
 
@@ -33,18 +34,13 @@ namespace LittleQuest {
         auto hp = enemy->AddComponent<ComponentHP>();
         hp->SetHP(200);
 
+        enemy->isPatrol = isPatrol;
+
         return enemy;
     }
 
     bool Mutant::Init()    // override
     {
-        //巡行の座標を設定する
-        startPoint = this->GetTranslate() - float3{50, 0, 0};
-        patrolPoint.push_back(startPoint);
-
-        endPoint = this->GetTranslate() + float3{50, 0, 0};
-        patrolPoint.push_back(endPoint);
-
         Super::Init();
 
         // モデルコンポーネント(0.08倍)
@@ -77,8 +73,10 @@ namespace LittleQuest {
         colWeapon->SetRadius(0.5);
         colWeapon->SetHeight(4);
         colWeapon->SetRotationAxisXYZ({-10, 0, 20});
-        colWeapon->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
-        colWeapon->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
+        colWeapon->SetCollisionGroup(
+            ComponentCollision::CollisionGroup::WEAPON);
+        colWeapon->SetHitCollisionGroup(
+            (u32)ComponentCollision::CollisionGroup::PLAYER);
         colWeapon->Overlap((u32)ComponentCollision::CollisionGroup::PLAYER);
         colWeapon->SetName("MutantWeapon");
 
@@ -101,7 +99,8 @@ namespace LittleQuest {
         Super::GUI();
     }
 
-    void Mutant::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
+    void Mutant::OnHit([[maybe_unused]] const ComponentCollision::HitInfo&
+                           hitInfo)    // override
     {
         // 武器の衝突判定
         if (hitInfo.collision_->GetName() == "MutantWeapon") {

@@ -22,7 +22,8 @@ namespace LittleQuest {
 
     void GameTitleScene::Draw() {
         DrawGraph(0, 0, image, TRUE);
-        DrawFormatString(500, 500, GetColor(0, 0, 0), "Press Enter key to start");
+        DrawFormatString(500, 500, GetColor(0, 0, 0),
+                         "Press Enter key to start");
     }
 
     void GameTitleScene::Exit() {

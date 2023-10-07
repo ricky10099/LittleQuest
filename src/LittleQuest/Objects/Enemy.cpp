@@ -22,6 +22,15 @@ namespace LittleQuest {
     {
         Super::Init();
 
+        if (isPatrol) {
+            // 巡行の座標を設定する
+            startPoint = this->GetTranslate() - float3{50, 0, 0};
+            patrolPoint.push_back(startPoint);
+
+            endPoint = this->GetTranslate() + float3{50, 0, 0};
+            patrolPoint.push_back(endPoint);
+        }
+
         state     = EnemyState::IDLE;
         prevState = state;
 
@@ -33,6 +42,8 @@ namespace LittleQuest {
 
         isAttack = false;
         isBusy   = false;
+
+        player = Scene::GetObjectPtr<Player>("Player");
 
         return true;
     }
@@ -53,8 +64,10 @@ namespace LittleQuest {
         if (!isBusy) {
             if (isFoundPlayer()) {
                 state = EnemyState::CHASING;
-            } else {
+            } else if (!patrolPoint.empty()) {
                 state = EnemyState::PATROL;
+            } else {
+                state = EnemyState::IDLE;
             }
         }
 
@@ -102,7 +115,7 @@ namespace LittleQuest {
         printfDx("\nx: %f", float3(goal - GetTranslate())[0]);
         printfDx("\nz: %f", float3(goal - GetTranslate())[2]);
         printfDx("\nisFound: %i", isFoundPlayer());
-        printfDx("\ntargetDegree: %f", degree);
+        printfDx("\ntargetDegree: %f", GetDegreeToPosition(player.lock()->GetTranslate()));
         printfDx("\ndie timer: %f", destroyTimer);
     }
 
@@ -245,7 +258,7 @@ namespace LittleQuest {
             switch (animCheck) {
                 case AnimCheck::GETTING_HIT:
                     // アニメーション終わったら
-                    if (modelPtr->GetAnimationTime() > 0.58f) {
+                    if (modelPtr->GetAnimationTime() > 0.55f) {
                         state     = EnemyState::IDLE;
                         animCheck = AnimCheck::NONE;
                         isBusy    = false;

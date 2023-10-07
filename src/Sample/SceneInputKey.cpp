@@ -209,13 +209,13 @@ namespace {
             std::shared_ptr<Model> model_;            //!< 3Dモデル
             std::shared_ptr<Animation> animation_;    //!< アニメーション
             f32 key_release_frame_ =
-                0.f;                                            //!< キーが離されている間のフレーム数
-            float3 position_        = float3(0.f, 0.f, 0.f);    //!< 位置
-            u32 anim_status_        = 0;                        //!< 現在のアニメーション
-            u32 anim_status_prev_   = 0;                        //!< ひとつ前のアニメーション
-            bool is_jump_           = false;                    //!< ジャンプ中
-            int effect_handle_      = -1;                       //!< エフェクト
-            int effect_play_handle_ = -1;                       //!< エフェクト 再生用
+                0.f;    //!< キーが離されている間のフレーム数
+            float3 position_      = float3(0.f, 0.f, 0.f);    //!< 位置
+            u32 anim_status_      = 0;    //!< 現在のアニメーション
+            u32 anim_status_prev_ = 0;    //!< ひとつ前のアニメーション
+            bool is_jump_         = false;    //!< ジャンプ中
+            int effect_handle_    = -1;       //!< エフェクト
+            int effect_play_handle_ = -1;     //!< エフェクト 再生用
     };
 
 };    // namespace

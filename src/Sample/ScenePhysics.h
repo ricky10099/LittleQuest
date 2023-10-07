@@ -30,9 +30,9 @@ class ScenePhysics final : public Scene::Base {
     private:
         std::vector<std::shared_ptr<Model>> model_boxes1_;    //!< ボックス
         std::vector<std::shared_ptr<Model>>
-            model_boxes2_;                                    //!< コンテナボックス
+            model_boxes2_;    //!< コンテナボックス
         std::vector<std::shared_ptr<Model>> model_barrel_;    //!< ドラム缶
-        std::vector<std::shared_ptr<Model>> model_cone_;      //!< 三角コーン
+        std::vector<std::shared_ptr<Model>> model_cone_;    //!< 三角コーン
 
         std::shared_ptr<physics::RigidBody> body_floor_;    //!< 床
         std::vector<std::shared_ptr<physics::RigidBody>>

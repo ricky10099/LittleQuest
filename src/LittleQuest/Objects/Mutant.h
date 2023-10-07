@@ -13,8 +13,7 @@ namespace LittleQuest {
             BP_OBJECT_TYPE(Mutant, Enemy);
 
             ////! @brief 生成関数
-            static MutantPtr Create(const float3& pos,
-                                    const float3& front = {0, 0, 1});
+            static MutantPtr Create(const float3& pos, bool isPatrol = true);
 
             //! @name システムオーバーライド系
             // @{

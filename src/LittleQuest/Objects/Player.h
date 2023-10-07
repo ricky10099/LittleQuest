@@ -63,15 +63,16 @@ namespace LittleQuest {
                 ATTACK,    //!< アタック
                 DAMAGED,
             };
-
             PlayerState playerState = PlayerState::IDLE;
 
             float speed_   = 0.5f;
-            float rot_y_   = 0.0f;
-            float rot_x_   = 0.0f;
+            bool isWalk    = false;
+            //float rot_y_   = 0.0f;
+            //float rot_x_   = 0.0f;
+
+            int atkVal;
             bool isAttack  = false;
             bool isCombo   = false;
-            bool isWalk    = false;
             int combo      = 0;
             bool canCombo2 = false;
             bool canCombo3 = false;
@@ -80,12 +81,7 @@ namespace LittleQuest {
             void Walk(float3& position);
             void Jump();
             void Attack(float3& position);
-
-            SwordPtr sword;
-
-            int atkVal;
-
-            int MouseWheelCounter;
+            void SetModelRotation(float3& position);
 
             std::vector<std::string_view> attackList;
     };

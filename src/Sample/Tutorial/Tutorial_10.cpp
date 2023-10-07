@@ -29,7 +29,7 @@ namespace Tutorial {
                 // 地面
                 //-------------------------------------------------------------------------------
                 auto ground = Scene::CreateObjectPtr<Object>()    //< Object作成
-                                  ->SetName(u8"地面");            //< 名前設定
+                                  ->SetName(u8"地面");    //< 名前設定
 
                 ground->AddComponent<ComponentModel>(
                     "data/Sample/SwordBout/Stage/Stage00.mv1");

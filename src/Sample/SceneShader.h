@@ -27,8 +27,8 @@ class SceneShader final : public Scene::Base {
         std::shared_ptr<ComponentFilterFade>
             filter_fade_;    //!< フェードコンポーネント
 
-        std::shared_ptr<Texture> texture_;          //!< テクスチャ
-        std::shared_ptr<ShaderVs> shader_vs_;       //!< 頂点シェーダー
-        std::shared_ptr<ShaderPs> shader_ps_;       //!< ピクセルシェーダー(2D)
+        std::shared_ptr<Texture> texture_;       //!< テクスチャ
+        std::shared_ptr<ShaderVs> shader_vs_;    //!< 頂点シェーダー
+        std::shared_ptr<ShaderPs> shader_ps_;    //!< ピクセルシェーダー(2D)
         std::shared_ptr<ShaderPs> shader_ps_3d_;    //!< ピクセルシェーダー(3D)
 };

@@ -38,18 +38,18 @@ void SceneEaseCurve::Update() {
 void SceneEaseCurve::Draw() {
     // Easeカーブ名
     static const char* easeName[]{
-        "InSine", "OutSine", "InOutSine",
-        "InQuad", "OutQuad",    //
-        "InOutQuad", "InCubic", "OutCubic",
+        "InSine",     "OutSine",      "InOutSine",
+        "InQuad",     "OutQuad",    //
+        "InOutQuad",  "InCubic",      "OutCubic",
         "InOutCubic", "InQuart",    //
-        "OutQuart", "InOutQuart", "InQuint",
-        "OutQuint", "InOutQuint",    //
-        "InExpo", "OutExpo", "InOutExpo",
-        "InCirc", "OutCirc",    //
-        "InOutCirc", "InBack", "OutBack",
-        "InOutBack", "InElastic",    //
+        "OutQuart",   "InOutQuart",   "InQuint",
+        "OutQuint",   "InOutQuint",    //
+        "InExpo",     "OutExpo",      "InOutExpo",
+        "InCirc",     "OutCirc",    //
+        "InOutCirc",  "InBack",       "OutBack",
+        "InOutBack",  "InElastic",    //
         "OutElastic", "InOutElastic", "InBounce",
-        "OutBounce", "InOutBounce",    //
+        "OutBounce",  "InOutBounce",    //
     };
 
     constexpr u32 startX = 400;
@@ -118,7 +118,7 @@ void SceneEaseCurve::Draw() {
             isOdd ? GetColor(255, 128, 128) : GetColor(128, 255, 128);
 
         DrawString(startX - 8 - stringWidth, y, easeName[type],
-                   fontColor);                                 // 左側 - 右詰め
+                   fontColor);    // 左側 - 右詰め
         DrawString(endX + 8, y, easeName[type], fontColor);    // 右側 - 左詰め
 
         // 補間後の位置をボックスで表示

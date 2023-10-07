@@ -33,10 +33,10 @@ class FileWatcher {
         HANDLE finish_event_ =
             INVALID_HANDLE_VALUE;    //!< 非同期IO完了通知イベント
         HANDLE handle_directory_ =
-            INVALID_HANDLE_VALUE;       //!< 監視先ディレクトリハンドル
-        std::vector<u8> buffer_;        //!< ファイルリスト受信用バッファ
+            INVALID_HANDLE_VALUE;    //!< 監視先ディレクトリハンドル
+        std::vector<u8> buffer_;    //!< ファイルリスト受信用バッファ
         OVERLAPPED overlapped_ = {};    //!< 非同期IO
         std::function<void(const wchar_t*)>
-            callback_;              //!< ファイル変更時のコールバック関数
+            callback_;    //!< ファイル変更時のコールバック関数
         std::wstring full_path_;    //!< 監視中のフルパス
 };

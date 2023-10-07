@@ -14,10 +14,10 @@ namespace physics {
     enum ObjectLayers : u16 {
         NON_MOVING = 0,    //!< 静的。動かない固定
         MOVING     = 1,    //!< 動的
-        DEBRIS     = 2,    //!< 破片エフェクトなどは NON_MOVING のみ衝突
-        SENSOR     = 3,    //!< センサーは MOVING オブジェクトにのみ衝突
+        DEBRIS = 2,    //!< 破片エフェクトなどは NON_MOVING のみ衝突
+        SENSOR = 3,    //!< センサーは MOVING オブジェクトにのみ衝突
         //--------
-        MAX_COUNT  = 4,    //!< 定義最大数
+        MAX_COUNT = 4,    //!< 定義最大数
     };
 
 }    // namespace physics

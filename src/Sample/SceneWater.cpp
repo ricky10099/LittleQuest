@@ -211,10 +211,10 @@ namespace {
             s32 width_       = 0;                           //!< 配列幅
             s32 height_      = 0;                           //!< 配列高さ
             float3 position_ = float3(0.0f, 0.0f, 0.0f);    //!< 位置
-            f32 scale_       = 1.0f;                        //!< 全体スケール
-            f32 speed_       = 8.0f;                        //!< 速度スケール
+            f32 scale_       = 1.0f;    //!< 全体スケール
+            f32 speed_       = 8.0f;    //!< 速度スケール
 
-            std::vector<float2> water_height_;     //!< 水面ハイトマップ配列
+            std::vector<float2> water_height_;    //!< 水面ハイトマップ配列
             std::vector<float2> water_height2_;    //!< 水面ハイトマップ配列
     };
 
@@ -252,7 +252,7 @@ bool SceneWater::Init() {
     frustum_.setFarZ(100.0f);                            // 遠クリップ
     frustum_.update();
 
-    SetCameraViewMatrix(cast(frustum_.matView()));             // ビュー行列
+    SetCameraViewMatrix(cast(frustum_.matView()));    // ビュー行列
     SetupCamera_ProjectionMatrix(cast(frustum_.matProj()));    // 投影行列
 
     //==========================================================
@@ -262,7 +262,7 @@ bool SceneWater::Init() {
         s32 w           = 82;                                 // 配列幅
         s32 h           = 146;                                // 配列高さ
         float3 position = float3(-4.625f, -0.5f, -21.25f);    // 位置
-        f32 scale       = 1.0f / 8.0f;                        // 全体スケール
+        f32 scale       = 1.0f / 8.0f;    // 全体スケール
 
         water_ = std::make_unique<Water>(w, h, position, scale);
     }

@@ -29,8 +29,8 @@ class ComponentCollision : public Component {
         struct HitInfo {
                 bool hit_ = false;    //!< ヒットしたか
                 ComponentCollisionPtr collision_ =
-                    nullptr;                                  //!< 自分のコリジョン
-                float3 push_         = {0.0f, 0.0f, 0.0f};    //!< めり込み量
+                    nullptr;    //!< 自分のコリジョン
+                float3 push_ = {0.0f, 0.0f, 0.0f};    //!< めり込み量
                 float3 hit_position_ = {0.0f, 0.0f, 0.0f};    //!< 当たった地点
                 ComponentCollisionPtr hit_collision_ =
                     nullptr;    //!< 当たったコリジョン
@@ -441,7 +441,7 @@ class ComponentCollision : public Component {
 
         CollisionType collision_type_ = CollisionType::NONE;
         CollisionGroup collision_group_ =
-            CollisionGroup::ETC;            //!< 自分のコリジョンタイプ
+            CollisionGroup::ETC;    //!< 自分のコリジョンタイプ
         u32 collision_hit_ = 0xffffffff;    //!< デフォルトではすべてに当たる
         u32 collision_overlap_ =
             0x00000000;    //!< デフォルトではオーバーラップしない
@@ -449,10 +449,10 @@ class ComponentCollision : public Component {
         Status<CollisionBit> collision_status_;    //!< 状態
 
         float collision_mass_ =
-            1;                    //!< 押し戻される量に影響(マイナスは戻されない)
+            1;    //!< 押し戻される量に影響(マイナスは戻されない)
         u32 collision_id_ = 0;    //!< コリジョン識別子
 
-        int attach_node_           = -1;    //!< モデルノードに付くときは0以上
+        int attach_node_ = -1;    //!< モデルノードに付くときは0以上
         matrix attach_node_matrix_ = matrix::identity();
 
         bool use_gravity_   = false;

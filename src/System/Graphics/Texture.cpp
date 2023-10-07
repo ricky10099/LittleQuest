@@ -92,16 +92,16 @@ Texture::Texture(std::string_view path) {
 //---------------------------------------------------------------------------
 Texture::Texture(u32 width, u32 height, DXGI_FORMAT dxgi_format) {
     D3D11_TEXTURE2D_DESC desc{};
-    desc.Width          = width;                         // 幅
-    desc.Height         = height;                        // 高さ
-    desc.MipLevels      = 1;                             // ミップレベル段数
-    desc.ArraySize      = 1;                             // 配列数
-    desc.Format         = dxgi_format;                   // ピクセルフォーマット
-    desc.SampleDesc     = {1, 0};                        // マルチサンプルOFF
-    desc.Usage          = D3D11_USAGE_DEFAULT;           // GPUメモリに配置
-    desc.BindFlags      = D3D11_BIND_SHADER_RESOURCE;    // バインド用途(テクスチャ)
-    desc.CPUAccessFlags = 0;                             // CPUアクセス禁止
-    desc.MiscFlags      = 0;                             // フラグなし
+    desc.Width      = width;                  // 幅
+    desc.Height     = height;                 // 高さ
+    desc.MipLevels  = 1;                      // ミップレベル段数
+    desc.ArraySize  = 1;                      // 配列数
+    desc.Format     = dxgi_format;            // ピクセルフォーマット
+    desc.SampleDesc = {1, 0};                 // マルチサンプルOFF
+    desc.Usage      = D3D11_USAGE_DEFAULT;    // GPUメモリに配置
+    desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;    // バインド用途(テクスチャ)
+    desc.CPUAccessFlags = 0;                        // CPUアクセス禁止
+    desc.MiscFlags      = 0;                        // フラグなし
 
     // デプスバッファの場合はR32としてメモリ初期化
     if (dxgi_format == DXGI_FORMAT_D32_FLOAT) {

@@ -153,12 +153,12 @@ class Model {
 
     private:
         std::shared_ptr<ResourceModel> resource_model_;    //!< モデルリソース
-        int mv1_handle_ = -1;                              //!< [DxLib] MV1モデルハンドル
-        std::wstring path_;                                //!< ファイルパス
-        bool use_shader_  = true;                          //!< シェーダーを使うかどうか
-        matrix mat_world_ = matrix::identity();            //!< ワールド行列
+        int mv1_handle_ = -1;        //!< [DxLib] MV1モデルハンドル
+        std::wstring path_;          //!< ファイルパス
+        bool use_shader_  = true;    //!< シェーダーを使うかどうか
+        matrix mat_world_ = matrix::identity();    //!< ワールド行列
         Animation* animation_ =
-            nullptr;                     //!< 関連付けられているアニメーション
+            nullptr;    //!< 関連付けられているアニメーション
         bool need_initialize_ = true;    //!< 初期化要求フラグ true:初期化が必要
                                          //!< false:初期化済または完了で不要
 
