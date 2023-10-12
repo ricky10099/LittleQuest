@@ -12,7 +12,7 @@ namespace LittleQuest {
             BP_OBJECT_TYPE(Sword, Object);
 
             //! @brief 生成関数
-            static SwordPtr Create(std::string name, const float3& pos);
+            static SwordPtr Create(std::string name, const float3& pos = {0, 0, 0});
 
             //! @name システムオーバーライド系
             // @{
@@ -29,18 +29,5 @@ namespace LittleQuest {
             void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
 
             // @}
-            void Attack();
-
-            void FinishAttack();
-
-            void Attach();
-
-            void SetAtkVal(int atkVal);
-
-            int GetAtkVal();
-
-        private:
-            bool isAttack = false;
-            int atkVal;
     };
 }    // namespace LittleQuest

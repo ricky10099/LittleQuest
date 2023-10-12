@@ -40,6 +40,8 @@ namespace LittleQuest {
 
             virtual bool isFoundPlayer();
 
+            virtual void BackToInitial(float3& move);
+
             virtual void Patrol(float3& move);
 
             virtual void Wait(float time);
@@ -54,6 +56,7 @@ namespace LittleQuest {
             enum class EnemyState {
                 IDLE,
                 PATROL,
+                GIVE_UP,
                 WAIT,
                 CHASING,
                 ATTACK,
@@ -62,6 +65,7 @@ namespace LittleQuest {
             };
             EnemyState state;
             EnemyState prevState;
+            EnemyState initialState;
             bool isBusy;
 
             enum class AnimCheck {
@@ -70,6 +74,8 @@ namespace LittleQuest {
                 ATTACKING,
             };
             AnimCheck animCheck;
+
+            float3 spawnPos;
 
             ObjectWeakPtr player;
 

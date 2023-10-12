@@ -140,16 +140,16 @@ class Frustum {
         float3 position_ = float3(0.0f, 5.0f, -15.0f);    //!< 位置
         float3 look_at_  = float3(0.0f, 0.0f, 0.0f);      //!< 注視点
         float3 world_up_ =
-            float3(0.0f, 1.0f, 0.0f);    //!< 世界の上方向のベクトル
+            float3(0.0f, 1.0f, 0.0f);            //!< 世界の上方向のベクトル
         f32 fovy_         = 60.0f * DegToRad;    //!< 画角(単位:radian)
         f32 aspect_ratio_ = 16.0f / 9.0f;        //!< アスペクト比
-        f32 z_near_       = 0.01f;      //!< 近クリップ面までの距離
-        f32 z_far_        = 1000.0f;    //!< 遠クリップ面までの距離
+        f32 z_near_       = 0.01f;               //!< 近クリップ面までの距離
+        f32 z_far_        = 1000.0f;             //!< 遠クリップ面までの距離
         Frustum::DepthMode depth_mode_ =
             Frustum::DepthMode::Default;    //!< デプス動作モード
         matrix mat_camera_world_ =
-            matrix::identity();    //!< カメラのワールド行列
-        matrix mat_view_ = matrix::identity();    //!< ビュー行列
-        matrix mat_proj_ = matrix::identity();    //!< 投影行列
+            matrix::identity();                        //!< カメラのワールド行列
+        matrix mat_view_      = matrix::identity();    //!< ビュー行列
+        matrix mat_proj_      = matrix::identity();    //!< 投影行列
         matrix mat_view_proj_ = matrix::identity();    //!< ビュー ✕ 投影行列
 };

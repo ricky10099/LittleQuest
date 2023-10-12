@@ -43,7 +43,8 @@ namespace shape {
     //---------------------------------------------------------------------------
     //! コンストラクタ
     //---------------------------------------------------------------------------
-    Mesh::Mesh(Model* model, f32 scale) : shape::Base(shape::Type::Mesh) {
+    Mesh::Mesh(Model* model, f32 scale)
+        : shape::Base(shape::Type::Mesh) {
         auto* resource_model = model->resource();
         auto* model_cache    = resource_model->modelCache();
 

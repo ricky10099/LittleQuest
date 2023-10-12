@@ -14,9 +14,9 @@ class ComponentTargetTracking : public Component {
         virtual void Init() override;          //!< 初期化
         virtual void PreUpdate() override;     //!< 向きの初期化
         virtual void PostUpdate() override;    //!< 向きの更新
-        virtual void Draw() override;    //!< 向きのマトリクス表示(デバッグ用)
-        virtual void Exit() override;    //!< 終了処理
-        virtual void GUI() override;     //!< GUI処理
+        virtual void Draw() override;          //!< 向きのマトリクス表示(デバッグ用)
+        virtual void Exit() override;          //!< 終了処理
+        virtual void GUI() override;           //!< GUI処理
 
         //! @brief 追跡オブジェクトの設定
         //! @param obj 追跡したいオブジェクト
@@ -77,8 +77,8 @@ class ComponentTargetTracking : public Component {
 
     private:
         Status<TrackingBit> tracking_status_;    //!< 状態
-        std::string tracked_node_;       //!< 追跡させるノード名
-        int tracked_node_index_ = -1;    //!< ノードインデックス
+        std::string tracked_node_;               //!< 追跡させるノード名
+        int tracked_node_index_ = -1;            //!< ノードインデックス
         float3 front_vector_    = {0, 0, -1};
 
         float3 look_at_    = {0, 0, 0};    //!< 注視点

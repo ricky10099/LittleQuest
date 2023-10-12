@@ -256,7 +256,7 @@ void SequenceObject::GUI(uint32_t start, uint32_t end) {
                 guizmo_operation_ = ImGuizmo::OPERATION::TRANSLATE;
                 guizmo_mode_      = ImGuizmo::MODE::WORLD;
                 show_guizmo_      = true;
-                object_matrix_ = GetTransformFromFrame(position_keys_[index]);
+                object_matrix_    = GetTransformFromFrame(position_keys_[index]);
             }
             ImGui::EndNeoTimeLine();
         }
@@ -284,7 +284,7 @@ void SequenceObject::GUI(uint32_t start, uint32_t end) {
                 guizmo_operation_ = ImGuizmo::OPERATION::ROTATE;
                 guizmo_mode_      = ImGuizmo::MODE::LOCAL;
                 show_guizmo_      = true;
-                object_matrix_ = GetTransformFromFrame(rotation_keys_[index]);
+                object_matrix_    = GetTransformFromFrame(rotation_keys_[index]);
             }
             ImGui::EndNeoTimeLine();
         }

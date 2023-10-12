@@ -25,7 +25,7 @@ namespace LittleQuest {
 
         // vecの方向に向ける
         const float3& front = {0, 0, 1};
-        auto mat = HelperLib::Math::CreateMatrixByFrontVector(front);
+        auto mat            = HelperLib::Math::CreateMatrixByFrontVector(front);
         enemy->SetMatrix(mat);
 
         // posの位置に設定
@@ -34,7 +34,9 @@ namespace LittleQuest {
         auto hp = enemy->AddComponent<ComponentHP>();
         hp->SetHP(200);
 
-        enemy->isPatrol = isPatrol;
+        enemy->spawnPos   = pos;
+        enemy->spawnPos.y = 0;
+        enemy->isPatrol   = isPatrol;
 
         return enemy;
     }
@@ -125,6 +127,14 @@ namespace LittleQuest {
         }
 
         Super::OnHit(hitInfo);
+    }
+
+    void Mutant::BackToInitial(float3& move) {
+        if (auto modelPtr = GetComponent<ComponentModel>()) {
+            modelPtr->PlayAnimationNoSame("run", true);
+        }
+
+        Super::BackToInitial(move);
     }
 
     void Mutant::Patrol(float3& move) {

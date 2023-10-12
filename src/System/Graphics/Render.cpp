@@ -224,7 +224,7 @@ void CopyToRenderTarget(Texture* dest_render_target, Texture* source_texture,
     // 描画先を変更
     SetRenderTarget(dest_render_target);
 
-    SetDrawMode(DX_DRAWMODE_BILINEAR);    // テクスチャをバイリニア補間
+    SetDrawMode(DX_DRAWMODE_BILINEAR);             // テクスチャをバイリニア補間
     SetTextureAddressMode(DX_TEXADDRESS_CLAMP);    // テクスチャを繰り返しなし
 
     //----------------------------------------------------------
@@ -249,20 +249,20 @@ void CopyToRenderTarget(Texture* dest_render_target, Texture* source_texture,
         VERTEX2DSHADER v[3]{};
 
         // 頂点
-        v[0].pos = {0.0f, -h, 0.0f};    // 2D座標
-        v[0].rhw = 1.0f;    // rhw = 1.0f 初期化は2D描画に必須
+        v[0].pos = {0.0f, -h, 0.0f};                  // 2D座標
+        v[0].rhw = 1.0f;                              // rhw = 1.0f 初期化は2D描画に必須
         v[0].dif = GetColorU8(255, 255, 255, 255);    // カラー
         v[0].u   = 0.0f;                              // テクスチャ座標 U
         v[0].v   = -1.0f;                             // テクスチャ座標 V
 
-        v[1].pos = {0.0f, h, 0.0f};    // 2D座標
-        v[1].rhw = 1.0f;    // rhw = 1.0f 初期化は2D描画に必須
+        v[1].pos = {0.0f, h, 0.0f};                   // 2D座標
+        v[1].rhw = 1.0f;                              // rhw = 1.0f 初期化は2D描画に必須
         v[1].dif = GetColorU8(255, 255, 255, 255);    // カラー
         v[1].u   = 0.0f;                              // テクスチャ座標 U
         v[1].v   = 1.0f;                              // テクスチャ座標 V
 
-        v[2].pos = {w * 2.0f, h, 0.0f};    // 2D座標
-        v[2].rhw = 1.0f;    // rhw = 1.0f 初期化は2D描画に必須
+        v[2].pos = {w * 2.0f, h, 0.0f};               // 2D座標
+        v[2].rhw = 1.0f;                              // rhw = 1.0f 初期化は2D描画に必須
         v[2].dif = GetColorU8(255, 255, 255, 255);    // カラー
         v[2].u   = 2.0f;                              // テクスチャ座標 U
         v[2].v   = 1.0f;                              // テクスチャ座標 V

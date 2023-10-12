@@ -30,9 +30,9 @@ namespace Tutorial {
                     int count_down = 0;    //!< IsKeyDownが有効になった数
                     int count      = 0;    //!< IsKeyが有効になった数
 
-                    int count_on = 0;    //!< IsKeyOnが有効になった数
+                    int count_on      = 0;    //!< IsKeyOnが有効になった数
                     int count_release = 0;    //!< IsKeyReleaseが有効になった数
-                    int count_repeat = 0;    //!< IsKeyRepeatが有効になった数
+                    int count_repeat  = 0;    //!< IsKeyRepeatが有効になった数
             };
 
             MouseCount mouse_[2];    //!< 左右ボタンで用意する

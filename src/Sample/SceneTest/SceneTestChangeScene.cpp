@@ -7,10 +7,10 @@ BP_CLASS_IMPL(SceneTestChangeScene, u8"SceneTest / シーン切り替えサン�
 
 namespace {
     void FadeIn() {
-        Scene::CreateObjectPtr<Object>()    // フェード用オブジェクト
-            ->SetName("FadeIn")             // 名前設定
+        Scene::CreateObjectPtr<Object>()             // フェード用オブジェクト
+            ->SetName("FadeIn")                      // 名前設定
             ->AddComponent<ComponentFilterFade>()    // フェードコンポーネント
-            ->StartFadeIn();    // フェードインスタート
+            ->StartFadeIn();                         // フェードインスタート
     }
 
     bool WaitFadeIn() {
@@ -28,10 +28,10 @@ namespace {
     }
 
     void FadeOut() {
-        Scene::CreateObjectPtr<Object>()    // フェード用オブジェクト
-            ->SetName("FadeOut")            // 名前設定
+        Scene::CreateObjectPtr<Object>()             // フェード用オブジェクト
+            ->SetName("FadeOut")                     // 名前設定
             ->AddComponent<ComponentFilterFade>()    // フェードコンポーネント
-            ->StartFadeOut();    // フェードインスタート
+            ->StartFadeOut();                        // フェードインスタート
     }
 
     bool WaitFadeOut() {

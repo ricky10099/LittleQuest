@@ -17,7 +17,7 @@ namespace {
     struct Parameter {
             float4 resolution_;    //!< 解像度 [幅, 高さ, 1.0f/幅, 1.0f/高さ]
             float alpha_;          //!< フェードアルファ値(0.0f-1.0f)
-            u32 mosaic_width_;    //!< モザイクのピクセル幅
+            u32 mosaic_width_;     //!< モザイクのピクセル幅
     };
 
 }    // namespace

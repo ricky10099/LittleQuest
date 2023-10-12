@@ -92,7 +92,7 @@ void SceneCharacter::Update() {
     // 操作
     //----------------------------------------------------------
     float3 move_direction(0.0f, 0.0f, 0.0f);    // 移動ベクトル
-    f32 character_speed_ = 1.0f;    // キャラクターの移動速度スケール
+    f32 character_speed_ = 1.0f;                // キャラクターの移動速度スケール
 
     if (IsKeyRepeat(KEY_INPUT_A)) {
         move_direction.z += 1.0f;
@@ -117,7 +117,7 @@ void SceneCharacter::Update() {
     // 形状切り替え負荷があるため、毎回設定するのではなく押した瞬間・離した瞬間に切り替えるのが好ましい。
     // 常に切り替えると階段昇降がぎこちなくなる
     {
-        static bool old_key = false;    // 1フレーム前のキー
+        static bool old_key = false;                       // 1フレーム前のキー
         bool key            = IsKeyRepeat(KEY_INPUT_C);    // 現在のキー
 
         // 押した瞬間

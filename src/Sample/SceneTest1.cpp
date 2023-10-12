@@ -80,8 +80,8 @@ namespace Sample {
 
             // こちらはobjについているComponentTransformを直接操作しています
             obj_boss
-                ->SetScaleAxisXYZ({0.5f})    //< スケールを0.5倍に
-                ->SetTranslate({3, 0, 0})    //< 3,0,0 に移動
+                ->SetScaleAxisXYZ({0.5f})             //< スケールを0.5倍に
+                ->SetTranslate({3, 0, 0})             //< 3,0,0 に移動
                 ->SetRotationAxisXYZ({0, 180, 0});    //< 向きを180度回す
 
             obj_boss->AddTranslate({2, 0, 0});

@@ -56,7 +56,7 @@ namespace LittleQuest {
         //}
 
         {
-            auto enemy = Mutant::Create({30, 20, 15}, false);
+            auto enemy = Mutant::Create({30, 20, 15}, true);
             enemies.push_back(enemy);
         }
 

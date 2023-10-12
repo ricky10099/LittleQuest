@@ -40,6 +40,8 @@ namespace LittleQuest {
             state       = EnemyState::PATROL;
         }
 
+        initialState = state;
+
         isAttack = false;
         isBusy   = false;
 
@@ -64,10 +66,18 @@ namespace LittleQuest {
         if (!isBusy) {
             if (isFoundPlayer()) {
                 state = EnemyState::CHASING;
-            } else if (!patrolPoint.empty()) {
-                state = EnemyState::PATROL;
             } else {
-                state = EnemyState::IDLE;
+                if (prevState == EnemyState::CHASING) {
+                    state = EnemyState::GIVE_UP;
+                } else {
+                    if (!patrolPoint.empty()) {
+                        prevState = state;
+                        state     = EnemyState::PATROL;
+                    } else {
+                        prevState = state;
+                        state     = EnemyState::IDLE;
+                    }
+                }
             }
         }
 
@@ -77,6 +87,9 @@ namespace LittleQuest {
 
         switch (state) {
             case EnemyState::GET_HIT:
+                break;
+            case EnemyState::GIVE_UP:
+                BackToInitial(move);
                 break;
             case EnemyState::CHASING:
                 ChasePlayer(move);
@@ -133,13 +146,16 @@ namespace LittleQuest {
     }
 
     void Enemy::Idle() {
+        // prevState = state;
+        // state     = EnemyState::IDLE;
+
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             modelPtr->PlayAnimationNoSame("idle", true);
         }
     }
 
     bool Enemy::isFoundPlayer() {
-        auto player = Scene::GetObjectPtr<Player>("Player");
+        // auto player = Scene::GetObjectPtr<Player>("Player");
 
         // TODO:プレイヤーが前にいるかどうか
         //    float3 front  = this->GetTranslate() + float3{0, 0, 1};
@@ -158,13 +174,34 @@ namespace LittleQuest {
         //    }
 
         //　プレイヤーが近くにいるなら
-        float3 distance = player->GetTranslate() - this->GetTranslate();
+        float3 distance = player.lock()->GetTranslate() - this->GetTranslate();
         distance        = abs(distance);
 
-        if (distance.x < 20 && distance.z < 20) {
-            return true;
+        if (distance.x < 50 && distance.z < 50) {
+            if (GetDegreeToPosition(player.lock()->GetTranslate()) < 50) {
+                return true;
+            }
         } else {
             return false;
+        }
+    }
+
+    void Enemy::BackToInitial(float3& move) {
+        auto pos = GetTranslate();
+        pos.y    = 0;
+        move     = spawnPos - pos;
+        if (length(move).x > 1) {
+            move = normalize(move);
+
+            float x     = -move.x;
+            float z     = -move.z;
+            float theta = atan2(x, z) * RadToDeg - rot_y;
+
+            SetRotationAxisXYZ({0, theta, 0});
+            speedFactor = runVal;
+        } else {
+            prevState = state;
+            state     = initialState;
         }
     }
 

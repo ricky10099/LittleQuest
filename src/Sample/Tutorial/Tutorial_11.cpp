@@ -21,7 +21,7 @@ namespace Tutorial {
                 // 地面
                 //-------------------------------------------------------------------------------
                 auto ground = Scene::CreateObjectPtr<Object>()    //< Object作成
-                                  ->SetName(u8"地面");    //< 名前設定
+                                  ->SetName(u8"地面");            //< 名前設定
 
                 ground->AddComponent<ComponentModel>(
                     "data/Sample/SwordBout/Stage/Stage00.mv1");
@@ -56,8 +56,8 @@ namespace Tutorial {
                 //-------------------------------------------------------------------------------
                 // Boss
                 //-------------------------------------------------------------------------------
-                auto boss = Scene::CreateObjectPtr<Object>()    //< Object作成
-                                ->SetName(u8"Boss")             //< 名前設定
+                auto boss = Scene::CreateObjectPtr<Object>()      //< Object作成
+                                ->SetName(u8"Boss")               //< 名前設定
                                 ->SetTranslate({200, 0, 200});    //< 位置設定
                 // モデル
                 boss->AddComponent<ComponentModel>("data/Sample/Boss/model.mv1")
@@ -96,8 +96,8 @@ namespace Tutorial {
                         {-45, 0,
                          0})    //< X軸周りで回転させ45度の角度からObjectを見る
                     ->SetSpringArmLength(
-                        30.0f)    //< Objectとの距離
-                                  //(オブジェクトにはカメラがついている)
+                        30.0f)                           //< Objectとの距離
+                                                         //(オブジェクトにはカメラがついている)
                     ->SetSpringArmOffset({0, 8, 0})      //< 少し上を見る
                     ->SetSpringArmObject(u8"ネズミ");    //<
                 //オブジェクトはネズミ(すでに存在しなければいけない)

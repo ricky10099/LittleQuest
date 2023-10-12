@@ -85,7 +85,14 @@ std::string_view ComponentCollision::GetName() {
 }
 
 const char* const collisionGroupName[] = {
-    "WALL", "GROUND", "PLAYER", "ENEMY ", "WEAPON", "ITEM  ", "CAMERA", "ETC",
+    "WALL",
+    "GROUND",
+    "PLAYER",
+    "ENEMY ",
+    "WEAPON",
+    "ITEM  ",
+    "CAMERA",
+    "ETC",
 };
 
 void ComponentCollision::GUICollisionData(bool use_attach) {
@@ -581,9 +588,9 @@ ComponentCollision::HitInfo ComponentCollision::isHit(
             cpos   = opos + move;
 
             // 当たりからキャラの位置を求める
-            auto rot      = col1->GetOwner()->GetWorldMatrix();
-            rot._41_42_43 = float3{0.0f, 0.0f, 0.0f};
-            auto col1r    = mul(float4(col1->GetTranslate(), 1), rot).xyz;
+            auto rot                      = col1->GetOwner()->GetWorldMatrix();
+            rot._41_42_43                 = float3{0.0f, 0.0f, 0.0f};
+            auto col1r                    = mul(float4(col1->GetTranslate(), 1), rot).xyz;
             col1->GetOwner()->Translate() = cpos - col1r;
         }
     }
@@ -798,9 +805,9 @@ ComponentCollision::HitInfo ComponentCollision::isHit(
             cpos   = opos + move;
 
             // 当たりからキャラの位置を求める
-            auto rot      = col1->GetOwner()->GetMatrix();
-            rot._41_42_43 = float3{0.0f, 0.0f, 0.0f};
-            auto col1r    = mul(float4(col1->GetTranslate(), 1), rot).xyz;
+            auto rot                      = col1->GetOwner()->GetMatrix();
+            rot._41_42_43                 = float3{0.0f, 0.0f, 0.0f};
+            auto col1r                    = mul(float4(col1->GetTranslate(), 1), rot).xyz;
             col1->GetOwner()->Translate() = cpos - col1r;
         }
 

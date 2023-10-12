@@ -14,7 +14,7 @@
 //===========================================================================
 // Windows SDK
 //===========================================================================
-#define NOMINMAX    // min/max マクロを無効化
+#define NOMINMAX               // min/max マクロを無効化
 #define WIN32_LEAN_AND_MEAN    // Win32で利用頻度が低いライブラリを除外して軽量化
 
 // Windows10をサポート
@@ -87,8 +87,8 @@ using namespace hlslpp;
 //--------------------------------------------------------------
 static constexpr f32 PI       = 3.141592653589793f;    //!< 円周率 π
 static constexpr f32 TAU      = 2.0f * PI;             //!< 円周率の2倍 τ
-static constexpr f32 RadToDeg = 57.29577951f;    //!< Radian→Degree 変換係数
-static constexpr f32 DegToRad = 0.017453293f;    //!< Degree→Radian 変換係数
+static constexpr f32 RadToDeg = 57.29577951f;          //!< Radian→Degree 変換係数
+static constexpr f32 DegToRad = 0.017453293f;          //!< Degree→Radian 変換係数
 
 //! Radian→Degree 単位変換
 //! @param  [in]    radian  ラジアン値 (弧度法)

@@ -13,7 +13,7 @@ class Animation final {
     public:
         //! アニメーション定義オプション
         struct Desc {
-                std::string name_{};    //!< アニメーション名(任意)
+                std::string name_{};         //!< アニメーション名(任意)
                 std::string file_path_{};    //!< ファイルパス
                 u32 animation_index_ = 0;    //!< ファイル内のアニメーション番号
                 f32 animation_speed_ =
@@ -120,14 +120,14 @@ class Animation final {
         //! @param  [in]    context_index   コンテキスト番号
         void detachAnimation(s32 context_index);
 
-        std::wstring path_;    //!< ファイルパス
-        bool is_valid_ = false;    //!< 初期化が正しく成功しているかどうか
-        Model* model_ = nullptr;    //!< 関連付けられているモデル
+        std::wstring path_;          //!< ファイルパス
+        bool is_valid_ = false;      //!< 初期化が正しく成功しているかどうか
+        Model* model_  = nullptr;    //!< 関連付けられているモデル
         int model_handle_ =
             -1;    //!< [DxLib] 関連付けられているモデルのハンドル
 
         std::vector<Animation::Desc> descs_;    //!< アニメーション定義情報
-        std::vector<int> mv1_handles_;    //!< [DxLib] アニメーションMV1ハンドル
+        std::vector<int> mv1_handles_;          //!< [DxLib] アニメーションMV1ハンドル
 
         //! 名前逆引きテーブル (名前からアニメーション番号を取得)
         std::unordered_map<std::string, u32> name_table_;
@@ -146,13 +146,13 @@ class Animation final {
                 s32 animation_index_ =
                     -1;    //!< 現在再生中の番号(Animation::Descのインデックス番号)
                 int animation_attach_index_ =
-                    -1;    //!< [DxLib] アタッチされたスロット番号
+                    -1;                              //!< [DxLib] アタッチされたスロット番号
                 f32 animation_total_time_ = 0.0f;    //!< 総再生時間
-                f32 play_time_ = 0.0f;    //!< 現在再生中の時間
+                f32 play_time_            = 0.0f;    //!< 現在再生中の時間
         };
 
         Context contexts_
-            [2];    //!< 構造体はアニメーションブレンドのため2系統を持つ
+            [2];                    //!< 構造体はアニメーションブレンドのため2系統を持つ
         f32 blend_ratio_ = 0.0f;    //!< ブレンド比(0.0f～1.0f)
         f32 blend_time_  = 1.0f;    //!< ブレンドの補間時間
 

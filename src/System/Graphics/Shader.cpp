@@ -18,7 +18,7 @@
 namespace {
 
     FileWatcher
-        file_watcher_;    //!< シェーダーホットリロード時のためのファイル監視
+        file_watcher_;                  //!< シェーダーホットリロード時のためのファイル監視
     std::once_flag once_initialize_;    //!< 初回実行用フラグ
 
     //! 現在アクティブなシェーダーリスト
@@ -199,19 +199,19 @@ bool ShaderBase::compile() {
         Microsoft::WRL::ComPtr<ID3DBlob> errors;
 
         auto hr = D3DCompile(
-            source.data(),    // [in]  ソースコードのメモリ上のアドレス
-            source.size(),    // [in]  ソースコードサイズ
+            source.data(),                     // [in]  ソースコードのメモリ上のアドレス
+            source.size(),                     // [in]  ソースコードサイズ
             convertTo(source_path).c_str(),    // [in]
             // ソースコードのファイルパス(使用しない場合はnullptr)
-            defines,    // [in]  プリプロセッサマクロ定義
+            defines,                              // [in]  プリプロセッサマクロ定義
             D3D_COMPILE_STANDARD_FILE_INCLUDE,    // [in]
                                                   // カスタムインクルード処理
-            "main",                 // [in]  関数名
-            target_names[type_],    // [in]  シェーダーモデル名
-            compile_flags,    // [in]  コンパイラフラグ  (D3DCOMPILE_xxxx)
-            0,    // [in]  コンパイラフラグ2 (D3DCOMPILE_FLAGS2_xxxx)
-            &byte_code,    // [out] コンパイルされたバイトコード
-            &errors);      // [out] エラーメッセージ
+            "main",                               // [in]  関数名
+            target_names[type_],                  // [in]  シェーダーモデル名
+            compile_flags,                        // [in]  コンパイラフラグ  (D3DCOMPILE_xxxx)
+            0,                                    // [in]  コンパイラフラグ2 (D3DCOMPILE_FLAGS2_xxxx)
+            &byte_code,                           // [out] コンパイルされたバイトコード
+            &errors);                             // [out] エラーメッセージ
 
         // エラー警告出力
         if (errors != nullptr) {

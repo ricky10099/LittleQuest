@@ -111,13 +111,13 @@ void ImGuiInit() {
 
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;    // キーボード操作
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;    // ドッキングウィンドウ
-    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;    // マルチウィンドウ
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;        // ドッキングウィンドウ
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;      // マルチウィンドウ
 
     ImGuiStyle& style = ImGui::GetStyle();
     if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
         // マルチウィンドウの場合
-        style.WindowRounding = 0.0f;    // ウィンドウの角を丸くしない
+        style.WindowRounding              = 0.0f;    // ウィンドウの角を丸くしない
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;    // 半透明にしない
     }
     style.PopupRounding = 4.0f;    // ポップアップウィンドウの角を丸くする

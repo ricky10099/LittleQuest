@@ -37,9 +37,7 @@ namespace LittleQuest {
         HP->SetHP(100);
 
         {
-            auto sword = Scene::CreateObjectPtr<Object>(
-                "PlayerSword" /*, float3{0, 0, 0}*/);
-            sword->SetTranslate({0, 0, 0});
+            auto sword = Scene::CreateObjectPtr<Object>("PlayerSword");
 
             // オブジェクトにモデルをつける
             if (auto model = sword->AddComponent<ComponentModel>()) {
@@ -300,12 +298,11 @@ namespace LittleQuest {
     void Player::Jump() {}
 
     void Player::Attack(float3& move) {
-
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             if (combo == 1) {
                 if (modelPtr->GetPlayAnimationName() != "attack1") {
                     this->SetModelRotation(move);
-                    //modelPtr->SetRotationAxisXYZ({0, theta, 0});
+                    // modelPtr->SetRotationAxisXYZ({0, theta, 0});
                     modelPtr->PlayAnimation("attack1");
                     attackList.clear();
                 }

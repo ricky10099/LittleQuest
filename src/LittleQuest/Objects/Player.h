@@ -65,10 +65,10 @@ namespace LittleQuest {
             };
             PlayerState playerState = PlayerState::IDLE;
 
-            float speed_   = 0.5f;
-            bool isWalk    = false;
-            //float rot_y_   = 0.0f;
-            //float rot_x_   = 0.0f;
+            float speed_ = 0.5f;
+            bool isWalk  = false;
+            // float rot_y_   = 0.0f;
+            // float rot_x_   = 0.0f;
 
             int atkVal;
             bool isAttack  = false;
