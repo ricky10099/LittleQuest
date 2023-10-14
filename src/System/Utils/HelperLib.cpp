@@ -277,7 +277,7 @@ namespace HelperLib::Math {
 
     matrix LookAtMatrixForObject(float3 my_object_pos,
                                  float3 target_object_pos) {
-        auto mat      = CreateMatrixByFrontVector(target_object_pos - my_object_pos);
+        auto mat = CreateMatrixByFrontVector(target_object_pos - my_object_pos);
         mat._41_42_43 = my_object_pos;
 
         return mat;

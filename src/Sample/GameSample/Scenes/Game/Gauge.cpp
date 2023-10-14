@@ -21,8 +21,7 @@ namespace Sample::GameSample {
         constexpr const float BAR_UPDOWN_TIME = 2.0f;
 
         //! @brief HPゲージ
-        Gauge::Gauge(float hp)
-            : hp_(hp), damage_(hp), org_hp_(hp) {
+        Gauge::Gauge(float hp) : hp_(hp), damage_(hp), org_hp_(hp) {
             // 位置
             pos_ = float3(WINDOW_W - (BAR_W + BAR_MARGIN_R), 0, 0);
         }

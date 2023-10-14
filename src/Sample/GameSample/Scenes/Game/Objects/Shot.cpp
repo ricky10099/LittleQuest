@@ -22,9 +22,9 @@ namespace Sample {
             SetName("Shot");
 
             //
-            AddComponent<ComponentCollisionSphere>()                    //< 球コリジョン
-                ->SetRadius(radius_)                                    //< 半径設定
-                ->SetHitCollisionGroup(                                 //< 当たりるグループ
+            AddComponent<ComponentCollisionSphere>()    //< 球コリジョン
+                ->SetRadius(radius_)                    //< 半径設定
+                ->SetHitCollisionGroup(    //< 当たりるグループ
                     (u32)ComponentCollision::CollisionGroup::ENEMY |    //< 敵
                     (u32)ComponentCollision::CollisionGroup::
                         GROUND    //< グラウンド

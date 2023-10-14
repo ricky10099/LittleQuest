@@ -157,7 +157,7 @@ auto collision = obj-&#62;AddComponent&#60;ComponentCollisionSphere&#62;()
 
       <h2>　グループの設定</h2>
       <pre><code class="language-cpp">
-collision-&#62;SetCollisionGroup( CollisionGroup::PLAYER );    // 所属するグループを「PLAYER」とします
+collision-&#62;SetCollisionGroup( ComponentCollision::CollisionGroup::PLAYER );    // 所属するグループを「PLAYER」とします
       </code></pre>
       <br />
 
@@ -166,7 +166,9 @@ collision-&#62;SetCollisionGroup( CollisionGroup::PLAYER );    // 所属する�
       それ以外はチェックを外します<br />
       <pre><code class="language-cpp">
 // 当るグループは「ENEMY」「GROUND」「ITEM」とします
-collision-&#62;SetHitCollisionGroup( CollisionGroup::ENEMY | CollisionGroup::GROUND | CollisionGroup::ITEM );    
+collision-&#62;SetHitCollisionGroup( (u32)ComponentCollision::CollisionGroup::ENEMY | 
+                                 (u32)ComponentCollision::CollisionGroup::GROUND | 
+                                 (u32)ComponentCollision::CollisionGroup::ITEM );    
       </code></pre>
       <br />
       ※グループの概念ですが、あくまでグループは、Aグループ、Bグループという感覚と変わりません。<br />

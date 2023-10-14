@@ -48,8 +48,8 @@ class ComponentFilterFade : public Component {
 
     private:
         std::shared_ptr<Texture> texture_work_;    //!< ワークテクスチャ
-        std::shared_ptr<ShaderPs> shader_ps_;      //!< ピクセルシェーダー
-        int parameter_cb_ = -1;                    //!< [DxLib] 定数バッファ
+        std::shared_ptr<ShaderPs> shader_ps_;    //!< ピクセルシェーダー
+        int parameter_cb_ = -1;                  //!< [DxLib] 定数バッファ
 
         //----------------------------------------------------------
         //! @name   調整パラメーター

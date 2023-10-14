@@ -12,7 +12,7 @@
     <header>逆引き</header>
     <side>
       <iframe
-        src="../js-css/menu.html#008"
+        src="../js-css/menu.html#000"
         frameborder="0"
         width="100%"
         height="90%"
@@ -20,8 +20,327 @@
       </iframe>
     </side>
     <main>
-      <h1>工事中</h1>
-      しばらくお待ちください。
+      <h1>当たり判定をつけたい</h1>
+      前回の「<a href="rr_014.html">弾を飛ばしたい</a>」
+      の弾に当たりをつけ、エネミーを用意してそれに当てます<br />
+      当たると消える仕組みを用意します。
+      <b> (作品には消える際はエフェクトを発生させること)</b><br />
+
+      <br />
+      1.　シーン(ここではGaming)を用意します。シーンの作成は「
+      <a href="./rr_002.html">シーンはどのようにつくるの?</a>
+      」を参考にしてください。<br />
+      <br />
+      「
+      <a href="rr_014.html">弾を飛ばしたい</a>
+      」と同じオブジェクトを用意し、下記の部分を追加していきます。<br />
+      <br />
+
+      2.　Bulletに、コリジョンをつけ、当たりの設定を行う<br />
+      3.　Enmeyを用意し、コリジョンに弾(ETC)と当たるように設定する<br />
+      4.　Bullet内のOnHitにて、EnemyにあたったらEnemyを消す<br />
+
+      <br />
+      <b>
+        ※下記の例は「Gaming」というシーンで実行しています。<br />
+
+        <br />
+      </b>
+
+      <div class="box5">
+        <h2>　Bullet.h</h2>
+        <pre><code class="language-cpp">#include &#60;System/Scene.h&#62;
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief 弾クラス
+    class Bullet : public Object
+    {
+    public:
+        //! @brief 初期化
+        //! @return 初期化済み
+        //! モデルなど初期化するために必要
+        bool Init() override;
+
+        //! @brief 更新
+        //! キーを確認して弾を撃たせるために必要
+        void Update() override;
+
+        //! @brief GUI
+        //! GUIでの弾の速度調整のために必要
+        void GUI() override;
+
+        //--------------------------------------------------
+        //! ④　当たりの追加
+        void OnHit( const ComponentCollision::HitInfo&amp; hit_info );
+        //--------------------------------------------------
+
+    private:
+        //! 弾のスピード
+        float speed_ = 2.0f;
+        //! 生存フレーム数
+        float life_ = 5.0f;
+
+        // 弾の速度[全部の弾の共通]
+        static float max_speed_;
+
+        // 弾の存在時間(秒)[全部の弾の共通]
+        static float max_life_;
+    };
+}</code></pre>
+        <br />
+        <h2>　Bullet.cpp</h2>
+        <pre><code class="language-cpp">#include "Bullet.h"
+#include &#60;System/Scene.h&#62;
+#include &#60;System/Component/ComponentModel.h&#62;  //&#60; ※モデルを使用する
+#include &#60;System/Component/ComponentCollisionSphere.h&#62;  //&#60; ※コリジョンを使用する
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    // 弾のスピード[全部の弾の共通]
+    float Bullet::max_speed_ = 2.0f;
+
+    // 弾の存在時間(秒)[全部の弾の共通]
+    float Bullet::max_life_ = 5.0f;
+
+    //! @brief 初期化
+    //! @return 初期化済み
+    bool Bullet::Init()
+    {
+        __super::Init();
+
+        // 名前の追加
+    		SetName( "Bullet" );
+
+        // 自分にモデル能力を追加します
+        AddComponent&#60;ComponentModel&#62;("data/Sample/Coin/GoldCoin.mv1");
+
+        //------------------------------------------------------------------------
+        // ② Bulletに、コリジョンをつけ、当たりの設定を行う
+        AddComponent&#60;ComponentCollisionSphere&#62;()
+            -&#62;SetRadius( 2 )
+            // 自分の当たりの設定
+            -&#62;SetCollisionGroup( ComponentCollision::CollisionGroup::ETC )
+            // 当たる相手の設定
+            -&#62;SetHitCollisionGroup( (u32)ComponentCollision::CollisionGroup::ENEMY );
+        //------------------------------------------------------------------------
+
+        speed_ = max_speed_;	  // 共通のスピードを設定する
+        life_  = max_life_;	    // 生存時間の設定をする
+
+        return true;
+    }
+
+    //! @brief 更新
+    void Bullet::Update()
+    {
+        __super::Update();
+
+        // -Zの方向に進める。プレイヤーと同じ向き(-Zが前方向になる)
+        AddTranslate( { 0, 0, -speed_ }, true );
+
+        // 生存時間を減らす
+        life_ -= GetDeltaTime();
+
+        if (life_ &#60;= 0.0f)
+        {
+            // 生存時間がなくなったら消滅させる
+            Scene::ReleaseObject( SharedThis() );
+        }
+    }
+
+    //--------------------------------------------------
+    //! ④　当たりの追加
+    void Bullet::OnHit( const ComponentCollision::HitInfo&amp hit_info )
+    {
+        // 当たった相手の名前がEnemyだったら消去する
+        auto other_owner = hit_info.hit_collision_-&#62;GetOwnerPtr();
+        if( other_owner-&#62;GetNameDefault() == "Enemy" )
+        {
+            Scene::ReleaseObject( other_owner );
+        }
+    }
+    //--------------------------------------------------
+
+    //! @brief GUI設定
+    void Bullet::GUI()
+    {
+        __super::GUI();
+
+			  ImGui::Begin( GetName().data() );
+        {
+            ImGui::Separator();
+
+            ImGui::DragFloat( u8"弾速度", &Bullet::max_speed_, 0.01f, 0.01f, 10.0f, "%2.2f" );
+            ImGui::DragFloat( u8"生存秒数", &Bullet::max_life_, 0.1f, 0.1f, 60*60.0f, "%2.2f" );
+        }
+        ImGui::End();
+    }
+
+}</code></pre>
+      </div>
+
+      <div class="box5">
+        <h2>　Player.h</h2>
+        <pre><code class="language-cpp">#include &#60;System/Scene.h&#62;
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief キャラクラス
+    class Player : public Object
+    {
+    public:
+        //! @brief 初期化
+        //! @return 初期化済み
+        //! モデルなど初期化するために必要
+        bool Init() override;
+
+        //! @brief 更新
+        //! キーを確認して弾を撃たせるために必要
+        void Update() override;
+
+    private:
+    };
+}</code></pre>
+        <br />
+        <h2>　Player.cpp</h2>
+        <pre><code class="language-cpp">#include "Player.h"
+#include "Bullet.h"
+#include &#60;System/Scene.h&#62;
+#include &#60;System/Component/ComponentModel.h&#62;  //&#60; ※モデルを使用する
+#include &#60;System/Component/ComponentObjectController.h&#62;  //&#60; ※オブジェクト操作機能を使用する
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief 初期化
+    //! @return 初期化済み
+    bool Player::Init()
+    {
+        __super::Init();
+
+        // 自分にモデル能力を追加します
+        AddComponent&#60;ComponentModel&#62;("data/Sample/Player/model.mv1");
+
+        // オブジェクトのスピードなどの設定
+        auto obj_ctrl = AddComponent&#60;ComponentObjectController&#62;();
+        obj_ctrl-&#62;SetMoveSpeed( 0.5f );
+        obj_ctrl-&#62;SetRotateSpeed( 10.0f );
+
+        // とりあえず位置は(0, 0, 0)に設定しておく
+        SetTranslate({ 0, 0, 0 });
+
+        return true;
+    }
+
+    //! @brief 更新
+    void Player::Update()
+    {
+        __super::Update();
+
+        if (Input::IsKeyDown( KEY_INPUT_SPACE ))
+        {
+            // 位置(pos)と方向(mat)
+            float3 pos = { 0, 0, 0 };
+            matrix mat = matrix::identity();
+            if (auto model = GetComponent&#60;ComponentModel&#62;())
+            {
+                // モデルの完全な向きは、GetWorldMatrix()でとる必要があります。
+                mat = model->GetWorldMatrix();
+                pos = GetTranslate() + mul( float4{ 0, 60, -30, 0 }, mat ).xyz;
+            }
+
+            Scene::CreateObjectPtr&#60;Bullet&#62;()   //&#60; Bulletを作成する
+                -&#62;SetMatrix( mat )	         //&#60; 制御しやすいようにPlayerのモデルと同じ方向を向かせる
+                -&#62;SetTranslate( pos );	     //&#60; 位置はプレイヤーの前(60.0)、足元より上(30.0)におく
+                                                // (モデルの大きさが0.1倍されているため動かす量も大きい)
+        }
+    }
+}</code></pre>
+      </div>
+
+      <div class="box5">
+        <h2>　Gaming.cpp</h2>
+        <pre><code class="language-cpp">
+#include "Gaming.h"
+#include &#60;Game/Objects/Player.h&#62;   //&#60; ※プレイヤークラスを使用する
+#include &#60;System/Component/ComponentCamera.h&#62;  //&#60; ※カメラを使用するのでこちらを追加する
+#include &#60;System/Component/ComponentModel.h&#62;  //&#60; ※モデルを使用するのでこちらを追加する
+#include &#60;System/Component/ComponentCollisionCapsule.h&#62;  //&#60; ※コリジョンを使用する
+
+namespace MyGame //&#60; ※自分の名前のゲーム名にしましょう
+{
+    //! @brief 初期化
+    //! @return 初期化済み
+    bool Gaming::Init()
+    {
+        __super::Init();
+
+        // 表示のためのカメラを作成
+        {
+            Scene::CreateObjectPtr&#60;Object&#62;()                        //&#60; Object作成
+                -&#62;SetName("Camera")                                 //&#60; 名前設定
+                -&#62;AddComponent&#60;ComponentCamera&#62;()                   //&#60; カメラ
+                -&#62;SetPerspective(45)                                //&#60; 画角
+                -&#62;SetPositionAndTarget({0, 15, 50}, {0, 10, 0});   //&#60; カメラ位置と見るところ
+
+            // ※上記のように auto 変数にとらえずある程度羅列することができる
+        }
+
+        //--------------------------------------------------------------------------------
+        // ③ Enemyを用意し、コリジョンに弾(ETC)と当たるように設定する
+        {
+          auto obj = Scene::CreateObjectPtr&#60;Object&#62;()		  //&#60; Object作成
+                  ->SetName( "Enemy" )				          //&#60; 名前設定
+                  ->SetTranslate( { 0, 0, -30 } );	          //&#60; Objectの位置
+
+          obj-&#62;AddComponent&#60;ComponentModel&#62;( "data/Sample/Enemy/Model.mv1" );
+          obj-&#62;AddComponent&#60;ComponentCollisionCapsule&#62;()
+              ->SetRadius( 3.5 )
+              ->SetHeight( 24 )
+              // ENEMYという当たりのグループに所属させ、
+              // 相手にはETC, PLAYERとヒットするようにする
+              ->SetCollisionGroup( ComponentCollision::CollisionGroup::ENEMY )
+              ->SetHitCollisionGroup( (u32)ComponentCollision::CollisionGroup::ETC |
+                                      (u32)ComponentCollision::CollisionGroup::PLAYER );
+        }
+        //--------------------------------------------------------------------------------
+
+        // Playerオブジェクトの作成
+        Scene::CreateObjectPtr&#60;Player&#62;();
+
+        // 最初に1回動作する
+        // ただし trueを返さなければ Initに何回も来る
+        // trueにしない限り、updateは以降は動作しません。
+        return true;
+    }
+
+    //! @brief 更新
+    void Gaming::Update()
+    {
+        __super::Update();
+
+        // 毎フレーム動作する
+    }
+
+    //! @brief 描画
+    void Gaming::Draw()
+    {
+        __super::Draw();
+
+    }
+
+    //! @brief GUI表示
+    void Gaming::GUI()
+    {
+        __super::GUI();
+
+    }
+
+    // ALT-Menuで表示される名前
+    BP_CLASS_IMPL( Gaming, u8"MyGameゲームシーン" );
+}</code></pre>
+      </div>
+      <br />
     </main>
     <br />
     <br />

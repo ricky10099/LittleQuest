@@ -36,8 +36,7 @@ namespace LittleQuest {
 
     // 基本描画の後に処理します
     void Sword::LateDraw()    // override
-    {
-    }
+    {}
 
     void Sword::GUI()    // override
     {

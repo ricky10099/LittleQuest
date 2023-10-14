@@ -34,7 +34,7 @@ Type::Type(const char* class_name, size_t class_size, const char* desc_name,
     //----------------------------------------------------------
     if (parent_type == nullptr
         && strcmp(class_name, "root")) {    // "root"ではない
-        parent_type = &rootTypeInfo;        // 基底クラスはルートに接続する
+        parent_type = &rootTypeInfo;    // 基底クラスはルートに接続する
     }
 
     parent_ = parent_type;

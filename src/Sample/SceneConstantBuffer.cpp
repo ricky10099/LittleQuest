@@ -19,7 +19,7 @@ namespace {
     };
 
     float color_[4]{1.0f, 0.0f, 0.0f, 1.0f};    //!< モデルの色
-    int cb_model_info_ = -1;                    //!< [DxLib] モデル情報定数バッファハンドル
+    int cb_model_info_ = -1;    //!< [DxLib] モデル情報定数バッファハンドル
 
 }    // namespace
 
@@ -109,7 +109,7 @@ void SceneConstantBuffer::Draw() {
     //----------------------------------------------------------
     // カスタムシェーダーを設定して描画することができます。
     // ピクセルシェーダーをカスタムします
-    ShaderVs* vs = nullptr;             // 頂点シェーダーはカスタムしない
+    ShaderVs* vs = nullptr;    // 頂点シェーダーはカスタムしない
     ShaderPs* ps = shader_ps_.get();    //
     model_->render(vs, ps);
 }

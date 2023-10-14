@@ -64,18 +64,16 @@ namespace LittleQuest {
         // if (state != EnemyState::GET_HIT && state != EnemyState::ATTACK
         //    && state != EnemyState::WAIT) {
         if (!isBusy) {
-            if (isFoundPlayer()) {
-                state = EnemyState::CHASING;
+            if (FindPlayer()) {
+                ChangeState(EnemyState::CHASING);
             } else {
                 if (prevState == EnemyState::CHASING) {
-                    state = EnemyState::GIVE_UP;
+                    ChangeState(EnemyState::GIVE_UP);
                 } else {
                     if (!patrolPoint.empty()) {
-                        prevState = state;
-                        state     = EnemyState::PATROL;
+                        ChangeState(EnemyState::PATROL);
                     } else {
-                        prevState = state;
-                        state     = EnemyState::IDLE;
+                        ChangeState(EnemyState::IDLE);
                     }
                 }
             }
@@ -127,8 +125,9 @@ namespace LittleQuest {
         printfDx("\nnowx: %f", this->GetTranslate()[0]);
         printfDx("\nx: %f", float3(goal - GetTranslate())[0]);
         printfDx("\nz: %f", float3(goal - GetTranslate())[2]);
-        printfDx("\nisFound: %i", isFoundPlayer());
-        printfDx("\ntargetDegree: %f", GetDegreeToPosition(player.lock()->GetTranslate()));
+        printfDx("\nisFound: %i", isFoundPlayer);
+        printfDx("\ntargetDegree: %f",
+                 GetDegreeToPosition(player.lock()->GetTranslate()));
         printfDx("\ndie timer: %f", destroyTimer);
     }
 
@@ -154,36 +153,21 @@ namespace LittleQuest {
         }
     }
 
-    bool Enemy::isFoundPlayer() {
-        // auto player = Scene::GetObjectPtr<Player>("Player");
-
-        // TODO:プレイヤーが前にいるかどうか
-        //    float3 front  = this->GetTranslate() + float3{0, 0, 1};
-        //
-        //    float3 target = player->GetTranslate() - this->GetTranslate();
-        //    normalize(target);
-        //    float targetDot    = dot(-GetMatrix().axisZ(), target);
-        //    float targetRadian = acosf(targetDot);
-        //    float targetDegree = (targetRadian * 180.0f / 3.14159265f);
-        //    degree             = fabsf(targetDegree);
-        //
-        //    if (fabsf(targetDegree) < 90.f) {
-        //        return true;
-        //    } else {
-        // a        return false;
-        //    }
-
-        //　プレイヤーが近くにいるなら
+    bool Enemy::FindPlayer() {
         float3 distance = player.lock()->GetTranslate() - this->GetTranslate();
         distance        = abs(distance);
 
         if (distance.x < 50 && distance.z < 50) {
+            //　プレイヤーが前にいるなら
             if (GetDegreeToPosition(player.lock()->GetTranslate()) < 50) {
-                return true;
+                isFoundPlayer = true;
+
             }
         } else {
-            return false;
+            isFoundPlayer = false;
         }
+
+        return isFoundPlayer;
     }
 
     void Enemy::BackToInitial(float3& move) {
@@ -234,8 +218,7 @@ namespace LittleQuest {
     }
 
     void Enemy::Wait(float time) {
-        prevState = state;
-        state     = EnemyState::WAIT;
+        ChangeState(EnemyState::WAIT);
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             modelPtr->PlayAnimationNoSame("idle", true, 0.3f);
         }
@@ -246,7 +229,7 @@ namespace LittleQuest {
         waitTime -= deltaTime;
 
         if (waitTime <= 0.0f) {
-            state     = EnemyState::IDLE;
+            ChangeState(EnemyState::IDLE);
             animCheck = AnimCheck::NONE;
             isBusy    = false;
         }
@@ -259,8 +242,7 @@ namespace LittleQuest {
 
         // この距離から攻撃
         if (abs(move.x) <= float1{7} && abs(move.z) <= float1{7}) {
-            prevState = state;
-            state     = EnemyState::ATTACK;
+            ChangeState(EnemyState::ATTACK);
             isBusy    = true;
             // 攻撃する時動かないように
             move      = {0, 0, 0};
@@ -319,14 +301,18 @@ namespace LittleQuest {
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             if (hpcomponent->GetHP() > 0) {
                 modelPtr->PlayAnimation("getHit", false, 0.25f);
-                prevState = state;
-                state     = EnemyState::GET_HIT;
+                ChangeState(EnemyState::GET_HIT);
                 animCheck = AnimCheck::GETTING_HIT;
                 isBusy    = true;
             } else {
                 this->Die();
             }
         }
+    }
+
+    void Enemy::ChangeState(EnemyState state) {
+        prevState = this->state;
+        this->state = state;
     }
 
     void Enemy::Die() {

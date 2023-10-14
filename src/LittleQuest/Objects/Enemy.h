@@ -38,7 +38,7 @@ namespace LittleQuest {
 
             virtual void Idle();
 
-            virtual bool isFoundPlayer();
+            virtual bool FindPlayer();
 
             virtual void BackToInitial(float3& move);
 
@@ -67,6 +67,7 @@ namespace LittleQuest {
             EnemyState prevState;
             EnemyState initialState;
             bool isBusy;
+            void ChangeState(EnemyState state);
 
             enum class AnimCheck {
                 NONE,
@@ -90,6 +91,7 @@ namespace LittleQuest {
 
             bool isAttack;
             bool isHitPlayer;
+            bool isFoundPlayer;
 
             const float speedBase = 0.3f;
             const float walkVal   = 0.5f;

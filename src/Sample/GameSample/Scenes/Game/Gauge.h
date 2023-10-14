@@ -47,11 +47,11 @@ namespace Sample::GameSample {
                 float3 pos_   = float3(0, 0, 0);    //!< 位置
                 float hp_     = DEF_HP_VALUE;       //!< HP（黄色のバー）
                 float org_hp_ = DEF_HP_VALUE;       //!< HPの基本量
-                float damage_ = 0.0f;               //!< ダメージ（赤色のバー）
+                float damage_ = 0.0f;    //!< ダメージ（赤色のバー）
                 float damage_frame_ =
                     0;    //!< ダメージが与えられた後、赤いゲージが減るまで待つ用
                 float damage_delta_ =
-                    0;                    //!< ダメージが与えられた後、赤いゲージが減る量用
+                    0;    //!< ダメージが与えられた後、赤いゲージが減る量用
                 float recover_ = 0.0f;    //!< 回復（緑のバー）
                 float recover_frame_ =
                     0;    //!< 回復が与えられた後、緑ゲージが減るまで待つ用

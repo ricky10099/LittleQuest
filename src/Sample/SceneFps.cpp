@@ -284,7 +284,7 @@ void SceneFps::Update() {
         if (IsMouseRepeat(1)) {
             animation_->play(
                 "stab", false,
-                0.125f);            // 攻撃アニメーション(動作が短いため高速に補間する)
+                0.125f);    // 攻撃アニメーション(動作が短いため高速に補間する)
             is_attacked_ = true;    // 攻撃中
         }
     }
@@ -360,7 +360,7 @@ void SceneFps::Draw() {
                       size,                     // 幅
                       size,                     // 高さ
                       *tex_crosschairs_,        // [DxLib] Graphハンドル
-                      true);                    // true:半透明 false:不透明
+                      true);    // true:半透明 false:不透明
 
         // 半透明OFF
         SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);

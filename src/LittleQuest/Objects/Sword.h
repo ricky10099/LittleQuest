@@ -12,7 +12,8 @@ namespace LittleQuest {
             BP_OBJECT_TYPE(Sword, Object);
 
             //! @brief 生成関数
-            static SwordPtr Create(std::string name, const float3& pos = {0, 0, 0});
+            static SwordPtr Create(std::string name,
+                                   const float3& pos = {0, 0, 0});
 
             //! @name システムオーバーライド系
             // @{

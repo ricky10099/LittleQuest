@@ -65,7 +65,7 @@ void SceneShader::Draw() {
     // プリミティブの描画
     //==========================================================
 
-    SetDrawMode(DX_DRAWMODE_BILINEAR);            // テクスチャをバイリニア補間
+    SetDrawMode(DX_DRAWMODE_BILINEAR);    // テクスチャをバイリニア補間
     SetTextureAddressMode(DX_TEXADDRESS_WRAP);    // テクスチャを繰り返し
 
     //----------------------------------------------------------

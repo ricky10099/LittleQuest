@@ -25,8 +25,7 @@ namespace shape {
     class Base {
         public:
             //! コンストラクタ
-            Base(shape::Type type)
-                : type_(type) {}
+            Base(shape::Type type) : type_(type) {}
 
             //! 形状の種類を取得
             shape::Type shapeType() const { return type_; }

@@ -190,7 +190,7 @@ void Object::GUI() {
         //------------------------------------------
         // 登録されているComponentを列挙する
         //------------------------------------------
-        auto& component                                      = Component::TypeInfo;
+        auto& component = Component::TypeInfo;
         static ClassComponentType<Component>* component_type = nullptr;
 
         if (ImGui::BeginCombo(cap_item, sel_item.data())) {

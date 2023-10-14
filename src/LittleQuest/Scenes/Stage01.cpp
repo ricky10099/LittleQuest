@@ -29,15 +29,6 @@ namespace LittleQuest {
     //! 初期化
     //---------------------------------------------------------------------------
     bool Stage01::Init() {
-        // Camera
-        /*  {
-                                                  auto obj =
-                                           Scene::CreateObjectPtr<Object>()->SetName(u8"Camera");
-                               auto cam = obj->AddComponent<ComponentCamera>();
-                                       cam->SetPositionAndTarget({0, 20, 50},
-           {0, 10, 0});
-                                              }*/
-
         // Ground
         {
             auto obj = Scene::CreateObjectPtr<Object>()->SetName("Ground");
@@ -49,11 +40,6 @@ namespace LittleQuest {
 
         auto player = Player::Create({0, 10, 0});
         Camera::Create(player)->SetName("PlayerCamera");
-
-        //{
-        //    auto enemy = Zombie::Create({10, 20, 10});
-        //    enemies.push_back(enemy);
-        //}
 
         {
             auto enemy = Mutant::Create({30, 20, 15}, true);
