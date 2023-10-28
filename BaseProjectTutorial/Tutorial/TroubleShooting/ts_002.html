@@ -20,8 +20,36 @@
       </iframe>
     </side>
     <main>
-      <h1>工事中</h1>
-      しばらくお待ちください。
+      <h1>実行後に「__super::???」を入れてくださいというようなエラーになる</h1>
+      <h2>
+        　エラーになったタイミングで存在しているすべてのObjectの項目の???の関数に注目してください。
+      </h2>
+      エラーになった時、Init, Update, Drawなどが??? に入っているはずです
+      <div class="box5">
+        <pre><code class="language-cpp">
+bool Init() 
+{ 
+    __super::Init(); //&#60; この一行が抜けている可能性
+    
+    // 実際のInitの処理 
+    return true;
+}
+
+void Update() 
+{ 
+    __super::Update(); //&#60; この一行が抜けている可能性
+    
+    // 実際のUpdateの処理 
+}
+
+void Draw() 
+{ 
+    __super::Draw(); //&#60; この一行が抜けている可能性
+    
+    // 実際のDrawの処理 
+}
+        </code></pre>
+      </div>
     </main>
     <br />
     <br />

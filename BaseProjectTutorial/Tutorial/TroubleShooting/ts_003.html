@@ -20,8 +20,37 @@
       </iframe>
     </side>
     <main>
-      <h1>工事中</h1>
-      しばらくお待ちください。
+      <h1>OnHitも入っているのに当たりが当たらない</h1>
+      <h2>　可能性1</h2>
+      当たりが発生するはずの、両方のObject の次の関数に注目してください。
+
+      <div class="box5">
+        <pre><code class="language-cpp">
+void OnHit( const ComponentCollision::HitInfo&amp; hitInfo ) override
+{ 
+    __super::OnHit( hitInfo ); //&#60; この一行が抜けている可能性
+    
+    // 実際のInitの処理
+    return true;
+}
+        </code></pre>
+      </div>
+
+      <h2>　可能性2</h2>
+      グループ設定が正しくない可能性があります。<br />
+      自分のグループ、当たるはずの相手のグループをお互いに正しく設定してください。<br />
+      例はあくまでプレイヤーに対しての当たりを設定しています。敵にも正しく設定しましょう。
+      <div class="box5">
+        <pre><code class="language-cpp">
+// コリジョンに対して自分のグループを設定します
+collision-&#62;SetCollisionGroup( ComponentCollision::CollisionGroup::PLAYER );    // 所属するグループを「PLAYER」とします
+
+// コリジョンに対して当たる相手のグループを設定します
+collision-&#62;SetHitCollisionGroup( (u32)ComponentCollision::CollisionGroup::ENEMY | 
+                                 (u32)ComponentCollision::CollisionGroup::GROUND | 
+                                 (u32)ComponentCollision::CollisionGroup::ITEM );    
+        </code></pre>
+      </div>
     </main>
     <br />
     <br />
