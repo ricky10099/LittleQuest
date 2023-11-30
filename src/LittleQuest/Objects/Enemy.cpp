@@ -1,7 +1,7 @@
 ﻿#include "Enemy.h"
 #include "Camera.h"
-#include "../Components/ComponentHP.h"
-#include "../src/LittleQuest/Misc.h"
+#include "LittleQuest/Components/ComponentHP.h"
+#include "LittleQuest/Tool.h"
 
 #include <System/Component/Component.h>
 #include <System/Component/ComponentAttachModel.h>
@@ -274,16 +274,16 @@ namespace LittleQuest {
             switch (animCheck) {
                 case AnimCheck::GETTING_HIT:
                     // アニメーション終わったら
-                    if (modelPtr->GetAnimationTime() > 0.55f) {
-                        state     = EnemyState::IDLE;
+                    if (!modelPtr->IsPlaying()) {
+                        ChangeState(EnemyState::IDLE);
                         animCheck = AnimCheck::NONE;
                         isBusy    = false;
                     }
                     break;
                 case AnimCheck::ATTACKING:
-                    if (modelPtr->GetAnimationTime() > 2.2f) {
-                        isAttack    = false;
-                        isHitPlayer = false;
+                    if (!modelPtr->IsPlaying()) {
+                        isAttack = false;
+                        // isHitPlayer = false;
                         Wait(.5f);
                     }
                     break;

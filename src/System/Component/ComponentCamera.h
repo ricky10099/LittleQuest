@@ -18,9 +18,9 @@ class ComponentCamera : public Component {
         virtual void PreUpdate() override;     //!< カメラ更新
         virtual void Update() override;        //!< カメラ更新
         virtual void PostUpdate() override;    //!< カメラ更新
-        virtual void Draw() override;          //!< 標準カメラや別のカメラから見た時のカメラモデルを表示する
-        virtual void Exit() override;          //!< カメラ終了処理
-        virtual void GUI() override;           //!< カメラGUI処理
+        virtual void Draw() override;    //!< 標準カメラや別のカメラから見た時のカメラモデルを表示する
+        virtual void Exit() override;    //!< カメラ終了処理
+        virtual void GUI() override;     //!< カメラGUI処理
 
         //! @brief カメラの位置設定
         void SetCameraTransform();

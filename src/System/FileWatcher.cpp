@@ -27,9 +27,9 @@ bool FileWatcher::initialize(const wchar_t* path, std::function<void(const wchar
                                     FILE_LIST_DIRECTORY,                                       // [in] 要求アクセス
                                     FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,    // [in] 共有モード
                                     nullptr,                                                   // [in] セキュリティ属性
-                                    OPEN_EXISTING,                                             // [in] フォルダが存在する場合にのみ成功
-                                    FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED,         // [in] ReadDirectoryChangesW用
-                                    nullptr);                                                  //
+                                    OPEN_EXISTING,    // [in] フォルダが存在する場合にのみ成功
+                                    FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED,    // [in] ReadDirectoryChangesW用
+                                    nullptr);                                             //
     if (handle_directory_ == INVALID_HANDLE_VALUE) {
         return false;
     }

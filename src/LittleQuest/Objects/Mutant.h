@@ -39,5 +39,7 @@ namespace LittleQuest {
             // void Attack() override;
 
             void Die() override;
+
+        private:
     };
 }    // namespace LittleQuest

@@ -55,7 +55,7 @@ bool ModelCache::save(int mv1_handle) const {
     {
         bool is_transform = true;
         MV1SetupReferenceMesh(mv1_handle, -1, is_transform,
-                              true);                                                 // 参照用メッシュのセットアップ
+                              true);    // 参照用メッシュのセットアップ
         auto poly_list = MV1GetReferenceMesh(mv1_handle, -1, is_transform, true);    // 参照用メッシュを取得する
 
         // 頂点インデックス配列を抽出

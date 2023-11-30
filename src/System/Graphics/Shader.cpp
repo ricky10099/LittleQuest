@@ -41,8 +41,7 @@ ShaderBase::ShaderBase() {
 //---------------------------------------------------------------------------
 //! 作成
 //---------------------------------------------------------------------------
-ShaderBase::ShaderBase(std::string_view path, u32 type, u32 variant_count)
-    : ShaderBase() {
+ShaderBase::ShaderBase(std::string_view path, u32 type, u32 variant_count) : ShaderBase() {
     assert(type <= DX_SHADERTYPE_HULL);
 
     //-----------------------------------------------------------------------
@@ -223,7 +222,7 @@ bool ShaderBase::compile() {
         //------------------------------------------------------
         // [DxLib] シェーダーを作成
         //------------------------------------------------------
-        const void* shader_ptr = byte_code->GetBufferPointer();                   // シェーダーバイナリの先頭アドレス
+        const void* shader_ptr = byte_code->GetBufferPointer();    // シェーダーバイナリの先頭アドレス
         auto shader_size       = static_cast<int>(byte_code->GetBufferSize());    // シェーダーバイナリのサイズ
         int handle             = -1;
 

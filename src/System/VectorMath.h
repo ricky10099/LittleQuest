@@ -84,8 +84,7 @@ class matrix : public float4x4 {
         using float4x4::float4x4;
 
         //! コンストラクタ
-        matrix(const float4x4& m)
-            : float4x4(m) {}
+        matrix(const float4x4& m) : float4x4(m) {}
 
         //----------------------------------------------------------
         //! @name   行列作成

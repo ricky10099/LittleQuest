@@ -47,8 +47,7 @@ class ShaderBase {
 //===========================================================================
 class ShaderVs final : public ShaderBase {
     public:
-        ShaderVs(std::string_view path, u32 variant_count = 0)
-            : ShaderBase(path, DX_SHADERTYPE_VERTEX, variant_count) {}
+        ShaderVs(std::string_view path, u32 variant_count = 0) : ShaderBase(path, DX_SHADERTYPE_VERTEX, variant_count) {}
 
     private:
 };
@@ -58,8 +57,7 @@ class ShaderVs final : public ShaderBase {
 //===========================================================================
 class ShaderPs final : public ShaderBase {
     public:
-        ShaderPs(std::string_view path, u32 variant_count = 0)
-            : ShaderBase(path, DX_SHADERTYPE_PIXEL, variant_count) {}
+        ShaderPs(std::string_view path, u32 variant_count = 0) : ShaderBase(path, DX_SHADERTYPE_PIXEL, variant_count) {}
 };
 
 //===========================================================================
@@ -67,6 +65,5 @@ class ShaderPs final : public ShaderBase {
 //===========================================================================
 class ShaderGs final : public ShaderBase {
     public:
-        ShaderGs(std::string_view path, u32 variant_count = 0)
-            : ShaderBase(path, DX_SHADERTYPE_GEOMETRY, variant_count) {}
+        ShaderGs(std::string_view path, u32 variant_count = 0) : ShaderBase(path, DX_SHADERTYPE_GEOMETRY, variant_count) {}
 };

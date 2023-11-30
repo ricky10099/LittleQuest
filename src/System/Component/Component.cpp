@@ -38,8 +38,7 @@ const ObjectPtr Component::GetOwnerPtr() const {
 
 //! @brief コンストラクタ
 //! @param owner オーナー
-Component::Component()
-    : owner_(nullptr) {}
+Component::Component() : owner_(nullptr) {}
 
 void Component::Construct(ObjectPtr owner) {
     owner_ = owner;

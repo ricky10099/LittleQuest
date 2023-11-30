@@ -22,8 +22,8 @@ namespace physics {
             enum class GroundState {
                 OnGround,         //!< キャラクターが地上にいて自由に動ける状態
                 OnSteepGround,    //!< キャラクターは急すぎる斜面にいて、これ以上登れない。もし斜面から滑りたいのであれば、呼び出し手は下降速度をかけ始める必要があります。
-                NotSupported,     //!< キャラクターがオブジェクトに触れているが、そのオブジェクトに対応していないため落下する必要がある。GetGroundXXX関数は、タッチされたオブジェクトの情報を返します。
-                InAir,            //!< キャラクターは空宙にいる
+                NotSupported,    //!< キャラクターがオブジェクトに触れているが、そのオブジェクトに対応していないため落下する必要がある。GetGroundXXX関数は、タッチされたオブジェクトの情報を返します。
+                InAir,           //!< キャラクターは空宙にいる
             };
 
             // コンストラクタ
@@ -175,7 +175,7 @@ namespace physics {
     //===========================================================================
     class Character::ContactSettings {
         public:
-            bool can_push_character_   = true;    //!< 他のボディがキャラクターを押すことができるかどうか
+            bool can_push_character_ = true;    //!< 他のボディがキャラクターを押すことができるかどうか
             bool can_receive_impulses_ = true;    //!< キャラクタがー他のボディから押されるかどうか
     };
 
@@ -209,7 +209,7 @@ namespace physics {
                                         [[maybe_unused]] u64 other_body_id, [[maybe_unused]] const float3& contact_position,
                                         [[maybe_unused]] const float3& contact_normal,
                                         [[maybe_unused]] physics::Character::ContactSettings& result) {
-                result.can_push_character_   = true;    // 相手のオブジェクトから押される
+                result.can_push_character_ = true;    // 相手のオブジェクトから押される
                 result.can_receive_impulses_ = true;    // 相手のオブジェクトをキャラクターで押すことができる
             }
     };

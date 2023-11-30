@@ -140,10 +140,10 @@ class Animation final {
         struct Context {
                 bool is_playing_            = false;    //!< 再生中かどうか
                 bool is_loop_               = false;    //!< ループ再生かどうか
-                s32 animation_index_        = -1;       //!< 現在再生中の番号(Animation::Descのインデックス番号)
-                int animation_attach_index_ = -1;       //!< [DxLib] アタッチされたスロット番号
-                f32 animation_total_time_   = 0.0f;     //!< 総再生時間
-                f32 play_time_              = 0.0f;     //!< 現在再生中の時間
+                s32 animation_index_        = -1;      //!< 現在再生中の番号(Animation::Descのインデックス番号)
+                int animation_attach_index_ = -1;      //!< [DxLib] アタッチされたスロット番号
+                f32 animation_total_time_   = 0.0f;    //!< 総再生時間
+                f32 play_time_              = 0.0f;    //!< 現在再生中の時間
         };
 
         Context contexts_[2];       //!< 構造体はアニメーションブレンドのため2系統を持つ

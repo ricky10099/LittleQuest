@@ -25,8 +25,7 @@ namespace shape {
     class Base {
         public:
             //! コンストラクタ
-            Base(shape::Type type)
-                : type_(type) {}
+            Base(shape::Type type) : type_(type) {}
 
             //! 形状の種類を取得
             shape::Type shapeType() const { return type_; }
@@ -56,8 +55,7 @@ namespace shape {
             float3 extent_;    //!< 幅
 
             //! コンストラクタ
-            Box(const float3& extent)
-                : shape::Base(shape::Type::Box), extent_(extent) {}
+            Box(const float3& extent) : shape::Base(shape::Type::Box), extent_(extent) {}
     };
 
     //===========================================================================
@@ -82,8 +80,7 @@ namespace shape {
             f32 radius_;         //!< 半径
 
             //! コンストラクタ
-            Cylinder(f32 half_height, f32 radius)
-                : shape::Base(shape::Type::Box), half_height_(half_height), radius_(radius) {}
+            Cylinder(f32 half_height, f32 radius) : shape::Base(shape::Type::Box), half_height_(half_height), radius_(radius) {}
     };
 
     //===========================================================================

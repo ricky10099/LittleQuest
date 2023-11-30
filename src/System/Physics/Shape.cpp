@@ -16,8 +16,7 @@ namespace shape {
     //---------------------------------------------------------------------------
     //! コンストラクタ
     //---------------------------------------------------------------------------
-    ConvexHull::ConvexHull(Model* model)
-        : shape::Base(shape::Type::ConvexHull) {
+    ConvexHull::ConvexHull(Model* model) : shape::Base(shape::Type::ConvexHull) {
         auto* resource_model = model->resource();
         auto* model_cache    = resource_model->modelCache();
 
@@ -42,8 +41,7 @@ namespace shape {
     //---------------------------------------------------------------------------
     //! コンストラクタ
     //---------------------------------------------------------------------------
-    Mesh::Mesh(Model* model, f32 scale)
-        : shape::Base(shape::Type::Mesh) {
+    Mesh::Mesh(Model* model, f32 scale) : shape::Base(shape::Type::Mesh) {
         auto* resource_model = model->resource();
         auto* model_cache    = resource_model->modelCache();
 

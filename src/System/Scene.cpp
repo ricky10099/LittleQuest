@@ -41,15 +41,8 @@ namespace {
         using ObjectType = void (Object::*)();
 
         ObjectType func_table[] = {
-            &Object::PreUpdate,
-            &Object::Update,
-            &Object::LateUpdate,
-            &Object::PrePhysics,
-            &Object::PostUpdate,
-            &Object::PreDraw,
-            &Object::Draw,
-            &Object::LateDraw,
-            &Object::PostDraw,
+            &Object::PreUpdate, &Object::Update, &Object::LateUpdate, &Object::PrePhysics, &Object::PostUpdate,
+            &Object::PreDraw,   &Object::Draw,   &Object::LateDraw,   &Object::PostDraw,
         };
 
         assert(static_cast<u32>(proc) < static_cast<u32>(ProcTiming::NUM));
@@ -135,15 +128,8 @@ namespace {
         using ComponentType = void (Component::*)();
 
         ComponentType func_table[] = {
-            &Component::PreUpdate,
-            &Component::Update,
-            &Component::LateUpdate,
-            &Component::PrePhysics,
-            &Component::PostUpdate,
-            &Component::PreDraw,
-            &Component::Draw,
-            &Component::LateDraw,
-            &Component::PostDraw,
+            &Component::PreUpdate, &Component::Update, &Component::LateUpdate, &Component::PrePhysics, &Component::PostUpdate,
+            &Component::PreDraw,   &Component::Draw,   &Component::LateDraw,   &Component::PostDraw,
         };
 
         assert(static_cast<u32>(proc) < static_cast<u32>(ProcTiming::NUM));

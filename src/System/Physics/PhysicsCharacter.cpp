@@ -440,7 +440,7 @@ namespace physics {
         f32 relative_vertical_velocity = current_vertical_velocity.y - ground_velocity.y;    // 相対速度
 
         if (ground_state == physics::Character::GroundState::OnGround    // 地面に接地している時
-            && (relative_vertical_velocity < 0.1f))                      // かつ、地面から離れようとしていない時
+            && (relative_vertical_velocity < 0.1f))    // かつ、地面から離れようとしていない時
         {
             // 移動床の速度を新しい速度にする
             new_velocity = ground_velocity;
@@ -513,7 +513,7 @@ namespace physics {
         auto layer_filter             = physics_system->GetDefaultLayerFilter(layer_);
 
         bool is_succeed = jph_character_->SetShape(translated_shape,    // シェイプ
-                                                   0.1f,                // 切り替え後に許容される最大めり込み量
+                                                   0.1f,    // 切り替え後に許容される最大めり込み量
                                                    broad_phase_layer_filter, layer_filter, JPH::BodyFilter{},
                                                    JPH::ShapeFilter{}, *physics::Engine::tempAllocator());
 

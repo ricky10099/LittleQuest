@@ -85,14 +85,7 @@ std::string_view ComponentCollision::GetName() {
 }
 
 const char* const collisionGroupName[] = {
-    "WALL",
-    "GROUND",
-    "PLAYER",
-    "ENEMY ",
-    "WEAPON",
-    "ITEM  ",
-    "CAMERA",
-    "ETC",
+    "WALL", "GROUND", "PLAYER", "ENEMY ", "WEAPON", "ITEM  ", "CAMERA", "ETC",
 };
 
 void ComponentCollision::GUICollisionData(bool use_attach) {

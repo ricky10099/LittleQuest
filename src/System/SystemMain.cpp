@@ -160,8 +160,8 @@ void ShowFps(f32 delta) {
                                     ImGuiWindowFlags_AlwaysAutoResize |      // 自動リサイズなし
                                     ImGuiWindowFlags_NoSavedSettings |       // 保存しない
                                     ImGuiWindowFlags_NoFocusOnAppearing |    // フォーカスしない
-                                    ImGuiWindowFlags_NoNav |                 // キーやゲームパッドで操作対象にしない
-                                    ImGuiWindowFlags_NoMove;                 // 移動させない
+                                    ImGuiWindowFlags_NoNav |    // キーやゲームパッドで操作対象にしない
+                                    ImGuiWindowFlags_NoMove;    // 移動させない
 
     //----------------------------------------------------------
     // 表示位置設定
@@ -170,8 +170,8 @@ void ShowFps(f32 delta) {
     {
         constexpr f32 PADDING         = 10.0f;    // 余白部分
         const ImGuiViewport* viewport = ImGui::GetMainViewport();
-        ImVec2 work_pos               = viewport->WorkPos;    // WorkPosを使用するとメニューバーなどの位置を考慮した位置が取得できる
-        ImVec2 work_size              = viewport->WorkSize;
+        ImVec2 work_pos = viewport->WorkPos;    // WorkPosを使用するとメニューバーなどの位置を考慮した位置が取得できる
+        ImVec2 work_size = viewport->WorkSize;
         ImVec2 window_pos, window_pos_pivot;
         window_pos.x       = (corner & 1) ? (work_pos.x + work_size.x - PADDING) : (work_pos.x + PADDING);
         window_pos.y       = (corner & 2) ? (work_pos.y + work_size.y - PADDING) : (work_pos.y + PADDING);
