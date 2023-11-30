@@ -13,7 +13,6 @@
 #include <System/Component/ComponentCollisionSphere.h>
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
-#include <System/Component/ComponentTargetTracking.h>
 
 namespace LittleQuest {
 
@@ -39,7 +38,6 @@ namespace LittleQuest {
         {
             auto sword = Scene::CreateObjectPtr<Object>("PlayerSword");
 
-            // オブジェクトにモデルをつける
             if (auto model = sword->AddComponent<ComponentModel>()) {
                 model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
                 model->SetRotationAxisXYZ({0, 0, 0});
@@ -47,11 +45,8 @@ namespace LittleQuest {
             }
 
             if (auto attach = sword->AddComponent<ComponentAttachModel>()) {
-                // playerの右手にアタッチする
                 attach->SetAttachObject(player, "mixamorig:RightHand");
-                // Knife回転量
                 attach->SetAttachRotate({0, 0, -90});
-                // Knifeオフセット
                 attach->SetAttachOffset({10, 13, -3});
             }
         }
@@ -183,7 +178,7 @@ namespace LittleQuest {
         }
 
         switch (playerState) {
-            case PlayerState::DAMAGED:
+            case PlayerState::GET_HIT:
                 break;
             case PlayerState::ATTACK:
                 Attack(move);
