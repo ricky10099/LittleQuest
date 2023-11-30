@@ -50,8 +50,7 @@ namespace {
 
     //---------------------------------------------------------------------------
     f32 easeInOutCubic(f32 t) {
-        return t < 0.5f ? 4.0f * t * t * t
-                        : 1.0f - powf(-2.0f * t + 2.0f, 3.0f) / 2.0f;
+        return t < 0.5f ? 4.0f * t * t * t : 1.0f - powf(-2.0f * t + 2.0f, 3.0f) / 2.0f;
     }
 
     //---------------------------------------------------------------------------
@@ -203,11 +202,9 @@ namespace {
     //---------------------------------------------------------------------------
     f32 easeInOutBounce(f32 t) {
         if (t < 0.5f) {
-            return 8.0f * powf(2, 8.0f * (t - 1.0f))
-                   * fabsf(sinf(t * PI * 7.0f));
+            return 8.0f * powf(2, 8.0f * (t - 1.0f)) * fabsf(sinf(t * PI * 7.0f));
         } else {
-            return 1.0f
-                   - 8.0f * powf(2.0f, -8.0f * t) * fabsf(sinf(t * PI * 7.0f));
+            return 1.0f - 8.0f * powf(2.0f, -8.0f * t) * fabsf(sinf(t * PI * 7.0f));
         }
     }
 

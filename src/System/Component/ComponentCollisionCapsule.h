@@ -11,14 +11,11 @@
 USING_PTR(ComponentCollisionCapsule);
 
 //! @brief コリジョンコンポーネントクラス
-class ComponentCollisionCapsule : public ComponentCollision,
-                                  public IMatrix<ComponentCollisionCapsule> {
+class ComponentCollisionCapsule : public ComponentCollision, public IMatrix<ComponentCollisionCapsule> {
     public:
         BP_COMPONENT_TYPE(ComponentCollisionCapsule, ComponentCollision);
 
-        ComponentCollisionCapsule() {
-            collision_type_ = CollisionType::CAPSULE;
-        }
+        ComponentCollisionCapsule() { collision_type_ = CollisionType::CAPSULE; }
 
         virtual void Init() override;
         virtual void Update() override;
@@ -56,13 +53,10 @@ class ComponentCollisionCapsule : public ComponentCollision,
         //! @return ComponentTransform の Matrix
         matrix& Matrix() override { return collision_transform_; }
 
-        const matrix& GetMatrix() const override {
-            return collision_transform_;
-        }
+        const matrix& GetMatrix() const override { return collision_transform_; }
 
         virtual ComponentCollisionCapsulePtr SharedThis() override {
-            return std::dynamic_pointer_cast<ComponentCollisionCapsule>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this());
         }
 
         //! @brief ワールドMatrixの取得
@@ -71,9 +65,7 @@ class ComponentCollisionCapsule : public ComponentCollision,
 
         //! @brief 1フレーム前のワールドMatrixの取得
         //! @return 他のコンポーネントも含めた位置
-        virtual const matrix GetOldWorldMatrix() const override {
-            return old_transform_;
-        }
+        virtual const matrix GetOldWorldMatrix() const override { return old_transform_; }
 
         //@}
 
@@ -85,28 +77,22 @@ class ComponentCollisionCapsule : public ComponentCollision,
 
         inline ComponentCollisionCapsulePtr SetName(std::string_view name) {
             name_ = name;
-            return std::dynamic_pointer_cast<ComponentCollisionCapsule>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this());
         }
 
-        inline ComponentCollisionCapsulePtr SetHitCollisionGroup(
-            u32 hit_group) {
+        inline ComponentCollisionCapsulePtr SetHitCollisionGroup(u32 hit_group) {
             collision_hit_ = hit_group;
-            return std::dynamic_pointer_cast<ComponentCollisionCapsule>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this());
         }
 
-        inline ComponentCollisionCapsulePtr SetCollisionGroup(
-            CollisionGroup grp) {
+        inline ComponentCollisionCapsulePtr SetCollisionGroup(CollisionGroup grp) {
             collision_group_ = grp;
-            return std::dynamic_pointer_cast<ComponentCollisionCapsule>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this());
         }
 
         inline ComponentCollisionCapsulePtr SetMass(float mass) {
             collision_mass_ = mass;
-            return std::dynamic_pointer_cast<ComponentCollisionCapsule>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this());
         }
 #endif
 
@@ -116,32 +102,22 @@ class ComponentCollisionCapsule : public ComponentCollision,
 #ifdef USE_JOLT_PHYSICS
         bool set_size_ = false;
 
-        std::shared_ptr<physics::Character>
-            character_{};    //!< キャラクターコントローラー
+        std::shared_ptr<physics::Character> character_{};    //!< キャラクターコントローラー
 
         class CapsuleListener : public physics::Character::ContactListener {
-                void onContactAdded(
-                    [[maybe_unused]] const physics::Character* character,
-                    [[maybe_unused]] u64 other_body_id,
-                    [[maybe_unused]] const float3& contact_position,
-                    [[maybe_unused]] const float3& contact_normal,
-                    [[maybe_unused]] physics::Character::ContactSettings&
-                        result) override {
+                void onContactAdded([[maybe_unused]] const physics::Character* character, [[maybe_unused]] u64 other_body_id,
+                                    [[maybe_unused]] const float3& contact_position,
+                                    [[maybe_unused]] const float3& contact_normal,
+                                    [[maybe_unused]] physics::Character::ContactSettings& result) override {
                     // ノーマルの方向にて現在の重力加速を抑える
                     float d = dot(-contact_normal, {0, 1, 0});
-                    if (GetComponent())
-                        GetComponent()->setGravity(GetComponent()->gravity()
-                                                   * (1 - d));
+                    if (GetComponent()) GetComponent()->setGravity(GetComponent()->gravity() * (1 - d));
                 }
 
             public:
-                void SetComponent(ComponentCollisionCapsulePtr comp) {
-                    component_ = comp;
-                }
+                void SetComponent(ComponentCollisionCapsulePtr comp) { component_ = comp; }
 
-                ComponentCollisionCapsulePtr GetComponent() {
-                    return component_;
-                }
+                ComponentCollisionCapsulePtr GetComponent() { return component_; }
 
             protected:
                 ComponentCollisionCapsulePtr component_ = nullptr;
@@ -159,13 +135,11 @@ class ComponentCollisionCapsule : public ComponentCollision,
             arc(cereal::make_nvp("owner", owner_));
             arc(cereal::make_nvp("radius", radius_));
             arc(cereal::make_nvp("height", height_));
-            arc(cereal::make_nvp("ComponentCollision",
-                                 cereal::base_class<ComponentCollision>(this)));
+            arc(cereal::make_nvp("ComponentCollision", cereal::base_class<ComponentCollision>(this)));
         }
 
         //@}
 };
 
 CEREAL_REGISTER_TYPE(ComponentCollisionCapsule)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(ComponentCollision,
-                                     ComponentCollisionCapsule)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(ComponentCollision, ComponentCollisionCapsule)

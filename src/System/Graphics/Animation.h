@@ -13,11 +13,10 @@ class Animation final {
     public:
         //! アニメーション定義オプション
         struct Desc {
-                std::string name_{};         //!< アニメーション名(任意)
-                std::string file_path_{};    //!< ファイルパス
-                u32 animation_index_ = 0;    //!< ファイル内のアニメーション番号
-                f32 animation_speed_ =
-                    1.0f;    //!< アニメーションの再生速度(default:1.0f)
+                std::string name_{};            //!< アニメーション名(任意)
+                std::string file_path_{};       //!< ファイルパス
+                u32 animation_index_ = 0;       //!< ファイル内のアニメーション番号
+                f32 animation_speed_ = 1.0f;    //!< アニメーションの再生速度(default:1.0f)
         };
 
         //----------------------------------------------------------
@@ -70,8 +69,7 @@ class Animation final {
         //! @param  [in]    start_time  再生開始時間(default:0.0f)
         //! @retval true    成功(正常終了)
         //! @retval false   失敗(nameで指定した名前が見つからなかった場合)
-        bool play(std::string_view name, bool is_loop = false,
-                  f32 blend_time = 1.0f, f32 start_time = 0.0f);
+        bool play(std::string_view name, bool is_loop = false, f32 blend_time = 1.0f, f32 start_time = 0.0f);
 
         // アニメーションを一時停止する
         //! @param  [in]    active  停止フラグ(true:停止 false:再開)
@@ -120,11 +118,10 @@ class Animation final {
         //! @param  [in]    context_index   コンテキスト番号
         void detachAnimation(s32 context_index);
 
-        std::wstring path_;          //!< ファイルパス
-        bool is_valid_ = false;      //!< 初期化が正しく成功しているかどうか
-        Model* model_  = nullptr;    //!< 関連付けられているモデル
-        int model_handle_ =
-            -1;    //!< [DxLib] 関連付けられているモデルのハンドル
+        std::wstring path_;             //!< ファイルパス
+        bool is_valid_    = false;      //!< 初期化が正しく成功しているかどうか
+        Model* model_     = nullptr;    //!< 関連付けられているモデル
+        int model_handle_ = -1;         //!< [DxLib] 関連付けられているモデルのハンドル
 
         std::vector<Animation::Desc> descs_;    //!< アニメーション定義情報
         std::vector<int> mv1_handles_;          //!< [DxLib] アニメーションMV1ハンドル
@@ -141,18 +138,15 @@ class Animation final {
 
         //! 再生中の情報構造体
         struct Context {
-                bool is_playing_ = false;    //!< 再生中かどうか
-                bool is_loop_    = false;    //!< ループ再生かどうか
-                s32 animation_index_ =
-                    -1;    //!< 現在再生中の番号(Animation::Descのインデックス番号)
-                int animation_attach_index_ =
-                    -1;                              //!< [DxLib] アタッチされたスロット番号
-                f32 animation_total_time_ = 0.0f;    //!< 総再生時間
-                f32 play_time_            = 0.0f;    //!< 現在再生中の時間
+                bool is_playing_            = false;    //!< 再生中かどうか
+                bool is_loop_               = false;    //!< ループ再生かどうか
+                s32 animation_index_        = -1;       //!< 現在再生中の番号(Animation::Descのインデックス番号)
+                int animation_attach_index_ = -1;       //!< [DxLib] アタッチされたスロット番号
+                f32 animation_total_time_   = 0.0f;     //!< 総再生時間
+                f32 play_time_              = 0.0f;     //!< 現在再生中の時間
         };
 
-        Context contexts_
-            [2];                    //!< 構造体はアニメーションブレンドのため2系統を持つ
+        Context contexts_[2];       //!< 構造体はアニメーションブレンドのため2系統を持つ
         f32 blend_ratio_ = 0.0f;    //!< ブレンド比(0.0f～1.0f)
         f32 blend_time_  = 1.0f;    //!< ブレンドの補間時間
 
@@ -199,9 +193,7 @@ class ResourceAnimation final {
         //@}
 
     private:
-        std::wstring path_;    //!< モデルファイルへのパス
-        int mv1_handle_ =
-            -1;    //!< [DxLib] MV1モデルハンドル (アニメーション用途)
-        std::atomic<bool> active_ =
-            false;    //!< アクティブ状態 true:利用可能 false:ロード未完了
+        std::wstring path_;                   //!< モデルファイルへのパス
+        int mv1_handle_           = -1;       //!< [DxLib] MV1モデルハンドル (アニメーション用途)
+        std::atomic<bool> active_ = false;    //!< アクティブ状態 true:利用可能 false:ロード未完了
 };

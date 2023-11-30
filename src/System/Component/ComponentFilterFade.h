@@ -69,10 +69,7 @@ class ComponentFilterFade : public Component {
         //--------------------------------------------------------------------
         //@{
 
-        CEREAL_SAVELOAD(arc, ver) {
-            arc(CEREAL_NVP(owner_), CEREAL_NVP(mosaic_width_),
-                CEREAL_NVP(fade_alpha_));
-        }
+        CEREAL_SAVELOAD(arc, ver) { arc(CEREAL_NVP(owner_), CEREAL_NVP(mosaic_width_), CEREAL_NVP(fade_alpha_)); }
         //@}
 };
 

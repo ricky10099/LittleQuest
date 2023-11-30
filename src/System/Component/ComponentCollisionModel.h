@@ -11,8 +11,7 @@
 USING_PTR(ComponentCollisionModel);
 
 //! @brief コリジョンコンポーネントクラス
-class ComponentCollisionModel : public ComponentCollision,
-                                public IMatrix<ComponentCollisionModel> {
+class ComponentCollisionModel : public ComponentCollision, public IMatrix<ComponentCollisionModel> {
     public:
         BP_COMPONENT_TYPE(ComponentCollisionModel, ComponentCollision);
 
@@ -43,13 +42,10 @@ class ComponentCollisionModel : public ComponentCollision,
         //! @return ComponentTransform の Matrix
         matrix& Matrix() override { return collision_transform_; }
 
-        const matrix& GetMatrix() const override {
-            return collision_transform_;
-        }
+        const matrix& GetMatrix() const override { return collision_transform_; }
 
         virtual ComponentCollisionModelPtr SharedThis() override {
-            return std::dynamic_pointer_cast<ComponentCollisionModel>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCollisionModel>(shared_from_this());
         }
 
         //! @brief ワールドMatrixの取得
@@ -58,9 +54,7 @@ class ComponentCollisionModel : public ComponentCollision,
 
         //! @brief 1フレーム前のワールドMatrixの取得
         //! @return 他のコンポーネントも含めた位置
-        virtual const matrix GetOldWorldMatrix() const override {
-            return old_transform_;
-        }
+        virtual const matrix GetOldWorldMatrix() const override { return old_transform_; }
 
         //@}
 
@@ -74,36 +68,30 @@ class ComponentCollisionModel : public ComponentCollision,
 
         inline ComponentCollisionModelPtr SetName(std::string_view name) {
             name_ = name;
-            return std::dynamic_pointer_cast<ComponentCollisionModel>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCollisionModel>(shared_from_this());
         }
 
         inline ComponentCollisionModelPtr SetHitCollisionGroup(u32 hit_group) {
             collision_hit_ = hit_group;
-            return std::dynamic_pointer_cast<ComponentCollisionModel>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCollisionModel>(shared_from_this());
         }
 
-        inline ComponentCollisionModelPtr SetCollisionGroup(
-            CollisionGroup grp) {
+        inline ComponentCollisionModelPtr SetCollisionGroup(CollisionGroup grp) {
             collision_group_ = grp;
-            return std::dynamic_pointer_cast<ComponentCollisionModel>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCollisionModel>(shared_from_this());
         }
 
         inline ComponentCollisionModelPtr SetMass(float mass) {
             collision_mass_ = mass;
-            return std::dynamic_pointer_cast<ComponentCollisionModel>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCollisionModel>(shared_from_this());
         }
 #endif
 
     private:
         bool update_   = false;
         int ref_model_ = -1;
-        MV1_REF_POLYGONLIST ref_poly_{};    //!< ポリゴンデータ
-        std::vector<MV1_COLL_RESULT_POLY_DIM>
-            hit_poly_dims_;    //!< 結果代入用ポリゴン配列
+        MV1_REF_POLYGONLIST ref_poly_{};                         //!< ポリゴンデータ
+        std::vector<MV1_COLL_RESULT_POLY_DIM> hit_poly_dims_;    //!< 結果代入用ポリゴン配列
 
         //--------------------------------------------------------------------
         //! @name Cereal処理
@@ -112,8 +100,7 @@ class ComponentCollisionModel : public ComponentCollision,
         CEREAL_SAVELOAD(arc, ver) {
             arc(cereal::make_nvp("owner", owner_));
             arc(CEREAL_NVP(update_));
-            arc(cereal::make_nvp("ComponentCollision",
-                                 cereal::base_class<ComponentCollision>(this)));
+            arc(cereal::make_nvp("ComponentCollision", cereal::base_class<ComponentCollision>(this)));
             AttachToModel(update_);
         }
 
@@ -121,5 +108,4 @@ class ComponentCollisionModel : public ComponentCollision,
 };
 
 CEREAL_REGISTER_TYPE(ComponentCollisionModel)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(ComponentCollision,
-                                     ComponentCollisionModel)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(ComponentCollision, ComponentCollisionModel)

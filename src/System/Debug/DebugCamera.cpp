@@ -37,10 +37,8 @@ namespace DebugCamera {
             void PreDraw() override {
                 auto cam = GetComponent<ComponentCamera>();
 
-                auto LR =
-                    (GetMouseInput() & (MOUSE_INPUT_LEFT | MOUSE_INPUT_RIGHT))
-                    == (MOUSE_INPUT_LEFT | MOUSE_INPUT_RIGHT);
-                auto M = (GetMouseInput() & MOUSE_INPUT_MIDDLE);
+                auto LR = (GetMouseInput() & (MOUSE_INPUT_LEFT | MOUSE_INPUT_RIGHT)) == (MOUSE_INPUT_LEFT | MOUSE_INPUT_RIGHT);
+                auto M  = (GetMouseInput() & MOUSE_INPUT_MIDDLE);
 
                 [[maybe_unused]] auto L = (GetMouseInput() & MOUSE_INPUT_LEFT);
                 auto R                  = (GetMouseInput() & MOUSE_INPUT_RIGHT);
@@ -71,8 +69,7 @@ namespace DebugCamera {
 
                     // 平行移動
                     if (M || LR) {
-                        float3 mv =
-                            (right * -mouse_vec_.x + up * -mouse_vec_.y) * 0.1f;
+                        float3 mv = (right * -mouse_vec_.x + up * -mouse_vec_.y) * 0.1f;
 
                         cam_pos_ = cam_pos_ + mv;
                         tgt_pos_ = tgt_pos_ + mv;
@@ -80,12 +77,9 @@ namespace DebugCamera {
                         auto tgt_new_ = tgt_pos_ - cam_pos_;
 
                         auto rot_y = matrix::rotateY(mouse_vec_.x * 0.003f);
-                        auto rot_x =
-                            matrix::rotateAxis(right, -mouse_vec_.y * 0.003f);
+                        auto rot_x = matrix::rotateAxis(right, -mouse_vec_.y * 0.003f);
 
-                        tgt_pos_ =
-                            mul(float4(tgt_new_, 1), mul(rot_y, rot_x)).xyz
-                            + cam_pos_;
+                        tgt_pos_ = mul(float4(tgt_new_, 1), mul(rot_y, rot_x)).xyz + cam_pos_;
 
                         if (Input::IsKey(KEY_INPUT_W)) {
                             tgt_pos_ += front * 2.0f;
@@ -121,8 +115,7 @@ namespace DebugCamera {
                         auto f_v = front;
                         f_v.y    = 0.0f;    // 地面に沿った平行な向きに進む
 
-                        tgt_pos_ = mul(float4(tgt_new_, 1), rot_y).xyz
-                                   + cam_pos_ + f_v * (-mouse_vec_.y);
+                        tgt_pos_ = mul(float4(tgt_new_, 1), rot_y).xyz + cam_pos_ + f_v * (-mouse_vec_.y);
                         cam_pos_ += f_v * (-mouse_vec_.y);
                     }
                     // フォーカス
@@ -137,8 +130,7 @@ namespace DebugCamera {
                     mat_view_ = matrix::lookAtLH(cam_pos_, tgt_pos_);
 
                     cam->SetPositionAndTarget(cam_pos_, tgt_pos_);
-                    cam->SetCameraStatus(
-                        ComponentCamera::CameraBit::DebugCamera, true);
+                    cam->SetCameraStatus(ComponentCamera::CameraBit::DebugCamera, true);
 
                     SetCameraViewMatrix(mat_view_);             // ビュー行列
                     SetupCamera_ProjectionMatrix(mat_proj_);    // 投影行列
@@ -157,8 +149,7 @@ namespace DebugCamera {
             matrix mat_proj_;
 
             CEREAL_SAVELOAD(arc, ver) {
-                arc(CEREAL_NVP(cam_pos_), CEREAL_NVP(tgt_pos_),
-                    CEREAL_NVP(mat_view_), CEREAL_NVP(mat_proj_));
+                arc(CEREAL_NVP(cam_pos_), CEREAL_NVP(tgt_pos_), CEREAL_NVP(mat_view_), CEREAL_NVP(mat_proj_));
                 arc(CEREAL_NVP(is_use));
             }
     };
@@ -174,12 +165,10 @@ namespace DebugCamera {
 
         if (use) {
             // デバッグカメラを作成します
-            Scene::GetObjectPtrWithCreate<DebugCamera>()->SetName(
-                "DebugCamera");
+            Scene::GetObjectPtrWithCreate<DebugCamera>()->SetName("DebugCamera");
         } else {
             // デバッグカメラを消去します
-            if (auto obj = Scene::GetObjectPtr<DebugCamera>())
-                Scene::ReleaseObject(obj);
+            if (auto obj = Scene::GetObjectPtr<DebugCamera>()) Scene::ReleaseObject(obj);
         }
     }
 
@@ -198,8 +187,7 @@ namespace DebugCamera {
     ComponentCameraWeakPtr GetCamera() {
         auto cam = Scene::GetObjectPtr<DebugCamera>("DebugCamera");
         if (cam) {
-            auto weak_cam = std::weak_ptr<ComponentCamera>(
-                cam->GetComponent<ComponentCamera>());
+            auto weak_cam = std::weak_ptr<ComponentCamera>(cam->GetComponent<ComponentCamera>());
             return weak_cam;
         }
         return ComponentCameraWeakPtr();

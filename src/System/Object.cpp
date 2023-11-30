@@ -18,10 +18,8 @@
 #include <string>
 
 namespace {
-    std::unordered_map<std::string, u64>
-        obj_names_id;    //!< 存在するオブジェクト名
-    std::unordered_map<std::string, u64>
-        obj_names_count;    //!< 存在するオブジェクト名
+    std::unordered_map<std::string, u64> obj_names_id;       //!< 存在するオブジェクト名
+    std::unordered_map<std::string, u64> obj_names_count;    //!< 存在するオブジェクト名
 
     size_t obj_count = 0;
 
@@ -44,8 +42,7 @@ namespace {
     void CreateComponent(ObjectPtr obj) {
         switch (component_select_index) {
             case 0:
-                if (!obj->GetComponent<ComponentCamera>())
-                    obj->AddComponent<ComponentCamera>();
+                if (!obj->GetComponent<ComponentCamera>()) obj->AddComponent<ComponentCamera>();
                 break;
             case 1:
                 obj->AddComponent<ComponentCollisionCapsule>();
@@ -54,24 +51,19 @@ namespace {
                 obj->AddComponent<ComponentCollisionSphere>();
                 break;
             case 3:
-                if (!obj->GetComponent<ComponentFilterFade>())
-                    obj->AddComponent<ComponentFilterFade>();
+                if (!obj->GetComponent<ComponentFilterFade>()) obj->AddComponent<ComponentFilterFade>();
                 break;
             case 4:
-                if (!obj->GetComponent<ComponentModel>())
-                    obj->AddComponent<ComponentModel>();
+                if (!obj->GetComponent<ComponentModel>()) obj->AddComponent<ComponentModel>();
                 break;
             case 5:
-                if (!obj->GetComponent<ComponentSpringArm>())
-                    obj->AddComponent<ComponentSpringArm>();
+                if (!obj->GetComponent<ComponentSpringArm>()) obj->AddComponent<ComponentSpringArm>();
                 break;
             case 6:
-                if (!obj->GetComponent<ComponentTargetTracking>())
-                    obj->AddComponent<ComponentTargetTracking>();
+                if (!obj->GetComponent<ComponentTargetTracking>()) obj->AddComponent<ComponentTargetTracking>();
                 break;
             case 7:
-                if (!obj->GetComponent<ComponentTransform>())
-                    obj->AddComponent<ComponentTransform>();
+                if (!obj->GetComponent<ComponentTransform>()) obj->AddComponent<ComponentTransform>();
                 break;
         }
     }
@@ -166,16 +158,14 @@ void Object::GUI() {
     ImGui::Begin(name_.c_str());
     {
         //　シーンで選択されている場合はフォーカスする
-        if (Scene::SelectObjectWindow(shared_from_this()))
-            ImGui::SetKeyboardFocusHere(-1);
+        if (Scene::SelectObjectWindow(shared_from_this())) ImGui::SetKeyboardFocusHere(-1);
 
         // 使用しているコンポーネント数
         ImGui::Text(u8"使用コンポーネント数: %d", components_.size());
 
         char name[256];
         sprintf_s(name, "%s", name_.c_str());
-        if (ImGui::InputText(u8"名前", name, 256,
-                             ImGuiInputTextFlags_EnterReturnsTrue)) {
+        if (ImGui::InputText(u8"名前", name, 256, ImGuiInputTextFlags_EnterReturnsTrue)) {
             name_default_ = name;
             name_         = setUniqueName(name);
         }
@@ -196,8 +186,7 @@ void Object::GUI() {
         if (ImGui::BeginCombo(cap_item, sel_item.data())) {
             for (auto* p = component.child(); p; p = p->siblings()) {
                 // 表示文字列
-                std::string object_name =
-                    std::string(p->className()) + " - " + p->descName();
+                std::string object_name = std::string(p->className()) + " - " + p->descName();
 
                 bool is_selected = (sel_item == object_name);
                 if (ImGui::Selectable(object_name.data(), is_selected)) {
@@ -210,8 +199,7 @@ void Object::GUI() {
         }
 #if 1
         if (ImGui::Button("AddComponent")) {
-            if (component_type)
-                component_type->createComponentPtr(SharedThis());
+            if (component_type) component_type->createComponentPtr(SharedThis());
         }
 #endif
 
@@ -247,8 +235,7 @@ void Object::GUI() {
             ImGui::Separator();
             ImGui::TreePop();
         }
-        if (!GetComponent<ComponentSequencer>())
-            Scene::SetGUIObjectDetailSize();
+        if (!GetComponent<ComponentSequencer>()) Scene::SetGUIObjectDetailSize();
     }
     ImGui::End();
 
@@ -302,8 +289,7 @@ void Object::RegisterCurrentScene(ObjectPtr obj) {
 
     bool ret = obj->Init();
     if (ret) {
-        assert("継承先のInit()にて__super::Init()を入れてください."
-               && obj->GetStatus(Object::StatusBit::Initialized));
+        assert("継承先のInit()にて__super::Init()を入れてください." && obj->GetStatus(Object::StatusBit::Initialized));
     }
 }
 
@@ -376,8 +362,7 @@ void Object::RemoveAllComponents() {
     for (int i = (int)components_.size() - 1; i >= 0; --i) {
         auto& c = components_[i];
         c->Exit();
-        assert("__super::Exit() を継承先の Exit()　にて使用してください."
-               && c->status_.is(Component::StatusBit::Exited));
+        assert("__super::Exit() を継承先の Exit()　にて使用してください." && c->status_.is(Component::StatusBit::Exited));
     }
 }
 

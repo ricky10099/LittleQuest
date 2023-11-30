@@ -130,9 +130,8 @@ class matrix : public float4x4 {
         //! @param  [in]    look_at     注視点
         //! @param  [in]    world_up 世界の上方向のベクトル(default:(0.0f, 1.0f,
         //! 0.0f))
-        static [[nodiscard]] matrix lookAtLH(
-            const float3& eye, const float3& look_at,
-            const float3& world_up = float3(0.0f, 1.0f, 0.0f));
+        static [[nodiscard]] matrix lookAtLH(const float3& eye, const float3& look_at,
+                                             const float3& world_up = float3(0.0f, 1.0f, 0.0f));
 
         // [左手座標系] 投影行列
         //! @param  [in]    fovy            画角(単位:radian)
@@ -140,8 +139,7 @@ class matrix : public float4x4 {
         //! @param  [in]    near_z          近クリップZ値
         //! @param  [in]    far_z           遠クリップZ値
         //! @note InverseZにしたい場合はnearZの値とfarZの値を交換して指定。
-        static [[nodiscard]] matrix perspectiveFovLH(f32 fovy, f32 aspect_ratio,
-                                                     f32 near_z, f32 far_z);
+        static [[nodiscard]] matrix perspectiveFovLH(f32 fovy, f32 aspect_ratio, f32 near_z, f32 far_z);
 
         // [左手座標系] 無限遠投影行列
         //!
@@ -154,8 +152,7 @@ class matrix : public float4x4 {
         //!
         //! @see GDC'07 「Projection Matrix Tricks」
         //! @attention InverseZ前提の投影にになるため注意。
-        static [[nodiscard]] matrix perspectiveFovInfiniteFarPlaneLH(
-            f32 fovy, f32 aspect_ratio, f32 near_z);
+        static [[nodiscard]] matrix perspectiveFovInfiniteFarPlaneLH(f32 fovy, f32 aspect_ratio, f32 near_z);
 
         // [左手座標系] 平行投影行列
         //! @param  [in]    left        左側の幅
@@ -165,10 +162,7 @@ class matrix : public float4x4 {
         //! @param  [in]    near_z      近クリップZ値
         //! @param  [in]    far_z       遠クリップZ値
         //! @note InverseZにしたい場合はnearZの値とfarZの値を交換して指定。
-        static [[nodiscard]] matrix orthographicOffCenterLH(f32 left, f32 right,
-                                                            f32 bottom, f32 top,
-                                                            f32 near_z,
-                                                            f32 far_z);
+        static [[nodiscard]] matrix orthographicOffCenterLH(f32 left, f32 right, f32 bottom, f32 top, f32 near_z, f32 far_z);
 
         //@}
         //----------------------------------------------------------
@@ -214,10 +208,7 @@ class matrix : public float4x4 {
         //@{
 
         //! [DxLib] DxLib::MATRIXから初期化
-        matrix(const DxLib::MATRIX& matrix) {
-            load(*this,
-                 reinterpret_cast<f32*>(const_cast<DxLib::MATRIX*>(&matrix)));
-        }
+        matrix(const DxLib::MATRIX& matrix) { load(*this, reinterpret_cast<f32*>(const_cast<DxLib::MATRIX*>(&matrix))); }
 
         //! [DxLib] DxLib::MATRIXへキャスト
         operator DxLib::MATRIX const() { return cast(*this); }

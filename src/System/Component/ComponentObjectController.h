@@ -65,9 +65,8 @@ class ComponentObjectController : public Component {
         float limit_cam_down_ = -45.0f;    //!< 下を見る
 
         ObjectWeakPtr target_;
-        float target_cam_side_speed_ =
-            3.0f;                            //!< ロックオン時のカーソル移動速度
-        float target_cam_up_down = 10.0f;    //!< ターゲットを見る際の上下固定
+        float target_cam_side_speed_ = 3.0f;     //!< ロックオン時のカーソル移動速度
+        float target_cam_up_down     = 10.0f;    //!< ターゲットを見る際の上下固定
 
         //--------------------------------------------------------------------
         //! @name Cereal処理
@@ -80,27 +79,23 @@ class ComponentObjectController : public Component {
         CEREAL_SAVELOAD(arc, ver) {
             arc(cereal::make_nvp("speed_", move_speed_), CEREAL_NVP(rot_speed_),
 
-                CEREAL_NVP(key_up_), CEREAL_NVP(key_down_),
-                CEREAL_NVP(key_left_), CEREAL_NVP(key_right_),
+                CEREAL_NVP(key_up_), CEREAL_NVP(key_down_), CEREAL_NVP(key_left_), CEREAL_NVP(key_right_),
 
-                CEREAL_NVP(cam_speed_), CEREAL_NVP(cam_up_),
-                CEREAL_NVP(cam_down_), CEREAL_NVP(cam_left_),
+                CEREAL_NVP(cam_speed_), CEREAL_NVP(cam_up_), CEREAL_NVP(cam_down_), CEREAL_NVP(cam_left_),
                 CEREAL_NVP(cam_right_),
 
                 CEREAL_NVP(cam_rx_), CEREAL_NVP(cam_ry_),
 
                 CEREAL_NVP(limit_cam_up_), CEREAL_NVP(limit_cam_down_),
 
-                CEREAL_NVP(target_), CEREAL_NVP(target_cam_side_speed_),
-                CEREAL_NVP(target_cam_up_down));
+                CEREAL_NVP(target_), CEREAL_NVP(target_cam_side_speed_), CEREAL_NVP(target_cam_up_down));
 
             if (ver >= 3) {
                 arc(CEREAL_NVP(use_mouse_),    //
                     CEREAL_NVP(mouse_up_down_), CEREAL_NVP(mouse_left_right_));
             }
 
-            arc(cereal::make_nvp("Component",
-                                 cereal::base_class<Component>(this)));
+            arc(cereal::make_nvp("Component", cereal::base_class<Component>(this)));
         }
 };
 

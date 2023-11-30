@@ -31,8 +31,7 @@ namespace shape {
         // 頂点配列
         auto& varray = model_cache->vertices();
         for (auto& v : varray) {
-            vertices_.push_back(
-                cast(v));    // DxLib::VECTOR→float3にキャストしながらコピー
+            vertices_.push_back(cast(v));    // DxLib::VECTOR→float3にキャストしながらコピー
         }
     }
 
@@ -60,9 +59,7 @@ namespace shape {
         // 頂点配列
         auto& varray = model_cache->vertices();
         for (auto& v : varray) {
-            vertices_.push_back(
-                cast(v)
-                * scale);    // DxLib::VECTOR→float3にキャストしながらコピー
+            vertices_.push_back(cast(v) * scale);    // DxLib::VECTOR→float3にキャストしながらコピー
         }
 
         // インデックス配列

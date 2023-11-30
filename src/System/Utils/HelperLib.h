@@ -32,8 +32,7 @@ namespace HelperLib::File {
     //! @param ext 列挙する拡張子(ディフォルトは無視) 例:".png" ".jpg/.png/.bmp"
     //! など
     //! @return ディレクトリに存在するファイル
-    Files_t GetFilesFromDirectory(std::string_view dirname,
-                                  std::string_view ext = "");
+    Files_t GetFilesFromDirectory(std::string_view dirname, std::string_view ext = "");
 
     //! @brief ファイルの存在チェック
     //! @param path ファイルパス
@@ -108,14 +107,12 @@ namespace HelperLib::Math {
     //! @param up 上ベクトル (仮 Y-Vector )
     //! @param upremake (上ベクトルを作り直すか?)
     //! @return マトリクス
-    matrix CreateMatrixByFrontVector(float3 front, float3 up = float3{0, 1, 0},
-                                     bool upremake = true);
+    matrix CreateMatrixByFrontVector(float3 front, float3 up = float3{0, 1, 0}, bool upremake = true);
 
     //! @brief 自分からターゲットを見るマトリクスの作成
     //! @param my_object_pos 自分の位置
     //! @param target_object_pos ターゲットの位置
     //! @return ターゲットのほうに向いているマトリクス
-    matrix LookAtMatrixForObject(float3 my_object_pos,
-                                 float3 target_object_pos);
+    matrix LookAtMatrixForObject(float3 my_object_pos, float3 target_object_pos);
 
 }    // namespace HelperLib::Math

@@ -46,18 +46,16 @@ namespace LittleQuest {
         Super::Init();
 
         // モデルコンポーネント(0.08倍)
-        auto model = AddComponent<ComponentModel>(
-            "data/LittleQuest/Model/Mutant/Mutant.mv1");
+        auto model = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
 
         model->SetScaleAxisXYZ({0.05f});    //
 
-        model->SetAnimation(
-            {{"idle", "data/LittleQuest/Anim/MutantIdle.mv1", 0, 1.0f},
-             {"walk", "data/LittleQuest/Anim/MutantWalking.mv1", 0, 1.0f},
-             {"run", "data/LittleQuest/Anim/MutantRun.mv1", 0, 1.0f},
-             {"attack", "data/LittleQuest/Anim/MutantSwiping.mv1", 0, 1.0f},
-             {"getHit", "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
-             {"die", "data/LittleQuest/Anim/MutantDying.mv1", 0, 1.0f}});
+        model->SetAnimation({{"idle", "data/LittleQuest/Anim/MutantIdle.mv1", 0, 1.0f},
+                             {"walk", "data/LittleQuest/Anim/MutantWalking.mv1", 0, 1.0f},
+                             {"run", "data/LittleQuest/Anim/MutantRun.mv1", 0, 1.0f},
+                             {"attack", "data/LittleQuest/Anim/MutantSwiping.mv1", 0, 1.0f},
+                             {"getHit", "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
+                             {"die", "data/LittleQuest/Anim/MutantDying.mv1", 0, 1.0f}});
         model->PlayAnimation("idle", true);
 
         // コリジョン(カプセル)
@@ -75,10 +73,8 @@ namespace LittleQuest {
         colWeapon->SetRadius(0.5);
         colWeapon->SetHeight(4);
         colWeapon->SetRotationAxisXYZ({-10, 0, 20});
-        colWeapon->SetCollisionGroup(
-            ComponentCollision::CollisionGroup::WEAPON);
-        colWeapon->SetHitCollisionGroup(
-            (u32)ComponentCollision::CollisionGroup::PLAYER);
+        colWeapon->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
+        colWeapon->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
         colWeapon->Overlap((u32)ComponentCollision::CollisionGroup::PLAYER);
         colWeapon->SetName("MutantWeapon");
 
@@ -94,6 +90,8 @@ namespace LittleQuest {
     void Mutant::LateDraw()    // override
     {
         Super::LateDraw();
+
+        DrawSphere3D(VGet(spawnPos.x, spawnPos.y, spawnPos.z), 10, 2, GetColor(255, 255, 0), GetColor(255, 255, 255), TRUE);
     }
 
     void Mutant::GUI()    // override
@@ -101,8 +99,7 @@ namespace LittleQuest {
         Super::GUI();
     }
 
-    void Mutant::OnHit([[maybe_unused]] const ComponentCollision::HitInfo&
-                           hitInfo)    // override
+    void Mutant::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
     {
         // 武器の衝突判定
         if (hitInfo.collision_->GetName() == "MutantWeapon") {
@@ -129,12 +126,12 @@ namespace LittleQuest {
         Super::OnHit(hitInfo);
     }
 
-    void Mutant::BackToInitial(float3& move) {
+    void Mutant::BackToInitialPosition(float3& move) {
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             modelPtr->PlayAnimationNoSame("run", true);
         }
 
-        Super::BackToInitial(move);
+        Super::BackToInitialPosition(move);
     }
 
     void Mutant::Patrol(float3& move) {

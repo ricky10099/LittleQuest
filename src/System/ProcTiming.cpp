@@ -26,8 +26,7 @@ std::string GetProcTimingName(ProcTiming proc) {
         "_system_UI",
     };
 
-    static_assert(static_cast<u32>(ProcTiming::NUM) <= static_cast<u32>(
-                      sizeof(func_table) / sizeof(func_table[0])));
+    static_assert(static_cast<u32>(ProcTiming::NUM) <= static_cast<u32>(sizeof(func_table) / sizeof(func_table[0])));
     assert(static_cast<u32>(proc) < static_cast<u32>(ProcTiming::NUM));
 
     return func_table[static_cast<int>(proc)];

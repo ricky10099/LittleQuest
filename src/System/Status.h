@@ -29,9 +29,7 @@ struct Status {
             return status_bit_;
         }
         inline V set(T b, bool _on) { return _on ? on(b) : off(b); }
-        inline V is(T b) const {
-            return status_bit_ & (1ui64 << static_cast<int>(b));
-        }
+        inline V is(T b) const { return status_bit_ & (1ui64 << static_cast<int>(b)); }
         inline V& get() { return status_bit_; }
 
     private:

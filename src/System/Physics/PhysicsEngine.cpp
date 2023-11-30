@@ -68,8 +68,7 @@ namespace {
     //---------------------------------------------------------------------------
     //! assert用のコールバック
     //---------------------------------------------------------------------------
-    bool AssertFailedImpl(const char* expression, const char* message,
-                          const char* file, JPH::uint line) {
+    bool AssertFailedImpl(const char* expression, const char* message, const char* file, JPH::uint line) {
         std::ostringstream oss{};
         oss << file                           // ファイル名
             << ":" << line                    // 行
@@ -131,12 +130,10 @@ namespace {
 
             //! 2つのオブジェクトレイヤーが衝突可能かどうかを判断するカスタム関数
             //! @retval true    互いのレイヤーは衝突する
-            virtual bool ShouldCollide(JPH::ObjectLayer layer1,
-                                       JPH::ObjectLayer layer2) const override {
+            virtual bool ShouldCollide(JPH::ObjectLayer layer1, JPH::ObjectLayer layer2) const override {
                 // カスタム関数がある場合は実行
                 if (BroadPhaseLayers::can_object_layer_collide_) {
-                    return BroadPhaseLayers::can_object_layer_collide_(layer1,
-                                                                       layer2);
+                    return BroadPhaseLayers::can_object_layer_collide_(layer1, layer2);
                 }
 
                 // デフォルトの設定
@@ -145,10 +142,9 @@ namespace {
                         return layer2 == physics::ObjectLayers::MOVING ||    //
                                layer2 == physics::ObjectLayers::DEBRIS;      //
                     case physics::ObjectLayers::MOVING:
-                        return layer2 == physics::ObjectLayers::NON_MOVING
-                               ||                                            //
-                               layer2 == physics::ObjectLayers::MOVING ||    //
-                               layer2 == physics::ObjectLayers::SENSOR;      //
+                        return layer2 == physics::ObjectLayers::NON_MOVING ||    //
+                               layer2 == physics::ObjectLayers::MOVING ||        //
+                               layer2 == physics::ObjectLayers::SENSOR;          //
                     case physics::ObjectLayers::DEBRIS:
                         return layer2 == physics::ObjectLayers::NON_MOVING;
                     case physics::ObjectLayers::SENSOR:
@@ -170,21 +166,17 @@ namespace {
             BPLayerInterfaceImpl() {}
 
             //! Broad-phaseレイヤーの個数を取得
-            virtual JPH::uint GetNumBroadPhaseLayers() const override {
-                return BroadPhaseLayers::NUM_LAYERS;
-            }
+            virtual JPH::uint GetNumBroadPhaseLayers() const override { return BroadPhaseLayers::NUM_LAYERS; }
 
             //! Broad-phaseレイヤーを取得
-            virtual JPH::BroadPhaseLayer GetBroadPhaseLayer(
-                JPH::ObjectLayer layer) const override {
+            virtual JPH::BroadPhaseLayer GetBroadPhaseLayer(JPH::ObjectLayer layer) const override {
                 return BroadPhaseLayers::object_to_broad_phase_[layer];
             }
 
 #if defined(JPH_EXTERNAL_PROFILE) || defined(JPH_PROFILE_ENABLED)
 
             //! Broad-phaseレイヤーの名前を取得
-            virtual const char* GetBroadPhaseLayerName(
-                JPH::BroadPhaseLayer layer) const override {
+            virtual const char* GetBroadPhaseLayerName(JPH::BroadPhaseLayer layer) const override {
                 switch (static_cast<JPH::BroadPhaseLayer::Type>(layer)) {
                     case BroadPhaseLayers::NON_MOVING:
                         return "NON_MOVING";
@@ -210,18 +202,14 @@ namespace {
     //---------------------------------------------------------------------------
     //! Broad-phase層同士が衝突するかどうかを判定するカスタマイズ
     //---------------------------------------------------------------------------
-    class ObjectVsBroadPhaseLayerFilter
-        : public JPH::ObjectVsBroadPhaseLayerFilter {
+    class ObjectVsBroadPhaseLayerFilter : public JPH::ObjectVsBroadPhaseLayerFilter {
         public:
             virtual ~ObjectVsBroadPhaseLayerFilter() = default;
 
             //! @retval true    衝突あり
             //! @retval true    衝突なし
-            virtual bool ShouldCollide(
-                JPH::ObjectLayer layer1,
-                JPH::BroadPhaseLayer layer2) const override {
-                auto layer1_broad_phase =
-                    BroadPhaseLayers::object_to_broad_phase_[layer1];
+            virtual bool ShouldCollide(JPH::ObjectLayer layer1, JPH::BroadPhaseLayer layer2) const override {
+                auto layer1_broad_phase = BroadPhaseLayers::object_to_broad_phase_[layer1];
 
                 if (layer1_broad_phase == BroadPhaseLayers::NON_MOVING) {
                     return layer2 == BroadPhaseLayers::MOVING;
@@ -252,11 +240,9 @@ namespace {
             //! コンタクトを有効にするかどうかの判定
             virtual JPH::ValidateResult
 
-            OnContactValidate([[maybe_unused]] const JPH::Body& body1,
-                              [[maybe_unused]] const JPH::Body& body2,
+            OnContactValidate([[maybe_unused]] const JPH::Body& body1, [[maybe_unused]] const JPH::Body& body2,
                               [[maybe_unused]] JPH::RVec3Arg baseOffset,
-                              [[maybe_unused]] const JPH::CollideShapeResult&
-                                  collision_result) override {
+                              [[maybe_unused]] const JPH::CollideShapeResult& collision_result) override {
                 // std::cout << "コールバックが有効か確認." << std::endl;
 
                 // 作成前のコンタクトを無視できるようにできる
@@ -265,27 +251,21 @@ namespace {
             }
 
             //! コンタクトが追加される時
-            virtual void OnContactAdded(
-                [[maybe_unused]] const JPH::Body& body1,
-                [[maybe_unused]] const JPH::Body& body2,
-                [[maybe_unused]] const JPH::ContactManifold& manifold,
-                [[maybe_unused]] JPH::ContactSettings& settings) override {
+            virtual void OnContactAdded([[maybe_unused]] const JPH::Body& body1, [[maybe_unused]] const JPH::Body& body2,
+                                        [[maybe_unused]] const JPH::ContactManifold& manifold,
+                                        [[maybe_unused]] JPH::ContactSettings& settings) override {
                 // std::cout << "コンタクトが追加されました." << std::endl;
             }
 
             //! コンタクトが継続している時
-            virtual void OnContactPersisted(
-                [[maybe_unused]] const JPH::Body& body1,
-                [[maybe_unused]] const JPH::Body& body2,
-                [[maybe_unused]] const JPH::ContactManifold& manifold,
-                [[maybe_unused]] JPH::ContactSettings& settings) override {
+            virtual void OnContactPersisted([[maybe_unused]] const JPH::Body& body1, [[maybe_unused]] const JPH::Body& body2,
+                                            [[maybe_unused]] const JPH::ContactManifold& manifold,
+                                            [[maybe_unused]] JPH::ContactSettings& settings) override {
                 // std::cout << "コンタクトが継続." << std::endl;
             }
 
             //! コンタクトが削除される時
-            virtual void OnContactRemoved(
-                [[maybe_unused]] const JPH::SubShapeIDPair& sub_shape_pair)
-                override {
+            virtual void OnContactRemoved([[maybe_unused]] const JPH::SubShapeIDPair& sub_shape_pair) override {
                 // std::cout << "コンタクトが削除されました." << std::endl;
             }
     };
@@ -297,17 +277,15 @@ namespace {
     class MyBodyActivationListener : public JPH::BodyActivationListener {
         public:
             //! アクティブになる時
-            virtual void OnBodyActivated(
-                [[maybe_unused]] const JPH::BodyID& body_id,
-                [[maybe_unused]] JPH::uint64 body_user_data) override {
+            virtual void OnBodyActivated([[maybe_unused]] const JPH::BodyID& body_id,
+                                         [[maybe_unused]] JPH::uint64 body_user_data) override {
                 // std::cout << "オブジェクトがアクティブになりました." <<
                 // std::endl;
             }
 
             //! 非アクティブになる時
-            virtual void OnBodyDeactivated(
-                [[maybe_unused]] const JPH::BodyID& body_id,
-                [[maybe_unused]] JPH::uint64 body_user_data) override {
+            virtual void OnBodyDeactivated([[maybe_unused]] const JPH::BodyID& body_id,
+                                           [[maybe_unused]] JPH::uint64 body_user_data) override {
                 // std::cout <<
                 // "オブジェクトが非アクティブ(スリープ状態)に移行しました." <<
                 // std::endl;
@@ -338,8 +316,7 @@ namespace physics {
             //! @param  [out]   result  衝突結果
             //! @retval true    衝突あり。resultに結果が格納されています
             //! @retval false   衝突なし。結果は無効
-            virtual bool castRay(const Ray& ray,
-                                 RayCastResult& result) override;
+            virtual bool castRay(const Ray& ray, RayCastResult& result) override;
 
             //  解放
             void clear();
@@ -355,15 +332,12 @@ namespace physics {
             //! @param  [in]    layers
             //! 自前レイヤーとphysics::ObjectLayersが対応するペアの配列先頭(nullptrで解除)
             //! @param  [in]    layerCount  配列数
-            virtual void setLayerAlias(
-                const std::pair<physics::ObjectLayers, u16>* layers,
-                size_t layerCount) override;
+            virtual void setLayerAlias(const std::pair<physics::ObjectLayers, u16>* layers, size_t layerCount) override;
 
             //  オブジェクトレイヤー同士が衝突するかどうかをカスタマイズ
             //! コールバック関数の [第1引数] 対象のレイヤー [第2引数]
             //! 相手のレイヤー [戻り値] true:衝突する false:衝突しない
-            virtual void overrideLayerCollide(
-                std::function<bool(u16, u16)> callback) override;
+            virtual void overrideLayerCollide(std::function<bool(u16, u16)> callback) override;
 
             // 重力を取得
             virtual float3 gravity() const override;
@@ -394,18 +368,13 @@ namespace physics {
             //@}
 
         private:
-            std::unique_ptr<JPH::Factory> jph_factory_;    //!< Factoryクラス
-            std::unique_ptr<JPH::JobSystemThreadPool>
-                job_system_;    //!< ジョブシステム
-            std::unique_ptr<JPH::PhysicsSystem>
-                jph_physics_system_;    //!< Physicsシステム
-            static inline JPH::PhysicsSystem* physics_system_ =
-                nullptr;    //!< Physicsシステムのstaticアクセス用の参照
-            static inline JPH::BodyInterface* body_interface_ =
-                nullptr;    //!< ボディインターフェイス参照
-            static inline JPH::TempAllocator* temp_allocator_ =
-                nullptr;    //!< !
-                            //!< テンポラリアロケーターのstaticアクセス用の参照
+            std::unique_ptr<JPH::Factory> jph_factory_;                     //!< Factoryクラス
+            std::unique_ptr<JPH::JobSystemThreadPool> job_system_;          //!< ジョブシステム
+            std::unique_ptr<JPH::PhysicsSystem> jph_physics_system_;        //!< Physicsシステム
+            static inline JPH::PhysicsSystem* physics_system_ = nullptr;    //!< Physicsシステムのstaticアクセス用の参照
+            static inline JPH::BodyInterface* body_interface_ = nullptr;    //!< ボディインターフェイス参照
+            static inline JPH::TempAllocator* temp_allocator_ = nullptr;    //!< !
+                                                                            //!< テンポラリアロケーターのstaticアクセス用の参照
 
             //! テンポラリアロケーター
             //! @details
@@ -420,11 +389,9 @@ namespace physics {
             //!            このインスタンスはシステムの解放まで必要です。
             BPLayerInterfaceImpl broad_phase_layer_interface_;
 
-            MyBodyActivationListener
-                body_activation_listener_;    //!< ユーザーコールバック
-                                              //!< BodyActivationListener
-            MyContactListener
-                contact_listener_;    //!< ユーザーコールバック ContactListener
+            MyBodyActivationListener body_activation_listener_;    //!< ユーザーコールバック
+                                                                   //!< BodyActivationListener
+            MyContactListener contact_listener_;                   //!< ユーザーコールバック ContactListener
 
             bool is_valid_ = false;    //!< 正常に初期化されているか
     };
@@ -442,8 +409,7 @@ namespace physics {
         // デフォルトアロケーターを登録
         JPH::RegisterDefaultAllocator();
 
-        jph_temp_allocator_ =
-            std::make_unique<JPH::TempAllocatorImpl>(64 * 1024 * 1024);
+        jph_temp_allocator_ = std::make_unique<JPH::TempAllocatorImpl>(64 * 1024 * 1024);
 
         physics_        = this;
         temp_allocator_ = jph_temp_allocator_.get();
@@ -470,9 +436,8 @@ namespace physics {
         // 物理ジョブを複数スレッドで実行するジョブシステムが必要です。
         // JoltPhysicsは基本的には自前のジョブスケジューラの上で実行することが出来ます。
         // このJobSystemThreadPoolは実装例です。
-        job_system_ = std::make_unique<JPH::JobSystemThreadPool>(
-            JPH::cMaxPhysicsJobs, JPH::cMaxPhysicsBarriers,
-            std::thread::hardware_concurrency() - 1);
+        job_system_ = std::make_unique<JPH::JobSystemThreadPool>(JPH::cMaxPhysicsJobs, JPH::cMaxPhysicsBarriers,
+                                                                 std::thread::hardware_concurrency() - 1);
 
         //----------------------------------------------------------
         // Physicsシステムを初期化
@@ -498,14 +463,12 @@ namespace physics {
             // Physicsシステムを初期化作成
             jph_physics_system_ = std::make_unique<JPH::PhysicsSystem>();
 
-            static ObjectVsBroadPhaseLayerFilter
-                object_broad_phase_layer_filter_;
+            static ObjectVsBroadPhaseLayerFilter object_broad_phase_layer_filter_;
             static ObjectLayerPairFilter object_layer_pair_filter_;
 
-            jph_physics_system_->Init(
-                MAX_BODIES, BODY_MUTEX_COUNT, MAX_BODY_PAIRS,
-                MAX_CONTACT_CONSTRAINTS, broad_phase_layer_interface_,
-                object_broad_phase_layer_filter_, object_layer_pair_filter_);
+            jph_physics_system_->Init(MAX_BODIES, BODY_MUTEX_COUNT, MAX_BODY_PAIRS, MAX_CONTACT_CONSTRAINTS,
+                                      broad_phase_layer_interface_, object_broad_phase_layer_filter_,
+                                      object_layer_pair_filter_);
 
             // パラメーター設定
             JPH::PhysicsSettings settings{};
@@ -526,20 +489,16 @@ namespace physics {
             constexpr bool thread_safe = true;
 
             if constexpr (thread_safe) {
-                body_interface_ =
-                    &jph_physics_system_->GetBodyInterface();    // Lockあり
+                body_interface_ = &jph_physics_system_->GetBodyInterface();    // Lockあり
             } else {
-                body_interface_ =
-                    &jph_physics_system_
-                         ->GetBodyInterfaceNoLock();    // Lockなし(利用には注意)
+                body_interface_ = &jph_physics_system_->GetBodyInterfaceNoLock();    // Lockなし(利用には注意)
             }
         }
 
         // ボディがアクティブになりスリープ状態になると、BodyActivationListenerが通知されます。
         // これはジョブから呼び出されるので、ここで行うことはスレッドセーフである必要があることに注意してください。
         // (登録は完全に任意です)
-        jph_physics_system_->SetBodyActivationListener(
-            &body_activation_listener_);
+        jph_physics_system_->SetBodyActivationListener(&body_activation_listener_);
 
         // ボディが衝突する（しそうな）ときと再び離れるときに、ContactListenerに通知されます。
         // これはジョブから呼び出されるので、ここで何をするにしてもスレッドセーフである必要があることに注意してください。
@@ -573,8 +532,7 @@ namespace physics {
         const u32 integration_sub_steps = 1;    // 通常は1に設定します。
 
         // ワールドを時間経過させて更新
-        jph_physics_system_->Update(dt, collision_steps, integration_sub_steps,
-                                    temp_allocator_, job_system_.get());
+        jph_physics_system_->Update(dt, collision_steps, integration_sub_steps, temp_allocator_, job_system_.get());
     }
 
     //---------------------------------------------------------------------------
@@ -583,8 +541,7 @@ namespace physics {
     bool EngineImpl::castRay(const Ray& ray, RayCastResult& result) {
         JPH::RRayCast ray_cast{castJPH(ray.position_), castJPH(ray.dir_)};
 
-        auto& jph_narrow_phase =
-            physics::Engine::physicsSystem()->GetNarrowPhaseQuery();
+        auto& jph_narrow_phase = physics::Engine::physicsSystem()->GetNarrowPhaseQuery();
 
         JPH::RayCastResult jph_result;
         if (jph_narrow_phase.CastRay(ray_cast,                        //
@@ -617,16 +574,13 @@ namespace physics {
         // これは高価な操作なので、毎フレームまたは新しいレベルセクションのストリーミング時などには絶対に呼び出さない方がよいでしょう。
         // 代替策はすべての新しいオブジェクトを一度に
         // 1つずつではなく、バッチで挿入してBroad-phaseを効率的に維持することです。
-        jph_physics_system_
-            ->OptimizeBroadPhase();    // ※このタイミングではまだオブジェクトが1つもないため無意味です。
+        jph_physics_system_->OptimizeBroadPhase();    // ※このタイミングではまだオブジェクトが1つもないため無意味です。
     }
 
     //---------------------------------------------------------------------------
     //! オブジェクトレイヤーをカスタム設定
     //---------------------------------------------------------------------------
-    void EngineImpl::setLayerAlias(
-        const std::pair<physics::ObjectLayers, u16>* layers,
-        size_t layerCount) {
+    void EngineImpl::setLayerAlias(const std::pair<physics::ObjectLayers, u16>* layers, size_t layerCount) {
         std::array<JPH::BroadPhaseLayer, 4> table{
             BroadPhaseLayers::NON_MOVING,
             BroadPhaseLayers::MOVING,
@@ -640,43 +594,31 @@ namespace physics {
         if (layers) {
             // 値の最大値を検索して変換テーブルを作成
             // 都度検索すると負荷が高くなるため一発変換できる構造に変更しておく
-            auto* myLayerMax = std::max_element(
-                layers, layers + layerCount, [](const auto& l, const auto& r) {
-                    return l.second < r.second;
-                });
+            auto* myLayerMax =
+                std::max_element(layers, layers + layerCount, [](const auto& l, const auto& r) { return l.second < r.second; });
 
-            std::vector<physics::ObjectLayers>
-                toObjectLayers_;    // カスタム設定したレイヤー番号を内部番号に変換するテーブル
+            std::vector<physics::ObjectLayers> toObjectLayers_;    // カスタム設定したレイヤー番号を内部番号に変換するテーブル
 
             // 変換テーブルを最大数で設定
-            BroadPhaseLayers::object_to_broad_phase_.resize(
-                static_cast<size_t>(myLayerMax->second) + 1);
+            BroadPhaseLayers::object_to_broad_phase_.resize(static_cast<size_t>(myLayerMax->second) + 1);
 
             for (size_t i = 0; i < layerCount; ++i) {
-                BroadPhaseLayers::object_to_broad_phase_[layers[i].second] =
-                    table[layers[i].first];
+                BroadPhaseLayers::object_to_broad_phase_[layers[i].second] = table[layers[i].first];
             }
         } else {
             // デフォルト設定
-            BroadPhaseLayers::object_to_broad_phase_.resize(
-                physics::ObjectLayers::MAX_COUNT);
-            BroadPhaseLayers::object_to_broad_phase_
-                [physics::ObjectLayers::NON_MOVING] =
-                    BroadPhaseLayers::NON_MOVING;
-            BroadPhaseLayers::object_to_broad_phase_
-                [physics::ObjectLayers::MOVING] = BroadPhaseLayers::MOVING;
-            BroadPhaseLayers::object_to_broad_phase_
-                [physics::ObjectLayers::DEBRIS] = BroadPhaseLayers::DEBRIS;
-            BroadPhaseLayers::object_to_broad_phase_
-                [physics::ObjectLayers::SENSOR] = BroadPhaseLayers::SENSOR;
+            BroadPhaseLayers::object_to_broad_phase_.resize(physics::ObjectLayers::MAX_COUNT);
+            BroadPhaseLayers::object_to_broad_phase_[physics::ObjectLayers::NON_MOVING] = BroadPhaseLayers::NON_MOVING;
+            BroadPhaseLayers::object_to_broad_phase_[physics::ObjectLayers::MOVING]     = BroadPhaseLayers::MOVING;
+            BroadPhaseLayers::object_to_broad_phase_[physics::ObjectLayers::DEBRIS]     = BroadPhaseLayers::DEBRIS;
+            BroadPhaseLayers::object_to_broad_phase_[physics::ObjectLayers::SENSOR]     = BroadPhaseLayers::SENSOR;
         }
     }
 
     //---------------------------------------------------------------------------
     //! オブジェクトレイヤー同士が衝突するかどうかをカスタマイズ
     //---------------------------------------------------------------------------
-    void EngineImpl::overrideLayerCollide(
-        std::function<bool(u16, u16)> callback) {
+    void EngineImpl::overrideLayerCollide(std::function<bool(u16, u16)> callback) {
         BroadPhaseLayers::can_object_layer_collide_ = callback;
     }
 

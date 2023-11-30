@@ -7,8 +7,7 @@
 //---------------------------------------------------------------------------
 //! コンストラクタ (行列を指定して初期化)
 //---------------------------------------------------------------------------
-Frustum::Frustum(const matrix& mat_view, const matrix& mat_proj,
-                 Frustum::DepthMode depth_mode)
+Frustum::Frustum(const matrix& mat_view, const matrix& mat_proj, Frustum::DepthMode depth_mode)
     : depth_mode_(depth_mode), mat_view_(mat_view), mat_proj_(mat_proj) {
     // 各パラメーターを行列から抽出
 
@@ -38,18 +37,15 @@ void Frustum::update() {
     // 投影行列
     switch (depth_mode_) {
         case DepthMode::Default:
-            mat_proj_ =
-                matrix::perspectiveFovLH(fovy_, aspect_ratio_, z_near_, z_far_);
+            mat_proj_ = matrix::perspectiveFovLH(fovy_, aspect_ratio_, z_near_, z_far_);
             break;
         case DepthMode::Reverse:
             // farとnearを入れ替えることでreverse-zになる
-            mat_proj_ =
-                matrix::perspectiveFovLH(fovy_, aspect_ratio_, z_far_, z_near_);
+            mat_proj_ = matrix::perspectiveFovLH(fovy_, aspect_ratio_, z_far_, z_near_);
             break;
         case DepthMode::ReverseInfinite:
             // 無限遠まで高精度レンダリングする特殊投影行列
-            mat_proj_ = matrix::perspectiveFovInfiniteFarPlaneLH(
-                fovy_, aspect_ratio_, z_near_);
+            mat_proj_ = matrix::perspectiveFovInfiniteFarPlaneLH(fovy_, aspect_ratio_, z_near_);
             break;
     }
 
@@ -110,8 +106,7 @@ void Frustum::renderDebug() {
         DrawLine3D(cast(v[2]), cast(v[6]), GetColor(0, 0, 0));
         DrawLine3D(cast(v[3]), cast(v[7]), GetColor(0, 0, 0));
 
-        DrawLine3D(cast(position_ + axis_z * zn),
-                   cast(position_ + axis_z * zf * 2.0f), GetColor(0, 0, 0));
+        DrawLine3D(cast(position_ + axis_z * zn), cast(position_ + axis_z * zf * 2.0f), GetColor(0, 0, 0));
     }
 
     for (u32 i = 0; i < 8; ++i) {
@@ -138,8 +133,7 @@ void Frustum::renderDebug() {
         DrawLine3D(cast(v[2]), cast(v[6]), GetColor(0, 255, 0));
         DrawLine3D(cast(v[3]), cast(v[7]), GetColor(0, 255, 0));
 
-        DrawLine3D(cast(position_ + axis_z * zn),
-                   cast(position_ + axis_z * zf * 2.0f), GetColor(0, 255, 0));
+        DrawLine3D(cast(position_ + axis_z * zn), cast(position_ + axis_z * zf * 2.0f), GetColor(0, 255, 0));
     }
     SetUseLighting(true);
 }
@@ -172,8 +166,7 @@ Frustum& Frustum::setWorldUp(const float3& world_up) {
 //! 上下左右の角度から注視点を設定
 //---------------------------------------------------------------------------
 Frustum& Frustum::setLookAt(f32 horizontal_angle, f32 vertical_angle) {
-    matrix m =
-        mul(matrix::rotateX(vertical_angle), matrix::rotateY(horizontal_angle));
+    matrix m = mul(matrix::rotateX(vertical_angle), matrix::rotateY(horizontal_angle));
 
     look_at_ = position_ + m.axisZ();
 
@@ -299,8 +292,7 @@ Frustum::DepthMode Frustum::depthMode() const {
 //! 反転Zを利用するかどうかを取得
 //---------------------------------------------------------------------------
 bool Frustum::useReverseDepth() const {
-    return (depth_mode_ == DepthMode::Reverse)
-           || (depth_mode_ == DepthMode::ReverseInfinite);
+    return (depth_mode_ == DepthMode::Reverse) || (depth_mode_ == DepthMode::ReverseInfinite);
 }
 
 //---------------------------------------------------------------------------
@@ -312,8 +304,7 @@ float3 Frustum::rayFromScreenPosition(float2 screen_position) {
     float3 axis_y = mat_camera_world_.axisY();
     float3 axis_z = mat_camera_world_.axisZ();
 
-    return screen_position.x * axis_x
-           + screen_position.y / aspect_ratio_ * axis_y + axis_z;
+    return screen_position.x * axis_x + screen_position.y / aspect_ratio_ * axis_y + axis_z;
 }
 
 //---------------------------------------------------------------------------

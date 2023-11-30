@@ -116,8 +116,7 @@ void Component::RegisterToObject(ComponentPtr cmp, ObjectPtr obj) {
     if (!cmp->GetStatus(StatusBit::SameType)) {
         auto cmps = obj->GetComponents();
         for (auto c : cmps) {
-            if (c->typeInfo()->className() == cmp->typeInfo()->className())
-                return;
+            if (c->typeInfo()->className() == cmp->typeInfo()->className()) return;
         }
     }
 

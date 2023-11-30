@@ -18,10 +18,9 @@ class ComponentCamera : public Component {
         virtual void PreUpdate() override;     //!< カメラ更新
         virtual void Update() override;        //!< カメラ更新
         virtual void PostUpdate() override;    //!< カメラ更新
-        virtual void Draw()
-            override;                    //!< 標準カメラや別のカメラから見た時のカメラモデルを表示する
-        virtual void Exit() override;    //!< カメラ終了処理
-        virtual void GUI() override;     //!< カメラGUI処理
+        virtual void Draw() override;          //!< 標準カメラや別のカメラから見た時のカメラモデルを表示する
+        virtual void Exit() override;          //!< カメラ終了処理
+        virtual void GUI() override;           //!< カメラGUI処理
 
         //! @brief カメラの位置設定
         void SetCameraTransform();
@@ -29,37 +28,30 @@ class ComponentCamera : public Component {
         //! @brief カレントカメラに設定します
         ComponentCameraPtr SetCurrentCamera() {
             camera_status_.on(CameraBit::ChangeReq);
-            return std::dynamic_pointer_cast<ComponentCamera>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCamera>(shared_from_this());
         }
 
-        static ComponentCameraWeakPtr GetCurrentCamera() {
-            return current_camera_;
-        }
+        static ComponentCameraWeakPtr GetCurrentCamera() { return current_camera_; }
 
         //! @brief 画角設定
         //! @param fov          画角(角度0~360[通常45~90くらい])
         //! @param aspect_ratio アスペクト比
-        std::shared_ptr<ComponentCamera> SetPerspective(
-            float fov, float aspect_ratio = 16.0f / 9.0f) {
+        std::shared_ptr<ComponentCamera> SetPerspective(float fov, float aspect_ratio = 16.0f / 9.0f) {
             fovy_         = fov;
             aspect_ratio_ = aspect_ratio;
-            return std::dynamic_pointer_cast<ComponentCamera>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCamera>(shared_from_this());
         }
 
         //! @brief カメラポジションとターゲットの設定
         //! @param position カメラポジション
         //! @param look_at  注視点ターゲット
         //! @param up       上ベクトル
-        std::shared_ptr<ComponentCamera> SetPositionAndTarget(
-            float3 position, float3 look_at, float3 up = {0.0f, 1.0f, 0.0f}) {
+        std::shared_ptr<ComponentCamera> SetPositionAndTarget(float3 position, float3 look_at, float3 up = {0.0f, 1.0f, 0.0f}) {
             position_ = position;
             look_at_  = look_at;
             up_       = up;
 
-            return std::dynamic_pointer_cast<ComponentCamera>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCamera>(shared_from_this());
         }
 
         //! @brief Near/Farの設定
@@ -69,8 +61,7 @@ class ComponentCamera : public Component {
             near_z_ = near_z;
             far_z_  = far_z;
 
-            return std::dynamic_pointer_cast<ComponentCamera>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentCamera>(shared_from_this());
         }
 
         //! @brief カメラの更新タイミングを設定する
@@ -129,9 +120,7 @@ class ComponentCamera : public Component {
             DebugCamera,           //!< 自分がデバッグカメラ
         };
 
-        void SetCameraStatus(CameraBit bit, bool on) {
-            camera_status_.set(bit, on);
-        }
+        void SetCameraStatus(CameraBit bit, bool on) { camera_status_.set(bit, on); }
         bool GetCameraStatus(CameraBit bit) { return camera_status_.is(bit); }
 
     private:
@@ -146,8 +135,7 @@ class ComponentCamera : public Component {
         float near_z_       = 0.01f;           //!< Near
         float far_z_        = 10000.0f;        //!< Far
 
-        matrix
-            mat_view_;       //!< ビュー行列。Updateで計算、Draw手前で使用している
+        matrix mat_view_;    //!< ビュー行列。Updateで計算、Draw手前で使用している
         matrix mat_proj_;    //!< 投影行列。Updateで計算、Draw手前で使用している
 
         Frustum frustum_{};
@@ -187,8 +175,7 @@ class ComponentCamera : public Component {
                 CEREAL_NVP(fovy_));                          //< アスペクト比と画角
             arc(CEREAL_NVP(near_z_), CEREAL_NVP(far_z_));    //< Near/Far
             arc(CEREAL_NVP(current_camera_));
-            arc(cereal::make_nvp("Component",
-                                 cereal::base_class<Component>(this)));
+            arc(cereal::make_nvp("Component", cereal::base_class<Component>(this)));
 
             Init();
         }

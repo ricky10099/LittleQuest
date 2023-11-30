@@ -6,9 +6,7 @@ namespace LittleQuest {
     BP_CLASS_IMPL(GameTitleScene, u8"LittleQuest/GameTitleScene");
 
     bool GameTitleScene::Init() {
-        Scene::CreateObjectPtr<Object>()
-            ->SetName(u8"Camera")
-            ->AddComponent<ComponentCamera>();
+        Scene::CreateObjectPtr<Object>()->SetName(u8"Camera")->AddComponent<ComponentCamera>();
 
         image = LoadGraph("data/LittleQuest/Image/title.png");
 
@@ -16,14 +14,12 @@ namespace LittleQuest {
     }
 
     void GameTitleScene::Update() {
-        if (IsKeyOn(KEY_INPUT_RETURN))
-            Scene::Change(Scene::GetScene<Stage01>());
+        if (IsKeyOn(KEY_INPUT_RETURN)) Scene::Change(Scene::GetScene<Stage01>());
     }
 
     void GameTitleScene::Draw() {
         DrawGraph(0, 0, image, TRUE);
-        DrawFormatString(500, 500, GetColor(0, 0, 0),
-                         "Press Enter key to start");
+        DrawFormatString(500, 500, GetColor(0, 0, 0), "Press Enter key to start");
     }
 
     void GameTitleScene::Exit() {

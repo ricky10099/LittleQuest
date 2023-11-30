@@ -28,9 +28,7 @@ class ShaderBase {
         operator int() const { return 0 < handles_.size() ? handles_[0] : -1; }
 
         //! [DxLib] シェーダーハンドルを取得(バリエーション指定)
-        int variant(u32 index) const {
-            return index < handles_.size() ? handles_[index] : -1;
-        }
+        int variant(u32 index) const { return index < handles_.size() ? handles_[index] : -1; }
 
         //! ファイルパスを取得
         const std::wstring& path() const { return path_; }
@@ -41,8 +39,7 @@ class ShaderBase {
     private:
         std::wstring path_;           //!< ファイルパス
         std::vector<int> handles_;    //!< [DxLib] シェーダーハンドル
-        int type_ =
-            -1;    //!< [DxLib] シェーダーの種類(DX_SHADERTYPE_VERTEXなど)
+        int type_ = -1;               //!< [DxLib] シェーダーの種類(DX_SHADERTYPE_VERTEXなど)
 };
 
 //===========================================================================

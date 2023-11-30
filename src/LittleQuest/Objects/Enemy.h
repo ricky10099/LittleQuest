@@ -3,6 +3,7 @@
 #include "player.h"
 
 #include <System/Scene.h>
+#include <System/Component/ComponentModel.h>
 
 namespace LittleQuest {
     USING_PTR(Enemy);
@@ -40,7 +41,7 @@ namespace LittleQuest {
 
             virtual bool FindPlayer();
 
-            virtual void BackToInitial(float3& move);
+            virtual void BackToInitialPosition(float3& move);
 
             virtual void Patrol(float3& move);
 
@@ -51,7 +52,14 @@ namespace LittleQuest {
             virtual void Attack();
 
             virtual void CheckAnimation();
+            float GetDistance(float3 start, float3 goal) {
+                float x = std::pow(goal.x - start.x, 2);
+                // float y = std::pow(goal.y - start.y, 2);
+                float y = 0;
+                float z = std::pow(goal.z - start.z, 2);
 
+                return std::sqrt(x + y + z);
+            }
             //! @brief ステート
             enum class EnemyState {
                 IDLE,
@@ -78,8 +86,8 @@ namespace LittleQuest {
 
             float3 spawnPos;
 
-            ObjectWeakPtr player;
-            ObjectWeakPtr model;
+            ObjectWeakPtr pPlayer;
+            std::weak_ptr<ComponentModel> pModel;
 
             //巡行関係
             bool isPatrol;

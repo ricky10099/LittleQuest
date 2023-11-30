@@ -63,15 +63,12 @@ namespace physics {
             //! @param  [in]    layers
             //! 自前レイヤーとphysics::ObjectLayersが対応するペアの配列先頭(nullptrで解除)
             //! @param  [in]    layerCount  配列数
-            virtual void setLayerAlias(
-                const std::pair<physics::ObjectLayers, u16>* layers,
-                size_t layerCount) = 0;
+            virtual void setLayerAlias(const std::pair<physics::ObjectLayers, u16>* layers, size_t layerCount) = 0;
 
             //! オブジェクトレイヤー同士が衝突するかどうかをカスタマイズ
             //! コールバック関数の [第1引数] 対象のレイヤー [第2引数]
             //! 相手のレイヤー [戻り値] true:衝突する false:衝突しない
-            virtual void overrideLayerCollide(
-                std::function<bool(u16, u16)> callback) = 0;
+            virtual void overrideLayerCollide(std::function<bool(u16, u16)> callback) = 0;
 
             //----------------------------------------------------------
             //! @name   参照

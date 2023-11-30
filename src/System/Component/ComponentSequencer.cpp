@@ -28,8 +28,7 @@ void SequenceObject::SetAnimationFromFrame(int frame) {
 
             // アニメーションが現在指定されているものと違う場合は
             // 変化準備とする
-            if (animation_name_ != animation_values_[i].name_)
-                animation_change_ = true;
+            if (animation_name_ != animation_values_[i].name_) animation_change_ = true;
 
             animation_name_  = animation_values_[i].name_;
             animation_frame_ = static_cast<int>(past);
@@ -71,8 +70,7 @@ void SequenceObject::SetEffectFromFrame(int frame) {
 //! @param frame フレーム
 matrix SequenceObject::GetTransformFromFrame(int frame) {
     // frame からキー情報を取得するLambda関数
-    auto calc_value = [](int frame, std::vector<uint32_t> keys,
-                         std::vector<float3> values,
+    auto calc_value = [](int frame, std::vector<uint32_t> keys, std::vector<float3> values,
                          float3 default_value = {0, 0, 0}) -> float3 {
         int old      = -1;
         float3 value = default_value;
@@ -101,8 +99,7 @@ matrix SequenceObject::GetTransformFromFrame(int frame) {
     float3 scale    = calc_value(frame, scale_keys_, scale_values_, {1, 1, 1});
 
     matrix mat;
-    RecomposeMatrixFromComponents((float*)&position, (float*)&rotation,
-                                  (float*)&scale, (float*)&mat);
+    RecomposeMatrixFromComponents((float*)&position, (float*)&rotation, (float*)&scale, (float*)&mat);
     return mat;
 }
 
@@ -110,27 +107,22 @@ matrix SequenceObject::GetTransformFromFrame(int frame) {
 void SequenceObject::ShowGuizmo() {
     // object_matrix_の位置にギズモを表示する
     if (show_guizmo_) {
-        if (ShowGizmo(object_matrix_.f32_128_0, guizmo_operation_, guizmo_mode_,
-                      reinterpret_cast<uint64_t>(this))) {
+        if (ShowGizmo(object_matrix_.f32_128_0, guizmo_operation_, guizmo_mode_, reinterpret_cast<uint64_t>(this))) {
             float trns[3];
             float rot[3];
             float scale[3];
-            DecomposeMatrixToComponents(object_matrix_.f32_128_0, trns, rot,
-                                        scale);
+            DecomposeMatrixToComponents(object_matrix_.f32_128_0, trns, rot, scale);
 
             // モードによって取得情報を変更する
             switch (guizmo_operation_) {
                 case ImGuizmo::OPERATION::TRANSLATE:
-                    position_values_[guizmo_index_] =
-                        float3(trns[0], trns[1], trns[2]);
+                    position_values_[guizmo_index_] = float3(trns[0], trns[1], trns[2]);
                     break;
                 case ImGuizmo::OPERATION::ROTATE:
-                    rotation_values_[guizmo_index_] =
-                        float3(rot[0], rot[1], rot[2]);
+                    rotation_values_[guizmo_index_] = float3(rot[0], rot[1], rot[2]);
                     break;
                 case ImGuizmo::OPERATION::SCALE:
-                    scale_values_[guizmo_index_] =
-                        float3(scale[0], scale[1], scale[2]);
+                    scale_values_[guizmo_index_] = float3(scale[0], scale[1], scale[2]);
                     break;
                 default:
                     break;
@@ -148,8 +140,7 @@ namespace {
         std::vector<uint32_t> p(n), v1x(n);
         std::vector<T> v2x(n);
         std::iota(p.begin(), p.end(), 0);
-        std::sort(p.begin(), p.end(),
-                  [&](int a, int b) { return v1[a] < v1[b]; });
+        std::sort(p.begin(), p.end(), [&](int a, int b) { return v1[a] < v1[b]; });
         for (int i = 0; i < n; i++) {
             v1x[i] = v1[p[i]];
             v2x[i] = v2[p[i]];
@@ -186,12 +177,9 @@ void SequenceObject::Update(bool playing, float frame) {
 
             // モデルを取得してアニメーションを設定する
             if (auto component = obj->GetComponent<ComponentModel>()) {
-                component->PlayAnimationNoSame(animation_name_,
-                                               animation_loop_);
-                if (fabs(frame - animation_frame_old_) > 1.0f
-                    && !component->IsPlaying())
-                    component->PlayAnimation(animation_name_, false, 0.0f,
-                                             animation_frame_old_ / 60.0f);
+                component->PlayAnimationNoSame(animation_name_, animation_loop_);
+                if (fabs(frame - animation_frame_old_) > 1.0f && !component->IsPlaying())
+                    component->PlayAnimation(animation_name_, false, 0.0f, animation_frame_old_ / 60.0f);
 
                 // component->Update( ( frame - animation_frame_old_ ) / 60.0f
                 // );
@@ -234,22 +222,16 @@ void SequenceObject::GUI(uint32_t start, uint32_t end) {
         ImGui::Spacing();
 
         // GUI ポジションキーの表示
-        std::string pos_name =
-            "Position##pos" + std::to_string(reinterpret_cast<uint64_t>(this));
-        if (ImGui::BeginNeoTimeline<float3>(
-                pos_name.data(), position_keys_, position_values_, nullptr,
-                ImGuiNeoSequencerFlags_AllowLengthChanging)) {
+        std::string pos_name = "Position##pos" + std::to_string(reinterpret_cast<uint64_t>(this));
+        if (ImGui::BeginNeoTimeline<float3>(pos_name.data(), position_keys_, position_values_, nullptr,
+                                            ImGuiNeoSequencerFlags_AllowLengthChanging)) {
             int index = ImGui::GetNeoKeySelected();
             if (index >= 0 && position_keys_.size() > index) {
-                guizmo_index_ = index;
-                std::string frame_table =
-                    "Frame##frame-pos"
-                    + std::to_string(reinterpret_cast<uint64_t>(this));
-                ImGui::DragScalar(frame_table.data(), ImGuiDataType_U32,
-                                  &position_keys_[index], 1, &start, &end);
+                guizmo_index_           = index;
+                std::string frame_table = "Frame##frame-pos" + std::to_string(reinterpret_cast<uint64_t>(this));
+                ImGui::DragScalar(frame_table.data(), ImGuiDataType_U32, &position_keys_[index], 1, &start, &end);
 
-                if (ImGui::DragFloat3("Position",
-                                      (float*)&position_values_[index], 0.1f)) {
+                if (ImGui::DragFloat3("Position", (float*)&position_values_[index], 0.1f)) {
                     SetTranslate(position_values_[index]);
                 }
 
@@ -262,22 +244,16 @@ void SequenceObject::GUI(uint32_t start, uint32_t end) {
         }
 
         // GUI ローテーションキーの表示
-        std::string rot_name =
-            "Rotation##rot" + std::to_string(reinterpret_cast<uint64_t>(this));
-        if (ImGui::BeginNeoTimeline<float3>(
-                rot_name.data(), rotation_keys_, rotation_values_, nullptr,
-                ImGuiNeoSequencerFlags_AllowLengthChanging)) {
+        std::string rot_name = "Rotation##rot" + std::to_string(reinterpret_cast<uint64_t>(this));
+        if (ImGui::BeginNeoTimeline<float3>(rot_name.data(), rotation_keys_, rotation_values_, nullptr,
+                                            ImGuiNeoSequencerFlags_AllowLengthChanging)) {
             int index = ImGui::GetNeoKeySelected();
             if (index >= 0 && rotation_keys_.size() > index) {
-                guizmo_index_ = index;
-                std::string frame_table =
-                    "Frame##frame-rot"
-                    + std::to_string(reinterpret_cast<uint64_t>(this));
-                ImGui::DragScalar(frame_table.data(), ImGuiDataType_U32,
-                                  &rotation_keys_[index], 1, &start, &end);
+                guizmo_index_           = index;
+                std::string frame_table = "Frame##frame-rot" + std::to_string(reinterpret_cast<uint64_t>(this));
+                ImGui::DragScalar(frame_table.data(), ImGuiDataType_U32, &rotation_keys_[index], 1, &start, &end);
 
-                if (ImGui::DragFloat3("Rotation",
-                                      (float*)&rotation_values_[index], 0.1f)) {
+                if (ImGui::DragFloat3("Rotation", (float*)&rotation_values_[index], 0.1f)) {
                     SetRotationAxisXYZ(rotation_values_[index]);
                 }
 
@@ -290,22 +266,16 @@ void SequenceObject::GUI(uint32_t start, uint32_t end) {
         }
 
         // GUI スケールキーの表示
-        std::string scale_name =
-            "Scale##scale" + std::to_string(reinterpret_cast<uint64_t>(this));
-        if (ImGui::BeginNeoTimeline<float3>(
-                scale_name.data(), scale_keys_, scale_values_, nullptr,
-                ImGuiNeoSequencerFlags_AllowLengthChanging)) {
+        std::string scale_name = "Scale##scale" + std::to_string(reinterpret_cast<uint64_t>(this));
+        if (ImGui::BeginNeoTimeline<float3>(scale_name.data(), scale_keys_, scale_values_, nullptr,
+                                            ImGuiNeoSequencerFlags_AllowLengthChanging)) {
             int index = ImGui::GetNeoKeySelected();
             if (index >= 0 && scale_keys_.size() > index) {
-                guizmo_index_ = index;
-                std::string frame_table =
-                    "Frame##frame-scale"
-                    + std::to_string(reinterpret_cast<uint64_t>(this));
-                ImGui::DragScalar(frame_table.data(), ImGuiDataType_U32,
-                                  &scale_keys_[index], 1, &start, &end);
+                guizmo_index_           = index;
+                std::string frame_table = "Frame##frame-scale" + std::to_string(reinterpret_cast<uint64_t>(this));
+                ImGui::DragScalar(frame_table.data(), ImGuiDataType_U32, &scale_keys_[index], 1, &start, &end);
 
-                if (ImGui::DragFloat3("Scale", (float*)&scale_values_[index],
-                                      0.1f)) {
+                if (ImGui::DragFloat3("Scale", (float*)&scale_values_[index], 0.1f)) {
                     SetScaleAxisXYZ(scale_values_[index]);
                 }
 
@@ -318,24 +288,16 @@ void SequenceObject::GUI(uint32_t start, uint32_t end) {
         }
 
         // GUI アニメーションキーの表示
-        std::string anm_name =
-            "Animation##anm" + std::to_string(reinterpret_cast<uint64_t>(this));
-        if (ImGui::BeginNeoTimeline<AnimObject>(
-                anm_name.data(), animation_keys_, animation_values_, nullptr,
-                ImGuiNeoSequencerFlags_AllowLengthChanging)) {
+        std::string anm_name = "Animation##anm" + std::to_string(reinterpret_cast<uint64_t>(this));
+        if (ImGui::BeginNeoTimeline<AnimObject>(anm_name.data(), animation_keys_, animation_values_, nullptr,
+                                                ImGuiNeoSequencerFlags_AllowLengthChanging)) {
             int index = ImGui::GetNeoKeySelected();
             if (index >= 0 && animation_keys_.size() > index) {
-                guizmo_index_ = index;
-                std::string frame_name =
-                    "Frame##frame-anm"
-                    + std::to_string(reinterpret_cast<uint64_t>(this));
-                ImGui::DragScalar(frame_name.data(), ImGuiDataType_U32,
-                                  &animation_keys_[index], 1, &start, &end);
-                std::string check_name =
-                    "Loop##checkbox-anm"
-                    + std::to_string(reinterpret_cast<uint64_t>(this));
-                ImGui::Checkbox(check_name.data(),
-                                &animation_values_[index].loop_);
+                guizmo_index_          = index;
+                std::string frame_name = "Frame##frame-anm" + std::to_string(reinterpret_cast<uint64_t>(this));
+                ImGui::DragScalar(frame_name.data(), ImGuiDataType_U32, &animation_keys_[index], 1, &start, &end);
+                std::string check_name = "Loop##checkbox-anm" + std::to_string(reinterpret_cast<uint64_t>(this));
+                ImGui::Checkbox(check_name.data(), &animation_values_[index].loop_);
                 ImGui::InputText("Animation", &animation_values_[index].name_);
 
                 show_guizmo_ = false;
@@ -344,24 +306,16 @@ void SequenceObject::GUI(uint32_t start, uint32_t end) {
         }
 
         // GUI エフェクトキーの表示
-        std::string eff_name =
-            "Effect##effect" + std::to_string(reinterpret_cast<uint64_t>(this));
-        if (ImGui::BeginNeoTimeline<AnimObject>(
-                eff_name.data(), effect_keys_, effect_values_, nullptr,
-                ImGuiNeoSequencerFlags_AllowLengthChanging)) {
+        std::string eff_name = "Effect##effect" + std::to_string(reinterpret_cast<uint64_t>(this));
+        if (ImGui::BeginNeoTimeline<AnimObject>(eff_name.data(), effect_keys_, effect_values_, nullptr,
+                                                ImGuiNeoSequencerFlags_AllowLengthChanging)) {
             int index = ImGui::GetNeoKeySelected();
             if (index >= 0 && effect_keys_.size() > index) {
-                guizmo_index_ = index;
-                std::string frame_name =
-                    "Frame##frame-eff"
-                    + std::to_string(reinterpret_cast<uint64_t>(this));
-                ImGui::DragScalar(frame_name.data(), ImGuiDataType_U32,
-                                  &effect_keys_[index], 1, &start, &end);
-                std::string check_name =
-                    "Loop##checkbox-eff"
-                    + std::to_string(reinterpret_cast<uint64_t>(this));
-                ImGui::Checkbox(check_name.data(),
-                                &effect_values_[index].loop_);
+                guizmo_index_          = index;
+                std::string frame_name = "Frame##frame-eff" + std::to_string(reinterpret_cast<uint64_t>(this));
+                ImGui::DragScalar(frame_name.data(), ImGuiDataType_U32, &effect_keys_[index], 1, &start, &end);
+                std::string check_name = "Loop##checkbox-eff" + std::to_string(reinterpret_cast<uint64_t>(this));
+                ImGui::Checkbox(check_name.data(), &effect_values_[index].loop_);
                 // ImGui::InputText( "Effect", &effect_values_[ index ].name_ );
 
                 show_guizmo_ = false;
@@ -389,9 +343,8 @@ void ComponentSequencer::Update() {
     ImGui::Begin("Sequencer##__SequencerID__");
     {
         uint32_t frame = static_cast<int>(current_frame_);
-        if (ImGui::BeginNeoSequencer(
-                "Sequencer", &frame, &start_frame_, &end_frame_, {0, 0},
-                ImGuiNeoSequencerFlags_AllowLengthChanging)) {
+        if (ImGui::BeginNeoSequencer("Sequencer", &frame, &start_frame_, &end_frame_, {0, 0},
+                                     ImGuiNeoSequencerFlags_AllowLengthChanging)) {
             if (frame != static_cast<uint32_t>(current_frame_)) {
                 current_frame_ = (float)frame;
                 step           = true;
@@ -452,8 +405,7 @@ void ComponentSequencer::Update() {
     }
 
     for (auto& seq_obj : objects_) {
-        seq_obj->Update(GetSequencerStatus(SequencerBit::Playing) || step,
-                        current_frame_);
+        seq_obj->Update(GetSequencerStatus(SequencerBit::Playing) || step, current_frame_);
     }
 }
 

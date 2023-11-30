@@ -43,8 +43,7 @@ namespace LittleQuest {
         Super::GUI();
     }
 
-    void Sword::OnHit([[maybe_unused]] const ComponentCollision::HitInfo&
-                          hitInfo)    // override
+    void Sword::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
     {
         Super::OnHit(hitInfo);
     }

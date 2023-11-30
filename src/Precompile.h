@@ -60,8 +60,7 @@ using namespace hlslpp;
 
 // Effekseer
 #pragma warning(push)
-#pragma warning( \
-    disable: 4100)    // 'value': 引数は関数の本体部で 1 度も参照されません。
+#pragma warning(disable: 4100)    // 'value': 引数は関数の本体部で 1 度も参照されません。
 #include "EffekseerForDXLib.h"
 #pragma warning(pop)
 

@@ -40,9 +40,8 @@ class LightManager {
 
         // 平行光源 Directional Light
         struct LightDirectional {
-                float3 color_ = float3(1.0f, 1.0f, 1.0f);    //!< カラー
-                float3 light_dir_ =
-                    float3(0.0f, 1.0f, 0.0f);    //!< 方向 (Lベクトル)
+                float3 color_     = float3(1.0f, 1.0f, 1.0f);    //!< カラー
+                float3 light_dir_ = float3(0.0f, 1.0f, 0.0f);    //!< 方向 (Lベクトル)
         };
 
         // 点光源 Point Light

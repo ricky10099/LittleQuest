@@ -64,21 +64,16 @@ namespace LittleQuest {
         Super::Init();
 
         // モデルコンポーネント(0.05倍)
-        auto model = AddComponent<ComponentModel>(
-            "data/LittleQuest/Model/Guard/Guard.mv1");
+        auto model = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
         model->SetScaleAxisXYZ({0.05f});
 
-        model->SetAnimation(
-            {{"idle", "data/LittleQuest/Anim/SwordIdle.mv1", 0, 1.0f},
-             {"jump", "data/LittleQuest/Anim/SwordJump.mv1", 0, 1.0f},
-             {"walk", "data/LittleQuest/Anim/SwordWalk.mv1", 0, 1.0f},
-             {"attack1", "data/LittleQuest/Anim/SwordAttackCombo1.mv1", 0,
-              1.5f},
-             {"attack2", "data/LittleQuest/Anim/SwordAttackCombo2.mv1", 0,
-              1.0f},
-             {"attack3", "data/LittleQuest/Anim/SwordAttackCombo3.mv1", 0,
-              1.5f},
-             {"getHit", "data/LittleQuest/Anim/SwordGetHit.mv1", 0, 1.0f}});
+        model->SetAnimation({{"idle", "data/LittleQuest/Anim/SwordIdle.mv1", 0, 1.0f},
+                             {"jump", "data/LittleQuest/Anim/SwordJump.mv1", 0, 1.0f},
+                             {"walk", "data/LittleQuest/Anim/SwordWalk.mv1", 0, 1.0f},
+                             {"attack1", "data/LittleQuest/Anim/SwordAttackCombo1.mv1", 0, 1.5f},
+                             {"attack2", "data/LittleQuest/Anim/SwordAttackCombo2.mv1", 0, 1.0f},
+                             {"attack3", "data/LittleQuest/Anim/SwordAttackCombo3.mv1", 0, 1.5f},
+                             {"getHit", "data/LittleQuest/Anim/SwordGetHit.mv1", 0, 1.0f}});
 
         //  コリジョン(カプセル)
         if (auto colCap = AddComponent<ComponentCollisionCapsule>()) {
@@ -86,8 +81,7 @@ namespace LittleQuest {
             colCap->SetRadius(2.5);
             colCap->SetHeight(10);
             colCap->UseGravity();
-            colCap->SetCollisionGroup(
-                ComponentCollision::CollisionGroup::PLAYER);
+            colCap->SetCollisionGroup(ComponentCollision::CollisionGroup::PLAYER);
         }
 
         // コリジョン(武器)
@@ -95,10 +89,8 @@ namespace LittleQuest {
             colLine->AttachToModel("mixamorig:RightHand");
             colLine->SetTranslate({0, 0, 0});
             colLine->SetLine(float3{0, 15, 0}, float3{110, 15, 1});
-            colLine->SetCollisionGroup(
-                ComponentCollision::CollisionGroup::WEAPON);
-            colLine->SetHitCollisionGroup(
-                (u32)ComponentCollision::CollisionGroup::ENEMY);
+            colLine->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
+            colLine->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
             colLine->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
             colLine->SetName("SwordCol");
         }
@@ -116,11 +108,10 @@ namespace LittleQuest {
 
         // #ifdef USE_MOUSE_CAMERA
         // カメラ方向を取得してその方向に動かす
-        auto cam = Scene::GetObjectPtr<Camera>("PlayerCamera");
-        float3 v = GetTranslate() - cam->GetTranslate();
-        mat      = HelperLib::Math::CreateMatrixByFrontVector(-v);
-        float camLength =
-            cam->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
+        auto cam        = Scene::GetObjectPtr<Camera>("PlayerCamera");
+        float3 v        = GetTranslate() - cam->GetTranslate();
+        mat             = HelperLib::Math::CreateMatrixByFrontVector(-v);
+        float camLength = cam->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
         // カメラ距離の調整
         camLength -= GetMouseWheelRotVol() * 3;
         if (camLength < 10) {
@@ -221,8 +212,7 @@ namespace LittleQuest {
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             float* mat = modelPtr->GetMatrixFloat();
             float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation,
-                                        matrixScale);
+            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
             printfDx("\nAnimation Time:%f", modelPtr->GetAnimationTime());
             printfDx("\nmodel rotx:%f", modelPtr->GetRotationAxisXYZ().x);
             printfDx("\nmodel roty:%f", matrixRotation[1]);
@@ -232,10 +222,8 @@ namespace LittleQuest {
         printfDx("\nisCombo: %i", isCombo);
         float x, y, z;
 
-        printfDx("\nMatAYx: %f %f %f", GetMatrix().axisX().x,
-                 GetMatrix().axisX().y, GetMatrix().axisX().z);
-        printfDx("\nMatAYz: %f %f %f", GetRotationAxisXYZ().z,
-                 GetMatrix().axisZ().y, GetMatrix().axisZ().z);
+        printfDx("\nMatAYx: %f %f %f", GetMatrix().axisX().x, GetMatrix().axisX().y, GetMatrix().axisX().z);
+        printfDx("\nMatAYz: %f %f %f", GetRotationAxisXYZ().z, GetMatrix().axisZ().y, GetMatrix().axisZ().z);
     }
 
     void Player::GUI()    // override
@@ -243,8 +231,7 @@ namespace LittleQuest {
         Super::GUI();
     }
 
-    void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo&
-                           hitInfo)    // override
+    void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
     {
         // 武器の衝突判定
         if (hitInfo.collision_->GetName() == "SwordCol") {
@@ -290,8 +277,7 @@ namespace LittleQuest {
 
             this->SetModelRotation(move);
 
-            if (modelPtr->GetPlayAnimationName() != "walk")
-                modelPtr->PlayAnimation("walk", true, 0.2f, 14.0f);
+            if (modelPtr->GetPlayAnimationName() != "walk") modelPtr->PlayAnimation("walk", true, 0.2f, 14.0f);
         }
     }
 

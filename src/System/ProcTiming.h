@@ -96,23 +96,20 @@ struct SlotProc {
         const auto GetName() const { return name_; }
 
         const bool IsUpdate() const {
-            if (static_cast<int>(timing_)
-                < static_cast<int>(ProcTiming::PreDraw)) {
+            if (static_cast<int>(timing_) < static_cast<int>(ProcTiming::PreDraw)) {
                 return true;
             }
             return false;
         }
 
         const bool IsDraw() const {
-            if (static_cast<int>(timing_)
-                >= static_cast<int>(ProcTiming::PreDraw)) {
+            if (static_cast<int>(timing_) >= static_cast<int>(ProcTiming::PreDraw)) {
                 return true;
             }
             return false;
         }
 
-        void SetProc(std::string name, ProcTiming timing, Priority prio,
-                     ProcTimingFunc func) {
+        void SetProc(std::string name, ProcTiming timing, Priority prio, ProcTimingFunc func) {
             name_     = name;
             dirty_    = true;
             timing_   = timing;
@@ -122,8 +119,7 @@ struct SlotProc {
 
         ProcTimingFunc& GetProc() { return proc_; }
 
-        void SetAddProc(std::shared_ptr<Callable> func, ProcTiming timing,
-                        Priority prio) {
+        void SetAddProc(std::shared_ptr<Callable> func, ProcTiming timing, Priority prio) {
             name_     = func->GetName();
             dirty_    = true;
             timing_   = timing;
@@ -150,8 +146,7 @@ struct SlotProc {
         CEREAL_SAVELOAD(arc, ver) {
             dirty_ = true;            //セーブするときにdirty_つける
             arc(CEREAL_NVP(name_),    // name
-                CEREAL_NVP(timing_), CEREAL_NVP(priority_), CEREAL_NVP(dirty_),
-                CEREAL_NVP(func_));
+                CEREAL_NVP(timing_), CEREAL_NVP(priority_), CEREAL_NVP(dirty_), CEREAL_NVP(func_));
             // connect_ は再構築させる
         }
 

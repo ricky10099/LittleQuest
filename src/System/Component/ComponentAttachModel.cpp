@@ -14,8 +14,7 @@ void ComponentAttachModel::Init() {
     __super::Init();
 
     // モデルの姿勢が完了した後実行したい
-    Scene::GetCurrentScene()->SetPriority(
-        shared_from_this(), ProcTiming::PostUpdate, Priority::LOWEST);
+    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PostUpdate, Priority::LOWEST);
 
     SetAttachModelStatus(AttachModelBit::Initialized, true);
 }
@@ -54,10 +53,8 @@ void ComponentAttachModel::PostUpdate() {
 //! @brief スプリングアームの先からのマトリクス取得
 //! @return マトリクス
 matrix ComponentAttachModel::GetPutOnMatrix() const {
-    float trans[3] = {attach_model_offset_.x, attach_model_offset_.y,
-                      attach_model_offset_.z};
-    float rot[3]   = {attach_model_rotate_.x, attach_model_rotate_.y,
-                      attach_model_rotate_.z};
+    float trans[3] = {attach_model_offset_.x, attach_model_offset_.y, attach_model_offset_.z};
+    float rot[3]   = {attach_model_rotate_.x, attach_model_rotate_.y, attach_model_rotate_.z};
     float scale[3] = {1.0f, 1.0f, 1.0f};
     matrix rmat;
     RecomposeMatrixFromComponents(trans, rot, scale, rmat.f32_128_0);
@@ -80,21 +77,17 @@ matrix ComponentAttachModel::GetPutOnMatrix() const {
     return mat;
 }
 
-void ComponentAttachModel::SetAttachObject(ObjectPtr object,
-                                           std::string_view node) {
+void ComponentAttachModel::SetAttachObject(ObjectPtr object, std::string_view node) {
     object_           = object;
     object_name_      = object->GetName();
     object_node_name_ = node;
-    if (auto model = object->GetComponent<ComponentModel>())
-        object_node_index_ = model->GetNodeIndex(node);
+    if (auto model = object->GetComponent<ComponentModel>()) object_node_index_ = model->GetNodeIndex(node);
 
     GetOwner()->SetStatus(Object::StatusBit::Located, false);
 }
 
-void ComponentAttachModel::SetAttachObject(std::string_view name,
-                                           std::string_view node) {
-    if (auto obj = Scene::GetObjectPtr<Object>(name))
-        SetAttachObject(obj, node);
+void ComponentAttachModel::SetAttachObject(std::string_view name, std::string_view node) {
+    if (auto obj = Scene::GetObjectPtr<Object>(name)) SetAttachObject(obj, node);
 }
 
 //---------------------------------------------------------
@@ -107,8 +100,7 @@ void ComponentAttachModel::Draw() {
                 int no = target_model->GetNodeIndex(object_node_name_);
                 if (no >= 0) {
                     matrix mat = target_model->GetNodeMatrix(no);
-                    ShowGizmo((float*)mat.f32_128_0,
-                              ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::LOCAL,
+                    ShowGizmo((float*)mat.f32_128_0, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::LOCAL,
                               reinterpret_cast<uint64_t>(object.get()));
                 }
             }
@@ -144,8 +136,7 @@ void ComponentAttachModel::GUI() {
 
             u32* bit = &attach_model_status_.get();
             u32 val  = *bit;
-            ImGui::CheckboxFlags(u8"初期化済", &val,
-                                 1 << (int)AttachModelBit::Initialized);
+            ImGui::CheckboxFlags(u8"初期化済", &val, 1 << (int)AttachModelBit::Initialized);
 
             if (ImGui::BeginCombo("AttachObject", object_name_.data())) {
                 auto objs = Scene::GetObjectsPtr<Object>();
@@ -167,20 +158,15 @@ void ComponentAttachModel::GUI() {
                 if (auto model = obj->GetComponent<ComponentModel>()) {
                     auto items = model->GetNodesNamePChar();
 
-                    if (ImGui::Combo("Node", &object_node_index_, items.data(),
-                                     (int)items.size())) {
+                    if (ImGui::Combo("Node", &object_node_index_, items.data(), (int)items.size())) {
                         // 切り替えたとき
                         object_node_name_ = items[object_node_index_];
                     }
                 }
             }
 
-            ImGui::DragFloat3(u8"AttachModel回転",
-                              (float*)&attach_model_rotate_, 0.1f, -10000.0f,
-                              10000.0f, "%.1f");
-            ImGui::DragFloat3(u8"AttachModelオフセット",
-                              (float*)&attach_model_offset_, 0.1f, -10000.0f,
-                              10000.0f, "%.1f");
+            ImGui::DragFloat3(u8"AttachModel回転", (float*)&attach_model_rotate_, 0.1f, -10000.0f, 10000.0f, "%.1f");
+            ImGui::DragFloat3(u8"AttachModelオフセット", (float*)&attach_model_offset_, 0.1f, -10000.0f, 10000.0f, "%.1f");
 
             ImGui::TreePop();
         }

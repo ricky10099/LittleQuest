@@ -15,8 +15,7 @@ class Type {
         //! @param  [in]    desc_name   説明文文字列
         //! @param  [in]    parent_type
         //! 親クラスの型情報(親がないクラスはnullptr)
-        Type(const char* class_name, size_t class_size, const char* desc_name,
-             Type* parent_type = nullptr);
+        Type(const char* class_name, size_t class_size, const char* desc_name, Type* parent_type = nullptr);
 
         //  インスタンスを作成(クラスをnewしてポインタを返す)
         virtual void* createInstance() const;
@@ -88,9 +87,7 @@ class ClassType : public Type {
         using Type::Type;    // 継承コンストラクタ
 
         // インスタンスを作成(クラスをnewしてポインタを返す)
-        virtual void* createInstance() const override {
-            return T::createInstance();
-        }
+        virtual void* createInstance() const override { return T::createInstance(); }
 
     private:
 };
@@ -142,12 +139,11 @@ class ClassType : public Type {
 //! BP_CLASS_IMPL(B, u8"クラスB")
 //! @endcode
 //---------------------------------------------------------------------------
-#define BP_CLASS_IMPL(CLASS, DESC_NAME)                                \
-    /*! 型情報の実体 */                                          \
-    ClassType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, \
-                                     &Super::TypeInfo);                \
-    void* CLASS::createInstance() {                                    \
-        return new CLASS();                                            \
+#define BP_CLASS_IMPL(CLASS, DESC_NAME)                                                   \
+    /*! 型情報の実体 */                                                             \
+    ClassType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, &Super::TypeInfo); \
+    void* CLASS::createInstance() {                                                       \
+        return new CLASS();                                                               \
     }
 
 //---------------------------------------------------------------------------
@@ -157,21 +153,19 @@ class ClassType : public Type {
 //! BP_BASE_IMPL(A, u8"基底クラス")
 //! @endcode
 //---------------------------------------------------------------------------
-#define BP_BASE_IMPL(CLASS, DESC_NAME)                                 \
-    /*! 型情報の実体 */                                          \
-    ClassType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, \
-                                     nullptr);                         \
-    void* CLASS::createInstance() {                                    \
-        return new CLASS();                                            \
+#define BP_BASE_IMPL(CLASS, DESC_NAME)                                           \
+    /*! 型情報の実体 */                                                    \
+    ClassType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, nullptr); \
+    void* CLASS::createInstance() {                                              \
+        return new CLASS();                                                      \
     }
 
 // 抽象クラス用カスタム
-#define BP_BASE_IMPL_ABSOLUTE(CLASS, DESC_NAME)                        \
-    /*! 型情報の実体 */                                          \
-    ClassType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, \
-                                     nullptr);                         \
-    void* CLASS::createInstance() {                                    \
-        return nullptr;                                                \
+#define BP_BASE_IMPL_ABSOLUTE(CLASS, DESC_NAME)                                  \
+    /*! 型情報の実体 */                                                    \
+    ClassType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, nullptr); \
+    void* CLASS::createInstance() {                                              \
+        return nullptr;                                                          \
     }
 
 //===========================================================================
@@ -183,8 +177,7 @@ class ClassType : public Type {
 //! @param  [in]    class_name  クラス名
 //! @param  [in]    base_type   基底クラスの型情報
 //! @return newされたクラスオブジェクト(失敗の場合はnullptr)
-[[nodiscard]] void* CreateInstanceFromName(std::string_view class_name,
-                                           Type& base_type);
+[[nodiscard]] void* CreateInstanceFromName(std::string_view class_name, Type& base_type);
 
 //! 名前を指定して指定基底クラス型でnewする (テンプレートヘルパー)
 //! @param  [in]    class_name  クラス名
@@ -192,8 +185,7 @@ class ClassType : public Type {
 //! @return newされたクラスオブジェクト(失敗の場合はnullptr)
 template <class T>
 [[nodiscard]] T* CreateInstanceFromName(std::string_view class_name) {
-    return reinterpret_cast<T*>(
-        CreateInstanceFromName(class_name, T::TypeInfo));
+    return reinterpret_cast<T*>(CreateInstanceFromName(class_name, T::TypeInfo));
 }
 
 //  ルートの型情報を取得する

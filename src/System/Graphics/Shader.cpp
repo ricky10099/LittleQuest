@@ -17,8 +17,7 @@
 
 namespace {
 
-    FileWatcher
-        file_watcher_;                  //!< シェーダーホットリロード時のためのファイル監視
+    FileWatcher file_watcher_;          //!< シェーダーホットリロード時のためのファイル監視
     std::once_flag once_initialize_;    //!< 初回実行用フラグ
 
     //! 現在アクティブなシェーダーリスト
@@ -67,13 +66,10 @@ ShaderBase::ShaderBase(std::string_view path, u32 type, u32 variant_count)
                 auto notified_path = std::wstring(path);
 
                 // 小文字に統一することで大文字小文字の差異をなくす
-                std::transform(
-                    shader_path.begin(), shader_path.end(), shader_path.begin(),
-                    reinterpret_cast<wchar_t (*)(wchar_t)>(::tolower));
-                std::transform(
-                    notified_path.begin(), notified_path.end(),
-                    notified_path.begin(),
-                    reinterpret_cast<wchar_t (*)(wchar_t)>(::tolower));
+                std::transform(shader_path.begin(), shader_path.end(), shader_path.begin(),
+                               reinterpret_cast<wchar_t (*)(wchar_t)>(::tolower));
+                std::transform(notified_path.begin(), notified_path.end(), notified_path.begin(),
+                               reinterpret_cast<wchar_t (*)(wchar_t)>(::tolower));
 
                 if (shader_path == notified_path) {
                     // 該当するシェーダーが見つかったら再コンパイル
@@ -84,9 +80,7 @@ ShaderBase::ShaderBase(std::string_view path, u32 type, u32 variant_count)
     };
 
     // ファイル監視開始
-    std::call_once(once_initialize_, [&]() {
-        file_watcher_.initialize(L".", file_modified_callback);
-    });
+    std::call_once(once_initialize_, [&]() { file_watcher_.initialize(L".", file_modified_callback); });
 
     //---------------------------------------------------------------------
     // 初期設定
@@ -112,8 +106,7 @@ ShaderBase::ShaderBase(std::string_view path, u32 type, u32 variant_count)
 ShaderBase::~ShaderBase() {
     // シェーダーリストから登録解除
     {
-        auto it = std::find(std::begin(shaders_),
-                            std::begin(shaders_) + shader_count_, this);
+        auto it = std::find(std::begin(shaders_), std::begin(shaders_) + shader_count_, this);
         if (it != std::begin(shaders_) + shader_count_) {
             shader_count_--;
             *it = nullptr;
@@ -151,9 +144,7 @@ bool ShaderBase::compile() {
         // ファイルから読み込み
         std::ifstream file(
             source_path.c_str(),
-            std::ios::in | std::ios::binary
-                | std::ios::
-                    ate);    // ateを指定すると最初からファイルポインタが末尾に移動
+            std::ios::in | std::ios::binary | std::ios::ate);    // ateを指定すると最初からファイルポインタが末尾に移動
         if (!file.is_open()) {
             return false;
         }
@@ -198,20 +189,19 @@ bool ShaderBase::compile() {
         Microsoft::WRL::ComPtr<ID3DBlob> byte_code = nullptr;
         Microsoft::WRL::ComPtr<ID3DBlob> errors;
 
-        auto hr = D3DCompile(
-            source.data(),                     // [in]  ソースコードのメモリ上のアドレス
-            source.size(),                     // [in]  ソースコードサイズ
-            convertTo(source_path).c_str(),    // [in]
-            // ソースコードのファイルパス(使用しない場合はnullptr)
-            defines,                              // [in]  プリプロセッサマクロ定義
-            D3D_COMPILE_STANDARD_FILE_INCLUDE,    // [in]
-                                                  // カスタムインクルード処理
-            "main",                               // [in]  関数名
-            target_names[type_],                  // [in]  シェーダーモデル名
-            compile_flags,                        // [in]  コンパイラフラグ  (D3DCOMPILE_xxxx)
-            0,                                    // [in]  コンパイラフラグ2 (D3DCOMPILE_FLAGS2_xxxx)
-            &byte_code,                           // [out] コンパイルされたバイトコード
-            &errors);                             // [out] エラーメッセージ
+        auto hr = D3DCompile(source.data(),                     // [in]  ソースコードのメモリ上のアドレス
+                             source.size(),                     // [in]  ソースコードサイズ
+                             convertTo(source_path).c_str(),    // [in]
+                             // ソースコードのファイルパス(使用しない場合はnullptr)
+                             defines,                              // [in]  プリプロセッサマクロ定義
+                             D3D_COMPILE_STANDARD_FILE_INCLUDE,    // [in]
+                                                                   // カスタムインクルード処理
+                             "main",                               // [in]  関数名
+                             target_names[type_],                  // [in]  シェーダーモデル名
+                             compile_flags,                        // [in]  コンパイラフラグ  (D3DCOMPILE_xxxx)
+                             0,                                    // [in]  コンパイラフラグ2 (D3DCOMPILE_FLAGS2_xxxx)
+                             &byte_code,                           // [out] コンパイルされたバイトコード
+                             &errors);                             // [out] エラーメッセージ
 
         // エラー警告出力
         if (errors != nullptr) {
@@ -222,9 +212,8 @@ bool ShaderBase::compile() {
 
             // メッセージボックス
             auto file_name = convertTo(source_path);
-            MessageBox(DxLib::GetMainWindowHandle(),
-                       static_cast<char*>(errors->GetBufferPointer()),
-                       file_name.c_str(), MB_ICONWARNING | MB_OK);
+            MessageBox(DxLib::GetMainWindowHandle(), static_cast<char*>(errors->GetBufferPointer()), file_name.c_str(),
+                       MB_ICONWARNING | MB_OK);
         }
 
         if (FAILED(hr)) {
@@ -234,12 +223,9 @@ bool ShaderBase::compile() {
         //------------------------------------------------------
         // [DxLib] シェーダーを作成
         //------------------------------------------------------
-        const void* shader_ptr =
-            byte_code
-                ->GetBufferPointer();    // シェーダーバイナリの先頭アドレス
-        auto shader_size = static_cast<int>(
-            byte_code->GetBufferSize());    // シェーダーバイナリのサイズ
-        int handle = -1;
+        const void* shader_ptr = byte_code->GetBufferPointer();                   // シェーダーバイナリの先頭アドレス
+        auto shader_size       = static_cast<int>(byte_code->GetBufferSize());    // シェーダーバイナリのサイズ
+        int handle             = -1;
 
         switch (type_) {
             case DX_SHADERTYPE_VERTEX:    // 頂点シェーダー

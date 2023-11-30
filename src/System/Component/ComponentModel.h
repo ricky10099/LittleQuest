@@ -53,25 +53,21 @@ class ComponentModel : public Component, public IMatrix<ComponentModel> {
 
         //! @brief アニメーションデータ
         //! @param anims アニメーション構造リスト
-        ComponentModelPtr SetAnimation(
-            const std::vector<Animation::Desc> anims);
+        ComponentModelPtr SetAnimation(const std::vector<Animation::Desc> anims);
 
         //! @brief アニメーション再生(同じなら再再生しない)
         //! @param name 再生するアニメーション名
         //! @param loop ループするかどうか(デフォルト:しない)
         //! @param speed 補完秒数(デフォルト:0.2秒)
         //! @param start_time スタートする位置(デフォルト:0.0)
-        void PlayAnimationNoSame(std::string_view name, bool loop = false,
-                                 float blend_time = 0.2f,
-                                 float start_time = 0.0f);
+        void PlayAnimationNoSame(std::string_view name, bool loop = false, float blend_time = 0.2f, float start_time = 0.0f);
 
         //! @brief アニメーション再生
         //! @param name 再生するアニメーション名
         //! @param loop ループするかどうか(デフォルト:しない)
         //! @param speed 補完秒数(デフォルト:0.2秒)
         //! @param start_time スタートする位置(デフォルト:0.0)
-        void PlayAnimation(std::string_view name, bool loop = false,
-                           float blend_time = 0.2f, float start_time = 0.0f);
+        void PlayAnimation(std::string_view name, bool loop = false, float blend_time = 0.2f, float start_time = 0.0f);
 
         //! @brief アニメーション中かどうか
         //! @retval true : アニメーション中
@@ -137,33 +133,20 @@ class ComponentModel : public Component, public IMatrix<ComponentModel> {
             UseShader,            //!< シェーダーを使用する
         };
 
-        bool IsValid() const {
-            return model_status_.is(ModelBit::Initialized);
-        }    //!< モデルが読み込まれているか?
-        bool UseShader() const {
-            return model_status_.is(ModelBit::UseShader);
-        }    //!< シェーダーを利用するか?
+        bool IsValid() const { return model_status_.is(ModelBit::Initialized); }    //!< モデルが読み込まれているか?
+        bool UseShader() const { return model_status_.is(ModelBit::UseShader); }    //!< シェーダーを利用するか?
 
-        void UseShader(bool use) {
-            model_status_.set(ModelBit::UseShader, use);
-        }
+        void UseShader(bool use) { model_status_.set(ModelBit::UseShader, use); }
         //---------------------------------------------------------------------------
         //! @name IMatrixインターフェースの利用するための定義
         //---------------------------------------------------------------------------
         //@{
 
-        matrix& Matrix() override {
-            return model_transform_;
-        }    //!< マトリクス取得
+        matrix& Matrix() override { return model_transform_; }    //!< マトリクス取得
 
-        const matrix& GetMatrix() const override {
-            return model_transform_;
-        }    //!< マトリクス取得
+        const matrix& GetMatrix() const override { return model_transform_; }    //!< マトリクス取得
 
-        ComponentModelPtr SharedThis() {
-            return std::dynamic_pointer_cast<ComponentModel>(
-                shared_from_this());
-        }
+        ComponentModelPtr SharedThis() { return std::dynamic_pointer_cast<ComponentModel>(shared_from_this()); }
 
         //! @brief ワールドMatrixの取得
         //! @return 他のコンポーネントも含めた位置
@@ -206,17 +189,13 @@ class ComponentModel : public Component, public IMatrix<ComponentModel> {
         //--------------------------------------------------------------------
         //@{
         CEREAL_SAVELOAD(arc, ver) {
-            arc(cereal::make_nvp("owner", owner_),
-                cereal::make_nvp("model_transform", model_transform_),
-                cereal::make_nvp("path", path_),
-                cereal::make_nvp("desc", animations_desc_),
+            arc(cereal::make_nvp("owner", owner_), cereal::make_nvp("model_transform", model_transform_),
+                cereal::make_nvp("path", path_), cereal::make_nvp("desc", animations_desc_),
                 cereal::make_nvp("model_status", model_status_.get()),
                 cereal::make_nvp("current_animation", current_animation_name_),
-                cereal::make_nvp("animation_time", animation_time_),
-                cereal::make_nvp("anim_loop", anim_loop_));
+                cereal::make_nvp("animation_time", animation_time_), cereal::make_nvp("anim_loop", anim_loop_));
 
-            arc(cereal::make_nvp("Component",
-                                 cereal::base_class<Component>(this)));
+            arc(cereal::make_nvp("Component", cereal::base_class<Component>(this)));
 
             if (!path_.empty()) {
                 Load(path_);
@@ -231,13 +210,10 @@ class ComponentModel : public Component, public IMatrix<ComponentModel> {
 
 //! @brief 外部Animation::Descのセーブロード
 CEREAL_SAVELOAD_OTHER(Animation::Desc, arc, other) {
-    arc(CEREAL_NVP(other.name_),         //!< アニメーション名(任意)
-        CEREAL_NVP(other.file_path_),    //!< ファイルパス
-        CEREAL_NVP(
-            other.animation_index_),    //!< ファイル内のアニメーション番号
-        CEREAL_NVP(
-            other
-                .animation_speed_)    //!< アニメーションの再生速度(default:1.0f)
+    arc(CEREAL_NVP(other.name_),               //!< アニメーション名(任意)
+        CEREAL_NVP(other.file_path_),          //!< ファイルパス
+        CEREAL_NVP(other.animation_index_),    //!< ファイル内のアニメーション番号
+        CEREAL_NVP(other.animation_speed_)     //!< アニメーションの再生速度(default:1.0f)
     );
 }
 

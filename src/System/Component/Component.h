@@ -88,15 +88,13 @@ class ClassComponentType : public Type {
 //! BP_OBJECT_IMPL(B, u8"クラスB")
 //! @endcode
 //---------------------------------------------------------------------------
-#define BP_COMPONENT_BASE_IMPL(CLASS, DESC_NAME)                     \
-    /*! 型情報の実体 */                                        \
-    ClassComponentType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), \
-                                              DESC_NAME, nullptr);
+#define BP_COMPONENT_BASE_IMPL(CLASS, DESC_NAME) \
+    /*! 型情報の実体 */                    \
+    ClassComponentType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, nullptr);
 
-#define BP_COMPONENT_IMPL(CLASS, DESC_NAME)                          \
-    /*! 型情報の実体 */                                        \
-    ClassComponentType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), \
-                                              DESC_NAME, &Super::TypeInfo);
+#define BP_COMPONENT_IMPL(CLASS, DESC_NAME) \
+    /*! 型情報の実体 */               \
+    ClassComponentType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, &Super::TypeInfo);
 
 //---------------------------------------------------------------------------
 //! @brief コンポーネント
@@ -120,13 +118,10 @@ class Component : public std::enable_shared_from_this<Component> {
             proc_timings_.clear();
         }
 
-        Object* GetOwner();    //!< オーナー(従属しているオブジェクト)の取得
-        const Object* GetOwner()
-            const;    //!< オーナー(従属しているオブジェクト)の取得
-        ObjectPtr
-        GetOwnerPtr();    //!< オーナー(従属しているオブジェクト)の取得(SharedPtr)
-        const ObjectPtr GetOwnerPtr()
-            const;    //!< オーナー(従属しているオブジェクト)の取得(SharedPtr)
+        Object* GetOwner();                     //!< オーナー(従属しているオブジェクト)の取得
+        const Object* GetOwner() const;         //!< オーナー(従属しているオブジェクト)の取得
+        ObjectPtr GetOwnerPtr();                //!< オーナー(従属しているオブジェクト)の取得(SharedPtr)
+        const ObjectPtr GetOwnerPtr() const;    //!< オーナー(従属しているオブジェクト)の取得(SharedPtr)
 
         virtual void Init();          //!< 初期化
         virtual void Update();        //!< アップデート
@@ -142,8 +137,7 @@ class Component : public std::enable_shared_from_this<Component> {
         virtual void PostDraw();      //!< 描画後処理
         virtual void PrePhysics();    //!< Physics前処理
 
-        virtual void
-        InitSerialize();    //!< シリアライズでもどらないユーザー処理関数などを設定
+        virtual void InitSerialize();    //!< シリアライズでもどらないユーザー処理関数などを設定
 
         void SetPriority(ProcTiming timing, Priority priority);
 
@@ -164,9 +158,8 @@ class Component : public std::enable_shared_from_this<Component> {
             return proc_timings_[proc_name];
         }
 
-        SlotProc& SetProc(std::string proc_name, ProcTimingFunc func,
-                          ProcTiming timing = ProcTiming::Update,
-                          Priority prio     = Priority::NORMAL) {
+        SlotProc& SetProc(std::string proc_name, ProcTimingFunc func, ProcTiming timing = ProcTiming::Update,
+                          Priority prio = Priority::NORMAL) {
             auto& proc = GetProc(proc_name, timing);
             proc.SetProc(proc_name, timing, prio, func);
             return proc;

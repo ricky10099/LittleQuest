@@ -32,10 +32,8 @@ namespace LittleQuest {
         // Ground
         {
             auto obj = Scene::CreateObjectPtr<Object>()->SetName("Ground");
-            obj->AddComponent<ComponentModel>(
-                "data/Sample/SwordBout/Stage/Stage00.mv1");
-            if (auto cmp_mdl = obj->AddComponent<ComponentCollisionModel>())
-                cmp_mdl->AttachToModel(true);
+            obj->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage00.mv1");
+            if (auto cmp_mdl = obj->AddComponent<ComponentCollisionModel>()) cmp_mdl->AttachToModel(true);
         }
 
         auto player = Player::Create({0, 10, 0});

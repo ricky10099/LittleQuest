@@ -86,8 +86,7 @@ void ComponentCamera::SetCameraTransform() {
 
         camera_status_.on(CameraBit::Current);
         camera_status_.off(CameraBit::ChangeReq);
-        current_camera_ = std::weak_ptr<ComponentCamera>(
-            std::dynamic_pointer_cast<ComponentCamera>(shared_from_this()));
+        current_camera_ = std::weak_ptr<ComponentCamera>(std::dynamic_pointer_cast<ComponentCamera>(shared_from_this()));
     }
 
     //	if( !camera_status_.is( CameraBit::Current ) || ( DebugCamera::IsUse()
@@ -98,14 +97,11 @@ void ComponentCamera::SetCameraTransform() {
 
     if (!ImGuizmo::IsUsing()) {
         mat_view_ = matrix::lookAtLH(position, target);
-        mat_proj_ = matrix::perspectiveFovLH(fovy_ * DegToRad, aspect_ratio_,
-                                             near_z_, far_z_);
+        mat_proj_ = matrix::perspectiveFovLH(fovy_ * DegToRad, aspect_ratio_, near_z_, far_z_);
     }
 
     // デバッグカメラを使用してないとき、デバッグカメラで自分がデバッグカメラのときのみ有効とする
-    if (!DebugCamera::IsUse()
-        || (DebugCamera::IsUse()
-            && camera_status_.is(CameraBit::DebugCamera))) {
+    if (!DebugCamera::IsUse() || (DebugCamera::IsUse() && camera_status_.is(CameraBit::DebugCamera))) {
         if (camera_status_.is(CameraBit::Current)) {
             SetCameraViewMatrix(mat_view_);             // ビュー行列
             SetupCamera_ProjectionMatrix(mat_proj_);    // 投影行列
@@ -162,12 +158,9 @@ float3 ComponentCamera::GetTarget() const {
     return look_at.xyz;
 }
 
-ComponentCamera::CameraRay ComponentCamera::MousePositionRay(int mouse_pos_x,
-                                                             int mouse_pos_y) {
-    VECTOR start =
-        ConvScreenPosToWorldPos({(float)mouse_pos_x, (float)mouse_pos_y, 0.0f});
-    VECTOR end =
-        ConvScreenPosToWorldPos({(float)mouse_pos_x, (float)mouse_pos_y, 1.0f});
+ComponentCamera::CameraRay ComponentCamera::MousePositionRay(int mouse_pos_x, int mouse_pos_y) {
+    VECTOR start = ConvScreenPosToWorldPos({(float)mouse_pos_x, (float)mouse_pos_y, 0.0f});
+    VECTOR end   = ConvScreenPosToWorldPos({(float)mouse_pos_x, (float)mouse_pos_y, 1.0f});
 
     return CameraRay{cast(start), cast(end)};
 }
@@ -177,8 +170,7 @@ ComponentCamera::CameraRay ComponentCamera::MousePositionRay(int mouse_pos_x,
 //---------------------------------------------------------
 void ComponentCamera::Draw() {
     // 視錐台(Frustum)の更新
-    if (camera_status_.is(CameraBit::ShowFrustum)
-        || DebugCamera::IsUse() && !camera_status_.is(CameraBit::DebugCamera)) {
+    if (camera_status_.is(CameraBit::ShowFrustum) || DebugCamera::IsUse() && !camera_status_.is(CameraBit::DebugCamera)) {
         frustum_.renderDebug();
     }
 }
@@ -211,14 +203,10 @@ void ComponentCamera::GUI() {
             if (ImGui::TreeNode(u8"カメラステータス")) {
                 u32* bit = &camera_status_.get();
                 u32 val  = *bit;
-                ImGui::CheckboxFlags(u8"初期化済", &val,
-                                     1 << (int)CameraBit::Initialized);
-                bool req = ImGui::CheckboxFlags(u8"カレントカメラ", &val,
-                                                1 << (int)CameraBit::Current);
-                ImGui::CheckboxFlags(u8"タイムライン使用", bit,
-                                     1 << (int)CameraBit::EnableTimeLine);
-                ImGui::CheckboxFlags(u8"カメラ【視錐台(Frustum)】を表示", bit,
-                                     1 << (int)CameraBit::ShowFrustum);
+                ImGui::CheckboxFlags(u8"初期化済", &val, 1 << (int)CameraBit::Initialized);
+                bool req = ImGui::CheckboxFlags(u8"カレントカメラ", &val, 1 << (int)CameraBit::Current);
+                ImGui::CheckboxFlags(u8"タイムライン使用", bit, 1 << (int)CameraBit::EnableTimeLine);
+                ImGui::CheckboxFlags(u8"カメラ【視錐台(Frustum)】を表示", bit, 1 << (int)CameraBit::ShowFrustum);
 
                 if (req) {
                     if ((val & 1 << (int)CameraBit::Current) == 0) {
@@ -233,18 +221,13 @@ void ComponentCamera::GUI() {
                 ImGui::TreePop();
             }
 
-            ImGui::DragFloat3(u8"カメラ座標", &position_.f32[0], 0.1f,
-                              -10000.0f, 10000.0f, "%.2f");
-            ImGui::DragFloat3(u8"注視点", &look_at_.f32[0], 0.1f, -10000.0f,
-                              10000.0f, "%.2f");
-            ImGui::DragFloat3(u8"上ベクトル", &up_.f32[0], 0.1f, -10000.0f,
-                              10000.0f, "%.2f");
+            ImGui::DragFloat3(u8"カメラ座標", &position_.f32[0], 0.1f, -10000.0f, 10000.0f, "%.2f");
+            ImGui::DragFloat3(u8"注視点", &look_at_.f32[0], 0.1f, -10000.0f, 10000.0f, "%.2f");
+            ImGui::DragFloat3(u8"上ベクトル", &up_.f32[0], 0.1f, -10000.0f, 10000.0f, "%.2f");
 
             bool nf = false;
-            nf |= ImGui::DragFloat(u8"Near", &near_z_, 0.01f, -10000.0f,
-                                   10000.0f, "%.2f");
-            nf |= ImGui::DragFloat(u8"Far", &far_z_, 0.01f, -10000.0f, 10000.0f,
-                                   "%.2f");
+            nf |= ImGui::DragFloat(u8"Near", &near_z_, 0.01f, -10000.0f, 10000.0f, "%.2f");
+            nf |= ImGui::DragFloat(u8"Far", &far_z_, 0.01f, -10000.0f, 10000.0f, "%.2f");
             if (nf) SetCameraNearFar(near_z_, far_z_);
 
             ImGui::DragFloat(u8"画角", &fovy_, 0.1f, 1.0f, 180.0f, "%.2f");

@@ -68,12 +68,8 @@ class ComponentTargetTracking : public Component {
             ObjectTracking,    //!< オブジェクトをトラッキングする
         };
 
-        void SetTrackingStatus(TrackingBit bit, bool on) {
-            tracking_status_.set(bit, on);
-        }
-        bool GetTrackingStatus(TrackingBit bit) {
-            return tracking_status_.is(bit);
-        }
+        void SetTrackingStatus(TrackingBit bit, bool on) { tracking_status_.set(bit, on); }
+        bool GetTrackingStatus(TrackingBit bit) { return tracking_status_.is(bit); }
 
     private:
         Status<TrackingBit> tracking_status_;    //!< 状態
@@ -109,8 +105,7 @@ class ComponentTargetTracking : public Component {
             arc(CEREAL_NVP(front_vector_));
             arc(CEREAL_NVP(tracking_object_),
                 CEREAL_NVP(look_at_));    //< カメラ位置とターゲット
-            arc(CEREAL_NVP(limit_lr_), CEREAL_NVP(limit_ud_),
-                CEREAL_NVP(limit_frame_));
+            arc(CEREAL_NVP(limit_lr_), CEREAL_NVP(limit_ud_), CEREAL_NVP(limit_frame_));
 
             SetTrackingNode(tracked_node_);
         }

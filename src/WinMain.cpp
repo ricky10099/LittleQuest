@@ -9,10 +9,8 @@ s32 WINDOW_H = 720;
 //---------------------------------------------------------------------------
 //! アプリケーションエントリーポイント
 //---------------------------------------------------------------------------
-int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance,
-                   _In_opt_ [[maybe_unused]] HINSTANCE hPrevInstance,
-                   _In_ [[maybe_unused]] LPSTR lpCmdLine,
-                   _In_ [[maybe_unused]] int nShowCmd) {
+int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_unused]] HINSTANCE hPrevInstance,
+                   _In_ [[maybe_unused]] LPSTR lpCmdLine, _In_ [[maybe_unused]] int nShowCmd) {
     // 高DPI対応
     SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
@@ -21,9 +19,8 @@ int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance,
     // Game.iniから読み込む
     IniFileLib ini("Game.ini");
     const bool is_fullscreen = ini.GetBool("System", "FullScreen");
-    const float2 screen_size =
-        ini.GetFloat2("System", "ScreenSize", {WINDOW_W, WINDOW_H});
-    const auto title_name = ini.GetString("System", "Title", "BaseProject2022");
+    const float2 screen_size = ini.GetFloat2("System", "ScreenSize", {WINDOW_W, WINDOW_H});
+    const auto title_name    = ini.GetString("System", "Title", "BaseProject2022");
 
     WINDOW_W = static_cast<int>(screen_size.x);
     WINDOW_H = static_cast<int>(screen_size.y);
@@ -90,8 +87,7 @@ int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance,
     //----------------------------------------------------------
     // メインループ
     //----------------------------------------------------------
-    while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0
-           && !IsProcEnd()) {
+    while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0 && !IsProcEnd()) {
         // 1フレームの開始
         SystemBeginFrame();
 

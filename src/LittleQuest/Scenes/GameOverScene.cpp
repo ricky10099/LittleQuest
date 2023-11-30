@@ -11,14 +11,12 @@ namespace LittleQuest {
     }
 
     void GameOverScene::Update() {
-        if (IsKeyOn(KEY_INPUT_RETURN))
-            Scene::Change(Scene::GetScene<GameTitleScene>());
+        if (IsKeyOn(KEY_INPUT_RETURN)) Scene::Change(Scene::GetScene<GameTitleScene>());
     }
 
     void GameOverScene::Draw() {
         DrawGraph(0, 0, image, TRUE);
-        DrawFormatString(500, 500, GetColor(0, 0, 0),
-                         "Press Enter key back to Title");
+        DrawFormatString(500, 500, GetColor(0, 0, 0), "Press Enter key back to Title");
     }
 
     void GameOverScene::Exit() {

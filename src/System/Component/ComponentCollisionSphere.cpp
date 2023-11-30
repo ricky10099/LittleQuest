@@ -29,8 +29,7 @@ void ComponentCollisionSphere::PostUpdate() {
 void ComponentCollisionSphere::Draw() {
     __super::Draw();
 
-    if (!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame))
-        return;
+    if (!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame)) return;
 
     float scale = 1.0f;
     auto trans  = GetWorldMatrix();
@@ -45,8 +44,7 @@ void ComponentCollisionSphere::Draw() {
 
     SetUseLighting(FALSE);
     SetLightEnable(FALSE);
-    DrawSphere3D(cast(trans.translate()), radius_ * scale, 10,
-                 GetColor(0, 255, 0), GetColor(0, 0, 0), FALSE);
+    DrawSphere3D(cast(trans.translate()), radius_ * scale, 10, GetColor(0, 255, 0), GetColor(0, 0, 0), FALSE);
     SetLightEnable(TRUE);
     SetUseLighting(TRUE);
 }
@@ -67,8 +65,7 @@ void ComponentCollisionSphere::GUI() {
     ImGui::Begin(obj_name.data());
     {
         ImGui::Separator();
-        auto ui_name =
-            std::string("Collision Sphere:") + std::to_string(collision_id_);
+        auto ui_name = std::string("Collision Sphere:") + std::to_string(collision_id_);
         if (ImGui::TreeNode(ui_name.c_str())) {
             if (ImGui::Button(u8"削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
@@ -77,22 +74,17 @@ void ComponentCollisionSphere::GUI() {
             // コリジョン情報を出す
             GUICollisionData();
 
-            std::string colname =
-                u8"COL:" + std::to_string(collision_id_) + "/ ";
+            std::string colname = u8"COL:" + std::to_string(collision_id_) + "/ ";
 
             float* mat = GetColMatrixFloat();
             float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation,
-                                        matrixScale);
-            ImGui::DragFloat3((colname + u8"座標(T)").c_str(),
-                              matrixTranslation, 0.01f);
+            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
+            ImGui::DragFloat3((colname + u8"座標(T)").c_str(), matrixTranslation, 0.01f);
             // ImGui::DragFloat3( u8"COL回転(R)", matrixRotation, 0.1f );
             // ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
-            RecomposeMatrixFromComponents(matrixTranslation, matrixRotation,
-                                          matrixScale, mat);
+            RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, mat);
 
-            ImGui::DragFloat((colname + u8"半径(R)").c_str(), &radius_, 0.01f,
-                             0.01f, 1000.0f, "%.2f");
+            ImGui::DragFloat((colname + u8"半径(R)").c_str(), &radius_, 0.01f, 0.01f, 1000.0f, "%.2f");
 
             ImGui::TreePop();
         }
@@ -104,8 +96,7 @@ void ComponentCollisionSphere::GUI() {
 //! @param radius 半径
 ComponentCollisionSpherePtr ComponentCollisionSphere::SetRadius(float radius) {
     radius_ = radius;
-    return std::dynamic_pointer_cast<ComponentCollisionSphere>(
-        shared_from_this());
+    return std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this());
 }
 
 //! @brief 半径の取得
@@ -117,8 +108,7 @@ float ComponentCollisionSphere::GetRadius() const {
 //! @brief 当たっているかを調べる
 //! @param col 相手のコリジョン
 //! @return HitInfoを返す
-ComponentCollisionSphere::HitInfo ComponentCollisionSphere::IsHit(
-    ComponentCollisionPtr col) {
+ComponentCollisionSphere::HitInfo ComponentCollisionSphere::IsHit(ComponentCollisionPtr col) {
     HitInfo info;
 
     switch (col->GetCollisionType()) {
@@ -129,22 +119,16 @@ ComponentCollisionSphere::HitInfo ComponentCollisionSphere::IsHit(
             // @todo HitCheck_Sphere_Triangle()
             break;
         case ComponentCollision::CollisionType::SPHERE:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionSphere>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionSphere>(col));
+            return isHit(std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this()),
+                         std::dynamic_pointer_cast<ComponentCollisionSphere>(col));
             break;
         case ComponentCollision::CollisionType::CAPSULE:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionSphere>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionCapsule>(col));
+            return isHit(std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this()),
+                         std::dynamic_pointer_cast<ComponentCollisionCapsule>(col));
             break;
         case ComponentCollision::CollisionType::MODEL:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionSphere>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionModel>(col));
+            return isHit(std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this()),
+                         std::dynamic_pointer_cast<ComponentCollisionModel>(col));
             break;
     }
 

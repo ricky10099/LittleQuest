@@ -34,13 +34,9 @@ class ComponentSpringArm : public Component {
             EnableTimeLine,    //!< TimelineComponentを利用して移動する
         };
 
-        void SetSpringArmStatus(SpringArmBit bit, bool on) {
-            spring_arm_status_.set(bit, on);
-        }
+        void SetSpringArmStatus(SpringArmBit bit, bool on) { spring_arm_status_.set(bit, on); }
 
-        bool GetSpringArmStatus(SpringArmBit bit) {
-            return spring_arm_status_.is(bit);
-        }
+        bool GetSpringArmStatus(SpringArmBit bit) { return spring_arm_status_.is(bit); }
 
         void SetSpringArmObject(ObjectPtr object);
 
@@ -50,8 +46,7 @@ class ComponentSpringArm : public Component {
         //! @param rot { X軸, Y軸, Z軸 } 回転量
         ComponentSpringArmPtr SetSpringArmRotate(float3 rot) {
             spring_arm_rotate_ = rot;
-            return std::dynamic_pointer_cast<ComponentSpringArm>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentSpringArm>(shared_from_this());
         }
 
         //! @brief アームの向きをベクトルで向ける方式
@@ -63,20 +58,17 @@ class ComponentSpringArm : public Component {
             auto mat = HelperLib::Math::CreateMatrixByFrontVector(vec);
             DecomposeMatrixToComponents(mat.f32_128_0, trans, rot, scale);
             spring_arm_rotate_ = float3(rot[0], rot[1], rot[2]);
-            return std::dynamic_pointer_cast<ComponentSpringArm>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentSpringArm>(shared_from_this());
         }
 
         ComponentSpringArmPtr SetSpringArmOffset(float3 offset) {
             spring_arm_offset_ = offset;
-            return std::dynamic_pointer_cast<ComponentSpringArm>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentSpringArm>(shared_from_this());
         }
 
         ComponentSpringArmPtr SetSpringArmLength(float len) {
             spring_arm_length_ = len;
-            return std::dynamic_pointer_cast<ComponentSpringArm>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentSpringArm>(shared_from_this());
         }
 
         float GetSpringArmLength() { return spring_arm_length_; }
@@ -85,14 +77,12 @@ class ComponentSpringArm : public Component {
 
         ComponentSpringArmPtr SetSpringArmStrong(float strong) {
             spring_arm_strong_ = strong;
-            return std::dynamic_pointer_cast<ComponentSpringArm>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentSpringArm>(shared_from_this());
         }
 
         ComponentSpringArmPtr SetSpringArmReturn(float ret) {
             spring_arm_strong_ = ret;
-            return std::dynamic_pointer_cast<ComponentSpringArm>(
-                shared_from_this());
+            return std::dynamic_pointer_cast<ComponentSpringArm>(shared_from_this());
         }
 
     private:
@@ -128,9 +118,8 @@ class ComponentSpringArm : public Component {
         // @param ver バージョン
         CEREAL_SAVELOAD(arc, ver) {
             arc(cereal::make_nvp("owner", owner_));    //< オーナー
-            arc(cereal::make_nvp(
-                "spring_arm_status",
-                spring_arm_status_.get()));    //< カメラステート
+            arc(cereal::make_nvp("spring_arm_status",
+                                 spring_arm_status_.get()));    //< カメラステート
             arc(CEREAL_NVP(spring_arm_rotate_));
             arc(CEREAL_NVP(spring_arm_offset_));
             arc(CEREAL_NVP(spring_arm_length_));
