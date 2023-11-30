@@ -14,27 +14,37 @@ namespace LittleQuest {
         public:
             BP_OBJECT_TYPE(Enemy, Object);
 
-            //! @name システムオーバーライド系
-            // @{
-
             bool Init() override;
 
             void Update() override;
 
-            // 基本描画の後に処理します
             void LateDraw() override;
 
             void GUI() override;
 
             void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
 
-            // @}
-
             virtual void GetHit(int damage);
 
             float getDestroyTimer();
 
         protected:
+            enum class EnemyState {
+                IDLE,
+                PATROL,
+                GIVE_UP,
+                WAIT,
+                CHASING,
+                ATTACK,
+                GET_HIT,
+                DEAD,
+            };
+            EnemyState state;
+            EnemyState prevState;
+            EnemyState initialState;
+            bool isBusy;
+            void ChangeState(EnemyState state);
+
             virtual void Die();
 
             virtual void Idle();
@@ -52,30 +62,6 @@ namespace LittleQuest {
             virtual void Attack();
 
             virtual void CheckAnimation();
-            float GetDistance(float3 start, float3 goal) {
-                float x = std::pow(goal.x - start.x, 2);
-                // float y = std::pow(goal.y - start.y, 2);
-                float y = 0;
-                float z = std::pow(goal.z - start.z, 2);
-
-                return std::sqrt(x + y + z);
-            }
-            //! @brief ステート
-            enum class EnemyState {
-                IDLE,
-                PATROL,
-                GIVE_UP,
-                WAIT,
-                CHASING,
-                ATTACK,
-                GET_HIT,
-                DEAD,
-            };
-            EnemyState state;
-            EnemyState prevState;
-            EnemyState initialState;
-            bool isBusy;
-            void ChangeState(EnemyState state);
 
             enum class AnimCheck {
                 NONE,

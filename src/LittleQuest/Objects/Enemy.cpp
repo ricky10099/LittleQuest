@@ -1,6 +1,7 @@
 ﻿#include "Enemy.h"
 #include "Camera.h"
 #include "../Components/ComponentHP.h"
+#include "../src/LittleQuest/Misc.h"
 
 #include <System/Component/Component.h>
 #include <System/Component/ComponentAttachModel.h>
@@ -69,7 +70,7 @@ namespace LittleQuest {
                 if (prevState == EnemyState::CHASING) {
                     ChangeState(EnemyState::GIVE_UP);
                 } else {
-                    if (state != EnemyState::GIVE_UP) {
+                    if (state != EnemyState::GIVE_UP && state != EnemyState::WAIT) {
                         if (!patrolPoint.empty()) {
                             ChangeState(EnemyState::PATROL);
                         } else {
@@ -189,8 +190,9 @@ namespace LittleQuest {
         pos.y           = 0;
         move            = goal - pos;
         float moveValue = GetDistance(goal, pos);
+
         // 二つの座標を巡行する
-        if (moveValue < 4.0f) {
+        if (moveValue < 5.0f) {
             patrolIndex++;
             patrolIndex %= patrolPoint.size();
             goal = patrolPoint[patrolIndex];
