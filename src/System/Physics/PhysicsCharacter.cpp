@@ -434,7 +434,7 @@ namespace physics {
 
                 // 床をどこまで検査すればいいかを計算する
                 static constexpr f32 min_step_forward = 0.15f;
-                float3 step_forward_test = step_dir * min_step_forward;
+                float3 step_forward_test              = step_dir * min_step_forward;
 
                 static const float3 step_up_height =
                     float3(0.0f, 0.4f, 0.0f);    // 段差の高さ
@@ -564,14 +564,14 @@ namespace physics {
 
         bool is_succeed = jph_character_->SetShape(
             translated_shape,    // シェイプ
-            0.1f,    // 切り替え後に許容される最大めり込み量
+            0.1f,                // 切り替え後に許容される最大めり込み量
             broad_phase_layer_filter, layer_filter, JPH::BodyFilter{},
             JPH::ShapeFilter{}, *physics::Engine::tempAllocator());
 
         if (is_succeed) {
             // 記録内容を更新
-            jph_shape_ = jph_shape;
-            shape_     = std::move(s);    // 形状
+            jph_shape_    = jph_shape;
+            shape_        = std::move(s);    // 形状
             shape_offset_ = shape_offset;    // シェイプの移動オフセット
         }
         return is_succeed;

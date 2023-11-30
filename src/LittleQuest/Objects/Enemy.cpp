@@ -54,7 +54,6 @@ namespace LittleQuest {
     {
         float deltaTime = GetDeltaTime();
 
-        // 死んだら何もしないため
         if (isDie) {
             destroyTimer -= deltaTime;
             return;
@@ -81,7 +80,7 @@ namespace LittleQuest {
 
         float3 move;
 
-        CheckDamageAnimation();
+        CheckAnimation();
 
         switch (state) {
             case EnemyState::GET_HIT:
@@ -147,7 +146,7 @@ namespace LittleQuest {
     void Enemy::Idle() {
         // prevState = state;
         // state     = EnemyState::IDLE;
-
+        ChangeState(EnemyState::IDLE);
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             modelPtr->PlayAnimationNoSame("idle", true);
         }
@@ -161,7 +160,6 @@ namespace LittleQuest {
             //　プレイヤーが前にいるなら
             if (GetDegreeToPosition(player.lock()->GetTranslate()) < 50) {
                 isFoundPlayer = true;
-
             }
         } else {
             isFoundPlayer = false;
@@ -243,9 +241,9 @@ namespace LittleQuest {
         // この距離から攻撃
         if (abs(move.x) <= float1{7} && abs(move.z) <= float1{7}) {
             ChangeState(EnemyState::ATTACK);
-            isBusy    = true;
+            isBusy = true;
             // 攻撃する時動かないように
-            move      = {0, 0, 0};
+            move   = {0, 0, 0};
             return;
         }
 
@@ -272,7 +270,7 @@ namespace LittleQuest {
         }
     }
 
-    void Enemy::CheckDamageAnimation() {
+    void Enemy::CheckAnimation() {
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             switch (animCheck) {
                 case AnimCheck::GETTING_HIT:
@@ -311,7 +309,7 @@ namespace LittleQuest {
     }
 
     void Enemy::ChangeState(EnemyState state) {
-        prevState = this->state;
+        prevState   = this->state;
         this->state = state;
     }
 

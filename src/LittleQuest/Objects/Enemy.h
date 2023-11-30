@@ -50,7 +50,7 @@ namespace LittleQuest {
             virtual void ChasePlayer(float3& move);
             virtual void Attack();
 
-            virtual void CheckDamageAnimation();
+            virtual void CheckAnimation();
 
             //! @brief ステート
             enum class EnemyState {
@@ -79,6 +79,7 @@ namespace LittleQuest {
             float3 spawnPos;
 
             ObjectWeakPtr player;
+            ObjectWeakPtr model;
 
             //巡行関係
             bool isPatrol;

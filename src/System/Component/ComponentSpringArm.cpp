@@ -50,7 +50,7 @@ void ComponentSpringArm::PostUpdate() {
         matrix mat = HelperLib::Math::LookAtMatrixForObject(my_pos, target_pos);
 
         float3 ofs = mul(float4(spring_arm_offset_, 0), mat).xyz;
-        mat = HelperLib::Math::LookAtMatrixForObject(my_pos, target_pos + ofs);
+        mat        = HelperLib::Math::LookAtMatrixForObject(my_pos, target_pos + ofs);
 
         GetOwner()->SetMatrix(mat);
     }

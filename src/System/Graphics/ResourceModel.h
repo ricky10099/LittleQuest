@@ -54,6 +54,6 @@ class ResourceModel final {
         int mv1_handle_ = -1;    //!< [DxLib] MV1モデルハンドル
         std::wstring path_;      //!< モデルファイルへのパス
         std::atomic<bool> active_ =
-            false;    //!< アクティブ状態 true:利用可能 false:ロード未完了
+            false;                                   //!< アクティブ状態 true:利用可能 false:ロード未完了
         std::unique_ptr<ModelCache> model_cache_;    //!< 3Dモデルキャッシュ
 };

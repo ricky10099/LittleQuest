@@ -49,7 +49,7 @@ class LightManager {
         struct LightPoint {
                 float3 color_    = float3(1.0f, 1.0f, 1.0f);    //!< カラー
                 float3 position_ = float3(0.0f, 5.0f, 0.0f);    //!< 位置
-                float radius_    = 10.0f;    //!< 影響半径
+                float radius_    = 10.0f;                       //!< 影響半径
                 int unused1_     = 0;
                 int unused2_     = 0;
                 int unused3_     = 0;
@@ -60,10 +60,10 @@ class LightManager {
                 float3 color_    = float3(1.0f, 1.0f, 1.0f);     //!< カラー
                 float3 position_ = float3(0.0f, 5.0f, 0.0f);     //!< 位置
                 float3 dir_      = float3(0.0f, -1.0f, 0.0f);    //!< 方向
-                float radius_    = 10.0f;              //!< 影響半径
-                float angle_in_ = 30.0f * DegToRad;    //!< 減衰が始まる角度
-                float angle_out_ = 45.0f * DegToRad;    //!< 減衰が終わる角度
-                int unused0_ = 0;
+                float radius_    = 10.0f;                        //!< 影響半径
+                float angle_in_  = 30.0f * DegToRad;             //!< 減衰が始まる角度
+                float angle_out_ = 45.0f * DegToRad;             //!< 減衰が終わる角度
+                int unused0_     = 0;
         };
 
         struct LightInfo {
@@ -72,7 +72,7 @@ class LightManager {
                 LightSpot light_spot_;
                 int light_count_directional_ = 0;    //!< 平行光源の個数
                 int light_count_point_       = 0;    //!< 点光源の個数
-                int light_count_spot_ = 0;    //!< スポット光源の個数
+                int light_count_spot_        = 0;    //!< スポット光源の個数
         };
 
         LightInfo info_;        //!< 定数バッファ用データー

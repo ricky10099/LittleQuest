@@ -8,7 +8,7 @@
 //----------------------------------------------------------------
 // シーンオブジェクト
 //----------------------------------------------------------------
-#include "SceneSample.h"
+#include "../LittleQuest/Scenes/GameTitleScene.h"
 #include <System/Scene.h>
 #include <System/Utils/IniFileLib.h>
 #include "LightManager.h"
@@ -42,7 +42,7 @@ namespace {
     //--------------------------------------------------------------
     //@{
 
-    u64 cpu_start_counter_ = 0;    //!< 1フレームの開始タイミングカウンター
+    u64 cpu_start_counter_    = 0;    //!< 1フレームの開始タイミングカウンター
     u64 cpu_profile_duration_ = 0;    //!< 1フレームのCPU処理時間(単位:μsec)
 
     //@}
@@ -142,7 +142,7 @@ struct ScrollingBuffer {
             } else {
                 // リングバッファとして再利用
                 data_[offset_] = x;
-                offset_ = (offset_ + 1) % static_cast<u32>(data_.capacity());
+                offset_        = (offset_ + 1) % static_cast<u32>(data_.capacity());
             }
         }
         void clear() {
@@ -157,13 +157,13 @@ struct ScrollingBuffer {
 //---------------------------------------------------------------------------
 void ShowFps(f32 delta) {
     ImGuiWindowFlags window_flags =
-        ImGuiWindowFlags_NoDecoration |    // タイトルバー/スクロールバーなし
+        ImGuiWindowFlags_NoDecoration |          // タイトルバー/スクロールバーなし
         ImGuiWindowFlags_NoDocking |             // ドッキングなし
         ImGuiWindowFlags_AlwaysAutoResize |      // 自動リサイズなし
         ImGuiWindowFlags_NoSavedSettings |       // 保存しない
         ImGuiWindowFlags_NoFocusOnAppearing |    // フォーカスしない
-        ImGuiWindowFlags_NoNav |    // キーやゲームパッドで操作対象にしない
-        ImGuiWindowFlags_NoMove;    // 移動させない
+        ImGuiWindowFlags_NoNav |                 // キーやゲームパッドで操作対象にしない
+        ImGuiWindowFlags_NoMove;                 // 移動させない
 
     //----------------------------------------------------------
     // 表示位置設定
@@ -201,7 +201,7 @@ void ShowFps(f32 delta) {
     {
         HDC hdc = GetDC(GetMainWindowHandle());    // デバイスコンテキストの取得
         refresh_rate =
-            GetDeviceCaps(hdc, VREFRESH);    // リフレッシュレートの取得
+            GetDeviceCaps(hdc, VREFRESH);         // リフレッシュレートの取得
         ReleaseDC(GetMainWindowHandle(), hdc);    // デバイスコンテキストの解放
     }
 
@@ -261,10 +261,10 @@ void ShowFps(f32 delta) {
                 &cpu_data.data_[0].x,                       // 時間軸t
                 &cpu_data.data_[0].y,                       // 値
                 static_cast<s32>(cpu_data.data_.size()),    // 配列数
-                -INFINITY,                 // 塗りつぶし範囲
-                ImPlotShadedFlags_None,    // ImPlotShadedFlags
-                cpu_data.offset_,          // 先頭オフセット
-                sizeof(ImVec2));           // 構造体あたりのサイズ
+                -INFINITY,                                  // 塗りつぶし範囲
+                ImPlotShadedFlags_None,                     // ImPlotShadedFlags
+                cpu_data.offset_,                           // 先頭オフセット
+                sizeof(ImVec2));                            // 構造体あたりのサイズ
 
             ImPlot::PlotLine(
                 "fps",                                      // 名前
@@ -272,8 +272,8 @@ void ShowFps(f32 delta) {
                 &fps_data.data_[0].y,                       // 値
                 static_cast<s32>(fps_data.data_.size()),    // 配列数
                 ImPlotShadedFlags_None,                     // ImPlotShadedFlags
-                fps_data.offset_,    // 先頭オフセット
-                sizeof(ImVec2));     // 構造体あたりのサイズ
+                fps_data.offset_,                           // 先頭オフセット
+                sizeof(ImVec2));                            // 構造体あたりのサイズ
             ImPlot::EndPlot();
         }
         ImGui::SliderFloat(u8"履歴範囲", &history, 1, 30, "%.1f s");
@@ -312,7 +312,7 @@ void SystemInit() {
         Scene::Change(std::shared_ptr<Scene::Base>(scene));
     } else {
         // iniファイルの設定のクラスが見つからない場合はサンプルシーンを起動
-        Scene::Change(std::make_shared<class SceneSample>());
+        Scene::Change(std::make_shared<class LittleQuest::GameTitleScene>());
     }
 
     const bool editor = ini.GetBool("System", "GUIEditor");

@@ -179,8 +179,8 @@ class ComponentModel : public Component, public IMatrix<ComponentModel> {
         //! モデル用のトランスフォーム
         matrix model_transform_ = matrix::scale(0.1f);
 
-        Status<ModelBit> model_status_;    //!< 状態
-        std::string path_{};               //!< 読み込みモデル名
+        Status<ModelBit> model_status_;             //!< 状態
+        std::string path_{};                        //!< 読み込みモデル名
         std::shared_ptr<Model> model_ = nullptr;    //!< モデルクラス
 
         ImGuizmo::OPERATION gizmo_operation_ = ImGuizmo::TRANSLATE;
@@ -196,7 +196,7 @@ class ComponentModel : public Component, public IMatrix<ComponentModel> {
         std::string old_animation_name_;
 
         float animation_time_ = 0.0f;
-        bool anim_loop_ = false;    //!< アニメーションループ設定
+        bool anim_loop_       = false;    //!< アニメーションループ設定
 
         std::vector<Animation::Desc> animations_desc_;
 

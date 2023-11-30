@@ -92,7 +92,7 @@ class SequenceObject : public IMatrix<SequenceObject> {
         //! @brief ギズモ番号
         int guizmo_index_ = -1;
 
-        std::string name_{};    //!< オブジェクトの名前
+        std::string name_{};                       //!< オブジェクトの名前
         std::vector<uint32_t> position_keys_{};    //!< ポジションキー
         std::vector<uint32_t> rotation_keys_{};    //!< ローテーションキー
         std::vector<uint32_t> scale_keys_{};       //!< スケールキー
@@ -101,14 +101,14 @@ class SequenceObject : public IMatrix<SequenceObject> {
         std::vector<float3> rotation_values_{};    //!< ローテーション値
         std::vector<float3> scale_values_{};       //!< スケール値
 
-        std::vector<uint32_t> animation_keys_{};    //!< アニメーションキー
+        std::vector<uint32_t> animation_keys_{};        //!< アニメーションキー
         std::vector<AnimObject> animation_values_{};    //!< アニメーション値
 
         std::string animation_name_{};       //!< アニメーション名
         int animation_frame_old_ = -1;       //!< 前のフレーム
         int animation_frame_     = -1;       //!< 現在のフレーム
         bool animation_loop_     = false;    //!< ループするかの設定
-        bool animation_change_ = false;    //!< アニメーションが変わったか
+        bool animation_change_   = false;    //!< アニメーションが変わったか
 
         std::vector<uint32_t> effect_keys_{};        //!< エフェクトキー
         std::vector<AnimObject> effect_values_{};    //!< エフェクト値
