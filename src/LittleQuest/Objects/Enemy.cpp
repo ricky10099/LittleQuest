@@ -116,6 +116,7 @@ namespace LittleQuest {
     // 基本描画の後に処理します
     void Enemy::LateDraw()    // override
     {
+#if defined _DEBUG
         printfDx("\n%s state: %i", this->GetName().data(), state);
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             printfDx("\n%s %s Animation Time:%f", this->GetName().data(), modelPtr->GetPlayAnimationName().data(),
@@ -128,6 +129,7 @@ namespace LittleQuest {
         printfDx("\nisFound: %i", isFoundPlayer);
         printfDx("\ntargetDegree: %f", GetDegreeToPosition(pPlayer.lock()->GetTranslate()));
         printfDx("\ndie timer: %f", destroyTimer);
+#endif
     }
 
     void Enemy::GUI()    // override
@@ -152,10 +154,10 @@ namespace LittleQuest {
     }
 
     bool Enemy::FindPlayer() {
-        float3 distance = pPlayer.lock()->GetTranslate() - this->GetTranslate();
-        distance        = abs(distance);
+        float distance = GetDistance(pPlayer.lock()->GetTranslate(), this->GetTranslate());
+        // distance        = abs(distance);
 
-        if (distance.x < 50 && distance.z < 50) {
+        if (distance < 50) {
             //　プレイヤーが前にいるなら
             if (GetDegreeToPosition(pPlayer.lock()->GetTranslate()) < 50) {
                 isFoundPlayer = true;
@@ -168,7 +170,7 @@ namespace LittleQuest {
     }
 
     void Enemy::BackToInitialPosition(float3& move) {
-        auto pos = GetTranslate();
+        auto pos = this->GetTranslate();
         pos.y    = 0;
         move     = spawnPos - pos;
         if (length(move).x > 0.5) {
@@ -176,19 +178,19 @@ namespace LittleQuest {
 
             float x     = -move.x;
             float z     = -move.z;
-            float theta = atan2(x, z) * RadToDeg - rot_y;
+            float theta = atan2(x, z) * RadToDeg;
 
-            SetRotationAxisXYZ({0, theta, 0});
+            this->SetRotationAxisXYZ({0, theta, 0});
             speedFactor = runVal;
         } else {
-            ChangeState(initialState);
+            this->ChangeState(initialState);
         }
     }
 
     void Enemy::Patrol(float3& move) {
         auto pos        = GetTranslate();
-        pos.y           = 0;
         move            = goal - pos;
+        move.y          = 0;
         float moveValue = GetDistance(goal, pos);
 
         // 二つの座標を巡行する
@@ -207,7 +209,7 @@ namespace LittleQuest {
 
             float x     = -move.x;
             float z     = -move.z;
-            float theta = atan2(x, z) * RadToDeg - rot_y;
+            float theta = atan2(x, z) * RadToDeg;
 
             SetRotationAxisXYZ({0, theta, 0});
             speedFactor = walkVal;
@@ -255,7 +257,7 @@ namespace LittleQuest {
 
             float x     = -move.x;
             float z     = -move.z;
-            float theta = atan2(x, z) * RadToDeg - rot_y;
+            float theta = atan2(x, z) * RadToDeg;
 
             SetRotationAxisXYZ({0, theta, 0});
             speedFactor = runVal;

@@ -37,12 +37,15 @@ namespace LittleQuest {
         }
 
         auto player = Player::Create({0, 10, 0});
+
         Camera::Create(player)->SetName("PlayerCamera");
 
         {
             auto enemy = Mutant::Create({30, 20, 15}, true);
             enemies.push_back(enemy);
         }
+
+        HideMouse(true);
 
         return true;
     }
@@ -52,6 +55,7 @@ namespace LittleQuest {
     //! @param  [in]    delta   経過時間
     //---------------------------------------------------------------------------
     void Stage01::Update() {
+#if defined _DEBUG
         if (IsKeyDown(KEY_INPUT_INSERT)) {
             auto enemy = Zombie::Create({10, 20, 10});
             enemies.push_back(enemy);
@@ -61,6 +65,7 @@ namespace LittleQuest {
             auto enemy = Mutant::Create({15, 20, 15});
             enemies.push_back(enemy);
         }
+#endif
 
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies[i]->getDestroyTimer() <= 0) {

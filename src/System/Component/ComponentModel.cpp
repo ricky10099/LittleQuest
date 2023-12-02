@@ -401,6 +401,18 @@ const float ComponentModel::GetAnimationTime() {
     return 0.0f;
 }
 
+const float ComponentModel::GetAnimationPlayTime() {
+    if (IsPlaying()) return animation_->GetAnimationPlayTime();
+
+    return 0.0f;
+}
+
+const float ComponentModel::GetAnimationTotalTime() {
+    if (IsPlaying()) return animation_->GetAnimationTotalTime();
+
+    return 0.0f;
+}
+
 std::vector<std::string_view> ComponentModel::GetNodesName() {
     if (nodes_name_.empty()) {
         int num = MV1GetFrameNum(GetModel());

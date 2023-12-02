@@ -95,6 +95,12 @@ class Animation final {
         //! 利用可能になっていない状態でDxLibアニメーション関数を呼ぶと非同期ロードがブロッキングされます
         bool isActive() const;
 
+        // 再生フレームの取得
+        float GetAnimationPlayTime() const;
+
+        // アニメーションの総フレームを取得
+        float GetAnimationTotalTime() const;
+
         //@}
         //----------------------------------------------------------
         //! @name   copy/move禁止

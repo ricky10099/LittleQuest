@@ -97,6 +97,11 @@ class ComponentModel : public Component, public IMatrix<ComponentModel> {
         //! @return 再生経過時間
         const float GetAnimationTime();
 
+        const float GetAnimationPlayTime();
+
+        //! @brief アニメーションの総時間の取得
+        //! @return アニメーションの総時間
+        const float GetAnimationTotalTime();
         //@}
 
         //! @brief モデル取得

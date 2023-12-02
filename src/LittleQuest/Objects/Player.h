@@ -33,7 +33,6 @@ namespace LittleQuest {
             PlayerState playerState = PlayerState::IDLE;
 
             float speed_ = 0.5f;
-            bool isWalk  = false;
 
             enum Combo {
                 COMBO1,
@@ -46,7 +45,6 @@ namespace LittleQuest {
 
             int atkVal;
             int combo      = 0;
-            bool isAttack  = false;
             bool isCombo   = false;
             bool canCombo2 = false;
             bool canCombo3 = false;

@@ -80,14 +80,16 @@ namespace LittleQuest {
         }
 
         // コリジョン(武器)
-        if (auto colLine = AddComponent<ComponentCollisionLine>()) {
-            colLine->AttachToModel("mixamorig:RightHand");
-            colLine->SetTranslate({0, 0, 0});
-            colLine->SetLine(float3{0, 15, 0}, float3{110, 15, 1});
-            colLine->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
-            colLine->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
-            colLine->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
-            colLine->SetName("SwordCol");
+        if (auto colWeapon = AddComponent<ComponentCollisionCapsule>()) {
+            colWeapon->AttachToModel("mixamorig:RightHand");
+            colWeapon->SetTranslate({10, 12, 0});
+            colWeapon->SetRotationAxisXYZ({0, 0, -90});
+            colWeapon->SetRadius(0.3f);
+            colWeapon->SetHeight(5);
+            colWeapon->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
+            colWeapon->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
+            colWeapon->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
+            colWeapon->SetName("SwordCol");
         }
 
         atkVal = 50;
@@ -99,7 +101,7 @@ namespace LittleQuest {
     {
         auto mat    = GetMatrix();
         float3 move = float3(0, 0, 0);
-        isWalk      = false;
+        // isWalk      = false;
 
         // #ifdef USE_MOUSE_CAMERA
         // カメラ方向を取得してその方向に動かす
@@ -119,18 +121,31 @@ namespace LittleQuest {
 
 #pragma region INPUT
         if (IsMouseDown(MOUSE_INPUT_LEFT)) {
-            isAttack    = true;
+            // isAttack    = true;
             playerState = PlayerState::ATTACK;
 
             if (combo == 0) {
                 combo = 1;
             } else if (combo == 1 && canCombo2) {
-                isCombo   = true;
-                canCombo2 = false;
+                isCombo = true;
+                // canCombo2 = false;
             } else if (combo == 2 && canCombo3) {
-                isCombo   = true;
-                canCombo3 = false;
+                // isCombo   = true;
+                // canCombo3 = false;
             }
+
+            // switch (currCombo) {
+            //     case Combo::NO_COMBO:
+            //         currCombo = Combo::COMBO1;
+            //         break;
+            //     case Combo::COMBO1:
+            //         currCombo = (Combo)0;
+            //         break;
+            //     case Combo::COMBO2:
+            //         break;
+            //     case Combo::COMBO3:
+            //         break;
+            // }
         }
 
         /*if (!isAttack) */ {
@@ -138,8 +153,8 @@ namespace LittleQuest {
                 float3 vec = mat.axisZ();
                 vec.y      = 0;
                 move += -vec;
-                if (!isAttack) {
-                    isWalk      = true;
+                if (!combo) {
+                    // isWalk      = true;
                     playerState = PlayerState::WALK;
                 }
             }
@@ -147,8 +162,8 @@ namespace LittleQuest {
                 float3 vec = mat.axisX();
                 vec.y      = 0;
                 move += -vec;
-                if (!isAttack) {
-                    isWalk      = true;
+                if (!combo) {
+                    // isWalk      = true;
                     playerState = PlayerState::WALK;
                 }
             }
@@ -156,8 +171,8 @@ namespace LittleQuest {
                 float3 vec = mat.axisZ();
                 vec.y      = 0;
                 move += vec;
-                if (!isAttack) {
-                    isWalk      = true;
+                if (!combo) {
+                    // isWalk      = true;
                     playerState = PlayerState::WALK;
                 }
             }
@@ -165,15 +180,15 @@ namespace LittleQuest {
                 float3 vec = mat.axisX();
                 vec.y      = 0;
                 move += vec;
-                if (!isAttack) {
-                    isWalk      = true;
+                if (!combo) {
+                    // isWalk      = true;
                     playerState = PlayerState::WALK;
                 }
             }
         }
 #pragma endregion
 
-        if (!isWalk && !isAttack) {
+        if (move.x == 0 && move.y == 0 && move.z == 0 && combo == 0) {
             playerState = PlayerState::IDLE;
         }
 
@@ -193,7 +208,7 @@ namespace LittleQuest {
                 break;
         }
 
-        move *= speed_ * !isAttack * GetDeltaTime60();
+        move *= speed_ * GetDeltaTime60() * !combo;
 
         // 地面移動スピードを決定する
         AddTranslate(move);
@@ -202,7 +217,8 @@ namespace LittleQuest {
     // 基本描画の後に処理します
     void Player::LateDraw()    // override
     {
-        // gauge_.Draw();
+// gauge_.Draw();
+#if defined _DEBUG
         printfDx("\ncombo:%d", combo);
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             float* mat = modelPtr->GetMatrixFloat();
@@ -212,13 +228,16 @@ namespace LittleQuest {
             printfDx("\nmodel rotx:%f", modelPtr->GetRotationAxisXYZ().x);
             printfDx("\nmodel roty:%f", matrixRotation[1]);
             printfDx("\nmodel rotz:%f", modelPtr->GetRotationAxisXYZ().z);
+            printfDx("\nTotal Animation Time:%f", modelPtr->GetAnimationTotalTime());
+            printfDx("\nAnimation Play Time:%f", modelPtr->GetAnimationPlayTime());
         }
-        printfDx("\nisAttack: %i", isAttack);
+        // printfDx("\nisAttack: %i", isAttack);
         printfDx("\nisCombo: %i", isCombo);
-        float x, y, z;
+        // float x, y, z;
 
         printfDx("\nMatAYx: %f %f %f", GetMatrix().axisX().x, GetMatrix().axisX().y, GetMatrix().axisX().z);
         printfDx("\nMatAYz: %f %f %f", GetRotationAxisXYZ().z, GetMatrix().axisZ().y, GetMatrix().axisZ().z);
+#endif
     }
 
     void Player::GUI()    // override
@@ -231,17 +250,16 @@ namespace LittleQuest {
         // 武器の衝突判定
         if (hitInfo.collision_->GetName() == "SwordCol") {
             auto* owner = hitInfo.hit_collision_->GetOwner();
-            if (isAttack) {
+            if (combo != 0) {
                 if (auto enemy = dynamic_cast<Enemy*>(owner)) {
                     bool inList = false;
-                    // １回の攻撃が１回だけ判定するため、敵が攻撃されたかどうか
                     for (int i = 0; i < attackList.size(); i++) {
                         if (attackList[i] == enemy->GetName().data()) {
                             inList = true;
                             break;
                         }
                     }
-                    // 敵が攻撃されなかったら
+
                     if (!inList) {
                         attackList.push_back(enemy->GetName().data());
                         enemy->GetHit(this->atkVal);
@@ -255,9 +273,9 @@ namespace LittleQuest {
 
     void Player::Idle() {
         if (auto modelPtr = GetComponent<ComponentModel>()) {
-            if (modelPtr->GetPlayAnimationName() != "idle") {
-                modelPtr->PlayAnimation("idle", true);
-            }
+            // if (modelPtr->GetPlayAnimationName() != "idle") {
+            modelPtr->PlayAnimationNoSame("idle", true);
+            //}
         }
     }
 
@@ -283,70 +301,79 @@ namespace LittleQuest {
             if (combo == 1) {
                 if (modelPtr->GetPlayAnimationName() != "attack1") {
                     this->SetModelRotation(move);
-                    // modelPtr->SetRotationAxisXYZ({0, theta, 0});
-                    modelPtr->PlayAnimation("attack1");
+                    modelPtr->PlayAnimationNoSame("attack1");
                     attackList.clear();
                 }
 
                 // 攻撃判定終わる時間
-                if (modelPtr->GetAnimationTime() > 0.9f) {
-                    if (!isCombo) {
-                        isAttack    = false;
-                        combo       = 0;
-                        playerState = PlayerState::IDLE;
-                    } else {
+                // if (modelPtr->GetAnimationTime() > 0.9f) {
+                // if (!modelPtr->IsPlaying()){
+                //    if (!isCombo) {
+                //        isAttack    = false;
+                //        combo       = 0;
+                //        playerState = PlayerState::IDLE;
+                //    } else {
+                //        combo   = 2;
+                //        isCombo = false;
+                //    }
+                //}
+
+                if (!modelPtr->IsPlaying()) {
+                    // isAttack = false;
+                    combo = 0;
+                    if (isCombo) {
                         combo   = 2;
                         isCombo = false;
                     }
                 }
                 // コンボ判定する時間
-                if (modelPtr->GetAnimationTime() > 0.6f) {
+                // if (modelPtr->GetAnimationTime() > 0.6f) {
+                if (modelPtr->IsPlaying()) {
                     canCombo2 = true;
                 }
             }
 
             if (combo == 2) {
                 if (modelPtr->GetPlayAnimationName() != "attack2") {
-                    this->SetModelRotation(move);
-                    // modelPtr->SetRotationAxisXYZ({0, theta, 0});
                     modelPtr->PlayAnimationNoSame("attack2");
+                    this->SetModelRotation(move);
                     attackList.clear();
                 }
+
                 if (modelPtr->GetAnimationTime() > 0.9f) {
-                    if (!isCombo) {
-                        isAttack    = false;
-                        isCombo     = false;
-                        combo       = 0;
-                        playerState = PlayerState::IDLE;
-                    } else {
-                        combo   = 3;
-                        isCombo = false;
-                    }
+                    // if (!isCombo) {
+                    // isAttack    = false;
+                    //    isCombo     = false;
+                    combo = 0;
+                    //    playerState = PlayerState::IDLE;
+                    //} else {
+                    //    combo   = 3;
+                    //    isCombo = false;
+                    //}
                 }
-                if (modelPtr->GetAnimationTime() > 0.3f && !isCombo) {
+                if (modelPtr->GetAnimationTime() > 0.3f /*&& !isCombo*/) {
                     canCombo3 = true;
-                    isCombo   = false;
+                    // isCombo   = false;
                 }
             }
 
             if (combo == 3) {
                 if (modelPtr->GetPlayAnimationName() != "attack3") {
                     this->SetModelRotation(move);
-                    // modelPtr->SetRotationAxisXYZ({0, theta, 0});
                     modelPtr->PlayAnimationNoSame("attack3");
                     attackList.clear();
                 }
                 if (modelPtr->GetAnimationTime() > 0.9f) {
-                    isAttack    = false;
-                    isCombo     = false;
+                    // isAttack    = false;
+                    // isCombo     = false;
                     combo       = 0;
                     playerState = PlayerState::IDLE;
                 }
             }
 
             if (combo == 0) {
-                isAttack    = false;
-                isCombo     = false;
+                // isAttack    = false;
+                // isCombo     = false;
                 playerState = PlayerState::IDLE;
             }
         }
@@ -374,19 +401,6 @@ namespace LittleQuest {
             }
         }
     }
-
-    void Player::SetSpeed(float s) {
-        speed_ = s;
-    }
-
-    float Player::GetSpeed() {
-        return speed_;
-    }
-
-    float& Player::Speed() {
-        return speed_;
-    }
-
 }    // namespace LittleQuest
 
 CEREAL_REGISTER_TYPE(LittleQuest::Player)

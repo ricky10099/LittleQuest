@@ -504,7 +504,7 @@ void Object::RemoveComponent() {
            "実行しているオブジェクト(this)"
            "がありません。「再試行」をおして、「呼び出し履歴」からどこでemptyになったのかを確認してください。");
 
-    for (int i = components_.size() - 1; i >= 0; --i) {
+    for (size_t i = components_.size() - 1; i >= 0; --i) {
         auto& c = components_[i];
 
         if (std::dynamic_pointer_cast<_Type>(c)) {

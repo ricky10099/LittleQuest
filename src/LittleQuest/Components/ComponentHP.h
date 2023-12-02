@@ -23,18 +23,15 @@ namespace LittleQuest {
             BP_COMPONENT_TYPE(ComponentHP, Component);
 
             void Init() override;
-
             void Update() override;
-
             void Draw() override;
-
             void GUI() override;
 
             void SetHP(int HP);
-
             int GetHP();
 
             void TakeDamage(int damage);
+            void DrawHPBar();
 
         private:
             VECTOR pos2D;

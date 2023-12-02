@@ -23,10 +23,10 @@ namespace {
     bool show_debug   = true;
 #else
     bool show_gui     = true;     //!< GUIの表示
-    bool show_grid    = true;     //!< グリッドの表示
+    bool show_grid    = false;    //!< グリッドの表示
     bool show_fps     = true;     //!< FPSの表示
     bool debug_camera = false;    //!< デバッグカメラ
-    bool show_debug   = true;
+    bool show_debug   = false;
 #endif
 
     u64 current_time_ = 0;       //!< 現在の時間 (単位:μsec)
@@ -326,6 +326,7 @@ void SystemUpdate() {
     // 1フレームの間に経過した時間を計算 ⊿t
     UpdateDeltaTime();
 
+#if defined _DEBUG
     //----------------------------------------------------------
     // メインメニューバー
     //----------------------------------------------------------
@@ -438,6 +439,7 @@ void SystemUpdate() {
             ImGui::EndMainMenuBar();
         }
     }
+#endif
 
     //----------------------------------------------------------
     // 光源情報を更新
@@ -485,6 +487,7 @@ void SystemDraw() {
     SetRenderTarget(texture_hdr_.get(), GetDepthStencil());
     ClearColor(texture_hdr_.get(), float4(0.5, 0.5f, 0.5f, 0.0f));
 
+#if defined _DEBUG
     //----------------------------------------------------------
     // グリッドを描画
     //----------------------------------------------------------
@@ -507,6 +510,7 @@ void SystemDraw() {
             DrawLine3D(VGet(0.0f, 0.0f, -size), VGet(0.0f, 0.0f, +size), GetColor(64, 64, 255));
         }
     }
+#endif
 
     // シーンの描画
     Scene::Draw();

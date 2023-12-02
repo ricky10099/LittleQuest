@@ -52,8 +52,8 @@ namespace LittleQuest {
         // SprintArmの回転にマウスの移動量を足しこむ
         rot_ += {-GetMouseMoveY(), GetMouseMoveX(), 0};
 
-        if (rot_.x > 70) rot_.x = 70;
-        if (rot_.x < -70) rot_.x = -70;
+        rot_.x = max(-70, min(40, rot_.x));
+
         // 足しこんだ回転を利用する
         spring_arm->SetSpringArmRotate(rot_);
     }

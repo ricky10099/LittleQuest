@@ -90,8 +90,6 @@ namespace LittleQuest {
     void Mutant::LateDraw()    // override
     {
         Super::LateDraw();
-
-        DrawSphere3D(VGet(spawnPos.x, spawnPos.y, spawnPos.z), 10, 2, GetColor(255, 255, 0), GetColor(255, 255, 255), TRUE);
     }
 
     void Mutant::GUI()    // override

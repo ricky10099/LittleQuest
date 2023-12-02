@@ -95,8 +95,6 @@ namespace LittleQuest {
 
             float degree;
 
-            float rot_y = 0.0f;
-
             bool isDie         = false;
             float destroyTimer = 5;
     };
