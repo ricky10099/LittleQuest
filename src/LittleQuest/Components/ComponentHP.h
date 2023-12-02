@@ -51,9 +51,6 @@ namespace LittleQuest {
             //! @brief セーブ
             // @param arc アーカイバ
             // @param ver バージョン
-            CEREAL_SAVELOAD(arc, ver) {
-                arc(cereal::make_nvp("Component",
-                                     cereal::base_class<Component>(this)));
-            }
+            CEREAL_SAVELOAD(arc, ver) { arc(cereal::make_nvp("Component", cereal::base_class<Component>(this))); }
     };
 }    // namespace LittleQuest

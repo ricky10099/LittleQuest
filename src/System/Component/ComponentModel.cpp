@@ -145,22 +145,18 @@ void ComponentModel::GUI() {
 
             auto GUIAnimation = [this]() {
                 constexpr int item_count = 5;
-                auto flags = ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders
-                             | ImGuiTableFlags_Sortable |    //
-                             ImGuiTableFlags_SizingFixedSame
-                             | ImGuiTableFlags_ScrollY;
+                auto flags = ImGuiTableFlags_Resizable | ImGuiTableFlags_Borders | ImGuiTableFlags_Sortable |    //
+                             ImGuiTableFlags_SizingFixedSame | ImGuiTableFlags_ScrollY;
 
                 bool change = false;
 
                 if (animations_desc_.empty()) {
-                    if (ImGui::Button(u8"アニメーション追加"))
-                        animations_desc_.push_back({});
+                    if (ImGui::Button(u8"アニメーション追加")) animations_desc_.push_back({});
                 } else {
                     if (ImGui::TreeNode(u8"アニメーション")) {
                         if (ImGui::Button(u8"Play", ImVec2(100, 20))) {
                             if (!current_animation_name_.empty()) {
-                                PlayAnimation(current_animation_name_,
-                                              anim_loop_);
+                                PlayAnimation(current_animation_name_, anim_loop_);
                             }
                         }
                         ImGui::SameLine();
@@ -174,67 +170,49 @@ void ComponentModel::GUI() {
                                 {
                                     ImGui::SetNextItemWidth(0);
                                     ImGui::TableSetColumnIndex(0);
-                                    std::string radio =
-                                        std::string(u8"##radio_anm_row")
-                                        + std::to_string(row);
-                                    if (ImGui::RadioButton(
-                                            radio.c_str(),
-                                            current_animation_name_
-                                                == desc.name_)) {
+                                    std::string radio = std::string(u8"##radio_anm_row") + std::to_string(row);
+                                    if (ImGui::RadioButton(radio.c_str(), current_animation_name_ == desc.name_)) {
                                         current_animation_name_ = desc.name_;
                                     }
                                     ImGui::SameLine();
                                     ImGui::SetNextItemWidth(0);
                                     ImGui::TableSetColumnIndex(0);
-                                    std::string id =
-                                        std::string(u8"削除##anm_row")
-                                        + std::to_string(row);
+                                    std::string id = std::string(u8"削除##anm_row") + std::to_string(row);
                                     if (ImGui::Button(id.c_str())) {
-                                        animations_desc_.erase(
-                                            animations_desc_.begin() + row);
+                                        animations_desc_.erase(animations_desc_.begin() + row);
                                         continue;
                                     }
                                     ImGui::SameLine();
 
                                     ImGui::SetNextItemWidth(100);
                                     ImGui::TableSetColumnIndex(1);
-                                    ImGui::PushID(row * item_count
-                                                  + 0);    // assign unique id
-                                    change |= ImGui::InputText(
-                                        "##v", &desc.name_,
-                                        ImGuiInputTextFlags_EnterReturnsTrue);
+                                    ImGui::PushID(row * item_count + 0);    // assign unique id
+                                    change |= ImGui::InputText("##v", &desc.name_, ImGuiInputTextFlags_EnterReturnsTrue);
                                     ImGui::PopID();
 
                                     ImGui::SetNextItemWidth(500);
                                     ImGui::TableSetColumnIndex(2);
-                                    ImGui::PushID(row * item_count
-                                                  + 1);    // assign unique id
-                                    change |= ImGui::InputText(
-                                        "##v", &desc.file_path_);
+                                    ImGui::PushID(row * item_count + 1);    // assign unique id
+                                    change |= ImGui::InputText("##v", &desc.file_path_);
                                     ImGui::PopID();
 
                                     ImGui::SetNextItemWidth(80);
                                     ImGui::TableSetColumnIndex(3);
-                                    ImGui::PushID(row * item_count
-                                                  + 2);    // assign unique id
-                                    change |= ImGui::InputInt(
-                                        "##v", (int*)&desc.animation_index_);
+                                    ImGui::PushID(row * item_count + 2);    // assign unique id
+                                    change |= ImGui::InputInt("##v", (int*)&desc.animation_index_);
                                     ImGui::PopID();
 
                                     ImGui::SetNextItemWidth(80);
                                     ImGui::TableSetColumnIndex(4);
-                                    ImGui::PushID(row * item_count
-                                                  + 3);    // assign unique id
-                                    change |= ImGui::InputFloat(
-                                        "##v", &desc.animation_speed_);
+                                    ImGui::PushID(row * item_count + 3);    // assign unique id
+                                    change |= ImGui::InputFloat("##v", &desc.animation_speed_);
                                     ImGui::PopID();
                                 }
                                 row++;
                             }
                             ImGui::EndTable();
                         }
-                        if (ImGui::Button(u8"アニメーション追加"))
-                            animations_desc_.push_back({});
+                        if (ImGui::Button(u8"アニメーション追加")) animations_desc_.push_back({});
 
                         ImGui::TreePop();
                     }
@@ -251,21 +229,16 @@ void ComponentModel::GUI() {
             // アニメーション名
             if (IsPlaying()) {
                 ImGui::TextColored({0.5, 1, 0.5, 1}, u8"アニメーション再生中");
-                ImGui::Text(u8"[%3.2f]%s", animation_time_,
-                            GetPlayAnimationName().data());
+                ImGui::Text(u8"[%3.2f]%s", animation_time_, GetPlayAnimationName().data());
                 ImGui::Separator();
             }
 
             // モデル姿勢
             if (ImGui::TreeNode(u8"モデル姿勢")) {
-                ImGui::DragFloat4(u8"Ｘ軸", model_transform_.f32_128_0, 0.01f,
-                                  -10000.0f, 10000.0f, "%.2f");
-                ImGui::DragFloat4(u8"Ｙ軸", model_transform_.f32_128_1, 0.01f,
-                                  -10000.0f, 10000.0f, "%.2f");
-                ImGui::DragFloat4(u8"Ｚ軸", model_transform_.f32_128_2, 0.01f,
-                                  -10000.0f, 10000.0f, "%.2f");
-                ImGui::DragFloat4(u8"座標", model_transform_.f32_128_3, 0.01f,
-                                  -10000.0f, 10000.0f, "%.2f");
+                ImGui::DragFloat4(u8"Ｘ軸", model_transform_.f32_128_0, 0.01f, -10000.0f, 10000.0f, "%.2f");
+                ImGui::DragFloat4(u8"Ｙ軸", model_transform_.f32_128_1, 0.01f, -10000.0f, 10000.0f, "%.2f");
+                ImGui::DragFloat4(u8"Ｚ軸", model_transform_.f32_128_2, 0.01f, -10000.0f, 10000.0f, "%.2f");
+                ImGui::DragFloat4(u8"座標", model_transform_.f32_128_3, 0.01f, -10000.0f, 10000.0f, "%.2f");
                 ImGui::Separator();
                 ImGui::TreePop();
             }
@@ -273,22 +246,16 @@ void ComponentModel::GUI() {
             // 姿勢を TRSで変更できるように設定
             float* mat = model_transform_.f32_128_0;
             float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation,
-                                        matrixScale);
-            ImGui::DragFloat3(u8"座標(T)", matrixTranslation, 0.01f,
-                              -100000.00f, 100000.0f, "%.2f");
-            ImGui::DragFloat3(u8"回転(R)", matrixRotation, 0.1f, -360.0f,
-                              360.0f, "%.2f");
-            ImGui::DragFloat3(u8"スケール(S)", matrixScale, 0.01f, 0.00f,
-                              1000.0f, "%.2f");
-            RecomposeMatrixFromComponents(matrixTranslation, matrixRotation,
-                                          matrixScale, mat);
+            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
+            ImGui::DragFloat3(u8"座標(T)", matrixTranslation, 0.01f, -100000.00f, 100000.0f, "%.2f");
+            ImGui::DragFloat3(u8"回転(R)", matrixRotation, 0.1f, -360.0f, 360.0f, "%.2f");
+            ImGui::DragFloat3(u8"スケール(S)", matrixScale, 0.01f, 0.00f, 1000.0f, "%.2f");
+            RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, mat);
 
             if (ImGui::TreeNode("Model:Nodes")) {
                 node_manipulate_ = false;
                 auto list        = GetNodesNamePChar();
-                ImGui::ListBox(u8"ノード名", &select_node_index_, list.data(),
-                               (int)list.size(), 10);
+                ImGui::ListBox(u8"ノード名", &select_node_index_, list.data(), (int)list.size(), 10);
                 if (select_node_index_ < list.size()) node_manipulate_ = true;
 
                 ImGui::TreePop();
@@ -302,15 +269,13 @@ void ComponentModel::GUI() {
     ImGui::End();
 
     if (node_manipulate_) {
-        matrix matx =
-            MV1GetFrameLocalWorldMatrix(GetModel(), select_node_index_);
-        auto trns = GetOwner()->GetComponent<ComponentTransform>();
+        matrix matx = MV1GetFrameLocalWorldMatrix(GetModel(), select_node_index_);
+        auto trns   = GetOwner()->GetComponent<ComponentTransform>();
         // matx		= mul( GetMatrix(), matx );
         // matx		= mul( trns->GetMatrix(), matx );
 
         float* mat_float = (float*)matx.f32_128_0;
-        ShowGizmo(mat_float, gizmo_operation_, gizmo_mode_,
-                  reinterpret_cast<uint64_t>(this));
+        ShowGizmo(mat_float, gizmo_operation_, gizmo_mode_, reinterpret_cast<uint64_t>(this));
 #if 0
 		// Gizmoを表示するためのMatrixをDxLibから取得
 		auto camera_view = GetCameraViewMatrix();
@@ -360,8 +325,7 @@ void ComponentModel::GUI() {
     }
 }
 
-ComponentModelPtr ComponentModel::SetAnimation(
-    const std::vector<Animation::Desc> anims) {
+ComponentModelPtr ComponentModel::SetAnimation(const std::vector<Animation::Desc> anims) {
     if (model_) {
         // エディター用アニメーション設定用
         animations_desc_ = anims;
@@ -376,15 +340,13 @@ ComponentModelPtr ComponentModel::SetAnimation(
     return std::dynamic_pointer_cast<ComponentModel>(shared_from_this());
 }
 
-void ComponentModel::PlayAnimationNoSame(std::string_view name, bool loop,
-                                         float blend_time, float start_time) {
+void ComponentModel::PlayAnimationNoSame(std::string_view name, bool loop, float blend_time, float start_time) {
     if (current_animation_name_ == name) return;
 
     PlayAnimation(name, loop, blend_time, start_time);
 }
 
-void ComponentModel::PlayAnimation(std::string_view name, bool loop,
-                                   float blend_time, float start_time) {
+void ComponentModel::PlayAnimation(std::string_view name, bool loop, float blend_time, float start_time) {
     if (animation_) {
         animation_->play(name, loop, blend_time, start_time);
         current_animation_name_ = name;

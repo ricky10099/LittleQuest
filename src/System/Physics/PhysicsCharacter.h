@@ -20,7 +20,7 @@ namespace physics {
 
             // 接地状態
             enum class GroundState {
-                OnGround,    //!< キャラクターが地上にいて自由に動ける状態
+                OnGround,         //!< キャラクターが地上にいて自由に動ける状態
                 OnSteepGround,    //!< キャラクターは急すぎる斜面にいて、これ以上登れない。もし斜面から滑りたいのであれば、呼び出し手は下降速度をかけ始める必要があります。
                 NotSupported,    //!< キャラクターがオブジェクトに触れているが、そのオブジェクトに対応していないため落下する必要がある。GetGroundXXX関数は、タッチされたオブジェクトの情報を返します。
                 InAir,           //!< キャラクターは空宙にいる
@@ -35,8 +35,7 @@ namespace physics {
             //@{
 
             //! コンタクトリスナーを設定
-            virtual void setListener(
-                physics::Character::ContactListener* listener) = 0;
+            virtual void setListener(physics::Character::ContactListener* listener) = 0;
 
             //! コンタクトリスナーを取得
             virtual physics::Character::ContactListener* listener() const = 0;
@@ -99,10 +98,8 @@ namespace physics {
             //! ジャンプ方向ベクトル(ジャンプしない場合は0で渡します)
             //! @return 新しい補正後の移動速度
             //! 内部でwalkStairs()による階段歩行も行います
-            virtual float3 move(f32 delta_time, const float3& move_vector,
-                                const float3& old_position,
-                                const float3& jump_vector = float3(0.0f, 0.0f,
-                                                                   0.0f)) = 0;
+            virtual float3 move(f32 delta_time, const float3& move_vector, const float3& old_position,
+                                const float3& jump_vector = float3(0.0f, 0.0f, 0.0f)) = 0;
 
             //! 階段を歩けるかどうかを取得
             //! @details
@@ -127,10 +124,9 @@ namespace physics {
             //! は非常に小さくなり、降りるときに階段の側面にぶつかる可能性があります。
             //! そのため、最大傾斜角度に違反する法線が発生する可能性があります。
             //! このような場合は上昇位置からこの距離を使って再度テストし、有効なスロープを見つけるかどうかを確認します。
-            virtual bool walkStairs(
-                f32 delta_time, const float3& step_up,
-                const float3& step_forward, const float3& step_forward_test,
-                const float3& step_down_extra = float3(0.0f, 0.0f, 0.0f)) = 0;
+            virtual bool walkStairs(f32 delta_time, const float3& step_up, const float3& step_forward,
+                                    const float3& step_forward_test,
+                                    const float3& step_down_extra = float3(0.0f, 0.0f, 0.0f)) = 0;
 
             //! 衝突点を再検出
             //! この機能はキャラクターがテレポートした後に、新しい世界とのコンタクトを決定するために使用することができます。
@@ -142,9 +138,7 @@ namespace physics {
             //! @retval true    正常終了(形状の入れ替え成功)
             //! @retval false
             //! 形状の入れ替え後に衝突物があり、切り替えできなかった場合
-            virtual bool setShape(
-                const shape::Base& shape,
-                const float3& shape_offset = float3(0.0f, 0.0f, 0.0f)) = 0;
+            virtual bool setShape(const shape::Base& shape, const float3& shape_offset = float3(0.0f, 0.0f, 0.0f)) = 0;
 
             //! シェイプを取得
             virtual shape::Base* shape() const = 0;
@@ -181,10 +175,8 @@ namespace physics {
     //===========================================================================
     class Character::ContactSettings {
         public:
-            bool can_push_character_ =
-                true;    //!< 他のボディがキャラクターを押すことができるかどうか
-            bool can_receive_impulses_ =
-                true;    //!< キャラクタがー他のボディから押されるかどうか
+            bool can_push_character_ = true;    //!< 他のボディがキャラクターを押すことができるかどうか
+            bool can_receive_impulses_ = true;    //!< キャラクタがー他のボディから押されるかどうか
     };
 
     //===========================================================================
@@ -201,9 +193,8 @@ namespace physics {
             //! @param  [in]    other_body_id   相手のボディID
             //! @retval true    衝突可能
             //! @retval false   衝突しない
-            virtual bool onContactValidate(
-                [[maybe_unused]] const physics::Character* character,
-                [[maybe_unused]] u64 other_body_id) {
+            virtual bool onContactValidate([[maybe_unused]] const physics::Character* character,
+                                           [[maybe_unused]] u64 other_body_id) {
                 // デフォルトは常に衝突許可
                 return true;
             }
@@ -214,16 +205,12 @@ namespace physics {
             //! @param  [in]    contact_position    衝突位置
             //! @param  [in]    contact_normal      衝突法線
             //! @param  [out]   result              衝突許可情報
-            virtual void onContactAdded(
-                [[maybe_unused]] const physics::Character* character,
-                [[maybe_unused]] u64 other_body_id,
-                [[maybe_unused]] const float3& contact_position,
-                [[maybe_unused]] const float3& contact_normal,
-                [[maybe_unused]] physics::Character::ContactSettings& result) {
-                result.can_push_character_ =
-                    true;    // 相手のオブジェクトから押される
-                result.can_receive_impulses_ =
-                    true;    // 相手のオブジェクトをキャラクターで押すことができる
+            virtual void onContactAdded([[maybe_unused]] const physics::Character* character,
+                                        [[maybe_unused]] u64 other_body_id, [[maybe_unused]] const float3& contact_position,
+                                        [[maybe_unused]] const float3& contact_normal,
+                                        [[maybe_unused]] physics::Character::ContactSettings& result) {
+                result.can_push_character_ = true;    // 相手のオブジェクトから押される
+                result.can_receive_impulses_ = true;    // 相手のオブジェクトをキャラクターで押すことができる
             }
     };
 

@@ -27,13 +27,11 @@ class ComponentCollision : public Component {
     public:
         //! @brief ヒット情報
         struct HitInfo {
-                bool hit_ = false;    //!< ヒットしたか
-                ComponentCollisionPtr collision_ =
-                    nullptr;    //!< 自分のコリジョン
-                float3 push_ = {0.0f, 0.0f, 0.0f};    //!< めり込み量
-                float3 hit_position_ = {0.0f, 0.0f, 0.0f};    //!< 当たった地点
-                ComponentCollisionPtr hit_collision_ =
-                    nullptr;    //!< 当たったコリジョン
+                bool hit_                            = false;                 //!< ヒットしたか
+                ComponentCollisionPtr collision_     = nullptr;               //!< 自分のコリジョン
+                float3 push_                         = {0.0f, 0.0f, 0.0f};    //!< めり込み量
+                float3 hit_position_                 = {0.0f, 0.0f, 0.0f};    //!< 当たった地点
+                ComponentCollisionPtr hit_collision_ = nullptr;               //!< 当たったコリジョン
         };
 
         ComponentCollision();
@@ -154,22 +152,14 @@ class ComponentCollision : public Component {
             // このタイプの名前を知る必要があり、もし&判定した場合、仮にビットが2つついていると
             // 正しい値として返してしまうためワーニングを抑制します
 
-            if (grp == CollisionGroup::WALL)
-                return static_cast<u32>(CollisionGroupBit::WALL);
-            if (grp == CollisionGroup::GROUND)
-                return static_cast<u32>(CollisionGroupBit::GROUND);
-            if (grp == CollisionGroup::PLAYER)
-                return static_cast<u32>(CollisionGroupBit::PLAYER);
-            if (grp == CollisionGroup::ENEMY)
-                return static_cast<u32>(CollisionGroupBit::ENEMY);
-            if (grp == CollisionGroup::WEAPON)
-                return static_cast<u32>(CollisionGroupBit::WEAPON);
-            if (grp == CollisionGroup::ITEM)
-                return static_cast<u32>(CollisionGroupBit::ITEM);
-            if (grp == CollisionGroup::CAMERA)
-                return static_cast<u32>(CollisionGroupBit::CAMERA);
-            if (grp == CollisionGroup::ETC)
-                return static_cast<u32>(CollisionGroupBit::ETC);
+            if (grp == CollisionGroup::WALL) return static_cast<u32>(CollisionGroupBit::WALL);
+            if (grp == CollisionGroup::GROUND) return static_cast<u32>(CollisionGroupBit::GROUND);
+            if (grp == CollisionGroup::PLAYER) return static_cast<u32>(CollisionGroupBit::PLAYER);
+            if (grp == CollisionGroup::ENEMY) return static_cast<u32>(CollisionGroupBit::ENEMY);
+            if (grp == CollisionGroup::WEAPON) return static_cast<u32>(CollisionGroupBit::WEAPON);
+            if (grp == CollisionGroup::ITEM) return static_cast<u32>(CollisionGroupBit::ITEM);
+            if (grp == CollisionGroup::CAMERA) return static_cast<u32>(CollisionGroupBit::CAMERA);
+            if (grp == CollisionGroup::ETC) return static_cast<u32>(CollisionGroupBit::ETC);
 
             // 登録し忘れの可能性があります
             return -1;
@@ -258,8 +248,7 @@ class ComponentCollision : public Component {
         //! @param push [out]       本当の自分の押し戻し量
         //! @param other_push [out] 相手の押し戻し量
         //! @return 押し戻しできる状態か?
-        bool CalcPush(ComponentCollisionPtr collision, float3 vec, float3* push,
-                      float3* other_push) const {
+        bool CalcPush(ComponentCollisionPtr collision, float3 vec, float3* push, float3* other_push) const {
             float mass1 = GetMass();
             float mass2 = collision->GetMass();
             if (mass1 < 0 && mass2 < 0) {
@@ -288,22 +277,17 @@ class ComponentCollision : public Component {
 
         bool IsGroupHit(ComponentCollisionPtr collision) const {
             // コリジョンが当たらない設定になっている
-            if (collision_status_.is(CollisionBit::DisableHit)
-                || collision->collision_status_.is(CollisionBit::DisableHit))
+            if (collision_status_.is(CollisionBit::DisableHit) || collision->collision_status_.is(CollisionBit::DisableHit))
                 return false;
 
             // 自分か相手のコリジョンタイプが不定
-            if (collision_type_ == CollisionType::NONE
-                || collision->collision_type_ == CollisionType::NONE)
-                return false;
+            if (collision_type_ == CollisionType::NONE || collision->collision_type_ == CollisionType::NONE) return false;
 
             // 自分は相手のコリジョングループに当たらない
-            if (((u32)collision_group_ & collision->collision_hit_) == 0)
-                return false;
+            if (((u32)collision_group_ & collision->collision_hit_) == 0) return false;
 
             // 相手は自分のコリジョングループに当たらない
-            if (((u32)collision->collision_group_ & collision_hit_) == 0)
-                return false;
+            if (((u32)collision->collision_group_ & collision_hit_) == 0) return false;
 
             // 当たる設定となる
             return true;
@@ -351,85 +335,73 @@ class ComponentCollision : public Component {
         //! @param col1 Capsuleコリジョン
         //! @param col2 Sphere コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionCapsulePtr col1,
-                                          ComponentCollisionSpherePtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionCapsulePtr col1, ComponentCollisionSpherePtr col2);
 
         //! @brief Sphere VS Capsule
         //! @param col1 Sphereコリジョン
         //! @param col2 Capsule コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionSpherePtr col1,
-                                          ComponentCollisionCapsulePtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionSpherePtr col1, ComponentCollisionCapsulePtr col2);
 
         //! @brief Capsule VS Capsule
         //! @param col1 Capsuleコリジョン
         //! @param col2 Capsule コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionCapsulePtr col1,
-                                          ComponentCollisionCapsulePtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionCapsulePtr col1, ComponentCollisionCapsulePtr col2);
 
         //! @brief Sphere VS Sphere
         //! @param col1 Sphereコリジョン
         //! @param col2 Sphere コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionSpherePtr col1,
-                                          ComponentCollisionSpherePtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionSpherePtr col1, ComponentCollisionSpherePtr col2);
 
         //! @brief Model VS Sphere
         //! @param col1 Modelコリジョン
         //! @param col2 Sphere コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionModelPtr col1,
-                                          ComponentCollisionSpherePtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionModelPtr col1, ComponentCollisionSpherePtr col2);
 
         //! @brief Sphere VS Model
         //! @param col1 Shpereコリジョン
         //! @param col2 Model コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionSpherePtr col1,
-                                          ComponentCollisionModelPtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionSpherePtr col1, ComponentCollisionModelPtr col2);
 
         //! @brief Model VS Line
         //! @param col1 Shpereコリジョン
         //! @param col2 Model コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionModelPtr col1,
-                                          ComponentCollisionLinePtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionModelPtr col1, ComponentCollisionLinePtr col2);
 
         //! @brief Model VS Capsule
         //! @param col1 Modelコリジョン
         //! @param col2 Capsule コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionModelPtr col1,
-                                          ComponentCollisionCapsulePtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionModelPtr col1, ComponentCollisionCapsulePtr col2);
 
         //! @brief Capsule VS Model
         //! @param col1 Capsuleコリジョン
         //! @param col2 Model コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionCapsulePtr col1,
-                                          ComponentCollisionModelPtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionCapsulePtr col1, ComponentCollisionModelPtr col2);
 
         //! @brief Line VS Sphere
         //! @param col1 Capsuleコリジョン
         //! @param col2 Sphere コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionLinePtr col1,
-                                          ComponentCollisionSpherePtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionLinePtr col1, ComponentCollisionSpherePtr col2);
 
         //! @brief Line VS Capsule
         //! @param col1 Sphereコリジョン
         //! @param col2 Capsule コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionLinePtr col1,
-                                          ComponentCollisionCapsulePtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionLinePtr col1, ComponentCollisionCapsulePtr col2);
 
         //! @brief Line VS Model
         //! @param col1 Capsuleコリジョン
         //! @param col2 Capsule コリジョン
         //! @return 当たり情報
-        ComponentCollision::HitInfo isHit(ComponentCollisionLinePtr col1,
-                                          ComponentCollisionModelPtr col2);
+        ComponentCollision::HitInfo isHit(ComponentCollisionLinePtr col1, ComponentCollisionModelPtr col2);
 
         //@}
 
@@ -439,20 +411,17 @@ class ComponentCollision : public Component {
         //! 1フレーム前の状態 (WorldTransform)
         matrix old_transform_ = matrix::identity();
 
-        CollisionType collision_type_ = CollisionType::NONE;
-        CollisionGroup collision_group_ =
-            CollisionGroup::ETC;    //!< 自分のコリジョンタイプ
-        u32 collision_hit_ = 0xffffffff;    //!< デフォルトではすべてに当たる
-        u32 collision_overlap_ =
-            0x00000000;    //!< デフォルトではオーバーラップしない
+        CollisionType collision_type_   = CollisionType::NONE;
+        CollisionGroup collision_group_ = CollisionGroup::ETC;    //!< 自分のコリジョンタイプ
+        u32 collision_hit_              = 0xffffffff;             //!< デフォルトではすべてに当たる
+        u32 collision_overlap_          = 0x00000000;             //!< デフォルトではオーバーラップしない
 
         Status<CollisionBit> collision_status_;    //!< 状態
 
-        float collision_mass_ =
-            1;    //!< 押し戻される量に影響(マイナスは戻されない)
-        u32 collision_id_ = 0;    //!< コリジョン識別子
+        float collision_mass_ = 1;    //!< 押し戻される量に影響(マイナスは戻されない)
+        u32 collision_id_     = 0;    //!< コリジョン識別子
 
-        int attach_node_ = -1;    //!< モデルノードに付くときは0以上
+        int attach_node_           = -1;    //!< モデルノードに付くときは0以上
         matrix attach_node_matrix_ = matrix::identity();
 
         bool use_gravity_   = false;
@@ -490,28 +459,21 @@ class ComponentCollision : public Component {
         //--------------------------------------------------------------------
         //@{
         CEREAL_SAVELOAD(arc, ver) {
-            arc(cereal::make_nvp("owner", owner_),
-                cereal::make_nvp("collision_type", (u32)collision_type_),
-                cereal::make_nvp("collision_group", (u32)collision_group_),
-                cereal::make_nvp("collision_hit", collision_hit_),
-                cereal::make_nvp("collision_mass", collision_mass_),
-                cereal::make_nvp("collision_id", collision_id_),
-                cereal::make_nvp("attach_node", attach_node_),
-                cereal::make_nvp("attach_node_matrix", attach_node_matrix_),
+            arc(cereal::make_nvp("owner", owner_), cereal::make_nvp("collision_type", (u32)collision_type_),
+                cereal::make_nvp("collision_group", (u32)collision_group_), cereal::make_nvp("collision_hit", collision_hit_),
+                cereal::make_nvp("collision_mass", collision_mass_), cereal::make_nvp("collision_id", collision_id_),
+                cereal::make_nvp("attach_node", attach_node_), cereal::make_nvp("attach_node_matrix", attach_node_matrix_),
                 cereal::make_nvp("collision_transform", collision_transform_),
                 cereal::make_nvp("old_transform", old_transform_));
 
             if (ver >= 2) {
                 arc(cereal::make_nvp("collision_overlap", collision_overlap_));
             } else if (ver >= 1) {
-                arc(cereal::make_nvp("use_gravity", use_gravity_),
-                    cereal::make_nvp("gravity", gravity_),
-                    cereal::make_nvp("now_gravity", now_gravity_),
-                    cereal::make_nvp("difficult_to_climb", difficult_to_climb_),
+                arc(cereal::make_nvp("use_gravity", use_gravity_), cereal::make_nvp("gravity", gravity_),
+                    cereal::make_nvp("now_gravity", now_gravity_), cereal::make_nvp("difficult_to_climb", difficult_to_climb_),
                     cereal::make_nvp("name", name_));
             }
-            arc(cereal::make_nvp("Component",
-                                 cereal::base_class<Component>(this)));
+            arc(cereal::make_nvp("Component", cereal::base_class<Component>(this)));
         }
 
         //@}

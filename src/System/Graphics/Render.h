@@ -58,10 +58,9 @@ void ClearStencil(const Texture* texture, u8 stencil_value);
 
 //! RenderTarget情報
 struct TargetDesc {
-        u32 color_count_ = 0;
-        std::array<Texture*, D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT>
-            color_targets_      = {};
-        Texture* depth_stencil_ = nullptr;
+        u32 color_count_                                                            = 0;
+        std::array<Texture*, D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT> color_targets_ = {};
+        Texture* depth_stencil_                                                     = nullptr;
 };
 
 //! 現在のRenderTarget情報を取得
@@ -80,8 +79,7 @@ void SetRenderTarget(Texture* color_target, Texture* depth_stencil = nullptr);
 //!	@param	[in]	color_count  	カラーターゲット数(1～8)
 //!	@param	[in]	color_targets	カラーターゲット配列の先頭アドレス
 //!	@param	[in]	depth_stencil	デプスバッファ(nullptr指定で無効化)
-void SetRenderTarget(u32 color_count, Texture** color_targets,
-                     Texture* depth_stencil = nullptr);
+void SetRenderTarget(u32 color_count, Texture** color_targets, Texture* depth_stencil = nullptr);
 
 //! デフォルトのバックバッファを取得(R8G8B8A8_UNORM)
 Texture* GetBackBuffer();
@@ -96,8 +94,7 @@ Texture* GetDepthStencil();
 //! @param	[in]	src_texture		    コピー元テクスチャ
 //! @param	[in]	shader_ps_handle  	カスタムのピクセルシェーダー
 //! (-1の場合は単純コピー)
-void CopyToRenderTarget(Texture* dst_render_target, Texture* src_texture,
-                        int shader_ps_handle = -1);
+void CopyToRenderTarget(Texture* dst_render_target, Texture* src_texture, int shader_ps_handle = -1);
 
 //===========================================================================
 //!	@name	システム関数

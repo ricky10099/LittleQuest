@@ -40,8 +40,7 @@ void ComponentCollisionModel::Draw() {
         ref_poly_ = MV1GetReferenceMesh(ref_model_, -1, TRUE);
     }
 
-    if (!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame))
-        return;
+    if (!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame)) return;
 
     __super::Draw();
 
@@ -50,12 +49,9 @@ void ComponentCollisionModel::Draw() {
 
     // ポリゴンの数だけ繰り返し
     for (int i = 0; i < ref_poly_.PolygonNum; i++) {
-        float3 p0 =
-            cast(ref_poly_.Vertexs[ref_poly_.Polygons[i].VIndex[0]].Position);
-        float3 p1 =
-            cast(ref_poly_.Vertexs[ref_poly_.Polygons[i].VIndex[1]].Position);
-        float3 p2 =
-            cast(ref_poly_.Vertexs[ref_poly_.Polygons[i].VIndex[2]].Position);
+        float3 p0 = cast(ref_poly_.Vertexs[ref_poly_.Polygons[i].VIndex[0]].Position);
+        float3 p1 = cast(ref_poly_.Vertexs[ref_poly_.Polygons[i].VIndex[1]].Position);
+        float3 p2 = cast(ref_poly_.Vertexs[ref_poly_.Polygons[i].VIndex[2]].Position);
 
         // ポリゴンを形成する三頂点を使用してワイヤーフレームを描画する
         DrawLine3D(cast(p0), cast(p1), GetColor(255, 255, 0));
@@ -87,8 +83,7 @@ void ComponentCollisionModel::GUI() {
     ImGui::Begin(obj_name.data());
     {
         ImGui::Separator();
-        auto ui_name =
-            std::string("Collision Model:") + std::to_string(collision_id_);
+        auto ui_name = std::string("Collision Model:") + std::to_string(collision_id_);
         if (ImGui::TreeNode(ui_name.c_str())) {
             if (ImGui::Button(u8"削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
@@ -97,19 +92,15 @@ void ComponentCollisionModel::GUI() {
             // コリジョン情報を出す
             GUICollisionData(false);
 
-            std::string colname =
-                u8"COL:" + std::to_string(collision_id_) + "/ ";
+            std::string colname = u8"COL:" + std::to_string(collision_id_) + "/ ";
 
             float* mat = GetColMatrixFloat();
             float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation,
-                                        matrixScale);
-            ImGui::DragFloat3((colname + u8"座標(T)").c_str(),
-                              matrixTranslation, 0.01f);
+            DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
+            ImGui::DragFloat3((colname + u8"座標(T)").c_str(), matrixTranslation, 0.01f);
             // ImGui::DragFloat3( u8"COL回転(R)", matrixRotation, 0.1f );
             // ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
-            RecomposeMatrixFromComponents(matrixTranslation, matrixRotation,
-                                          matrixScale, mat);
+            RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, mat);
 
             if (ImGui::Button(u8"モデルにコリジョンを張り付ける")) {
                 if (ref_model_ == -1) AttachToModel(true);
@@ -126,15 +117,12 @@ void ComponentCollisionModel::AttachToModel(bool update) {
 #ifdef USE_JOLT_PHYSICS
         // 地形衝突情報を作成 (メッシュ剛体は必ず静的)
         float3 scale = mdl->GetScaleAxisXYZ();
-        bool same    = (fabs(scale.x - scale.y) < FLT_EPSILON)
-                    && (fabs(scale.x - scale.z) < FLT_EPSILON);
+        bool same    = (fabs(scale.x - scale.y) < FLT_EPSILON) && (fabs(scale.x - scale.z) < FLT_EPSILON);
 
-        assert("マップのスケールのXYZが異なります。[無視する]で平均をとります."
-               && same);
+        assert("マップのスケールのXYZが異なります。[無視する]で平均をとります." && same);
         float s     = (scale.x + scale.y + scale.z) / 3.0f;
-        RigidBody() = physics::createRigidBody(
-            shape::Mesh(mdl->GetModelClass().get(), s),    // メッシュ
-            physics::ObjectLayers::NON_MOVING);            // 静的グループ
+        RigidBody() = physics::createRigidBody(shape::Mesh(mdl->GetModelClass().get(), s),    // メッシュ
+                                               physics::ObjectLayers::NON_MOVING);            // 静的グループ
 #else
         {
             ref_model_ = mdl->GetModel();
@@ -157,31 +145,24 @@ void ComponentCollisionModel::AttachToModel(bool update) {
 //! @brief 当たっているかを調べる
 //! @param col 相手のコリジョン
 //! @return HitInfoを返す
-ComponentCollisionModel::HitInfo ComponentCollisionModel::IsHit(
-    ComponentCollisionPtr col) {
+ComponentCollisionModel::HitInfo ComponentCollisionModel::IsHit(ComponentCollisionPtr col) {
     HitInfo info;
 
     switch (col->GetCollisionType()) {
         case ComponentCollision::CollisionType::LINE:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionModel>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionLine>(col));
+            return isHit(std::dynamic_pointer_cast<ComponentCollisionModel>(shared_from_this()),
+                         std::dynamic_pointer_cast<ComponentCollisionLine>(col));
             break;
         case ComponentCollision::CollisionType::TRIANGLE:
             // @todo HitCheck_Sphere_Triangle()
             break;
         case ComponentCollision::CollisionType::SPHERE:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionModel>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionSphere>(col));
+            return isHit(std::dynamic_pointer_cast<ComponentCollisionModel>(shared_from_this()),
+                         std::dynamic_pointer_cast<ComponentCollisionSphere>(col));
             break;
         case ComponentCollision::CollisionType::CAPSULE:
-            return isHit(
-                std::dynamic_pointer_cast<ComponentCollisionModel>(
-                    shared_from_this()),
-                std::dynamic_pointer_cast<ComponentCollisionCapsule>(col));
+            return isHit(std::dynamic_pointer_cast<ComponentCollisionModel>(shared_from_this()),
+                         std::dynamic_pointer_cast<ComponentCollisionCapsule>(col));
             break;
         case ComponentCollision::CollisionType::MODEL:
             // 現状では当たらない
@@ -216,8 +197,7 @@ const matrix ComponentCollisionModel::GetWorldMatrix() const {
 //! @param force 山に上る時の上りにくさ (1.0で普通に楽々上る
 //! ~ 3.0くらいだともう登れない )
 //! @return 実際動ける量
-float3 ComponentCollisionModel::checkMovement(float3 pos, float3 vec,
-                                              float force) {
+float3 ComponentCollisionModel::checkMovement(float3 pos, float3 vec, float force) {
     MV1_COLL_RESULT_POLY hit_poly{};
     float3 top = pos + float3(0, 10, 0);
     float3 btm = pos + float3(0, -1.5, 0);

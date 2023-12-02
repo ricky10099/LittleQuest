@@ -1,6 +1,7 @@
 ﻿#include "Enemy.h"
 #include "Camera.h"
-#include "../Components/ComponentHP.h"
+#include "LittleQuest/Components/ComponentHP.h"
+#include "LittleQuest/Tool.h"
 
 #include <System/Component/Component.h>
 #include <System/Component/ComponentAttachModel.h>
@@ -45,7 +46,7 @@ namespace LittleQuest {
         isAttack = false;
         isBusy   = false;
 
-        player = Scene::GetObjectPtr<Player>("Player");
+        pPlayer = Scene::GetObjectPtr<Player>("Player");
 
         return true;
     }
@@ -54,7 +55,6 @@ namespace LittleQuest {
     {
         float deltaTime = GetDeltaTime();
 
-        // 死んだら何もしないため
         if (isDie) {
             destroyTimer -= deltaTime;
             return;
@@ -70,10 +70,12 @@ namespace LittleQuest {
                 if (prevState == EnemyState::CHASING) {
                     ChangeState(EnemyState::GIVE_UP);
                 } else {
-                    if (!patrolPoint.empty()) {
-                        ChangeState(EnemyState::PATROL);
-                    } else {
-                        ChangeState(EnemyState::IDLE);
+                    if (state != EnemyState::GIVE_UP && state != EnemyState::WAIT) {
+                        if (!patrolPoint.empty()) {
+                            ChangeState(EnemyState::PATROL);
+                        } else {
+                            ChangeState(EnemyState::IDLE);
+                        }
                     }
                 }
             }
@@ -81,13 +83,13 @@ namespace LittleQuest {
 
         float3 move;
 
-        CheckDamageAnimation();
+        CheckAnimation();
 
         switch (state) {
             case EnemyState::GET_HIT:
                 break;
             case EnemyState::GIVE_UP:
-                BackToInitial(move);
+                BackToInitialPosition(move);
                 break;
             case EnemyState::CHASING:
                 ChasePlayer(move);
@@ -116,18 +118,15 @@ namespace LittleQuest {
     {
         printfDx("\n%s state: %i", this->GetName().data(), state);
         if (auto modelPtr = GetComponent<ComponentModel>()) {
-            printfDx("\n%s %s Animation Time:%f", this->GetName().data(),
-                     modelPtr->GetPlayAnimationName().data(),
+            printfDx("\n%s %s Animation Time:%f", this->GetName().data(), modelPtr->GetPlayAnimationName().data(),
                      modelPtr->GetAnimationTime());
         }
-        printfDx("\ngoalx: %f", goal[0]);
         printfDx("\ncurpoint: %i", patrolIndex);
-        printfDx("\nnowx: %f", this->GetTranslate()[0]);
-        printfDx("\nx: %f", float3(goal - GetTranslate())[0]);
-        printfDx("\nz: %f", float3(goal - GetTranslate())[2]);
+        printfDx("\nx distance: %f", float3(goal - GetTranslate())[0]);
+        printfDx("\nz distance: %f", float3(goal - GetTranslate())[2]);
+        printfDx("\nf(distance): %f", GetDistance(GetTranslate(), goal));
         printfDx("\nisFound: %i", isFoundPlayer);
-        printfDx("\ntargetDegree: %f",
-                 GetDegreeToPosition(player.lock()->GetTranslate()));
+        printfDx("\ntargetDegree: %f", GetDegreeToPosition(pPlayer.lock()->GetTranslate()));
         printfDx("\ndie timer: %f", destroyTimer);
     }
 
@@ -138,8 +137,7 @@ namespace LittleQuest {
         ImGui::DragFloat(u8"goal座標(T)", &goal[0], 0.01f);
     }
 
-    void Enemy::OnHit([[maybe_unused]] const ComponentCollision::HitInfo&
-                          hitInfo)    // override
+    void Enemy::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
     {
         Super::OnHit(hitInfo);
     }
@@ -147,21 +145,20 @@ namespace LittleQuest {
     void Enemy::Idle() {
         // prevState = state;
         // state     = EnemyState::IDLE;
-
+        ChangeState(EnemyState::IDLE);
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             modelPtr->PlayAnimationNoSame("idle", true);
         }
     }
 
     bool Enemy::FindPlayer() {
-        float3 distance = player.lock()->GetTranslate() - this->GetTranslate();
+        float3 distance = pPlayer.lock()->GetTranslate() - this->GetTranslate();
         distance        = abs(distance);
 
         if (distance.x < 50 && distance.z < 50) {
             //　プレイヤーが前にいるなら
-            if (GetDegreeToPosition(player.lock()->GetTranslate()) < 50) {
+            if (GetDegreeToPosition(pPlayer.lock()->GetTranslate()) < 50) {
                 isFoundPlayer = true;
-
             }
         } else {
             isFoundPlayer = false;
@@ -170,11 +167,11 @@ namespace LittleQuest {
         return isFoundPlayer;
     }
 
-    void Enemy::BackToInitial(float3& move) {
+    void Enemy::BackToInitialPosition(float3& move) {
         auto pos = GetTranslate();
         pos.y    = 0;
         move     = spawnPos - pos;
-        if (length(move).x > 1) {
+        if (length(move).x > 0.5) {
             move = normalize(move);
 
             float x     = -move.x;
@@ -184,18 +181,18 @@ namespace LittleQuest {
             SetRotationAxisXYZ({0, theta, 0});
             speedFactor = runVal;
         } else {
-            prevState = state;
-            state     = initialState;
+            ChangeState(initialState);
         }
     }
 
     void Enemy::Patrol(float3& move) {
-        auto pos = GetTranslate();
-        pos.y    = 0;
-        move     = goal - pos;
+        auto pos        = GetTranslate();
+        pos.y           = 0;
+        move            = goal - pos;
+        float moveValue = GetDistance(goal, pos);
 
         // 二つの座標を巡行する
-        if (abs(move.x) <= float1{1} && abs(move.z) <= float1{1}) {
+        if (moveValue < 5.0f) {
             patrolIndex++;
             patrolIndex %= patrolPoint.size();
             goal = patrolPoint[patrolIndex];
@@ -205,7 +202,7 @@ namespace LittleQuest {
             return;
         }
 
-        if (length(move).x > 0) {
+        if (length(move).x > 1.0f) {
             move = normalize(move);
 
             float x     = -move.x;
@@ -243,9 +240,9 @@ namespace LittleQuest {
         // この距離から攻撃
         if (abs(move.x) <= float1{7} && abs(move.z) <= float1{7}) {
             ChangeState(EnemyState::ATTACK);
-            isBusy    = true;
+            isBusy = true;
             // 攻撃する時動かないように
-            move      = {0, 0, 0};
+            move   = {0, 0, 0};
             return;
         }
 
@@ -272,21 +269,21 @@ namespace LittleQuest {
         }
     }
 
-    void Enemy::CheckDamageAnimation() {
+    void Enemy::CheckAnimation() {
         if (auto modelPtr = GetComponent<ComponentModel>()) {
             switch (animCheck) {
                 case AnimCheck::GETTING_HIT:
                     // アニメーション終わったら
-                    if (modelPtr->GetAnimationTime() > 0.55f) {
-                        state     = EnemyState::IDLE;
+                    if (!modelPtr->IsPlaying()) {
+                        ChangeState(EnemyState::IDLE);
                         animCheck = AnimCheck::NONE;
                         isBusy    = false;
                     }
                     break;
                 case AnimCheck::ATTACKING:
-                    if (modelPtr->GetAnimationTime() > 2.2f) {
-                        isAttack    = false;
-                        isHitPlayer = false;
+                    if (!modelPtr->IsPlaying()) {
+                        isAttack = false;
+                        // isHitPlayer = false;
                         Wait(.5f);
                     }
                     break;
@@ -311,7 +308,7 @@ namespace LittleQuest {
     }
 
     void Enemy::ChangeState(EnemyState state) {
-        prevState = this->state;
+        prevState   = this->state;
         this->state = state;
     }
 

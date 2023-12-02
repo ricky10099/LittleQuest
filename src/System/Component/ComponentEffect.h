@@ -14,8 +14,7 @@
 USING_PTR(ComponentEffect);
 
 //! @brief モデルコンポーネントクラス
-class ComponentEffect final : public Component,
-                              public IMatrix<ComponentEffect> {
+class ComponentEffect final : public Component, public IMatrix<ComponentEffect> {
     public:
         BP_COMPONENT_TYPE(ComponentEffect, Component);
         ComponentEffect() { component_effect_count++; }
@@ -105,27 +104,18 @@ class ComponentEffect final : public Component,
             Loop,                 //!< ループ再生指定
         };
 
-        bool IsValid() const {
-            return effect_status_.is(EffectBit::Initialized);
-        }    //!< モデルが読み込まれているか?
+        bool IsValid() const { return effect_status_.is(EffectBit::Initialized); }    //!< モデルが読み込まれているか?
 
         //---------------------------------------------------------------------------
         //! @name IMatrixインターフェースの利用するための定義
         //---------------------------------------------------------------------------
         //@{
 
-        matrix& Matrix() override {
-            return effect_transform_;
-        }    //!< マトリクス取得
+        matrix& Matrix() override { return effect_transform_; }    //!< マトリクス取得
 
-        const matrix& GetMatrix() const override {
-            return effect_transform_;
-        }    //!< マトリクス取得
+        const matrix& GetMatrix() const override { return effect_transform_; }    //!< マトリクス取得
 
-        ComponentEffectPtr SharedThis() {
-            return std::dynamic_pointer_cast<ComponentEffect>(
-                shared_from_this());
-        }
+        ComponentEffectPtr SharedThis() { return std::dynamic_pointer_cast<ComponentEffect>(shared_from_this()); }
 
         //! @brief ワールドMatrixの取得
         //! @return 他のコンポーネントも含めた位置
@@ -168,23 +158,18 @@ class ComponentEffect final : public Component,
         //--------------------------------------------------------------------
         //@{
         CEREAL_SAVELOAD(arc, ver) {
-            arc(cereal::make_nvp("owner", owner_),
-                cereal::make_nvp("effect_transform", effect_transform_),
-                cereal::make_nvp("path", path_),
-                cereal::make_nvp("model_status", effect_status_.get()),
-                cereal::make_nvp("exist_effects_resource",
-                                 exist_effects_resource_));
+            arc(cereal::make_nvp("owner", owner_), cereal::make_nvp("effect_transform", effect_transform_),
+                cereal::make_nvp("path", path_), cereal::make_nvp("model_status", effect_status_.get()),
+                cereal::make_nvp("exist_effects_resource", exist_effects_resource_));
 
-            arc(cereal::make_nvp("Component",
-                                 cereal::base_class<Component>(this)));
+            arc(cereal::make_nvp("Component", cereal::base_class<Component>(this)));
 
             // エフェクトリソースは再度ロードをしなおす
             for (auto effect : exist_effects_resource_) {
                 // ロードしてリソース登録する
                 auto wname = HelperLib::String::ToWString(effect.first);
 
-                exist_effects_resource_[effect.first] =
-                    LoadEffekseerEffect(wname.data());
+                exist_effects_resource_[effect.first] = LoadEffekseerEffect(wname.data());
             }
 
             if (!path_.empty()) Load(path_);

@@ -3,6 +3,7 @@
 #include "player.h"
 
 #include <System/Scene.h>
+#include <System/Component/ComponentModel.h>
 
 namespace LittleQuest {
     USING_PTR(Enemy);
@@ -13,46 +14,21 @@ namespace LittleQuest {
         public:
             BP_OBJECT_TYPE(Enemy, Object);
 
-            //! @name システムオーバーライド系
-            // @{
-
             bool Init() override;
 
             void Update() override;
 
-            // 基本描画の後に処理します
             void LateDraw() override;
 
             void GUI() override;
 
             void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
 
-            // @}
-
             virtual void GetHit(int damage);
 
             float getDestroyTimer();
 
         protected:
-            virtual void Die();
-
-            virtual void Idle();
-
-            virtual bool FindPlayer();
-
-            virtual void BackToInitial(float3& move);
-
-            virtual void Patrol(float3& move);
-
-            virtual void Wait(float time);
-            virtual void Waiting(float deltaTime);
-
-            virtual void ChasePlayer(float3& move);
-            virtual void Attack();
-
-            virtual void CheckDamageAnimation();
-
-            //! @brief ステート
             enum class EnemyState {
                 IDLE,
                 PATROL,
@@ -69,6 +45,24 @@ namespace LittleQuest {
             bool isBusy;
             void ChangeState(EnemyState state);
 
+            virtual void Die();
+
+            virtual void Idle();
+
+            virtual bool FindPlayer();
+
+            virtual void BackToInitialPosition(float3& move);
+
+            virtual void Patrol(float3& move);
+
+            virtual void Wait(float time);
+            virtual void Waiting(float deltaTime);
+
+            virtual void ChasePlayer(float3& move);
+            virtual void Attack();
+
+            virtual void CheckAnimation();
+
             enum class AnimCheck {
                 NONE,
                 GETTING_HIT,
@@ -78,7 +72,8 @@ namespace LittleQuest {
 
             float3 spawnPos;
 
-            ObjectWeakPtr player;
+            ObjectWeakPtr pPlayer;
+            std::weak_ptr<ComponentModel> pModel;
 
             //巡行関係
             bool isPatrol;

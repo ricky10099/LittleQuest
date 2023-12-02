@@ -50,12 +50,9 @@ Texture::Texture(int grHandle) {
     //----------------------------------------------------------
     // D3Dリソース初期化
     //----------------------------------------------------------
-    d3d_resource_ = reinterpret_cast<ID3D11Resource*>(
-        const_cast<void*>(GetGraphID3D11Texture2D(handle_)));
-    d3d_rtv_ = reinterpret_cast<ID3D11RenderTargetView*>(
-        const_cast<void*>(GetGraphID3D11RenderTargetView(handle_)));
-    d3d_dsv_ = reinterpret_cast<ID3D11DepthStencilView*>(
-        const_cast<void*>(GetGraphID3D11DepthStencilView(handle_)));
+    d3d_resource_ = reinterpret_cast<ID3D11Resource*>(const_cast<void*>(GetGraphID3D11Texture2D(handle_)));
+    d3d_rtv_      = reinterpret_cast<ID3D11RenderTargetView*>(const_cast<void*>(GetGraphID3D11RenderTargetView(handle_)));
+    d3d_dsv_      = reinterpret_cast<ID3D11DepthStencilView*>(const_cast<void*>(GetGraphID3D11DepthStencilView(handle_)));
 }
 
 //---------------------------------------------------------------------------
@@ -82,8 +79,7 @@ Texture::Texture(std::string_view path) {
     // 非同期ロード
     SetUseASyncLoadFlag(true);
     handle_ = LoadGraph(texture_path.c_str());
-    SetASyncLoadFinishCallback(handle_, (void (*)(int, void*))finish_callback,
-                               this);
+    SetASyncLoadFinishCallback(handle_, (void (*)(int, void*))finish_callback, this);
     SetUseASyncLoadFlag(false);
 }
 
@@ -92,16 +88,16 @@ Texture::Texture(std::string_view path) {
 //---------------------------------------------------------------------------
 Texture::Texture(u32 width, u32 height, DXGI_FORMAT dxgi_format) {
     D3D11_TEXTURE2D_DESC desc{};
-    desc.Width      = width;                  // 幅
-    desc.Height     = height;                 // 高さ
-    desc.MipLevels  = 1;                      // ミップレベル段数
-    desc.ArraySize  = 1;                      // 配列数
-    desc.Format     = dxgi_format;            // ピクセルフォーマット
-    desc.SampleDesc = {1, 0};                 // マルチサンプルOFF
-    desc.Usage      = D3D11_USAGE_DEFAULT;    // GPUメモリに配置
-    desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;    // バインド用途(テクスチャ)
-    desc.CPUAccessFlags = 0;                        // CPUアクセス禁止
-    desc.MiscFlags      = 0;                        // フラグなし
+    desc.Width          = width;                         // 幅
+    desc.Height         = height;                        // 高さ
+    desc.MipLevels      = 1;                             // ミップレベル段数
+    desc.ArraySize      = 1;                             // 配列数
+    desc.Format         = dxgi_format;                   // ピクセルフォーマット
+    desc.SampleDesc     = {1, 0};                        // マルチサンプルOFF
+    desc.Usage          = D3D11_USAGE_DEFAULT;           // GPUメモリに配置
+    desc.BindFlags      = D3D11_BIND_SHADER_RESOURCE;    // バインド用途(テクスチャ)
+    desc.CPUAccessFlags = 0;                             // CPUアクセス禁止
+    desc.MiscFlags      = 0;                             // フラグなし
 
     // デプスバッファの場合はR32としてメモリ初期化
     if (dxgi_format == DXGI_FORMAT_D32_FLOAT) {
@@ -114,8 +110,7 @@ Texture::Texture(u32 width, u32 height, DXGI_FORMAT dxgi_format) {
     //-----------------------------------------------------
     // D3Dテクスチャを作成
     //-----------------------------------------------------
-    auto* d3d_device = reinterpret_cast<ID3D11Device*>(
-        const_cast<void*>(GetUseDirect3D11Device()));
+    auto* d3d_device = reinterpret_cast<ID3D11Device*>(const_cast<void*>(GetUseDirect3D11Device()));
 
     Microsoft::WRL::ComPtr<ID3D11Texture2D> d3d_texture_2d;
     d3d_device->CreateTexture2D(&desc, nullptr, &d3d_texture_2d);
@@ -148,8 +143,7 @@ bool Texture::initialize(ID3D11Resource* d3d_resource) {
     // ビューを初期化
     //----------------------------------------------------------
     {
-        auto* d3d_device = reinterpret_cast<ID3D11Device*>(
-            const_cast<void*>(GetUseDirect3D11Device()));
+        auto* d3d_device     = reinterpret_cast<ID3D11Device*>(const_cast<void*>(GetUseDirect3D11Device()));
         auto* d3d_texture_2d = reinterpret_cast<ID3D11Texture2D*>(d3d_resource);
 
         D3D11_TEXTURE2D_DESC desc;
@@ -159,17 +153,14 @@ bool Texture::initialize(ID3D11Resource* d3d_resource) {
         height_ = desc.Height;    // 高さ
 
         if (desc.BindFlags & D3D11_BIND_SHADER_RESOURCE) {
-            if (desc.Format
-                == DXGI_FORMAT_R32_TYPELESS) {    // デプスバッファ用の場合はR32_FLOATとして利用
+            if (desc.Format == DXGI_FORMAT_R32_TYPELESS) {    // デプスバッファ用の場合はR32_FLOATとして利用
                 D3D11_SHADER_RESOURCE_VIEW_DESC view_desc{};
                 view_desc.ViewDimension       = D3D11_SRV_DIMENSION_TEXTURE2D;
                 view_desc.Format              = DXGI_FORMAT_R32_FLOAT;
                 view_desc.Texture2D.MipLevels = 1;
-                d3d_device->CreateShaderResourceView(d3d_resource, &view_desc,
-                                                     &d3d_srv_);
+                d3d_device->CreateShaderResourceView(d3d_resource, &view_desc, &d3d_srv_);
             } else {
-                d3d_device->CreateShaderResourceView(d3d_resource, nullptr,
-                                                     &d3d_srv_);
+                d3d_device->CreateShaderResourceView(d3d_resource, nullptr, &d3d_srv_);
 
                 // ID3D11Texture2DからDxLibグラフィックハンドルを作成
                 if (handle_ == -1) {
@@ -179,8 +170,7 @@ bool Texture::initialize(ID3D11Resource* d3d_resource) {
         }
 
         if (desc.BindFlags & D3D11_BIND_RENDER_TARGET) {
-            d3d_device->CreateRenderTargetView(d3d_resource, nullptr,
-                                               &d3d_rtv_);
+            d3d_device->CreateRenderTargetView(d3d_resource, nullptr, &d3d_rtv_);
         }
 
         if (desc.BindFlags & D3D11_BIND_DEPTH_STENCIL) {
@@ -188,14 +178,12 @@ bool Texture::initialize(ID3D11Resource* d3d_resource) {
             view_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
             if (desc.Format == DXGI_FORMAT_R16_TYPELESS) {
                 view_desc.Format = DXGI_FORMAT_D16_UNORM;
-            } else if (desc.Format == DXGI_FORMAT_D32_FLOAT
-                       || desc.Format == DXGI_FORMAT_R32_TYPELESS) {
+            } else if (desc.Format == DXGI_FORMAT_D32_FLOAT || desc.Format == DXGI_FORMAT_R32_TYPELESS) {
                 view_desc.Format = DXGI_FORMAT_D32_FLOAT;
             } else {
                 view_desc.Format = DXGI_FORMAT_UNKNOWN;
             }
-            d3d_device->CreateDepthStencilView(d3d_resource, &view_desc,
-                                               &d3d_dsv_);
+            d3d_device->CreateDepthStencilView(d3d_resource, &view_desc, &d3d_dsv_);
         }
     }
     return true;
@@ -210,8 +198,7 @@ void Texture::on_initialize() {
     //----------------------------------------------------------
     // D3Dリソース初期化
     //----------------------------------------------------------
-    auto* d3d_resource = reinterpret_cast<ID3D11Resource*>(
-        const_cast<void*>(GetGraphID3D11Texture2D(handle_)));
+    auto* d3d_resource = reinterpret_cast<ID3D11Resource*>(const_cast<void*>(GetGraphID3D11Texture2D(handle_)));
 
     initialize(d3d_resource);
     need_initialize_ = false;

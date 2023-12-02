@@ -14,8 +14,7 @@ namespace LittleQuest {
             BP_OBJECT_TYPE(Zombie, Enemy);
 
             //! @brief 生成関数
-            static ZombiePtr Create(const float3& pos,
-                                    const float3& front = {0, 0, 1});
+            static ZombiePtr Create(const float3& pos, const float3& front = {0, 0, 1});
 
             //! @name システムオーバーライド系
             // @{

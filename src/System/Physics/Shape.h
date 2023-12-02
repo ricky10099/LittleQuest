@@ -44,9 +44,7 @@ namespace shape {
 
             //! コンストラクタ
             Sphere(const float3& position, f32 radius)
-                : shape::Base(shape::Type::Sphere),
-                  position_(position),
-                  radius_(radius) {}
+                : shape::Base(shape::Type::Sphere), position_(position), radius_(radius) {}
     };
 
     //===========================================================================
@@ -57,8 +55,7 @@ namespace shape {
             float3 extent_;    //!< 幅
 
             //! コンストラクタ
-            Box(const float3& extent)
-                : shape::Base(shape::Type::Box), extent_(extent) {}
+            Box(const float3& extent) : shape::Base(shape::Type::Box), extent_(extent) {}
     };
 
     //===========================================================================
@@ -71,9 +68,7 @@ namespace shape {
 
             //! コンストラクタ
             Capsule(f32 half_height, f32 radius)
-                : shape::Base(shape::Type::Capsule),
-                  half_height_(half_height),
-                  radius_(radius) {}
+                : shape::Base(shape::Type::Capsule), half_height_(half_height), radius_(radius) {}
     };
 
     //===========================================================================
@@ -85,10 +80,7 @@ namespace shape {
             f32 radius_;         //!< 半径
 
             //! コンストラクタ
-            Cylinder(f32 half_height, f32 radius)
-                : shape::Base(shape::Type::Box),
-                  half_height_(half_height),
-                  radius_(radius) {}
+            Cylinder(f32 half_height, f32 radius) : shape::Base(shape::Type::Box), half_height_(half_height), radius_(radius) {}
     };
 
     //===========================================================================

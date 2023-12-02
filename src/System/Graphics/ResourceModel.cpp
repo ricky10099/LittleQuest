@@ -43,13 +43,11 @@ ResourceModel::ResourceModel(std::string_view path) {
     //----------------------------------------------------------
     // 非同期読み込み
     //----------------------------------------------------------
-    SetUseASyncLoadFlag(
-        cache_result);    // キャッシュファイルが無かった場合はブロッキングロードにする
+    SetUseASyncLoadFlag(cache_result);    // キャッシュファイルが無かった場合はブロッキングロードにする
     {
         // モデルの読み込み
         mv1_handle_ = MV1LoadModel(model_path.c_str());
-        SetASyncLoadFinishCallback(mv1_handle_,
-                                   (void (*)(int, void*))finish_callback, this);
+        SetASyncLoadFinishCallback(mv1_handle_, (void (*)(int, void*))finish_callback, this);
     }
     SetUseASyncLoadFlag(false);
 };

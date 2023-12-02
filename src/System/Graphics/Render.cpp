@@ -8,11 +8,9 @@
 
 namespace {
 
-    std::shared_ptr<Texture> texture_back_buffer_;    //!< バックバッファ
-    std::shared_ptr<Texture>
-        texture_depth_stencil_;    //!< デフォルトのデプスステンシル
-    std::shared_ptr<ShaderPs>
-        shader_ps_texture_;    //!< 通常コピー用のシェーダー
+    std::shared_ptr<Texture> texture_back_buffer_;      //!< バックバッファ
+    std::shared_ptr<Texture> texture_depth_stencil_;    //!< デフォルトのデプスステンシル
+    std::shared_ptr<ShaderPs> shader_ps_texture_;       //!< 通常コピー用のシェーダー
 
     TargetDesc target_desc_;    //!< 現在のRenderTarget情報
 
@@ -25,10 +23,8 @@ bool RenderInit() {
     //----------------------------------------------------------
     // バックバッファを取得
     //----------------------------------------------------------
-    auto* d3d_back_buffer = static_cast<ID3D11Texture2D*>(
-        const_cast<void*>(GetUseDirect3D11BackBufferTexture2D()));
-    auto* d3d_depth_stencil = static_cast<ID3D11Texture2D*>(
-        const_cast<void*>(GetUseDirect3D11DepthStencilTexture2D()));
+    auto* d3d_back_buffer   = static_cast<ID3D11Texture2D*>(const_cast<void*>(GetUseDirect3D11BackBufferTexture2D()));
+    auto* d3d_depth_stencil = static_cast<ID3D11Texture2D*>(const_cast<void*>(GetUseDirect3D11DepthStencilTexture2D()));
 
     texture_back_buffer_   = std::make_shared<Texture>(d3d_back_buffer);
     texture_depth_stencil_ = std::make_shared<Texture>(d3d_depth_stencil);
@@ -54,16 +50,14 @@ void RenderExit() {
 //! D3Dデバイスを取得
 //---------------------------------------------------------------------------
 ID3D11Device* GetD3DDevice() {
-    return reinterpret_cast<ID3D11Device*>(
-        const_cast<void*>(GetUseDirect3D11Device()));
+    return reinterpret_cast<ID3D11Device*>(const_cast<void*>(GetUseDirect3D11Device()));
 }
 
 //---------------------------------------------------------------------------
 //! D3Dデバイスコンテキストを取得
 //---------------------------------------------------------------------------
 ID3D11DeviceContext* GetD3DDeviceContext() {
-    return reinterpret_cast<ID3D11DeviceContext*>(
-        const_cast<void*>(GetUseDirect3D11DeviceContext()));
+    return reinterpret_cast<ID3D11DeviceContext*>(const_cast<void*>(GetUseDirect3D11DeviceContext()));
 }
 
 //---------------------------------------------------------------------------
@@ -112,16 +106,14 @@ void ClearColor(const Texture* texture, const float4& clear_color) {
 //! デプスバッファをクリア
 //---------------------------------------------------------------------------
 void ClearDepth(const Texture* texture, f32 depth_value) {
-    GetD3DDeviceContext()->ClearDepthStencilView(
-        texture->dsv(), D3D11_CLEAR_DEPTH, depth_value, 0);
+    GetD3DDeviceContext()->ClearDepthStencilView(texture->dsv(), D3D11_CLEAR_DEPTH, depth_value, 0);
 }
 
 //---------------------------------------------------------------------------
 //! ステンシルバッファをクリア
 //---------------------------------------------------------------------------
 void ClearStencil(const Texture* texture, u8 stencil_value) {
-    GetD3DDeviceContext()->ClearDepthStencilView(
-        texture->dsv(), D3D11_CLEAR_STENCIL, stencil_value, 0);
+    GetD3DDeviceContext()->ClearDepthStencilView(texture->dsv(), D3D11_CLEAR_STENCIL, stencil_value, 0);
 }
 
 //---------------------------------------------------------------------------
@@ -139,23 +131,19 @@ void SetRenderTarget(const TargetDesc& desc) {
     target_desc_ = desc;
 
     // カラーターゲットを配列として取得
-    std::array<ID3D11RenderTargetView*, D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT>
-        rtvs;
+    std::array<ID3D11RenderTargetView*, D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT> rtvs;
     for (u32 i = 0; i < desc.color_count_; ++i) {
-        rtvs[i] =
-            desc.color_targets_[i] ? desc.color_targets_[i]->rtv() : nullptr;
+        rtvs[i] = desc.color_targets_[i] ? desc.color_targets_[i]->rtv() : nullptr;
     }
 
     // デプスバッファ
-    ID3D11DepthStencilView* dsv =
-        desc.depth_stencil_ ? desc.depth_stencil_->dsv() : nullptr;
+    ID3D11DepthStencilView* dsv = desc.depth_stencil_ ? desc.depth_stencil_->dsv() : nullptr;
 
     // [DxLib] DXライブラリ内部のプリミティブバッファをフラッシュさせる
     RenderVertex();
 
     // RenderTarget設定
-    GetD3DDeviceContext()->OMSetRenderTargets(desc.color_count_, rtvs.data(),
-                                              dsv);
+    GetD3DDeviceContext()->OMSetRenderTargets(desc.color_count_, rtvs.data(), dsv);
 
     //----------------------------------------------------------
     // ビューポートとシザー領域を更新
@@ -165,8 +153,7 @@ void SetRenderTarget(const TargetDesc& desc) {
         u32 w = desc.color_targets_[0]->width();
         u32 h = desc.color_targets_[0]->height();
 
-        D3D11_VIEWPORT viewport{
-            0, 0, static_cast<f32>(w), static_cast<f32>(h), 0.0f, 1.0f};
+        D3D11_VIEWPORT viewport{0, 0, static_cast<f32>(w), static_cast<f32>(h), 0.0f, 1.0f};
         GetD3DDeviceContext()->RSSetViewports(1, &viewport);
 
         D3D11_RECT rect{0, 0, static_cast<LONG>(w), static_cast<LONG>(h)};
@@ -184,8 +171,7 @@ void SetRenderTarget(Texture* color_target, Texture* depth_stencil) {
 //---------------------------------------------------------------------------
 //! RenderTargetを設定(Multiple Render Target)
 //---------------------------------------------------------------------------
-void SetRenderTarget(u32 color_count, Texture** color_targets,
-                     Texture* depth_stencil) {
+void SetRenderTarget(u32 color_count, Texture** color_targets, Texture* depth_stencil) {
     TargetDesc desc;
 
     desc.color_count_ = color_count;
@@ -216,15 +202,14 @@ Texture* GetDepthStencil() {
 //---------------------------------------------------------------------------
 //! RenderTargetにイメージをコピー
 //---------------------------------------------------------------------------
-void CopyToRenderTarget(Texture* dest_render_target, Texture* source_texture,
-                        int shader_ps_handle) {
+void CopyToRenderTarget(Texture* dest_render_target, Texture* source_texture, int shader_ps_handle) {
     // 今のRenderTarget情報を保存しておく(関数終了時に復元するため)
     auto current_target_desc = GetRenderTarget();
 
     // 描画先を変更
     SetRenderTarget(dest_render_target);
 
-    SetDrawMode(DX_DRAWMODE_BILINEAR);    // テクスチャをバイリニア補間
+    SetDrawMode(DX_DRAWMODE_BILINEAR);             // テクスチャをバイリニア補間
     SetTextureAddressMode(DX_TEXADDRESS_CLAMP);    // テクスチャを繰り返しなし
 
     //----------------------------------------------------------
@@ -249,20 +234,20 @@ void CopyToRenderTarget(Texture* dest_render_target, Texture* source_texture,
         VERTEX2DSHADER v[3]{};
 
         // 頂点
-        v[0].pos = {0.0f, -h, 0.0f};    // 2D座標
-        v[0].rhw = 1.0f;    // rhw = 1.0f 初期化は2D描画に必須
+        v[0].pos = {0.0f, -h, 0.0f};                  // 2D座標
+        v[0].rhw = 1.0f;                              // rhw = 1.0f 初期化は2D描画に必須
         v[0].dif = GetColorU8(255, 255, 255, 255);    // カラー
         v[0].u   = 0.0f;                              // テクスチャ座標 U
         v[0].v   = -1.0f;                             // テクスチャ座標 V
 
-        v[1].pos = {0.0f, h, 0.0f};    // 2D座標
-        v[1].rhw = 1.0f;    // rhw = 1.0f 初期化は2D描画に必須
+        v[1].pos = {0.0f, h, 0.0f};                   // 2D座標
+        v[1].rhw = 1.0f;                              // rhw = 1.0f 初期化は2D描画に必須
         v[1].dif = GetColorU8(255, 255, 255, 255);    // カラー
         v[1].u   = 0.0f;                              // テクスチャ座標 U
         v[1].v   = 1.0f;                              // テクスチャ座標 V
 
-        v[2].pos = {w * 2.0f, h, 0.0f};    // 2D座標
-        v[2].rhw = 1.0f;    // rhw = 1.0f 初期化は2D描画に必須
+        v[2].pos = {w * 2.0f, h, 0.0f};               // 2D座標
+        v[2].rhw = 1.0f;                              // rhw = 1.0f 初期化は2D描画に必須
         v[2].dif = GetColorU8(255, 255, 255, 255);    // カラー
         v[2].u   = 2.0f;                              // テクスチャ座標 U
         v[2].v   = 1.0f;                              // テクスチャ座標 V
@@ -271,8 +256,7 @@ void CopyToRenderTarget(Texture* dest_render_target, Texture* source_texture,
         SetUseTextureToShader(0, *source_texture);
 
         // 使用するピクセルシェーダーを設定 (2Dの場合は頂点シェーダー不要)
-        int ps =
-            (shader_ps_handle != -1) ? shader_ps_handle : *shader_ps_texture_;
+        int ps = (shader_ps_handle != -1) ? shader_ps_handle : *shader_ps_texture_;
         SetUsePixelShader(ps);
 
         // 描画

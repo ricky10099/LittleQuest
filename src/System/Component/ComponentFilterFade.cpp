@@ -17,7 +17,7 @@ namespace {
     struct Parameter {
             float4 resolution_;    //!< 解像度 [幅, 高さ, 1.0f/幅, 1.0f/高さ]
             float alpha_;          //!< フェードアルファ値(0.0f-1.0f)
-            u32 mosaic_width_;    //!< モザイクのピクセル幅
+            u32 mosaic_width_;     //!< モザイクのピクセル幅
     };
 
 }    // namespace
@@ -32,8 +32,7 @@ ComponentFilterFade::ComponentFilterFade() {
     // ワークテクスチャ作成
     //! @todo
     //! ここで作成するワークテクスチャは一時バッファのため、全体で共有利用するほうが良い。
-    texture_work_ = std::make_shared<Texture>(WINDOW_W, WINDOW_H,
-                                              DXGI_FORMAT_R8G8B8A8_UNORM);
+    texture_work_ = std::make_shared<Texture>(WINDOW_W, WINDOW_H, DXGI_FORMAT_R8G8B8A8_UNORM);
 
     //-----------------------------------------------
     // 定数バッファを作成
@@ -56,26 +55,21 @@ void ComponentFilterFade::Init() {
         //------------------------------------------------------
         // シェーダー適用コピーして描き戻す
         //------------------------------------------------------
-        SetWriteZBufferFlag(
-            false);    // フィルター用にデプスバッファ更新を無効化
+        SetWriteZBufferFlag(false);    // フィルター用にデプスバッファ更新を無効化
 
         // 定数バッファ更新
-        auto* p = reinterpret_cast<Parameter*>(
-            GetBufferShaderConstantBuffer(parameter_cb_));
+        auto* p = reinterpret_cast<Parameter*>(GetBufferShaderConstantBuffer(parameter_cb_));
         {
-            p->resolution_ =
-                float4(WINDOW_W, WINDOW_H, 1.0f / WINDOW_W, 1.0f / WINDOW_H);
-            p->alpha_ = fade_alpha_;
+            p->resolution_ = float4(WINDOW_W, WINDOW_H, 1.0f / WINDOW_W, 1.0f / WINDOW_H);
+            p->alpha_      = fade_alpha_;
 
             // モザイク幅
-            f32 mosaic_factor =
-                1.0f - fade_alpha_;    // フェードアウトすると粗くなっていく
-            f32 mosaic_width = mosaic_width_ * mosaic_factor;
+            f32 mosaic_factor = 1.0f - fade_alpha_;    // フェードアウトすると粗くなっていく
+            f32 mosaic_width  = mosaic_width_ * mosaic_factor;
 
             p->mosaic_width_ = std::max(1u, static_cast<u32>(mosaic_width));
 
-            UpdateShaderConstantBuffer(
-                parameter_cb_);    // シェーダー用定数バッファハンドルの定数バッファへの変更を適用する
+            UpdateShaderConstantBuffer(parameter_cb_);    // シェーダー用定数バッファハンドルの定数バッファへの変更を適用する
         }
 
         // 定数バッファをb4に設定
@@ -144,10 +138,8 @@ void ComponentFilterFade::GUI() {
             //--------------------------------------------------
             // 調整項目を表示
             //--------------------------------------------------
-            ImGui::SliderFloat(u8"フェード係数", &fade_alpha_, 0.0f, 1.0f,
-                               "%1.2f");
-            ImGui::DragInt(u8"モザイクの最大幅", &mosaic_width_, 1.0f, 1, 256,
-                           "%3.1f");
+            ImGui::SliderFloat(u8"フェード係数", &fade_alpha_, 0.0f, 1.0f, "%1.2f");
+            ImGui::DragInt(u8"モザイクの最大幅", &mosaic_width_, 1.0f, 1, 256, "%3.1f");
 
             ImGui::TreePop();
         }

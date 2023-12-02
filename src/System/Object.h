@@ -91,21 +91,18 @@ class ClassObjectType : public Type {
 //! BP_OBJECT_IMPL(B, u8"クラスB")
 //! @endcode
 //---------------------------------------------------------------------------
-#define BP_OBJECT_BASE_IMPL(CLASS, DESC_NAME)                                \
-    /*! 型情報の実体 */                                                \
-    ClassObjectType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, \
-                                           nullptr);
+#define BP_OBJECT_BASE_IMPL(CLASS, DESC_NAME) \
+    /*! 型情報の実体 */                 \
+    ClassObjectType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, nullptr);
 
-#define BP_OBJECT_IMPL(CLASS, DESC_NAME)                                     \
-    /*! 型情報の実体 */                                                \
-    ClassObjectType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, \
-                                           &Super::TypeInfo);
+#define BP_OBJECT_IMPL(CLASS, DESC_NAME) \
+    /*! 型情報の実体 */            \
+    ClassObjectType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, &Super::TypeInfo);
 
 //---------------------------------------------------------------------------
 //! オブジェクトクラス
 //---------------------------------------------------------------------------
-class Object : public std::enable_shared_from_this<Object>,
-               public IMatrix<Object> {
+class Object : public std::enable_shared_from_this<Object>, public IMatrix<Object> {
         friend class Scene;
 
     public:
@@ -128,8 +125,7 @@ class Object : public std::enable_shared_from_this<Object>,
         virtual void PostDraw();      //!< 描画後処理
         virtual void PrePhysics();    //!< 物理シミュレーション前処理
 
-        virtual void
-        InitSerialize();    //!< シリアライズでもどらないユーザー処理関数などを設定
+        virtual void InitSerialize();    //!< シリアライズでもどらないユーザー処理関数などを設定
 
         void UseWarp();
         //----------------------------------------------------------
@@ -238,8 +234,7 @@ class Object : public std::enable_shared_from_this<Object>,
 
         //! @brief コンポーネントのヒットコールバック
         //! @param hitInfo ヒット情報
-        virtual void OnHit(
-            [[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
+        virtual void OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
             if (auto cmp = GetComponent<ComponentTransform>()) {
                 cmp->AddTranslate(hitInfo.push_);
             }
@@ -247,10 +242,8 @@ class Object : public std::enable_shared_from_this<Object>,
             // @todo 重力加速も初期化する
 #pragma warning(disable: 26813)
             // ここは&で参照すべき所ではない
-            if (hitInfo.hit_collision_->GetCollisionGroup()
-                == ComponentCollision::CollisionGroup::GROUND) {
-                hitInfo.collision_->SetCollisionStatus(
-                    ComponentCollision::CollisionBit::IsGround, true);
+            if (hitInfo.hit_collision_->GetCollisionGroup() == ComponentCollision::CollisionGroup::GROUND) {
+                hitInfo.collision_->SetCollisionStatus(ComponentCollision::CollisionBit::IsGround, true);
             }
 #pragma warning(default: 26813)
         }
@@ -281,23 +274,20 @@ class Object : public std::enable_shared_from_this<Object>,
          * @param prio      処理優先
          * @return          プロセス
          */
-        SlotProc& SetProc(const std::string& proc_name, ProcTimingFunc func,
-                          ProcTiming timing = ProcTiming::Update,
-                          Priority prio     = Priority::NORMAL) {
+        SlotProc& SetProc(const std::string& proc_name, ProcTimingFunc func, ProcTiming timing = ProcTiming::Update,
+                          Priority prio = Priority::NORMAL) {
             auto& proc = GetProc(proc_name, timing);
-            if (proc_name != proc.GetName() || timing != proc.GetTiming()
-                || prio != proc.GetPriority() || proc.IsDirty()) {
+            if (proc_name != proc.GetName() || timing != proc.GetTiming() || prio != proc.GetPriority() || proc.IsDirty()) {
                 proc.SetProc(proc_name, timing, prio, func);
             }
             return proc;
         }
 
-        SlotProc& SetAddProc(std::shared_ptr<Callable> func,
-                             ProcTiming timing = ProcTiming::Draw,
-                             Priority prio     = Priority::NORMAL) {
+        SlotProc& SetAddProc(std::shared_ptr<Callable> func, ProcTiming timing = ProcTiming::Draw,
+                             Priority prio = Priority::NORMAL) {
             auto& proc = GetProc(func->GetName(), timing);
-            if (func->GetName() != proc.GetName() || timing != proc.GetTiming()
-                || prio != proc.GetPriority() || proc.IsDirty()) {
+            if (func->GetName() != proc.GetName() || timing != proc.GetTiming() || prio != proc.GetPriority()
+                || proc.IsDirty()) {
                 proc.SetAddProc(func, timing, prio);
             }
             return proc;
@@ -400,8 +390,7 @@ class Object : public std::enable_shared_from_this<Object>,
         //@{
         CEREAL_SAVELOAD(arc, ver) {
             arc(CEREAL_NVP(name_));
-            arc(CEREAL_NVP(name_default_), CEREAL_NVP(status_.get()),
-                CEREAL_NVP(proc_timings_));
+            arc(CEREAL_NVP(name_default_), CEREAL_NVP(status_.get()), CEREAL_NVP(proc_timings_));
 
             arc(CEREAL_NVP(components_));
             arc(CEREAL_NVP(gravity_));
@@ -426,8 +415,7 @@ std::shared_ptr<T> Object::AddComponent(Args... args) {
     // 同じものが存在する場合はエラーとする
     auto cmp = GetComponent<T>();
     if (cmp != nullptr) {
-        if (!cmp->status_.is(Component::StatusBit::SameType))
-            assert(!"このComponentは同じタイプを許容しません");
+        if (!cmp->status_.is(Component::StatusBit::SameType)) assert(!"このComponentは同じタイプを許容しません");
     }
 
     auto ptr = new T();

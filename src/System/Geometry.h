@@ -19,8 +19,7 @@ class Ray {
         //! コンストラクタ
         //! @param  [in]    position    始点座標
         //! @param  [in]    dir         レイの方向ベクトル
-        Ray(const float3& position, const float3& dir)
-            : position_(position), dir_(dir) {}
+        Ray(const float3& position, const float3& dir) : position_(position), dir_(dir) {}
 
         //! 座標を取得
         //! @param  [in]    t           パラメーターt

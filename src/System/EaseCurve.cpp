@@ -50,8 +50,7 @@ namespace {
 
     //---------------------------------------------------------------------------
     f32 easeInOutCubic(f32 t) {
-        return t < 0.5f ? 4.0f * t * t * t
-                        : 1.0f - powf(-2.0f * t + 2.0f, 3.0f) / 2.0f;
+        return t < 0.5f ? 4.0f * t * t * t : 1.0f - powf(-2.0f * t + 2.0f, 3.0f) / 2.0f;
     }
 
     //---------------------------------------------------------------------------
@@ -203,11 +202,9 @@ namespace {
     //---------------------------------------------------------------------------
     f32 easeInOutBounce(f32 t) {
         if (t < 0.5f) {
-            return 8.0f * powf(2, 8.0f * (t - 1.0f))
-                   * fabsf(sinf(t * PI * 7.0f));
+            return 8.0f * powf(2, 8.0f * (t - 1.0f)) * fabsf(sinf(t * PI * 7.0f));
         } else {
-            return 1.0f
-                   - 8.0f * powf(2.0f, -8.0f * t) * fabsf(sinf(t * PI * 7.0f));
+            return 1.0f - 8.0f * powf(2.0f, -8.0f * t) * fabsf(sinf(t * PI * 7.0f));
         }
     }
 
@@ -225,14 +222,11 @@ size_t GetEaseFunctionMaxCount() {
 //---------------------------------------------------------------------------
 std::function<f32(f32)> GetEaseFunction(EaseType type) {
     static std::function<f32(f32)> function[] = {
-        easeInSine,     easeOutSine,     easeInOutSine,    easeInQuad,
-        easeOutQuad,    easeInOutQuad,   easeInCubic,      easeOutCubic,
-        easeInOutCubic, easeInQuart,     easeOutQuart,     easeInOutQuart,
-        easeInQuint,    easeOutQuint,    easeInOutQuint,   easeInExpo,
-        easeOutExpo,    easeInOutExpo,   easeInCirc,       easeOutCirc,
-        easeInOutCirc,  easeInBack,      easeOutBack,      easeInOutBack,
-        easeInElastic,  easeOutElastic,  easeInOutElastic, easeInBounce,
-        easeOutBounce,  easeInOutBounce,
+        easeInSine,    easeOutSine,    easeInOutSine,    easeInQuad,   easeOutQuad,   easeInOutQuad,
+        easeInCubic,   easeOutCubic,   easeInOutCubic,   easeInQuart,  easeOutQuart,  easeInOutQuart,
+        easeInQuint,   easeOutQuint,   easeInOutQuint,   easeInExpo,   easeOutExpo,   easeInOutExpo,
+        easeInCirc,    easeOutCirc,    easeInOutCirc,    easeInBack,   easeOutBack,   easeInOutBack,
+        easeInElastic, easeOutElastic, easeInOutElastic, easeInBounce, easeOutBounce, easeInOutBounce,
     };
     return function[static_cast<u32>(type)];
 }

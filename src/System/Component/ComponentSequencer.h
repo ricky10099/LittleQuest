@@ -31,21 +31,15 @@ class SequenceObject : public IMatrix<SequenceObject> {
 
         //! @brief 1フレーム前のワールドMatrixの取得
         //! @return 他のコンポーネントも含めた位置
-        virtual const matrix GetOldWorldMatrix() const {
-            return object_matrix_;
-        }
+        virtual const matrix GetOldWorldMatrix() const { return object_matrix_; }
 
     public:
         std::string GetName() {
             // ImGuiにてname_の長さが変化するための対処
-            return name_ + "##obj"
-                   + std::to_string(reinterpret_cast<uint64_t>(this));
+            return name_ + "##obj" + std::to_string(reinterpret_cast<uint64_t>(this));
         }
 
-        std::string GetNameLabel() {
-            return "NAME##name"
-                   + std::to_string(reinterpret_cast<uint64_t>(this));
-        }
+        std::string GetNameLabel() { return "NAME##name" + std::to_string(reinterpret_cast<uint64_t>(this)); }
 
         bool IsOpen() { return open_; }
 
@@ -92,7 +86,7 @@ class SequenceObject : public IMatrix<SequenceObject> {
         //! @brief ギズモ番号
         int guizmo_index_ = -1;
 
-        std::string name_{};    //!< オブジェクトの名前
+        std::string name_{};                       //!< オブジェクトの名前
         std::vector<uint32_t> position_keys_{};    //!< ポジションキー
         std::vector<uint32_t> rotation_keys_{};    //!< ローテーションキー
         std::vector<uint32_t> scale_keys_{};       //!< スケールキー
@@ -101,14 +95,14 @@ class SequenceObject : public IMatrix<SequenceObject> {
         std::vector<float3> rotation_values_{};    //!< ローテーション値
         std::vector<float3> scale_values_{};       //!< スケール値
 
-        std::vector<uint32_t> animation_keys_{};    //!< アニメーションキー
+        std::vector<uint32_t> animation_keys_{};        //!< アニメーションキー
         std::vector<AnimObject> animation_values_{};    //!< アニメーション値
 
         std::string animation_name_{};       //!< アニメーション名
         int animation_frame_old_ = -1;       //!< 前のフレーム
         int animation_frame_     = -1;       //!< 現在のフレーム
         bool animation_loop_     = false;    //!< ループするかの設定
-        bool animation_change_ = false;    //!< アニメーションが変わったか
+        bool animation_change_   = false;    //!< アニメーションが変わったか
 
         std::vector<uint32_t> effect_keys_{};        //!< エフェクトキー
         std::vector<AnimObject> effect_values_{};    //!< エフェクト値
@@ -132,17 +126,13 @@ class SequenceObject : public IMatrix<SequenceObject> {
         CEREAL_SAVELOAD(arc, ver) {
             //! ロードセーブする変数
             arc(CEREAL_NVP(open_),    //
-                CEREAL_NVP(name_), CEREAL_NVP(position_keys_),
-                CEREAL_NVP(rotation_keys_), CEREAL_NVP(scale_keys_),
-                CEREAL_NVP(position_values_), CEREAL_NVP(rotation_values_),
-                CEREAL_NVP(scale_values_), CEREAL_NVP(animation_keys_),
-                CEREAL_NVP(animation_values_), CEREAL_NVP(scale_values_),
-                CEREAL_NVP(scale_values_), CEREAL_NVP(animation_name_),
-                CEREAL_NVP(animation_frame_old_), CEREAL_NVP(animation_frame_),
-                CEREAL_NVP(animation_change_), CEREAL_NVP(animation_loop_),
-                CEREAL_NVP(effect_number_), CEREAL_NVP(effect_frame_old_),
-                CEREAL_NVP(effect_frame_), CEREAL_NVP(effect_change_),
-                CEREAL_NVP(effect_loop_), CEREAL_NVP(object_matrix_));
+                CEREAL_NVP(name_), CEREAL_NVP(position_keys_), CEREAL_NVP(rotation_keys_), CEREAL_NVP(scale_keys_),
+                CEREAL_NVP(position_values_), CEREAL_NVP(rotation_values_), CEREAL_NVP(scale_values_),
+                CEREAL_NVP(animation_keys_), CEREAL_NVP(animation_values_), CEREAL_NVP(scale_values_),
+                CEREAL_NVP(scale_values_), CEREAL_NVP(animation_name_), CEREAL_NVP(animation_frame_old_),
+                CEREAL_NVP(animation_frame_), CEREAL_NVP(animation_change_), CEREAL_NVP(animation_loop_),
+                CEREAL_NVP(effect_number_), CEREAL_NVP(effect_frame_old_), CEREAL_NVP(effect_frame_),
+                CEREAL_NVP(effect_change_), CEREAL_NVP(effect_loop_), CEREAL_NVP(object_matrix_));
         }
 };
 
@@ -189,17 +179,13 @@ class ComponentSequencer : public Component {
         //! @brief シーケンサのステータス設定
         //! @param bit シーケンサBit
         //! @param on 有効無効の設定
-        void SetSequencerStatus(SequencerBit bit, bool on) {
-            sequencer_status_.set(bit, on);
-        }
+        void SetSequencerStatus(SequencerBit bit, bool on) { sequencer_status_.set(bit, on); }
 
         //! @brief シーケンサのステータスの取得
         //! @param bit シーケンサBit
         //! @retval true  : 有効
         //! @retval false : 無効
-        bool GetSequencerStatus(SequencerBit bit) const {
-            return sequencer_status_.is(bit);
-        }
+        bool GetSequencerStatus(SequencerBit bit) const { return sequencer_status_.is(bit); }
 
 #if 0
 	uint32_t GetStartFrame()
@@ -249,8 +235,7 @@ class ComponentSequencer : public Component {
         CEREAL_SAVELOAD(arc, ver) {
             arc(cereal::make_nvp("owner", owner_));    //< オーナー
             arc(cereal::make_nvp("sequencer_status", sequencer_status_.get()));
-            arc(CEREAL_NVP(start_frame_), CEREAL_NVP(end_frame_),
-                CEREAL_NVP(current_frame_));
+            arc(CEREAL_NVP(start_frame_), CEREAL_NVP(end_frame_), CEREAL_NVP(current_frame_));
             arc(CEREAL_NVP(objects_));
         }
 

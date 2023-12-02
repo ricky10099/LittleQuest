@@ -68,8 +68,7 @@ class Model {
         //! (nullptrで無効化)
         //! @param  [in]    override_ps  上書きするピクセルシェーダー
         //! (nullptrで無効化)
-        void render(ShaderVs* override_vs = nullptr,
-                    ShaderPs* override_ps = nullptr);
+        void render(ShaderVs* override_vs = nullptr, ShaderPs* override_ps = nullptr);
 
         //  メッシュ番号指定で描画
         //! @param  [in]    mesh_index   メッシュ番号
@@ -77,8 +76,7 @@ class Model {
         //! (nullptrで無効化)
         //! @param  [in]    override_ps  上書きするピクセルシェーダー
         //! (nullptrで無効化)
-        void renderByMesh(s32 mesh_index, ShaderVs* override_vs = nullptr,
-                          ShaderPs* override_ps = nullptr);
+        void renderByMesh(s32 mesh_index, ShaderVs* override_vs = nullptr, ShaderPs* override_ps = nullptr);
 
         //@}
         //----------------------------------------------------------
@@ -104,8 +102,7 @@ class Model {
         //! @param  [in]    type    テクスチャの種類
         //! @param  [in]    texture
         //! オーバーライドするテクスチャ(nullptrでオーバーライド解除)
-        void overrideTexture(Model::TextureType type,
-                             std::shared_ptr<Texture>& texture);
+        void overrideTexture(Model::TextureType type, std::shared_ptr<Texture>& texture);
 
         //@}
         //----------------------------------------------------------
@@ -153,36 +150,28 @@ class Model {
 
     private:
         std::shared_ptr<ResourceModel> resource_model_;    //!< モデルリソース
-        int mv1_handle_ = -1;        //!< [DxLib] MV1モデルハンドル
-        std::wstring path_;          //!< ファイルパス
-        bool use_shader_  = true;    //!< シェーダーを使うかどうか
-        matrix mat_world_ = matrix::identity();    //!< ワールド行列
-        Animation* animation_ =
-            nullptr;    //!< 関連付けられているアニメーション
-        bool need_initialize_ = true;    //!< 初期化要求フラグ true:初期化が必要
-                                         //!< false:初期化済または完了で不要
+        int mv1_handle_ = -1;                              //!< [DxLib] MV1モデルハンドル
+        std::wstring path_;                                //!< ファイルパス
+        bool use_shader_      = true;                      //!< シェーダーを使うかどうか
+        matrix mat_world_     = matrix::identity();        //!< ワールド行列
+        Animation* animation_ = nullptr;                   //!< 関連付けられているアニメーション
+        bool need_initialize_ = true;                      //!< 初期化要求フラグ true:初期化が必要
+                                                           //!< false:初期化済または完了で不要
 
         //! 上書きするテクスチャ
-        std::array<std::shared_ptr<Texture>,
-                   static_cast<s32>(Model::TextureType::CountMax)>
-            overridedTextures_;
+        std::array<std::shared_ptr<Texture>, static_cast<s32>(Model::TextureType::CountMax)> overridedTextures_;
 
         //----------------------------------------------------------
         //! @name   共用で使用するリソース
         //----------------------------------------------------------
         //@{
 
-        static inline u32 ref_counter_ = 0;    //!< 参照カウンター
-        static inline std::shared_ptr<ShaderVs>
-            shader_vs_;    //!< 頂点シェーダー
-        static inline std::shared_ptr<ShaderPs>
-            shader_ps_;    //!< ピクセルシェーダー
-        static inline std::shared_ptr<Texture>
-            tex_null_white_;    //!< 白Nullテクスチャ (1,1,1,1)
-        static inline std::shared_ptr<Texture>
-            tex_null_black_;    //!< 黒Nullテクスチャ (0,0,0,1)
-        static inline std::shared_ptr<Texture>
-            tex_null_normal_;    //!< 法線Nullテクスチャ
+        static inline u32 ref_counter_ = 0;                         //!< 参照カウンター
+        static inline std::shared_ptr<ShaderVs> shader_vs_;         //!< 頂点シェーダー
+        static inline std::shared_ptr<ShaderPs> shader_ps_;         //!< ピクセルシェーダー
+        static inline std::shared_ptr<Texture> tex_null_white_;     //!< 白Nullテクスチャ (1,1,1,1)
+        static inline std::shared_ptr<Texture> tex_null_black_;     //!< 黒Nullテクスチャ (0,0,0,1)
+        static inline std::shared_ptr<Texture> tex_null_normal_;    //!< 法線Nullテクスチャ
 
         //@}
 };

@@ -22,9 +22,8 @@ namespace LittleQuest {
         col->SetRadius(1.0f);
         col->SetMass(0.0f);
         col->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
-        col->SetHitCollisionGroup(
-            (u32)ComponentCollision::CollisionGroup::GROUND
-            | (u32)ComponentCollision::CollisionGroup::WALL);
+        col->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND
+                                  | (u32)ComponentCollision::CollisionGroup::WALL);
 
         // スプリングアーム設定
         auto spring_arm = AddComponent<ComponentSpringArm>();

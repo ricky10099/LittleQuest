@@ -8,8 +8,7 @@
 //---------------------------------------------------------------------------
 //! 初期化
 //---------------------------------------------------------------------------
-bool FileWatcher::initialize(const wchar_t* path,
-                             std::function<void(const wchar_t*)> callback) {
+bool FileWatcher::initialize(const wchar_t* path, std::function<void(const wchar_t*)> callback) {
     callback_ = callback;
 
     // フルパスに変換
@@ -24,16 +23,13 @@ bool FileWatcher::initialize(const wchar_t* path,
     // 対象のディレクトリを監視用にオープンする。
     // 共有ディレクトリ使用可、対象フォルダを削除可
     // 非同期I/O使用
-    handle_directory_ = CreateFileW(
-        full_path_.c_str(),     // [in] 監視先パス
-        FILE_LIST_DIRECTORY,    // [in] 要求アクセス
-        FILE_SHARE_READ | FILE_SHARE_WRITE
-            | FILE_SHARE_DELETE,    // [in] 共有モード
-        nullptr,                    // [in] セキュリティ属性
-        OPEN_EXISTING,    // [in] フォルダが存在する場合にのみ成功
-        FILE_FLAG_BACKUP_SEMANTICS
-            | FILE_FLAG_OVERLAPPED,    // [in] ReadDirectoryChangesW用
-        nullptr);                      //
+    handle_directory_ = CreateFileW(full_path_.c_str(),                                        // [in] 監視先パス
+                                    FILE_LIST_DIRECTORY,                                       // [in] 要求アクセス
+                                    FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,    // [in] 共有モード
+                                    nullptr,                                                   // [in] セキュリティ属性
+                                    OPEN_EXISTING,    // [in] フォルダが存在する場合にのみ成功
+                                    FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED,    // [in] ReadDirectoryChangesW用
+                                    nullptr);                                             //
     if (handle_directory_ == INVALID_HANDLE_VALUE) {
         return false;
     }
@@ -132,8 +128,7 @@ void FileWatcher::update() {
             break;
         }
         // 次のエントリの位置まで移動する (現在アドレスからの相対バイト数)
-        data = reinterpret_cast<FILE_NOTIFY_INFORMATION*>(
-            reinterpret_cast<std::intptr_t>(data) + data->NextEntryOffset);
+        data = reinterpret_cast<FILE_NOTIFY_INFORMATION*>(reinterpret_cast<std::intptr_t>(data) + data->NextEntryOffset);
     }
 }
 
@@ -158,28 +153,26 @@ FileWatcher::~FileWatcher() {
 //---------------------------------------------------------------------------
 bool FileWatcher::start() {
     // 監視条件 (FindFirstChangeNotificationと同じ)
-    constexpr u32 filter =
-        FILE_NOTIFY_CHANGE_FILE_NAME |     // ファイル名の変更
-        FILE_NOTIFY_CHANGE_DIR_NAME |      // ディレクトリ名の変更
-        FILE_NOTIFY_CHANGE_ATTRIBUTES |    // 属性の変更
-        FILE_NOTIFY_CHANGE_SIZE |          // サイズの変更
-        FILE_NOTIFY_CHANGE_LAST_WRITE;     // 最終書き込み日時の変更
+    constexpr u32 filter = FILE_NOTIFY_CHANGE_FILE_NAME |     // ファイル名の変更
+                           FILE_NOTIFY_CHANGE_DIR_NAME |      // ディレクトリ名の変更
+                           FILE_NOTIFY_CHANGE_ATTRIBUTES |    // 属性の変更
+                           FILE_NOTIFY_CHANGE_SIZE |          // サイズの変更
+                           FILE_NOTIFY_CHANGE_LAST_WRITE;     // 最終書き込み日時の変更
 
     // 変更を監視する
     // 初回呼び出し時にシステムが指定サイズでバッファを確保し、そこに変更を記録する
     // 完了通知後もシステムは変更を追跡しており、後続のReadDirectoryChangeWの
     // 呼び出しで、前回通知後からの変更をまとめて受け取ることができる
     // バッファがあふれた場合はサイズ0で応答が返される
-    if (!ReadDirectoryChangesW(
-            handle_directory_,    // 対象ディレクトリ
-            buffer_.data(),       // 通知を格納するバッファ
-            static_cast<DWORD>(buffer_.size()),    // バッファサイズ
-            true,      // サブディレクトリを対象にするかどうか
-            filter,    // 変更通知を受け取るフィルタ
-            nullptr,         // (結果サイズ, 非同期なので未使用)
-            &overlapped_,    // 非同期I/Oバッファ
-            nullptr          // (完了ルーチン, 未使用)
-            )) {
+    if (!ReadDirectoryChangesW(handle_directory_,                     // 対象ディレクトリ
+                               buffer_.data(),                        // 通知を格納するバッファ
+                               static_cast<DWORD>(buffer_.size()),    // バッファサイズ
+                               true,                                  // サブディレクトリを対象にするかどうか
+                               filter,                                // 変更通知を受け取るフィルタ
+                               nullptr,                               // (結果サイズ, 非同期なので未使用)
+                               &overlapped_,                          // 非同期I/Oバッファ
+                               nullptr                                // (完了ルーチン, 未使用)
+                               )) {
         // 開始できなかった場合のエラー
         return false;
     }

@@ -8,7 +8,7 @@
 //----------------------------------------------------------------
 // シーンオブジェクト
 //----------------------------------------------------------------
-#include "SceneSample.h"
+#include "../LittleQuest/Scenes/GameTitleScene.h"
 #include <System/Scene.h>
 #include <System/Utils/IniFileLib.h>
 #include "LightManager.h"
@@ -42,7 +42,7 @@ namespace {
     //--------------------------------------------------------------
     //@{
 
-    u64 cpu_start_counter_ = 0;    //!< 1フレームの開始タイミングカウンター
+    u64 cpu_start_counter_    = 0;    //!< 1フレームの開始タイミングカウンター
     u64 cpu_profile_duration_ = 0;    //!< 1フレームのCPU処理時間(単位:μsec)
 
     //@}
@@ -90,8 +90,7 @@ void ResetDeltaTime() {
 void UpdateDeltaTime() {
     u64 last_time = current_time_;
     current_time_ = GetPerformanceCounterMicroSec();
-    delta_time_   = static_cast<f32>(current_time_ - last_time)
-                  * (1.0f / 1000.0f / 1000.0f);
+    delta_time_   = static_cast<f32>(current_time_ - last_time) * (1.0f / 1000.0f / 1000.0f);
 }
 
 //---------------------------------------------------------------------------
@@ -142,7 +141,7 @@ struct ScrollingBuffer {
             } else {
                 // リングバッファとして再利用
                 data_[offset_] = x;
-                offset_ = (offset_ + 1) % static_cast<u32>(data_.capacity());
+                offset_        = (offset_ + 1) % static_cast<u32>(data_.capacity());
             }
         }
         void clear() {
@@ -156,14 +155,13 @@ struct ScrollingBuffer {
 //! @param  [in]    delta   1フレームの経過時間(単位:秒)
 //---------------------------------------------------------------------------
 void ShowFps(f32 delta) {
-    ImGuiWindowFlags window_flags =
-        ImGuiWindowFlags_NoDecoration |    // タイトルバー/スクロールバーなし
-        ImGuiWindowFlags_NoDocking |             // ドッキングなし
-        ImGuiWindowFlags_AlwaysAutoResize |      // 自動リサイズなし
-        ImGuiWindowFlags_NoSavedSettings |       // 保存しない
-        ImGuiWindowFlags_NoFocusOnAppearing |    // フォーカスしない
-        ImGuiWindowFlags_NoNav |    // キーやゲームパッドで操作対象にしない
-        ImGuiWindowFlags_NoMove;    // 移動させない
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoDecoration |          // タイトルバー/スクロールバーなし
+                                    ImGuiWindowFlags_NoDocking |             // ドッキングなし
+                                    ImGuiWindowFlags_AlwaysAutoResize |      // 自動リサイズなし
+                                    ImGuiWindowFlags_NoSavedSettings |       // 保存しない
+                                    ImGuiWindowFlags_NoFocusOnAppearing |    // フォーカスしない
+                                    ImGuiWindowFlags_NoNav |    // キーやゲームパッドで操作対象にしない
+                                    ImGuiWindowFlags_NoMove;    // 移動させない
 
     //----------------------------------------------------------
     // 表示位置設定
@@ -172,15 +170,11 @@ void ShowFps(f32 delta) {
     {
         constexpr f32 PADDING         = 10.0f;    // 余白部分
         const ImGuiViewport* viewport = ImGui::GetMainViewport();
-        ImVec2 work_pos =
-            viewport
-                ->WorkPos;    // WorkPosを使用するとメニューバーなどの位置を考慮した位置が取得できる
+        ImVec2 work_pos = viewport->WorkPos;    // WorkPosを使用するとメニューバーなどの位置を考慮した位置が取得できる
         ImVec2 work_size = viewport->WorkSize;
         ImVec2 window_pos, window_pos_pivot;
-        window_pos.x       = (corner & 1) ? (work_pos.x + work_size.x - PADDING)
-                                          : (work_pos.x + PADDING);
-        window_pos.y       = (corner & 2) ? (work_pos.y + work_size.y - PADDING)
-                                          : (work_pos.y + PADDING);
+        window_pos.x       = (corner & 1) ? (work_pos.x + work_size.x - PADDING) : (work_pos.x + PADDING);
+        window_pos.y       = (corner & 2) ? (work_pos.y + work_size.y - PADDING) : (work_pos.y + PADDING);
         window_pos_pivot.x = (corner & 1) ? 1.0f : 0.0f;
         window_pos_pivot.y = (corner & 2) ? 1.0f : 0.0f;
         ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pos_pivot);
@@ -199,10 +193,9 @@ void ShowFps(f32 delta) {
     // モニターのリフレッシュレートを取得 (Hz)
     s32 refresh_rate = 60;
     {
-        HDC hdc = GetDC(GetMainWindowHandle());    // デバイスコンテキストの取得
-        refresh_rate =
-            GetDeviceCaps(hdc, VREFRESH);    // リフレッシュレートの取得
-        ReleaseDC(GetMainWindowHandle(), hdc);    // デバイスコンテキストの解放
+        HDC hdc      = GetDC(GetMainWindowHandle());    // デバイスコンテキストの取得
+        refresh_rate = GetDeviceCaps(hdc, VREFRESH);    // リフレッシュレートの取得
+        ReleaseDC(GetMainWindowHandle(), hdc);          // デバイスコンテキストの解放
     }
 
     // 現在のフレームレート
@@ -230,50 +223,42 @@ void ShowFps(f32 delta) {
 
         // 数値を0.0f～1.0fの範囲で設定する
         f32 cpu_micro_sec = static_cast<f32>(cpu_profile_time);
-        auto ratio        = cpu_micro_sec
-                     / (1000.0f * 1000.0f / static_cast<f32>(refresh_rate));
+        auto ratio        = cpu_micro_sec / (1000.0f * 1000.0f / static_cast<f32>(refresh_rate));
 
         cpu_data.AddPoint(t, ratio);    // CPU負荷
-        fps_data.AddPoint(
-            t,
-            frame_rate / static_cast<f32>(refresh_rate));    // フレームレート
+        fps_data.AddPoint(t,
+                          frame_rate / static_cast<f32>(refresh_rate));    // フレームレート
 
         static float history = 10.0f;
 
-        constexpr ImPlotFlags flags =
-            ImPlotFlags_NoInputs | ImPlotFlags_NoFrame;
+        constexpr ImPlotFlags flags = ImPlotFlags_NoInputs | ImPlotFlags_NoFrame;
 
-        if (ImPlot::BeginPlot(u8"フレームレート & CPU負荷",
-                              ImVec2(-1.0f, 96.0f), flags)) {
-            constexpr ImPlotAxisFlags axis_flags =
-                ImPlotAxisFlags_NoTickLabels | ImPlotAxisFlags_Lock;
+        if (ImPlot::BeginPlot(u8"フレームレート & CPU負荷", ImVec2(-1.0f, 96.0f), flags)) {
+            constexpr ImPlotAxisFlags axis_flags = ImPlotAxisFlags_NoTickLabels | ImPlotAxisFlags_Lock;
 
             ImPlot::SetupAxes(NULL, NULL, flags, axis_flags);
             ImPlot::SetupAxisLimits(ImAxis_X1, t - history, t,
                                     ImGuiCond_Always);    // 表示範囲
-            ImPlot::SetupAxisLimits(
-                ImAxis_Y1, 0.0f,
-                1.01f);    // 上下数値の範囲(最大値目盛りを出すため1.01f)
+            ImPlot::SetupAxisLimits(ImAxis_Y1, 0.0f,
+                                    1.01f);    // 上下数値の範囲(最大値目盛りを出すため1.01f)
             ImPlot::SetNextFillStyle(IMPLOT_AUTO_COL, 0.5f);
 
-            ImPlot::PlotShaded(
-                u8"CPU負荷",                                // 名前
-                &cpu_data.data_[0].x,                       // 時間軸t
-                &cpu_data.data_[0].y,                       // 値
-                static_cast<s32>(cpu_data.data_.size()),    // 配列数
-                -INFINITY,                 // 塗りつぶし範囲
-                ImPlotShadedFlags_None,    // ImPlotShadedFlags
-                cpu_data.offset_,          // 先頭オフセット
-                sizeof(ImVec2));           // 構造体あたりのサイズ
+            ImPlot::PlotShaded(u8"CPU負荷",                                // 名前
+                               &cpu_data.data_[0].x,                       // 時間軸t
+                               &cpu_data.data_[0].y,                       // 値
+                               static_cast<s32>(cpu_data.data_.size()),    // 配列数
+                               -INFINITY,                                  // 塗りつぶし範囲
+                               ImPlotShadedFlags_None,                     // ImPlotShadedFlags
+                               cpu_data.offset_,                           // 先頭オフセット
+                               sizeof(ImVec2));                            // 構造体あたりのサイズ
 
-            ImPlot::PlotLine(
-                "fps",                                      // 名前
-                &fps_data.data_[0].x,                       // 時間軸t
-                &fps_data.data_[0].y,                       // 値
-                static_cast<s32>(fps_data.data_.size()),    // 配列数
-                ImPlotShadedFlags_None,                     // ImPlotShadedFlags
-                fps_data.offset_,    // 先頭オフセット
-                sizeof(ImVec2));     // 構造体あたりのサイズ
+            ImPlot::PlotLine("fps",                                      // 名前
+                             &fps_data.data_[0].x,                       // 時間軸t
+                             &fps_data.data_[0].y,                       // 値
+                             static_cast<s32>(fps_data.data_.size()),    // 配列数
+                             ImPlotShadedFlags_None,                     // ImPlotShadedFlags
+                             fps_data.offset_,                           // 先頭オフセット
+                             sizeof(ImVec2));                            // 構造体あたりのサイズ
             ImPlot::EndPlot();
         }
         ImGui::SliderFloat(u8"履歴範囲", &history, 1, 30, "%.1f s");
@@ -284,8 +269,7 @@ void ShowFps(f32 delta) {
     //----------------------------------------------------------
     ImGui::Separator();
     ImGui::Text(u8"FPS    : %3.2f fps (max:%3d fps)", frame_rate, refresh_rate);
-    ImGui::Text(u8"CPU負荷 : %3.2f ms",
-                static_cast<f32>(cpu_profile_time) / 1000.0f);
+    ImGui::Text(u8"CPU負荷 : %3.2f ms", static_cast<f32>(cpu_profile_time) / 1000.0f);
 
     // オーバーレイウィンドウ終了
     ImGui::End();
@@ -312,7 +296,7 @@ void SystemInit() {
         Scene::Change(std::shared_ptr<Scene::Base>(scene));
     } else {
         // iniファイルの設定のクラスが見つからない場合はサンプルシーンを起動
-        Scene::Change(std::make_shared<class SceneSample>());
+        Scene::Change(std::make_shared<class LittleQuest::GameTitleScene>());
     }
 
     const bool editor = ini.GetBool("System", "GUIEditor");
@@ -329,12 +313,10 @@ void SystemInit() {
     //----------------------------------------------------------
     // 描画先テクスチャを作成
     //----------------------------------------------------------
-    texture_hdr_ = std::make_shared<Texture>(WINDOW_W, WINDOW_H,
-                                             DXGI_FORMAT_R16G16B16A16_FLOAT);
+    texture_hdr_ = std::make_shared<Texture>(WINDOW_W, WINDOW_H, DXGI_FORMAT_R16G16B16A16_FLOAT);
 
     // シェーダー読込
-    shader_ps_tonemapping_ =
-        std::make_shared<ShaderPs>("data/Shader/ps_tonemapping");
+    shader_ps_tonemapping_ = std::make_shared<ShaderPs>("data/Shader/ps_tonemapping");
 }
 
 //---------------------------------------------------------------------------------
@@ -389,8 +371,7 @@ void SystemUpdate() {
                     auto& scene_base = Scene::Base::TypeInfo;
                     for (auto* p = scene_base.child(); p; p = p->siblings()) {
                         // 表示文字列
-                        std::string scene_name =
-                            std::string(p->className()) + " - " + p->descName();
+                        std::string scene_name = std::string(p->className()) + " - " + p->descName();
 
                         // 現在のシーンなら選択状態にする
                         bool selected = false;
@@ -398,19 +379,16 @@ void SystemUpdate() {
                             selected = (current_scene->typeInfo() == p);
                         }
 
-                        if (ImGui::MenuItem(scene_name.c_str(), nullptr,
-                                            selected)) {
+                        if (ImGui::MenuItem(scene_name.c_str(), nullptr, selected)) {
                             if (!selected) {    // 現在のシーン以外が新たに選択された場合
 
-                                auto* scene = reinterpret_cast<Scene::Base*>(
-                                    p->createInstance());
+                                auto* scene = reinterpret_cast<Scene::Base*>(p->createInstance());
                                 // シーンジャンプ
                                 if (scene) {
                                     // デバッグカメラはOFFにしてからシーン切り替えを行います
                                     debug_camera = false;
                                     DebugCamera::Use(debug_camera);
-                                    Scene::Change(
-                                        std::shared_ptr<Scene::Base>(scene));
+                                    Scene::Change(std::shared_ptr<Scene::Base>(scene));
                                 }
                             }
                         }
@@ -419,8 +397,7 @@ void SystemUpdate() {
                     ImGui::EndMenu();
                 }
                 if (ImGui::Button(u8"シーンリセット")) {
-                    auto inst = reinterpret_cast<Scene::Base*>(
-                        Scene::GetCurrentScene()->typeInfo()->createInstance());
+                    auto inst = reinterpret_cast<Scene::Base*>(Scene::GetCurrentScene()->typeInfo()->createInstance());
                     Scene::GetCurrentScene()->Exit();
                     Scene::Change(std::shared_ptr<Scene::Base>(inst));
                 }
@@ -438,12 +415,9 @@ void SystemUpdate() {
                 ImGui::Checkbox(u8"デバッグカメラ(F4)", &debug_camera);
                 if (debug_camera) {
                     if (ImGui::BeginMenu(u8"移動方式")) {
-                        ImGui::RadioButton("Unity", (int*)(&control),
-                                           DebugCamera::Unity);
-                        ImGui::RadioButton("UnrealEngine", (int*)(&control),
-                                           DebugCamera::UnrealEngine);
-                        ImGui::RadioButton("Maya", (int*)(&control),
-                                           DebugCamera::Maya);
+                        ImGui::RadioButton("Unity", (int*)(&control), DebugCamera::Unity);
+                        ImGui::RadioButton("UnrealEngine", (int*)(&control), DebugCamera::UnrealEngine);
+                        ImGui::RadioButton("Maya", (int*)(&control), DebugCamera::Maya);
                         ImGui::EndMenu();
                     }
                 }
@@ -452,15 +426,11 @@ void SystemUpdate() {
                 ImGui::Separator();
                 Scene::SetEdit(show_debug);
                 ImGui::Separator();
-                ImGui::CheckboxFlags(
-                    u8"エディター配置", (int*)&Scene::SceneStatus(),
-                    1 << (int)Scene::EditorStatusBit::EditorPlacement);
-                if (Scene::GetEditorStatus(
-                        Scene::EditorStatusBit::EditorPlacement)) {
-                    ImGui::CheckboxFlags(
-                        u8"Always", (int*)&Scene::SceneStatus(),
-                        1 << (int)
-                                Scene::EditorStatusBit::EditorPlacement_Always);
+                ImGui::CheckboxFlags(u8"エディター配置", (int*)&Scene::SceneStatus(),
+                                     1 << (int)Scene::EditorStatusBit::EditorPlacement);
+                if (Scene::GetEditorStatus(Scene::EditorStatusBit::EditorPlacement)) {
+                    ImGui::CheckboxFlags(u8"Always", (int*)&Scene::SceneStatus(),
+                                         1 << (int)Scene::EditorStatusBit::EditorPlacement_Always);
                 }
 
                 ImGui::EndMenu();
@@ -523,23 +493,18 @@ void SystemDraw() {
             constexpr f32 size = 64.0f;    // グリッドの範囲
 
             for (f32 x = -size; x <= size; x += 1.0f) {
-                DrawLine3D(VGet(x, 0.0f, -size), VGet(x, 0.0f, +size),
-                           GetColor(224, 224, 224));
+                DrawLine3D(VGet(x, 0.0f, -size), VGet(x, 0.0f, +size), GetColor(224, 224, 224));
             }
             for (f32 z = -size; z <= size; z += 1.0f) {
-                DrawLine3D(VGet(-size, 0.0f, z), VGet(+size, 0.0f, z),
-                           GetColor(224, 224, 224));
+                DrawLine3D(VGet(-size, 0.0f, z), VGet(+size, 0.0f, z), GetColor(224, 224, 224));
             }
 
             // X軸
-            DrawLine3D(VGet(-size, 0.0f, 0.0f), VGet(+size, 0.0f, 0.0f),
-                       GetColor(255, 64, 64));
+            DrawLine3D(VGet(-size, 0.0f, 0.0f), VGet(+size, 0.0f, 0.0f), GetColor(255, 64, 64));
             // Y軸
-            DrawLine3D(VGet(0.0f, -size, 0.0f), VGet(0.0f, +size, 0.0f),
-                       GetColor(64, 255, 64));
+            DrawLine3D(VGet(0.0f, -size, 0.0f), VGet(0.0f, +size, 0.0f), GetColor(64, 255, 64));
             // Z軸
-            DrawLine3D(VGet(0.0f, 0.0f, -size), VGet(0.0f, 0.0f, +size),
-                       GetColor(64, 64, 255));
+            DrawLine3D(VGet(0.0f, 0.0f, -size), VGet(0.0f, 0.0f, +size), GetColor(64, 64, 255));
         }
     }
 
@@ -554,8 +519,7 @@ void SystemDraw() {
     SetRenderTarget(GetBackBuffer(), GetDepthStencil());
 
     // トーンマッピング適用
-    CopyToRenderTarget(GetBackBuffer(), texture_hdr_.get(),
-                       *shader_ps_tonemapping_);
+    CopyToRenderTarget(GetBackBuffer(), texture_hdr_.get(), *shader_ps_tonemapping_);
 
     // FPSの表示
     if (show_fps) {

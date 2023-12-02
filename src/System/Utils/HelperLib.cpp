@@ -52,8 +52,7 @@ namespace HelperLib::File {
     //! @param ext 列挙する拡張子(ディフォルトは無視) 例:".png" ".jpg/.png/.bmp"
     //! など
     //! @return ディレクトリに存在するファイル
-    Files_t GetFilesFromDirectory(std::string_view dirname,
-                                  std::string_view ext) {
+    Files_t GetFilesFromDirectory(std::string_view dirname, std::string_view ext) {
         Files_t vfiles;
         fs::recursive_directory_iterator files(dirname);
 
@@ -107,17 +106,14 @@ namespace HelperLib::String {
     //----------------------------------------------------------------------------
     std::wstring ToWString(std::string_view string) {
         // 受け側の必要サイズを取得
-        u32 size =
-            MultiByteToWideChar(CP_ACP, 0, string.data(),
-                                static_cast<int>(string.length()), nullptr, 0);
+        u32 size = MultiByteToWideChar(CP_ACP, 0, string.data(), static_cast<int>(string.length()), nullptr, 0);
 
         // バッファの取得
         std::wstring wstring;
         wstring.resize(size);
 
         // 変換
-        MultiByteToWideChar(CP_ACP, 0, string.data(),
-                            static_cast<int>(string.length()), wstring.data(),
+        MultiByteToWideChar(CP_ACP, 0, string.data(), static_cast<int>(string.length()), wstring.data(),
                             static_cast<int>(wstring.size()));
 
         return wstring;
@@ -130,17 +126,15 @@ namespace HelperLib::String {
     //----------------------------------------------------------------------------
     std::string ToString(std::wstring_view wstring) {
         // 受け側の必要サイズを取得
-        u32 size = WideCharToMultiByte(CP_ACP, 0, wstring.data(),
-                                       static_cast<int>(wstring.length()),
-                                       nullptr, 0, nullptr, nullptr);
+        u32 size =
+            WideCharToMultiByte(CP_ACP, 0, wstring.data(), static_cast<int>(wstring.length()), nullptr, 0, nullptr, nullptr);
 
         // バッファの取得
         std::string string;
         string.resize(size);
 
         // 変換
-        WideCharToMultiByte(CP_ACP, 0, wstring.data(),
-                            static_cast<int>(wstring.length()), string.data(),
+        WideCharToMultiByte(CP_ACP, 0, wstring.data(), static_cast<int>(wstring.length()), string.data(),
                             static_cast<int>(string.size()), nullptr, nullptr);
 
         return string;
@@ -153,9 +147,7 @@ namespace HelperLib::String {
     //----------------------------------------------------------------------------
     std::u16string To16Str(std::wstring_view wstring) {
         // 処理系のバイトサイズが一致しているかチェック
-        static_assert(sizeof(std::wstring::value_type)
-                          == sizeof(std::u16string::value_type),
-                      "size doesnt' match.");
+        static_assert(sizeof(std::wstring::value_type) == sizeof(std::u16string::value_type), "size doesnt' match.");
 
         return std::u16string{wstring.begin(), wstring.end()};
     }
@@ -206,19 +198,16 @@ namespace HelperLib::String {
 
 namespace HelperLib::OS {
     namespace {
-        std::string GetRegString(HKEY hkey, const char* sub_key,
-                                 const char* value_name) {
+        std::string GetRegString(HKEY hkey, const char* sub_key, const char* value_name) {
             DWORD key_type  = 0;
             DWORD data_size = 0;
             if (ERROR_SUCCESS
-                == RegGetValue(hkey, (PCHAR)sub_key, (PCHAR)value_name,
-                               RRF_RT_REG_SZ, &key_type, nullptr, &data_size)) {
+                == RegGetValue(hkey, (PCHAR)sub_key, (PCHAR)value_name, RRF_RT_REG_SZ, &key_type, nullptr, &data_size)) {
                 std::string text;
                 text.resize(data_size);
 
                 if (ERROR_SUCCESS
-                    == RegGetValue(hkey, (PCHAR)sub_key, (PCHAR)value_name,
-                                   RRF_RT_REG_SZ, &key_type, (PVOID)text.data(),
+                    == RegGetValue(hkey, (PCHAR)sub_key, (PCHAR)value_name, RRF_RT_REG_SZ, &key_type, (PVOID)text.data(),
                                    &data_size)) {
                     return text;
                 }
@@ -228,9 +217,7 @@ namespace HelperLib::OS {
     }    // namespace
 
     bool IsWindows11() {
-        auto reg = GetRegString(
-            HKEY_LOCAL_MACHINE,
-            "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "CurrentBuild");
+        auto reg = GetRegString(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "CurrentBuild");
 
         int value = std::stoi(reg);
         if (value >= 22000) return true;
@@ -239,9 +226,7 @@ namespace HelperLib::OS {
     }
 
     bool IsWindows10OrGreater() {
-        std::string reg = GetRegString(
-            HKEY_LOCAL_MACHINE,
-            "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ProductName");
+        std::string reg = GetRegString(HKEY_LOCAL_MACHINE, "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ProductName");
 
         if (String::IsContains(reg, "Windows 10")) return true;
 
@@ -275,9 +260,8 @@ namespace HelperLib::Math {
         return mat;
     }
 
-    matrix LookAtMatrixForObject(float3 my_object_pos,
-                                 float3 target_object_pos) {
-        auto mat = CreateMatrixByFrontVector(target_object_pos - my_object_pos);
+    matrix LookAtMatrixForObject(float3 my_object_pos, float3 target_object_pos) {
+        auto mat      = CreateMatrixByFrontVector(target_object_pos - my_object_pos);
         mat._41_42_43 = my_object_pos;
 
         return mat;

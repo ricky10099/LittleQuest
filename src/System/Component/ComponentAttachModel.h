@@ -32,12 +32,8 @@ class ComponentAttachModel : public Component {
             Initialized,    //!< 初期化済み
         };
 
-        void SetAttachModelStatus(AttachModelBit bit, bool on) {
-            attach_model_status_.set(bit, on);
-        }
-        bool GetAttachModelStatus(AttachModelBit bit) {
-            return attach_model_status_.is(bit);
-        }
+        void SetAttachModelStatus(AttachModelBit bit, bool on) { attach_model_status_.set(bit, on); }
+        bool GetAttachModelStatus(AttachModelBit bit) { return attach_model_status_.is(bit); }
 
         void SetAttachObject(ObjectPtr object, std::string_view node = "");
 
@@ -74,9 +70,8 @@ class ComponentAttachModel : public Component {
         // @param ver バージョン
         CEREAL_SAVELOAD(arc, ver) {
             arc(cereal::make_nvp("owner", owner_));    //< オーナー
-            arc(cereal::make_nvp(
-                "attach_model_status",
-                attach_model_status_.get()));    //< カメラステート
+            arc(cereal::make_nvp("attach_model_status",
+                                 attach_model_status_.get()));    //< カメラステート
             arc(CEREAL_NVP(attach_model_rotate_));
             arc(CEREAL_NVP(attach_model_offset_));
             arc(CEREAL_NVP(object_name_));

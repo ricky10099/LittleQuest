@@ -37,14 +37,12 @@ namespace LittleQuest {
         Super::Init();
 
         // モデルコンポーネント(0.08倍)
-        auto model =
-            AddComponent<ComponentModel>("data/Sample/Enemy/model.mv1");
+        auto model = AddComponent<ComponentModel>("data/Sample/Enemy/model.mv1");
 
         model->SetScaleAxisXYZ({0.05f});    //
 
         model->SetAnimation(
-            {{"walk", "data/Sample/Enemy/Anim/Walk.mv1", 0, 1.0f},
-             {"die", "data/Sample/Enemy/Anim/Death.mv1", 0, 1.0f}});
+            {{"walk", "data/Sample/Enemy/Anim/Walk.mv1", 0, 1.0f}, {"die", "data/Sample/Enemy/Anim/Death.mv1", 0, 1.0f}});
         model->PlayAnimation("walk", true);
 
         // コリジョン(カプセル)
@@ -76,8 +74,7 @@ namespace LittleQuest {
         Super::GUI();
     }
 
-    void Zombie::OnHit([[maybe_unused]] const ComponentCollision::HitInfo&
-                           hitInfo)    // override
+    void Zombie::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
     {
         Super::OnHit(hitInfo);
     }

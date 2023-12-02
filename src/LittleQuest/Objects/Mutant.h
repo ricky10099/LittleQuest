@@ -35,9 +35,11 @@ namespace LittleQuest {
         protected:
             void Patrol(float3& move) override;
 
-            void BackToInitial(float3& move) override;
+            void BackToInitialPosition(float3& move) override;
             // void Attack() override;
 
             void Die() override;
+
+        private:
     };
 }    // namespace LittleQuest
