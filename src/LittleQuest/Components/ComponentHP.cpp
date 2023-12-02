@@ -16,11 +16,14 @@ namespace LittleQuest {
 
     void ComponentHP::Draw() {
         Super::Draw();
-        if (pos2D.z > 0 && pos2D.z < 1) {
-            DrawFillBox((int)pos2D.x - 101, (int)pos2D.y - 1, (int)pos2D.x + 101, (int)pos2D.y + 11, GetColor(255, 0, 0));
-            DrawFillBox((int)pos2D.x - 100, (int)pos2D.y, (int)(pos2D.x - 100 + ((currHP / (float)maxHP) * 200)),
-                        (int)pos2D.y + 10, GetColor(255, 255, 0));
-        }
+        // if (pos2D.z > 0 && pos2D.z < 1) {
+        //     DrawFillBox((int)pos2D.x - 101, (int)pos2D.y - 1,
+        //                 (int)pos2D.x + 101, (int)pos2D.y + 11,
+        //                 GetColor(255, 0, 0));
+        //     DrawFillBox((int)pos2D.x - 100, (int)pos2D.y,
+        //                 (int)(pos2D.x - 100 + ((currHP / (float)maxHP) * 200)),
+        //                 (int)pos2D.y + 10, GetColor(255, 255, 0));
+        // }
     }
 
     void ComponentHP::GUI() {

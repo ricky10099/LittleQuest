@@ -130,6 +130,7 @@ namespace LittleQuest {
         printfDx("\ntargetDegree: %f", GetDegreeToPosition(pPlayer.lock()->GetTranslate()));
         printfDx("\ndie timer: %f", destroyTimer);
 #endif
+        pHP.lock()->DrawHPBar();
     }
 
     void Enemy::GUI()    // override
@@ -158,7 +159,7 @@ namespace LittleQuest {
         // distance        = abs(distance);
 
         if (distance < 50) {
-            //　プレイヤーが前にいるなら
+            // 　プレイヤーが前にいるなら
             if (GetDegreeToPosition(pPlayer.lock()->GetTranslate()) < 50) {
                 isFoundPlayer = true;
             }
@@ -191,7 +192,7 @@ namespace LittleQuest {
         auto pos        = GetTranslate();
         move            = goal - pos;
         move.y          = 0;
-        float moveValue = GetDistance(goal, pos);
+        float moveValue = GetDistance(move);
 
         // 二つの座標を巡行する
         if (moveValue < 5.0f) {
@@ -218,9 +219,7 @@ namespace LittleQuest {
 
     void Enemy::Wait(float time) {
         ChangeState(EnemyState::WAIT);
-        if (auto modelPtr = GetComponent<ComponentModel>()) {
-            modelPtr->PlayAnimationNoSame("idle", true, 0.3f);
-        }
+        pModel.lock()->PlayAnimationNoSame("idle", true, 0.3f);
         waitTime = time;
     }
 
@@ -235,9 +234,8 @@ namespace LittleQuest {
     }
 
     void Enemy::ChasePlayer(float3& move) {
-        auto player = Scene::GetObjectPtr<Player>("Player");
-        auto pos    = GetTranslate();
-        move        = player->GetTranslate() - pos;
+        auto pos = GetTranslate();
+        move     = pPlayer.lock()->GetTranslate() - pos;
 
         // この距離から攻撃
         if (abs(move.x) <= float1{7} && abs(move.z) <= float1{7}) {
@@ -249,9 +247,8 @@ namespace LittleQuest {
         }
 
         // 走ってプレイヤーに追いつく
-        if (auto modelPtr = GetComponent<ComponentModel>()) {
-            modelPtr->PlayAnimationNoSame("run", true);
-        }
+        pModel.lock()->PlayAnimationNoSame("run", true);
+
         if (length(move).x > 0) {
             move = normalize(move);
 
@@ -265,47 +262,40 @@ namespace LittleQuest {
     }
 
     void Enemy::Attack() {
-        if (auto modelPtr = GetComponent<ComponentModel>()) {
-            modelPtr->PlayAnimationNoSame("attack", false, 0.5f);
-            animCheck = AnimCheck::ATTACKING;
-        }
+        pModel.lock()->PlayAnimationNoSame("attack", false, 0.5f);
+        animCheck = AnimCheck::ATTACKING;
     }
 
     void Enemy::CheckAnimation() {
-        if (auto modelPtr = GetComponent<ComponentModel>()) {
-            switch (animCheck) {
-                case AnimCheck::GETTING_HIT:
-                    // アニメーション終わったら
-                    if (!modelPtr->IsPlaying()) {
-                        ChangeState(EnemyState::IDLE);
-                        animCheck = AnimCheck::NONE;
-                        isBusy    = false;
-                    }
-                    break;
-                case AnimCheck::ATTACKING:
-                    if (!modelPtr->IsPlaying()) {
-                        isAttack = false;
-                        // isHitPlayer = false;
-                        Wait(.5f);
-                    }
-                    break;
-            }
+        switch (animCheck) {
+            case AnimCheck::GETTING_HIT:
+                // アニメーション終わったら
+                if (!pModel.lock()->IsPlaying()) {
+                    ChangeState(EnemyState::IDLE);
+                    animCheck = AnimCheck::NONE;
+                    isBusy    = false;
+                }
+                break;
+            case AnimCheck::ATTACKING:
+                if (!pModel.lock()->IsPlaying()) {
+                    isAttack = false;
+                    // isHitPlayer = false;
+                    Wait(.5f);
+                }
+                break;
         }
     }
 
     void Enemy::GetHit(int damage) {
-        auto hpcomponent = GetComponent<ComponentHP>();
-        hpcomponent->TakeDamage(damage);
+        pHP.lock()->TakeDamage(damage);
 
-        if (auto modelPtr = GetComponent<ComponentModel>()) {
-            if (hpcomponent->GetHP() > 0) {
-                modelPtr->PlayAnimation("getHit", false, 0.25f);
-                ChangeState(EnemyState::GET_HIT);
-                animCheck = AnimCheck::GETTING_HIT;
-                isBusy    = true;
-            } else {
-                this->Die();
-            }
+        if (pHP.lock()->GetHP() > 0) {
+            pModel.lock()->PlayAnimation("getHit", false, 0.25f);
+            ChangeState(EnemyState::GET_HIT);
+            animCheck = AnimCheck::GETTING_HIT;
+            isBusy    = true;
+        } else {
+            this->Die();
         }
     }
 
@@ -315,11 +305,9 @@ namespace LittleQuest {
     }
 
     void Enemy::Die() {
-        if (auto modelPtr = GetComponent<ComponentModel>()) {
-            modelPtr->PlayAnimationNoSame("die");
-            RemoveComponent<ComponentCollisionCapsule>();
-            this->isDie = true;
-        }
+        pModel.lock()->PlayAnimationNoSame("die");
+        RemoveComponent<ComponentCollisionCapsule>();
+        this->isDie = true;
     }
 
     float Enemy::getDestroyTimer() {

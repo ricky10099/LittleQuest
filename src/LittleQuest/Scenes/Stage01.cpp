@@ -37,7 +37,6 @@ namespace LittleQuest {
         }
 
         auto player = Player::Create({0, 10, 0});
-
         Camera::Create(player)->SetName("PlayerCamera");
 
         {

@@ -7,7 +7,6 @@
 #include <System/Component/ComponentCollisionCapsule.h>
 #include <System/Component/ComponentCollisionModel.h>
 #include <System/Component/ComponentCollisionSphere.h>
-#include <System/Component/ComponentCollisionLine.h>
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
 #include <System/Component/ComponentTargetTracking.h>
@@ -31,8 +30,8 @@ namespace LittleQuest {
         // posの位置に設定
         enemy->SetTranslate(pos);
 
-        auto hp = enemy->AddComponent<ComponentHP>();
-        hp->SetHP(200);
+        enemy->pHP = enemy->AddComponent<ComponentHP>();
+        enemy->pHP.lock()->SetHP(200);
 
         enemy->spawnPos   = pos;
         enemy->spawnPos.y = 0;
@@ -46,17 +45,17 @@ namespace LittleQuest {
         Super::Init();
 
         // モデルコンポーネント(0.08倍)
-        auto model = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
+        pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
 
-        model->SetScaleAxisXYZ({0.05f});    //
+        pModel.lock()->SetScaleAxisXYZ({0.05f});    //
 
-        model->SetAnimation({{"idle", "data/LittleQuest/Anim/MutantIdle.mv1", 0, 1.0f},
-                             {"walk", "data/LittleQuest/Anim/MutantWalking.mv1", 0, 1.0f},
-                             {"run", "data/LittleQuest/Anim/MutantRun.mv1", 0, 1.0f},
-                             {"attack", "data/LittleQuest/Anim/MutantSwiping.mv1", 0, 1.0f},
-                             {"getHit", "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
-                             {"die", "data/LittleQuest/Anim/MutantDying.mv1", 0, 1.0f}});
-        model->PlayAnimation("idle", true);
+        pModel.lock()->SetAnimation({{"idle", "data/LittleQuest/Anim/MutantIdle.mv1", 0, 1.0f},
+                                     {"walk", "data/LittleQuest/Anim/MutantWalking.mv1", 0, 1.0f},
+                                     {"run", "data/LittleQuest/Anim/MutantRun.mv1", 0, 1.0f},
+                                     {"attack", "data/LittleQuest/Anim/MutantSwiping.mv1", 0, 1.0f},
+                                     {"getHit", "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
+                                     {"die", "data/LittleQuest/Anim/MutantDying.mv1", 0, 1.0f}});
+        pModel.lock()->PlayAnimation("idle", true);
 
         // コリジョン(カプセル)
         auto col = AddComponent<ComponentCollisionCapsule>();    //
@@ -90,6 +89,7 @@ namespace LittleQuest {
     void Mutant::LateDraw()    // override
     {
         Super::LateDraw();
+        pHP.lock()->DrawHPBar();
     }
 
     void Mutant::GUI()    // override
@@ -103,8 +103,8 @@ namespace LittleQuest {
         if (hitInfo.collision_->GetName() == "MutantWeapon") {
             // attack anim 1.3s からダメージ発生
             if (auto modelPtr = GetComponent<ComponentModel>()) {
-                if (modelPtr->GetPlayAnimationName() == "attack") {
-                    if (modelPtr->GetAnimationTime() > 1.3f) {
+                if (pModel.lock()->GetPlayAnimationName() == "attack") {
+                    if (pModel.lock()->GetAnimationTime() > 1.3f) {
                         isAttack = true;
                     }
                 }

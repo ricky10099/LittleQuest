@@ -8,8 +8,7 @@
 namespace LittleQuest {
     USING_PTR(Enemy);
 
-    //! @brief プレイヤー Mouse
-    //! @detail Draw()は存在しません。Object標準にて描画されます
+    class ComponentHP;
     class Enemy : public Object {
         public:
             BP_OBJECT_TYPE(Enemy, Object);
@@ -42,22 +41,19 @@ namespace LittleQuest {
             EnemyState state;
             EnemyState prevState;
             EnemyState initialState;
-            bool isBusy;
             void ChangeState(EnemyState state);
+            bool isBusy;
 
             virtual void Die();
-
             virtual void Idle();
 
-            virtual bool FindPlayer();
-
             virtual void BackToInitialPosition(float3& move);
-
             virtual void Patrol(float3& move);
 
             virtual void Wait(float time);
             virtual void Waiting(float deltaTime);
 
+            virtual bool FindPlayer();
             virtual void ChasePlayer(float3& move);
             virtual void Attack();
 
@@ -71,11 +67,6 @@ namespace LittleQuest {
             AnimCheck animCheck;
 
             float3 spawnPos;
-
-            ObjectWeakPtr pPlayer;
-            std::weak_ptr<ComponentModel> pModel;
-
-            //巡行関係
             bool isPatrol;
             float3 startPoint;
             float3 endPoint;
@@ -87,15 +78,18 @@ namespace LittleQuest {
             bool isAttack;
             bool isHitPlayer;
             bool isFoundPlayer;
+            float degree;
 
             const float speedBase = 0.3f;
             const float walkVal   = 0.5f;
             const float runVal    = 1.f;
             float speedFactor     = 1.0f;
 
-            float degree;
-
             bool isDie         = false;
             float destroyTimer = 5;
+
+            ObjectWeakPtr pPlayer;
+            std::weak_ptr<ComponentModel> pModel;
+            std::weak_ptr<ComponentHP> pHP;
     };
 }    // namespace LittleQuest
