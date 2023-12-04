@@ -278,8 +278,8 @@ namespace LittleQuest {
                 break;
             case AnimCheck::ATTACKING:
                 if (!pModel.lock()->IsPlaying()) {
-                    isAttack = false;
-                    // isHitPlayer = false;
+                    isAttack    = false;
+                    isHitPlayer = false;
                     Wait(.5f);
                 }
                 break;

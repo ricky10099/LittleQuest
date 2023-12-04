@@ -25,6 +25,23 @@ namespace LittleQuest {
             void GetHit(int damage);
 
         private:
+            void InputHandle();
+            void Idle();
+            void Walk(/*float3& position*/);
+            void Jump();
+            void Attack(/*float3& position*/);
+            void SetModelRotation(/*float3& position*/);
+
+            std::vector<std::string_view> attackList;
+            std::weak_ptr<ComponentModel> pModel;
+            std::weak_ptr<Camera> pCamera;
+            std::weak_ptr<ComponentHP> pHP;
+
+            matrix self_matrix;
+            float3 movement;
+            float cameraLength;
+            bool getHit;
+
             enum class PlayerState {
                 IDLE,      //!< 待機状態
                 WALK,      //!< 歩く
@@ -49,20 +66,5 @@ namespace LittleQuest {
             int combo         = 0;
             bool isCombo      = false;
             bool waitForCombo = false;
-            bool canCombo2    = false;
-            bool canCombo3    = false;
-
-            void Idle();
-            void Walk(float3& position);
-            void Jump();
-            void Attack(float3& position);
-            void SetModelRotation(float3& position);
-
-            std::vector<std::string_view> attackList;
-            std::weak_ptr<ComponentModel> pModel;
-            std::weak_ptr<Camera> pCamera;
-            std::weak_ptr<ComponentHP> pHP;
-
-            float cameraLength;
     };
 }    // namespace LittleQuest

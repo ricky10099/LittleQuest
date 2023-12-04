@@ -1,9 +1,9 @@
 ﻿#include "Player.h"
 #include "Enemy.h"
 #include "Camera.h"
-
-#include "../Components/ComponentHP.h"
-#include <LittleQuest/Scenes/GameOverScene.h>
+#include "LittleQuest/Components/ComponentHP.h"
+#include "LittleQuest/Scenes/GameOverScene.h"
+#include "LittleQuest/Tool.h"
 
 #include <System/Component/ComponentAttachModel.h>
 #include <System/Component/ComponentCamera.h>
@@ -86,133 +86,59 @@ namespace LittleQuest {
             colWeapon->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
             colWeapon->SetName("SwordCol");
         }
-        atkVal = 50;
-
+        atkVal      = 50;
+        self_matrix = GetMatrix();
+        getHit      = false;
         return true;
     }
 
     void Player::Update()    // override
     {
-        auto mat    = GetMatrix();
+        // auto mat    = GetMatrix();
         float3 move = float3(0, 0, 0);
-        // isWalk      = false;
-
-        // #ifdef USE_MOUSE_CAMERA
-        // カメラ方向を取得してその方向に動かす
+        movement    = float3(0, 0, 0);
 
         if (!pCamera.lock()) {
             pCamera      = Scene::GetObjectPtr<Camera>("PlayerCamera");
             cameraLength = pCamera.lock()->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
         } else {
-            float3 v = GetTranslate() - pCamera.lock()->GetTranslate();
-            mat      = HelperLib::Math::CreateMatrixByFrontVector(-v);
+            float3 v    = GetTranslate() - pCamera.lock()->GetTranslate();
+            self_matrix = HelperLib::Math::CreateMatrixByFrontVector(-v);
         }
 
-        // カメラ距離の調整
-        cameraLength -= GetMouseWheelRotVol() * 3;
-        if (cameraLength < 10) {
-            cameraLength = 10;
-        } else if (cameraLength > 100) {
-            cameraLength = 100;
-        }
-        pCamera.lock()->GetComponent<ComponentSpringArm>()->SetSpringArmLength(cameraLength);
-        // #endif    // USE_MOUSE_CAMERA
+        InputHandle();
 
-#pragma region INPUT
-        if (IsMouseDown(MOUSE_INPUT_LEFT)) {
-            // isAttack    = true;
+        if (combo) {
             playerState = PlayerState::ATTACK;
-
-            if (combo == 0) {
-                combo     = 1;
-                currCombo = Combo::NORMAL_COMBO1;
-            } else if (combo == 1 && waitForCombo) {
-                isCombo = true;
-
-                // canCombo2 = false;
-            } else if (combo == 2 && waitForCombo) {
-                isCombo = true;
-                // canCombo3 = false;
-            }
-
-            // switch (currCombo) {
-            //     case Combo::NO_COMBO:
-            //         currCombo = Combo::COMBO1;
-            //         break;
-            //     case Combo::COMBO1:
-            //         currCombo = (Combo)0;
-            //         break;
-            //     case Combo::COMBO2:
-            //         break;
-            //     case Combo::COMBO3:
-            //         break;
-            // }
         }
 
-        /*if (!isAttack) */ {
-            if (IsKeyRepeat(KEY_INPUT_W)) {
-                float3 vec = mat.axisZ();
-                vec.y      = 0;
-                move += -vec;
-                if (!combo) {
-                    // isWalk      = true;
-                    playerState = PlayerState::WALK;
-                }
-            }
-            if (IsKeyRepeat(KEY_INPUT_D)) {
-                float3 vec = mat.axisX();
-                vec.y      = 0;
-                move += -vec;
-                if (!combo) {
-                    // isWalk      = true;
-                    playerState = PlayerState::WALK;
-                }
-            }
-            if (IsKeyRepeat(KEY_INPUT_S)) {
-                float3 vec = mat.axisZ();
-                vec.y      = 0;
-                move += vec;
-                if (!combo) {
-                    // isWalk      = true;
-                    playerState = PlayerState::WALK;
-                }
-            }
-            if (IsKeyRepeat(KEY_INPUT_A)) {
-                float3 vec = mat.axisX();
-                vec.y      = 0;
-                move += vec;
-                if (!combo) {
-                    // isWalk      = true;
-                    playerState = PlayerState::WALK;
-                }
-            }
-        }
-#pragma endregion
-
-        if (move.x == 0 && move.y == 0 && move.z == 0 && combo == 0) {
+        if (CheckFloat3Zero(movement) && combo == 0 && playerState != PlayerState::GET_HIT) {
             playerState = PlayerState::IDLE;
         }
 
         switch (playerState) {
             case PlayerState::GET_HIT:
+                if (!pModel.lock()->IsPlaying()) {
+                    playerState = PlayerState::IDLE;
+                }
                 break;
             case PlayerState::ATTACK:
-                Attack(move);
+                Attack();
                 break;
             case PlayerState::JUMP:
                 break;
             case PlayerState::WALK:
-                Walk(move);
+                Walk();
                 break;
             default:
                 Idle();
                 break;
         }
 
-        move *= speed_ * GetDeltaTime60() * !combo;
+        movement *= speed_ * GetDeltaTime60() * !combo;
 
         // 地面移動スピードを決定する
-        AddTranslate(move);
+        AddTranslate(movement);
     }
 
     // 基本描画の後に処理します
@@ -272,127 +198,139 @@ namespace LittleQuest {
         Super::OnHit(hitInfo);
     }
 
+    void Player::InputHandle() {
+        // カメラ距離の調整
+        cameraLength -= GetMouseWheelRotVol() * 3;
+        if (cameraLength < 10) {
+            cameraLength = 10;
+        } else if (cameraLength > 100) {
+            cameraLength = 100;
+        }
+        pCamera.lock()->GetComponent<ComponentSpringArm>()->SetSpringArmLength(cameraLength);
+        // #endif    // USE_MOUSE_CAMERA
+
+        if (IsKeyRepeat(KEY_INPUT_W)) {
+            float3 vec = self_matrix.axisZ();
+            vec.y      = 0;
+            movement += -vec;
+            playerState = PlayerState::WALK;
+        }
+        if (IsKeyRepeat(KEY_INPUT_D)) {
+            float3 vec = self_matrix.axisX();
+            vec.y      = 0;
+            movement += -vec;
+            playerState = PlayerState::WALK;
+        }
+        if (IsKeyRepeat(KEY_INPUT_S)) {
+            float3 vec = self_matrix.axisZ();
+            vec.y      = 0;
+            movement += vec;
+            playerState = PlayerState::WALK;
+        }
+        if (IsKeyRepeat(KEY_INPUT_A)) {
+            float3 vec = self_matrix.axisX();
+            vec.y      = 0;
+            movement += vec;
+            playerState = PlayerState::WALK;
+        }
+
+        if (IsMouseDown(MOUSE_INPUT_LEFT)) {
+            playerState = PlayerState::ATTACK;
+
+            if (combo == 0) {
+                combo     = 1;
+                currCombo = Combo::NORMAL_COMBO1;
+            } else if (combo != 0 && waitForCombo) {
+                isCombo = true;
+            }
+        }
+    }
+
     void Player::Idle() {
         // if (modelPtr->GetPlayAnimationName() != "idle") {
         pModel.lock()->PlayAnimationNoSame("idle", true);
         //}
     }
 
-    void Player::Walk(float3& move) {
+    void Player::Walk(/*float3& move*/) {
         // 逆方向同時に押すと消えるので
-        if (move.x == 0 || move.z == 0) {
+        if (movement.x == 0 || movement.z == 0) {
             return;
         }
 
-        if (auto modelPtr = GetComponent<ComponentModel>()) {
-            move = normalize(move);
+        movement = normalize(movement);
+        this->SetModelRotation();
 
-            this->SetModelRotation(move);
-
-            if (modelPtr->GetPlayAnimationName() != "walk") pModel.lock()->PlayAnimation("walk", true, 0.2f, 14.0f);
+        if (pModel.lock()->GetPlayAnimationName() != "walk") {
+            pModel.lock()->PlayAnimation("walk", true, 0.2f, 14.0f);
         }
     }
 
     void Player::Jump() {}
 
-    void Player::Attack(float3& move) {
-        if (auto modelPtr = GetComponent<ComponentModel>()) {
-            if (combo == 1) {
-                if (pModel.lock()->GetPlayAnimationName() != "attack1") {
-                    this->SetModelRotation(move);
-                    modelPtr->PlayAnimationNoSame("attack1");
-                    attackList.clear();
-                }
-
-                // 攻撃判定終わる時間
-                // if (modelPtr->GetAnimationTime() > 0.9f) {
-                // if (!modelPtr->IsPlaying()){
-                //    if (!isCombo) {
-                //        isAttack    = false;
-                //        combo       = 0;
-                //        playerState = PlayerState::IDLE;
-                //    } else {
-                //        combo   = 2;
-                //        isCombo = false;
-                //    }
-                //}
-
-                if (!pModel.lock()->IsPlaying()) {
-                    // isAttack = false;
-                    combo = 0;
-                    if (isCombo) {
-                        combo     = 2;
-                        currCombo = Combo::NORMAL_COMBO2;
-                        isCombo   = false;
-                    }
-                }
-                // コンボ判定する時間
-                // if (modelPtr->GetAnimationTime() > 0.6f) {
-                if (pModel.lock()->IsPlaying()) {
-                    waitForCombo = true;
-                }
+    void Player::Attack(/*float3& move*/) {
+        if (combo == 1) {
+            if (pModel.lock()->GetPlayAnimationName() != "attack1") {
+                this->SetModelRotation();
+                pModel.lock()->PlayAnimationNoSame("attack1");
+                attackList.clear();
             }
 
-            if (combo == 2) {
-                if (pModel.lock()->GetPlayAnimationName() != "attack2") {
-                    pModel.lock()->PlayAnimationNoSame("attack2");
-                    this->SetModelRotation(move);
-                    attackList.clear();
+            if (!pModel.lock()->IsPlaying()) {
+                combo = 0;
+                if (isCombo) {
+                    combo     = 2;
+                    currCombo = Combo::NORMAL_COMBO2;
+                    isCombo   = false;
                 }
+            } else {
+                waitForCombo = true;
+            }
+        }
 
-                if (pModel.lock()->GetAnimationTime() > 0.9f) {
-                    // if (!isCombo) {
-                    // isAttack    = false;
-                    //    isCombo     = false;
-                    combo = 0;
-                    //    playerState = PlayerState::IDLE;
-                    //} else {
-                    //    combo   = 3;
-                    //    isCombo = false;
-                    //}
-                    if (isCombo) {
-                        combo     = 3;
-                        currCombo = Combo::NORMAL_COMBO3;
-                        isCombo   = false;
-                    }
-                }
-                if (pModel.lock()->GetAnimationTime() > 0.3f /*&& !isCombo*/) {
-                    waitForCombo = true;
-                    // isCombo   = false;
-                }
+        if (combo == 2) {
+            if (pModel.lock()->GetPlayAnimationName() != "attack2") {
+                pModel.lock()->PlayAnimationNoSame("attack2");
+                this->SetModelRotation();
+                attackList.clear();
             }
 
-            if (combo == 3) {
-                if (pModel.lock()->GetPlayAnimationName() != "attack3") {
-                    this->SetModelRotation(move);
-                    pModel.lock()->PlayAnimationNoSame("attack3");
-                    attackList.clear();
+            if (!pModel.lock()->IsPlaying()) {
+                combo = 0;
+                if (isCombo) {
+                    combo     = 3;
+                    currCombo = Combo::NORMAL_COMBO3;
+                    isCombo   = false;
                 }
-                if (pModel.lock()->GetAnimationTime() > 0.9f) {
-                    // isAttack    = false;
-                    // isCombo     = false;
-                    combo       = 0;
-                    playerState = PlayerState::IDLE;
-                }
+            } else {
+                waitForCombo = true;
             }
+        }
 
-            if (combo == 0) {
-                // isAttack    = false;
-                // isCombo     = false;
+        if (combo == 3) {
+            if (pModel.lock()->GetPlayAnimationName() != "attack3") {
+                this->SetModelRotation();
+                pModel.lock()->PlayAnimationNoSame("attack3");
+                attackList.clear();
+            }
+            if (!pModel.lock()->IsPlaying()) {
+                combo       = 0;
                 playerState = PlayerState::IDLE;
-                currCombo   = Combo::NO_COMBO;
             }
+        }
+
+        if (combo == 0) {
+            playerState = PlayerState::IDLE;
+            currCombo   = Combo::NO_COMBO;
         }
     }
 
-    void Player::SetModelRotation(float3& move) {
-        if (auto modelPtr = GetComponent<ComponentModel>()) {
-            if (move.x != 0 || move.z != 0) {
-                float x     = -move.x;
-                float z     = -move.z;
-                float theta = atan2(x, z) * RadToDeg;
-                pModel.lock()->SetRotationAxisXYZ({0, theta, 0});
-            }
+    void Player::SetModelRotation(/*float3& move*/) {
+        if (movement.x != 0 || movement.z != 0) {
+            float x     = -movement.x;
+            float z     = -movement.z;
+            float theta = atan2(x, z) * RadToDeg;
+            pModel.lock()->SetRotationAxisXYZ({0, theta, 0});
         }
     }
 
@@ -401,6 +339,8 @@ namespace LittleQuest {
 
         if (pHP.lock()->GetHP() > 0) {
             pModel.lock()->PlayAnimation("getHit");
+            playerState = PlayerState::GET_HIT;
+            getHit      = true;
         } else {
             Scene::Change(Scene::GetScene<GameOverScene>());
         }

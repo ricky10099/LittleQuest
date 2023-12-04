@@ -80,33 +80,26 @@ namespace LittleQuest {
         return true;
     }
 
-    void Mutant::Update()    // override
-    {
+    void Mutant::Update() {
         Super::Update();
     }
 
-    // 基本描画の後に処理します
-    void Mutant::LateDraw()    // override
-    {
+    void Mutant::LateDraw() {
         Super::LateDraw();
         pHP.lock()->DrawHPBar();
     }
 
-    void Mutant::GUI()    // override
-    {
+    void Mutant::GUI() {
         Super::GUI();
     }
 
-    void Mutant::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
-    {
+    void Mutant::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
         // 武器の衝突判定
         if (hitInfo.collision_->GetName() == "MutantWeapon") {
             // attack anim 1.3s からダメージ発生
-            if (auto modelPtr = GetComponent<ComponentModel>()) {
-                if (pModel.lock()->GetPlayAnimationName() == "attack") {
-                    if (pModel.lock()->GetAnimationTime() > 1.3f) {
-                        isAttack = true;
-                    }
+            if (pModel.lock()->GetPlayAnimationName() == "attack") {
+                if (pModel.lock()->GetAnimationTime() > 1.3f) {
+                    isAttack = true;
                 }
             }
 
