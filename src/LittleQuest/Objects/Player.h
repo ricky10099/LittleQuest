@@ -54,16 +54,15 @@ namespace LittleQuest {
             float speed_ = 0.5f;
 
             enum Combo {
+                NO_COMBO,
                 NORMAL_COMBO1,
                 NORMAL_COMBO2,
                 NORMAL_COMBO3,
-
-                NO_COMBO,
             };
             Combo currCombo = Combo::NO_COMBO;
 
             int atkVal;
-            int combo         = 0;
+            // int  combo        = 0;
             bool isCombo      = false;
             bool waitForCombo = false;
     };

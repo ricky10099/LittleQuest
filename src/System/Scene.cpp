@@ -580,8 +580,9 @@ void Scene::checkSerialized(ObjectPtr obj) {
         [[maybe_unused]] auto& p = proc.second;
 
         if (p.GetProc() == nullptr && p.GetAddProc() == nullptr) {
-            assert(
-                0 && "SetProcで追加した処理がSerializeされません。処理をProcAddProc()で作成して登録するか、初期化する同じシーンを選択しInitSerialize()で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
+            assert(0 && "SetProcで追加した処理がSerializeされません。処理をProcAddProc()"
+                        "で作成して登録するか、初期化する同じシーンを選択しInitSerialize()"
+                        "で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
 
             itr = obj->proc_timings_.erase(itr);
             continue;
@@ -605,8 +606,9 @@ void Scene::checkSerialized(ComponentPtr comp) {
         [[maybe_unused]] auto& p = proc.second;
 
         if (p.GetProc() == nullptr && p.GetAddProc() == nullptr) {
-            assert(
-                0 && "SetProcで追加した処理がSerializeされません。処理をProcAddProc()で作成して登録するか、初期化する同じシーンを選択しInitSerialize()で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
+            assert(0 && "SetProcで追加した処理がSerializeされません。処理をProcAddProc()"
+                        "で作成して登録するか、初期化する同じシーンを選択しInitSerialize()"
+                        "で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
 
             itr = comp->proc_timings_.erase(itr);
             continue;
@@ -686,8 +688,10 @@ void Scene::CheckLeak() {
                 }
 
                 if (leak) {
-                    std::string str =
-                        "オブジェクト名: " + std::string(o->GetName()) + "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
+                    std::string str = "オブジェクト名: " + std::string(o->GetName()) +
+                                      "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか"
+                                      "確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. "
+                                      "Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
                     MessageBox(GetMainWindowHandle(), str.c_str(), "Objectが正しく解放できませんでした.", MB_OK);
                 }
                 // リークとしてとらえておく
@@ -722,8 +726,10 @@ void Scene::ChangeNextScene() {
                 }
 
                 if (leak) {
-                    std::string str =
-                        "オブジェクト名: " + std::string(o->GetName()) + "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
+                    std::string str = "オブジェクト名: " + std::string(o->GetName()) +
+                                      "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか"
+                                      "確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. "
+                                      "Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
                     MessageBox(GetMainWindowHandle(), str.c_str(), "Objectが正しく解放できませんでした.", MB_OK);
                 }
                 // リークとしてとらえておく

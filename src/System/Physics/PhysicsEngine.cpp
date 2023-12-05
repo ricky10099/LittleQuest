@@ -400,7 +400,7 @@ namespace physics {
 
         physics::EngineImpl* physics_ = nullptr;    //!< Physicsインスタンス
 
-    }
+    }    // namespace
 
     //---------------------------------------------------------------------------
     //! デフォルトコンストラクタ

@@ -50,14 +50,14 @@ namespace Input {
         // std::fill_n( key_count, MAX_KEY_NUM, 0 );
 
         /*
-                                                    for( int i = 0; i <
-           MAX_KEY_NUM;
-               ++i
-                   )
-                                                    {
-                                                            keys[ i ] = 0;
-                                                    }
-                                                    */
+                                                        for( int i = 0; i <
+               MAX_KEY_NUM;
+                   ++i
+                       )
+                                                        {
+                                                                keys[ i ] = 0;
+                                                        }
+                                                        */
     }
 
     //---------------------------------------------------------------------------

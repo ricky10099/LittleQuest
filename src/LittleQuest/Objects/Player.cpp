@@ -30,21 +30,17 @@ namespace LittleQuest {
         player->pHP = player->AddComponent<ComponentHP>();
         player->pHP.lock()->SetHP(100);
 
-        {
-            auto sword = Scene::CreateObjectPtr<Object>("PlayerSword");
+        auto sword = Scene::CreateObjectPtr<Object>("PlayerSword");
 
-            if (auto model = sword->AddComponent<ComponentModel>()) {
-                model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
-                model->SetRotationAxisXYZ({0, 0, 0});
-                model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
-            }
+        auto model = sword->AddComponent<ComponentModel>();
+        model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
+        model->SetRotationAxisXYZ({0, 0, 0});
+        model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
 
-            if (auto attach = sword->AddComponent<ComponentAttachModel>()) {
-                attach->SetAttachObject(player, "mixamorig:RightHand");
-                attach->SetAttachRotate({0, 0, -90});
-                attach->SetAttachOffset({10, 13, -3});
-            }
-        }
+        auto attach = sword->AddComponent<ComponentAttachModel>();
+        attach->SetAttachObject(player, "mixamorig:RightHand");
+        attach->SetAttachRotate({0, 0, -90});
+        attach->SetAttachOffset({10, 13, -3});
 
         return player;
     }
@@ -65,27 +61,24 @@ namespace LittleQuest {
                                      {"attack3", "data/LittleQuest/Anim/SwordAttackCombo3.mv1", 0, 1.5f},
                                      {"getHit", "data/LittleQuest/Anim/SwordGetHit.mv1", 0, 1.0f}});
 
-        //  コリジョン(カプセル)
-        if (auto colCap = AddComponent<ComponentCollisionCapsule>()) {
-            colCap->SetTranslate({0, 0, 0});
-            colCap->SetRadius(2.5);
-            colCap->SetHeight(10);
-            colCap->UseGravity();
-            colCap->SetCollisionGroup(ComponentCollision::CollisionGroup::PLAYER);
-        }
+        auto colCap = AddComponent<ComponentCollisionCapsule>();
+        colCap->SetTranslate({0, 0, 0});
+        colCap->SetRadius(2.5);
+        colCap->SetHeight(10);
+        colCap->UseGravity();
+        colCap->SetCollisionGroup(ComponentCollision::CollisionGroup::PLAYER);
 
-        // コリジョン(武器)
-        if (auto colWeapon = AddComponent<ComponentCollisionCapsule>()) {
-            colWeapon->AttachToModel("mixamorig:RightHand");
-            colWeapon->SetTranslate({10, 12, 0});
-            colWeapon->SetRotationAxisXYZ({0, 0, -90});
-            colWeapon->SetRadius(0.3f);
-            colWeapon->SetHeight(5);
-            colWeapon->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
-            colWeapon->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
-            colWeapon->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
-            colWeapon->SetName("SwordCol");
-        }
+        auto colWeapon = AddComponent<ComponentCollisionCapsule>();
+        colWeapon->AttachToModel("mixamorig:RightHand");
+        colWeapon->SetTranslate({10, 12, 0});
+        colWeapon->SetRotationAxisXYZ({0, 0, -90});
+        colWeapon->SetRadius(0.3f);
+        colWeapon->SetHeight(5);
+        colWeapon->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
+        colWeapon->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
+        colWeapon->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
+        colWeapon->SetName("SwordCol");
+
         atkVal      = 50;
         self_matrix = GetMatrix();
         getHit      = false;
@@ -94,9 +87,7 @@ namespace LittleQuest {
 
     void Player::Update()    // override
     {
-        // auto mat    = GetMatrix();
-        float3 move = float3(0, 0, 0);
-        movement    = float3(0, 0, 0);
+        movement = float3(0, 0, 0);
 
         if (!pCamera.lock()) {
             pCamera      = Scene::GetObjectPtr<Camera>("PlayerCamera");
@@ -108,11 +99,11 @@ namespace LittleQuest {
 
         InputHandle();
 
-        if (combo) {
+        if (currCombo != Combo::NO_COMBO) {
             playerState = PlayerState::ATTACK;
         }
 
-        if (CheckFloat3Zero(movement) && combo == 0 && playerState != PlayerState::GET_HIT) {
+        if (CheckFloat3Zero(movement) && playerState != PlayerState::GET_HIT && playerState != PlayerState::ATTACK) {
             playerState = PlayerState::IDLE;
         }
 
@@ -135,7 +126,7 @@ namespace LittleQuest {
                 break;
         }
 
-        movement *= speed_ * GetDeltaTime60() * !combo;
+        movement *= speed_ * GetDeltaTime60() * !currCombo;
 
         // 地面移動スピードを決定する
         AddTranslate(movement);
@@ -146,7 +137,7 @@ namespace LittleQuest {
     {
         // gauge_.Draw();
 #if defined _DEBUG
-        printfDx("\ncombo:%d", combo);
+        // printfDx("\ncombo:%d", combo);
         float* mat = pModel.lock()->GetMatrixFloat();
         float matrixTranslation[3], matrixRotation[3], matrixScale[3];
         DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
@@ -158,7 +149,7 @@ namespace LittleQuest {
         printfDx("\nAnimation Play Time:%f", pModel.lock()->GetAnimationPlayTime());
         // printfDx("\nisAttack: %i", isAttack);
         printfDx("\nisCombo: %i", isCombo);
-        printfDx("\n!CurrCombo: %i", ~currCombo);
+        printfDx("\n!CurrCombo: %i", !currCombo);
         // float x, y, z;
 
         printfDx("\nMatAYx: %f %f %f", GetMatrix().axisX().x, GetMatrix().axisX().y, GetMatrix().axisX().z);
@@ -177,7 +168,7 @@ namespace LittleQuest {
         // 武器の衝突判定
         if (hitInfo.collision_->GetName() == "SwordCol") {
             auto* owner = hitInfo.hit_collision_->GetOwner();
-            if (combo != 0) {
+            if (currCombo != Combo::NO_COMBO) {
                 if (auto enemy = dynamic_cast<Enemy*>(owner)) {
                     bool inList = false;
                     for (int i = 0; i < attackList.size(); i++) {
@@ -237,24 +228,20 @@ namespace LittleQuest {
         if (IsMouseDown(MOUSE_INPUT_LEFT)) {
             playerState = PlayerState::ATTACK;
 
-            if (combo == 0) {
-                combo     = 1;
+            if (currCombo == 0) {
                 currCombo = Combo::NORMAL_COMBO1;
-            } else if (combo != 0 && waitForCombo) {
+            } else if (currCombo != 0 && waitForCombo) {
                 isCombo = true;
             }
         }
     }
 
     void Player::Idle() {
-        // if (modelPtr->GetPlayAnimationName() != "idle") {
         pModel.lock()->PlayAnimationNoSame("idle", true);
-        //}
     }
 
-    void Player::Walk(/*float3& move*/) {
-        // 逆方向同時に押すと消えるので
-        if (movement.x == 0 || movement.z == 0) {
+    void Player::Walk() {
+        if (CheckFloat3Zero(movement)) {
             return;
         }
 
@@ -268,8 +255,8 @@ namespace LittleQuest {
 
     void Player::Jump() {}
 
-    void Player::Attack(/*float3& move*/) {
-        if (combo == 1) {
+    void Player::Attack() {
+        if (currCombo == 1) {
             if (pModel.lock()->GetPlayAnimationName() != "attack1") {
                 this->SetModelRotation();
                 pModel.lock()->PlayAnimationNoSame("attack1");
@@ -277,9 +264,8 @@ namespace LittleQuest {
             }
 
             if (!pModel.lock()->IsPlaying()) {
-                combo = 0;
+                currCombo = Combo::NO_COMBO;
                 if (isCombo) {
-                    combo     = 2;
                     currCombo = Combo::NORMAL_COMBO2;
                     isCombo   = false;
                 }
@@ -288,7 +274,7 @@ namespace LittleQuest {
             }
         }
 
-        if (combo == 2) {
+        if (currCombo == 2) {
             if (pModel.lock()->GetPlayAnimationName() != "attack2") {
                 pModel.lock()->PlayAnimationNoSame("attack2");
                 this->SetModelRotation();
@@ -296,9 +282,9 @@ namespace LittleQuest {
             }
 
             if (!pModel.lock()->IsPlaying()) {
-                combo = 0;
+                currCombo = Combo::NO_COMBO;
                 if (isCombo) {
-                    combo     = 3;
+                    // currCombo = 3;
                     currCombo = Combo::NORMAL_COMBO3;
                     isCombo   = false;
                 }
@@ -307,19 +293,19 @@ namespace LittleQuest {
             }
         }
 
-        if (combo == 3) {
+        if (currCombo == 3) {
             if (pModel.lock()->GetPlayAnimationName() != "attack3") {
                 this->SetModelRotation();
                 pModel.lock()->PlayAnimationNoSame("attack3");
                 attackList.clear();
             }
             if (!pModel.lock()->IsPlaying()) {
-                combo       = 0;
+                currCombo   = Combo::NO_COMBO;
                 playerState = PlayerState::IDLE;
             }
         }
 
-        if (combo == 0) {
+        if (currCombo == 0) {
             playerState = PlayerState::IDLE;
             currCombo   = Combo::NO_COMBO;
         }

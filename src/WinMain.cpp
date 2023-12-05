@@ -84,9 +84,9 @@ int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_u
     SetUseZBuffer3D(TRUE);
     SetWriteZBuffer3D(TRUE);
 
-//----------------------------------------------------------
-// メインループ
-//----------------------------------------------------------
+    //----------------------------------------------------------
+    // メインループ
+    //----------------------------------------------------------
 #if defined _DEBUG
     while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0 && !IsProcEnd()) {
 #else
