@@ -140,6 +140,8 @@ void Player::GUI() {
 }
 
 void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
+    Super::OnHit(hitInfo);
+
     if(hitInfo.collision_->GetName() == "SwordCol") {
         return;
     }
@@ -167,8 +169,6 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
         attackList.push_back(enemy->GetName().data());
         enemy->GetHit(this->atkVal);
     }
-
-    Super::OnHit(hitInfo);
 }
 
 void Player::GetHit(int damage) {
@@ -218,7 +218,7 @@ void Player::InputHandle() {
 
         if(currCombo == Combo::NO_COMBO) {
             currCombo = Combo::NORMAL_COMBO1;
-        } else if(/*currCombo != Combo::NO_COMBO && */ waitForCombo) {
+        } else if(waitForCombo) {
             isCombo = true;
         }
     }

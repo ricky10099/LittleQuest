@@ -18,18 +18,12 @@ namespace LittleQuest {
 BP_OBJECT_IMPL(Enemy, "LittleQuest/Enemy");
 
 bool Enemy::Init() {
-    Super::Init();
+    prevState = state = EnemyState::IDLE;
 
     if(isPatrol) {
-        startPoint = this->GetTranslate() + float3{-50, 0, 0};
-        patrolPoint.push_back(startPoint);
-
-        endPoint = this->GetTranslate() + float3{50, 0, 0};
-        patrolPoint.push_back(endPoint);
+        patrolPoint.push_back(this->GetTranslate() + float3{-50, 0, 0});
+        patrolPoint.push_back(this->GetTranslate() + float3{50, 0, 0});
     }
-
-    state     = EnemyState::IDLE;
-    prevState = state;
 
     if(!patrolPoint.empty()) {
         patrolIndex = 1;
@@ -41,18 +35,18 @@ bool Enemy::Init() {
 
     pPlayer = Scene::GetObjectPtr<Player>("Player");
 
-    return true;
+    return Super::Init();
 }
 
 void Enemy::Update() {
     float deltaTime = GetDeltaTime();
 
-    if(isDie) {
+    if(isDead) {
         destroyTimer -= deltaTime;
         return;
     }
 
-    if(!isBusy) {
+    if(state != EnemyState::ATTACK && state != EnemyState::GET_HIT) {
         if(FindPlayer()) {
             ChangeState(EnemyState::CHASING);
         } else {
@@ -70,9 +64,8 @@ void Enemy::Update() {
         }
     }
 
-    float3 move;
-
     CheckAnimation();
+    float3 move;
 
     switch(state) {
     case EnemyState::GET_HIT:
@@ -157,7 +150,7 @@ void Enemy::BackToInitialPosition(float3& move) {
     auto pos = this->GetTranslate();
     pos.y    = 0;
     move     = spawnPos - pos;
-    if(length(move).x > 0.5) {
+    if(GetDistance(move) > 0.5f) {
         move = normalize(move);
 
         float x     = -move.x;
@@ -185,7 +178,7 @@ void Enemy::Patrol(float3& move) {
         return;
     }
 
-    if(length(move).x > 1.0f) {
+    if(moveValue > 1.0f) {
         move = normalize(move);
 
         float x     = -move.x;
@@ -217,7 +210,7 @@ void Enemy::ChasePlayer(float3& move) {
     auto pos = GetTranslate();
     move     = pPlayer.lock()->GetTranslate() - pos;
 
-    if(abs(move.x) <= float1{7} && abs(move.z) <= float1{7}) {
+    if(GetDistance(move) < 6.0f) {
         ChangeState(EnemyState::ATTACK);
         isBusy = true;
         move   = {0, 0, 0};
@@ -226,7 +219,7 @@ void Enemy::ChasePlayer(float3& move) {
 
     pModel.lock()->PlayAnimationNoSame("run", true);
 
-    if(length(move).x > 0) {
+    if(GetDistance(move) > 0) {
         move = normalize(move);
 
         float x     = -move.x;
@@ -243,13 +236,14 @@ void Enemy::Attack() {
     animCheck = AnimCheck::ATTACKING;
 }
 
-void Enemy::CheckAnimation() {
+bool Enemy::CheckAnimation() {
     switch(animCheck) {
     case AnimCheck::GETTING_HIT:
         if(!pModel.lock()->IsPlaying()) {
             ChangeState(EnemyState::IDLE);
             animCheck = AnimCheck::NONE;
             isBusy    = false;
+            return true;
         }
         break;
     case AnimCheck::ATTACKING:
@@ -257,9 +251,14 @@ void Enemy::CheckAnimation() {
             isAttack    = false;
             isHitPlayer = false;
             Wait(.5f);
+            return true;
         }
         break;
+    default:
+        return true;
     }
+
+    return false;
 }
 
 void Enemy::GetHit(int damage) {
@@ -283,13 +282,12 @@ void Enemy::ChangeState(EnemyState state) {
 void Enemy::Die() {
     pModel.lock()->PlayAnimationNoSame("die");
     RemoveComponent<ComponentCollisionCapsule>();
-    this->isDie = true;
+    this->isDead = true;
 }
 
 float Enemy::getDestroyTimer() {
     return destroyTimer;
 }
-
 }    // namespace LittleQuest
 
 CEREAL_REGISTER_TYPE(LittleQuest::Enemy)

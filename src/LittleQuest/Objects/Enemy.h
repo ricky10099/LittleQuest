@@ -10,8 +10,8 @@ USING_PTR(Enemy);
 
 class ComponentHP;
 class Enemy: public Object {
-    BP_OBJECT_TYPE(Enemy, Object);
    public:
+    BP_OBJECT_TYPE(Enemy, Object);
     bool Init() override;
     void Update() override;
     void LateDraw() override;
@@ -22,7 +22,7 @@ class Enemy: public Object {
     float        getDestroyTimer();
 
    protected:
-    enum class EnemyState {
+    enum class EnemyState : unsigned int {
         IDLE,
         PATROL,
         GIVE_UP,
@@ -35,7 +35,6 @@ class Enemy: public Object {
     EnemyState state;
     EnemyState prevState;
     EnemyState initialState;
-    EnemyState busyState;
     void       ChangeState(EnemyState state);
     bool       isBusy = false;
 
@@ -52,7 +51,7 @@ class Enemy: public Object {
     virtual void ChasePlayer(float3& move);
     virtual void Attack();
 
-    virtual void CheckAnimation();
+    virtual bool CheckAnimation();
 
     enum class AnimCheck {
         NONE,
@@ -62,10 +61,8 @@ class Enemy: public Object {
     AnimCheck animCheck;
 
     float3              spawnPos;
-    bool                isPatrol;
-    float3              startPoint;
-    float3              endPoint;
     float3              goal;
+    bool                isPatrol;
     std::vector<float3> patrolPoint;
     int                 patrolIndex;
     float               waitTime;
@@ -80,7 +77,7 @@ class Enemy: public Object {
     const float runVal      = 1.f;
     float       speedFactor = 1.0f;
 
-    bool  isDie        = false;
+    bool  isDead       = false;
     float destroyTimer = 5;
 
     ObjectWeakPtr                 pPlayer;

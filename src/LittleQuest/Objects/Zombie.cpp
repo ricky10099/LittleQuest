@@ -13,8 +13,6 @@
 
 namespace LittleQuest {
 
-//! @brief Editor上でのCreateObject用の設定
-//! @detail BP_OBJECT_TYPEとセットで用意する
 BP_OBJECT_IMPL(Zombie, "LittleQuest/Zombie");
 
 ZombiePtr Zombie::Create(const float3& pos, const float3& front) {
