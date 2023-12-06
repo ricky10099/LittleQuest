@@ -8,7 +8,9 @@
 //! コンストラクタ (行列を指定して初期化)
 //---------------------------------------------------------------------------
 Frustum::Frustum(const matrix& mat_view, const matrix& mat_proj, Frustum::DepthMode depth_mode)
-    : depth_mode_(depth_mode), mat_view_(mat_view), mat_proj_(mat_proj) {
+    : depth_mode_(depth_mode)
+    , mat_view_(mat_view)
+    , mat_proj_(mat_proj) {
     // 各パラメーターを行列から抽出
 
     // float3            position_        = float3(0.0f, 5.0f, -15.0f);   //!<
@@ -35,18 +37,18 @@ void Frustum::update() {
     mat_camera_world_ = inverse(mat_view_);
 
     // 投影行列
-    switch (depth_mode_) {
-        case DepthMode::Default:
-            mat_proj_ = matrix::perspectiveFovLH(fovy_, aspect_ratio_, z_near_, z_far_);
-            break;
-        case DepthMode::Reverse:
-            // farとnearを入れ替えることでreverse-zになる
-            mat_proj_ = matrix::perspectiveFovLH(fovy_, aspect_ratio_, z_far_, z_near_);
-            break;
-        case DepthMode::ReverseInfinite:
-            // 無限遠まで高精度レンダリングする特殊投影行列
-            mat_proj_ = matrix::perspectiveFovInfiniteFarPlaneLH(fovy_, aspect_ratio_, z_near_);
-            break;
+    switch(depth_mode_) {
+    case DepthMode::Default:
+        mat_proj_ = matrix::perspectiveFovLH(fovy_, aspect_ratio_, z_near_, z_far_);
+        break;
+    case DepthMode::Reverse:
+        // farとnearを入れ替えることでreverse-zになる
+        mat_proj_ = matrix::perspectiveFovLH(fovy_, aspect_ratio_, z_far_, z_near_);
+        break;
+    case DepthMode::ReverseInfinite:
+        // 無限遠まで高精度レンダリングする特殊投影行列
+        mat_proj_ = matrix::perspectiveFovInfiniteFarPlaneLH(fovy_, aspect_ratio_, z_near_);
+        break;
     }
 
     // 合成
@@ -109,7 +111,7 @@ void Frustum::renderDebug() {
         DrawLine3D(cast(position_ + axis_z * zn), cast(position_ + axis_z * zf * 2.0f), GetColor(0, 0, 0));
     }
 
-    for (u32 i = 0; i < 8; ++i) {
+    for(u32 i = 0; i < 8; ++i) {
         DrawSphere3D(cast(v[i]), 0.1f, 8, GetColor(255, 255, 0), 0, true);
     }
 

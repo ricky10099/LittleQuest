@@ -6,8 +6,8 @@
 
 namespace {
 
-    //! ルートの型情報
-    Type rootTypeInfo("root", 0, nullptr);
+//! ルートの型情報
+Type rootTypeInfo("root", 0, nullptr);
 
 }    // namespace
 
@@ -31,15 +31,15 @@ Type::Type(const char* class_name, size_t class_size, const char* desc_name, Typ
     //----------------------------------------------------------
     // 継承ツリー構造の構築
     //----------------------------------------------------------
-    if (parent_type == nullptr && strcmp(class_name, "root")) {    // "root"ではない
-        parent_type = &rootTypeInfo;                               // 基底クラスはルートに接続する
+    if(parent_type == nullptr && strcmp(class_name, "root")) {    // "root"ではない
+        parent_type = &rootTypeInfo;                              // 基底クラスはルートに接続する
     }
 
     parent_ = parent_type;
-    if (parent_type) {
+    if(parent_type) {
         auto child = parent_type->child();
         // 親クラスの子があった場合は追加登録、子が一つもない場合は新規登録
-        if (child) {
+        if(child) {
             siblings_ = child;
         }
         parent_type->child_ = this;
@@ -105,27 +105,27 @@ Type* Type::siblings() const {
 //! 名前を指定して指定基底クラス型でnewする
 //---------------------------------------------------------------------------
 void* CreateInstanceFromName(std::string_view class_name, Type& base_type) {
-    Type* p                 = base_type.child();
-    bool returnFromTraverse = false;
-    Type* next              = nullptr;
+    Type* p                  = base_type.child();
+    bool  returnFromTraverse = false;
+    Type* next               = nullptr;
 
     //----------------------------------------------------------
     // 継承ツリー構造を探索
     // スタック再帰を使わない高速なツリー探索 (stackless tree traversal)
     //----------------------------------------------------------
-    while (p != &base_type) {
-        if (!returnFromTraverse) {
+    while(p != &base_type) {
+        if(!returnFromTraverse) {
             // 名前チェックして一致したら作成
-            if (p->className() == class_name) {
+            if(p->className() == class_name) {
                 return p->createInstance();
             }
         }
 
-        if (p->child() && !returnFromTraverse) {
+        if(p->child() && !returnFromTraverse) {
             // 子がある場合は子を先に調べる。(子から探索で戻ってきた場合は除外)
             next               = p->child();
             returnFromTraverse = false;
-        } else if (p->siblings()) {
+        } else if(p->siblings()) {
             // 兄弟がいる場合は兄弟を調べる
             next               = p->siblings();
             returnFromTraverse = false;

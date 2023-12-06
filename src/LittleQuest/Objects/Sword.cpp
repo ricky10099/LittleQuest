@@ -12,41 +12,41 @@
 
 namespace LittleQuest {
 
-    //! @brief Editor上でのCreateObject用の設定
-    //! @detail BP_OBJECT_TYPEとセットで用意する
-    BP_OBJECT_IMPL(Sword, "LittleQuest/Sword");
+//! @brief Editor上でのCreateObject用の設定
+//! @detail BP_OBJECT_TYPEとセットで用意する
+BP_OBJECT_IMPL(Sword, "LittleQuest/Sword");
 
-    SwordPtr Sword::Create(std::string name, const float3& pos) {
-        // 箱の作成
-        auto sword = Scene::CreateObjectPtr<Sword>();
-        sword->SetName(name);
-        // posの位置に設定
-        sword->SetTranslate(pos);
+SwordPtr Sword::Create(std::string name, const float3& pos) {
+    // 箱の作成
+    auto sword = Scene::CreateObjectPtr<Sword>();
+    sword->SetName(name);
+    // posの位置に設定
+    sword->SetTranslate(pos);
 
-        return sword;
-    }
+    return sword;
+}
 
-    bool Sword::Init()    // override
-    {
-        return Super::Init();
-    }
+bool Sword::Init()    // override
+{
+    return Super::Init();
+}
 
-    void Sword::Update()    // override
-    {}
+void Sword::Update()    // override
+{}
 
-    // 基本描画の後に処理します
-    void Sword::LateDraw()    // override
-    {}
+// 基本描画の後に処理します
+void Sword::LateDraw()    // override
+{}
 
-    void Sword::GUI()    // override
-    {
-        Super::GUI();
-    }
+void Sword::GUI()    // override
+{
+    Super::GUI();
+}
 
-    void Sword::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
-    {
-        Super::OnHit(hitInfo);
-    }
+void Sword::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
+{
+    Super::OnHit(hitInfo);
+}
 }    // namespace LittleQuest
 
 CEREAL_REGISTER_TYPE(LittleQuest::Sword)

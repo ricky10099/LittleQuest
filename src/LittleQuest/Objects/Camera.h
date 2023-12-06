@@ -1,27 +1,22 @@
 ﻿#include <System/Scene.h>
 
+#include <System/Component/ComponentSpringArm.h>
+
 namespace LittleQuest {
 
-    USING_PTR(Camera);
+USING_PTR(Camera);
 
-    // カメラ
-    class Camera : public Object {
-        public:
-            BP_OBJECT_TYPE(Camera, Object);
+class Camera: public Object {
+    BP_OBJECT_TYPE(Camera, Object);
+   public:
+    static CameraPtr Create(ObjectPtr obj);
+    bool             Init() override;
+    void             Update() override;
+    void             SetCameraLength(float length);
+   private:
+    float3        rot{-20, 0, 0};
+    ObjectWeakPtr targetPtr;
 
-            static CameraPtr Create(ObjectPtr obj);
-
-            bool Init() override;
-
-            //#ifdef USE_MOUSE_CAMERA
-            void Update() override;
-            //#endif
-
-        private:
-            // armの回転は上20度(X軸回転)の角度としておく
-            float3 rot_{-20, 0, 0};
-
-            ObjectWeakPtr target_obj_;
-    };
-
+    std::weak_ptr<ComponentSpringArm> pStpringArm;
+};
 }    // namespace LittleQuest

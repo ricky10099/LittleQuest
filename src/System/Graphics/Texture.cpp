@@ -15,7 +15,7 @@ Texture::~Texture() {
 //! 解放
 //---------------------------------------------------------------------------
 void Texture::clear() {
-    if (handle_ != -1) {
+    if(handle_ != -1) {
         SetASyncLoadFinishDeleteFlag(handle_);
         handle_ = -1;
     }
@@ -100,7 +100,7 @@ Texture::Texture(u32 width, u32 height, DXGI_FORMAT dxgi_format) {
     desc.MiscFlags      = 0;                             // フラグなし
 
     // デプスバッファの場合はR32としてメモリ初期化
-    if (dxgi_format == DXGI_FORMAT_D32_FLOAT) {
+    if(dxgi_format == DXGI_FORMAT_D32_FLOAT) {
         desc.Format = DXGI_FORMAT_R32_TYPELESS;
         desc.BindFlags |= D3D11_BIND_DEPTH_STENCIL;
     } else {
@@ -125,7 +125,8 @@ Texture::Texture(u32 width, u32 height, DXGI_FORMAT dxgi_format) {
 //!  D3D11Resource指定で初期化
 //---------------------------------------------------------------------------
 bool Texture::initialize(ID3D11Resource* d3d_resource) {
-    if (d3d_resource == nullptr) return false;
+    if(d3d_resource == nullptr)
+        return false;
 
     d3d_resource_ = d3d_resource;
 
@@ -134,7 +135,7 @@ bool Texture::initialize(ID3D11Resource* d3d_resource) {
     D3D11_RESOURCE_DIMENSION dimension;
     d3d_resource->GetType(&dimension);
 
-    if (dimension != D3D11_RESOURCE_DIMENSION_TEXTURE2D) {
+    if(dimension != D3D11_RESOURCE_DIMENSION_TEXTURE2D) {
         assert(0);    // Texture2D以外は未対応
         return false;
     }
@@ -152,8 +153,8 @@ bool Texture::initialize(ID3D11Resource* d3d_resource) {
         width_  = desc.Width;     // 幅
         height_ = desc.Height;    // 高さ
 
-        if (desc.BindFlags & D3D11_BIND_SHADER_RESOURCE) {
-            if (desc.Format == DXGI_FORMAT_R32_TYPELESS) {    // デプスバッファ用の場合はR32_FLOATとして利用
+        if(desc.BindFlags & D3D11_BIND_SHADER_RESOURCE) {
+            if(desc.Format == DXGI_FORMAT_R32_TYPELESS) {    // デプスバッファ用の場合はR32_FLOATとして利用
                 D3D11_SHADER_RESOURCE_VIEW_DESC view_desc{};
                 view_desc.ViewDimension       = D3D11_SRV_DIMENSION_TEXTURE2D;
                 view_desc.Format              = DXGI_FORMAT_R32_FLOAT;
@@ -163,22 +164,22 @@ bool Texture::initialize(ID3D11Resource* d3d_resource) {
                 d3d_device->CreateShaderResourceView(d3d_resource, nullptr, &d3d_srv_);
 
                 // ID3D11Texture2DからDxLibグラフィックハンドルを作成
-                if (handle_ == -1) {
+                if(handle_ == -1) {
                     handle_ = CreateGraphFromID3D11Texture2D(d3d_resource);
                 }
             }
         }
 
-        if (desc.BindFlags & D3D11_BIND_RENDER_TARGET) {
+        if(desc.BindFlags & D3D11_BIND_RENDER_TARGET) {
             d3d_device->CreateRenderTargetView(d3d_resource, nullptr, &d3d_rtv_);
         }
 
-        if (desc.BindFlags & D3D11_BIND_DEPTH_STENCIL) {
+        if(desc.BindFlags & D3D11_BIND_DEPTH_STENCIL) {
             D3D11_DEPTH_STENCIL_VIEW_DESC view_desc{};
             view_desc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-            if (desc.Format == DXGI_FORMAT_R16_TYPELESS) {
+            if(desc.Format == DXGI_FORMAT_R16_TYPELESS) {
                 view_desc.Format = DXGI_FORMAT_D16_UNORM;
-            } else if (desc.Format == DXGI_FORMAT_D32_FLOAT || desc.Format == DXGI_FORMAT_R32_TYPELESS) {
+            } else if(desc.Format == DXGI_FORMAT_D32_FLOAT || desc.Format == DXGI_FORMAT_R32_TYPELESS) {
                 view_desc.Format = DXGI_FORMAT_D32_FLOAT;
             } else {
                 view_desc.Format = DXGI_FORMAT_UNKNOWN;
@@ -193,7 +194,8 @@ bool Texture::initialize(ID3D11Resource* d3d_resource) {
 //! 遅延初期化
 //---------------------------------------------------------------------------
 void Texture::on_initialize() {
-    if (need_initialize_ == false) return;
+    if(need_initialize_ == false)
+        return;
 
     //----------------------------------------------------------
     // D3Dリソース初期化
@@ -251,7 +253,7 @@ ID3D11DepthStencilView* Texture::dsv() const {
 //---------------------------------------------------------------------------
 Texture::operator int() {
     // 非同期ロード完了チェック
-    if (!active_) {
+    if(!active_) {
         return DX_NONE_GRAPH;
     }
 

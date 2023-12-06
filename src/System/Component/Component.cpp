@@ -38,7 +38,7 @@ const ObjectPtr Component::GetOwnerPtr() const {
 
 //! @brief コンストラクタ
 //! @param owner オーナー
-Component::Component() : owner_(nullptr) {}
+Component::Component(): owner_(nullptr) {}
 
 void Component::Construct(ObjectPtr owner) {
     owner_ = owner;
@@ -76,9 +76,10 @@ void Component::Exit() {
     status_.off(Component::StatusBit::Alive);
     status_.on(Component::StatusBit::Exited);
 
-    for (auto& timing : proc_timings_) {
+    for(auto& timing: proc_timings_) {
         auto& p = timing.second;
-        if (p.connect_.valid()) p.connect_.disconnect();
+        if(p.connect_.valid())
+            p.connect_.disconnect();
 
         p.proc_ = nullptr;
     }
@@ -112,10 +113,11 @@ void Component::SetPriority(ProcTiming timing, Priority priority) {
 
 void Component::RegisterToObject(ComponentPtr cmp, ObjectPtr obj) {
     // 同じタイプを許容しない
-    if (!cmp->GetStatus(StatusBit::SameType)) {
+    if(!cmp->GetStatus(StatusBit::SameType)) {
         auto cmps = obj->GetComponents();
-        for (auto c : cmps) {
-            if (c->typeInfo()->className() == cmp->typeInfo()->className()) return;
+        for(auto c: cmps) {
+            if(c->typeInfo()->className() == cmp->typeInfo()->className())
+                return;
         }
     }
 

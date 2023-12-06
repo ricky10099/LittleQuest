@@ -7,8 +7,8 @@
 
 namespace {
 
-    //! アニメーションリソースプール
-    std::unordered_map<std::string, std::shared_ptr<ResourceAnimation>> resource_pool;
+//! アニメーションリソースプール
+std::unordered_map<std::string, std::shared_ptr<ResourceAnimation>> resource_pool;
 
 }    // namespace
 
@@ -24,13 +24,14 @@ Animation::Animation(const Animation::Desc* desc, size_t desc_count) {
 //---------------------------------------------------------------------------
 Animation::~Animation() {
     // モデルが関連付けられている場合は相手の設定を解除
-    if (model_) {
+    if(model_) {
         model_->bindAnimation(nullptr);
     }
 
     // アニメーションMV1を解放
-    for (auto& x : mv1_handles_) {
-        if (x == -1) continue;
+    for(auto& x: mv1_handles_) {
+        if(x == -1)
+            continue;
 
         MV1DeleteModel(x);
         x = -1;
@@ -44,7 +45,7 @@ bool Animation::load(const Animation::Desc* desc, size_t desc_count) {
     is_valid_ = true;    // 先に一旦trueにする
 
     // パラメーター初期化
-    for (u32 i = 0; i < desc_count; ++i) {
+    for(u32 i = 0; i < desc_count; ++i) {
         const auto& x = desc[i];
 
         //------------------------------------------------------
@@ -54,7 +55,7 @@ bool Animation::load(const Animation::Desc* desc, size_t desc_count) {
         const std::string& resource_path = x.file_path_;
 
         auto it = resource_pool.find(resource_path);
-        if (it == resource_pool.end()) {    // 新規登録
+        if(it == resource_pool.end()) {    // 新規登録
             resource_pool[resource_path] = std::make_shared<ResourceAnimation>(resource_path);
         }
 
@@ -64,7 +65,7 @@ bool Animation::load(const Animation::Desc* desc, size_t desc_count) {
         descs_.push_back(x);
         mv1_handles_.push_back(MV1DuplicateModel(*resource));
 
-        if (resource->isValid() == false) {
+        if(resource->isValid() == false) {
             is_valid_ = false;    // 一度でもエラーの場合はfalse
         }
 
@@ -82,34 +83,38 @@ void Animation::update(f32 dt) {
     assert(model_ && "アニメーションにモデルが設定されていません");
 
     // 再生していない場合
-    if (isPlaying() == false) return;
+    if(isPlaying() == false)
+        return;
 
     // ポーズ中の場合
-    if (is_paused_) return;
+    if(is_paused_)
+        return;
 
     //----------------------------------------------------------
     // アニメーションを進める
     //----------------------------------------------------------
-    for (u32 i = 0; i < 2; ++i) {
+    for(u32 i = 0; i < 2; ++i) {
         auto& c = contexts_[i];
 
-        if (c.animation_index_ == -1) continue;
+        if(c.animation_index_ == -1)
+            continue;
 
-        if (c.is_playing_ == false) continue;
+        if(c.is_playing_ == false)
+            continue;
 
         auto& desc = descs_[c.animation_index_];
 
         // アニメーション再生時間を進める
         c.play_time_ += dt * 30.0f * desc.animation_speed_;
 
-        if (c.is_loop_) {
+        if(c.is_loop_) {
             // アニメーション再生時間がアニメーションの総時間を越えていたらループさせる
-            if (c.animation_total_time_ <= c.play_time_) {
+            if(c.animation_total_time_ <= c.play_time_) {
                 c.play_time_ -= c.animation_total_time_;
             }
         } else {
             // アニメーション再生時間がアニメーションの総時間を越えていたら停止
-            if (c.animation_total_time_ <= c.play_time_) {
+            if(c.animation_total_time_ <= c.play_time_) {
                 c.play_time_  = c.animation_total_time_;
                 c.is_playing_ = false;
             }
@@ -127,15 +132,15 @@ void Animation::update(f32 dt) {
     blend_ratio_ = std::max(0.0f, blend_ratio_ - 1.0f / blend_time_ * dt);
 
     // 線形で等速補間すると硬い動きになるためEaseカーブ補間
-    auto ease = GetEaseFunction(EaseType::InOutCubic);    // 加減速
-    f32 ratio = ease(blend_ratio_);
+    auto ease  = GetEaseFunction(EaseType::InOutCubic);    // 加減速
+    f32  ratio = ease(blend_ratio_);
 
     // ブレンド比率を設定
     MV1SetAttachAnimBlendRate(model_handle_, contexts_[0].animation_attach_index_, 1.0f - ratio);
     MV1SetAttachAnimBlendRate(model_handle_, contexts_[1].animation_attach_index_, ratio);
 
     // 補間完了後は補間元のアニメーションを停止
-    if (blend_ratio_ == 0.0f) {    // float値の==判定は0.0fのみ正確に判定できる
+    if(blend_ratio_ == 0.0f) {    // float値の==判定は0.0fのみ正確に判定できる
         detachAnimation(1);
         contexts_[1].is_playing_ = false;
     }
@@ -145,11 +150,12 @@ void Animation::update(f32 dt) {
 //! アニメーション再生するモデルを設定する
 //---------------------------------------------------------------------------
 void Animation::bindModel(Model* model) {
-    if (model == model_) return;
+    if(model == model_)
+        return;
 
     // 旧モデルを解除
     auto* last = model_;
-    if (last) {
+    if(last) {
         // [DxLib]モデルとアニメーションの関連付けを解除
         detachAnimation(0);
         detachAnimation(1);
@@ -162,7 +168,7 @@ void Animation::bindModel(Model* model) {
 
     // 新モデルに登録
     model_ = model;
-    if (model_) {
+    if(model_) {
         model_handle_ = *model_;
         model_->bindAnimation(this);
     }
@@ -192,9 +198,9 @@ bool Animation::play(std::string_view name, bool is_loop, f32 blend_time, f32 st
     {
         // 名前からアニメーションを検索
         std::string name_string(name);
-        auto it = name_table_.find(name_string);
+        auto        it = name_table_.find(name_string);
 
-        if (it == name_table_.end()) {
+        if(it == name_table_.end()) {
             return false;    // 見つからなかった場合
         }
 
@@ -212,12 +218,12 @@ bool Animation::play(std::string_view name, bool is_loop, f32 blend_time, f32 st
     //----------------------------------------------------------
     // アニメーション再生を設定
     //----------------------------------------------------------
-    for (u32 i = 0; i < 2; ++i) {
+    for(u32 i = 0; i < 2; ++i) {
         attachAnimation(i);
     }
 
     // 補間対象のアニメーションがある場合は補間開始
-    if (contexts_[1].animation_index_ != -1) {
+    if(contexts_[1].animation_index_ != -1) {
         blend_ratio_ = 1.0f;
     }
 
@@ -282,7 +288,8 @@ float Animation::GetAnimationTotalTime() const {
 bool Animation::attachAnimation(s32 context_index) {
     auto& c = contexts_[context_index];
 
-    if (c.animation_index_ == -1) return false;
+    if(c.animation_index_ == -1)
+        return false;
 
     auto& desc = descs_[c.animation_index_];
 
@@ -353,7 +360,7 @@ ResourceAnimation::ResourceAnimation(std::string_view path) {
 //---------------------------------------------------------------------------
 ResourceAnimation::~ResourceAnimation() {
     // アニメーションを解放
-    if (mv1_handle_ != -1) {
+    if(mv1_handle_ != -1) {
         MV1DeleteModel(mv1_handle_);
     }
 }

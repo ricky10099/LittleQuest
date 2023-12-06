@@ -28,12 +28,12 @@ ModelCache::ModelCache(std::string_view path) {
 //---------------------------------------------------------------------------
 ModelCache::~ModelCache() {
     // 頂点バッファ
-    if (handle_vb_ != -1) {
+    if(handle_vb_ != -1) {
         DeleteVertexBuffer(handle_vb_);
     }
 
     // インデックスバッファ
-    if (handle_ib_ != -1) {
+    if(handle_ib_ != -1) {
         DeleteIndexBuffer(handle_ib_);
     }
 }
@@ -43,7 +43,7 @@ ModelCache::~ModelCache() {
 //---------------------------------------------------------------------------
 bool ModelCache::save(int mv1_handle) const {
     std::vector<VECTOR> varray;    // 頂点配列
-    std::vector<u32> iarray;       // インデックス配列
+    std::vector<u32>    iarray;    // インデックス配列
 
     // 指定のパスにモデルを保存する
     //  MV1SaveModelToMV1FileWithStrLen(handle_, path.data(), path.size(),
@@ -60,7 +60,7 @@ bool ModelCache::save(int mv1_handle) const {
 
         // 頂点インデックス配列を抽出
         varray.resize(0);
-        for (s32 i = 0; i < poly_list.VertexNum; ++i) {
+        for(s32 i = 0; i < poly_list.VertexNum; ++i) {
             auto vertex = poly_list.Vertexs[i];
 
             varray.push_back(vertex.Position);
@@ -68,7 +68,7 @@ bool ModelCache::save(int mv1_handle) const {
 
         // インデックス配列を抽出
         iarray.resize(0);
-        for (s32 i = 0; i < poly_list.PolygonNum; ++i) {
+        for(s32 i = 0; i < poly_list.PolygonNum; ++i) {
             auto polygon = poly_list.Polygons[i];
 
             // 縮退三角形を検出したら破棄
@@ -80,7 +80,7 @@ bool ModelCache::save(int mv1_handle) const {
             auto v1 = cast(varray[i1]);
             auto v2 = cast(varray[i2]);
             auto c  = cross(v2 - v1, v0 - v1);
-            if (dot(c, c).x < 0.00001f) {
+            if(dot(c, c).x < 0.00001f) {
                 continue;
             }
 
@@ -97,7 +97,7 @@ bool ModelCache::save(int mv1_handle) const {
     //----------------------------------------------------------
     // 頂点データーをインデックス化
     //----------------------------------------------------------
-    if constexpr (false) {
+    if constexpr(false) {
         std::vector<u32> remap(iarray.size());
 
         // [meshoptimizer] 重複頂点を結合
@@ -115,21 +115,22 @@ bool ModelCache::save(int mv1_handle) const {
     //----------------------------------------------------------
     // LOD生成
     //----------------------------------------------------------
-    constexpr u32 LOD_COUNT = 8;
+    constexpr u32    LOD_COUNT = 8;
     std::vector<u32> lods[LOD_COUNT];
 
     lods[0] = iarray;
 
-    for (size_t i = 1; i < LOD_COUNT; ++i) {
+    for(size_t i = 1; i < LOD_COUNT; ++i) {
         auto& lod = lods[i];
 
-        f64 threshold             = pow(0.7, static_cast<f32>(i));
+        f64    threshold          = pow(0.7, static_cast<f32>(i));
         size_t target_index_count = static_cast<size_t>(iarray.size() * threshold) / 3 * 3;
-        f32 target_error          = 1e-2f;
+        f32    target_error       = 1e-2f;
 
         auto& source = lods[0];
 
-        if (source.size() < target_index_count) target_index_count = source.size();
+        if(source.size() < target_index_count)
+            target_index_count = source.size();
 
         lod.resize(source.size());
 
@@ -156,7 +157,7 @@ bool ModelCache::save(int mv1_handle) const {
     //----------------------------------------------------------
     // 縮退三角形の存在チェック
     //----------------------------------------------------------
-    for (u32 i = 0; i < iarray.size(); i += 3) {
+    for(u32 i = 0; i < iarray.size(); i += 3) {
         auto i0 = iarray[i + 0];
         auto i1 = iarray[i + 1];
         auto i2 = iarray[i + 2];
@@ -182,9 +183,9 @@ bool ModelCache::save(int mv1_handle) const {
     //----------------------------------------------------------
     // 保存
     //----------------------------------------------------------
-    std::string file_path(model_cache_path_);    // null終端文字列に変換
+    std::string   file_path(model_cache_path_);    // null終端文字列に変換
     std::ofstream stream(file_path.c_str(), std::ios_base::out | std::ios_base::binary | std::ios_base::trunc);
-    if (!stream.is_open()) {
+    if(!stream.is_open()) {
         return false;
     }
 
@@ -218,11 +219,11 @@ bool ModelCache::load() {
     //----------------------------------------------------------
     {
         auto handle = FileRead_fullyLoad_WithStrLen(model_cache_path_.data(), model_cache_path_.size());
-        if (handle == -1) {
+        if(handle == -1) {
             return false;
         }
-        auto* p   = FileRead_fullyLoad_getImage(handle);
-        auto size = FileRead_fullyLoad_getSize(handle);
+        auto* p    = FileRead_fullyLoad_getImage(handle);
+        auto  size = FileRead_fullyLoad_getSize(handle);
 
         binary.resize(size);
         memcpy(binary.data(), p, size);
@@ -242,7 +243,7 @@ bool ModelCache::load() {
         p += sizeof(u32);
 
         // ファイルバージョンが異なっていた場合はキャッシュクリア
-        if (version != ModelCache::VERSION) {
+        if(version != ModelCache::VERSION) {
             // エラーコードを受け取ると例外を送出しない
             std::error_code error_code;
             std::filesystem::remove(model_cache_path_, error_code);
@@ -270,9 +271,9 @@ bool ModelCache::load() {
     {
         // DXライブラリ形式の頂点データーを一時的に作成
         std::vector<VERTEX3D> varray;
-        std::vector<u32> iarray;
+        std::vector<u32>      iarray;
 
-        for (DxLib::VECTOR& position : vertices_) {
+        for(DxLib::VECTOR& position: vertices_) {
             VERTEX3D v{};
 
             v.pos = position;
@@ -280,7 +281,7 @@ bool ModelCache::load() {
 
             varray.emplace_back(std::move(v));
         }
-        for (u32 i = 0; i < indices_.size(); i += 3) {
+        for(u32 i = 0; i < indices_.size(); i += 3) {
             u32 a = indices_[i + 0];
             u32 b = indices_[i + 1];
             u32 c = indices_[i + 2];
@@ -341,9 +342,9 @@ void ModelCache::render(const matrix& mat_world) const {
     // ジオメトリを描画
     // 頂点バッファの利用でCPU負荷を大幅に削減できる
     //----------------------------------------------------------
-    if constexpr (false) {    // デバッグ描画を利用した描画
+    if constexpr(false) {    // デバッグ描画を利用した描画
 
-        for (size_t i = 0; i < indices_.size(); i += 3) {
+        for(size_t i = 0; i < indices_.size(); i += 3) {
             auto i0 = indices_[i + 0];
             auto i1 = indices_[i + 1];
             auto i2 = indices_[i + 2];

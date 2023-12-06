@@ -8,11 +8,11 @@
 
 namespace {
 
-    std::shared_ptr<Texture> texture_back_buffer_;      //!< バックバッファ
-    std::shared_ptr<Texture> texture_depth_stencil_;    //!< デフォルトのデプスステンシル
-    std::shared_ptr<ShaderPs> shader_ps_texture_;       //!< 通常コピー用のシェーダー
+std::shared_ptr<Texture>  texture_back_buffer_;      //!< バックバッファ
+std::shared_ptr<Texture>  texture_depth_stencil_;    //!< デフォルトのデプスステンシル
+std::shared_ptr<ShaderPs> shader_ps_texture_;        //!< 通常コピー用のシェーダー
 
-    TargetDesc target_desc_;    //!< 現在のRenderTarget情報
+TargetDesc target_desc_;    //!< 現在のRenderTarget情報
 
 }    // namespace
 
@@ -66,7 +66,8 @@ ID3D11DeviceContext* GetD3DDeviceContext() {
 void ClearColor(const float4& clear_color) {
     auto* color_texture = target_desc_.color_targets_[0];
 
-    if (color_texture == nullptr) return;
+    if(color_texture == nullptr)
+        return;
 
     ClearColor(color_texture, clear_color);
 }
@@ -77,7 +78,8 @@ void ClearColor(const float4& clear_color) {
 void ClearDepth(f32 depth_value) {
     auto* depth_stencil = target_desc_.depth_stencil_;
 
-    if (depth_stencil == nullptr) return;
+    if(depth_stencil == nullptr)
+        return;
 
     ClearDepth(depth_stencil, depth_value);
 }
@@ -88,7 +90,8 @@ void ClearDepth(f32 depth_value) {
 void ClearStencil(u8 stencil_value) {
     auto* depth_stencil = target_desc_.depth_stencil_;
 
-    if (depth_stencil == nullptr) return;
+    if(depth_stencil == nullptr)
+        return;
 
     ClearStencil(depth_stencil, stencil_value);
 }
@@ -132,7 +135,7 @@ void SetRenderTarget(const TargetDesc& desc) {
 
     // カラーターゲットを配列として取得
     std::array<ID3D11RenderTargetView*, D3D11_SIMULTANEOUS_RENDER_TARGET_COUNT> rtvs;
-    for (u32 i = 0; i < desc.color_count_; ++i) {
+    for(u32 i = 0; i < desc.color_count_; ++i) {
         rtvs[i] = desc.color_targets_[i] ? desc.color_targets_[i]->rtv() : nullptr;
     }
 
@@ -176,7 +179,7 @@ void SetRenderTarget(u32 color_count, Texture** color_targets, Texture* depth_st
 
     desc.color_count_ = color_count;
     // テクスチャ配列をコピー
-    for (u32 i = 0; i < color_count; ++i) {
+    for(u32 i = 0; i < color_count; ++i) {
         desc.color_targets_[i] = color_targets[i];
     }
     desc.depth_stencil_ = depth_stencil;

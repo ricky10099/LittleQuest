@@ -16,16 +16,20 @@ void ComponentObjectController::Update() {
 
     // 移動方向
     float3 dir{0, 0, 0};
-    if (IsKey(key_up_)) dir += {0, 0, -1};
+    if(IsKey(key_up_))
+        dir += {0, 0, -1};
 
-    if (IsKey(key_down_)) dir += {0, 0, 1};
+    if(IsKey(key_down_))
+        dir += {0, 0, 1};
 
-    if (IsKey(key_right_)) dir += {-1, 0, 0};
+    if(IsKey(key_right_))
+        dir += {-1, 0, 0};
 
-    if (IsKey(key_left_)) dir += {1, 0, 0};
+    if(IsKey(key_left_))
+        dir += {1, 0, 0};
 
     // 移動キーが押されているか?
-    if ((float)length(dir) > 0.0f) {
+    if((float)length(dir) > 0.0f) {
         // 斜めが押されていることを考慮し、
         // その方向の移動スピードを1とし、スピードを掛け合わせる
         dir = normalize(dir);
@@ -34,25 +38,26 @@ void ComponentObjectController::Update() {
         owner->AddTranslate(dir * move_speed_, true);
 
         // モデルを移動の方向に向けます
-        if (auto mdl = owner->GetComponent<ComponentModel>()) {
+        if(auto mdl = owner->GetComponent<ComponentModel>()) {
             mdl->SetRotationToVectorWithLimit(dir, rot_speed_);
             mdl->PlayAnimationNoSame("walk", true);
         }
     } else {
         // モデルを移動の方向に向けます
-        if (auto mdl = owner->GetComponent<ComponentModel>()) mdl->PlayAnimationNoSame("idle", true);
+        if(auto mdl = owner->GetComponent<ComponentModel>())
+            mdl->PlayAnimationNoSame("idle", true);
     }
 
     // カメラが存在している場合
-    if (auto camera = Scene::GetCurrentCamera().lock()) {
+    if(auto camera = Scene::GetCurrentCamera().lock()) {
         // SpringArmのオブジェクトが自分の場合のみ
         auto cam_owner = camera->GetOwner();
-        if (auto arm = cam_owner->GetComponent<ComponentSpringArm>()) {
+        if(auto arm = cam_owner->GetComponent<ComponentSpringArm>()) {
             // そのターゲットはオーナーのオブジェクトであることが条件となる
             auto obj = arm->GetSpringArmObject().lock();
-            if (obj.get() == owner) {
+            if(obj.get() == owner) {
                 // オブジェクトコントローラーにターゲットがいる場合
-                if (auto target = target_.lock()) {
+                if(auto target = target_.lock()) {
                     // 徐々に敵の方に向ける(1フレーム最大3度)
                     owner->SetRotationToPositionWithLimit(target->GetTranslate(), target_cam_side_speed_ * GetDeltaTime60());
 
@@ -68,30 +73,38 @@ void ComponentObjectController::Update() {
                     float mouse_ud = mouse_up_down_ * GetDeltaTime60();
                     float mouse_lr = mouse_left_right_ * GetDeltaTime60();
                     float cam_spd  = cam_speed_ * GetDeltaTime60();
-                    if (use_mouse_) {
+                    if(use_mouse_) {
                         cam_rx_ += GetMouseMoveY() * (mouse_ud / 100.0f);
-                        if (cam_rx_ > limit_cam_up_) cam_rx_ = limit_cam_up_;
-                        if (cam_rx_ < limit_cam_down_) cam_rx_ = limit_cam_down_;
+                        if(cam_rx_ > limit_cam_up_)
+                            cam_rx_ = limit_cam_up_;
+                        if(cam_rx_ < limit_cam_down_)
+                            cam_rx_ = limit_cam_down_;
                         cam_ry_ += GetMouseMoveX() * (mouse_lr / 100.0f);
-                        if (cam_ry_ > 360.0f) cam_ry_ -= 360.0f;
-                        if (cam_ry_ < -360.0f) cam_ry_ += 360.0f;
+                        if(cam_ry_ > 360.0f)
+                            cam_ry_ -= 360.0f;
+                        if(cam_ry_ < -360.0f)
+                            cam_ry_ += 360.0f;
                     }
                     // キーでカメラを移動させる
-                    if (IsKey(cam_up_)) {
+                    if(IsKey(cam_up_)) {
                         cam_rx_ += cam_spd;
-                        if (cam_rx_ > limit_cam_up_) cam_rx_ = limit_cam_up_;
+                        if(cam_rx_ > limit_cam_up_)
+                            cam_rx_ = limit_cam_up_;
                     }
-                    if (IsKey(cam_down_)) {
+                    if(IsKey(cam_down_)) {
                         cam_rx_ -= cam_spd;
-                        if (cam_rx_ < limit_cam_down_) cam_rx_ = limit_cam_down_;
+                        if(cam_rx_ < limit_cam_down_)
+                            cam_rx_ = limit_cam_down_;
                     }
-                    if (IsKey(cam_right_)) {
+                    if(IsKey(cam_right_)) {
                         cam_ry_ += cam_spd;
-                        if (cam_ry_ > 360.0f) cam_ry_ -= 360.0f;
+                        if(cam_ry_ > 360.0f)
+                            cam_ry_ -= 360.0f;
                     }
-                    if (IsKey(cam_left_)) {
+                    if(IsKey(cam_left_)) {
                         cam_ry_ -= cam_spd;
-                        if (cam_ry_ < -360.0f) cam_ry_ += 360.0f;
+                        if(cam_ry_ < -360.0f)
+                            cam_ry_ += 360.0f;
                     }
 
                     // Y軸はオブジェクトそのものの向きを使う
@@ -159,9 +172,10 @@ void ComponentObjectController::GUI() {
     ImGui::Begin(GetOwner()->GetName().data());
     {
         ImGui::Separator();
-        if (ImGui::TreeNode(u8"ObjectController")) {
+        if(ImGui::TreeNode(u8"ObjectController")) {
             // GUI上でオーナーから自分(SampleObjectController)を削除します
-            if (ImGui::Button(u8"削除")) GetOwner()->RemoveComponent(shared_from_this());
+            if(ImGui::Button(u8"削除"))
+                GetOwner()->RemoveComponent(shared_from_this());
 
             // 移動の基本情報
             ImGui::DragFloat(u8"移動速度", &move_speed_, 0.1f);

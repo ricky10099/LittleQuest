@@ -29,12 +29,13 @@ void ComponentCollisionSphere::PostUpdate() {
 void ComponentCollisionSphere::Draw() {
     __super::Draw();
 
-    if (!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame)) return;
+    if(!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame))
+        return;
 
     float scale = 1.0f;
-    auto trans  = GetWorldMatrix();
+    auto  trans = GetWorldMatrix();
 
-    if (attach_node_ < 0) {
+    if(attach_node_ < 0) {
         // モデルアタッチしてない場合のみサイズ変更
         float sx = length(trans.axisVectorX());
         float sy = length(trans.axisVectorY());
@@ -66,8 +67,8 @@ void ComponentCollisionSphere::GUI() {
     {
         ImGui::Separator();
         auto ui_name = std::string("Collision Sphere:") + std::to_string(collision_id_);
-        if (ImGui::TreeNode(ui_name.c_str())) {
-            if (ImGui::Button(u8"削除")) {
+        if(ImGui::TreeNode(ui_name.c_str())) {
+            if(ImGui::Button(u8"削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
@@ -77,7 +78,7 @@ void ComponentCollisionSphere::GUI() {
             std::string colname = u8"COL:" + std::to_string(collision_id_) + "/ ";
 
             float* mat = GetColMatrixFloat();
-            float matrixTranslation[3], matrixRotation[3], matrixScale[3];
+            float  matrixTranslation[3], matrixRotation[3], matrixScale[3];
             DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
             ImGui::DragFloat3((colname + u8"座標(T)").c_str(), matrixTranslation, 0.01f);
             // ImGui::DragFloat3( u8"COL回転(R)", matrixRotation, 0.1f );
@@ -111,25 +112,25 @@ float ComponentCollisionSphere::GetRadius() const {
 ComponentCollisionSphere::HitInfo ComponentCollisionSphere::IsHit(ComponentCollisionPtr col) {
     HitInfo info;
 
-    switch (col->GetCollisionType()) {
-        case ComponentCollision::CollisionType::LINE:
-            // @todo HitCheck_Line_Sphere()
-            break;
-        case ComponentCollision::CollisionType::TRIANGLE:
-            // @todo HitCheck_Sphere_Triangle()
-            break;
-        case ComponentCollision::CollisionType::SPHERE:
-            return isHit(std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this()),
-                         std::dynamic_pointer_cast<ComponentCollisionSphere>(col));
-            break;
-        case ComponentCollision::CollisionType::CAPSULE:
-            return isHit(std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this()),
-                         std::dynamic_pointer_cast<ComponentCollisionCapsule>(col));
-            break;
-        case ComponentCollision::CollisionType::MODEL:
-            return isHit(std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this()),
-                         std::dynamic_pointer_cast<ComponentCollisionModel>(col));
-            break;
+    switch(col->GetCollisionType()) {
+    case ComponentCollision::CollisionType::LINE:
+        // @todo HitCheck_Line_Sphere()
+        break;
+    case ComponentCollision::CollisionType::TRIANGLE:
+        // @todo HitCheck_Sphere_Triangle()
+        break;
+    case ComponentCollision::CollisionType::SPHERE:
+        return isHit(std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this()),
+                     std::dynamic_pointer_cast<ComponentCollisionSphere>(col));
+        break;
+    case ComponentCollision::CollisionType::CAPSULE:
+        return isHit(std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this()),
+                     std::dynamic_pointer_cast<ComponentCollisionCapsule>(col));
+        break;
+    case ComponentCollision::CollisionType::MODEL:
+        return isHit(std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this()),
+                     std::dynamic_pointer_cast<ComponentCollisionModel>(col));
+        break;
     }
 
     return info;
@@ -141,14 +142,14 @@ const matrix ComponentCollisionSphere::GetWorldMatrix() const {
     auto transform = collision_transform_;
 
     auto obj = GetOwner();
-    if (attach_node_ >= 0) {
+    if(attach_node_ >= 0) {
         auto mdl = obj->GetComponent<ComponentModel>();
-        if (mdl) {
+        if(mdl) {
             transform = mul(transform, attach_node_matrix_);
         }
     } else {
         auto cmp = obj->GetComponent<ComponentTransform>();
-        if (cmp) {
+        if(cmp) {
             transform = mul(transform, cmp->GetWorldMatrix());
         }
     }

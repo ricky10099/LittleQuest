@@ -15,72 +15,84 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT mes
 
 namespace {
 
-    //===========================================================================
-    // ImGuiバックエンドインターフェイス
-    //===========================================================================
-    class IBackend {
-        public:
-            IBackend()          = default;
-            virtual ~IBackend() = default;
+//===========================================================================
+// ImGuiバックエンドインターフェイス
+//===========================================================================
+class IBackend {
+   public:
+    IBackend()          = default;
+    virtual ~IBackend() = default;
 
-            //! 初期化
-            virtual bool initialize() = 0;
+    //! 初期化
+    virtual bool initialize() = 0;
 
-            //! フレーム開始
-            virtual void newFrame() = 0;
+    //! フレーム開始
+    virtual void newFrame() = 0;
 
-            //! 描画
-            virtual void renderDrawData(ImDrawData* draw_data) = 0;
+    //! 描画
+    virtual void renderDrawData(ImDrawData* draw_data) = 0;
 
-            //! 終了
-            virtual void shutdown() = 0;
-    };
+    //! 終了
+    virtual void shutdown() = 0;
+};
 
-    //===========================================================================
-    // ImGui DirectX9バックエンド
-    //===========================================================================
-    class BackendDX9 : public IBackend {
-            //! 初期化
-            virtual bool initialize() override {
-                auto d3d_device = static_cast<IDirect3DDevice9*>(const_cast<void*>(GetUseDirect3DDevice9()));
-                return ImGui_ImplDX9_Init(d3d_device);
-            }
+//===========================================================================
+// ImGui DirectX9バックエンド
+//===========================================================================
+class BackendDX9: public IBackend {
+    //! 初期化
+    virtual bool initialize() override {
+        auto d3d_device = static_cast<IDirect3DDevice9*>(const_cast<void*>(GetUseDirect3DDevice9()));
+        return ImGui_ImplDX9_Init(d3d_device);
+    }
 
-            //! フレーム開始
-            virtual void newFrame() override { ImGui_ImplDX9_NewFrame(); }
+    //! フレーム開始
+    virtual void newFrame() override {
+        ImGui_ImplDX9_NewFrame();
+    }
 
-            //! 描画
-            virtual void renderDrawData(ImDrawData* draw_data) override { ImGui_ImplDX9_RenderDrawData(draw_data); }
+    //! 描画
+    virtual void renderDrawData(ImDrawData* draw_data) override {
+        ImGui_ImplDX9_RenderDrawData(draw_data);
+    }
 
-            //! 終了
-            virtual void shutdown() override { ImGui_ImplDX9_Shutdown(); }
-    };
+    //! 終了
+    virtual void shutdown() override {
+        ImGui_ImplDX9_Shutdown();
+    }
+};
 
-    //===========================================================================
-    // ImGui DirectX11バックエンド
-    //===========================================================================
-    class BackendDX11 : public IBackend {
-            //! 初期化
-            virtual bool initialize() override {
-                auto d3d_device  = static_cast<ID3D11Device*>(const_cast<void*>(GetUseDirect3D11Device()));
-                auto d3d_context = static_cast<ID3D11DeviceContext*>(const_cast<void*>(GetUseDirect3D11DeviceContext()));
-                return ImGui_ImplDX11_Init(d3d_device, d3d_context);
-            }
+//===========================================================================
+// ImGui DirectX11バックエンド
+//===========================================================================
+class BackendDX11: public IBackend {
+    //! 初期化
+    virtual bool initialize() override {
+        auto d3d_device  = static_cast<ID3D11Device*>(const_cast<void*>(GetUseDirect3D11Device()));
+        auto d3d_context = static_cast<ID3D11DeviceContext*>(const_cast<void*>(GetUseDirect3D11DeviceContext()));
+        return ImGui_ImplDX11_Init(d3d_device, d3d_context);
+    }
 
-            //! フレーム開始
-            virtual void newFrame() override { ImGui_ImplDX11_NewFrame(); }
+    //! フレーム開始
+    virtual void newFrame() override {
+        ImGui_ImplDX11_NewFrame();
+    }
 
-            //! 描画
-            virtual void renderDrawData(ImDrawData* draw_data) override { ImGui_ImplDX11_RenderDrawData(draw_data); }
+    //! 描画
+    virtual void renderDrawData(ImDrawData* draw_data) override {
+        ImGui_ImplDX11_RenderDrawData(draw_data);
+    }
 
-            //! 終了
-            virtual void shutdown() override { ImGui_ImplDX11_Shutdown(); }
-    };
+    //! 終了
+    virtual void shutdown() override {
+        ImGui_ImplDX11_Shutdown();
+    }
+};
 
-    //! レンダリングバックエンド
-    std::unique_ptr<IBackend> backend_;
+//! レンダリングバックエンド
+std::unique_ptr<IBackend> backend_;
 
-    bool process_end = false;
+bool process_end = false;
 
 }    // namespace
 
@@ -105,7 +117,7 @@ void ImGuiInit() {
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;      // マルチウィンドウ
 
     ImGuiStyle& style = ImGui::GetStyle();
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+    if(io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
         // マルチウィンドウの場合
         style.WindowRounding              = 0.0f;    // ウィンドウの角を丸くしない
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;    // 半透明にしない
@@ -175,16 +187,16 @@ void ImGuiInit() {
     //----------------------------------------------------------
     DxLib::SetHookWinProc([](HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam) -> LRESULT /*CALLBACK*/
                           {
-                              switch (message) {
-                                  case WM_CLOSE:
-                                      process_end = true;
-                                      DxLib::SetUseHookWinProcReturnValue(TRUE);
-                                      return 0;
+                              switch(message) {
+                              case WM_CLOSE:
+                                  process_end = true;
+                                  DxLib::SetUseHookWinProcReturnValue(TRUE);
+                                  return 0;
 
-                                  default:
-                                      // DxLibとImGuiのウィンドウプロシージャを両立させる
-                                      DxLib::SetUseHookWinProcReturnValue(FALSE);
-                                      return ImGui_ImplWin32_WndProcHandler(hwnd, message, wparam, lparam);
+                              default:
+                                  // DxLibとImGuiのウィンドウプロシージャを両立させる
+                                  DxLib::SetUseHookWinProcReturnValue(FALSE);
+                                  return ImGui_ImplWin32_WndProcHandler(hwnd, message, wparam, lparam);
                               }
                           });
 
@@ -194,17 +206,17 @@ void ImGuiInit() {
     ImGui_ImplWin32_Init(DxLib::GetMainWindowHandle());
 
     // DxLibのD3Dバージョンによってバックエンドを選択
-    switch (DxLib::GetUseDirect3DVersion()) {
-        case DX_DIRECT3D_9:
-        case DX_DIRECT3D_9EX:
-            backend_ = std::make_unique<BackendDX9>();
-            break;
-        case DX_DIRECT3D_11:
-            backend_ = std::make_unique<BackendDX11>();
-            break;
-        case DX_DIRECT3D_NONE:
-        default:
-            throw std::exception("Can't get DxLib Direct3D Version");
+    switch(DxLib::GetUseDirect3DVersion()) {
+    case DX_DIRECT3D_9:
+    case DX_DIRECT3D_9EX:
+        backend_ = std::make_unique<BackendDX9>();
+        break;
+    case DX_DIRECT3D_11:
+        backend_ = std::make_unique<BackendDX11>();
+        break;
+    case DX_DIRECT3D_NONE:
+    default:
+        throw std::exception("Can't get DxLib Direct3D Version");
     }
     // 初期化
     backend_->initialize();
@@ -222,7 +234,7 @@ void ImGuiUpdate() {
     //----------------------------------------------------------
     // ImGuiサンプルデモ
     //----------------------------------------------------------
-    if constexpr (false) {
+    if constexpr(false) {
         // 英語文字列以外はUTF-8で文字列を渡す必要がある
         ImGui::Begin(u8"テスト");
         ImGui::Text(u8"文字表示テスト");
@@ -234,7 +246,7 @@ void ImGuiUpdate() {
     //----------------------------------------------------------
     // implotサンプルデモ
     //----------------------------------------------------------
-    if constexpr (false) {
+    if constexpr(false) {
         ImPlot::ShowDemoWindow();
     }
 }
@@ -252,7 +264,7 @@ void ImGuiDraw() {
     backend_->renderDrawData(ImGui::GetDrawData());
 
     // Windowsの場合の追加の描画関数
-    if (ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+    if(ImGui::GetIO().ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
         ImGui::UpdatePlatformWindows();
         ImGui::RenderPlatformWindowsDefault();
     }

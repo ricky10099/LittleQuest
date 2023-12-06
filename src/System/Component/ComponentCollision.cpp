@@ -18,18 +18,21 @@
 #include <algorithm>
 
 namespace {
-    // 大きな値を取得する
-    float3 merge(float3 v1, float3 v2) {
-        float3 vh{v2.x, v2.y, v2.z};
+// 大きな値を取得する
+float3 merge(float3 v1, float3 v2) {
+    float3 vh{v2.x, v2.y, v2.z};
 
-        if (fabs(v1.x) > fabs(v2.x)) vh.x = v1.x;
+    if(fabs(v1.x) > fabs(v2.x))
+        vh.x = v1.x;
 
-        if (fabs(v1.y) > fabs(v2.y)) vh.y = v1.y;
+    if(fabs(v1.y) > fabs(v2.y))
+        vh.y = v1.y;
 
-        if (fabs(v1.z) > fabs(v2.z)) vh.z = v1.z;
+    if(fabs(v1.z) > fabs(v2.z))
+        vh.z = v1.z;
 
-        return vh;
-    }
+    return vh;
+}
 }    // namespace
 
 ComponentCollision::ComponentCollision() {
@@ -42,9 +45,10 @@ void ComponentCollision::Construct(ObjectPtr owner) {
     assert(owner);
     owner_    = owner;
     auto cmps = owner->GetComponents<ComponentCollision>();
-    int max   = -1;
-    for (ComponentCollisionPtr cmp : cmps) {
-        if ((int)cmp->collision_id_ > max) max = (int)cmp->collision_id_;
+    int  max  = -1;
+    for(ComponentCollisionPtr cmp: cmps) {
+        if((int)cmp->collision_id_ > max)
+            max = (int)cmp->collision_id_;
     }
 
     // 割り出したIDを collision_id_ に入れる
@@ -58,10 +62,10 @@ void ComponentCollision::OnHit(const HitInfo& hitInfo) {
     auto obj = GetOwner();
 
     // Staticな物質にぶつかった場合、gravity_を下げる
-    if (hitInfo.hit_collision_->GetMass() < 0) {
-        auto vec   = obj->GetTranslate() - obj->GetOldWorldMatrix().translate();
+    if(hitInfo.hit_collision_->GetMass() < 0) {
+        auto   vec = obj->GetTranslate() - obj->GetOldWorldMatrix().translate();
         float3 nvc = {0.0f, -1.0f, 0.0f};
-        if (length(vec).x <= 0 || length(now_gravity_).x <= 0) {
+        if(length(vec).x <= 0 || length(now_gravity_).x <= 0) {
             now_gravity_ = 0.0f;
         } else {
             nvc     = normalize(vec);
@@ -93,7 +97,8 @@ void ComponentCollision::GUICollisionData(bool use_attach) {
     guiCollisionData();
 
     // アタッチが存在必要な時
-    if (use_attach) guiCollisionDataAttach();
+    if(use_attach)
+        guiCollisionDataAttach();
 }
 
 void ComponentCollision::LateUpdate() {
@@ -101,16 +106,16 @@ void ComponentCollision::LateUpdate() {
 
     // モデルにアタッチしている場合
     // attach_node_matrix_ にモデルのNode位置を設定する
-    if (attach_node_ >= 0) {
+    if(attach_node_ >= 0) {
         attach_node_matrix_ = matrix::identity();
-        if (auto mdl = GetOwner()->GetComponent<ComponentModel>()) {
+        if(auto mdl = GetOwner()->GetComponent<ComponentModel>()) {
             attach_node_matrix_ = MV1GetFrameLocalWorldMatrix(mdl->GetModel(), attach_node_);
         }
     }
 #ifdef USE_JOLT_PHYSICS
 #else
     // 重力加速度
-    if (use_gravity_) {
+    if(use_gravity_) {
         GetOwner()->SetGravity(now_gravity_);
         now_gravity_ += gravity_ * GetDeltaTime();
     } else {
@@ -130,15 +135,17 @@ void ComponentCollision::GUI() {}
 void ComponentCollision::AttachToModel(int node) {
     attach_node_ = node;
 #ifdef USE_JOLT_PHYSICS
-    if (GetRigidBody()) GetRigidBody()->setGravityFactor(0.0f);
+    if(GetRigidBody())
+        GetRigidBody()->setGravityFactor(0.0f);
 #endif USE_JOLT_PHYSICS
 }
 
 void ComponentCollision::AttachToModel(const std::string_view name) {
-    if (auto mdl = GetOwner()->GetComponent<ComponentModel>()) {
+    if(auto mdl = GetOwner()->GetComponent<ComponentModel>()) {
         attach_node_ = mdl->GetNodeIndex(name);
 #ifdef USE_JOLT_PHYSICS
-        if (GetRigidBody()) GetRigidBody()->setGravityFactor(0.0f);
+        if(GetRigidBody())
+            GetRigidBody()->setGravityFactor(0.0f);
 #endif USE_JOLT_PHYSICS
     }
 }
@@ -153,8 +160,8 @@ void ComponentCollision::guiCollisionData() {
     ImGui::Text(u8"コリジョングループ: ");
     ImGui::SameLine();
     int index = GetCollisionGroupIndex();
-    if (ImGui::Combo(u8"##コリジョングループ", &index, collisionGroupName,
-                     (sizeof(collisionGroupName) / sizeof(collisionGroupName[0])))) {
+    if(ImGui::Combo(u8"##コリジョングループ", &index, collisionGroupName,
+                    (sizeof(collisionGroupName) / sizeof(collisionGroupName[0])))) {
         collision_group_ = static_cast<CollisionGroup>(1 << index);
     }
     ImGui::Separator();
@@ -171,7 +178,7 @@ void ComponentCollision::guiCollisionData() {
     //----------------------------------------------------------------------------
     // Hitするグループの設定
     //----------------------------------------------------------------------------
-    if (ImGui::TreeNode(u8"Hitするグループ")) {
+    if(ImGui::TreeNode(u8"Hitするグループ")) {
         ImGui::CheckboxFlags("WALL", (u32*)&collision_hit_, (u32)CollisionGroup::WALL);
         ImGui::CheckboxFlags("GROUND", (u32*)&collision_hit_, (u32)CollisionGroup::GROUND);
         ImGui::CheckboxFlags("PLAYER", (u32*)&collision_hit_, (u32)CollisionGroup::PLAYER);
@@ -186,7 +193,7 @@ void ComponentCollision::guiCollisionData() {
     //----------------------------------------------------------------------------
     // Hitするがオーバーラップするグループ
     //----------------------------------------------------------------------------
-    if (ImGui::TreeNode(u8"オーバーラップするグループ")) {
+    if(ImGui::TreeNode(u8"オーバーラップするグループ")) {
         ImGui::CheckboxFlags("WALL", (u32*)&collision_overlap_, (u32)CollisionGroup::WALL);
         ImGui::CheckboxFlags("GROUND", (u32*)&collision_overlap_, (u32)CollisionGroup::GROUND);
         ImGui::CheckboxFlags("PLAYER", (u32*)&collision_overlap_, (u32)CollisionGroup::PLAYER);
@@ -205,32 +212,34 @@ void ComponentCollision::guiCollisionData() {
     ImGui::Checkbox(u8"重力を使用する", &use_gravity_);
     ImGui::DragFloat3(u8"重力加速度", (float*)&gravity_);
 
-    if (ImGui::DragFloat(u8"質量", (float*)&collision_mass_, 0.001f, 0, 1000000.0f)) {
+    if(ImGui::DragFloat(u8"質量", (float*)&collision_mass_, 0.001f, 0, 1000000.0f)) {
         collision_mass_ = std::min(1000000.0f, std::max(collision_mass_, 0.001f));
     }
 }
 
 void ComponentCollision::guiCollisionDataAttach() {
     // モデルにアタッチしているかを調べる
-    if (auto cmp = GetOwner()->GetComponent<ComponentModel>()) {
+    if(auto cmp = GetOwner()->GetComponent<ComponentModel>()) {
         // GUIでの AttachNodeの切り替えに対応させる
         bool attach = false;
-        if (attach_node_ >= 0) {
+        if(attach_node_ >= 0) {
             // 既にアタッチ済み
             attach = true;
-            if (ImGui::Checkbox("AttachNode", &attach)) {
-                if (!attach) attach_node_ = -1;
+            if(ImGui::Checkbox("AttachNode", &attach)) {
+                if(!attach)
+                    attach_node_ = -1;
             }
         } else {
             // アタッチしていない
-            if (ImGui::Checkbox("AttachNode", &attach)) {
-                if (attach) attach_node_ = 0;
+            if(ImGui::Checkbox("AttachNode", &attach)) {
+                if(attach)
+                    attach_node_ = 0;
             }
         }
 
         // GUIノードを列挙します
         auto items = cmp->GetNodesNamePChar();
-        if (ImGui::Combo("Node", &attach_node_, items.data(), (int)items.size())) {
+        if(ImGui::Combo("Node", &attach_node_, items.data(), (int)items.size())) {
             // 切り替えたとき
             collision_transform_ = matrix::identity();
         }
@@ -247,21 +256,21 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
     // 自分のコリジョン
     float3 cpos1 = col1->GetTranslate();
     float3 cpos2 = col1->GetVectorAxisY() * col1->GetHeight() + cpos1;
-    float cs     = 1.0f;    //< スケール
+    float  cs    = 1.0f;    //< スケール
 
     float3 epos1;
-    float es = 1.0f;
+    float  es = 1.0f;
 
     // モデルアタッチ
-    if (col1->attach_node_ >= 0) {
-        if (auto mdl = col1->GetOwner()->GetComponent<ComponentModel>()) {
+    if(col1->attach_node_ >= 0) {
+        if(auto mdl = col1->GetOwner()->GetComponent<ComponentModel>()) {
             cpos1 = mul(float4(cpos1, 1), col1->attach_node_matrix_).xyz;
             cpos2 = mul(float4(cpos2, 1), col1->attach_node_matrix_).xyz;
             cpos2 = normalize(cpos2 - cpos1) * col1->GetHeight() + cpos1;
         }
     } else {
         // ComponentTransform(オブジェクト姿勢)
-        if (auto cmp = col1->GetOwner()->GetComponent<ComponentTransform>()) {
+        if(auto cmp = col1->GetOwner()->GetComponent<ComponentTransform>()) {
             // 高さに回転とスケールを掛け合わせる
             cpos1 = mul(float4(cpos1, 1), cmp->GetMatrix()).xyz;
             cpos2 = mul(float4(cpos2, 1), cmp->GetMatrix()).xyz;
@@ -271,14 +280,14 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
     }
 
     // モデルアタッチ
-    if (col2->attach_node_ >= 0) {
-        if (auto mdl = col1->GetOwner()->GetComponent<ComponentModel>()) {
+    if(col2->attach_node_ >= 0) {
+        if(auto mdl = col1->GetOwner()->GetComponent<ComponentModel>()) {
             epos1 = col2->GetTranslate();
             epos1 = mul(float4(epos1, 1), col2->attach_node_matrix_).xyz;
         }
     } else {
         // ComponentTransform(オブジェクト姿勢)
-        if (auto cmp = col2->GetOwner()->GetComponent<ComponentTransform>()) {
+        if(auto cmp = col2->GetOwner()->GetComponent<ComponentTransform>()) {
             epos1    = mul(col2->GetMatrix(), cmp->GetMatrix())._41_42_43;
             // pos1 = mul( float4( pos1, 0 ) , cmp->GetMatrix() ).xyz;
             // pos1 += cmp->GetTranslate().xyz;
@@ -289,26 +298,26 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
         }
     }
 
-    float cr  = col1->GetRadius() * cs;
+    float  cr = col1->GetRadius() * cs;
     float3 cv = normalize(cpos1 - cpos2);
     VECTOR c1 = cast(cpos1 - cv * cr);
     VECTOR c2 = cast(cpos2 + cv * cr);
 
-    float er  = col2->GetRadius() * es;
+    float  er = col2->GetRadius() * es;
     VECTOR e1 = cast(epos1);
 
     // 跳ね返り点が欲しいため、HitCheck_Capsule_Capsuleは使わない
     SEGMENT_POINT_RESULT result;
     Segment_Point_Analyse(&c1, &c2, &e1, &result);
 
-    if (result.Seg_Point_MinDist_Square < (cr + er) * (cr + er)) {
+    if(result.Seg_Point_MinDist_Square < (cr + er) * (cr + er)) {
         // 線と線で一番近くなる点を求め、ベクトル化する
         // 最も近い点
         float3 c0  = cast(result.Seg_MinDist_Pos);
         float3 e0  = cast(e1);
         float3 vec = e0 - c0;    // 調べたほうの跳ね返りの方向(100%)
-        float len  = length(vec);
-        if (abs(len) <= abs(len) * FLT_EPSILON) {
+        float  len = length(vec);
+        if(abs(len) <= abs(len) * FLT_EPSILON) {
             // 全く同じ位置にいる場合はz移動する形にしておく
             vec = {0, 0, 1};
         }
@@ -345,18 +354,18 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
     // 自分のコリジョン
     float3 cpos1 = col1->GetTranslate();
     float3 cpos2 = normalize(col1->GetVectorAxisY()) * col1->GetHeight() + cpos1;
-    float cs     = 1.0f;    //< スケール
+    float  cs    = 1.0f;    //< スケール
 
     // モデルアタッチ
-    if (col1->attach_node_ >= 0) {
-        if (auto mdl = col1->GetOwner()->GetComponent<ComponentModel>()) {
+    if(col1->attach_node_ >= 0) {
+        if(auto mdl = col1->GetOwner()->GetComponent<ComponentModel>()) {
             cpos1 = mul(float4(cpos1, 1), col1->attach_node_matrix_).xyz;
             cpos2 = mul(float4(cpos2, 1), col1->attach_node_matrix_).xyz;
             cpos2 = normalize(cpos2 - cpos1) * col1->GetHeight() + cpos1;
         }
     } else {
         // ComponentTransform(オブジェクト姿勢)
-        if (auto cmp = col1->GetOwner()->GetComponent<ComponentTransform>()) {
+        if(auto cmp = col1->GetOwner()->GetComponent<ComponentTransform>()) {
             auto& mtx = cmp->GetWorldMatrix();
             // 高さに回転とスケールを掛け合わせる
             cpos1     = mul(float4(cpos1, 1), mtx).xyz;
@@ -369,18 +378,18 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
     // 相手のコリジョン
     float3 epos1 = col2->GetTranslate();
     float3 epos2 = normalize(col2->GetVectorAxisY()) * col2->GetHeight() + epos1;
-    float es     = 1.0f;    //< スケール
+    float  es    = 1.0f;    //< スケール
 
     // モデルアタッチ
-    if (col2->attach_node_ >= 0) {
-        if (auto mdl = col2->GetOwner()->GetComponent<ComponentModel>()) {
+    if(col2->attach_node_ >= 0) {
+        if(auto mdl = col2->GetOwner()->GetComponent<ComponentModel>()) {
             epos1 = mul(float4(epos1, 1), col2->attach_node_matrix_).xyz;
             epos2 = mul(float4(epos2, 1), col2->attach_node_matrix_).xyz;
             epos2 = normalize(epos2 - epos1) * col2->GetHeight() + epos1;
         }
     } else {
         // ComponentTransform(オブジェクト姿勢)
-        if (auto cmp = col2->GetOwner()->GetComponent<ComponentTransform>()) {
+        if(auto cmp = col2->GetOwner()->GetComponent<ComponentTransform>()) {
             auto& mtx = cmp->GetWorldMatrix();
             // 高さに回転とスケールを掛け合わせる
             epos1     = mul(float4(epos1, 1), mtx).xyz;
@@ -390,11 +399,11 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
         }
     }
 
-    float cr  = col1->GetRadius() * cs;
+    float  cr = col1->GetRadius() * cs;
     float3 cv = normalize(cpos1 - cpos2);
     VECTOR c1 = cast(cpos1 - (cv * cr));
     VECTOR c2 = cast(cpos2 + (cv * cr));
-    float er  = col2->GetRadius() * es;
+    float  er = col2->GetRadius() * es;
     float3 ev = normalize(epos1 - epos2);
     VECTOR e1 = cast(epos1 - (ev * er));
     VECTOR e2 = cast(epos2 + (ev * er));
@@ -411,7 +420,7 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
 		DrawCapsule3D( e1, e2, er, 10, GetColor( 0, 0, 255 ), GetColor( 0, 0, 255 ), FALSE );
 #endif
 
-    if (result.SegA_SegB_MinDist_Square < (cr + er) * (cr + er)) {
+    if(result.SegA_SegB_MinDist_Square < (cr + er) * (cr + er)) {
         // 線と線で一番近くなる点を求め、ベクトル化する
         // 最も近い点
         float3 c0  = cast(result.SegA_MinDist_Pos);
@@ -419,7 +428,7 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
         float3 vec = e0 - c0;    // 調べたほうの跳ね返りの方向(100%)
 
         float len = length(vec);
-        if (abs(len) <= abs(len) * FLT_EPSILON) {
+        if(abs(len) <= abs(len) * FLT_EPSILON) {
             // 全く同じ位置にいる場合はz移動する形にしておく
             vec = {0, 0, 1};
         }
@@ -443,16 +452,16 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
     ComponentCollision::HitInfo info{};
 
     float3 pos1;
-    float scale1 = 1.0f;
+    float  scale1 = 1.0f;
 
     // モデルアタッチ
-    if (col1->attach_node_ >= 0) {
-        if (auto mdl = col1->GetOwner()->GetComponent<ComponentModel>()) {
+    if(col1->attach_node_ >= 0) {
+        if(auto mdl = col1->GetOwner()->GetComponent<ComponentModel>()) {
             pos1 = col1->GetTranslate();
             pos1 = mul(float4(pos1, 1), col1->attach_node_matrix_).xyz;
         }
     } else {
-        if (auto cmp = col1->GetOwner()->GetComponent<ComponentTransform>()) {
+        if(auto cmp = col1->GetOwner()->GetComponent<ComponentTransform>()) {
             pos1     = mul(col1->GetMatrix(), cmp->GetWorldMatrix())._41_42_43;
             // pos1 = mul( float4( pos1, 0 ) , cmp->GetMatrix() ).xyz;
             // pos1 += cmp->GetTranslate().xyz;
@@ -464,16 +473,16 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
     }
 
     float3 pos2;
-    float scale2 = 1.0f;
+    float  scale2 = 1.0f;
 
     // モデルアタッチ
-    if (col2->attach_node_ >= 0) {
-        if (auto mdl = col2->GetOwner()->GetComponent<ComponentModel>()) {
+    if(col2->attach_node_ >= 0) {
+        if(auto mdl = col2->GetOwner()->GetComponent<ComponentModel>()) {
             pos2 = col2->GetTranslate();
             pos2 = mul(float4(pos2, 1), col2->attach_node_matrix_).xyz;
         }
     } else {
-        if (auto cmp = col2->GetOwner()->GetComponent<ComponentTransform>()) {
+        if(auto cmp = col2->GetOwner()->GetComponent<ComponentTransform>()) {
             pos2     = mul(col2->GetMatrix(), cmp->GetWorldMatrix())._41_42_43;
             // pos2 = mul( float4( pos2, 0 ), cmp->GetMatrix() ).xyz;
             // pos2 += cmp->GetTranslate().xyz;
@@ -484,22 +493,22 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
         }
     }
 
-    if (HitCheck_Sphere_Sphere(cast(pos1), col1->GetRadius() * scale1, cast(pos2), col2->GetRadius() * scale2)) {
+    if(HitCheck_Sphere_Sphere(cast(pos1), col1->GetRadius() * scale1, cast(pos2), col2->GetRadius() * scale2)) {
         // 中間地点を当たった場所にする
         info.hit_          = true;
         info.hit_position_ = (pos1 - pos2) * 0.5f + pos2;
 
         // 押し出し方向
         float3 distance = pos1 - pos2;
-        float len       = length(distance);
-        if (abs(len) <= abs(len) * FLT_EPSILON) {
+        float  len      = length(distance);
+        if(abs(len) <= abs(len) * FLT_EPSILON) {
             // 全く同じ位置にいる場合はz移動する形にしておく
             distance = {0, 0, 1};
         }
 
-        float3 vec    = normalize(distance);
-        float reallen = col1->GetRadius() * scale1 + col2->GetRadius() * scale2;
-        vec           = vec * (reallen - len);
+        float3 vec     = normalize(distance);
+        float  reallen = col1->GetRadius() * scale1 + col2->GetRadius() * scale2;
+        vec            = vec * (reallen - len);
 
         // このpush_は、調べたほうの押し戻し方向100%で作成する
         info.push_ = vec;
@@ -517,11 +526,12 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
 
     // モデルが存在していない
     auto mdl = col2->GetOwner()->GetComponent<ComponentModel>();
-    if (mdl == nullptr) return info;
+    if(mdl == nullptr)
+        return info;
 
     float3 opos{};
     float3 cpos{};
-    if (col1->attach_node_ >= 0) {
+    if(col1->attach_node_ >= 0) {
         cpos = mul(float4(col1->GetTranslate(), 1), col1->attach_node_matrix_).xyz;
         opos = cpos;
     } else {
@@ -532,11 +542,11 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
         cpos = mul(float4(col1->GetTranslate(), 1), col1->GetOwner()->GetWorldMatrix()).xyz;
 
         // 実際の移動できる量にする
-        auto move   = cpos - opos;
+        auto  move  = cpos - opos;
         float movey = move.y;
         move.y      = 0;
 
-        if (col1->IsUseGravity()) {
+        if(col1->IsUseGravity()) {
             move   = col2->checkMovement(opos, move, difficult_to_climb_);
             move.y = movey;
             cpos   = opos + move;
@@ -550,12 +560,12 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
     }
 
     float scale = 1.0f;
-    if (col1->attach_node_ < 0) {
-        auto mat = col1->GetMatrix();
-        float sx = length(mat.axisVectorX());
-        float sy = length(mat.axisVectorY());
-        float sz = length(mat.axisVectorZ());
-        scale    = (sx + sy + sz) / 3.0f;
+    if(col1->attach_node_ < 0) {
+        auto  mat = col1->GetMatrix();
+        float sx  = length(mat.axisVectorX());
+        float sy  = length(mat.axisVectorY());
+        float sz  = length(mat.axisVectorZ());
+        scale     = (sx + sy + sz) / 3.0f;
     }
 
     float radius = col1->GetRadius() * scale;
@@ -651,7 +661,7 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
 
         // スピードは一旦無視。面倒なのでカプセルをそのまま利用
         hit_poly_dim = MV1CollCheck_Capsule(mdl->GetModel(), -1, cast(ocenter), cast(ncenter), radius);
-        for (int i = 0; i < hit_poly_dim.HitNum; i++) {
+        for(int i = 0; i < hit_poly_dim.HitNum; i++) {
             SEGMENT_TRIANGLE_RESULT result{};
 
             VECTOR v1 = cast(ocenter);
@@ -664,7 +674,7 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
             float3 tri_nml  = cast(hit_poly_dim.Dim[i].Normal);
 
             // カプセルへの戻し方向
-            if (HelperLib::Math::NearlyEqual(length(line_pos - tri_pos), 0)) {
+            if(HelperLib::Math::NearlyEqual(length(line_pos - tri_pos), 0)) {
                 float3 v = (tri_pos - ncenter);
                 v        = v + (tri_nml * radius);
 
@@ -672,12 +682,12 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
             } else {
                 float3 vec = normalize(line_pos - tri_pos);
                 // 戻し量
-                float len  = radius - length(line_pos - tri_pos);
+                float  len = radius - length(line_pos - tri_pos);
                 float3 v   = vec * len;
                 vh         = merge(vh, v);
             }
         }
-        if (hit_poly_dim.HitNum > 0) {
+        if(hit_poly_dim.HitNum > 0) {
             info.push_ += vh;
             info.hit_ = true;
             info.hit_position_ += (cpos - vh);
@@ -716,15 +726,16 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
 
     // モデルが存在していない
     auto mdl = col2->GetOwner()->GetComponent<ComponentModel>();
-    if (mdl == nullptr) return info;
+    if(mdl == nullptr)
+        return info;
 
     float3 opos{};
     float3 cpos{};
     float3 opos1{};
     float3 cpos1{};
-    auto trans = col1->GetWorldMatrix();
+    auto   trans = col1->GetWorldMatrix();
 
-    if (col1->attach_node_ >= 0) {
+    if(col1->attach_node_ >= 0) {
         cpos  = trans.translate();
         cpos1 = normalize((float3&)trans.axisVectorY()) * col1->GetHeight() + cpos;
 
@@ -738,11 +749,11 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
         cpos = mul(float4(col1->GetTranslate(), 1), col1->GetOwner()->GetWorldMatrix()).xyz;
 
         // 実際の移動できる量にする
-        auto move   = cpos - opos;
+        auto  move  = cpos - opos;
         float movey = move.y;
         move.y      = 0;
 
-        if (col1->IsUseGravity()) {
+        if(col1->IsUseGravity()) {
             move   = col2->checkMovement(opos, move, difficult_to_climb_);
             move.y = movey;
             cpos   = opos + move;
@@ -761,22 +772,22 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
     }
 
     float scale = 1.0f;
-    if (col1->attach_node_ < 0) {
-        auto mat = col1->GetMatrix();
-        float sx = length(mat.axisVectorX());
-        float sy = length(mat.axisVectorY());
-        float sz = length(mat.axisVectorZ());
-        scale    = (sx + sy + sz) / 3.0f;
+    if(col1->attach_node_ < 0) {
+        auto  mat = col1->GetMatrix();
+        float sx  = length(mat.axisVectorX());
+        float sy  = length(mat.axisVectorY());
+        float sz  = length(mat.axisVectorZ());
+        scale     = (sx + sy + sz) / 3.0f;
     }
 
     float radius = col1->GetRadius() * scale;
 
     MV1_COLL_RESULT_POLY hit_poly{};
-    float3 bottom = cpos;     //-float3{ 0, col1->GetRadius() * scale, 0 };
-    float3 top    = cpos1;    // bottom + float3{ 0, col1->GetRadius() * scale * 2, 0 };
-    hit_poly      = MV1CollCheck_Line(mdl->GetModel(), -1, cast(top), cast(bottom));
+    float3               bottom = cpos;     //-float3{ 0, col1->GetRadius() * scale, 0 };
+    float3               top    = cpos1;    // bottom + float3{ 0, col1->GetRadius() * scale * 2, 0 };
+    hit_poly                    = MV1CollCheck_Line(mdl->GetModel(), -1, cast(top), cast(bottom));
 
-    if (hit_poly.HitFlag != 0) {
+    if(hit_poly.HitFlag != 0) {
         float3 pos = cast(hit_poly.HitPosition);
 
         // 半径分押し戻し
@@ -856,7 +867,7 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
         // 255 ), GetColor( 0, 0, 255 ), FALSE );
 
         hit_poly_dim = MV1CollCheck_Capsule(mdl->GetModel(), -1, cast(oc), cast(cc), radius);
-        for (int i = 0; i < hit_poly_dim.HitNum; i++) {
+        for(int i = 0; i < hit_poly_dim.HitNum; i++) {
             SEGMENT_TRIANGLE_RESULT result{};
 
             VECTOR v1 = cast(oc);
@@ -868,18 +879,18 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
             float3 tri_pos  = cast(result.Tri_MinDist_Pos);
 
             // カプセルへの戻し方向
-            if (HelperLib::Math::NearlyEqual(length(line_pos - tri_pos), 0)) {
+            if(HelperLib::Math::NearlyEqual(length(line_pos - tri_pos), 0)) {
                 float3 v = (tri_pos - cpos);
                 vh       = merge(vh, v);
             } else {
                 float3 vec = normalize(line_pos - tri_pos);
                 // 戻し量
-                float len  = radius - length(line_pos - tri_pos);
+                float  len = radius - length(line_pos - tri_pos);
                 float3 v   = vec * len;
                 vh         = merge(vh, v);
             }
         }
-        if (hit_poly_dim.HitNum > 0) {
+        if(hit_poly_dim.HitNum > 0) {
             info.push_ += vh;
             info.hit_ = true;
             info.hit_position_ += (cpos - vh);
@@ -891,7 +902,7 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
     float3 nycpos = cpos;
     nyopos.y      = 0;
     nycpos.y      = 0;
-    if (!HelperLib::Math::NearlyEqual(length(nyopos - nycpos), 0)) {
+    if(!HelperLib::Math::NearlyEqual(length(nyopos - nycpos), 0)) {
         // 戻し量
         float3 vh = 0;
 
@@ -904,7 +915,7 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
         // 0, 0, 255 ), GetColor( 0, 0, 255 ), FALSE );
 
         hit_poly_dim = MV1CollCheck_Capsule(mdl->GetModel(), -1, cast(topx), cast(bottomx), radius);
-        for (int i = 0; i < hit_poly_dim.HitNum; i++) {
+        for(int i = 0; i < hit_poly_dim.HitNum; i++) {
             SEGMENT_TRIANGLE_RESULT result{};
 
             VECTOR v1 = cast(topx);
@@ -916,18 +927,18 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
             float3 tri_pos  = cast(result.Tri_MinDist_Pos);
 
             // カプセルへの戻し方向
-            if (HelperLib::Math::NearlyEqual(length(line_pos - tri_pos), 0)) {
+            if(HelperLib::Math::NearlyEqual(length(line_pos - tri_pos), 0)) {
                 float3 v = (tri_pos - cpos);
                 vh       = merge(vh, v);
             } else {
                 float3 vec = normalize(line_pos - tri_pos);
                 // 戻し量
-                float len  = radius - length(line_pos - tri_pos);
+                float  len = radius - length(line_pos - tri_pos);
                 float3 v   = vec * len;
                 vh         = merge(vh, v);
             }
         }
-        if (hit_poly_dim.HitNum > 0) {
+        if(hit_poly_dim.HitNum > 0) {
             info.push_ += vh;
             info.hit_ = true;
             info.hit_position_ += (cpos - vh);
@@ -949,12 +960,14 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionLinePtr 
 
     // 球の情報
     auto sphere_owner = col2->GetOwner();
-    if (sphere_owner == nullptr) return info;
+    if(sphere_owner == nullptr)
+        return info;
 
     auto sphere = sphere_owner->GetComponent<ComponentCollisionSphere>();
-    if (sphere == nullptr) return info;
+    if(sphere == nullptr)
+        return info;
 
-    auto pos     = sphere->GetWorldMatrix().translate();
+    auto  pos    = sphere->GetWorldMatrix().translate();
     float radius = sphere->GetRadius();
 
     SEGMENT_POINT_RESULT result;
@@ -968,12 +981,12 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionLinePtr 
     Segment_Point_Analyse(&start, &end, &center, &result);
 
     // 点にライン上で一番近い位置を割り出す
-    auto point = cast(result.Seg_MinDist_Pos);
+    auto  point = cast(result.Seg_MinDist_Pos);
     // その位置から点までの距離を割り出す
-    float len  = length(point - pos);
+    float len   = length(point - pos);
 
     // その距離が半径よりも小さければ当たっている
-    if (len <= radius) {
+    if(len <= radius) {
         auto vec           = normalize(line[0] - line[1]);
         info.hit_          = true;
         info.hit_position_ = point + vec * acos(len / radius) / 0.5f * DX_PI_F;
@@ -994,17 +1007,19 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionLinePtr 
 
     // カプセルの情報
     auto capsule_owner = col2->GetOwner();
-    if (capsule_owner == nullptr) return info;
+    if(capsule_owner == nullptr)
+        return info;
 
     auto capsule = capsule_owner->GetComponent<ComponentCollisionCapsule>();
-    if (capsule == nullptr) return info;
+    if(capsule == nullptr)
+        return info;
 
     // カプセルの状態を分析
-    auto mat     = capsule->GetWorldMatrix();
-    auto pos     = mat.translate();
+    auto  mat    = capsule->GetWorldMatrix();
+    auto  pos    = mat.translate();
     float height = capsule->GetHeight();
     float radius = capsule->GetRadius();
-    auto pos1    = pos + height * mat.axisY();
+    auto  pos1   = pos + height * mat.axisY();
 
     SEGMENT_SEGMENT_RESULT result;
 
@@ -1018,13 +1033,13 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionLinePtr 
     Segment_Segment_Analyse(&l1_start, &l1_end, &l2_start, &l2_end, &result);
 
     // ライン上の一番近い点を割り出し、その距離を確認する
-    auto point     = cast(result.SegA_MinDist_Pos);
-    auto cap_point = cast(result.SegB_MinDist_Pos);
-    float len      = length(point - cap_point);
+    auto  point     = cast(result.SegA_MinDist_Pos);
+    auto  cap_point = cast(result.SegB_MinDist_Pos);
+    float len       = length(point - cap_point);
 
     // 片方はラインなのであくまで半径よりもこれが小さいかで
     // 当たったかどうかが判定できる
-    if (len <= radius) {
+    if(len <= radius) {
         // 当たったら情報を入れておく
         auto vec           = normalize(line[0] - line[1]);
         info.hit_          = true;
@@ -1046,10 +1061,12 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionLinePtr 
 
     // モデル情報
     auto model_owner = col2->GetOwner();
-    if (model_owner == nullptr) return info;
+    if(model_owner == nullptr)
+        return info;
 
     auto model = model_owner->GetComponent<ComponentModel>();
-    if (model == nullptr) return info;
+    if(model == nullptr)
+        return info;
 
     MV1_COLL_RESULT_POLY hit_poly{};
 

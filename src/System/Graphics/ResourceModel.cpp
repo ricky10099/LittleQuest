@@ -22,7 +22,7 @@ ResourceModel::ResourceModel(std::string_view path) {
 
         // ジオメトリのキャッシュファイルが無かったら作成する
         auto* model_cache = resource->model_cache_.get();
-        if (!model_cache->isExist()) {
+        if(!model_cache->isExist()) {
             model_cache->save(mv1_handle);
 
             // 読み込みなおす
@@ -63,7 +63,7 @@ ResourceModel::~ResourceModel() {
 //! 読み込み完了まで待つ
 //---------------------------------------------------------------------------
 void ResourceModel::waitForReadFinish() {
-    if (isActive() == false) {
+    if(isActive() == false) {
         WaitHandleASyncLoad(mv1_handle_);
     }
 }

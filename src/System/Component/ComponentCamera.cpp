@@ -16,7 +16,7 @@ ComponentCameraWeakPtr ComponentCamera::current_camera_{};
 void ComponentCamera::Init() {
     __super::Init();
 
-    if (current_camera_.lock() == nullptr) {
+    if(current_camera_.lock() == nullptr) {
         SetCurrentCamera();
     }
 
@@ -35,21 +35,24 @@ void ComponentCamera::Init() {
 //! カメラ更新
 //---------------------------------------------------------
 void ComponentCamera::PreUpdate() {
-    if (camera_status_.is(CameraBit::UpdateOnPreUpdate)) SetCameraTransform();
+    if(camera_status_.is(CameraBit::UpdateOnPreUpdate))
+        SetCameraTransform();
 }
 
 //---------------------------------------------------------
 //! カメラ更新
 //---------------------------------------------------------
 void ComponentCamera::Update() {
-    if (camera_status_.is(CameraBit::UpdateOnUpdate)) SetCameraTransform();
+    if(camera_status_.is(CameraBit::UpdateOnUpdate))
+        SetCameraTransform();
 }
 
 //---------------------------------------------------------
 //! カメラ更新
 //---------------------------------------------------------
 void ComponentCamera::PostUpdate() {
-    if (camera_status_.is(CameraBit::UpdateOnPostUpdate)) SetCameraTransform();
+    if(camera_status_.is(CameraBit::UpdateOnPostUpdate))
+        SetCameraTransform();
 
     //---------------------------------------------------------
     // 定数バッファを更新
@@ -78,11 +81,12 @@ void ComponentCamera::PostUpdate() {
 // カメラの設定
 //----------------------------------------------------------
 void ComponentCamera::SetCameraTransform() {
-    if (camera_status_.is(CameraBit::ChangeReq)) {
+    if(camera_status_.is(CameraBit::ChangeReq)) {
         auto current = current_camera_.lock();
         // 現状は瞬時に切り替える
         // TODO モーフィングなど
-        if (current) current->camera_status_.off(CameraBit::Current);
+        if(current)
+            current->camera_status_.off(CameraBit::Current);
 
         camera_status_.on(CameraBit::Current);
         camera_status_.off(CameraBit::ChangeReq);
@@ -95,21 +99,21 @@ void ComponentCamera::SetCameraTransform() {
     auto position = GetPosition();
     auto target   = GetTarget();
 
-    if (!ImGuizmo::IsUsing()) {
+    if(!ImGuizmo::IsUsing()) {
         mat_view_ = matrix::lookAtLH(position, target);
         mat_proj_ = matrix::perspectiveFovLH(fovy_ * DegToRad, aspect_ratio_, near_z_, far_z_);
     }
 
     // デバッグカメラを使用してないとき、デバッグカメラで自分がデバッグカメラのときのみ有効とする
-    if (!DebugCamera::IsUse() || (DebugCamera::IsUse() && camera_status_.is(CameraBit::DebugCamera))) {
-        if (camera_status_.is(CameraBit::Current)) {
+    if(!DebugCamera::IsUse() || (DebugCamera::IsUse() && camera_status_.is(CameraBit::DebugCamera))) {
+        if(camera_status_.is(CameraBit::Current)) {
             SetCameraViewMatrix(mat_view_);             // ビュー行列
             SetupCamera_ProjectionMatrix(mat_proj_);    // 投影行列
         }
     }
 
     // 視錐台(Frustum)の更新
-    if (camera_status_.is(CameraBit::Current)) {
+    if(camera_status_.is(CameraBit::Current)) {
         frustum_.setPosition(position);
         frustum_.setLookAt(target);
         frustum_.setWorldUp(up_);
@@ -129,9 +133,9 @@ void ComponentCamera::SetCameraTransform() {
 float3 ComponentCamera::GetPosition() const {
     float4 position = float4(position_, 1);
 
-    auto owner   = GetOwner();
+    auto   owner = GetOwner();
     matrix trans = matrix::identity();
-    if (owner && owner->GetComponent<ComponentTransform>()) {
+    if(owner && owner->GetComponent<ComponentTransform>()) {
         trans    = owner->GetWorldMatrix();
         position = mul(position, trans);
     }
@@ -151,9 +155,10 @@ float3 ComponentCamera::GetPosition() const {
 //! @return カメラターゲット
 
 float3 ComponentCamera::GetTarget() const {
-    float4 look_at = float4(look_at_, 1);
-    auto transform = GetOwner()->GetComponent<ComponentTransform>();
-    if (transform) look_at = mul(look_at, transform->GetMatrix());
+    float4 look_at   = float4(look_at_, 1);
+    auto   transform = GetOwner()->GetComponent<ComponentTransform>();
+    if(transform)
+        look_at = mul(look_at, transform->GetMatrix());
 
     return look_at.xyz;
 }
@@ -170,7 +175,7 @@ ComponentCamera::CameraRay ComponentCamera::MousePositionRay(int mouse_pos_x, in
 //---------------------------------------------------------
 void ComponentCamera::Draw() {
     // 視錐台(Frustum)の更新
-    if (camera_status_.is(CameraBit::ShowFrustum) || DebugCamera::IsUse() && !camera_status_.is(CameraBit::DebugCamera)) {
+    if(camera_status_.is(CameraBit::ShowFrustum) || DebugCamera::IsUse() && !camera_status_.is(CameraBit::DebugCamera)) {
         frustum_.renderDebug();
     }
 }
@@ -195,21 +200,21 @@ void ComponentCamera::GUI() {
     ImGui::Begin(obj_name.data());
     {
         ImGui::Separator();
-        if (ImGui::TreeNode(u8"Camera")) {
-            if (ImGui::Button(u8"削除")) {
+        if(ImGui::TreeNode(u8"Camera")) {
+            if(ImGui::Button(u8"削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
-            if (ImGui::TreeNode(u8"カメラステータス")) {
+            if(ImGui::TreeNode(u8"カメラステータス")) {
                 u32* bit = &camera_status_.get();
-                u32 val  = *bit;
+                u32  val = *bit;
                 ImGui::CheckboxFlags(u8"初期化済", &val, 1 << (int)CameraBit::Initialized);
                 bool req = ImGui::CheckboxFlags(u8"カレントカメラ", &val, 1 << (int)CameraBit::Current);
                 ImGui::CheckboxFlags(u8"タイムライン使用", bit, 1 << (int)CameraBit::EnableTimeLine);
                 ImGui::CheckboxFlags(u8"カメラ【視錐台(Frustum)】を表示", bit, 1 << (int)CameraBit::ShowFrustum);
 
-                if (req) {
-                    if ((val & 1 << (int)CameraBit::Current) == 0) {
+                if(req) {
+                    if((val & 1 << (int)CameraBit::Current) == 0) {
                         // カレントをやめる
                         camera_status_.off(CameraBit::Current);
                     } else {
@@ -228,7 +233,8 @@ void ComponentCamera::GUI() {
             bool nf = false;
             nf |= ImGui::DragFloat(u8"Near", &near_z_, 0.01f, -10000.0f, 10000.0f, "%.2f");
             nf |= ImGui::DragFloat(u8"Far", &far_z_, 0.01f, -10000.0f, 10000.0f, "%.2f");
-            if (nf) SetCameraNearFar(near_z_, far_z_);
+            if(nf)
+                SetCameraNearFar(near_z_, far_z_);
 
             ImGui::DragFloat(u8"画角", &fovy_, 0.1f, 1.0f, 180.0f, "%.2f");
 

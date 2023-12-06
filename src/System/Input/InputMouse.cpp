@@ -6,44 +6,44 @@
 #include "WinMain.h"
 
 namespace {
-    enum face {
-        primary,
-        secondary,
+enum face {
+    primary,
+    secondary,
 
-        num,
-    };
+    num,
+};
 
-    constexpr int MAX_MOUSE_BUTTON                = 8;
-    constexpr int MOUSE_BUTTONS[MAX_MOUSE_BUTTON] = {
-        MOUSE_INPUT_LEFT, MOUSE_INPUT_RIGHT, MOUSE_INPUT_MIDDLE, MOUSE_INPUT_1,
-        MOUSE_INPUT_2,    MOUSE_INPUT_3,     MOUSE_INPUT_4,      MOUSE_INPUT_5,
-        // これ以降のマウスのボタンの押下状態を取得する場合は、
-        // 事前にSetUseDirectInputFlagを実行する必要がある
-        // MOUSE_INPUT_6,    MOUSE_INPUT_7,     MOUSE_INPUT_8
-    };
+constexpr int MAX_MOUSE_BUTTON                = 8;
+constexpr int MOUSE_BUTTONS[MAX_MOUSE_BUTTON] = {
+    MOUSE_INPUT_LEFT, MOUSE_INPUT_RIGHT, MOUSE_INPUT_MIDDLE, MOUSE_INPUT_1,
+    MOUSE_INPUT_2,    MOUSE_INPUT_3,     MOUSE_INPUT_4,      MOUSE_INPUT_5,
+    // これ以降のマウスのボタンの押下状態を取得する場合は、
+    // 事前にSetUseDirectInputFlagを実行する必要がある
+    // MOUSE_INPUT_6,    MOUSE_INPUT_7,     MOUSE_INPUT_8
+};
 
-    int mouseX    = 0;
-    int mouseY    = 0;
-    int mouseOldX = 0;
-    int mouseOldY = 0;
+int mouseX    = 0;
+int mouseY    = 0;
+int mouseOldX = 0;
+int mouseOldY = 0;
 
-    bool hide = false;
+bool hide = false;
 
-    std::array<u32, MAX_MOUSE_BUTTON> mouseButtons;
-    std::array<int, face::num> mouseStatus;
-    int status_index = face::primary;
+std::array<u32, MAX_MOUSE_BUTTON> mouseButtons;
+std::array<int, face::num>        mouseStatus;
+int                               status_index = face::primary;
 
-    int now_index() {
-        return status_index;
-    }
-    int old_index() {
-        return status_index == face::primary ? face::secondary : face::primary;
-    }
+int now_index() {
+    return status_index;
+}
+int old_index() {
+    return status_index == face::primary ? face::secondary : face::primary;
+}
 
-    // マウスの配列検証用
-    bool IsOverMouseNum(u32 mouseID) {
-        return (mouseID >= MAX_MOUSE_BUTTON);
-    }
+// マウスの配列検証用
+bool IsOverMouseNum(u32 mouseID) {
+    return (mouseID >= MAX_MOUSE_BUTTON);
+}
 };    // namespace
 
 //---------------------------------------------------------------------------
@@ -75,11 +75,12 @@ void InputMouseUpdate() {
 
     GetMousePoint(&mouseX, &mouseY);
 
-    for (int i = 0; i < MAX_MOUSE_BUTTON; ++i) {
+    for(int i = 0; i < MAX_MOUSE_BUTTON; ++i) {
         // 各マウスボタンとの押下状態を取得する
-        if (GetMouseInput() & MOUSE_BUTTONS[i]) {
+        if(GetMouseInput() & MOUSE_BUTTONS[i]) {
             ++mouseButtons[i];
-            if (mouseButtons[i] >= INT_MAX) mouseButtons[i] = INT_MAX;
+            if(mouseButtons[i] >= INT_MAX)
+                mouseButtons[i] = INT_MAX;
             continue;
         }
 
@@ -90,7 +91,7 @@ void InputMouseUpdate() {
     status_index %= face::num;
     mouseStatus[status_index] = GetMouseInput();
 
-    if (hide) {
+    if(hide) {
         const int pos_x = (int)(WINDOW_W / 2.0f);
         const int pos_y = (int)(WINDOW_H / 2.0f);
         SetMousePoint(pos_x, pos_y);
@@ -111,7 +112,8 @@ void InputMouseExit() {
 //---------------------------------------------------------------------------
 bool IsMouseOn(int mouseID) {
     int tmp_mouseID = mouseID - 1;
-    if (IsOverMouseNum(tmp_mouseID)) return false;
+    if(IsOverMouseNum(tmp_mouseID))
+        return false;
     return (mouseButtons[tmp_mouseID] == 1);
 }
 
@@ -120,7 +122,8 @@ bool IsMouseOn(int mouseID) {
 //---------------------------------------------------------------------------
 bool IsMouseRelease(int mouseID) {
     int tmp_mouseID = mouseID - 1;
-    if (IsOverMouseNum(tmp_mouseID)) return false;
+    if(IsOverMouseNum(tmp_mouseID))
+        return false;
     return (mouseButtons[tmp_mouseID] == 0);
 }
 
@@ -129,7 +132,8 @@ bool IsMouseRelease(int mouseID) {
 //---------------------------------------------------------------------------
 bool IsMouseRepeat(int mouseID, u32 frame) {
     int tmp_mouseID = mouseID - 1;
-    if (IsOverMouseNum(tmp_mouseID)) return false;
+    if(IsOverMouseNum(tmp_mouseID))
+        return false;
     return (mouseButtons[tmp_mouseID] >= frame);
 }
 

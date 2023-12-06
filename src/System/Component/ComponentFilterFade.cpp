@@ -11,14 +11,14 @@ BP_COMPONENT_IMPL(ComponentFilterFade, u8"FilterFade機能クラス");
 
 namespace {
 
-    //--------------------------------------------------------------
-    //! 定数バッファパラメーター構造体
-    //--------------------------------------------------------------
-    struct Parameter {
-            float4 resolution_;    //!< 解像度 [幅, 高さ, 1.0f/幅, 1.0f/高さ]
-            float alpha_;          //!< フェードアルファ値(0.0f-1.0f)
-            u32 mosaic_width_;     //!< モザイクのピクセル幅
-    };
+//--------------------------------------------------------------
+//! 定数バッファパラメーター構造体
+//--------------------------------------------------------------
+struct Parameter {
+    float4 resolution_;      //!< 解像度 [幅, 高さ, 1.0f/幅, 1.0f/高さ]
+    float  alpha_;           //!< フェードアルファ値(0.0f-1.0f)
+    u32    mosaic_width_;    //!< モザイクのピクセル幅
+};
 
 }    // namespace
 
@@ -97,14 +97,15 @@ void ComponentFilterFade::Init() {
 void ComponentFilterFade::Update() {
     f32 delta = GetDeltaTime();
 
-    if (finish_fade_) return;
+    if(finish_fade_)
+        return;
 
     fade_alpha_ += fade_add_alpha_ * delta;
-    if (fade_alpha_ >= 1.0f) {
+    if(fade_alpha_ >= 1.0f) {
         finish_fade_ = true;
         fade_alpha_  = 1.0f;
     }
-    if (fade_alpha_ < 0.0f) {
+    if(fade_alpha_ < 0.0f) {
         finish_fade_ = true;
         fade_alpha_  = 0.0f;
     }
@@ -130,8 +131,8 @@ void ComponentFilterFade::GUI() {
     ImGui::Begin(objName.data());
     {
         ImGui::Separator();
-        if (ImGui::TreeNode(u8"フェード処理")) {
-            if (ImGui::Button(u8"削除")) {
+        if(ImGui::TreeNode(u8"フェード処理")) {
+            if(ImGui::Button(u8"削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 

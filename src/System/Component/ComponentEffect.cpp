@@ -11,7 +11,7 @@
 BP_COMPONENT_IMPL(ComponentEffect, u8"Effectコンポーネント");
 
 std::unordered_map<std::string, int> ComponentEffect::exist_effects_resource_{};
-int ComponentEffect::component_effect_count = 0;
+int                                  ComponentEffect::component_effect_count = 0;
 
 //! @brief Effekseerエフェクトロード
 //! @param path エフェクトファイル(.efkefc)
@@ -21,7 +21,7 @@ void ComponentEffect::Load(std::string_view path) {
     path_ = path;
 
     // ファイルが存在しているか?
-    if (!HelperLib::File::CheckFileExistence(path_)) {
+    if(!HelperLib::File::CheckFileExistence(path_)) {
         // ロードできなかった
         effect_status_.on(EffectBit::ErrorFileNotFound);
         effect_status_.off(EffectBit::Initialized);
@@ -29,7 +29,7 @@ void ComponentEffect::Load(std::string_view path) {
     }
 
     auto resource = exist_effects_resource_.find(path_);
-    if (resource != exist_effects_resource_.end()) {
+    if(resource != exist_effects_resource_.end()) {
         // リソースが存在する場合
         effect_handle_ = resource->second;
 
@@ -39,7 +39,7 @@ void ComponentEffect::Load(std::string_view path) {
     }
 
     int result = LoadEffekseerEffect(HelperLib::String::ToWString(path_).data());
-    if (result == -1) {
+    if(result == -1) {
         // ロードできなかった
         effect_status_.on(EffectBit::ErrorFileNotFound);
         return;
@@ -66,16 +66,17 @@ void ComponentEffect::PostUpdate() {
     float delta = GetDeltaTime();
 
     // モデルが存在しているならばTransform設定を行う
-    if (IsValid() && IsPlaying()) {
+    if(IsValid() && IsPlaying()) {
         // アニメーションがあり再生している?
         effect_time_ += (delta * effect_speed_);
 
         auto mat  = effect_transform_;
         auto trns = GetOwner()->GetComponent<ComponentTransform>();
-        if (trns) mat = mul(mat, trns->GetMatrix());
+        if(trns)
+            mat = mul(mat, trns->GetMatrix());
 
         // Drawはここで抑えておく
-        if (GetStatus(Component::StatusBit::NoDraw)) {
+        if(GetStatus(Component::StatusBit::NoDraw)) {
             //システムして「すべて描くモード」が使用されているため消すことができない。
             //よってスケールを0にして表示するようにして消したように見せかける
             SetScalePlayingEffekseer3DEffect(effect_play_handle_, 0, 0, 0);
@@ -83,7 +84,7 @@ void ComponentEffect::PostUpdate() {
         }
 
         float* matz = (float*)mat.f32_128_0;
-        float pos[3], rot[3], scale[3];
+        float  pos[3], rot[3], scale[3];
         DecomposeMatrixToComponents(matz, pos, rot, scale);
 
         SetPosPlayingEffekseer3DEffect(effect_play_handle_, pos[0], pos[1], pos[2]);
@@ -95,9 +96,10 @@ void ComponentEffect::PostUpdate() {
 
 //! @brief モデル描画
 void ComponentEffect::Draw() {
-    if (!effect_status_.is(EffectBit::Initialized)) return;
+    if(!effect_status_.is(EffectBit::Initialized))
+        return;
 
-    if (Scene::IsPause() || effect_status_.is(EffectBit::Paused)) {
+    if(Scene::IsPause() || effect_status_.is(EffectBit::Paused)) {
         SetSpeedPlayingEffekseer3DEffect(effect_play_handle_, 0.0f);
     } else {
         SetSpeedPlayingEffekseer3DEffect(effect_play_handle_, effect_speed_);
@@ -105,7 +107,7 @@ void ComponentEffect::Draw() {
 
     bool playing = IsEffekseer3DEffectPlaying(effect_play_handle_) == 0 ? !effect_status_.is(EffectBit::Paused) : false;
     effect_status_.set(EffectBit::Playing, playing);
-    if (!playing && effect_status_.is(EffectBit::Loop)) {
+    if(!playing && effect_status_.is(EffectBit::Loop)) {
         Play(true);
     }
 }
@@ -129,8 +131,8 @@ void ComponentEffect::GUI() {
         ImGui::Separator();
 
         // モデルコンポーネント表示
-        if (ImGui::TreeNode("Effect")) {
-            if (ImGui::Button(u8"削除")) {
+        if(ImGui::TreeNode("Effect")) {
+            if(ImGui::Button(u8"削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
@@ -139,8 +141,10 @@ void ComponentEffect::GUI() {
 
             ImGui::BeginDisabled(true);    // UI上の編集不可(ReadOnly)
             {
-                if (loaded) ImGui::Checkbox(u8"【LoadOK】", &loaded);
-                else ImGui::TextColored({1, 0, 0, 1}, u8"【LoadNG】");
+                if(loaded)
+                    ImGui::Checkbox(u8"【LoadOK】", &loaded);
+                else
+                    ImGui::TextColored({1, 0, 0, 1}, u8"【LoadNG】");
             }
             ImGui::EndDisabled();
 
@@ -149,27 +153,27 @@ void ComponentEffect::GUI() {
             // ファイル名
             char file_name[1024];
             sprintf_s(file_name, "%s", path_.c_str());
-            if (ImGui::InputText(u8"File", file_name, 1024)) {
+            if(ImGui::InputText(u8"File", file_name, 1024)) {
                 path_ = file_name;
                 effect_status_.off(EffectBit::Initialized);
                 Load(path_);
             }
             ImGui::Separator();
 
-            if (IsValid()) {
+            if(IsValid()) {
                 ImGui::CheckboxFlags("Loop", &effect_status_.get(), 1 << (int)EffectBit::Loop);
 
-                if (IsPaused()) {
-                    if (ImGui::Button("Resume")) {
+                if(IsPaused()) {
+                    if(ImGui::Button("Resume")) {
                         PlayPause(false);
                     }
                 } else {
-                    if (!IsPlaying()) {
-                        if (ImGui::Button("Play")) {
+                    if(!IsPlaying()) {
+                        if(ImGui::Button("Play")) {
                             Play();
                         }
                     } else {
-                        if (ImGui::Button("Pause")) {
+                        if(ImGui::Button("Pause")) {
                             PlayPause();
                         }
                     }
@@ -178,14 +182,14 @@ void ComponentEffect::GUI() {
             }
 
             // アニメーション名
-            if (IsPlaying()) {
+            if(IsPlaying()) {
                 ImGui::TextColored({0.5, 1, 0.5, 1}, u8"再生中");
                 ImGui::Text(u8"[%3.2f]%s", effect_time_, GetEffectName().data());
                 ImGui::Separator();
             }
 
             // モデル姿勢
-            if (ImGui::TreeNode(u8"エフェクト姿勢")) {
+            if(ImGui::TreeNode(u8"エフェクト姿勢")) {
                 ImGui::DragFloat4(u8"Ｘ軸", effect_transform_.f32_128_0, 0.01f, -10000.0f, 10000.0f, "%.2f");
                 ImGui::DragFloat4(u8"Ｙ軸", effect_transform_.f32_128_1, 0.01f, -10000.0f, 10000.0f, "%.2f");
                 ImGui::DragFloat4(u8"Ｚ軸", effect_transform_.f32_128_2, 0.01f, -10000.0f, 10000.0f, "%.2f");
@@ -196,7 +200,7 @@ void ComponentEffect::GUI() {
 
             // 姿勢を TRSで変更できるように設定
             float* mat = effect_transform_.f32_128_0;
-            float matrixTranslation[3], matrixRotation[3], matrixScale[3];
+            float  matrixTranslation[3], matrixRotation[3], matrixScale[3];
             DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
             ImGui::DragFloat3(u8"座標(T)", matrixTranslation, 0.01f, -100000.00f, 100000.0f, "%.2f");
             ImGui::DragFloat3(u8"回転(R)", matrixRotation, 0.1f, -360.0f, 360.0f, "%.2f");
@@ -220,7 +224,7 @@ void ComponentEffect::Play(bool loop) {
 }
 
 void ComponentEffect::Stop() {
-    if (effect_play_handle_ != -1) {
+    if(effect_play_handle_ != -1) {
         StopEffekseer3DEffect(effect_play_handle_);
         effect_play_handle_ = -1;
     }
@@ -237,14 +241,15 @@ float ComponentEffect::GetPlaySpeed() {
 
 bool ComponentEffect::IsPlaying() {
     // まだ初期化できてない場合はfalse
-    if (!IsValid()) return false;
+    if(!IsValid())
+        return false;
 
     return effect_status_.is(EffectBit::Playing);
 }
 
 void ComponentEffect::PlayPause(bool is_pause) {
     effect_status_.set(EffectBit::Paused, is_pause);
-    if (is_pause) {
+    if(is_pause) {
         // ポーズはスピード0.0で代用
         SetSpeedPlayingEffekseer3DEffect(effect_play_handle_, 0.0f);
     } else {
@@ -254,7 +259,8 @@ void ComponentEffect::PlayPause(bool is_pause) {
 }
 
 bool ComponentEffect::IsPaused() {
-    if (effect_status_.is(EffectBit::Paused)) return true;
+    if(effect_status_.is(EffectBit::Paused))
+        return true;
 
     return false;
 }
@@ -268,7 +274,8 @@ const std::string_view ComponentEffect::GetEffectName() {
 }
 
 const float ComponentEffect::GetEffectTime() {
-    if (IsPlaying()) return effect_time_;
+    if(IsPlaying())
+        return effect_time_;
 
     return 0.0f;
 }

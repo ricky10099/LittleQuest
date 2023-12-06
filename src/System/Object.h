@@ -28,20 +28,20 @@ USING_PTR(Component);
 //===========================================================================
 //! クラス用型情報 ClassObjectType<T>
 //===========================================================================
-template <class T>
-class ClassObjectType : public Type {
-    public:
-        using Type::Type;    // 継承コンストラクタ
+template<class T>
+class ClassObjectType: public Type {
+   public:
+    using Type::Type;    // 継承コンストラクタ
 
-        virtual void* createObjectPtr() {
-            std::shared_ptr<T> tmp = std::make_shared<T>();
-            Object::RegisterCurrentScene(tmp);
+    virtual void* createObjectPtr() {
+        std::shared_ptr<T> tmp = std::make_shared<T>();
+        Object::RegisterCurrentScene(tmp);
 
-            obj = tmp;
-            return reinterpret_cast<void*>(&obj);
-        }
+        obj = tmp;
+        return reinterpret_cast<void*>(&obj);
+    }
 
-        std::weak_ptr<T> obj;
+    std::weak_ptr<T> obj;
 };
 
 //---------------------------------------------------------------------------
@@ -102,171 +102,175 @@ class ClassObjectType : public Type {
 //---------------------------------------------------------------------------
 //! オブジェクトクラス
 //---------------------------------------------------------------------------
-class Object : public std::enable_shared_from_this<Object>, public IMatrix<Object> {
-        friend class Scene;
+class Object
+    : public std::enable_shared_from_this<Object>
+    , public IMatrix<Object> {
+    friend class Scene;
 
-    public:
-        BP_OBJECT_BASE_TYPE(Object);
+   public:
+    BP_OBJECT_BASE_TYPE(Object);
 
-        Object();             //!< コンストラクタ
-        virtual ~Object();    //!< デストラクタ
+    Object();             //!< コンストラクタ
+    virtual ~Object();    //!< デストラクタ
 
-        virtual bool Init();          //!< 初期化
-        virtual void Update();        //!< 更新
-        virtual void LateUpdate();    //!< 遅い更新
-        virtual void Draw();          //!< 描画
-        virtual void LateDraw();      //!< 遅い描画
-        virtual void Exit();          //!< 終了
-        virtual void GUI();           //!< GUI表示
+    virtual bool Init();          //!< 初期化
+    virtual void Update();        //!< 更新
+    virtual void LateUpdate();    //!< 遅い更新
+    virtual void Draw();          //!< 描画
+    virtual void LateDraw();      //!< 遅い描画
+    virtual void Exit();          //!< 終了
+    virtual void GUI();           //!< GUI表示
 
-        virtual void PreUpdate();     //!< 更新前処理
-        virtual void PostUpdate();    //!< 更新後処理
-        virtual void PreDraw();       //!< 描画前処理
-        virtual void PostDraw();      //!< 描画後処理
-        virtual void PrePhysics();    //!< 物理シミュレーション前処理
+    virtual void PreUpdate();     //!< 更新前処理
+    virtual void PostUpdate();    //!< 更新後処理
+    virtual void PreDraw();       //!< 描画前処理
+    virtual void PostDraw();      //!< 描画後処理
+    virtual void PrePhysics();    //!< 物理シミュレーション前処理
 
-        virtual void InitSerialize();    //!< シリアライズでもどらないユーザー処理関数などを設定
+    virtual void InitSerialize();    //!< シリアライズでもどらないユーザー処理関数などを設定
 
-        void UseWarp();
-        //----------------------------------------------------------
-        //! @name  オブジェクトシーン登録メソッド
-        //----------------------------------------------------------
-        //@{
-        static void RegisterCurrentScene(ObjectPtr obj);
+    void        UseWarp();
+    //----------------------------------------------------------
+    //! @name  オブジェクトシーン登録メソッド
+    //----------------------------------------------------------
+    //@{
+    static void RegisterCurrentScene(ObjectPtr obj);
 
-        //@}
-        //----------------------------------------------------------
-        //! @name  オブジェクト名
-        //----------------------------------------------------------
-        //@{
+    //@}
+    //----------------------------------------------------------
+    //! @name  オブジェクト名
+    //----------------------------------------------------------
+    //@{
 
-        //! 名前の設定
-        auto SetName(const std::string& name, bool use_construct = false) {
-            name_         = setUniqueName(name);
-            name_default_ = name;
+    //! 名前の設定
+    auto SetName(const std::string& name, bool use_construct = false) {
+        name_         = setUniqueName(name);
+        name_default_ = name;
 
-            if (!use_construct) return shared_from_this();
+        if(!use_construct)
+            return shared_from_this();
 
-            return std::shared_ptr<Object>(nullptr);
+        return std::shared_ptr<Object>(nullptr);
+    }
+
+    std::string_view GetName() const;           //!< 名前の取得
+    std::string_view GetNameDefault() const;    //!< 名前の取得
+
+    //@}
+    //----------------------------------------------------------
+    //! @name  オブジェクトステータス
+    //----------------------------------------------------------
+    //@{
+
+    //! オブジェクトステータスビット
+    enum struct StatusBit : u64 {
+        Alive = 0,       //!< 生存状態
+        ChangePrio,      //!< プライオリティの変更中
+        ShowGUI,         //!< GUI表示中
+        Initialized,     //!< 初期化終了
+        NoUpdate,        //!< Updateしない
+        NoDraw,          //!< Drawしない
+        DisablePause,    //!< ポーズ不可
+        IsPause,         //!< ポーズ中
+        Exited,          //!< 終了呼び出し済み.
+        Serialized,      //!< シリアライズ済み.
+        CalledGUI,       //!< GUIが正しく呼ばれた.
+        Located,         //!< 配置されている.
+    };
+
+    void SetStatus(StatusBit b, bool on);    //!< ステータスの設定
+    bool GetStatus(StatusBit b);             //!< ステータスの取得
+
+    //! 存在するオブジェクト数
+    static size_t ExistObjectCount();
+
+    //@}
+    //--------------------------------------------------------------------
+    //! @name コンポーネントに対する命令
+    //--------------------------------------------------------------------
+    //@{
+
+    //! コンポーネント追加
+    //! @tparam [in] class T コンポーネントタイプ
+    //! @tparam [in] Args コンポーネント初期化パラメータ
+    //! @return 追加されたコンポーネント
+    template<class T, class... Args>
+    std::shared_ptr<T> AddComponent(Args... args);
+
+    //! コンポーネント取得
+    //! @tparam T コンポーネントタイプ
+    //! @return 追加されたコンポーネント
+    template<class T>
+    std::shared_ptr<T> GetComponent();
+
+    //! コンポーネント取得
+    //! @tparam T コンポーネントタイプ
+    //! @return 追加されたコンポーネント
+    template<class T>
+    std::shared_ptr<T> GetComponent() const;
+
+    template<class T>
+    std::vector<std::shared_ptr<T>> GetComponents();
+
+    template<class T>
+    std::vector<std::shared_ptr<T>> GetComponents() const;
+
+    //! コンポーネント削除
+    //! @tparam [in] class T コンポーネントタイプ
+    template<class T>
+    void RemoveComponent();
+
+    //! コンポーネント削除
+    //! @param [in] component 削除するコンポーネント
+    void RemoveComponent(ComponentPtr component);
+
+    //! コンポーネントをすべて削除する
+    void RemoveAllComponents();
+
+    //! 全ての処理を削除する
+    void RemoveAllProcesses();
+
+    //----------------------------------------------------------------
+    // @name コンポーネントコールバック関係
+    //----------------------------------------------------------------
+    //@{
+
+    //! @brief コンポーネントのヒットコールバック
+    //! @param hitInfo ヒット情報
+    virtual void OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
+        if(auto cmp = GetComponent<ComponentTransform>()) {
+            cmp->AddTranslate(hitInfo.push_);
         }
-
-        std::string_view GetName() const;           //!< 名前の取得
-        std::string_view GetNameDefault() const;    //!< 名前の取得
-
-        //@}
-        //----------------------------------------------------------
-        //! @name  オブジェクトステータス
-        //----------------------------------------------------------
-        //@{
-
-        //! オブジェクトステータスビット
-        enum struct StatusBit : u64 {
-            Alive = 0,       //!< 生存状態
-            ChangePrio,      //!< プライオリティの変更中
-            ShowGUI,         //!< GUI表示中
-            Initialized,     //!< 初期化終了
-            NoUpdate,        //!< Updateしない
-            NoDraw,          //!< Drawしない
-            DisablePause,    //!< ポーズ不可
-            IsPause,         //!< ポーズ中
-            Exited,          //!< 終了呼び出し済み.
-            Serialized,      //!< シリアライズ済み.
-            CalledGUI,       //!< GUIが正しく呼ばれた.
-            Located,         //!< 配置されている.
-        };
-
-        void SetStatus(StatusBit b, bool on);    //!< ステータスの設定
-        bool GetStatus(StatusBit b);             //!< ステータスの取得
-
-        //! 存在するオブジェクト数
-        static size_t ExistObjectCount();
-
-        //@}
-        //--------------------------------------------------------------------
-        //! @name コンポーネントに対する命令
-        //--------------------------------------------------------------------
-        //@{
-
-        //! コンポーネント追加
-        //! @tparam [in] class T コンポーネントタイプ
-        //! @tparam [in] Args コンポーネント初期化パラメータ
-        //! @return 追加されたコンポーネント
-        template <class T, class... Args>
-        std::shared_ptr<T> AddComponent(Args... args);
-
-        //! コンポーネント取得
-        //! @tparam T コンポーネントタイプ
-        //! @return 追加されたコンポーネント
-        template <class T>
-        std::shared_ptr<T> GetComponent();
-
-        //! コンポーネント取得
-        //! @tparam T コンポーネントタイプ
-        //! @return 追加されたコンポーネント
-        template <class T>
-        std::shared_ptr<T> GetComponent() const;
-
-        template <class T>
-        std::vector<std::shared_ptr<T>> GetComponents();
-
-        template <class T>
-        std::vector<std::shared_ptr<T>> GetComponents() const;
-
-        //! コンポーネント削除
-        //! @tparam [in] class T コンポーネントタイプ
-        template <class T>
-        void RemoveComponent();
-
-        //! コンポーネント削除
-        //! @param [in] component 削除するコンポーネント
-        void RemoveComponent(ComponentPtr component);
-
-        //! コンポーネントをすべて削除する
-        void RemoveAllComponents();
-
-        //! 全ての処理を削除する
-        void RemoveAllProcesses();
-
-        //----------------------------------------------------------------
-        // @name コンポーネントコールバック関係
-        //----------------------------------------------------------------
-        //@{
-
-        //! @brief コンポーネントのヒットコールバック
-        //! @param hitInfo ヒット情報
-        virtual void OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
-            if (auto cmp = GetComponent<ComponentTransform>()) {
-                cmp->AddTranslate(hitInfo.push_);
-            }
-            // 地面に当たっている時
-            // @todo 重力加速も初期化する
+        // 地面に当たっている時
+        // @todo 重力加速も初期化する
 #pragma warning(disable: 26813)
-            // ここは&で参照すべき所ではない
-            if (hitInfo.hit_collision_->GetCollisionGroup() == ComponentCollision::CollisionGroup::GROUND) {
-                hitInfo.collision_->SetCollisionStatus(ComponentCollision::CollisionBit::IsGround, true);
-            }
+        // ここは&で参照すべき所ではない
+        if(hitInfo.hit_collision_->GetCollisionGroup() == ComponentCollision::CollisionGroup::GROUND) {
+            hitInfo.collision_->SetCollisionStatus(ComponentCollision::CollisionBit::IsGround, true);
+        }
 #pragma warning(default: 26813)
+    }
+
+    //@}
+    //----------------------------------------------------------------
+    // @name 処理優先関係
+    //----------------------------------------------------------------
+    //@{
+    SlotProc& GetProc(const std::string& proc_name, ProcTiming timing) {
+        {
+            auto itr = proc_timings_.find(proc_name);
+            if(itr != proc_timings_.end())
+                return itr->second;
+
+            proc_timings_[proc_name]         = SlotProc();
+            proc_timings_[proc_name].name_   = proc_name;
+            proc_timings_[proc_name].timing_ = timing;
+            proc_timings_[proc_name].dirty_  = true;
+            return proc_timings_[proc_name];
         }
+    }
 
-        //@}
-        //----------------------------------------------------------------
-        // @name 処理優先関係
-        //----------------------------------------------------------------
-        //@{
-        SlotProc& GetProc(const std::string& proc_name, ProcTiming timing) {
-            {
-                auto itr = proc_timings_.find(proc_name);
-                if (itr != proc_timings_.end()) return itr->second;
-
-                proc_timings_[proc_name]         = SlotProc();
-                proc_timings_[proc_name].name_   = proc_name;
-                proc_timings_[proc_name].timing_ = timing;
-                proc_timings_[proc_name].dirty_  = true;
-                return proc_timings_[proc_name];
-            }
-        }
-
-        /**
+    /**
          * @brief           プロセス設定
          * @param proc_name プロセス名
          * @param func      処理
@@ -274,130 +278,130 @@ class Object : public std::enable_shared_from_this<Object>, public IMatrix<Objec
          * @param prio      処理優先
          * @return          プロセス
          */
-        SlotProc& SetProc(const std::string& proc_name, ProcTimingFunc func, ProcTiming timing = ProcTiming::Update,
-                          Priority prio = Priority::NORMAL) {
-            auto& proc = GetProc(proc_name, timing);
-            if (proc_name != proc.GetName() || timing != proc.GetTiming() || prio != proc.GetPriority() || proc.IsDirty()) {
-                proc.SetProc(proc_name, timing, prio, func);
-            }
-            return proc;
+    SlotProc& SetProc(const std::string& proc_name, ProcTimingFunc func, ProcTiming timing = ProcTiming::Update,
+                      Priority prio = Priority::NORMAL) {
+        auto& proc = GetProc(proc_name, timing);
+        if(proc_name != proc.GetName() || timing != proc.GetTiming() || prio != proc.GetPriority() || proc.IsDirty()) {
+            proc.SetProc(proc_name, timing, prio, func);
         }
+        return proc;
+    }
 
-        SlotProc& SetAddProc(std::shared_ptr<Callable> func, ProcTiming timing = ProcTiming::Draw,
-                             Priority prio = Priority::NORMAL) {
-            auto& proc = GetProc(func->GetName(), timing);
-            if (func->GetName() != proc.GetName() || timing != proc.GetTiming() || prio != proc.GetPriority()
-                || proc.IsDirty()) {
-                proc.SetAddProc(func, timing, prio);
-            }
-            return proc;
+    SlotProc& SetAddProc(std::shared_ptr<Callable> func, ProcTiming timing = ProcTiming::Draw,
+                         Priority prio = Priority::NORMAL) {
+        auto& proc = GetProc(func->GetName(), timing);
+        if(func->GetName() != proc.GetName() || timing != proc.GetTiming() || prio != proc.GetPriority() || proc.IsDirty()) {
+            proc.SetAddProc(func, timing, prio);
         }
+        return proc;
+    }
 
-        void ResetProc(std::string proc_name) {
-            auto itr = proc_timings_.find(proc_name);
-            if (itr != proc_timings_.end()) {
-                auto& proc = itr->second;
-                if (proc.connect_.valid()) proc.connect_.disconnect();
+    void ResetProc(std::string proc_name) {
+        auto itr = proc_timings_.find(proc_name);
+        if(itr != proc_timings_.end()) {
+            auto& proc = itr->second;
+            if(proc.connect_.valid())
+                proc.connect_.disconnect();
 
-                proc.ResetDirty();
-            }
+            proc.ResetDirty();
         }
+    }
 
-        //@}
+    //@}
 
-        //----------------------------------------------------------------------
-        //! @name IMatrixインターフェースの利用するための定義
-        //----------------------------------------------------------------------
-        //@{
-        //! @brief TransformのMatrix情報を取得します
-        //! @return ComponentTransform の Matrix
-        matrix& Matrix() override;
+    //----------------------------------------------------------------------
+    //! @name IMatrixインターフェースの利用するための定義
+    //----------------------------------------------------------------------
+    //@{
+    //! @brief TransformのMatrix情報を取得します
+    //! @return ComponentTransform の Matrix
+    matrix& Matrix() override;
 
-        const matrix& GetMatrix() const override;
+    const matrix& GetMatrix() const override;
 
-        ObjectPtr SharedThis() {
-            return shared_from_this();
-        }
+    ObjectPtr SharedThis() {
+        return shared_from_this();
+    }
 
-        //! @brief ワールドMatrixの取得
-        //! @return 他のコンポーネントも含めた位置
-        virtual const matrix GetWorldMatrix() const override {
-            auto cmp = GetComponent<ComponentTransform>();
-            assert(cmp && "このオブジェクトは、ComponentTransformが存在していません。位置移動はできません");
-            return cmp->GetWorldMatrix();
-        }
+    //! @brief ワールドMatrixの取得
+    //! @return 他のコンポーネントも含めた位置
+    virtual const matrix GetWorldMatrix() const override {
+        auto cmp = GetComponent<ComponentTransform>();
+        assert(cmp && "このオブジェクトは、ComponentTransformが存在していません。位置移動はできません");
+        return cmp->GetWorldMatrix();
+    }
 
-        //! @brief ワールドMatrixの取得
-        //! @return 他のコンポーネントも含めた位置
-        virtual const matrix GetOldWorldMatrix() const override;
+    //! @brief ワールドMatrixの取得
+    //! @return 他のコンポーネントも含めた位置
+    virtual const matrix GetOldWorldMatrix() const override;
 
-        //! @brief ワールドMatrixの設定
-        void SetWorldMatrix(const matrix& mat);
+    //! @brief ワールドMatrixの設定
+    void SetWorldMatrix(const matrix& mat);
 
-        //@}
-        //----------------------------------------------------------------------
-        //! @name システム処理系
-        //----------------------------------------------------------------------
-        //@{
+    //@}
+    //----------------------------------------------------------------------
+    //! @name システム処理系
+    //----------------------------------------------------------------------
+    //@{
 
-        //! 全コンポーネントの取得
-        //! @return コンポーネントそのものを受け取る
-        //! @attention auto&
-        //! で受け取ってください。(autoで受け取ると別物になります【C++17】)
-        ComponentPtrVec& GetComponents() {
-            return components_;
-        }
+    //! 全コンポーネントの取得
+    //! @return コンポーネントそのものを受け取る
+    //! @attention auto&
+    //! で受け取ってください。(autoで受け取ると別物になります【C++17】)
+    ComponentPtrVec& GetComponents() {
+        return components_;
+    }
 
-        //! 使用していないコンポーネントの削除
-        void ModifyComponents();
+    //! 使用していないコンポーネントの削除
+    void ModifyComponents();
 
-        //! 使用している名前リストを消去する
-        //! ステージ移行などでオブジェクトが消去されたときに呼ぶ
-        static void ClearObjectNames();
+    //! 使用している名前リストを消去する
+    //! ステージ移行などでオブジェクトが消去されたときに呼ぶ
+    static void ClearObjectNames();
 
-        //@}
+    //@}
 
-        void SetGravity(float3 g) {
-            // Physicsにて影響を受けるgravity
-            // JOLTでは使用しない
-            gravity_ = g;
-        }
+    void SetGravity(float3 g) {
+        // Physicsにて影響を受けるgravity
+        // JOLTでは使用しない
+        gravity_ = g;
+    }
 
-        int GetVersion();
+    int GetVersion();
 
-        virtual bool Save(std::string_view filename = "");
+    virtual bool Save(std::string_view filename = "");
 
-        virtual bool Load(std::string_view filename = "");
-        //@}
+    virtual bool Load(std::string_view filename = "");
+    //@}
 
-    protected:
-        std::string name_{};            //!< オブジェクト名
-        std::string name_default_{};    //!< 番号なしのオブジェクト名
-        Status<StatusBit> status_{};    //!< ステータス
-        ComponentPtrVec components_;    //!< コンポーネント
-        SlotProcs proc_timings_;        //!< 登録処理
-        float3 gravity_;                //!< 重力
+   protected:
+    std::string       name_{};            //!< オブジェクト名
+    std::string       name_default_{};    //!< 番号なしのオブジェクト名
+    Status<StatusBit> status_{};          //!< ステータス
+    ComponentPtrVec   components_;        //!< コンポーネント
+    SlotProcs         proc_timings_;      //!< 登録処理
+    float3            gravity_;           //!< 重力
 
-        // コンポーネントリークチェック用
-        ComponentWeakPtrVec leak_components_;
+    // コンポーネントリークチェック用
+    ComponentWeakPtrVec leak_components_;
 
-        std::string setUniqueName(const std::string& name);
+    std::string setUniqueName(const std::string& name);
 
-    private:
-        //--------------------------------------------------------------------
-        //! @name Cereal処理
-        //--------------------------------------------------------------------
-        //@{
-        CEREAL_SAVELOAD(arc, ver) {
-            arc(CEREAL_NVP(name_));
-            arc(CEREAL_NVP(name_default_), CEREAL_NVP(status_.get()), CEREAL_NVP(proc_timings_));
+   private:
+    //--------------------------------------------------------------------
+    //! @name Cereal処理
+    //--------------------------------------------------------------------
+    //@{
+    CEREAL_SAVELOAD(arc, ver) {
+        arc(CEREAL_NVP(name_));
+        arc(CEREAL_NVP(name_default_), CEREAL_NVP(status_.get()), CEREAL_NVP(proc_timings_));
 
-            arc(CEREAL_NVP(components_));
-            arc(CEREAL_NVP(gravity_));
+        arc(CEREAL_NVP(components_));
+        arc(CEREAL_NVP(gravity_));
 
-            status_.off(StatusBit::Serialized);
-        }
-        //@}
+        status_.off(StatusBit::Serialized);
+    }
+    //@}
 };
 
 //---------------------------------------------------------------------------
@@ -405,7 +409,7 @@ class Object : public std::enable_shared_from_this<Object>, public IMatrix<Objec
 //---------------------------------------------------------------------------
 CEREAL_CLASS_VERSION(Object, 0);
 
-template <class T, class... Args>
+template<class T, class... Args>
 std::shared_ptr<T> Object::AddComponent(Args... args) {
     assert(this != nullptr &&
            "実行しているオブジェクト(this)"
@@ -414,8 +418,9 @@ std::shared_ptr<T> Object::AddComponent(Args... args) {
     // 同じタイプを許容しない場合
     // 同じものが存在する場合はエラーとする
     auto cmp = GetComponent<T>();
-    if (cmp != nullptr) {
-        if (!cmp->status_.is(Component::StatusBit::SameType)) assert(!"このComponentは同じタイプを許容しません");
+    if(cmp != nullptr) {
+        if(!cmp->status_.is(Component::StatusBit::SameType))
+            assert(!"このComponentは同じタイプを許容しません");
     }
 
     auto ptr = new T();
@@ -435,15 +440,16 @@ std::shared_ptr<T> Object::AddComponent(Args... args) {
 //! @brief コンポーネント取得
 //! @tparam T コンポーネントタイプ
 //! @return 追加されたコンポーネント
-template <class T>
+template<class T>
 std::shared_ptr<T> Object::GetComponent() {
     assert(this != nullptr &&
            "実行しているオブジェクト(this)"
            "がありません。「再試行」をおして、「呼び出し履歴」からどこでemptyになったのかを確認してください。");
 
-    for (auto& component : components_) {
+    for(auto& component: components_) {
         auto cast = std::dynamic_pointer_cast<T>(component);
-        if (cast) return cast;
+        if(cast)
+            return cast;
     }
 
     return nullptr;
@@ -452,21 +458,22 @@ std::shared_ptr<T> Object::GetComponent() {
 //! @brief コンポーネント取得
 //! @tparam T コンポーネントタイプ
 //! @return 追加されたコンポーネント
-template <class T>
+template<class T>
 std::shared_ptr<T> Object::GetComponent() const {
     assert(this != nullptr &&
            "実行しているオブジェクト(this)"
            "がありません。「再試行」をおして、「呼び出し履歴」からどこでemptyになったのかを確認してください。");
 
-    for (auto& component : components_) {
+    for(auto& component: components_) {
         auto cast = std::dynamic_pointer_cast<T>(component);
-        if (cast) return cast;
+        if(cast)
+            return cast;
     }
 
     return nullptr;
 }
 
-template <class T>
+template<class T>
 std::vector<std::shared_ptr<T>> Object::GetComponents() {
     assert(this != nullptr &&
            "実行しているオブジェクト(this)"
@@ -474,15 +481,16 @@ std::vector<std::shared_ptr<T>> Object::GetComponents() {
 
     std::vector<std::shared_ptr<T>> cmps;
 
-    for (auto& component : components_) {
+    for(auto& component: components_) {
         auto cmp = std::dynamic_pointer_cast<T>(component);
-        if (cmp) cmps.push_back(cmp);
+        if(cmp)
+            cmps.push_back(cmp);
     }
 
     return cmps;
 }
 
-template <class T>
+template<class T>
 std::vector<std::shared_ptr<T>> Object::GetComponents() const {
     assert(this != nullptr &&
            "実行しているオブジェクト(this)"
@@ -490,24 +498,25 @@ std::vector<std::shared_ptr<T>> Object::GetComponents() const {
 
     std::vector<std::shared_ptr<T>> cmps;
 
-    for (auto& component : components_) {
+    for(auto& component: components_) {
         auto cmp = std::dynamic_pointer_cast<T>(component);
-        if (cmp) cmps.push_back(cmp);
+        if(cmp)
+            cmps.push_back(cmp);
     }
 
     return cmps;
 }
 
-template <typename _Type>
+template<typename _Type>
 void Object::RemoveComponent() {
     assert(this != nullptr &&
            "実行しているオブジェクト(this)"
            "がありません。「再試行」をおして、「呼び出し履歴」からどこでemptyになったのかを確認してください。");
 
-    for (size_t i = components_.size() - 1; i >= 0; --i) {
+    for(size_t i = components_.size() - 1; i >= 0; --i) {
         auto& c = components_[i];
 
-        if (std::dynamic_pointer_cast<_Type>(c)) {
+        if(std::dynamic_pointer_cast<_Type>(c)) {
             c->Exit();
             break;
         }

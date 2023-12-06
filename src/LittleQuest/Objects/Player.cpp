@@ -15,322 +15,296 @@
 
 namespace LittleQuest {
 
-    //! @brief Editor上でのCreateObject用の設定
-    //! @detail BP_OBJECT_TYPEとセットで用意する
-    BP_OBJECT_IMPL(Player, "LittleQuest/Player");
+BP_OBJECT_IMPL(Player, "LittleQuest/Player");
 
-    PlayerPtr Player::Create(const float3& pos, const float3& front) {
-        auto player = Scene::CreateObjectPtr<Player>();
-        player->SetName("Player");
+PlayerPtr Player::Create(const float3& pos, const float3& front) {
+    auto player = Scene::CreateObjectPtr<Player>();
+    player->SetName("Player");
 
-        auto mat = HelperLib::Math::CreateMatrixByFrontVector(front);
-        player->SetMatrix(mat);
-        player->SetTranslate(pos);
+    auto mat = HelperLib::Math::CreateMatrixByFrontVector(front);
+    player->SetMatrix(mat);
+    player->SetTranslate(pos);
 
-        player->pHP = player->AddComponent<ComponentHP>();
-        player->pHP.lock()->SetHP(100);
+    player->pHP = player->AddComponent<ComponentHP>();
+    player->pHP.lock()->SetHP(100);
 
-        auto sword = Scene::CreateObjectPtr<Object>("PlayerSword");
+    auto sword = Scene::CreateObjectPtr<Object>("PlayerSword");
 
-        auto model = sword->AddComponent<ComponentModel>();
-        model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
-        model->SetRotationAxisXYZ({0, 0, 0});
-        model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
+    auto model = sword->AddComponent<ComponentModel>();
+    model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
+    model->SetRotationAxisXYZ({0, 0, 0});
+    model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
 
-        auto attach = sword->AddComponent<ComponentAttachModel>();
-        attach->SetAttachObject(player, "mixamorig:RightHand");
-        attach->SetAttachRotate({0, 0, -90});
-        attach->SetAttachOffset({10, 13, -3});
+    auto attach = sword->AddComponent<ComponentAttachModel>();
+    attach->SetAttachObject(player, "mixamorig:RightHand");
+    attach->SetAttachRotate({0, 0, -90});
+    attach->SetAttachOffset({10, 13, -3});
 
-        return player;
+    return player;
+}
+
+bool Player::Init() {
+    pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
+    pModel.lock()->SetScaleAxisXYZ({0.05f});
+
+    pModel.lock()->SetAnimation({
+        {   "idle",         "data/LittleQuest/Anim/SwordIdle.mv1", 0, 1.0f},
+        {   "jump",         "data/LittleQuest/Anim/SwordJump.mv1", 0, 1.0f},
+        {   "walk",         "data/LittleQuest/Anim/SwordWalk.mv1", 0, 1.0f},
+        {"attack1", "data/LittleQuest/Anim/SwordAttackCombo1.mv1", 0, 1.5f},
+        {"attack2", "data/LittleQuest/Anim/SwordAttackCombo2.mv1", 0, 1.0f},
+        {"attack3", "data/LittleQuest/Anim/SwordAttackCombo3.mv1", 0, 1.5f},
+        { "getHit",       "data/LittleQuest/Anim/SwordGetHit.mv1", 0, 1.0f}
+    });
+
+    auto colCap = AddComponent<ComponentCollisionCapsule>();
+    colCap->SetTranslate({0, 0, 0});
+    colCap->SetRadius(2.5);
+    colCap->SetHeight(10);
+    colCap->UseGravity();
+    colCap->SetCollisionGroup(ComponentCollision::CollisionGroup::PLAYER);
+
+    auto colWeapon = AddComponent<ComponentCollisionCapsule>();
+    colWeapon->AttachToModel("mixamorig:RightHand");
+    colWeapon->SetTranslate({10, 12, 0});
+    colWeapon->SetRotationAxisXYZ({0, 0, -90});
+    colWeapon->SetRadius(0.3f);
+    colWeapon->SetHeight(5);
+    colWeapon->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
+    colWeapon->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
+    colWeapon->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
+    colWeapon->SetName("SwordCol");
+
+    atkVal     = 50;
+    selfMatrix = GetMatrix();
+    getHit     = false;
+
+    return Super::Init();
+}
+
+void Player::Update() {
+    movement = float3(0, 0, 0);
+
+    if(!pCamera.lock()) {
+        pCamera      = Scene::GetObjectPtr<Camera>("PlayerCamera");
+        cameraLength = pCamera.lock()->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
+    } else {
+        float3 v   = GetTranslate() - pCamera.lock()->GetTranslate();
+        selfMatrix = HelperLib::Math::CreateMatrixByFrontVector(-v);
     }
 
-    bool Player::Init()    // override
-    {
-        Super::Init();
+    InputHandle();
 
-        // モデルコンポーネント(0.05倍)
-        pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
-        pModel.lock()->SetScaleAxisXYZ({0.05f});
-
-        pModel.lock()->SetAnimation({{"idle", "data/LittleQuest/Anim/SwordIdle.mv1", 0, 1.0f},
-                                     {"jump", "data/LittleQuest/Anim/SwordJump.mv1", 0, 1.0f},
-                                     {"walk", "data/LittleQuest/Anim/SwordWalk.mv1", 0, 1.0f},
-                                     {"attack1", "data/LittleQuest/Anim/SwordAttackCombo1.mv1", 0, 1.5f},
-                                     {"attack2", "data/LittleQuest/Anim/SwordAttackCombo2.mv1", 0, 1.0f},
-                                     {"attack3", "data/LittleQuest/Anim/SwordAttackCombo3.mv1", 0, 1.5f},
-                                     {"getHit", "data/LittleQuest/Anim/SwordGetHit.mv1", 0, 1.0f}});
-
-        auto colCap = AddComponent<ComponentCollisionCapsule>();
-        colCap->SetTranslate({0, 0, 0});
-        colCap->SetRadius(2.5);
-        colCap->SetHeight(10);
-        colCap->UseGravity();
-        colCap->SetCollisionGroup(ComponentCollision::CollisionGroup::PLAYER);
-
-        auto colWeapon = AddComponent<ComponentCollisionCapsule>();
-        colWeapon->AttachToModel("mixamorig:RightHand");
-        colWeapon->SetTranslate({10, 12, 0});
-        colWeapon->SetRotationAxisXYZ({0, 0, -90});
-        colWeapon->SetRadius(0.3f);
-        colWeapon->SetHeight(5);
-        colWeapon->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
-        colWeapon->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
-        colWeapon->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
-        colWeapon->SetName("SwordCol");
-
-        atkVal      = 50;
-        self_matrix = GetMatrix();
-        getHit      = false;
-        return true;
+    if(currCombo != Combo::NO_COMBO) {
+        playerState = PlayerState::ATTACK;
     }
 
-    void Player::Update()    // override
-    {
-        movement = float3(0, 0, 0);
+    if(IsFloat3Zero(movement) && playerState != PlayerState::GET_HIT && playerState != PlayerState::ATTACK) {
+        playerState = PlayerState::IDLE;
+    }
 
-        if (!pCamera.lock()) {
-            pCamera      = Scene::GetObjectPtr<Camera>("PlayerCamera");
-            cameraLength = pCamera.lock()->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
-        } else {
-            float3 v    = GetTranslate() - pCamera.lock()->GetTranslate();
-            self_matrix = HelperLib::Math::CreateMatrixByFrontVector(-v);
-        }
-
-        InputHandle();
-
-        if (currCombo != Combo::NO_COMBO) {
-            playerState = PlayerState::ATTACK;
-        }
-
-        if (CheckFloat3Zero(movement) && playerState != PlayerState::GET_HIT && playerState != PlayerState::ATTACK) {
+    switch(playerState) {
+    case PlayerState::GET_HIT:
+        if(!pModel.lock()->IsPlaying()) {
             playerState = PlayerState::IDLE;
         }
-
-        switch (playerState) {
-            case PlayerState::GET_HIT:
-                if (!pModel.lock()->IsPlaying()) {
-                    playerState = PlayerState::IDLE;
-                }
-                break;
-            case PlayerState::ATTACK:
-                Attack();
-                break;
-            case PlayerState::JUMP:
-                break;
-            case PlayerState::WALK:
-                Walk();
-                break;
-            default:
-                Idle();
-                break;
-        }
-
-        movement *= speed_ * GetDeltaTime60() * !currCombo;
-
-        // 地面移動スピードを決定する
-        AddTranslate(movement);
+        break;
+    case PlayerState::ATTACK:
+        Attack();
+        break;
+    case PlayerState::JUMP:
+        break;
+    case PlayerState::WALK:
+        Walk();
+        break;
+    default:
+        Idle();
+        break;
     }
 
-    // 基本描画の後に処理します
-    void Player::LateDraw()    // override
-    {
-        // gauge_.Draw();
+    movement *= speed * GetDeltaTime60() * !currCombo;
+    AddTranslate(movement);
+}
+
+void        Player::LateDraw() {
 #if defined _DEBUG
-        // printfDx("\ncombo:%d", combo);
-        float* mat = pModel.lock()->GetMatrixFloat();
-        float matrixTranslation[3], matrixRotation[3], matrixScale[3];
-        DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
-        printfDx("\nAnimation Time:%f", pModel.lock()->GetAnimationTime());
-        printfDx("\nmodel rotx:%f", pModel.lock()->GetRotationAxisXYZ().x);
-        printfDx("\nmodel roty:%f", matrixRotation[1]);
-        printfDx("\nmodel rotz:%f", pModel.lock()->GetRotationAxisXYZ().z);
-        printfDx("\nTotal Animation Time:%f", pModel.lock()->GetAnimationTotalTime());
-        printfDx("\nAnimation Play Time:%f", pModel.lock()->GetAnimationPlayTime());
-        // printfDx("\nisAttack: %i", isAttack);
-        printfDx("\nisCombo: %i", isCombo);
-        printfDx("\n!CurrCombo: %i", !currCombo);
-        // float x, y, z;
-
-        printfDx("\nMatAYx: %f %f %f", GetMatrix().axisX().x, GetMatrix().axisX().y, GetMatrix().axisX().z);
-        printfDx("\nMatAYz: %f %f %f", GetRotationAxisXYZ().z, GetMatrix().axisZ().y, GetMatrix().axisZ().z);
+    printfDx("\nAnimation Time:%f", pModel.lock()->GetAnimationTime());
+    printfDx("\nTotal Animation Time:%f", pModel.lock()->GetAnimationTotalTime());
+    printfDx("\nAnimation Play Time:%f", pModel.lock()->GetAnimationPlayTime());
 #endif
-        pHP.lock()->DrawHPBar();
+    pHP.lock()->DrawHPBar();
+}
+
+void Player::GUI() {
+    Super::GUI();
+}
+
+void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
+    if(hitInfo.collision_->GetName() == "SwordCol") {
+        return;
     }
 
-    void Player::GUI()    // override
-    {
-        Super::GUI();
+    auto* owner = hitInfo.hit_collision_->GetOwner();
+
+    if(currCombo == Combo::NO_COMBO) {
+        return;
     }
 
-    void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
-    {
-        // 武器の衝突判定
-        if (hitInfo.collision_->GetName() == "SwordCol") {
-            auto* owner = hitInfo.hit_collision_->GetOwner();
-            if (currCombo != Combo::NO_COMBO) {
-                if (auto enemy = dynamic_cast<Enemy*>(owner)) {
-                    bool inList = false;
-                    for (int i = 0; i < attackList.size(); i++) {
-                        if (attackList[i] == enemy->GetName().data()) {
-                            inList = true;
-                            break;
-                        }
-                    }
-
-                    if (!inList) {
-                        attackList.push_back(enemy->GetName().data());
-                        enemy->GetHit(this->atkVal);
-                    }
-                }
-            }
-        }
-
-        Super::OnHit(hitInfo);
+    Enemy* enemy;
+    if(!(enemy = dynamic_cast<Enemy*>(owner))) {
+        return;
     }
 
-    void Player::InputHandle() {
-        // カメラ距離の調整
-        cameraLength -= GetMouseWheelRotVol() * 3;
-        if (cameraLength < 10) {
-            cameraLength = 10;
-        } else if (cameraLength > 100) {
-            cameraLength = 100;
-        }
-        pCamera.lock()->GetComponent<ComponentSpringArm>()->SetSpringArmLength(cameraLength);
-        // #endif    // USE_MOUSE_CAMERA
-
-        if (IsKeyRepeat(KEY_INPUT_W)) {
-            float3 vec = self_matrix.axisZ();
-            vec.y      = 0;
-            movement += -vec;
-            playerState = PlayerState::WALK;
-        }
-        if (IsKeyRepeat(KEY_INPUT_D)) {
-            float3 vec = self_matrix.axisX();
-            vec.y      = 0;
-            movement += -vec;
-            playerState = PlayerState::WALK;
-        }
-        if (IsKeyRepeat(KEY_INPUT_S)) {
-            float3 vec = self_matrix.axisZ();
-            vec.y      = 0;
-            movement += vec;
-            playerState = PlayerState::WALK;
-        }
-        if (IsKeyRepeat(KEY_INPUT_A)) {
-            float3 vec = self_matrix.axisX();
-            vec.y      = 0;
-            movement += vec;
-            playerState = PlayerState::WALK;
-        }
-
-        if (IsMouseDown(MOUSE_INPUT_LEFT)) {
-            playerState = PlayerState::ATTACK;
-
-            if (currCombo == 0) {
-                currCombo = Combo::NORMAL_COMBO1;
-            } else if (currCombo != 0 && waitForCombo) {
-                isCombo = true;
-            }
+    bool inList = false;
+    for(int i = 0; i < attackList.size(); i++) {
+        if(attackList[i] == enemy->GetName().data()) {
+            inList = true;
+            break;
         }
     }
 
-    void Player::Idle() {
-        pModel.lock()->PlayAnimationNoSame("idle", true);
+    if(!inList) {
+        attackList.push_back(enemy->GetName().data());
+        enemy->GetHit(this->atkVal);
     }
 
-    void Player::Walk() {
-        if (CheckFloat3Zero(movement)) {
-            return;
-        }
+    Super::OnHit(hitInfo);
+}
 
-        movement = normalize(movement);
-        this->SetModelRotation();
+void Player::GetHit(int damage) {
+    pHP.lock()->TakeDamage(damage);
 
-        if (pModel.lock()->GetPlayAnimationName() != "walk") {
-            pModel.lock()->PlayAnimation("walk", true, 0.2f, 14.0f);
-        }
+    if(pHP.lock()->GetHP() > 0) {
+        pModel.lock()->PlayAnimation("getHit");
+        playerState = PlayerState::GET_HIT;
+        getHit      = true;
+    } else {
+        Scene::Change(Scene::GetScene<GameOverScene>());
+    }
+}
+
+void Player::InputHandle() {
+    cameraLength -= GetMouseWheelRotVol() * 3;
+    cameraLength = std::min((std::max(cameraLength, 10.0f)), 100.0f);
+    pCamera.lock()->SetCameraLength(cameraLength);
+
+    if(IsKeyRepeat(KEY_INPUT_W)) {
+        float3 vec = selfMatrix.axisZ();
+        vec.y      = 0;
+        movement += -vec;
+        playerState = PlayerState::WALK;
+    }
+    if(IsKeyRepeat(KEY_INPUT_D)) {
+        float3 vec = selfMatrix.axisX();
+        vec.y      = 0;
+        movement += -vec;
+        playerState = PlayerState::WALK;
+    }
+    if(IsKeyRepeat(KEY_INPUT_S)) {
+        float3 vec = selfMatrix.axisZ();
+        vec.y      = 0;
+        movement += vec;
+        playerState = PlayerState::WALK;
+    }
+    if(IsKeyRepeat(KEY_INPUT_A)) {
+        float3 vec = selfMatrix.axisX();
+        vec.y      = 0;
+        movement += vec;
+        playerState = PlayerState::WALK;
     }
 
-    void Player::Jump() {}
+    if(IsMouseDown(MOUSE_INPUT_LEFT)) {
+        playerState = PlayerState::ATTACK;
 
-    void Player::Attack() {
-        if (currCombo == 1) {
-            if (pModel.lock()->GetPlayAnimationName() != "attack1") {
-                this->SetModelRotation();
-                pModel.lock()->PlayAnimationNoSame("attack1");
-                attackList.clear();
-            }
-
-            if (!pModel.lock()->IsPlaying()) {
-                currCombo = Combo::NO_COMBO;
-                if (isCombo) {
-                    currCombo = Combo::NORMAL_COMBO2;
-                    isCombo   = false;
-                }
-            } else {
-                waitForCombo = true;
-            }
-        }
-
-        if (currCombo == 2) {
-            if (pModel.lock()->GetPlayAnimationName() != "attack2") {
-                pModel.lock()->PlayAnimationNoSame("attack2");
-                this->SetModelRotation();
-                attackList.clear();
-            }
-
-            if (!pModel.lock()->IsPlaying()) {
-                currCombo = Combo::NO_COMBO;
-                if (isCombo) {
-                    // currCombo = 3;
-                    currCombo = Combo::NORMAL_COMBO3;
-                    isCombo   = false;
-                }
-            } else {
-                waitForCombo = true;
-            }
-        }
-
-        if (currCombo == 3) {
-            if (pModel.lock()->GetPlayAnimationName() != "attack3") {
-                this->SetModelRotation();
-                pModel.lock()->PlayAnimationNoSame("attack3");
-                attackList.clear();
-            }
-            if (!pModel.lock()->IsPlaying()) {
-                currCombo   = Combo::NO_COMBO;
-                playerState = PlayerState::IDLE;
-            }
-        }
-
-        if (currCombo == 0) {
-            playerState = PlayerState::IDLE;
-            currCombo   = Combo::NO_COMBO;
+        if(currCombo == Combo::NO_COMBO) {
+            currCombo = Combo::NORMAL_COMBO1;
+        } else if(/*currCombo != Combo::NO_COMBO && */ waitForCombo) {
+            isCombo = true;
         }
     }
+}
 
-    void Player::SetModelRotation(/*float3& move*/) {
-        if (movement.x != 0 || movement.z != 0) {
-            float x     = -movement.x;
-            float z     = -movement.z;
-            float theta = atan2(x, z) * RadToDeg;
-            pModel.lock()->SetRotationAxisXYZ({0, theta, 0});
-        }
+void Player::Idle() {
+    pModel.lock()->PlayAnimationNoSame("idle", true);
+}
+
+void Player::Walk() {
+    if(IsFloat3Zero(movement)) {
+        return;
     }
 
-    void Player::GetHit(int damage) {
-        pHP.lock()->TakeDamage(damage);
+    movement = normalize(movement);
+    this->SetModelRotation();
 
-        if (pHP.lock()->GetHP() > 0) {
-            pModel.lock()->PlayAnimation("getHit");
-            playerState = PlayerState::GET_HIT;
-            getHit      = true;
+    if(pModel.lock()->GetPlayAnimationName() != "walk") {
+        pModel.lock()->PlayAnimation("walk", true, 0.2f, 14.0f);
+    }
+}
+
+void Player::Jump() {}
+
+void Player::Attack() {
+    switch(currCombo) {
+    case Combo::NORMAL_COMBO1:
+        if(pModel.lock()->GetPlayAnimationName() != "attack1") {
+            this->SetModelRotation();
+            pModel.lock()->PlayAnimationNoSame("attack1");
+            attackList.clear();
+        }
+
+        if(!pModel.lock()->IsPlaying()) {
+            currCombo = Combo::NO_COMBO;
+            if(isCombo) {
+                currCombo = Combo::NORMAL_COMBO2;
+                isCombo   = false;
+            }
         } else {
-            Scene::Change(Scene::GetScene<GameOverScene>());
+            waitForCombo = true;
         }
+        break;
+    case Combo::NORMAL_COMBO2:
+        if(pModel.lock()->GetPlayAnimationName() != "attack2") {
+            pModel.lock()->PlayAnimationNoSame("attack2");
+            this->SetModelRotation();
+            attackList.clear();
+        }
+
+        if(!pModel.lock()->IsPlaying()) {
+            currCombo = Combo::NO_COMBO;
+            if(isCombo) {
+                currCombo = Combo::NORMAL_COMBO3;
+                isCombo   = false;
+            }
+        } else {
+            waitForCombo = true;
+        }
+        break;
+    case Combo::NORMAL_COMBO3:
+        if(pModel.lock()->GetPlayAnimationName() != "attack3") {
+            this->SetModelRotation();
+            pModel.lock()->PlayAnimationNoSame("attack3");
+            attackList.clear();
+        }
+        if(!pModel.lock()->IsPlaying()) {
+            currCombo   = Combo::NO_COMBO;
+            playerState = PlayerState::IDLE;
+        }
+        break;
+    default:
+        playerState = PlayerState::IDLE;
+        currCombo   = Combo::NO_COMBO;
+        break;
     }
+}
+
+void Player::SetModelRotation() {
+    if(!IsFloat3Zero(movement)) {
+        float x     = -movement.x;
+        float z     = -movement.z;
+        float theta = atan2(x, z) * RadToDeg;
+        pModel.lock()->SetRotationAxisXYZ({0, theta, 0});
+    }
+}
 }    // namespace LittleQuest
 
 CEREAL_REGISTER_TYPE(LittleQuest::Player)

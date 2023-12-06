@@ -25,15 +25,15 @@ void ComponentSpringArm::Init() {
 //---------------------------------------------------------
 void ComponentSpringArm::Update() {
     auto owner = GetOwner();
-    if (owner) {
+    if(owner) {
         auto target = object_.lock();
-        if (target == nullptr) {
+        if(target == nullptr) {
             SetSpringArmObject(object_name_);
         }
 
         owner->SetMatrix(GetPutOnMatrix());
 
-        if (!owner->GetStatus(Object::StatusBit::Located)) {
+        if(!owner->GetStatus(Object::StatusBit::Located)) {
             owner->UseWarp();
         }
     }
@@ -41,7 +41,7 @@ void ComponentSpringArm::Update() {
 
 void ComponentSpringArm::PostUpdate() {
     // 自分の位置はそのまま使用し、ターゲット位置のほうを向くようにする
-    if (auto object = object_.lock()) {
+    if(auto object = object_.lock()) {
         auto my_pos     = GetOwner()->GetTranslate();
         auto target_pos = object->GetTranslate();
 
@@ -57,17 +57,17 @@ void ComponentSpringArm::PostUpdate() {
 //! @brief スプリングアームの先からのマトリクス取得
 //! @return マトリクス
 matrix ComponentSpringArm::GetPutOnMatrix() const {
-    float trans[3] = {0, 0, 0};
-    float rot[3]   = {spring_arm_rotate_.x, spring_arm_rotate_.y, spring_arm_rotate_.z};
-    float scale[3] = {1.0f, 1.0f, 1.0f};
+    float  trans[3] = {0, 0, 0};
+    float  rot[3]   = {spring_arm_rotate_.x, spring_arm_rotate_.y, spring_arm_rotate_.z};
+    float  scale[3] = {1.0f, 1.0f, 1.0f};
     matrix rmat;
     RecomposeMatrixFromComponents(trans, rot, scale, rmat.f32_128_0);
 
     matrix tmat = matrix::translate(0, 0, spring_arm_length_);
 
     matrix mat = matrix::identity();
-    if (auto object = object_.lock()) {
-        if (auto transform = object->GetComponent<ComponentTransform>()) {
+    if(auto object = object_.lock()) {
+        if(auto transform = object->GetComponent<ComponentTransform>()) {
             mat = transform->GetMatrix();
         }
     }
@@ -78,7 +78,7 @@ matrix ComponentSpringArm::GetPutOnMatrix() const {
 }
 
 void ComponentSpringArm::SetSpringArmObject(ObjectPtr object) {
-    if (object) {
+    if(object) {
         object_      = object;
         object_name_ = object->GetName();
         GetOwner()->SetStatus(Object::StatusBit::Located, false);
@@ -123,23 +123,23 @@ void ComponentSpringArm::GUI() {
     ImGui::Begin(obj_name.data());
     {
         ImGui::Separator();
-        if (ImGui::TreeNode(u8"SpringArm")) {
-            if (ImGui::Button(u8"削除")) {
+        if(ImGui::TreeNode(u8"SpringArm")) {
+            if(ImGui::Button(u8"削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
             u32* bit = &spring_arm_status_.get();
-            u32 val  = *bit;
+            u32  val = *bit;
             ImGui::CheckboxFlags(u8"初期化済", &val, 1 << (int)SpringArmBit::Initialized);
 
-            if (ImGui::BeginCombo("Object", object_name_.data())) {
+            if(ImGui::BeginCombo("Object", object_name_.data())) {
                 auto objs = Scene::GetObjectsPtr<Object>();
-                for (int i = 0; i < objs.size(); i++) {
-                    auto obj                = objs[i];
+                for(int i = 0; i < objs.size(); i++) {
+                    auto        obj         = objs[i];
                     std::string object_name = std::string(obj->GetName());
 
                     bool is_selected = (object_name_ == object_name);
-                    if (ImGui::Selectable(object_name.data(), is_selected)) {
+                    if(ImGui::Selectable(object_name.data(), is_selected)) {
                         object_name_ = object_name;
                         object_      = obj;
                     }

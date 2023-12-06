@@ -28,19 +28,19 @@
 //===========================================================================
 
 #if defined(_DEBUG)
-    #define OPTIMIZE_DEBUG
+#    define OPTIMIZE_DEBUG
 #endif
 
 #if defined(_MSC_VER) && defined(OPTIMIZE_DEBUG)
 
-    // デバッグ構成で、このコードセクションを強制的に最適化する。
-    #define DEBUG_OPTIMIZE_ON  __pragma(optimize("gt", on));    // 最適化ON
-    #define DEBUG_OPTIMIZE_OFF __pragma(optimize("", on));      // 最適化OFF
+// デバッグ構成で、このコードセクションを強制的に最適化する。
+#    define DEBUG_OPTIMIZE_ON  __pragma(optimize("gt", on));    // 最適化ON
+#    define DEBUG_OPTIMIZE_OFF __pragma(optimize("", on));      // 最適化OFF
 
 #else
 
-    #define DEBUG_OPTIMIZE_ON
-    #define DEBUG_OPTIMIZE_OFF
+#    define DEBUG_OPTIMIZE_ON
+#    define DEBUG_OPTIMIZE_OFF
 
 #endif
 

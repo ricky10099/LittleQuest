@@ -6,90 +6,85 @@
 #include <System/Component/ComponentModel.h>
 
 namespace LittleQuest {
-    USING_PTR(Enemy);
+USING_PTR(Enemy);
 
-    class ComponentHP;
-    class Enemy : public Object {
-        public:
-            BP_OBJECT_TYPE(Enemy, Object);
+class ComponentHP;
+class Enemy: public Object {
+    BP_OBJECT_TYPE(Enemy, Object);
+   public:
+    bool Init() override;
+    void Update() override;
+    void LateDraw() override;
+    void GUI() override;
+    void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
 
-            bool Init() override;
+    virtual void GetHit(int damage);
+    float        getDestroyTimer();
 
-            void Update() override;
-
-            void LateDraw() override;
-
-            void GUI() override;
-
-            void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
-
-            virtual void GetHit(int damage);
-
-            float getDestroyTimer();
-
-        protected:
-            enum class EnemyState {
-                IDLE,
-                PATROL,
-                GIVE_UP,
-                WAIT,
-                CHASING,
-                ATTACK,
-                GET_HIT,
-                DEAD,
-            };
-            EnemyState state;
-            EnemyState prevState;
-            EnemyState initialState;
-            void ChangeState(EnemyState state);
-            bool isBusy;
-
-            virtual void Die();
-            virtual void Idle();
-
-            virtual void BackToInitialPosition(float3& move);
-            virtual void Patrol(float3& move);
-
-            virtual void Wait(float time);
-            virtual void Waiting(float deltaTime);
-
-            virtual bool FindPlayer();
-            virtual void ChasePlayer(float3& move);
-            virtual void Attack();
-
-            virtual void CheckAnimation();
-
-            enum class AnimCheck {
-                NONE,
-                GETTING_HIT,
-                ATTACKING,
-            };
-            AnimCheck animCheck;
-
-            float3 spawnPos;
-            bool isPatrol;
-            float3 startPoint;
-            float3 endPoint;
-            float3 goal;
-            std::vector<float3> patrolPoint;
-            int patrolIndex;
-            float waitTime;
-
-            bool isAttack;
-            bool isHitPlayer;
-            bool isFoundPlayer;
-            float degree;
-
-            const float speedBase = 0.3f;
-            const float walkVal   = 0.5f;
-            const float runVal    = 1.f;
-            float speedFactor     = 1.0f;
-
-            bool isDie         = false;
-            float destroyTimer = 5;
-
-            ObjectWeakPtr pPlayer;
-            std::weak_ptr<ComponentModel> pModel;
-            std::weak_ptr<ComponentHP> pHP;
+   protected:
+    enum class EnemyState {
+        IDLE,
+        PATROL,
+        GIVE_UP,
+        WAIT,
+        CHASING,
+        ATTACK,
+        GET_HIT,
+        DEAD,
     };
+    EnemyState state;
+    EnemyState prevState;
+    EnemyState initialState;
+    EnemyState busyState;
+    void       ChangeState(EnemyState state);
+    bool       isBusy = false;
+
+    virtual void Idle();
+    virtual void Die();
+
+    virtual void BackToInitialPosition(float3& move);
+    virtual void Patrol(float3& move);
+
+    virtual void Wait(float time);
+    virtual void Waiting(float deltaTime);
+
+    virtual bool FindPlayer();
+    virtual void ChasePlayer(float3& move);
+    virtual void Attack();
+
+    virtual void CheckAnimation();
+
+    enum class AnimCheck {
+        NONE,
+        GETTING_HIT,
+        ATTACKING,
+    };
+    AnimCheck animCheck;
+
+    float3              spawnPos;
+    bool                isPatrol;
+    float3              startPoint;
+    float3              endPoint;
+    float3              goal;
+    std::vector<float3> patrolPoint;
+    int                 patrolIndex;
+    float               waitTime;
+
+    bool  isAttack = false;
+    bool  isHitPlayer;
+    bool  isFoundPlayer;
+    float degree;
+
+    const float speedBase   = 0.3f;
+    const float walkVal     = 0.5f;
+    const float runVal      = 1.f;
+    float       speedFactor = 1.0f;
+
+    bool  isDie        = false;
+    float destroyTimer = 5;
+
+    ObjectWeakPtr                 pPlayer;
+    std::weak_ptr<ComponentModel> pModel;
+    std::weak_ptr<ComponentHP>    pHP;
+};
 }    // namespace LittleQuest

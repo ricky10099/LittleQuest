@@ -40,9 +40,9 @@ u64 GetPerformanceCounterMicroSec();
 void ResetDeltaTime();
 
 // 経過した時間を取得
-f32 GetDeltaTime();
+f32  GetDeltaTime();
 // これを掛けると60FPSと同じ速度になる
-f32 GetDeltaTime60();
+f32  GetDeltaTime60();
 // ツールなどで使用する際強制的にFPSを変更する
 void SetDeltaTime(f32);
 
