@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#define STR(var) #var
+
 namespace {
 float GetDistance(float3 start, float3 goal, bool includeY = false) {
     return std::sqrt(std::pow(goal.x - start.x, 2) + std::pow(goal.z - start.z, 2) +
@@ -14,10 +16,10 @@ bool IsFloat3Zero(float3 vector) {
     return vector.x == 0 && vector.y == 0 && vector.z == 0;
 }
 
-struct AnimDesc {
-    float triggerTimeStart;
-    float triggerTimeEnd;
-    float animStartTime;
-    float animCutInTime;
+struct AnimInfo {
+    float animStartTime    = 0;
+    float triggerStartTime = 0;
+    float triggerEndTime   = 0;
+    float animCutInTime    = 0;
 };
 }    // namespace

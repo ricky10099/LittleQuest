@@ -32,18 +32,19 @@ class Player: public Object {
     void Jump();
     void Attack();
     void SetModelRotation();
+    void SetAnimInfo();
+
+    std::unordered_map<std::string, AnimInfo> animList;
 
     std::vector<std::string_view> attackList;
-    std::vector<AnimDesc>         AnimList;
     std::weak_ptr<ComponentModel> pModel;
     std::weak_ptr<Camera>         pCamera;
     std::weak_ptr<ComponentHP>    pHP;
-
-    matrix selfMatrix;
-    float3 movement;
-    float  cameraLength;
-    bool   getHit;
-    float  speed = 0.5f;
+    matrix                        selfMatrix;
+    float3                        movement;
+    float                         cameraLength;
+    bool                          getHit;
+    float                         speed = 0.5f;
 
     enum class PlayerState {
         IDLE,

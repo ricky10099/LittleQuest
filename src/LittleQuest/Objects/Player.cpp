@@ -45,16 +45,17 @@ PlayerPtr Player::Create(const float3& pos, const float3& front) {
 bool Player::Init() {
     pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
     pModel.lock()->SetScaleAxisXYZ({0.05f});
-
     pModel.lock()->SetAnimation({
-        {   "idle",             "data/LittleQuest/Anim/AxeSet/AxeIdle.mv1", 0, 1.0f},
-        {   "jump",         "data/LittleQuest/Anim/SwordSet/SwordJump.mv1", 0, 1.0f},
-        {   "walk",       "data/LittleQuest/Anim/AxeSet/AxeRunForward.mv1", 0, 1.0f},
-        {"attack1",           "data/LittleQuest/Anim/AxeSet/AxeCombo1.mv1", 0, 2.0f},
-        {"attack2",           "data/LittleQuest/Anim/AxeSet/AxeCombo2.mv1", 0, 2.0f},
-        {"attack3", "data/LittleQuest/Anim/SwordSet/SwordAttackCombo3.mv1", 0, 1.5f},
-        { "getHit",       "data/LittleQuest/Anim/SwordSet/SwordGetHit.mv1", 0, 1.0f}
+        {   STR(PlayerState::IDLE),           "data/LittleQuest/Anim/AxeSet/AxeIdle.mv1", 0, 1.0f},
+        {                   "jump",       "data/LittleQuest/Anim/SwordSet/SwordJump.mv1", 0, 1.0f},
+        {   STR(PlayerState::WALK),     "data/LittleQuest/Anim/AxeSet/AxeRunForward.mv1", 0, 1.0f},
+        {STR(Combo::NORMAL_COMBO1),         "data/LittleQuest/Anim/AxeSet/AxeCombo1.mv1", 0, 4.5f},
+        {STR(Combo::NORMAL_COMBO2),         "data/LittleQuest/Anim/AxeSet/AxeCombo2.mv1", 0, 4.5f},
+        {STR(Combo::NORMAL_COMBO3), "data/LittleQuest/Anim/AxeSet/AxeAttackDownward.mv1", 0, 4.5f},
+        {STR(PlayerState::GET_HIT),     "data/LittleQuest/Anim/SwordSet/SwordGetHit.mv1", 0, 1.0f}
     });
+
+    SetAnimInfo();
 
     auto colCap = AddComponent<ComponentCollisionCapsule>();
     colCap->SetTranslate({0, 0, 0});
@@ -121,17 +122,20 @@ void Player::Update() {
         break;
     }
 
-    movement *= speed * GetDeltaTime60() * !currCombo;
-    AddTranslate(movement);
+    if(currCombo == Combo::NO_COMBO) {
+        movement *= speed * GetDeltaTime60();
+        AddTranslate(movement);
+    }
 }
 
-void        Player::LateDraw() {
+void Player::LateDraw() {
+    pHP.lock()->DrawHPBar();
 #if defined _DEBUG
     printfDx("\nAnimation Time:%f", pModel.lock()->GetAnimationTime());
     printfDx("\nTotal Animation Time:%f", pModel.lock()->GetAnimationTotalTime());
     printfDx("\nAnimation Play Time:%f", pModel.lock()->GetAnimationPlayTime());
+    printfDx("\nAnimation Name:%s", pModel.lock()->GetPlayAnimationName().data());
 #endif
-    pHP.lock()->DrawHPBar();
 }
 
 void Player::GUI() {
@@ -143,21 +147,19 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
         auto* owner = hitInfo.hit_collision_->GetOwner();
 
         Enemy* enemy;
-        if(!(enemy = dynamic_cast<Enemy*>(owner)) && currCombo == Combo::NO_COMBO) {
-            return;
-        }
-
-        bool inList = false;
-        for(int i = 0; i < attackList.size(); i++) {
-            if(attackList[i] == enemy->GetName().data()) {
-                inList = true;
-                break;
+        if((enemy = dynamic_cast<Enemy*>(owner)) && currCombo != Combo::NO_COMBO) {
+            bool inList = false;
+            for(int i = 0; i < attackList.size(); i++) {
+                if(attackList[i] == enemy->GetName().data()) {
+                    inList = true;
+                    break;
+                }
             }
-        }
 
-        if(!inList) {
-            attackList.push_back(enemy->GetName().data());
-            enemy->GetHit(this->atkVal);
+            if(!inList) {
+                attackList.push_back(enemy->GetName().data());
+                enemy->GetHit(this->atkVal);
+            }
         }
     }
 
@@ -168,7 +170,7 @@ void Player::GetHit(int damage) {
     pHP.lock()->TakeDamage(damage);
 
     if(pHP.lock()->GetHP() > 0) {
-        pModel.lock()->PlayAnimation("getHit");
+        pModel.lock()->PlayAnimation(STR(PlayerState::GET_HIT));
         playerState = PlayerState::GET_HIT;
         getHit      = true;
     } else {
@@ -218,7 +220,7 @@ void Player::InputHandle() {
 }
 
 void Player::Idle() {
-    pModel.lock()->PlayAnimationNoSame("idle", true, .5f);
+    pModel.lock()->PlayAnimationNoSame(STR(PlayerState::IDLE), true, 0.5f);
 }
 
 void Player::Walk() {
@@ -229,9 +231,7 @@ void Player::Walk() {
     movement = normalize(movement);
     this->SetModelRotation();
 
-    if(pModel.lock()->GetPlayAnimationName() != "walk") {
-        pModel.lock()->PlayAnimation("walk", true, 0.2f, 14.0f);
-    }
+    pModel.lock()->PlayAnimationNoSame(STR(PlayerState::WALK), true, 0.2f, 14.0f);
 }
 
 void Player::Jump() {}
@@ -239,13 +239,13 @@ void Player::Jump() {}
 void Player::Attack() {
     switch(currCombo) {
     case Combo::NORMAL_COMBO1:
-        if(pModel.lock()->GetPlayAnimationName() != "attack1") {
+        if(pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO1)) {
             this->SetModelRotation();
-            pModel.lock()->PlayAnimationNoSame("attack1");
+            pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO1));
             attackList.clear();
         }
 
-        if(!pModel.lock()->IsPlaying()) {
+        if(!pModel.lock()->GetAnimationPlayTime() > animList[STR(Combo::NORMAL_COMBO1)].triggerEndTime) {
             currCombo = Combo::NO_COMBO;
             if(isCombo) {
                 currCombo = Combo::NORMAL_COMBO2;
@@ -256,8 +256,8 @@ void Player::Attack() {
         }
         break;
     case Combo::NORMAL_COMBO2:
-        if(pModel.lock()->GetPlayAnimationName() != "attack2") {
-            pModel.lock()->PlayAnimationNoSame("attack2");
+        if(pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO2)) {
+            pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO2));
             this->SetModelRotation();
             attackList.clear();
         }
@@ -273,9 +273,9 @@ void Player::Attack() {
         }
         break;
     case Combo::NORMAL_COMBO3:
-        if(pModel.lock()->GetPlayAnimationName() != "attack3") {
+        if(pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO3)) {
             this->SetModelRotation();
-            pModel.lock()->PlayAnimationNoSame("attack3");
+            pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO3));
             attackList.clear();
         }
         if(!pModel.lock()->IsPlaying()) {
@@ -296,6 +296,33 @@ void Player::SetModelRotation() {
         float z     = -movement.z;
         float theta = atan2(x, z) * RadToDeg;
         pModel.lock()->SetRotationAxisXYZ({0, theta, 0});
+    }
+}
+
+void Player::SetAnimInfo() {
+    {
+        AnimInfo info         = {};
+        info.triggerStartTime = 56;
+        info.triggerEndTime   = 66;
+        info.animCutInTime    = 82;
+
+        animList[STR(Combo::NORMAL_COMBO1)] = info;
+    }
+    {
+        AnimInfo info                       = {};
+        info.animStartTime                  = 8;
+        info.triggerStartTime               = 20;
+        info.triggerEndTime                 = 35;
+        info.animCutInTime                  = 43;
+        animList[STR(Combo::NORMAL_COMBO2)] = info;
+    }
+    {
+        AnimInfo info                       = {};
+        info.animStartTime                  = 33;
+        info.triggerStartTime               = 45;
+        info.triggerEndTime                 = 58;
+        info.animCutInTime                  = 82;
+        animList[STR(Combo::NORMAL_COMBO3)] = info;
     }
 }
 }    // namespace LittleQuest
