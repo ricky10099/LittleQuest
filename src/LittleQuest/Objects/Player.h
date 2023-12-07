@@ -2,6 +2,7 @@
 
 #include "Enemy.h"
 #include "Sword.h"
+#include "LittleQuest/Tool.h"
 
 #include <System/Scene.h>
 #include <vector>
@@ -13,16 +14,16 @@ USING_PTR(Player);
 class Camera;
 class ComponentHP;
 class Player: public Object {
-    BP_OBJECT_TYPE(Player, Object);
-
    public:
+    BP_OBJECT_TYPE(Player, Object);
     static PlayerPtr Create(const float3& pos, const float3& front = {0, 0, 1});
-    bool             Init() override;
-    void             Update() override;
-    void             LateDraw() override;
-    void             GUI() override;
-    void             OnHit(const ComponentCollision::HitInfo& hitInfo) override;
-    void             GetHit(int damage);
+
+    bool Init() override;
+    void Update() override;
+    void LateDraw() override;
+    void GUI() override;
+    void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
+    void GetHit(int damage);
 
    private:
     void InputHandle();
@@ -33,6 +34,7 @@ class Player: public Object {
     void SetModelRotation();
 
     std::vector<std::string_view> attackList;
+    std::vector<AnimDesc>         AnimList;
     std::weak_ptr<ComponentModel> pModel;
     std::weak_ptr<Camera>         pCamera;
     std::weak_ptr<ComponentHP>    pHP;

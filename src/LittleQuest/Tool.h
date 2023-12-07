@@ -13,4 +13,11 @@ float GetDistance(float3 distance) {
 bool IsFloat3Zero(float3 vector) {
     return vector.x == 0 && vector.y == 0 && vector.z == 0;
 }
+
+struct AnimDesc {
+    float triggerTimeStart;
+    float triggerTimeEnd;
+    float animStartTime;
+    float animCutInTime;
+};
 }    // namespace

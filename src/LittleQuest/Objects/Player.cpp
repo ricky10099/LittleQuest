@@ -3,7 +3,6 @@
 #include "Camera.h"
 #include "LittleQuest/Components/ComponentHP.h"
 #include "LittleQuest/Scenes/GameOverScene.h"
-#include "LittleQuest/Tool.h"
 
 #include <System/Component/ComponentAttachModel.h>
 #include <System/Component/ComponentCamera.h>
@@ -48,13 +47,13 @@ bool Player::Init() {
     pModel.lock()->SetScaleAxisXYZ({0.05f});
 
     pModel.lock()->SetAnimation({
-        {   "idle",         "data/LittleQuest/Anim/SwordIdle.mv1", 0, 1.0f},
-        {   "jump",         "data/LittleQuest/Anim/SwordJump.mv1", 0, 1.0f},
-        {   "walk",         "data/LittleQuest/Anim/SwordWalk.mv1", 0, 1.0f},
-        {"attack1", "data/LittleQuest/Anim/SwordAttackCombo1.mv1", 0, 1.5f},
-        {"attack2", "data/LittleQuest/Anim/SwordAttackCombo2.mv1", 0, 1.0f},
-        {"attack3", "data/LittleQuest/Anim/SwordAttackCombo3.mv1", 0, 1.5f},
-        { "getHit",       "data/LittleQuest/Anim/SwordGetHit.mv1", 0, 1.0f}
+        {   "idle",             "data/LittleQuest/Anim/AxeSet/AxeIdle.mv1", 0, 1.0f},
+        {   "jump",         "data/LittleQuest/Anim/SwordSet/SwordJump.mv1", 0, 1.0f},
+        {   "walk",       "data/LittleQuest/Anim/AxeSet/AxeRunForward.mv1", 0, 1.0f},
+        {"attack1",           "data/LittleQuest/Anim/AxeSet/AxeCombo1.mv1", 0, 2.0f},
+        {"attack2",           "data/LittleQuest/Anim/AxeSet/AxeCombo2.mv1", 0, 2.0f},
+        {"attack3", "data/LittleQuest/Anim/SwordSet/SwordAttackCombo3.mv1", 0, 1.5f},
+        { "getHit",       "data/LittleQuest/Anim/SwordSet/SwordGetHit.mv1", 0, 1.0f}
     });
 
     auto colCap = AddComponent<ComponentCollisionCapsule>();
@@ -140,35 +139,29 @@ void Player::GUI() {
 }
 
 void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
-    Super::OnHit(hitInfo);
-
     if(hitInfo.collision_->GetName() == "SwordCol") {
-        return;
-    }
+        auto* owner = hitInfo.hit_collision_->GetOwner();
 
-    auto* owner = hitInfo.hit_collision_->GetOwner();
+        Enemy* enemy;
+        if(!(enemy = dynamic_cast<Enemy*>(owner)) && currCombo == Combo::NO_COMBO) {
+            return;
+        }
 
-    if(currCombo == Combo::NO_COMBO) {
-        return;
-    }
+        bool inList = false;
+        for(int i = 0; i < attackList.size(); i++) {
+            if(attackList[i] == enemy->GetName().data()) {
+                inList = true;
+                break;
+            }
+        }
 
-    Enemy* enemy;
-    if(!(enemy = dynamic_cast<Enemy*>(owner))) {
-        return;
-    }
-
-    bool inList = false;
-    for(int i = 0; i < attackList.size(); i++) {
-        if(attackList[i] == enemy->GetName().data()) {
-            inList = true;
-            break;
+        if(!inList) {
+            attackList.push_back(enemy->GetName().data());
+            enemy->GetHit(this->atkVal);
         }
     }
 
-    if(!inList) {
-        attackList.push_back(enemy->GetName().data());
-        enemy->GetHit(this->atkVal);
-    }
+    Super::OnHit(hitInfo);
 }
 
 void Player::GetHit(int damage) {
@@ -225,7 +218,7 @@ void Player::InputHandle() {
 }
 
 void Player::Idle() {
-    pModel.lock()->PlayAnimationNoSame("idle", true);
+    pModel.lock()->PlayAnimationNoSame("idle", true, .5f);
 }
 
 void Player::Walk() {

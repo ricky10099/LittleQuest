@@ -115,8 +115,6 @@ void        Enemy::LateDraw() {
 
 void Enemy::GUI() {
     Super::GUI();
-
-    ImGui::DragFloat(u8"goal座標(T)", &goal[0], 0.01f);
 }
 
 void Enemy::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
