@@ -34,17 +34,20 @@ class Player: public Object {
     void SetModelRotation();
     void SetAnimInfo();
 
-    std::unordered_map<std::string, AnimInfo> animList;
+    std::unordered_map<std::string, AnimInfo> m_animList;
+    std::vector<std::string_view>             m_attackList;
+    std::weak_ptr<ComponentModel>             m_pModel;
+    std::weak_ptr<Camera>                     m_pCamera;
+    std::weak_ptr<ComponentHP>                m_pHP;
+    std::weak_ptr<ComponentCollisionCapsule>  m_pWeapon;
 
-    std::vector<std::string_view> attackList;
-    std::weak_ptr<ComponentModel> pModel;
-    std::weak_ptr<Camera>         pCamera;
-    std::weak_ptr<ComponentHP>    pHP;
-    matrix                        selfMatrix;
-    float3                        movement;
-    float                         cameraLength;
-    bool                          getHit;
-    float                         speed = 0.5f;
+    matrix m_selfMatrix;
+    float3 m_movement;
+    float  m_cameraLength;
+    bool   m_getHit;
+
+    const float BASE_SPEED = 0.5f;
+    const int   BASE_ATK   = 50;
 
     enum class PlayerState {
         IDLE,
@@ -61,10 +64,8 @@ class Player: public Object {
         NORMAL_COMBO2,
         NORMAL_COMBO3,
     };
-    Combo currCombo = Combo::NO_COMBO;
-
-    int  atkVal;
-    bool isCombo      = false;
-    bool waitForCombo = false;
+    Combo currCombo      = Combo::NO_COMBO;
+    bool  m_isCombo      = false;
+    bool  m_waitForCombo = false;
 };
 }    // namespace LittleQuest

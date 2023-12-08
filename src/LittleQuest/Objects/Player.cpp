@@ -24,8 +24,8 @@ PlayerPtr Player::Create(const float3& pos, const float3& front) {
     player->SetMatrix(mat);
     player->SetTranslate(pos);
 
-    player->pHP = player->AddComponent<ComponentHP>();
-    player->pHP.lock()->SetHP(100);
+    player->m_pHP = player->AddComponent<ComponentHP>();
+    player->m_pHP.lock()->SetHP(100);
 
     auto sword = Scene::CreateObjectPtr<Object>("PlayerSword");
 
@@ -43,16 +43,16 @@ PlayerPtr Player::Create(const float3& pos, const float3& front) {
 }
 
 bool Player::Init() {
-    pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
-    pModel.lock()->SetScaleAxisXYZ({0.05f});
-    pModel.lock()->SetAnimation({
+    m_pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
+    m_pModel.lock()->SetScaleAxisXYZ({0.05f});
+    m_pModel.lock()->SetAnimation({
         {   STR(PlayerState::IDLE),           "data/LittleQuest/Anim/AxeSet/AxeIdle.mv1", 0, 1.0f},
-        {                   "jump",       "data/LittleQuest/Anim/SwordSet/SwordJump.mv1", 0, 1.0f},
+        {   STR(PlayerState::JUMP),       "data/LittleQuest/Anim/SwordSet/SwordJump.mv1", 0, 1.0f},
         {   STR(PlayerState::WALK),     "data/LittleQuest/Anim/AxeSet/AxeRunForward.mv1", 0, 1.0f},
-        {STR(Combo::NORMAL_COMBO1),         "data/LittleQuest/Anim/AxeSet/AxeCombo1.mv1", 0, 4.5f},
-        {STR(Combo::NORMAL_COMBO2),         "data/LittleQuest/Anim/AxeSet/AxeCombo2.mv1", 0, 4.5f},
-        {STR(Combo::NORMAL_COMBO3), "data/LittleQuest/Anim/AxeSet/AxeAttackDownward.mv1", 0, 4.5f},
-        {STR(PlayerState::GET_HIT),     "data/LittleQuest/Anim/SwordSet/SwordGetHit.mv1", 0, 1.0f}
+        {STR(Combo::NORMAL_COMBO1),         "data/LittleQuest/Anim/AxeSet/AxeCombo1.mv1", 0, 3.5f},
+        {STR(Combo::NORMAL_COMBO2),         "data/LittleQuest/Anim/AxeSet/AxeCombo2.mv1", 0, 3.5f},
+        {STR(Combo::NORMAL_COMBO3), "data/LittleQuest/Anim/AxeSet/AxeAttackDownward.mv1", 0, 2.0f},
+        {STR(PlayerState::GET_HIT),   "data/LittleQuest/Anim/SwordSet/Swordm_getHit.mv1", 0, 1.0f}
     });
 
     SetAnimInfo();
@@ -64,33 +64,32 @@ bool Player::Init() {
     colCap->UseGravity();
     colCap->SetCollisionGroup(ComponentCollision::CollisionGroup::PLAYER);
 
-    auto colWeapon = AddComponent<ComponentCollisionCapsule>();
-    colWeapon->AttachToModel("mixamorig:RightHand");
-    colWeapon->SetTranslate({10, 12, 0});
-    colWeapon->SetRotationAxisXYZ({0, 0, -90});
-    colWeapon->SetRadius(0.3f);
-    colWeapon->SetHeight(5);
-    colWeapon->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
-    colWeapon->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
-    colWeapon->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
-    colWeapon->SetName("SwordCol");
+    m_pWeapon = AddComponent<ComponentCollisionCapsule>();
+    m_pWeapon.lock()->AttachToModel("mixamorig:RightHand");
+    m_pWeapon.lock()->SetTranslate({10, 12, 0});
+    m_pWeapon.lock()->SetRotationAxisXYZ({0, 0, -90});
+    m_pWeapon.lock()->SetRadius(0.3f);
+    m_pWeapon.lock()->SetHeight(5);
+    m_pWeapon.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
+    m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+    m_pWeapon.lock()->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
+    m_pWeapon.lock()->SetName("SwordCol");
 
-    atkVal     = 50;
-    selfMatrix = GetMatrix();
-    getHit     = false;
+    m_selfMatrix = GetMatrix();
+    m_getHit     = false;
 
     return Super::Init();
 }
 
 void Player::Update() {
-    movement = float3(0, 0, 0);
+    m_movement = float3(0, 0, 0);
 
-    if(!pCamera.lock()) {
-        pCamera      = Scene::GetObjectPtr<Camera>("PlayerCamera");
-        cameraLength = pCamera.lock()->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
+    if(!m_pCamera.lock()) {
+        m_pCamera      = Scene::GetObjectPtr<Camera>("PlayerCamera");
+        m_cameraLength = m_pCamera.lock()->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
     } else {
-        float3 v   = GetTranslate() - pCamera.lock()->GetTranslate();
-        selfMatrix = HelperLib::Math::CreateMatrixByFrontVector(-v);
+        float3 v     = GetTranslate() - m_pCamera.lock()->GetTranslate();
+        m_selfMatrix = HelperLib::Math::CreateMatrixByFrontVector(-v);
     }
 
     InputHandle();
@@ -99,13 +98,13 @@ void Player::Update() {
         playerState = PlayerState::ATTACK;
     }
 
-    if(IsFloat3Zero(movement) && playerState != PlayerState::GET_HIT && playerState != PlayerState::ATTACK) {
+    if(IsFloat3Zero(m_movement) && playerState != PlayerState::GET_HIT && playerState != PlayerState::ATTACK) {
         playerState = PlayerState::IDLE;
     }
 
     switch(playerState) {
     case PlayerState::GET_HIT:
-        if(!pModel.lock()->IsPlaying()) {
+        if(!m_pModel.lock()->IsPlaying()) {
             playerState = PlayerState::IDLE;
         }
         break;
@@ -123,18 +122,19 @@ void Player::Update() {
     }
 
     if(currCombo == Combo::NO_COMBO) {
-        movement *= speed * GetDeltaTime60();
-        AddTranslate(movement);
+        m_movement *= BASE_SPEED * GetDeltaTime60();
+        AddTranslate(m_movement);
     }
 }
 
 void Player::LateDraw() {
-    pHP.lock()->DrawHPBar();
+    m_pHP.lock()->DrawHPBar();
 #if defined _DEBUG
-    printfDx("\nAnimation Time:%f", pModel.lock()->GetAnimationTime());
-    printfDx("\nTotal Animation Time:%f", pModel.lock()->GetAnimationTotalTime());
-    printfDx("\nAnimation Play Time:%f", pModel.lock()->GetAnimationPlayTime());
-    printfDx("\nAnimation Name:%s", pModel.lock()->GetPlayAnimationName().data());
+    printfDx("\nAnimation Time:%f", m_pModel.lock()->GetAnimationTime());
+    printfDx("\nTotal Animation Time:%f", m_pModel.lock()->GetAnimationTotalTime());
+    printfDx("\nAnimation Play Time:%f", m_pModel.lock()->GetAnimationPlayTime());
+    printfDx("\nANimation Trigger End Time:%f", m_animList[STR(Combo::NORMAL_COMBO1)].triggerEndTime);
+    printfDx("\nAnimation Name:%s", m_pModel.lock()->GetPlayAnimationName().data());
 #endif
 }
 
@@ -149,16 +149,16 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
         Enemy* enemy;
         if((enemy = dynamic_cast<Enemy*>(owner)) && currCombo != Combo::NO_COMBO) {
             bool inList = false;
-            for(int i = 0; i < attackList.size(); i++) {
-                if(attackList[i] == enemy->GetName().data()) {
+            for(int i = 0; i < m_attackList.size(); i++) {
+                if(m_attackList[i] == enemy->GetName().data()) {
                     inList = true;
                     break;
                 }
             }
 
             if(!inList) {
-                attackList.push_back(enemy->GetName().data());
-                enemy->GetHit(this->atkVal);
+                m_attackList.push_back(enemy->GetName().data());
+                enemy->GetHit(this->BASE_ATK);
             }
         }
     }
@@ -167,44 +167,44 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
 }
 
 void Player::GetHit(int damage) {
-    pHP.lock()->TakeDamage(damage);
+    m_pHP.lock()->TakeDamage(damage);
 
-    if(pHP.lock()->GetHP() > 0) {
-        pModel.lock()->PlayAnimation(STR(PlayerState::GET_HIT));
+    if(m_pHP.lock()->GetHP() > 0) {
+        m_pModel.lock()->PlayAnimation(STR(PlayerState::GET_HIT));
         playerState = PlayerState::GET_HIT;
-        getHit      = true;
+        m_getHit    = true;
     } else {
         Scene::Change(Scene::GetScene<GameOverScene>());
     }
 }
 
 void Player::InputHandle() {
-    cameraLength -= GetMouseWheelRotVol() * 3;
-    cameraLength = std::min((std::max(cameraLength, 10.0f)), 100.0f);
-    pCamera.lock()->SetCameraLength(cameraLength);
+    m_cameraLength -= GetMouseWheelRotVol() * 3;
+    m_cameraLength = std::min((std::max(m_cameraLength, 10.0f)), 100.0f);
+    m_pCamera.lock()->SetCameraLength(m_cameraLength);
 
     if(IsKeyRepeat(KEY_INPUT_W)) {
-        float3 vec = selfMatrix.axisZ();
+        float3 vec = m_selfMatrix.axisZ();
         vec.y      = 0;
-        movement += -vec;
+        m_movement += -vec;
         playerState = PlayerState::WALK;
     }
     if(IsKeyRepeat(KEY_INPUT_D)) {
-        float3 vec = selfMatrix.axisX();
+        float3 vec = m_selfMatrix.axisX();
         vec.y      = 0;
-        movement += -vec;
+        m_movement += -vec;
         playerState = PlayerState::WALK;
     }
     if(IsKeyRepeat(KEY_INPUT_S)) {
-        float3 vec = selfMatrix.axisZ();
+        float3 vec = m_selfMatrix.axisZ();
         vec.y      = 0;
-        movement += vec;
+        m_movement += vec;
         playerState = PlayerState::WALK;
     }
     if(IsKeyRepeat(KEY_INPUT_A)) {
-        float3 vec = selfMatrix.axisX();
+        float3 vec = m_selfMatrix.axisX();
         vec.y      = 0;
-        movement += vec;
+        m_movement += vec;
         playerState = PlayerState::WALK;
     }
 
@@ -213,74 +213,99 @@ void Player::InputHandle() {
 
         if(currCombo == Combo::NO_COMBO) {
             currCombo = Combo::NORMAL_COMBO1;
-        } else if(waitForCombo) {
-            isCombo = true;
+        } else if(m_waitForCombo) {
+            m_isCombo      = true;
+            m_waitForCombo = false;
         }
     }
 }
 
 void Player::Idle() {
-    pModel.lock()->PlayAnimationNoSame(STR(PlayerState::IDLE), true, 0.5f);
+    m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::IDLE), true, 0.5f);
 }
 
 void Player::Walk() {
-    if(IsFloat3Zero(movement)) {
+    if(IsFloat3Zero(m_movement)) {
         return;
     }
 
-    movement = normalize(movement);
+    m_movement = normalize(m_movement);
     this->SetModelRotation();
 
-    pModel.lock()->PlayAnimationNoSame(STR(PlayerState::WALK), true, 0.2f, 14.0f);
+    m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::WALK), true, 0.2f, 14.0f);
 }
 
 void Player::Jump() {}
 
 void Player::Attack() {
+    float currAnimTime;
     switch(currCombo) {
     case Combo::NORMAL_COMBO1:
-        if(pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO1)) {
+        if(m_pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO1)) {
             this->SetModelRotation();
-            pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO1));
-            attackList.clear();
+            m_pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO1));
+            m_attackList.clear();
         }
-
-        if(!pModel.lock()->GetAnimationPlayTime() > animList[STR(Combo::NORMAL_COMBO1)].triggerEndTime) {
+        currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
+        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO1)].triggerStartTime) {
+            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
+            m_waitForCombo = true;
+        }
+        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO1)].triggerEndTime) {
+            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+        }
+        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO1)].animCutInTime) {
             currCombo = Combo::NO_COMBO;
-            if(isCombo) {
+            if(m_isCombo) {
                 currCombo = Combo::NORMAL_COMBO2;
-                isCombo   = false;
+                m_isCombo = false;
             }
-        } else {
-            waitForCombo = true;
         }
         break;
     case Combo::NORMAL_COMBO2:
-        if(pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO2)) {
-            pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO2));
+        if(m_pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO2)) {
+            m_pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO2), false, 0.2F,
+                                                 m_animList[STR(Combo::NORMAL_COMBO2)].animStartTime);
             this->SetModelRotation();
-            attackList.clear();
+            m_attackList.clear();
         }
-
-        if(!pModel.lock()->IsPlaying()) {
+        currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
+        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO2)].triggerStartTime) {
+            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
+            m_waitForCombo = true;
+        }
+        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO2)].triggerEndTime) {
+            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+        }
+        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO2)].animCutInTime) {
             currCombo = Combo::NO_COMBO;
-            if(isCombo) {
+            if(m_isCombo) {
                 currCombo = Combo::NORMAL_COMBO3;
-                isCombo   = false;
+                m_isCombo = false;
             }
-        } else {
-            waitForCombo = true;
         }
         break;
     case Combo::NORMAL_COMBO3:
-        if(pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO3)) {
+        if(m_pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO3)) {
             this->SetModelRotation();
-            pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO3));
-            attackList.clear();
+            m_pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO3), false, 0.3F,
+                                                 m_animList[STR(Combo::NORMAL_COMBO3)].animStartTime);
+            m_attackList.clear();
         }
-        if(!pModel.lock()->IsPlaying()) {
-            currCombo   = Combo::NO_COMBO;
-            playerState = PlayerState::IDLE;
+        currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
+        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].triggerStartTime) {
+            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
+            //m_waitForCombo = true;
+        }
+        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].triggerEndTime) {
+            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+        }
+        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].animCutInTime) {
+            currCombo = Combo::NO_COMBO;
+            //if(m_isCombo) {
+            //    currCombo = Combo::NORMAL_COMBO3;
+            //    m_isCombo = false;
+            //}
         }
         break;
     default:
@@ -291,11 +316,11 @@ void Player::Attack() {
 }
 
 void Player::SetModelRotation() {
-    if(!IsFloat3Zero(movement)) {
-        float x     = -movement.x;
-        float z     = -movement.z;
+    if(!IsFloat3Zero(m_movement)) {
+        float x     = -m_movement.x;
+        float z     = -m_movement.z;
         float theta = atan2(x, z) * RadToDeg;
-        pModel.lock()->SetRotationAxisXYZ({0, theta, 0});
+        m_pModel.lock()->SetRotationAxisXYZ({0, theta, 0});
     }
 }
 
@@ -306,23 +331,23 @@ void Player::SetAnimInfo() {
         info.triggerEndTime   = 66;
         info.animCutInTime    = 82;
 
-        animList[STR(Combo::NORMAL_COMBO1)] = info;
+        m_animList[STR(Combo::NORMAL_COMBO1)] = info;
     }
     {
-        AnimInfo info                       = {};
-        info.animStartTime                  = 8;
-        info.triggerStartTime               = 20;
-        info.triggerEndTime                 = 35;
-        info.animCutInTime                  = 43;
-        animList[STR(Combo::NORMAL_COMBO2)] = info;
+        AnimInfo info                         = {};
+        info.animStartTime                    = 8;
+        info.triggerStartTime                 = 20;
+        info.triggerEndTime                   = 35;
+        info.animCutInTime                    = 43;
+        m_animList[STR(Combo::NORMAL_COMBO2)] = info;
     }
     {
-        AnimInfo info                       = {};
-        info.animStartTime                  = 33;
-        info.triggerStartTime               = 45;
-        info.triggerEndTime                 = 58;
-        info.animCutInTime                  = 82;
-        animList[STR(Combo::NORMAL_COMBO3)] = info;
+        AnimInfo info                         = {};
+        info.animStartTime                    = 33;
+        info.triggerStartTime                 = 45;
+        info.triggerEndTime                   = 58;
+        info.animCutInTime                    = 82;
+        m_animList[STR(Combo::NORMAL_COMBO3)] = info;
     }
 }
 }    // namespace LittleQuest

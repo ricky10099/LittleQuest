@@ -111,6 +111,7 @@ class ComponentCollision: public Component {
         ITEM   = 5,
         CAMERA = 6,
         ETC    = 7,
+        NONE   = 99,
 #if 0
 		WALL2	= 8,
 		GROUND2	= 9,
@@ -132,6 +133,7 @@ class ComponentCollision: public Component {
         ITEM   = 1 << static_cast<u32>(CollisionGroupBit::ITEM),
         CAMERA = 1 << static_cast<u32>(CollisionGroupBit::CAMERA),
         ETC    = 1 << static_cast<u32>(CollisionGroupBit::ETC),
+        NONE   = 1 << static_cast<u32>(CollisionGroupBit::NONE),
 #if 0
 		WALL2   = 1 << static_cast<u32>( CollisionGroupBit::WALL2 ),
 		GROUND2 = 1 << static_cast<u32>( CollisionGroupBit::GROUND2 ),
@@ -168,7 +170,8 @@ class ComponentCollision: public Component {
             return static_cast<u32>(CollisionGroupBit::CAMERA);
         if(grp == CollisionGroup::ETC)
             return static_cast<u32>(CollisionGroupBit::ETC);
-
+        if(grp == CollisionGroup::NONE)
+            return static_cast<u32>(CollisionGroupBit::NONE);
         // 登録し忘れの可能性があります
         return -1;
 #pragma warning(default: 26813)
@@ -198,7 +201,8 @@ class ComponentCollision: public Component {
             return "CAMERA";
         if(grp == CollisionGroup::ETC)
             return "ETC";
-
+        if(grp == CollisionGroup::NONE)
+            return "NONE";
         // 登録し忘れの可能性があります
         return "UNKNOWN";
 #pragma warning(default: 26813)

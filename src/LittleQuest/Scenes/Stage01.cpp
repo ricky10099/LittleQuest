@@ -45,8 +45,6 @@ bool Stage01::Init() {
         enemies.push_back(enemy);
     }
 
-    HideMouse(true);
-
     return true;
 }
 
@@ -66,6 +64,12 @@ void        Stage01::Update() {
         enemies.push_back(enemy);
     }
 #endif
+
+    //if (IsKeyRepeat(KEY_INPUT_SPACE)) {
+    //    HideMouse(false);
+    //} else {
+    //    HideMouse(true);
+    //}
 
     for(int i = 0; i < enemies.size(); i++) {
         if(enemies[i]->getDestroyTimer() <= 0) {
