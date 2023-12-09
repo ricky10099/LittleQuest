@@ -295,17 +295,13 @@ void Player::Attack() {
         currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
         if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].triggerStartTime) {
             m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
-            //m_waitForCombo = true;
+            m_waitForCombo = true;
         }
         if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].triggerEndTime) {
             m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
         }
         if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].animCutInTime) {
             currCombo = Combo::NO_COMBO;
-            //if(m_isCombo) {
-            //    currCombo = Combo::NORMAL_COMBO3;
-            //    m_isCombo = false;
-            //}
         }
         break;
     default:
