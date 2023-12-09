@@ -26,11 +26,32 @@ class Player: public Object {
     void GetHit(int damage);
 
    private:
+    enum class PlayerState {
+        IDLE,
+        WALK,
+        RUN,
+        JUMP,
+        ATTACK,
+        GET_HIT,
+    };
+    PlayerState playerState = PlayerState::IDLE;
+
+    enum Combo : int {
+        NO_COMBO,
+        NORMAL_COMBO1,
+        NORMAL_COMBO2,
+        NORMAL_COMBO3,
+    };
+    Combo currCombo      = Combo::NO_COMBO;
+    bool  m_isCombo      = false;
+    bool  m_waitForCombo = false;
+
     void InputHandle();
     void Idle();
     void Walk();
     void Jump();
     void Attack();
+    void AttackAnimation(std::string animName, bool isComboFinish = false, Combo nextCombo = Combo::NO_COMBO);
     void SetModelRotation();
     void SetAnimInfo();
 
@@ -45,27 +66,11 @@ class Player: public Object {
     float3 m_movement;
     float  m_cameraLength;
     bool   m_getHit;
+    float  m_speedFactor;
 
-    const float BASE_SPEED = 0.5f;
+    const float BASE_SPEED = 0.8f;
+    const float RUN_SPEED  = 1.0f;
+    const float WALK_SPEED = 0.3f;
     const int   BASE_ATK   = 50;
-
-    enum class PlayerState {
-        IDLE,
-        WALK,
-        JUMP,
-        ATTACK,
-        GET_HIT,
-    };
-    PlayerState playerState = PlayerState::IDLE;
-
-    enum Combo {
-        NO_COMBO,
-        NORMAL_COMBO1,
-        NORMAL_COMBO2,
-        NORMAL_COMBO3,
-    };
-    Combo currCombo      = Combo::NO_COMBO;
-    bool  m_isCombo      = false;
-    bool  m_waitForCombo = false;
 };
 }    // namespace LittleQuest

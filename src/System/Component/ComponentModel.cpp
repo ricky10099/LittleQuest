@@ -430,6 +430,10 @@ const float ComponentModel::GetAnimationTotalTime() {
     return 0.0f;
 }
 
+void ComponentModel::SetAnimationSpeed(float speed) {
+    animation_->SetAnimationSpeed(speed);
+}
+
 std::vector<std::string_view> ComponentModel::GetNodesName() {
     if(nodes_name_.empty()) {
         int num = MV1GetFrameNum(GetModel());

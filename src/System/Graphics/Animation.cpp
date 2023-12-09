@@ -282,6 +282,11 @@ float Animation::GetAnimationTotalTime() const {
     return contexts_[0].animation_total_time_;
 }
 
+void Animation::SetAnimationSpeed(float speed) {
+    auto& desc            = descs_[contexts_[0].animation_index_];
+    desc.animation_speed_ = speed;
+}
+
 //---------------------------------------------------------------------------
 //! アニメーションを割り当て
 //---------------------------------------------------------------------------

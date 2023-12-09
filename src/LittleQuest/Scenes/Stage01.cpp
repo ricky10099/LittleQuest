@@ -45,6 +45,8 @@ bool Stage01::Init() {
         enemies.push_back(enemy);
     }
 
+    HideMouse(true);
+
     return true;
 }
 
@@ -67,8 +69,9 @@ void        Stage01::Update() {
 
     //if (IsKeyRepeat(KEY_INPUT_SPACE)) {
     //    HideMouse(false);
-    //} else {
-    //    HideMouse(true);
+    //    if(IsKeyRelease(KEY_INPUT_SPACE)) {
+    //        HideMouse(true);
+    //    }
     //}
 
     for(int i = 0; i < enemies.size(); i++) {

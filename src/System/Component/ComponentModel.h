@@ -106,6 +106,8 @@ class ComponentModel
     //! @brief アニメーションの総時間の取得
     //! @return アニメーションの総時間
     const float GetAnimationTotalTime();
+
+    void SetAnimationSpeed(float speed);
     //@}
 
     //! @brief モデル取得

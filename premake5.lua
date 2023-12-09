@@ -4,8 +4,8 @@ require "bin/setup"
 --============================================================================
 -- ソリューションファイル
 --============================================================================
-config_solution("BaseProject")
-    startproject "BaseProject"		-- スタートアッププロジェクト名
+config_solution("QuestProject")
+    startproject "QuestProject"		-- スタートアッププロジェクト名
 
 	-- プリプロセッサ #define
    	defines {
@@ -377,7 +377,7 @@ config_project("cereal", "StaticLib")
 -- プロジェクトファイル
 --============================================================================
 group ""
-config_project("BaseProject", "WindowedApp")
+config_project("QuestProject", "WindowedApp")
 
 	local SOURCE_PATH = "src"
 	local DXLIB_PATH  = "dxlib"

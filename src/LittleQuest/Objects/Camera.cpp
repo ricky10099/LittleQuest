@@ -38,7 +38,7 @@ bool Camera::Init() {
 }
 
 void Camera::Update() {
-    rot += {-GetMouseMoveY(), GetMouseMoveX(), 0};
+    rot += {-GetMouseMoveY() * 0.1f, GetMouseMoveX() * 0.1f, 0};
     rot.x = max(min(rot.x, 40.0f), -70.0f);
     pStpringArm.lock()->SetSpringArmRotate(rot);
 }

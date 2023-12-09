@@ -49,6 +49,7 @@ bool Player::Init() {
         {   STR(PlayerState::IDLE),           "data/LittleQuest/Anim/AxeSet/AxeIdle.mv1", 0, 1.0f},
         {   STR(PlayerState::JUMP),       "data/LittleQuest/Anim/SwordSet/SwordJump.mv1", 0, 1.0f},
         {   STR(PlayerState::WALK),     "data/LittleQuest/Anim/AxeSet/AxeRunForward.mv1", 0, 1.0f},
+        {    STR(PlayerState::RUN),     "data/LittleQuest/Anim/AxeSet/AxeRunForward.mv1", 0, 1.0f},
         {STR(Combo::NORMAL_COMBO1),         "data/LittleQuest/Anim/AxeSet/AxeCombo1.mv1", 0, 3.5f},
         {STR(Combo::NORMAL_COMBO2),         "data/LittleQuest/Anim/AxeSet/AxeCombo2.mv1", 0, 3.5f},
         {STR(Combo::NORMAL_COMBO3), "data/LittleQuest/Anim/AxeSet/AxeAttackDownward.mv1", 0, 2.0f},
@@ -75,8 +76,9 @@ bool Player::Init() {
     m_pWeapon.lock()->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
     m_pWeapon.lock()->SetName("SwordCol");
 
-    m_selfMatrix = GetMatrix();
-    m_getHit     = false;
+    m_selfMatrix  = GetMatrix();
+    m_getHit      = false;
+    m_speedFactor = RUN_SPEED;
 
     return Super::Init();
 }
@@ -120,11 +122,6 @@ void Player::Update() {
         Idle();
         break;
     }
-
-    if(currCombo == Combo::NO_COMBO) {
-        m_movement *= BASE_SPEED * GetDeltaTime60();
-        AddTranslate(m_movement);
-    }
 }
 
 void Player::LateDraw() {
@@ -135,6 +132,7 @@ void Player::LateDraw() {
     printfDx("\nAnimation Play Time:%f", m_pModel.lock()->GetAnimationPlayTime());
     printfDx("\nANimation Trigger End Time:%f", m_animList[STR(Combo::NORMAL_COMBO1)].triggerEndTime);
     printfDx("\nAnimation Name:%s", m_pModel.lock()->GetPlayAnimationName().data());
+    printfDx("\nMovement distance:%f", GetDistance(m_movement));
 #endif
 }
 
@@ -208,6 +206,12 @@ void Player::InputHandle() {
         playerState = PlayerState::WALK;
     }
 
+    if(IsKeyRepeat(KEY_INPUT_LSHIFT)) {
+        m_speedFactor = WALK_SPEED;
+    } else {
+        m_speedFactor = RUN_SPEED;
+    }
+
     if(IsMouseDown(MOUSE_INPUT_LEFT)) {
         playerState = PlayerState::ATTACK;
 
@@ -231,8 +235,11 @@ void Player::Walk() {
 
     m_movement = normalize(m_movement);
     this->SetModelRotation();
+    m_movement *= BASE_SPEED * m_speedFactor * GetDeltaTime60();
+    AddTranslate(m_movement);
 
     m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::WALK), true, 0.2f, 14.0f);
+    m_pModel.lock()->SetAnimationSpeed(GetDistance(m_movement) * 2.0f);
 }
 
 void Player::Jump() {}
@@ -269,6 +276,12 @@ void Player::Attack() {
             this->SetModelRotation();
             m_attackList.clear();
         }
+        if(IsKey(KEY_INPUT_SPACE)) {
+            m_pModel.lock()->SetAnimationSpeed(1.0f);
+        } else {
+            m_pModel.lock()->SetAnimationSpeed(3.5f);
+        }
+
         currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
         if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO2)].triggerStartTime) {
             m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
@@ -308,6 +321,29 @@ void Player::Attack() {
         playerState = PlayerState::IDLE;
         currCombo   = Combo::NO_COMBO;
         break;
+    }
+}
+
+void Player::AttackAnimation(std::string animName, bool isComboFinish, Combo nextCombo) {
+    if(m_pModel.lock()->GetPlayAnimationName() != animName) {
+        this->SetModelRotation();
+        m_pModel.lock()->PlayAnimationNoSame(animName);
+        m_attackList.clear();
+    }
+    float currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
+    if(currAnimTime > m_animList[animName].triggerStartTime) {
+        m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
+        m_waitForCombo = true;
+    }
+    if(currAnimTime > m_animList[animName].triggerEndTime) {
+        m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+    }
+    if(currAnimTime > m_animList[animName].animCutInTime) {
+        currCombo = Combo::NO_COMBO;
+        if(m_isCombo && !isComboFinish) {
+            currCombo = nextCombo;
+            m_isCombo = false;
+        }
     }
 }
 
