@@ -52,7 +52,8 @@ bool Player::Init() {
         {    STR(PlayerState::RUN),     "data/LittleQuest/Anim/AxeSet/AxeRunForward.mv1", 0, 1.0f},
         {STR(Combo::NORMAL_COMBO1),         "data/LittleQuest/Anim/AxeSet/AxeCombo1.mv1", 0, 3.5f},
         {STR(Combo::NORMAL_COMBO2),         "data/LittleQuest/Anim/AxeSet/AxeCombo2.mv1", 0, 3.5f},
-        {STR(Combo::NORMAL_COMBO3), "data/LittleQuest/Anim/AxeSet/AxeAttackDownward.mv1", 0, 2.0f},
+        {STR(Combo::NORMAL_COMBO3), "data/LittleQuest/Anim/AxeSet/AxeAttackDownward.mv1", 0, 3.0f},
+        {STR(Combo::NORMAL_COMBO4), "data/LittleQuest/Anim/AxeSet/AxeAttackBackhand.mv1", 0, 3.0f},
         {STR(PlayerState::GET_HIT),   "data/LittleQuest/Anim/SwordSet/Swordm_getHit.mv1", 0, 1.0f}
     });
 
@@ -248,74 +249,16 @@ void Player::Attack() {
     float currAnimTime;
     switch(currCombo) {
     case Combo::NORMAL_COMBO1:
-        if(m_pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO1)) {
-            this->SetModelRotation();
-            m_pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO1));
-            m_attackList.clear();
-        }
-        currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
-        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO1)].triggerStartTime) {
-            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
-            m_waitForCombo = true;
-        }
-        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO1)].triggerEndTime) {
-            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
-        }
-        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO1)].animCutInTime) {
-            currCombo = Combo::NO_COMBO;
-            if(m_isCombo) {
-                currCombo = Combo::NORMAL_COMBO2;
-                m_isCombo = false;
-            }
-        }
+        AttackAnimation(STR(Combo::NORMAL_COMBO1), false, Combo::NORMAL_COMBO2);
         break;
     case Combo::NORMAL_COMBO2:
-        if(m_pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO2)) {
-            m_pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO2), false, 0.2F,
-                                                 m_animList[STR(Combo::NORMAL_COMBO2)].animStartTime);
-            this->SetModelRotation();
-            m_attackList.clear();
-        }
-        if(IsKey(KEY_INPUT_SPACE)) {
-            m_pModel.lock()->SetAnimationSpeed(1.0f);
-        } else {
-            m_pModel.lock()->SetAnimationSpeed(3.5f);
-        }
-
-        currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
-        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO2)].triggerStartTime) {
-            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
-            m_waitForCombo = true;
-        }
-        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO2)].triggerEndTime) {
-            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
-        }
-        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO2)].animCutInTime) {
-            currCombo = Combo::NO_COMBO;
-            if(m_isCombo) {
-                currCombo = Combo::NORMAL_COMBO3;
-                m_isCombo = false;
-            }
-        }
+        AttackAnimation(STR(Combo::NORMAL_COMBO2), false, Combo::NORMAL_COMBO3);
         break;
     case Combo::NORMAL_COMBO3:
-        if(m_pModel.lock()->GetPlayAnimationName() != STR(Combo::NORMAL_COMBO3)) {
-            this->SetModelRotation();
-            m_pModel.lock()->PlayAnimationNoSame(STR(Combo::NORMAL_COMBO3), false, 0.3F,
-                                                 m_animList[STR(Combo::NORMAL_COMBO3)].animStartTime);
-            m_attackList.clear();
-        }
-        currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
-        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].triggerStartTime) {
-            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
-            m_waitForCombo = true;
-        }
-        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].triggerEndTime) {
-            m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
-        }
-        if(currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].animCutInTime) {
-            currCombo = Combo::NO_COMBO;
-        }
+        AttackAnimation(STR(Combo::NORMAL_COMBO3), false, Combo::NORMAL_COMBO4);
+        break;
+    case Combo::NORMAL_COMBO4:
+        AttackAnimation(STR(Combo::NORMAL_COMBO4, true));
         break;
     default:
         playerState = PlayerState::IDLE;
@@ -348,12 +291,14 @@ void Player::AttackAnimation(std::string animName, bool isComboFinish, Combo nex
 }
 
 void Player::SetModelRotation() {
-    if(!IsFloat3Zero(m_movement)) {
-        float x     = -m_movement.x;
-        float z     = -m_movement.z;
-        float theta = atan2(x, z) * RadToDeg;
-        m_pModel.lock()->SetRotationAxisXYZ({0, theta, 0});
+    if(IsFloat3Zero(m_movement)) {
+        return;
     }
+
+    float x     = -m_movement.x;
+    float z     = -m_movement.z;
+    float theta = atan2(x, z) * RadToDeg;
+    m_pModel.lock()->SetRotationAxisXYZ({0, theta, 0});
 }
 
 void Player::SetAnimInfo() {
@@ -380,6 +325,13 @@ void Player::SetAnimInfo() {
         info.triggerEndTime                   = 58;
         info.animCutInTime                    = 82;
         m_animList[STR(Combo::NORMAL_COMBO3)] = info;
+    }
+    {
+        AnimInfo info                         = {};
+        info.triggerStartTime                 = 55;
+        info.triggerEndTime                   = 68;
+        info.animCutInTime                    = 88;
+        m_animList[STR(Combo::NORMAL_COMBO4)] = info;
     }
 }
 }    // namespace LittleQuest

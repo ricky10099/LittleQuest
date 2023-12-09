@@ -12,6 +12,8 @@ class ComponentHP;
 class Enemy: public Object {
    public:
     BP_OBJECT_TYPE(Enemy, Object);
+    static MutantPtr Create(const float3& pos, bool isPatrol = true, bool isBoss = false);
+
     bool Init() override;
     void Update() override;
     void LateDraw() override;

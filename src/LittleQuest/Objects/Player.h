@@ -41,6 +41,7 @@ class Player: public Object {
         NORMAL_COMBO1,
         NORMAL_COMBO2,
         NORMAL_COMBO3,
+        NORMAL_COMBO4,
     };
     Combo currCombo      = Combo::NO_COMBO;
     bool  m_isCombo      = false;
