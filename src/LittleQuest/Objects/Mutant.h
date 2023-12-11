@@ -9,7 +9,7 @@ USING_PTR(Mutant);
 class Mutant: public Enemy {
    public:
     BP_OBJECT_TYPE(Mutant, Enemy);
-    static EnemyPtr Create(const float3& pos, bool isPatrol = true, bool isBoss = false);
+    static MutantPtr Create(const float3& pos, bool isPatrol = true);
 
     bool Init() override;
     void Update() override;
