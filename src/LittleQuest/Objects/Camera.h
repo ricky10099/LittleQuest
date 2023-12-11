@@ -11,14 +11,18 @@ class Camera: public Object {
 
    public:
     static CameraPtr Create(ObjectPtr obj);
-    bool             Init() override;
-    void             Update() override;
-    void             SetCameraLength(float length);
 
+    bool Init() override;
+    void Update() override;
+
+    const float3 CameraForward();
+    void         SetCameraLength(float length);
+    void         SetCameraLookTarget(ObjectWeakPtr pTarget);
    private:
-    float3        rot{-20, 0, 0};
-    ObjectWeakPtr targetPtr;
+    float3        m_rot{-20, 0, 0};
+    ObjectWeakPtr m_pTarget;
 
-    std::weak_ptr<ComponentSpringArm> pStpringArm;
+    std::weak_ptr<ComponentCamera>    m_pCamera;
+    std::weak_ptr<ComponentSpringArm> m_pSpringArm;
 };
 }    // namespace LittleQuest

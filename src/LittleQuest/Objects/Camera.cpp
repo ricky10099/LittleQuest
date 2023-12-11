@@ -8,19 +8,14 @@ namespace LittleQuest {
 BP_OBJECT_IMPL(Camera, u8"LittleQuest/Camera");
 
 CameraPtr Camera::Create(ObjectPtr obj) {
-    auto camPtr       = Scene::CreateObjectDelayInitialize<Camera>();
-    camPtr->targetPtr = obj;
-    return camPtr;
+    auto pCamera       = Scene::CreateObjectDelayInitialize<Camera>();
+    pCamera->m_pTarget = obj;
+    return pCamera;
 }
 
 bool Camera::Init() {
-    bool ret = Super::Init();
-    if(!ret) {
-        return false;
-    }
-
-    auto camera = AddComponent<ComponentCamera>();
-    camera->SetPositionAndTarget({0, 0, -1}, {0, 0, 0});
+    m_pCamera = AddComponent<ComponentCamera>();
+    m_pCamera.lock()->SetPositionAndTarget({0, 0, -1}, {0, 0, 0});
 
     auto col = AddComponent<ComponentCollisionSphere>();
     col->SetRadius(1.0f);
@@ -28,22 +23,30 @@ bool Camera::Init() {
     col->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
     col->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND | (u32)ComponentCollision::CollisionGroup::WALL);
 
-    pStpringArm = AddComponent<ComponentSpringArm>();
-    pStpringArm.lock()->SetSpringArmObject(targetPtr.lock());
-    pStpringArm.lock()->SetSpringArmVector({0, 0, 0});
-    pStpringArm.lock()->SetSpringArmLength(50);
-    pStpringArm.lock()->SetSpringArmOffset({0, 10, 0});
+    m_pSpringArm = AddComponent<ComponentSpringArm>();
+    m_pSpringArm.lock()->SetSpringArmObject(m_pTarget.lock());
+    m_pSpringArm.lock()->SetSpringArmVector({0, 0, 0});
+    m_pSpringArm.lock()->SetSpringArmLength(50);
+    m_pSpringArm.lock()->SetSpringArmOffset({0, 10, 0});
 
-    return true;
+    return Super::Init();
 }
 
 void Camera::Update() {
-    rot += {-GetMouseMoveY() * 0.1f, GetMouseMoveX() * 0.1f, 0};
-    rot.x = max(min(rot.x, 40.0f), -70.0f);
-    pStpringArm.lock()->SetSpringArmRotate(rot);
+    m_rot += {-GetMouseMoveY() * 0.1f, GetMouseMoveX() * 0.1f, 0};
+    m_rot.x = max(min(m_rot.x, 40.0f), -70.0f);
+    m_pSpringArm.lock()->SetSpringArmRotate(m_rot);
+}
+
+const float3 Camera::CameraForward() {
+    return -this->GetMatrix().axisZ();
+}
+
+void Camera::SetCameraLookTarget(ObjectWeakPtr pTarget) {
+    m_pSpringArm.lock()->SetSpringArmObject(pTarget.lock());
 }
 
 void Camera::SetCameraLength(float length) {
-    pStpringArm.lock()->SetSpringArmLength(length);
+    m_pSpringArm.lock()->SetSpringArmLength(length);
 }
 }    // namespace LittleQuest

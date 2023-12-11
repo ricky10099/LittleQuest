@@ -16,7 +16,7 @@ class ComponentHP;
 class Player: public Object {
    public:
     BP_OBJECT_TYPE(Player, Object);
-    static PlayerPtr Create(const float3& pos, const float3& front = {0, 0, 1});
+    static PlayerPtr Create(const float3& pos /*, const float3& front = {0, 0, 1}*/);
 
     bool Init() override;
     void Update() override;
@@ -26,7 +26,12 @@ class Player: public Object {
     void GetHit(int damage);
 
    private:
-    enum class PlayerState {
+    const float BASE_SPEED = 0.8f;
+    const float RUN_SPEED  = 1.0f;
+    const float WALK_SPEED = 0.3f;
+    const int   BASE_ATK   = 50;
+
+    enum PlayerState {
         IDLE,
         WALK,
         RUN,
@@ -36,25 +41,14 @@ class Player: public Object {
     };
     PlayerState playerState = PlayerState::IDLE;
 
-    enum Combo : int {
+    enum Combo {
         NO_COMBO,
         NORMAL_COMBO1,
         NORMAL_COMBO2,
         NORMAL_COMBO3,
         NORMAL_COMBO4,
     };
-    Combo currCombo      = Combo::NO_COMBO;
-    bool  m_isCombo      = false;
-    bool  m_waitForCombo = false;
-
-    void InputHandle();
-    void Idle();
-    void Walk();
-    void Jump();
-    void Attack();
-    void AttackAnimation(std::string animName, bool isComboFinish = false, Combo nextCombo = Combo::NO_COMBO);
-    void SetModelRotation();
-    void SetAnimInfo();
+    Combo currCombo = Combo::NO_COMBO;
 
     std::unordered_map<std::string, AnimInfo> m_animList;
     std::vector<std::string_view>             m_attackList;
@@ -66,12 +60,18 @@ class Player: public Object {
     matrix m_selfMatrix;
     float3 m_movement;
     float  m_cameraLength;
-    bool   m_getHit;
     float  m_speedFactor;
+    bool   m_getHit;
+    bool   m_isCombo      = false;
+    bool   m_waitForCombo = false;
 
-    const float BASE_SPEED = 0.8f;
-    const float RUN_SPEED  = 1.0f;
-    const float WALK_SPEED = 0.3f;
-    const int   BASE_ATK   = 50;
+    void InputHandle();
+    void Idle();
+    void Walk();
+    void Jump();
+    void Attack();
+    void AttackAnimation(std::string animName, bool isComboFinish = false, Combo nextCombo = Combo::NO_COMBO);
+    void SetModelRotation();
+    void SetAnimInfo();
 };
 }    // namespace LittleQuest

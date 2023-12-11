@@ -18,8 +18,7 @@ MutantPtr Mutant::Create(const float3& pos, bool isPatrol) {
     auto enemy = Scene::CreateObjectDelayInitialize<Mutant>();
     enemy->SetName("Mutant");
 
-    const float3& front = {0, 0, 1};
-    auto          mat   = HelperLib::Math::CreateMatrixByFrontVector(front);
+    auto mat = HelperLib::Math::CreateMatrixByFrontVector({0, 0, 1});
     enemy->SetMatrix(mat);
     enemy->SetTranslate(pos);
     enemy->pHP = enemy->AddComponent<ComponentHP>();
@@ -38,12 +37,12 @@ bool Mutant::Init()    // override
     pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
     pModel.lock()->SetScaleAxisXYZ({0.05f});
     pModel.lock()->SetAnimation({
-        {  "idle",    "data/LittleQuest/Anim/MutantIdle.mv1", 0, 1.0f},
-        {  "walk", "data/LittleQuest/Anim/MutantWalking.mv1", 0, 1.0f},
-        {   "run",     "data/LittleQuest/Anim/MutantRun.mv1", 0, 1.0f},
-        {"attack", "data/LittleQuest/Anim/MutantSwiping.mv1", 0, 1.0f},
-        {"getHit",     "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
-        {   "die",   "data/LittleQuest/Anim/MutantDying.mv1", 0, 1.0f}
+        {  "idle",    "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
+        {  "walk", "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 1.0f},
+        {   "run",     "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
+        {"attack", "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
+        {"getHit",               "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
+        {   "die",   "data/LittleQuest/Anim/MutantSet/MutantDying.mv1", 0, 1.0f}
     });
     pModel.lock()->PlayAnimation("idle", true);
 

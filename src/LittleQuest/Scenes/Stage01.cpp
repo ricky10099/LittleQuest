@@ -40,10 +40,10 @@ bool Stage01::Init() {
     auto player = Player::Create({0, 10, 0});
     Camera::Create(player)->SetName("PlayerCamera");
 
-    {
-        auto enemy = Mutant::Create({30, 20, 15}, true);
-        enemies.push_back(enemy);
-    }
+    //{
+    //    auto enemy = Mutant::Create({30, 20, 15}, true);
+    //    enemies.push_back(enemy);
+    //}
 
     HideMouse(true);
 
@@ -67,12 +67,12 @@ void        Stage01::Update() {
     }
 #endif
 
-    //if (IsKeyRepeat(KEY_INPUT_SPACE)) {
-    //    HideMouse(false);
-    //    if(IsKeyRelease(KEY_INPUT_SPACE)) {
-    //        HideMouse(true);
-    //    }
-    //}
+    // if (IsKeyRepeat(KEY_INPUT_SPACE)) {
+    //     HideMouse(false);
+    //     if(IsKeyRelease(KEY_INPUT_SPACE)) {
+    //         HideMouse(true);
+    //     }
+    // }
 
     for(int i = 0; i < enemies.size(); i++) {
         if(enemies[i]->getDestroyTimer() <= 0) {
@@ -81,9 +81,9 @@ void        Stage01::Update() {
         }
     }
 
-    if(enemies.size() == 0) {
-        Scene::Change(Scene::GetScene<GameWinScene>());
-    }
+    //if(enemies.size() == 0) {
+    //    Scene::Change(Scene::GetScene<GameWinScene>());
+    //}
 }
 
 //---------------------------------------------------------------------------

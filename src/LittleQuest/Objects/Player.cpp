@@ -16,28 +16,10 @@ namespace LittleQuest {
 
 BP_OBJECT_IMPL(Player, "LittleQuest/Player");
 
-PlayerPtr Player::Create(const float3& pos, const float3& front) {
+PlayerPtr Player::Create(const float3& pos /*, const float3& front*/) {
     auto player = Scene::CreateObjectPtr<Player>();
     player->SetName("Player");
-
-    auto mat = HelperLib::Math::CreateMatrixByFrontVector(front);
-    player->SetMatrix(mat);
     player->SetTranslate(pos);
-
-    player->m_pHP = player->AddComponent<ComponentHP>();
-    player->m_pHP.lock()->SetHP(100);
-
-    auto sword = Scene::CreateObjectPtr<Object>("PlayerSword");
-
-    auto model = sword->AddComponent<ComponentModel>();
-    model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
-    model->SetRotationAxisXYZ({0, 0, 0});
-    model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
-
-    auto attach = sword->AddComponent<ComponentAttachModel>();
-    attach->SetAttachObject(player, "mixamorig:RightHand");
-    attach->SetAttachRotate({0, 0, -90});
-    attach->SetAttachOffset({10, 13, -3});
 
     return player;
 }
@@ -54,10 +36,24 @@ bool Player::Init() {
         {STR(Combo::NORMAL_COMBO2),         "data/LittleQuest/Anim/AxeSet/AxeCombo2.mv1", 0, 3.5f},
         {STR(Combo::NORMAL_COMBO3), "data/LittleQuest/Anim/AxeSet/AxeAttackDownward.mv1", 0, 3.0f},
         {STR(Combo::NORMAL_COMBO4), "data/LittleQuest/Anim/AxeSet/AxeAttackBackhand.mv1", 0, 3.0f},
-        {STR(PlayerState::GET_HIT),   "data/LittleQuest/Anim/SwordSet/Swordm_getHit.mv1", 0, 1.0f}
+        {STR(PlayerState::GET_HIT),     "data/LittleQuest/Anim/SwordSet/SwordGetHit.mv1", 0, 1.0f}
     });
 
     SetAnimInfo();
+    {
+        auto sword = Scene::CreateObjectPtr<Object>("PlayerSword");
+        auto model = sword->AddComponent<ComponentModel>();
+        model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
+        model->SetRotationAxisXYZ({0, 0, 0});
+        model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
+
+        auto attach = sword->AddComponent<ComponentAttachModel>();
+        attach->SetAttachObject(shared_from_this(), "mixamorig:RightHand");
+        attach->SetAttachRotate({0, 0, -90});
+        attach->SetAttachOffset({10, 13, -3});
+    }
+    m_pHP = AddComponent<ComponentHP>();
+    m_pHP.lock()->SetHP(100);
 
     auto colCap = AddComponent<ComponentCollisionCapsule>();
     colCap->SetTranslate({0, 0, 0});
@@ -91,8 +87,8 @@ void Player::Update() {
         m_pCamera      = Scene::GetObjectPtr<Camera>("PlayerCamera");
         m_cameraLength = m_pCamera.lock()->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
     } else {
-        float3 v     = GetTranslate() - m_pCamera.lock()->GetTranslate();
-        m_selfMatrix = HelperLib::Math::CreateMatrixByFrontVector(-v);
+        float3 v     = m_pCamera.lock()->CameraForward();
+        m_selfMatrix = HelperLib::Math::CreateMatrixByFrontVector(v);
     }
 
     InputHandle();
@@ -302,37 +298,37 @@ void Player::SetModelRotation() {
 }
 
 void Player::SetAnimInfo() {
-    {
-        AnimInfo info         = {};
-        info.triggerStartTime = 56;
-        info.triggerEndTime   = 66;
-        info.animCutInTime    = 82;
+    AnimInfo info         = {};
+    info.animStartTime    = 0;
+    info.triggerStartTime = 56;
+    info.triggerEndTime   = 66;
+    info.animCutInTime    = 82;
 
-        m_animList[STR(Combo::NORMAL_COMBO1)] = info;
-    }
-    {
-        AnimInfo info                         = {};
-        info.animStartTime                    = 8;
-        info.triggerStartTime                 = 20;
-        info.triggerEndTime                   = 35;
-        info.animCutInTime                    = 43;
-        m_animList[STR(Combo::NORMAL_COMBO2)] = info;
-    }
-    {
-        AnimInfo info                         = {};
-        info.animStartTime                    = 33;
-        info.triggerStartTime                 = 45;
-        info.triggerEndTime                   = 58;
-        info.animCutInTime                    = 82;
-        m_animList[STR(Combo::NORMAL_COMBO3)] = info;
-    }
-    {
-        AnimInfo info                         = {};
-        info.triggerStartTime                 = 55;
-        info.triggerEndTime                   = 68;
-        info.animCutInTime                    = 88;
-        m_animList[STR(Combo::NORMAL_COMBO4)] = info;
-    }
+    m_animList[STR(Combo::NORMAL_COMBO1)] = info;
+
+    info                  = {};
+    info.animStartTime    = 8;
+    info.triggerStartTime = 20;
+    info.triggerEndTime   = 35;
+    info.animCutInTime    = 43;
+
+    m_animList[STR(Combo::NORMAL_COMBO2)] = info;
+
+    info                  = {};
+    info.animStartTime    = 33;
+    info.triggerStartTime = 45;
+    info.triggerEndTime   = 58;
+    info.animCutInTime    = 82;
+
+    m_animList[STR(Combo::NORMAL_COMBO3)] = info;
+
+    info                  = {};
+    info.animStartTime    = 0;
+    info.triggerStartTime = 55;
+    info.triggerEndTime   = 68;
+    info.animCutInTime    = 88;
+
+    m_animList[STR(Combo::NORMAL_COMBO4)] = info;
 }
 }    // namespace LittleQuest
 

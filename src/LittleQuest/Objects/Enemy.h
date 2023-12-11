@@ -38,7 +38,6 @@ class Enemy: public Object {
     EnemyState prevState;
     EnemyState initialState;
     void       ChangeState(EnemyState state);
-    bool       isBusy = false;
 
     virtual void Idle();
     virtual void Die();
@@ -52,15 +51,6 @@ class Enemy: public Object {
     virtual bool FindPlayer();
     virtual void ChasePlayer(float3& move);
     virtual void Attack();
-
-    virtual bool CheckAnimation();
-
-    enum class AnimCheck {
-        NONE,
-        GETTING_HIT,
-        ATTACKING,
-    };
-    AnimCheck animCheck;
 
     float3              spawnPos;
     float3              goal;

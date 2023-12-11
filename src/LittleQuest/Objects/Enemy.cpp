@@ -47,28 +47,23 @@ void Enemy::Update() {
     }
 
     if(state != EnemyState::ATTACK && state != EnemyState::GET_HIT) {
-        if(FindPlayer()) {
-            ChangeState(EnemyState::CHASING);
-        } else {
-            if(prevState == EnemyState::CHASING) {
-                ChangeState(EnemyState::GIVE_UP);
+        if(!FindPlayer() && state != EnemyState::GIVE_UP && state != EnemyState::WAIT) {
+            if(!patrolPoint.empty()) {
+                ChangeState(EnemyState::PATROL);
             } else {
-                if(state != EnemyState::GIVE_UP && state != EnemyState::WAIT) {
-                    if(!patrolPoint.empty()) {
-                        ChangeState(EnemyState::PATROL);
-                    } else {
-                        ChangeState(EnemyState::IDLE);
-                    }
-                }
+                ChangeState(EnemyState::IDLE);
             }
         }
     }
 
-    CheckAnimation();
     float3 move;
 
     switch(state) {
     case EnemyState::GET_HIT:
+        if(!pModel.lock()->IsPlaying()) {
+            ChangeState(EnemyState::IDLE);
+            //isBusy    = false;
+        }
         break;
     case EnemyState::GIVE_UP:
         BackToInitialPosition(move);
@@ -132,16 +127,13 @@ void Enemy::Idle() {
 
 bool Enemy::FindPlayer() {
     float distance = GetDistance(pPlayer.lock()->GetTranslate(), this->GetTranslate());
-    if(distance < 50) {
-        // 　プレイヤーが前にいるなら
-        if(GetDegreeToPosition(pPlayer.lock()->GetTranslate()) < 50) {
-            isFoundPlayer = true;
-        }
-    } else {
-        isFoundPlayer = false;
+    if(distance < 50 && GetDegreeToPosition(pPlayer.lock()->GetTranslate()) < 50) {
+        ChangeState(EnemyState::CHASING);
+        return true;
+    } else if(prevState == EnemyState::CHASING) {
+        ChangeState(EnemyState::GIVE_UP);
     }
-
-    return isFoundPlayer;
+    return false;
 }
 
 void Enemy::BackToInitialPosition(float3& move) {
@@ -199,8 +191,8 @@ void Enemy::Waiting(float deltaTime) {
 
     if(waitTime <= 0.0f) {
         ChangeState(EnemyState::IDLE);
-        animCheck = AnimCheck::NONE;
-        isBusy    = false;
+        //animCheck = AnimCheck::NONE;
+        //isBusy    = false;
     }
 }
 
@@ -210,8 +202,8 @@ void Enemy::ChasePlayer(float3& move) {
 
     if(GetDistance(move) < 6.0f) {
         ChangeState(EnemyState::ATTACK);
-        isBusy = true;
-        move   = {0, 0, 0};
+        //isBusy = true;
+        move = {0, 0, 0};
         return;
     }
 
@@ -231,33 +223,37 @@ void Enemy::ChasePlayer(float3& move) {
 
 void Enemy::Attack() {
     pModel.lock()->PlayAnimationNoSame("attack", false, 0.5f);
-    animCheck = AnimCheck::ATTACKING;
-}
-
-bool Enemy::CheckAnimation() {
-    switch(animCheck) {
-    case AnimCheck::GETTING_HIT:
-        if(!pModel.lock()->IsPlaying()) {
-            ChangeState(EnemyState::IDLE);
-            animCheck = AnimCheck::NONE;
-            isBusy    = false;
-            return true;
-        }
-        break;
-    case AnimCheck::ATTACKING:
-        if(!pModel.lock()->IsPlaying()) {
-            isAttack    = false;
-            isHitPlayer = false;
-            Wait(.5f);
-            return true;
-        }
-        break;
-    default:
-        return true;
+    //animCheck = AnimCheck::ATTACKING;
+    if(!pModel.lock()->IsPlaying()) {
+        isHitPlayer = false;
+        Wait(.5f);
     }
-
-    return false;
 }
+
+//bool Enemy::CheckAnimation() {
+//    switch(animCheck) {
+//   /* case AnimCheck::GETTING_HIT:
+//        if(!pModel.lock()->IsPlaying()) {
+//            ChangeState(EnemyState::IDLE);
+//            animCheck = AnimCheck::NONE;
+//            isBusy    = false;
+//            return true;
+//        }
+//        break;*/
+//    case AnimCheck::ATTACKING:
+//        if(!pModel.lock()->IsPlaying()) {
+//            isAttack    = false;
+//            isHitPlayer = false;
+//            Wait(.5f);
+//            return true;
+//        }
+//        break;
+//    default:
+//        return true;
+//    }
+//
+//    return false;
+//}
 
 void Enemy::GetHit(int damage) {
     pHP.lock()->TakeDamage(damage);
@@ -265,8 +261,8 @@ void Enemy::GetHit(int damage) {
     if(pHP.lock()->GetHP() > 0) {
         pModel.lock()->PlayAnimation("getHit", false, 0.25f);
         ChangeState(EnemyState::GET_HIT);
-        animCheck = AnimCheck::GETTING_HIT;
-        isBusy    = true;
+        //animCheck = AnimCheck::GETTING_HIT;
+        //isBusy    = true;
     } else {
         this->Die();
     }
