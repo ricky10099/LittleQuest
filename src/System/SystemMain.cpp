@@ -8,7 +8,7 @@
 //----------------------------------------------------------------
 // シーンオブジェクト
 //----------------------------------------------------------------
-#include "../LittleQuest/Scenes/GameTitleScene.h"
+#include "LittleQuest/Scenes/GameTitleScene.h"
 #include <System/Scene.h>
 #include <System/Utils/IniFileLib.h>
 #include "LightManager.h"

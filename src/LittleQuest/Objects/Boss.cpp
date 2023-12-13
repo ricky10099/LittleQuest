@@ -23,8 +23,8 @@ BossPtr Boss::Create(const float3& pos) {
     pBoss->SetMatrix(HelperLib::Math::CreateMatrixByFrontVector({0, 0, 1}));
     pBoss->SetTranslate(pos);
 
-    pBoss->m_spawnPos   = pos;
-    pBoss->m_spawnPos.y = 0;
+    pBoss->m_spawnPos = pos;
+    //pBoss->m_spawnPos.y = 0;
 
     return pBoss;
 }
@@ -51,7 +51,7 @@ bool Boss::Init() {
 
     m_pBody = AddComponent<ComponentCollisionCapsule>();
     m_pBody.lock()->AttachToModel(0);
-    m_pBody.lock()->SetTranslate({0.0, -80, -4});
+    m_pBody.lock()->SetTranslate({0.0, -50, -4});
     m_pBody.lock()->UseGravity();
     m_pBody.lock()->SetHeight(35);
     m_pBody.lock()->SetRadius(6.5);
@@ -68,15 +68,11 @@ bool Boss::Init() {
 
 void Boss::Update() {
     float deltaTime = GetDeltaTime();
-    //SetTranslate({
-    //    m_pModel.lock()->GetNodePosition(0).x,
-    //    0,
-    //    m_pModel.lock()->GetNodePosition(0).z});
-    //if (m_pModel.lock()->GetPlayAnimationName() == "JumpAttack") {
-    //    if (!m_pModel.lock()->IsPlaying()) {
-    //        AddTranslate(m_pModel.lock()->GetNodePosition(0));
-    //    }
-    //}
+    if(m_pModel.lock()->GetPlayAnimationName() == "JumpAttack") {
+        if(!m_pModel.lock()->IsPlaying()) {
+            SetTranslate({m_pBody.lock()->GetTranslate().x, 0, m_pBody.lock()->GetTranslate().z});
+        }
+    }
     if(IsKeyDown(KEY_INPUT_SPACE)) {
         m_pModel.lock()->PlayAnimation("JumpAttack");
     }

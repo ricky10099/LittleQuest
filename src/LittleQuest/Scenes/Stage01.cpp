@@ -46,7 +46,7 @@ bool Stage01::Init() {
     //    enemies.push_back(enemy);
     //}
 
-    auto pBoss = Boss::Create({30, 20, 15});
+    auto pBoss = Boss::Create({30, 50, 15});
 
     HideMouse(true);
 
@@ -82,6 +82,12 @@ void        Stage01::Update() {
             Scene::ReleaseObject(enemies[i]);
             enemies.erase(enemies.begin() + i);
         }
+    }
+
+    if(GetActiveFlag() == FALSE) {
+        HideMouse(false);
+    } else {
+        HideMouse(true);
     }
 
     //if(enemies.size() == 0) {
