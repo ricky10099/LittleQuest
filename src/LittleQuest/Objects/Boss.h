@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "player.h"
+#include "LittleQuest/Tool.h"
 
 #include <System/Scene.h>
 #include <System/Component/ComponentModel.h>
@@ -36,6 +37,13 @@ class Boss: public Object {
         DEAD,
     };
     BossState m_state;
+    BossState m_prevState;
+
+    enum BossAnim {
+        PUNCH,
+        SWIP,
+        JUMP_ATTACK,
+    };
 
     float3 m_spawnPos;
     float  m_waitTime;
@@ -48,8 +56,11 @@ class Boss: public Object {
     ObjectWeakPtr                            m_pPlayer;
     std::weak_ptr<ComponentModel>            m_pModel;
     std::weak_ptr<ComponentHP>               m_pHP;
+    std::weak_ptr<ComponentCollisionCapsule> m_pBody;
     std::weak_ptr<ComponentCollisionCapsule> m_pLeftHand;
     std::weak_ptr<ComponentCollisionCapsule> m_pRightHand;
+
+    std::unordered_map<BossAnim, AnimInfo> m_animList;
 
     virtual void Idle();
     virtual void Die();
@@ -59,6 +70,7 @@ class Boss: public Object {
     virtual void Attack();
     virtual bool FindPlayer();
 
+    void SetAnimList();
     void ChangeState(BossState state);
 };
 }    // namespace LittleQuest

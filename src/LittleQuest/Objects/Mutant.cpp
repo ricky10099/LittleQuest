@@ -30,8 +30,7 @@ MutantPtr Mutant::Create(const float3& pos, bool isPatrol) {
     return enemy;
 }
 
-bool Mutant::Init()    // override
-{
+bool Mutant::Init() {
     Super::Init();
 
     pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");

@@ -9,6 +9,7 @@
 #include <LittleQuest/Objects/Zombie.h>
 #include <LittleQuest/Objects/Mutant.h>
 #include <LittleQuest/Objects/Player.h>
+#include <LittleQuest/Objects/Boss.h>
 #include <LittleQuest/Scenes/GameOverScene.h>
 #include <LittleQuest/Scenes/GameWinScene.h>
 
@@ -37,13 +38,15 @@ bool Stage01::Init() {
             cmp_mdl->AttachToModel(true);
     }
 
-    auto player = Player::Create({0, 10, 0});
-    Camera::Create(player)->SetName("PlayerCamera");
+    auto pPlayer = Player::Create({0, 10, 0});
+    Camera::Create(pPlayer)->SetName("PlayerCamera");
 
     //{
     //    auto enemy = Mutant::Create({30, 20, 15}, true);
     //    enemies.push_back(enemy);
     //}
+
+    auto pBoss = Boss::Create({30, 20, 15});
 
     HideMouse(true);
 
