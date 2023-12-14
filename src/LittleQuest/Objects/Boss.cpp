@@ -61,14 +61,16 @@ bool Boss::Init() {
     m_pLeftHand.lock()->SetTranslate({0, -25, 0});
     m_pLeftHand.lock()->SetHeight(15.0f);
     m_pLeftHand.lock()->SetRadius(3.0f);
-    m_pLeftHand.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::NONE);
+    m_pLeftHand.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
+    m_pLeftHand.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
 
     m_pRightHand = AddComponent<ComponentCollisionCapsule>();
     m_pRightHand.lock()->AttachToModel("mixamorig:RightHand");
     m_pRightHand.lock()->SetTranslate({0, -25, 0});
     m_pRightHand.lock()->SetHeight(15.0f);
     m_pRightHand.lock()->SetRadius(3.0f);
-    m_pRightHand.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::NONE);
+    m_pRightHand.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
+    m_pRightHand.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
 
     m_state   = BossState::IDLE;
     m_pPlayer = Scene::GetObjectPtr<Player>("Player");
@@ -211,6 +213,22 @@ void Boss::Attack() {
     }
 }
 
+void Boss::AttackAnimation(std::string animName, BossAnim nextAnim) {
+    if(m_pModel.lock()->GetPlayAnimationName() != animName) {
+        //this->SetModelRotation();
+        m_pModel.lock()->PlayAnimationNoSame(animName);
+    }
+    float currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
+    if(currAnimTime > m_animList[animName].triggerStartTime) {
+        m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
+    }
+    if(currAnimTime > m_animList[animName].triggerEndTime) {
+        m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+    }
+    if(currAnimTime > m_animList[animName].animCutInTime) {
+        m_anim = nextAnim;
+    }
+}
 //bool Boss::CheckAnimation() {
 //    switch(animCheck) {
 //   /* case AnimCheck::GETTING_HIT:
@@ -255,11 +273,11 @@ void Boss::ChangeState(BossState state) {
 }
 
 void Boss::Combo5() {
-    if(m_anim != BossAnim::COMBO5) {
-        this->SetModelRotation();
-        m_pModel.lock()->PlayAnimationNoSame("Swip");
-        m_attackList.clear();
-    }
+    AttackAnimation(STR(BossAnim::SWIP), BossAnim::PUNCH);
+    AttackAnimation(STR(BossAnim::PUNCH), BossAnim::SWIP);
+    AttackAnimation(STR(BossAnim::SWIP), BossAnim::PUNCH);
+    AttackAnimation(STR(BossAnim::PUNCH), BossAnim::SWIP);
+    AttackAnimation(STR(BossAnim::SWIP), BossAnim::PUNCH);
 }
 
 void Boss::Die() {

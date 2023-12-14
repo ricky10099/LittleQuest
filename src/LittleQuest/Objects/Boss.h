@@ -64,6 +64,7 @@ class Boss: public Object {
     std::weak_ptr<ComponentCollisionCapsule> m_pBody;
     std::weak_ptr<ComponentCollisionCapsule> m_pLeftHand;
     std::weak_ptr<ComponentCollisionCapsule> m_pRightHand;
+    std::weak_ptr<ComponentCollisionCapsule> m_pAttackCol;
 
     std::unordered_map<std::string, AnimInfo> m_animList;
 
@@ -77,6 +78,7 @@ class Boss: public Object {
 
     void SetAnimList();
     void ChangeState(BossState state);
+    void AttackAnimation(std::string animName, BossAnim nextAnim);
     void Combo5();
 };
 }    // namespace LittleQuest
