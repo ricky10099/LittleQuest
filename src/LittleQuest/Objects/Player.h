@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "Enemy.h"
-#include "Sword.h"
 #include "LittleQuest/Tool.h"
 
 #include <System/Scene.h>

@@ -84,11 +84,11 @@ void        Stage01::Update() {
         }
     }
 
-    if(GetActiveFlag() == FALSE) {
-        HideMouse(false);
-    } else {
-        HideMouse(true);
-    }
+    //if(GetMainWindowHandle() == GetForegroundWindow()) {
+    //    HideMouse(true);
+    //} else {
+    //    HideMouse(false);
+    //}
 
     //if(enemies.size() == 0) {
     //    Scene::Change(Scene::GetScene<GameWinScene>());

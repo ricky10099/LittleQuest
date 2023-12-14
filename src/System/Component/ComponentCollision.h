@@ -103,15 +103,16 @@ class ComponentCollision: public Component {
     };
 
     enum struct CollisionGroupBit : u32 {
-        WALL   = 0,
-        GROUND = 1,
-        PLAYER = 2,
-        ENEMY  = 3,
-        WEAPON = 4,
-        ITEM   = 5,
-        CAMERA = 6,
-        ETC    = 7,
-        NONE   = 99,
+        WALL         = 0,
+        GROUND       = 1,
+        PLAYER       = 2,
+        ENEMY        = 3,
+        WEAPON       = 4,
+        ENEMY_WEAPON = 5,
+        ITEM         = 6,
+        CAMERA       = 7,
+        ETC          = 8,
+        NONE         = 99,
 #if 0
 		WALL2	= 8,
 		GROUND2	= 9,
@@ -125,15 +126,16 @@ class ComponentCollision: public Component {
     };
 
     enum struct CollisionGroup : u32 {
-        WALL   = 1 << static_cast<u32>(CollisionGroupBit::WALL),
-        GROUND = 1 << static_cast<u32>(CollisionGroupBit::GROUND),
-        PLAYER = 1 << static_cast<u32>(CollisionGroupBit::PLAYER),
-        ENEMY  = 1 << static_cast<u32>(CollisionGroupBit::ENEMY),
-        WEAPON = 1 << static_cast<u32>(CollisionGroupBit::WEAPON),
-        ITEM   = 1 << static_cast<u32>(CollisionGroupBit::ITEM),
-        CAMERA = 1 << static_cast<u32>(CollisionGroupBit::CAMERA),
-        ETC    = 1 << static_cast<u32>(CollisionGroupBit::ETC),
-        NONE   = 1 << static_cast<u32>(CollisionGroupBit::NONE),
+        WALL         = 1 << static_cast<u32>(CollisionGroupBit::WALL),
+        GROUND       = 1 << static_cast<u32>(CollisionGroupBit::GROUND),
+        PLAYER       = 1 << static_cast<u32>(CollisionGroupBit::PLAYER),
+        ENEMY        = 1 << static_cast<u32>(CollisionGroupBit::ENEMY),
+        WEAPON       = 1 << static_cast<u32>(CollisionGroupBit::WEAPON),
+        ENEMY_WEAPON = 1 << static_cast<u32>(CollisionGroupBit::ENEMY_WEAPON),
+        ITEM         = 1 << static_cast<u32>(CollisionGroupBit::ITEM),
+        CAMERA       = 1 << static_cast<u32>(CollisionGroupBit::CAMERA),
+        ETC          = 1 << static_cast<u32>(CollisionGroupBit::ETC),
+        NONE         = 1 << static_cast<u32>(CollisionGroupBit::NONE),
 #if 0
 		WALL2   = 1 << static_cast<u32>( CollisionGroupBit::WALL2 ),
 		GROUND2 = 1 << static_cast<u32>( CollisionGroupBit::GROUND2 ),
@@ -164,6 +166,8 @@ class ComponentCollision: public Component {
             return static_cast<u32>(CollisionGroupBit::ENEMY);
         if(grp == CollisionGroup::WEAPON)
             return static_cast<u32>(CollisionGroupBit::WEAPON);
+        if(grp == CollisionGroup::ENEMY_WEAPON)
+            return static_cast<u32>(CollisionGroupBit::ENEMY_WEAPON);
         if(grp == CollisionGroup::ITEM)
             return static_cast<u32>(CollisionGroupBit::ITEM);
         if(grp == CollisionGroup::CAMERA)
@@ -195,6 +199,8 @@ class ComponentCollision: public Component {
             return "ENEMY";
         if(grp == CollisionGroup::WEAPON)
             return "WEAPON";
+        if(grp == CollisionGroup::ENEMY_WEAPON)
+            return "ENEMY_WEAPON";
         if(grp == CollisionGroup::ITEM)
             return "ITEM";
         if(grp == CollisionGroup::CAMERA)

@@ -25,7 +25,7 @@ PlayerPtr Player::Create(const float3& pos /*, const float3& front*/) {
 }
 
 bool Player::Init() {
-    m_pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
+    m_pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/Kachujin/Kachujin.mv1");
     m_pModel.lock()->SetScaleAxisXYZ({0.05f});
     m_pModel.lock()->SetAnimation({
         {   STR(PlayerState::IDLE),           "data/LittleQuest/Anim/AxeSet/AxeIdle.mv1", 0, 1.0f},
@@ -41,37 +41,37 @@ bool Player::Init() {
 
     SetAnimInfo();
     {
-        auto sword = Scene::CreateObjectPtr<Object>("PlayerSword");
+        auto sword = Scene::CreateObjectPtr<Object>("Katana");
         auto model = sword->AddComponent<ComponentModel>();
-        model->Load("data/LittleQuest/Model/Sword/Sword.mv1");
+        model->Load("data/LittleQuest/Model/Katana/Katana.mv1");
         model->SetRotationAxisXYZ({0, 0, 0});
-        model->SetScaleAxisXYZ({0.1f, 0.06f, 0.1f});
+        model->SetScaleAxisXYZ({2.7f, 2.7f, 2.7f});
 
         auto attach = sword->AddComponent<ComponentAttachModel>();
         attach->SetAttachObject(shared_from_this(), "mixamorig:RightHand");
-        attach->SetAttachRotate({0, 0, -90});
-        attach->SetAttachOffset({10, 13, -3});
+        attach->SetAttachRotate({175, 0, -90});
+        attach->SetAttachOffset({-35, 11, -4});
     }
     m_pHP = AddComponent<ComponentHP>();
     m_pHP.lock()->SetHP(100);
 
     auto colCap = AddComponent<ComponentCollisionCapsule>();
-    colCap->SetTranslate({0, 0, 0});
-    colCap->SetRadius(2.5);
-    colCap->SetHeight(10);
+    colCap->SetTranslate({0, 0.5f, 0});
+    colCap->SetRadius(1.1f);
+    colCap->SetHeight(10.5);
     colCap->UseGravity();
     colCap->SetCollisionGroup(ComponentCollision::CollisionGroup::PLAYER);
 
     m_pWeapon = AddComponent<ComponentCollisionCapsule>();
     m_pWeapon.lock()->AttachToModel("mixamorig:RightHand");
-    m_pWeapon.lock()->SetTranslate({10, 12, 0});
-    m_pWeapon.lock()->SetRotationAxisXYZ({0, 0, -90});
-    m_pWeapon.lock()->SetRadius(0.3f);
-    m_pWeapon.lock()->SetHeight(5);
+    m_pWeapon.lock()->SetTranslate({10, 12, -4});
+    m_pWeapon.lock()->SetRotationAxisXYZ({0, 0, -94});
+    m_pWeapon.lock()->SetRadius(0.1f);
+    m_pWeapon.lock()->SetHeight(4.5f);
     m_pWeapon.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
     m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
     m_pWeapon.lock()->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
-    m_pWeapon.lock()->SetName("SwordCol");
+    //m_pWeapon.lock()->SetName("SwordCol");
 
     m_selfMatrix  = GetMatrix();
     m_getHit      = false;
@@ -138,7 +138,7 @@ void Player::GUI() {
 }
 
 void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
-    if(hitInfo.collision_->GetName() == "SwordCol") {
+    if(hitInfo.collision_->GetCollisionGroup() == ComponentCollision::CollisionGroup::WEAPON) {
         auto* owner = hitInfo.hit_collision_->GetOwner();
 
         Enemy* enemy;

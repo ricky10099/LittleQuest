@@ -43,7 +43,12 @@ class Boss: public Object {
         PUNCH,
         SWIP,
         JUMP_ATTACK,
+        BACKFLIP,
+        FOO,
+        COMBO5,
+        NONE,
     };
+    BossAnim m_anim;
 
     float3 m_spawnPos;
     float  m_waitTime;
@@ -60,7 +65,7 @@ class Boss: public Object {
     std::weak_ptr<ComponentCollisionCapsule> m_pLeftHand;
     std::weak_ptr<ComponentCollisionCapsule> m_pRightHand;
 
-    std::unordered_map<BossAnim, AnimInfo> m_animList;
+    std::unordered_map<std::string, AnimInfo> m_animList;
 
     virtual void Idle();
     virtual void Die();
@@ -72,5 +77,6 @@ class Boss: public Object {
 
     void SetAnimList();
     void ChangeState(BossState state);
+    void Combo5();
 };
 }    // namespace LittleQuest

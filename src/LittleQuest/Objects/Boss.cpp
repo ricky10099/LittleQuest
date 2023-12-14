@@ -46,36 +46,44 @@ bool Boss::Init() {
         {       "Die",       "data/LittleQuest/Anim/MutantSet/MutantDying.mv1", 0, 1.0f}
     });
     m_pModel.lock()->PlayAnimation("Idle", true);
-    m_pModel.lock()->GetNodeMatrix("mixamorigs::Hip");
     SetAnimList();
 
     m_pBody = AddComponent<ComponentCollisionCapsule>();
-    m_pBody.lock()->AttachToModel(0);
-    m_pBody.lock()->SetTranslate({0.0, -50, -4});
+    m_pBody.lock()->SetTranslate({0, 0, -4});
     m_pBody.lock()->UseGravity();
     m_pBody.lock()->SetHeight(35);
     m_pBody.lock()->SetRadius(6.5);
     m_pBody.lock()->SetMass(100.0f);
     m_pBody.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY);
 
+    m_pLeftHand = AddComponent<ComponentCollisionCapsule>();
+    m_pLeftHand.lock()->AttachToModel("mixamorig:LeftHand");
+    m_pLeftHand.lock()->SetTranslate({0, -25, 0});
+    m_pLeftHand.lock()->SetHeight(15.0f);
+    m_pLeftHand.lock()->SetRadius(3.0f);
+    m_pLeftHand.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::NONE);
+
+    m_pRightHand = AddComponent<ComponentCollisionCapsule>();
+    m_pRightHand.lock()->AttachToModel("mixamorig:RightHand");
+    m_pRightHand.lock()->SetTranslate({0, -25, 0});
+    m_pRightHand.lock()->SetHeight(15.0f);
+    m_pRightHand.lock()->SetRadius(3.0f);
+    m_pRightHand.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::NONE);
+
     m_state   = BossState::IDLE;
     m_pPlayer = Scene::GetObjectPtr<Player>("Player");
 
     m_pHP = AddComponent<ComponentHP>();
     m_pHP.lock()->SetHP(1000);
+
+    m_anim = BossAnim::NONE;
     return Super::Init();
 }
 
 void Boss::Update() {
     float deltaTime = GetDeltaTime();
-    if(m_pModel.lock()->GetPlayAnimationName() == "JumpAttack") {
-        if(!m_pModel.lock()->IsPlaying()) {
-            SetTranslate({m_pBody.lock()->GetTranslate().x, 0, m_pBody.lock()->GetTranslate().z});
-        }
-    }
-    if(IsKeyDown(KEY_INPUT_SPACE)) {
-        m_pModel.lock()->PlayAnimation("JumpAttack");
-    }
+
+    Attack();
 
     //m_pModel.lock()->GetNodeMatrix("mixamorigs::Hip")._11_12_13;
     //m_pBody.lock()->SetTranslate(m_pModel.lock()->GetNodePosition("mixamorig:Hips"));
@@ -132,7 +140,7 @@ void Boss::Update() {
 
 // 基本描画の後に処理します
 void Boss::LateDraw() {
-    DrawSphere3D(cast(GetTranslate()), 5, 5, GetColor(0, 0, 255), GetColor(255, 0, 0), TRUE);
+    DrawSphere3D(cast(GetTranslate()), 2, 2, GetColor(0, 0, 255), GetColor(255, 0, 0), TRUE);
 }
 
 void Boss::GUI() {
@@ -198,12 +206,9 @@ void Boss::ChasePlayer(float3& move) {
 }
 
 void Boss::Attack() {
-    //pModel.lock()->PlayAnimationNoSame("attack", false, 0.5f);
-    ////animCheck = AnimCheck::ATTACKING;
-    //if(!pModel.lock()->IsPlaying()) {
-    //    isHitPlayer = false;
-    //    Wait(.5f);
-    //}
+    if(GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate()) < 10) {
+        Combo5();
+    }
 }
 
 //bool Boss::CheckAnimation() {
@@ -249,13 +254,35 @@ void Boss::ChangeState(BossState state) {
     this->m_state = state;
 }
 
+void Boss::Combo5() {
+    if(m_anim != BossAnim::COMBO5) {
+        this->SetModelRotation();
+        m_pModel.lock()->PlayAnimationNoSame("Swip");
+        m_attackList.clear();
+    }
+}
+
 void Boss::Die() {
     //pModel.lock()->PlayAnimationNoSame("die");
     //RemoveComponent<ComponentCollisionCapsule>();
     //this->isDead = true;
 }
 
-void Boss::SetAnimList() {}
+void Boss::SetAnimList() {
+    AnimInfo info         = {};
+    info.triggerStartTime = 75;
+    info.triggerEndTime   = 87;
+    info.animCutInTime    = 100;
+
+    m_animList[STR(BossAnim::SWIP)] = info;
+
+    info                  = {};
+    info.triggerStartTime = 15;
+    info.triggerEndTime   = 29;
+    info.animCutInTime    = 35;
+
+    m_animList[STR(BossAnim::PUNCH)] = info;
+}
 //
 //float Boss::getDestroyTimer() {
 //    return destroyTimer;
