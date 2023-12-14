@@ -52,7 +52,9 @@ class Boss: public Object {
         QUICK_PUNCH,
         JUMP_ATTACK,
         BACKFLIP,
-        FOO,
+        DOUBLE_PUNCH,
+        ROAR,
+        TAUNT,
     };
     BossAnim m_anim;
 

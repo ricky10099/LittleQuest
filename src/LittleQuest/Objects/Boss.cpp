@@ -32,18 +32,18 @@ bool Boss::Init() {
     m_pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/MawJLaygo/MawJLaygo.mv1");
     m_pModel.lock()->SetScaleAxisXYZ({0.2f});
     m_pModel.lock()->SetAnimation({
-        {              "Idle",        "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
-        {              "Walk",     "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 1.0f},
-        {               "Run",         "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
-        { STR(BossAnim::SWIP),     "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
-        {STR(BossAnim::PUNCH),       "data/LittleQuest/Anim/MutantSet/MutantPunch.mv1", 0, 1.0f},
-        {        "JumpAttack",  "data/LittleQuest/Anim/MutantSet/MutantJumpAttack.mv1", 0, 1.0f},
-        {          "Backflip",                    "data/LittleQuest/Anim/Backflip.mv1", 0, 1.0f},
-        {        "FlexMuscle", "data/LittleQuest/Anim/MutantSet/MutantFlesMuscles.mv1", 0, 1.0f},
-        {              "Roar",     "data/LittleQuest/Anim/MutantSet/MutantRoaring.mv1", 0, 1.0f},
-        {             "Taunt",             "data/LittleQuest/Anim/MutantSet/Taunt.mv1", 0, 1.0f},
-        {            "GetHit",                   "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
-        {               "Die",       "data/LittleQuest/Anim/MutantSet/MutantDying.mv1", 0, 1.0f}
+        {       STR(BossState::IDLE),           "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
+        {                     "Walk",        "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 1.0f},
+ //{               "Run",         "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
+        {        STR(BossAnim::SWIP),        "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
+        {       STR(BossAnim::PUNCH),          "data/LittleQuest/Anim/MutantSet/MutantPunch.mv1", 0, 1.0f},
+        { STR(BossAnim::JUMP_ATTACK),     "data/LittleQuest/Anim/MutantSet/MutantJumpAttack.mv1", 0, 1.0f},
+        {    STR(BossAnim::BACKFLIP),                       "data/LittleQuest/Anim/Backflip.mv1", 0, 1.0f},
+        {STR(BossAnim::DOUBLE_PUNCH), "data/LittleQuest/Anim/MutantSet/MutantFlexingMuscles.mv1", 0, 1.0f},
+        {        STR(BossAnim::ROAR),        "data/LittleQuest/Anim/MutantSet/MutantRoaring.mv1", 0, 1.0f},
+        {       STR(BossAnim::TAUNT),                "data/LittleQuest/Anim/MutantSet/Taunt.mv1", 0, 1.0f},
+        {    STR(BossState::GET_HIT),                      "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
+        {                      "Die",          "data/LittleQuest/Anim/MutantSet/MutantDying.mv1", 0, 1.0f}
     });
     m_pModel.lock()->PlayAnimation("Idle", true);
     SetAnimList();
@@ -83,20 +83,21 @@ bool Boss::Init() {
 }
 
 void Boss::Update() {
-    float deltaTime = GetDeltaTime();
+    float deltaTime = GetDeltaTime60();
 
-    if(m_bossCombo == BossCombo::NONE) {
+    if(m_bossCombo == BossCombo::NONE && m_state != BossState::WAIT) {
         SelectCombo();
     }
 
     switch(m_state) {
     case BossState::IDLE:
-        m_pModel.lock()->PlayAnimation("Idle");
+        m_pModel.lock()->PlayAnimation(STR(BossState::IDLE));
         break;
     case BossState::ATTACK:
         Attack();
+        break;
     case BossState::WAIT:
-        //Wait();
+        Wait();
         break;
     }
     //m_pModel.lock()->GetNodeMatrix("mixamorigs::Hip")._11_12_13;
@@ -179,8 +180,8 @@ void Boss::Wait(/*float time*/) {
     //}
     m_bossCombo = BossCombo::NONE;
     m_combo     = 0;
-    m_pModel.lock()->PlayAnimationNoSame("Idle", true, 0.3f);
-    m_waitTime -= GetDeltaTime();
+    m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE), true, 0.3f);
+    m_waitTime -= GetDeltaTime60();
 
     if(m_waitTime <= 0.0f) {
         ChangeState(BossState::IDLE);
@@ -236,9 +237,11 @@ void Boss::AttackAnimation(std::string animName, AnimInfo animInfo) {
     if(m_pModel.lock()->GetPlayAnimationName() != animName) {
         //this->SetModelRotation();
         m_pModel.lock()->PlayAnimationNoSame(animName, false, 0.2F, animInfo.animStartTime);
+        m_pModel.lock()->SetAnimationSpeed(animInfo.animStartSpeed);
     }
     float currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
     if(currAnimTime > animInfo.triggerStartTime) {
+        m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
         m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
     }
     if(currAnimTime > animInfo.triggerEndTime) {
@@ -256,22 +259,22 @@ void Boss::Combo5() {
     //}
     switch(m_combo) {
     case 1:
-    case 5:
         m_pAttackCol = m_pLeftHand.lock();
         AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::SWIP)]);
         break;
     case 3:
+    case 5:
         m_pAttackCol = m_pLeftHand.lock();
         AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::QUICK_SWIP)]);
         break;
     case 2:
     case 4:
         m_pAttackCol = m_pRightHand.lock();
-        AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::PUNCH)]);
+        AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::QUICK_PUNCH)]);
         break;
     default:
         ChangeState(BossState::WAIT);
-        m_waitTime = 1.0f;
+        m_waitTime = 600.0f;
         break;
     }
 }
@@ -304,11 +307,15 @@ void Boss::SetAnimList() {
     AnimInfo info         = {};
     info.triggerStartTime = 75;
     info.triggerEndTime   = 87;
-    info.animCutInTime    = 100;
+    info.animCutInTime    = 83;
+    info.animSpeed        = 0.7f;
+    info.animStartSpeed   = 1.2f;
 
     m_animList[STR(BossAnim::SWIP)] = info;
 
-    info.animStartTime = 75;
+    info.animStartSpeed = 1.0f;
+    info.animStartTime  = 75;
+    info.animCutInTime  = 83;
 
     m_animList[STR(BossAnim::QUICK_SWIP)] = info;
 
@@ -316,8 +323,15 @@ void Boss::SetAnimList() {
     info.triggerStartTime = 15;
     info.triggerEndTime   = 29;
     info.animCutInTime    = 35;
+    info.animStartSpeed   = 0.5f;
+    info.animSpeed        = 0.5f;
 
     m_animList[STR(BossAnim::PUNCH)] = info;
+
+    info.animStartTime = 15;
+    info.animCutInTime = 20;
+
+    m_animList[STR(BossAnim::QUICK_PUNCH)] = info;
 }
 //
 //float Boss::getDestroyTimer() {
