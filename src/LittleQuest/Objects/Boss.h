@@ -39,14 +39,20 @@ class Boss: public Object {
     BossState m_state;
     BossState m_prevState;
 
+    enum BossCombo {
+        COMBO5,
+        NONE,
+    };
+    BossCombo m_bossCombo;
+
     enum BossAnim {
-        PUNCH,
         SWIP,
+        QUICK_SWIP,
+        PUNCH,
+        QUICK_PUNCH,
         JUMP_ATTACK,
         BACKFLIP,
         FOO,
-        COMBO5,
-        NONE,
     };
     BossAnim m_anim;
 
@@ -55,8 +61,10 @@ class Boss: public Object {
     float  m_degree;
     float  m_speedFactor  = 1.0f;
     float  m_destroyTimer = 5;
+    int    m_combo;
     bool   m_isHitPlayer;
     bool   m_isDead = false;
+    bool   m_combo5 = false;
 
     ObjectWeakPtr                            m_pPlayer;
     std::weak_ptr<ComponentModel>            m_pModel;
@@ -68,17 +76,16 @@ class Boss: public Object {
 
     std::unordered_map<std::string, AnimInfo> m_animList;
 
-    virtual void Idle();
-    virtual void Die();
-    virtual void Wait(float time);
-    virtual void Waiting(float deltaTime);
-    virtual void ChasePlayer(float3& move);
-    virtual void Attack();
-    virtual bool FindPlayer();
-
-    void SetAnimList();
-    void ChangeState(BossState state);
-    void AttackAnimation(std::string animName, BossAnim nextAnim);
+    void Idle();
+    void Wait(/*float time*/);
+    bool FindPlayer();
+    void ChasePlayer(float3& move);
+    void SelectCombo();
+    void Attack();
+    void AttackAnimation(std::string animName, AnimInfo animInfo);
     void Combo5();
+    void Die();
+    void ChangeState(BossState state);
+    void SetAnimList();
 };
 }    // namespace LittleQuest

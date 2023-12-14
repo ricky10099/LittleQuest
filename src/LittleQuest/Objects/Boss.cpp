@@ -32,18 +32,18 @@ bool Boss::Init() {
     m_pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/MawJLaygo/MawJLaygo.mv1");
     m_pModel.lock()->SetScaleAxisXYZ({0.2f});
     m_pModel.lock()->SetAnimation({
-        {      "Idle",        "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
-        {      "Walk",     "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 1.0f},
-        {       "Run",         "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
-        {      "Swip",     "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
-        {     "Punch",       "data/LittleQuest/Anim/MutantSet/MutantPunch.mv1", 0, 1.0f},
-        {"JumpAttack",  "data/LittleQuest/Anim/MutantSet/MutantJumpAttack.mv1", 0, 1.0f},
-        {  "Backflip",                    "data/LittleQuest/Anim/Backflip.mv1", 0, 1.0f},
-        {"FlexMuscle", "data/LittleQuest/Anim/MutantSet/MutantFlesMuscles.mv1", 0, 1.0f},
-        {      "Roar",     "data/LittleQuest/Anim/MutantSet/MutantRoaring.mv1", 0, 1.0f},
-        {     "Taunt",             "data/LittleQuest/Anim/MutantSet/Taunt.mv1", 0, 1.0f},
-        {    "GetHit",                   "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
-        {       "Die",       "data/LittleQuest/Anim/MutantSet/MutantDying.mv1", 0, 1.0f}
+        {              "Idle",        "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
+        {              "Walk",     "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 1.0f},
+        {               "Run",         "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
+        { STR(BossAnim::SWIP),     "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
+        {STR(BossAnim::PUNCH),       "data/LittleQuest/Anim/MutantSet/MutantPunch.mv1", 0, 1.0f},
+        {        "JumpAttack",  "data/LittleQuest/Anim/MutantSet/MutantJumpAttack.mv1", 0, 1.0f},
+        {          "Backflip",                    "data/LittleQuest/Anim/Backflip.mv1", 0, 1.0f},
+        {        "FlexMuscle", "data/LittleQuest/Anim/MutantSet/MutantFlesMuscles.mv1", 0, 1.0f},
+        {              "Roar",     "data/LittleQuest/Anim/MutantSet/MutantRoaring.mv1", 0, 1.0f},
+        {             "Taunt",             "data/LittleQuest/Anim/MutantSet/Taunt.mv1", 0, 1.0f},
+        {            "GetHit",                   "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
+        {               "Die",       "data/LittleQuest/Anim/MutantSet/MutantDying.mv1", 0, 1.0f}
     });
     m_pModel.lock()->PlayAnimation("Idle", true);
     SetAnimList();
@@ -72,21 +72,33 @@ bool Boss::Init() {
     m_pRightHand.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
     m_pRightHand.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
 
-    m_state   = BossState::IDLE;
-    m_pPlayer = Scene::GetObjectPtr<Player>("Player");
-
     m_pHP = AddComponent<ComponentHP>();
     m_pHP.lock()->SetHP(1000);
 
-    m_anim = BossAnim::NONE;
+    m_bossCombo = BossCombo::NONE;
+    m_state     = BossState::IDLE;
+    m_pPlayer   = Scene::GetObjectPtr<Player>("Player");
+
     return Super::Init();
 }
 
 void Boss::Update() {
     float deltaTime = GetDeltaTime();
 
-    Attack();
+    if(m_bossCombo == BossCombo::NONE) {
+        SelectCombo();
+    }
 
+    switch(m_state) {
+    case BossState::IDLE:
+        m_pModel.lock()->PlayAnimation("Idle");
+        break;
+    case BossState::ATTACK:
+        Attack();
+    case BossState::WAIT:
+        //Wait();
+        break;
+    }
     //m_pModel.lock()->GetNodeMatrix("mixamorigs::Hip")._11_12_13;
     //m_pBody.lock()->SetTranslate(m_pModel.lock()->GetNodePosition("mixamorig:Hips"));
     //if (!m_pModel.lock()->IsPlaying()) {
@@ -141,7 +153,12 @@ void Boss::Update() {
 }
 
 // 基本描画の後に処理します
-void Boss::LateDraw() {
+void        Boss::LateDraw() {
+#if defined _DEBUG
+    printfDx("\ncombo:%i", m_combo);
+    printfDx("\nAnim:%i", m_anim);
+
+#endif
     DrawSphere3D(cast(GetTranslate()), 2, 2, GetColor(0, 0, 255), GetColor(255, 0, 0), TRUE);
 }
 
@@ -155,16 +172,14 @@ void Boss::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
 
 void Boss::Idle() {}
 
-bool Boss::FindPlayer() {
-    return false;
-}
-
-void Boss::Wait(float time) {
-    if(m_state != BossState::WAIT) {
-        ChangeState(BossState::WAIT);
-        m_pModel.lock()->PlayAnimationNoSame("Idle", true, 0.3f);
-        m_waitTime = time;
-    }
+void Boss::Wait(/*float time*/) {
+    //if(m_state != BossState::WAIT) {
+    //    ChangeState(BossState::WAIT);
+    //    //m_waitTime = time;
+    //}
+    m_bossCombo = BossCombo::NONE;
+    m_combo     = 0;
+    m_pModel.lock()->PlayAnimationNoSame("Idle", true, 0.3f);
     m_waitTime -= GetDeltaTime();
 
     if(m_waitTime <= 0.0f) {
@@ -172,14 +187,8 @@ void Boss::Wait(float time) {
     }
 }
 
-void Boss::Waiting(float deltaTime) {
-    //waitTime -= deltaTime;
-
-    //if(waitTime <= 0.0f) {
-    //    ChangeState(BossState::IDLE);
-    //    //animCheck = AnimCheck::NONE;
-    //    //isBusy    = false;
-    //}
+bool Boss::FindPlayer() {
+    return false;
 }
 
 void Boss::ChasePlayer(float3& move) {
@@ -207,52 +216,65 @@ void Boss::ChasePlayer(float3& move) {
     //}
 }
 
-void Boss::Attack() {
-    if(GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate()) < 10) {
-        Combo5();
+void Boss::SelectCombo() {
+    if(GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate()) < 100) {
+        ChangeState(BossState::ATTACK);
+        m_bossCombo = BossCombo::COMBO5;
+        m_combo     = 1;
     }
 }
 
-void Boss::AttackAnimation(std::string animName, BossAnim nextAnim) {
-    if(m_pModel.lock()->GetPlayAnimationName() != animName) {
-        //this->SetModelRotation();
-        m_pModel.lock()->PlayAnimationNoSame(animName);
-    }
-    float currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
-    if(currAnimTime > m_animList[animName].triggerStartTime) {
-        m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
-    }
-    if(currAnimTime > m_animList[animName].triggerEndTime) {
-        m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
-    }
-    if(currAnimTime > m_animList[animName].animCutInTime) {
-        m_anim = nextAnim;
+void Boss::Attack() {
+    switch(m_bossCombo) {
+    case BossCombo::COMBO5:
+        Combo5();
+        break;
     }
 }
-//bool Boss::CheckAnimation() {
-//    switch(animCheck) {
-//   /* case AnimCheck::GETTING_HIT:
-//        if(!pModel.lock()->IsPlaying()) {
-//            ChangeState(BossState::IDLE);
-//            animCheck = AnimCheck::NONE;
-//            isBusy    = false;
-//            return true;
-//        }
-//        break;*/
-//    case AnimCheck::ATTACKING:
-//        if(!pModel.lock()->IsPlaying()) {
-//            isAttack    = false;
-//            isHitPlayer = false;
-//            Wait(.5f);
-//            return true;
-//        }
-//        break;
-//    default:
-//        return true;
-//    }
-//
-//    return false;
-//}
+
+void Boss::AttackAnimation(std::string animName, AnimInfo animInfo) {
+    if(m_pModel.lock()->GetPlayAnimationName() != animName) {
+        //this->SetModelRotation();
+        m_pModel.lock()->PlayAnimationNoSame(animName, false, 0.2F, animInfo.animStartTime);
+    }
+    float currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
+    if(currAnimTime > animInfo.triggerStartTime) {
+        m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
+    }
+    if(currAnimTime > animInfo.triggerEndTime) {
+        m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+    }
+    if(currAnimTime > animInfo.animCutInTime) {
+        m_combo++;
+    }
+}
+
+void Boss::Combo5() {
+    //if(m_bossCombo != BossCombo::COMBO5) {
+    //    m_combo     = 1;
+    //    m_bossCombo = BossCombo::COMBO5;
+    //}
+    switch(m_combo) {
+    case 1:
+    case 5:
+        m_pAttackCol = m_pLeftHand.lock();
+        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::SWIP)]);
+        break;
+    case 3:
+        m_pAttackCol = m_pLeftHand.lock();
+        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::QUICK_SWIP)]);
+        break;
+    case 2:
+    case 4:
+        m_pAttackCol = m_pRightHand.lock();
+        AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::PUNCH)]);
+        break;
+    default:
+        ChangeState(BossState::WAIT);
+        m_waitTime = 1.0f;
+        break;
+    }
+}
 
 void Boss::GetHit(int damage) {
     m_pHP.lock()->TakeDamage(damage);
@@ -267,23 +289,15 @@ void Boss::GetHit(int damage) {
     }
 }
 
-void Boss::ChangeState(BossState state) {
-    m_prevState   = this->m_state;
-    this->m_state = state;
-}
-
-void Boss::Combo5() {
-    AttackAnimation(STR(BossAnim::SWIP), BossAnim::PUNCH);
-    AttackAnimation(STR(BossAnim::PUNCH), BossAnim::SWIP);
-    AttackAnimation(STR(BossAnim::SWIP), BossAnim::PUNCH);
-    AttackAnimation(STR(BossAnim::PUNCH), BossAnim::SWIP);
-    AttackAnimation(STR(BossAnim::SWIP), BossAnim::PUNCH);
-}
-
 void Boss::Die() {
     //pModel.lock()->PlayAnimationNoSame("die");
     //RemoveComponent<ComponentCollisionCapsule>();
     //this->isDead = true;
+}
+
+void Boss::ChangeState(BossState state) {
+    m_prevState   = this->m_state;
+    this->m_state = state;
 }
 
 void Boss::SetAnimList() {
@@ -293,6 +307,10 @@ void Boss::SetAnimList() {
     info.animCutInTime    = 100;
 
     m_animList[STR(BossAnim::SWIP)] = info;
+
+    info.animStartTime = 75;
+
+    m_animList[STR(BossAnim::QUICK_SWIP)] = info;
 
     info                  = {};
     info.triggerStartTime = 15;

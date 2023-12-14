@@ -17,6 +17,8 @@ bool IsFloat3Zero(float3 vector) {
 }
 
 struct AnimInfo {
+    float animSpeed        = 1;
+    float animStartSpeed   = 1;
     float animStartTime    = 0;
     float triggerStartTime = 0;
     float triggerEndTime   = 0;

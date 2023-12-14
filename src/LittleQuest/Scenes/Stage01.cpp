@@ -48,9 +48,12 @@ bool Stage01::Init() {
 
     auto pBoss = Boss::Create({30, 50, 15});
 
+#ifndef _DEBUG
     HideMouse(true);
+    9
+#endif    // !_DEBUG
 
-    return true;
+        return true;
 }
 
 //---------------------------------------------------------------------------

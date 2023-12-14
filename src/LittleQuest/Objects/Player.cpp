@@ -127,7 +127,6 @@ void Player::LateDraw() {
     printfDx("\nAnimation Time:%f", m_pModel.lock()->GetAnimationTime());
     printfDx("\nTotal Animation Time:%f", m_pModel.lock()->GetAnimationTotalTime());
     printfDx("\nAnimation Play Time:%f", m_pModel.lock()->GetAnimationPlayTime());
-    printfDx("\nANimation Trigger End Time:%f", m_animList[STR(Combo::NORMAL_COMBO1)].triggerEndTime);
     printfDx("\nAnimation Name:%s", m_pModel.lock()->GetPlayAnimationName().data());
     printfDx("\nMovement distance:%f", GetDistance(m_movement));
 #endif
@@ -266,7 +265,7 @@ void Player::Attack() {
 void Player::AttackAnimation(std::string animName, bool isComboFinish, Combo nextCombo) {
     if(m_pModel.lock()->GetPlayAnimationName() != animName) {
         this->SetModelRotation();
-        m_pModel.lock()->PlayAnimationNoSame(animName);
+        m_pModel.lock()->PlayAnimationNoSame(animName, false, 0.2F, m_animList[animName].animStartTime);
         m_attackList.clear();
     }
     float currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
