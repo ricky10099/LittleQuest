@@ -158,6 +158,8 @@ void        Boss::LateDraw() {
 #if defined _DEBUG
     printfDx("\ncombo:%i", m_combo);
     printfDx("\nAnim:%i", m_anim);
+    printfDx("\nwait time:%f", m_waitTime);
+    printfDx("\nangle:%f", GetDegreeToPosition(m_pPlayer.lock()->GetTranslate()));
 
 #endif
     DrawSphere3D(cast(GetTranslate()), 2, 2, GetColor(0, 0, 255), GetColor(255, 0, 0), TRUE);
@@ -218,9 +220,15 @@ void Boss::ChasePlayer(float3& move) {
 }
 
 void Boss::SelectCombo() {
-    if(GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate()) < 100) {
+    float distance = GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate());
+    float angle    = GetDegreeToPosition(m_pPlayer.lock()->GetTranslate());
+    if(distance < 50 && angle < 50) {
         ChangeState(BossState::ATTACK);
         m_bossCombo = BossCombo::COMBO5;
+        m_combo     = 1;
+    } else if(distance < 50 && angle > 140) {
+        ChangeState(BossState::ATTACK);
+        m_bossCombo = BossCombo::BACKFLIP_PUNCH;
         m_combo     = 1;
     }
 }
@@ -229,6 +237,9 @@ void Boss::Attack() {
     switch(m_bossCombo) {
     case BossCombo::COMBO5:
         Combo5();
+        break;
+    case BossCombo::BACKFLIP_PUNCH:
+        BackflipPunch();
         break;
     }
 }
@@ -242,10 +253,14 @@ void Boss::AttackAnimation(std::string animName, AnimInfo animInfo) {
     float currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
     if(currAnimTime > animInfo.triggerStartTime) {
         m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
-        m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
+        if(m_pAttackCol.lock()) {
+            m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
+        }
     }
     if(currAnimTime > animInfo.triggerEndTime) {
-        m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+        if(m_pAttackCol.lock()) {
+            m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+        }
     }
     if(currAnimTime > animInfo.animCutInTime) {
         m_combo++;
@@ -274,7 +289,32 @@ void Boss::Combo5() {
         break;
     default:
         ChangeState(BossState::WAIT);
-        m_waitTime = 600.0f;
+        m_waitTime = 60.0f;
+        break;
+    }
+}
+
+void Boss::BackflipPunch() {
+    switch(m_combo) {
+    case 1:
+        m_pModel.lock()->PlayAnimationNoSame(STR(BossAnim::BACKFLIP));
+        auto   pos = GetTranslate();
+        float3 move /* = {pos.x, pos.y, pos.z - 100}*/;
+        float3 vec = GetMatrix().axisZ();
+        vec.y      = 0;
+        move       = vec;
+        //float x     = -move.x;
+        //float z     = -move.z;
+        //float theta = atan2(x, z) * RadToDeg;
+
+        //SetRotationAxisXYZ({0, theta, 0});
+        move *= 0.5 * GetDeltaTime60();
+        AddTranslate(move);
+        if(!m_pModel.lock()->IsPlaying()) {
+            ++m_combo;
+            ChangeState(BossState::WAIT);
+            m_waitTime = 60.0f;
+        }
         break;
     }
 }

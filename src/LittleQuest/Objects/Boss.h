@@ -41,6 +41,7 @@ class Boss: public Object {
 
     enum BossCombo {
         COMBO5,
+        BACKFLIP_PUNCH,
         NONE,
     };
     BossCombo m_bossCombo;
@@ -86,6 +87,7 @@ class Boss: public Object {
     void Attack();
     void AttackAnimation(std::string animName, AnimInfo animInfo);
     void Combo5();
+    void BackflipPunch();
     void Die();
     void ChangeState(BossState state);
     void SetAnimList();
