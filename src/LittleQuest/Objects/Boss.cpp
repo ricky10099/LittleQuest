@@ -244,7 +244,7 @@ void Boss::Attack() {
     }
 }
 
-void Boss::AttackAnimation(std::string animName, AnimInfo animInfo) {
+void Boss::AttackAnimation(std::string animName, AnimInfo animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol) {
     if(m_pModel.lock()->GetPlayAnimationName() != animName) {
         //this->SetModelRotation();
         m_pModel.lock()->PlayAnimationNoSame(animName, false, 0.2F, animInfo.animStartTime);
@@ -253,13 +253,13 @@ void Boss::AttackAnimation(std::string animName, AnimInfo animInfo) {
     float currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
     if(currAnimTime > animInfo.triggerStartTime) {
         m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
-        if(m_pAttackCol.lock()) {
-            m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
+        for(int i = 0; i < atkCol.size(); i++) {
+            atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
         }
     }
     if(currAnimTime > animInfo.triggerEndTime) {
-        if(m_pAttackCol.lock()) {
-            m_pAttackCol.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+        for(int i = 0; i < atkCol.size(); i++) {
+            atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
         }
     }
     if(currAnimTime > animInfo.animCutInTime) {
@@ -275,17 +275,17 @@ void Boss::Combo5() {
     switch(m_combo) {
     case 1:
         m_pAttackCol = m_pLeftHand.lock();
-        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::SWIP)]);
+        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::SWIP)], {m_pLeftHand.lock()});
         break;
     case 3:
     case 5:
         m_pAttackCol = m_pLeftHand.lock();
-        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::QUICK_SWIP)]);
+        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::QUICK_SWIP)], {m_pLeftHand.lock()});
         break;
     case 2:
     case 4:
         m_pAttackCol = m_pRightHand.lock();
-        AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::QUICK_PUNCH)]);
+        AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::QUICK_PUNCH)], {m_pRightHand.lock()});
         break;
     default:
         ChangeState(BossState::WAIT);
@@ -299,17 +299,10 @@ void Boss::BackflipPunch() {
     case 1:
         m_pModel.lock()->PlayAnimationNoSame(STR(BossAnim::BACKFLIP));
         auto   pos = GetTranslate();
-        float3 move /* = {pos.x, pos.y, pos.z - 100}*/;
         float3 vec = GetMatrix().axisZ();
         vec.y      = 0;
-        move       = vec;
-        //float x     = -move.x;
-        //float z     = -move.z;
-        //float theta = atan2(x, z) * RadToDeg;
-
-        //SetRotationAxisXYZ({0, theta, 0});
-        move *= 0.5 * GetDeltaTime60();
-        AddTranslate(move);
+        vec *= 0.5 * GetDeltaTime60();
+        AddTranslate(vec);
         if(!m_pModel.lock()->IsPlaying()) {
             ++m_combo;
             ChangeState(BossState::WAIT);

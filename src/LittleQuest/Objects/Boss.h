@@ -85,7 +85,7 @@ class Boss: public Object {
     void ChasePlayer(float3& move);
     void SelectCombo();
     void Attack();
-    void AttackAnimation(std::string animName, AnimInfo animInfo);
+    void AttackAnimation(std::string animName, AnimInfo animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol);
     void Combo5();
     void BackflipPunch();
     void Die();
