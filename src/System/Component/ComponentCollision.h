@@ -103,16 +103,16 @@ class ComponentCollision: public Component {
     };
 
     enum struct CollisionGroupBit : u32 {
-        WALL         = 0,
-        GROUND       = 1,
-        PLAYER       = 2,
-        ENEMY        = 3,
-        WEAPON       = 4,
-        ENEMY_WEAPON = 5,
-        ITEM         = 6,
-        CAMERA       = 7,
-        ETC          = 8,
-        NONE         = 99,
+        WALL         = 0U,
+        GROUND       = 1U,
+        PLAYER       = 2U,
+        ENEMY        = 3U,
+        WEAPON       = 4U,
+        ENEMY_WEAPON = 5U,
+        ITEM         = 6U,
+        CAMERA       = 7U,
+        ETC          = 8U,
+        NONE         = 20U,
 #if 0
 		WALL2	= 8,
 		GROUND2	= 9,

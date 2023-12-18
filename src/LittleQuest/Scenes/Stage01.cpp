@@ -34,26 +34,21 @@ bool Stage01::Init() {
     {
         auto obj = Scene::CreateObjectPtr<Object>()->SetName("Ground");
         obj->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage00.mv1");
+        obj->SetScaleAxisXYZ({0.5f, 0.1f, 0.5f});
         if(auto cmp_mdl = obj->AddComponent<ComponentCollisionModel>())
             cmp_mdl->AttachToModel(true);
     }
 
-    auto pPlayer = Player::Create({0, 10, 0});
+    auto pPlayer = Player::Create({0, 20, 0});
     Camera::Create(pPlayer)->SetName("PlayerCamera");
-
-    //{
-    //    auto enemy = Mutant::Create({30, 20, 15}, true);
-    //    enemies.push_back(enemy);
-    //}
 
     auto pBoss = Boss::Create({30, 50, 15});
 
 #ifndef _DEBUG
     HideMouse(true);
-    9
 #endif    // !_DEBUG
 
-        return true;
+    return true;
 }
 
 //---------------------------------------------------------------------------
@@ -80,12 +75,12 @@ void        Stage01::Update() {
     //     }
     // }
 
-    for(int i = 0; i < enemies.size(); i++) {
-        if(enemies[i]->getDestroyTimer() <= 0) {
-            Scene::ReleaseObject(enemies[i]);
-            enemies.erase(enemies.begin() + i);
-        }
-    }
+    //for(int i = 0; i < enemies.size(); i++) {
+    //    if(enemies[i]->getDestroyTimer() <= 0) {
+    //        Scene::ReleaseObject(enemies[i]);
+    //        enemies.erase(enemies.begin() + i);
+    //    }
+    //}
 
     //if(GetMainWindowHandle() == GetForegroundWindow()) {
     //    HideMouse(true);

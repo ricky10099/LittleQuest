@@ -241,7 +241,7 @@ void Player::Walk() {
 void Player::Jump() {}
 
 void Player::Attack() {
-    float currAnimTime;
+    //float currAnimTime;
     switch(currCombo) {
     case Combo::NORMAL_COMBO1:
         AttackAnimation(STR(Combo::NORMAL_COMBO1), false, Combo::NORMAL_COMBO2);
@@ -253,7 +253,7 @@ void Player::Attack() {
         AttackAnimation(STR(Combo::NORMAL_COMBO3), false, Combo::NORMAL_COMBO4);
         break;
     case Combo::NORMAL_COMBO4:
-        AttackAnimation(STR(Combo::NORMAL_COMBO4, true));
+        AttackAnimation(STR(Combo::NORMAL_COMBO4), true);
         break;
     default:
         playerState = PlayerState::IDLE;

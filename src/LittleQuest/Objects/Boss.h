@@ -27,6 +27,8 @@ class Boss: public Object {
     const float BASE_SPEED = 0.3f;
     const float WALK_SPEED = 0.5f;
     const float RUN_SPEED  = 1.f;
+    const float NOMAL_WAIT = 180.f;
+    const float ANGRY_WAIT = 60.f;
 
     enum BossState {
         IDLE,
@@ -41,7 +43,12 @@ class Boss: public Object {
 
     enum BossCombo {
         COMBO5,
+        FAST_COMBO5,
         BACKFLIP_PUNCH,
+        BACKFLIP_CHARGE_PUNCH,
+        CHARGE_PUNCH,
+        ROAR_ATTACK,
+
         NONE,
     };
     BossCombo m_bossCombo;
@@ -54,6 +61,7 @@ class Boss: public Object {
         JUMP_ATTACK,
         BACKFLIP,
         DOUBLE_PUNCH,
+        CHARGE,
         ROAR,
         TAUNT,
     };
@@ -64,18 +72,19 @@ class Boss: public Object {
     float  m_degree;
     float  m_speedFactor  = 1.0f;
     float  m_destroyTimer = 5;
+    float  m_currAnimTime;
     int    m_combo;
     bool   m_isHitPlayer;
-    bool   m_isDead = false;
-    bool   m_combo5 = false;
+    bool   m_isDead  = false;
+    bool   m_isAngry = false;
+    //bool   m_combo5 = false;
 
     ObjectWeakPtr                            m_pPlayer;
     std::weak_ptr<ComponentModel>            m_pModel;
     std::weak_ptr<ComponentHP>               m_pHP;
-    std::weak_ptr<ComponentCollisionCapsule> m_pBody;
-    std::weak_ptr<ComponentCollisionCapsule> m_pLeftHand;
-    std::weak_ptr<ComponentCollisionCapsule> m_pRightHand;
-    std::weak_ptr<ComponentCollisionCapsule> m_pAttackCol;
+    std::weak_ptr<ComponentCollisionCapsule> m_pBodyBox;
+    std::weak_ptr<ComponentCollisionCapsule> m_pLeftHandBox;
+    std::weak_ptr<ComponentCollisionCapsule> m_pRightHandBox;
 
     std::unordered_map<std::string, AnimInfo> m_animList;
 
@@ -85,7 +94,7 @@ class Boss: public Object {
     void ChasePlayer(float3& move);
     void SelectCombo();
     void Attack();
-    void AttackAnimation(std::string animName, AnimInfo animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol);
+    void AttackAnimation(std::string animName, AnimInfo animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol = {});
     void Combo5();
     void BackflipPunch();
     void Die();

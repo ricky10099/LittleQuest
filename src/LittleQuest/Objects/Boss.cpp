@@ -34,7 +34,7 @@ bool Boss::Init() {
     m_pModel.lock()->SetAnimation({
         {       STR(BossState::IDLE),           "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
         {                     "Walk",        "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 1.0f},
- //{               "Run",         "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
+        {                      "Run",            "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
         {        STR(BossAnim::SWIP),        "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
         {       STR(BossAnim::PUNCH),          "data/LittleQuest/Anim/MutantSet/MutantPunch.mv1", 0, 1.0f},
         { STR(BossAnim::JUMP_ATTACK),     "data/LittleQuest/Anim/MutantSet/MutantJumpAttack.mv1", 0, 1.0f},
@@ -48,29 +48,31 @@ bool Boss::Init() {
     m_pModel.lock()->PlayAnimation("Idle", true);
     SetAnimList();
 
-    m_pBody = AddComponent<ComponentCollisionCapsule>();
-    m_pBody.lock()->SetTranslate({0, 0, -4});
-    m_pBody.lock()->UseGravity();
-    m_pBody.lock()->SetHeight(35);
-    m_pBody.lock()->SetRadius(6.5);
-    m_pBody.lock()->SetMass(100.0f);
-    m_pBody.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY);
+    m_pBodyBox = AddComponent<ComponentCollisionCapsule>();
+    m_pBodyBox.lock()->SetTranslate({0, 0, -4});
+    m_pBodyBox.lock()->UseGravity();
+    m_pBodyBox.lock()->SetHeight(35);
+    m_pBodyBox.lock()->SetRadius(6.5);
+    m_pBodyBox.lock()->SetMass(100.0f);
+    m_pBodyBox.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY);
 
-    m_pLeftHand = AddComponent<ComponentCollisionCapsule>();
-    m_pLeftHand.lock()->AttachToModel("mixamorig:LeftHand");
-    m_pLeftHand.lock()->SetTranslate({0, -25, 0});
-    m_pLeftHand.lock()->SetHeight(15.0f);
-    m_pLeftHand.lock()->SetRadius(3.0f);
-    m_pLeftHand.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
-    m_pLeftHand.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+    m_pLeftHandBox = AddComponent<ComponentCollisionCapsule>();
+    m_pLeftHandBox.lock()->AttachToModel("mixamorig:LeftHand");
+    m_pLeftHandBox.lock()->SetTranslate({0, -25, 0});
+    m_pLeftHandBox.lock()->SetHeight(15.0f);
+    m_pLeftHandBox.lock()->SetRadius(3.0f);
+    m_pLeftHandBox.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
+    m_pLeftHandBox.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+    m_pLeftHandBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
 
-    m_pRightHand = AddComponent<ComponentCollisionCapsule>();
-    m_pRightHand.lock()->AttachToModel("mixamorig:RightHand");
-    m_pRightHand.lock()->SetTranslate({0, -25, 0});
-    m_pRightHand.lock()->SetHeight(15.0f);
-    m_pRightHand.lock()->SetRadius(3.0f);
-    m_pRightHand.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
-    m_pRightHand.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+    m_pRightHandBox = AddComponent<ComponentCollisionCapsule>();
+    m_pRightHandBox.lock()->AttachToModel("mixamorig:RightHand");
+    m_pRightHandBox.lock()->SetTranslate({0, -25, 0});
+    m_pRightHandBox.lock()->SetHeight(15.0f);
+    m_pRightHandBox.lock()->SetRadius(3.0f);
+    m_pRightHandBox.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
+    m_pRightHandBox.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+    m_pRightHandBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
 
     m_pHP = AddComponent<ComponentHP>();
     m_pHP.lock()->SetHP(1000);
@@ -91,7 +93,7 @@ void Boss::Update() {
 
     switch(m_state) {
     case BossState::IDLE:
-        m_pModel.lock()->PlayAnimation(STR(BossState::IDLE));
+        m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE));
         break;
     case BossState::ATTACK:
         Attack();
@@ -160,9 +162,7 @@ void        Boss::LateDraw() {
     printfDx("\nAnim:%i", m_anim);
     printfDx("\nwait time:%f", m_waitTime);
     printfDx("\nangle:%f", GetDegreeToPosition(m_pPlayer.lock()->GetTranslate()));
-
 #endif
-    DrawSphere3D(cast(GetTranslate()), 2, 2, GetColor(0, 0, 255), GetColor(255, 0, 0), TRUE);
 }
 
 void Boss::GUI() {
@@ -246,46 +246,38 @@ void Boss::Attack() {
 
 void Boss::AttackAnimation(std::string animName, AnimInfo animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol) {
     if(m_pModel.lock()->GetPlayAnimationName() != animName) {
-        //this->SetModelRotation();
         m_pModel.lock()->PlayAnimationNoSame(animName, false, 0.2F, animInfo.animStartTime);
         m_pModel.lock()->SetAnimationSpeed(animInfo.animStartSpeed);
     }
-    float currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
-    if(currAnimTime > animInfo.triggerStartTime) {
+    m_currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
+    if(m_currAnimTime > animInfo.triggerStartTime) {
         m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
         for(int i = 0; i < atkCol.size(); i++) {
             atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
         }
     }
-    if(currAnimTime > animInfo.triggerEndTime) {
+    if(m_currAnimTime > animInfo.triggerEndTime) {
         for(int i = 0; i < atkCol.size(); i++) {
             atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
         }
     }
-    if(currAnimTime > animInfo.animCutInTime) {
+    if(m_currAnimTime > animInfo.animCutInTime) {
         m_combo++;
     }
 }
 
 void Boss::Combo5() {
-    //if(m_bossCombo != BossCombo::COMBO5) {
-    //    m_combo     = 1;
-    //    m_bossCombo = BossCombo::COMBO5;
-    //}
     switch(m_combo) {
     case 1:
-        m_pAttackCol = m_pLeftHand.lock();
-        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::SWIP)], {m_pLeftHand.lock()});
+        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::SWIP)], {m_pLeftHandBox.lock()});
         break;
     case 3:
     case 5:
-        m_pAttackCol = m_pLeftHand.lock();
-        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::QUICK_SWIP)], {m_pLeftHand.lock()});
+        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::QUICK_SWIP)], {m_pLeftHandBox.lock()});
         break;
     case 2:
     case 4:
-        m_pAttackCol = m_pRightHand.lock();
-        AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::QUICK_PUNCH)], {m_pRightHand.lock()});
+        AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::QUICK_PUNCH)], {m_pRightHandBox.lock()});
         break;
     default:
         ChangeState(BossState::WAIT);
@@ -295,19 +287,32 @@ void Boss::Combo5() {
 }
 
 void Boss::BackflipPunch() {
+    auto   pos = GetTranslate();
+    float3 vec = GetMatrix().axisZ();
+    vec.y      = 0;
     switch(m_combo) {
     case 1:
-        m_pModel.lock()->PlayAnimationNoSame(STR(BossAnim::BACKFLIP));
-        auto   pos = GetTranslate();
-        float3 vec = GetMatrix().axisZ();
-        vec.y      = 0;
-        vec *= 0.5 * GetDeltaTime60();
+        AttackAnimation(STR(BossAnim::BACKFLIP), m_animList[STR(BossAnim::BACKFLIP)]);
+        vec *= 1.0f * GetDeltaTime60();
         AddTranslate(vec);
-        if(!m_pModel.lock()->IsPlaying()) {
-            ++m_combo;
-            ChangeState(BossState::WAIT);
-            m_waitTime = 60.0f;
+        if(m_currAnimTime < m_animList[STR(BossAnim::BACKFLIP)].animCutInTime) {
+            m_pBodyBox.lock()->Overlap((u32)ComponentCollision::CollisionGroup::PLAYER);
+        } else {
+            m_pBodyBox.lock()->Overlap(!(u32)ComponentCollision::CollisionGroup::PLAYER);
         }
+
+        break;
+    case 2:
+        AttackAnimation(STR(BossAnim::DOUBLE_PUNCH), m_animList[STR(BossAnim::DOUBLE_PUNCH)],
+                        {m_pLeftHandBox.lock(), m_pRightHandBox.lock()});
+        if(m_currAnimTime < m_animList[STR(BossAnim::DOUBLE_PUNCH)].triggerStartTime) {
+            vec *= -2.0f * GetDeltaTime60();
+            AddTranslate(vec);
+        }
+        break;
+    default:
+        ChangeState(BossState::WAIT);
+        m_waitTime = 60.0f;
         break;
     }
 }
@@ -341,8 +346,8 @@ void Boss::SetAnimList() {
     info.triggerStartTime = 75;
     info.triggerEndTime   = 87;
     info.animCutInTime    = 83;
-    info.animSpeed        = 0.7f;
-    info.animStartSpeed   = 1.2f;
+    info.animSpeed        = 1.2f;
+    info.animStartSpeed   = 2.0f;
 
     m_animList[STR(BossAnim::SWIP)] = info;
 
@@ -365,6 +370,23 @@ void Boss::SetAnimList() {
     info.animCutInTime = 20;
 
     m_animList[STR(BossAnim::QUICK_PUNCH)] = info;
+
+    info               = {};
+    info.animStartTime = 27;
+    info.animCutInTime = 90;
+    info.animSpeed     = 2.0f;
+
+    m_animList[STR(BossAnim::BACKFLIP)] = info;
+
+    info                  = {};
+    info.animStartTime    = 100;
+    info.triggerStartTime = 124;
+    info.triggerEndTime   = 134;
+    info.animCutInTime    = 190;
+    info.animSpeed        = 2.0f;
+    info.animStartSpeed   = 5.0f;
+
+    m_animList[STR(BossAnim::DOUBLE_PUNCH)] = info;
 }
 //
 //float Boss::getDestroyTimer() {
