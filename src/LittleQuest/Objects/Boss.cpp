@@ -175,11 +175,7 @@ void Boss::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
 
 void Boss::Idle() {}
 
-void Boss::Wait(/*float time*/) {
-    //if(m_state != BossState::WAIT) {
-    //    ChangeState(BossState::WAIT);
-    //    //m_waitTime = time;
-    //}
+void Boss::Wait() {
     m_bossCombo = BossCombo::NONE;
     m_combo     = 0;
     m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE), true, 0.3f);
@@ -300,7 +296,6 @@ void Boss::BackflipPunch() {
         } else {
             m_pBodyBox.lock()->Overlap(!(u32)ComponentCollision::CollisionGroup::PLAYER);
         }
-
         break;
     case 2:
         AttackAnimation(STR(BossAnim::DOUBLE_PUNCH), m_animList[STR(BossAnim::DOUBLE_PUNCH)],
@@ -330,11 +325,7 @@ void Boss::GetHit(int damage) {
     }
 }
 
-void Boss::Die() {
-    //pModel.lock()->PlayAnimationNoSame("die");
-    //RemoveComponent<ComponentCollisionCapsule>();
-    //this->isDead = true;
-}
+void Boss::Die() {}
 
 void Boss::ChangeState(BossState state) {
     m_prevState   = this->m_state;

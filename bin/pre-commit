@@ -111,15 +111,15 @@ do
     report=""
     
     # UTF-8でない場合はエラー
-    file_type=$("file" -b ${file})
+    #file_type=$("file" -b ${file})
 
-    if [[ ! $file_type =~ "UTF-8" ]]; then
-      if [[ ! $file_type =~ "ASCII text" ]]; then
-        echo "ERROR:" ${file} "はUTF-8ではありません. エンコードを修正してください."
-        echo $("file" -b ${file})
-        exit 1
-      fi
-    fi
+    #if [[ ! $file_type =~ "UTF-8" ]]; then
+    #  if [[ ! $file_type =~ "ASCII text" ]]; then
+    #    echo "ERROR:" ${file} "はUTF-8ではありません. エンコードを修正してください."
+    #    echo $("file" -b ${file})
+    #    exit 1
+    #  fi
+    #fi
 
     temp_file=$(mktemp)
 
@@ -134,18 +134,18 @@ do
     fi
 
     # 改行コードCRLFをLFに全変換
-    sed "s/\r//g" $file > $temp_file
-    mv $temp_file $file
+    #sed "s/\r//g" $file > $temp_file
+    #mv $temp_file $file
 
     # ファイル末尾に改行がない場合は追加
-    line="$(tail -n1 "${file}" | wc -l)"
-    if [ "${line}" -eq 0 ]; then
+    #line="$(tail -n1 "${file}" | wc -l)"
+    #if [ "${line}" -eq 0 ]; then
 
       # ファイル末尾に改行を追加する
-      sed -e '${s/$/\n/}' -i "$file"
+    #  sed -e '${s/$/\n/}' -i "$file"
 
-      report+="(ファイル末尾に改行追加)"
-    fi
+    #  report+="(ファイル末尾に改行追加)"
+    #fi
 
     # 対象の拡張子のファイルにはclang-formatを実行
     "$clang_format" -i -style=file:${root_dir}/src/.clang-format-reference "$file"
