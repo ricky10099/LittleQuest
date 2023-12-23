@@ -1,7 +1,9 @@
 ﻿#include "Player.h"
 #include "Enemy.h"
+#include "Boss.h"
 #include "Camera.h"
 #include "LittleQuest/Components/ComponentHP.h"
+#include "LittleQuest/Components/ComponentCombo.h"
 #include "LittleQuest/Scenes/GameOverScene.h"
 
 #include <System/Component/ComponentAttachModel.h>
@@ -53,7 +55,10 @@ bool Player::Init() {
         attach->SetAttachOffset({-35, 11, -4});
     }
     m_pHP = AddComponent<ComponentHP>();
+    m_pHP.lock()->SetType(ComponentHP::HP_TYPE::PLAYER);
     m_pHP.lock()->SetHP(100);
+
+    m_pCombo = AddComponent<ComponentCombo>();
 
     auto colCap = AddComponent<ComponentCollisionCapsule>();
     colCap->SetTranslate({0, 0.5f, 0});
@@ -82,6 +87,12 @@ bool Player::Init() {
 
 void Player::Update() {
     m_movement = float3(0, 0, 0);
+    m_hitTimer -= GetDeltaTime60();
+    m_hitTimer = std::max(0.0f, m_hitTimer);
+
+    if(m_hitTimer <= 0) {
+        m_pModel.lock()->PlayPause(false);
+    }
 
     if(!m_pCamera.lock()) {
         m_pCamera      = Scene::GetObjectPtr<Camera>("PlayerCamera");
@@ -123,13 +134,13 @@ void Player::Update() {
 
 void Player::LateDraw() {
     m_pHP.lock()->DrawHPBar();
-#if defined _DEBUG
-    printfDx("\nAnimation Time:%f", m_pModel.lock()->GetAnimationTime());
-    printfDx("\nTotal Animation Time:%f", m_pModel.lock()->GetAnimationTotalTime());
-    printfDx("\nAnimation Play Time:%f", m_pModel.lock()->GetAnimationPlayTime());
-    printfDx("\nAnimation Name:%s", m_pModel.lock()->GetPlayAnimationName().data());
-    printfDx("\nMovement distance:%f", GetDistance(m_movement));
-#endif
+    if(Scene::IsEdit()) {
+        printfDx("\nAnimation Time:%f", m_pModel.lock()->GetAnimationTime());
+        printfDx("\nTotal Animation Time:%f", m_pModel.lock()->GetAnimationTotalTime());
+        printfDx("\nAnimation Play Time:%f", m_pModel.lock()->GetAnimationPlayTime());
+        printfDx("\nAnimation Name:%s", m_pModel.lock()->GetPlayAnimationName().data());
+        printfDx("\nMovement distance:%f", GetDistance(m_movement));
+    }
 }
 
 void Player::GUI() {
@@ -140,19 +151,22 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
     if(hitInfo.collision_->GetCollisionGroup() == ComponentCollision::CollisionGroup::WEAPON) {
         auto* owner = hitInfo.hit_collision_->GetOwner();
 
-        Enemy* enemy;
-        if((enemy = dynamic_cast<Enemy*>(owner)) && currCombo != Combo::NO_COMBO) {
+        Boss* boss;
+        if((boss = dynamic_cast<Boss*>(owner)) && currCombo != Combo::NO_COMBO) {
             bool inList = false;
             for(int i = 0; i < m_attackList.size(); i++) {
-                if(m_attackList[i] == enemy->GetName().data()) {
+                if(m_attackList[i] == boss->GetName().data()) {
                     inList = true;
                     break;
                 }
             }
 
             if(!inList) {
-                m_attackList.push_back(enemy->GetName().data());
-                enemy->GetHit(this->BASE_ATK);
+                m_attackList.push_back(boss->GetName().data());
+                boss->GetHit(this->BASE_ATK * m_pCombo.lock()->ComboBuff());
+                m_pModel.lock()->PlayPause(true);
+                m_hitTimer += HIT_PAUSE;
+                m_pCombo.lock()->AddCombo();
             }
         }
     }

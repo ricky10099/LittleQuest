@@ -12,6 +12,7 @@ USING_PTR(Player);
 
 class Camera;
 class ComponentHP;
+class ComponentCombo;
 class Player: public Object {
    public:
     BP_OBJECT_TYPE(Player, Object);
@@ -28,7 +29,8 @@ class Player: public Object {
     const float BASE_SPEED = 0.8f;
     const float RUN_SPEED  = 1.0f;
     const float WALK_SPEED = 0.3f;
-    const int   BASE_ATK   = 50;
+    const int   BASE_ATK   = 10;
+    const float HIT_PAUSE  = 8;
 
     enum PlayerState {
         IDLE,
@@ -54,12 +56,14 @@ class Player: public Object {
     std::weak_ptr<ComponentModel>             m_pModel;
     std::weak_ptr<Camera>                     m_pCamera;
     std::weak_ptr<ComponentHP>                m_pHP;
+    std::weak_ptr<ComponentCombo>             m_pCombo;
     std::weak_ptr<ComponentCollisionCapsule>  m_pWeapon;
 
     matrix m_selfMatrix;
     float3 m_movement;
     float  m_cameraLength;
     float  m_speedFactor;
+    float  m_hitTimer = 0;
     bool   m_getHit;
     bool   m_isCombo      = false;
     bool   m_waitForCombo = false;

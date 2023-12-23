@@ -90,21 +90,21 @@ void Enemy::Update() {
 }
 
 // 基本描画の後に処理します
-void        Enemy::LateDraw() {
-#if defined _DEBUG
-    printfDx("\n%s state: %i", this->GetName().data(), state);
-    if(auto modelPtr = GetComponent<ComponentModel>()) {
-        printfDx("\n%s %s Animation Time:%f", this->GetName().data(), modelPtr->GetPlayAnimationName().data(),
-                 modelPtr->GetAnimationTime());
+void Enemy::LateDraw() {
+    if(Scene::IsEdit()) {
+        printfDx("\n%s state: %i", this->GetName().data(), state);
+        if(auto modelPtr = GetComponent<ComponentModel>()) {
+            printfDx("\n%s %s Animation Time:%f", this->GetName().data(), modelPtr->GetPlayAnimationName().data(),
+                     modelPtr->GetAnimationTime());
+        }
+        printfDx("\ncurpoint: %i", patrolIndex);
+        printfDx("\nx distance: %f", float3(goal - GetTranslate())[0]);
+        printfDx("\nz distance: %f", float3(goal - GetTranslate())[2]);
+        printfDx("\nf(distance): %f", GetDistance(GetTranslate(), goal));
+        printfDx("\nisFound: %i", isFoundPlayer);
+        printfDx("\ntargetDegree: %f", GetDegreeToPosition(pPlayer.lock()->GetTranslate()));
+        printfDx("\ndie timer: %f", destroyTimer);
     }
-    printfDx("\ncurpoint: %i", patrolIndex);
-    printfDx("\nx distance: %f", float3(goal - GetTranslate())[0]);
-    printfDx("\nz distance: %f", float3(goal - GetTranslate())[2]);
-    printfDx("\nf(distance): %f", GetDistance(GetTranslate(), goal));
-    printfDx("\nisFound: %i", isFoundPlayer);
-    printfDx("\ntargetDegree: %f", GetDegreeToPosition(pPlayer.lock()->GetTranslate()));
-    printfDx("\ndie timer: %f", destroyTimer);
-#endif
     pHP.lock()->DrawHPBar();
 }
 

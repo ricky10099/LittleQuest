@@ -4,9 +4,9 @@
 #include <System/Utils/IniFileLib.h>
 
 namespace LittleQuest {
-class ComponentHP: public Component {
+class ComponentCombo: public Component {
    public:
-    BP_COMPONENT_TYPE(ComponentHP, Component);
+    BP_COMPONENT_TYPE(ComponentCombo, Component);
     enum HP_TYPE {
         PLAYER,
         BOSS,
@@ -18,19 +18,22 @@ class ComponentHP: public Component {
     void Draw() override;
     void GUI() override;
 
-    void SetType(HP_TYPE type);
-    void SetHP(int HP);
-    int  GetHP();
-    void TakeDamage(int damage);
-    void DrawHPBar();
+    void  AddCombo();
+    float ComboBuff();
 
    private:
-    HP_TYPE type = HP_TYPE::MOB;
-    VECTOR  pos2D;
-    float3  pos3D;
+    const float COMBO_TIMER_MAX = 120;
+    const float COMBO_PUASE     = 60;
+    const float MAX_COMBO       = 30;
+    const int   COMBO_BUFF_0    = GetColor(255, 255, 255);
+    const int   COMBO_BUFF_1    = GetColor(255, 255, 0);
+    const int   COMBO_BUFF_2    = GetColor(255, 127, 0);
+    const int   COMBO_BUFF_3    = GetColor(255, 0, 0);
 
-    int maxHP;
-    int currHP;
+    float m_currCombo = 0;
+    int   m_comboColor;
+    float m_comboTimer;
+    float m_comboPauseTimer;
 
     //--------------------------------------------------------------------
     //! @name Cereal処理

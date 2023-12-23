@@ -75,6 +75,7 @@ bool Boss::Init() {
     m_pRightHandBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
 
     m_pHP = AddComponent<ComponentHP>();
+    m_pHP.lock()->SetType(ComponentHP::HP_TYPE::BOSS);
     m_pHP.lock()->SetHP(1000);
 
     m_bossCombo = BossCombo::NONE;
@@ -85,8 +86,6 @@ bool Boss::Init() {
 }
 
 void Boss::Update() {
-    float deltaTime = GetDeltaTime60();
-
     if(m_bossCombo == BossCombo::NONE && m_state != BossState::WAIT) {
         SelectCombo();
     }
@@ -156,13 +155,15 @@ void Boss::Update() {
 }
 
 // 基本描画の後に処理します
-void        Boss::LateDraw() {
-#if defined _DEBUG
-    printfDx("\ncombo:%i", m_combo);
-    printfDx("\nAnim:%i", m_anim);
-    printfDx("\nwait time:%f", m_waitTime);
-    printfDx("\nangle:%f", GetDegreeToPosition(m_pPlayer.lock()->GetTranslate()));
-#endif
+void Boss::LateDraw() {
+    if(Scene::IsEdit()) {
+        printfDx("\ncombo:%i", m_combo);
+        printfDx("\nAnim:%i", m_anim);
+        printfDx("\nwait time:%f", m_waitTime);
+        printfDx("\nangle:%f", GetDegreeToPosition(m_pPlayer.lock()->GetTranslate()));
+    }
+
+    m_pHP.lock()->DrawHPBar();
 }
 
 void Boss::GUI() {
@@ -170,6 +171,16 @@ void Boss::GUI() {
 }
 
 void Boss::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
+    if(hitInfo.collision_->GetCollisionGroup() == ComponentCollision::CollisionGroup::ENEMY_WEAPON) {
+        auto* owner = hitInfo.hit_collision_->GetOwner();
+        if(auto player = dynamic_cast<Player*>(owner)) {
+            if(!m_isHitPlayer) {
+                m_isHitPlayer = true;
+                player->GetHit(30);
+            }
+        }
+    }
+
     Super::OnHit(hitInfo);
 }
 
@@ -220,6 +231,7 @@ void Boss::SelectCombo() {
     float angle    = GetDegreeToPosition(m_pPlayer.lock()->GetTranslate());
     if(distance < 50 && angle < 50) {
         ChangeState(BossState::ATTACK);
+        SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 50);
         m_bossCombo = BossCombo::COMBO5;
         m_combo     = 1;
     } else if(distance < 50 && angle > 140) {
@@ -259,6 +271,7 @@ void Boss::AttackAnimation(std::string animName, AnimInfo animInfo, std::vector<
     }
     if(m_currAnimTime > animInfo.animCutInTime) {
         m_combo++;
+        m_isHitPlayer = false;
     }
 }
 
@@ -301,8 +314,9 @@ void Boss::BackflipPunch() {
         AttackAnimation(STR(BossAnim::DOUBLE_PUNCH), m_animList[STR(BossAnim::DOUBLE_PUNCH)],
                         {m_pLeftHandBox.lock(), m_pRightHandBox.lock()});
         if(m_currAnimTime < m_animList[STR(BossAnim::DOUBLE_PUNCH)].triggerStartTime) {
-            vec *= -2.0f * GetDeltaTime60();
+            vec *= -2.7f * GetDeltaTime60();
             AddTranslate(vec);
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 10);
         }
         break;
     default:
@@ -317,7 +331,7 @@ void Boss::GetHit(int damage) {
 
     if(m_pHP.lock()->GetHP() > 0) {
         //pModel.lock()->PlayAnimation("getHit", false, 0.25f);
-        ChangeState(BossState::GET_HIT);
+        //ChangeState(BossState::GET_HIT);
         //animCheck = AnimCheck::GETTING_HIT;
         //isBusy    = true;
     } else {
