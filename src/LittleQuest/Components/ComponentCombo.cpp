@@ -8,6 +8,18 @@ void ComponentCombo::Init() {
 void ComponentCombo::Update() {
     Super::Update();
 
+    if(m_comboPauseTimer > 0) {
+        m_comboPauseTimer -= GetDeltaTime60();
+    } else {
+        m_comboTimer -= GetDeltaTime60();
+    }
+
+    if(m_comboTimer <= 0) {
+        m_currCombo -= GetDeltaTime60();
+    }
+
+    m_currCombo = std::max(0.0f, m_currCombo);
+
     if(m_currCombo < 10) {
         m_comboColor = COMBO_BUFF_0;
     } else if(m_currCombo < 20) {
@@ -17,23 +29,22 @@ void ComponentCombo::Update() {
     } else {
         m_comboColor = COMBO_BUFF_3;
     }
-
-    m_currCombo = std::min(m_currCombo, MAX_COMBO);
 }
 
-void ComponentCombo::Draw() {
-    Super::Draw();
+void ComponentCombo::DrawComboBar() {
     int screenWidth, screenHeight;
     GetScreenState(&screenWidth, &screenHeight, nullptr);
 
-    int posX  = screenWidth * 0.05;
-    int posY  = screenHeight * 0.08;
-    int posX2 = screenWidth * 0.2;
-    int posY2 = screenHeight * 0.1;
-    DrawBox(posX - 2, posY - 2, posX2 + 2, posY2 + 2, GetColor(0, 0, 0), FALSE);
+    int posX  = (int)(screenWidth * 0.05);
+    int posY  = (int)(screenHeight * 0.08);
+    int posX2 = (int)(screenWidth * 0.2);
+    int posY2 = (int)(screenHeight * 0.1);
+    DrawBoxAA(posX - 2.0f, posY - 2.0f, posX2 + 2.0f, posY2 + 2.0f, GetColor(255, 255, 255), FALSE, 2.0f);
     DrawFillBox(posX, posY, (int)(posX + ((m_currCombo / MAX_COMBO) * (posX2 - posX))), posY2, m_comboColor);
-    DrawLine((int)(posX + (posX2 - posX) * 0.33f), posY, (int)(posX + (posX2 - posX) * 0.33f), posY2, GetColor(0, 0, 0), 2);
-    DrawLine((int)(posX + (posX2 - posX) * 0.66f), posY, (int)(posX + (posX2 - posX) * 0.66f), posY2, GetColor(0, 0, 0), 2);
+    DrawLine((int)(posX + (posX2 - posX) * 0.33f), posY, (int)(posX + (posX2 - posX) * 0.33f), posY2, GetColor(255, 255, 255),
+             2);
+    DrawLine((int)(posX + (posX2 - posX) * 0.66f), posY, (int)(posX + (posX2 - posX) * 0.66f), posY2, GetColor(255, 255, 255),
+             2);
 }
 
 void ComponentCombo::GUI() {
@@ -41,7 +52,11 @@ void ComponentCombo::GUI() {
 }
 
 void ComponentCombo::AddCombo() {
-    ++m_currCombo;
+    if(m_currCombo < MAX_COMBO) {
+        ++m_currCombo;
+    }
+    m_comboTimer      = COMBO_TIMER;
+    m_comboPauseTimer = COMBO_PUASE;
 }
 
 float ComponentCombo::ComboBuff() {

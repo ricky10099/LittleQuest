@@ -23,56 +23,69 @@ BossPtr Boss::Create(const float3& pos) {
     pBoss->SetMatrix(HelperLib::Math::CreateMatrixByFrontVector({0, 0, 1}));
     pBoss->SetTranslate(pos);
 
-    pBoss->m_spawnPos = pos;
-    //pBoss->m_spawnPos.y = 0;
-
     return pBoss;
 }
 bool Boss::Init() {
     m_pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/MawJLaygo/MawJLaygo.mv1");
-    m_pModel.lock()->SetScaleAxisXYZ({0.2f});
+    m_pModel.lock()->SetScaleAxisXYZ({0.15f});
     m_pModel.lock()->SetAnimation({
         {       STR(BossState::IDLE),           "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
         {                     "Walk",        "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 1.0f},
         {                      "Run",            "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
-        {        STR(BossAnim::SWIP),        "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
+        {  STR(BossState::TURN_LEFT),       "data/LittleQuest/Anim/MutantSet/MutantLeftTurn.mv1", 0, 2.0f},
+        { STR(BossState::TURN_RIGHT),      "data/LittleQuest/Anim/MutantSet/MutantRightTurn.mv1", 0, 2.0f},
+        { STR(BossAnim::SWIP_ATTACK),        "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
         {       STR(BossAnim::PUNCH),          "data/LittleQuest/Anim/MutantSet/MutantPunch.mv1", 0, 1.0f},
         { STR(BossAnim::JUMP_ATTACK),     "data/LittleQuest/Anim/MutantSet/MutantJumpAttack.mv1", 0, 1.0f},
         {    STR(BossAnim::BACKFLIP),                       "data/LittleQuest/Anim/Backflip.mv1", 0, 1.0f},
         {STR(BossAnim::DOUBLE_PUNCH), "data/LittleQuest/Anim/MutantSet/MutantFlexingMuscles.mv1", 0, 1.0f},
+        {      STR(BossAnim::CHARGE),            "data/LittleQuest/Anim/MutantSet/Battlecry.mv1", 0, 1.0f},
         {        STR(BossAnim::ROAR),        "data/LittleQuest/Anim/MutantSet/MutantRoaring.mv1", 0, 1.0f},
-        {       STR(BossAnim::TAUNT),                "data/LittleQuest/Anim/MutantSet/Taunt.mv1", 0, 1.0f},
-        {    STR(BossState::GET_HIT),                      "data/LittleQuest/Anim/HitToBody.mv1", 0, 2.0f},
+        {  STR(BossAnim::TAUNT_ANIM),                "data/LittleQuest/Anim/MutantSet/Taunt.mv1", 0, 1.0f},
+        {    STR(BossState::GET_HIT),             "data/LittleQuest/Anim/MutantSet/HeavyHit.mv1", 0, 1.0f},
         {                      "Die",          "data/LittleQuest/Anim/MutantSet/MutantDying.mv1", 0, 1.0f}
     });
-    m_pModel.lock()->PlayAnimation("Idle", true);
+    m_pModel.lock()->PlayAnimation(STR(BossState::IDLE), true);
     SetAnimList();
+
+    //m_RoarEffect = LoadEffekseerEffect("data/Pierre01/MonsterRoar.efk", 5.0f);
+    m_powerUpEffect = LoadEffekseerEffect("data/LittleQuest/Effect/PowerUp.efk", 20.0f);
+    //m_angryEffect   = LoadEffekseerEffect("data/LittleQuest/Effect/Angry1.efk", 10.0f);
 
     m_pBodyBox = AddComponent<ComponentCollisionCapsule>();
     m_pBodyBox.lock()->SetTranslate({0, 0, -4});
     m_pBodyBox.lock()->UseGravity();
-    m_pBodyBox.lock()->SetHeight(35);
+    m_pBodyBox.lock()->SetHeight(30);
     m_pBodyBox.lock()->SetRadius(6.5);
     m_pBodyBox.lock()->SetMass(100.0f);
     m_pBodyBox.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY);
 
     m_pLeftHandBox = AddComponent<ComponentCollisionCapsule>();
     m_pLeftHandBox.lock()->AttachToModel("mixamorig:LeftHand");
-    m_pLeftHandBox.lock()->SetTranslate({0, -25, 0});
+    m_pLeftHandBox.lock()->SetTranslate({0, -50, 0});
     m_pLeftHandBox.lock()->SetHeight(15.0f);
-    m_pLeftHandBox.lock()->SetRadius(3.0f);
+    m_pLeftHandBox.lock()->SetRadius(7.4f);
     m_pLeftHandBox.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
     m_pLeftHandBox.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
     m_pLeftHandBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
 
     m_pRightHandBox = AddComponent<ComponentCollisionCapsule>();
     m_pRightHandBox.lock()->AttachToModel("mixamorig:RightHand");
-    m_pRightHandBox.lock()->SetTranslate({0, -25, 0});
+    m_pRightHandBox.lock()->SetTranslate({0, -50, 0});
     m_pRightHandBox.lock()->SetHeight(15.0f);
-    m_pRightHandBox.lock()->SetRadius(3.0f);
+    m_pRightHandBox.lock()->SetRadius(7.4f);
     m_pRightHandBox.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
     m_pRightHandBox.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
     m_pRightHandBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
+
+    //m_pRoarBox = AddComponent<ComponentCollisionCapsule>();
+    //m_pRoarBox.lock()->AttachToModel("mixamorig:Head");
+    //m_pRoarBox.lock()->SetTranslate({0, -110, -115});
+    //m_pRoarBox.lock()->SetHeight(35.0f);
+    //m_pRoarBox.lock()->SetRadius(15.0f);
+    //m_pRoarBox.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
+    //m_pRoarBox.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
+    //m_pRoarBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
 
     m_pHP = AddComponent<ComponentHP>();
     m_pHP.lock()->SetType(ComponentHP::HP_TYPE::BOSS);
@@ -82,14 +95,51 @@ bool Boss::Init() {
     m_state     = BossState::IDLE;
     m_pPlayer   = Scene::GetObjectPtr<Player>("Player");
 
+    srand((unsigned)time(NULL));
+
     return Super::Init();
 }
 
 void Boss::Update() {
-    if(m_bossCombo == BossCombo::NONE && m_state != BossState::WAIT) {
-        SelectCombo();
+    switch(m_sceneState) {
+    case Scene::SceneState::TRANS_IN:
+        TransInAction();
+        break;
+    case Scene::SceneState::GAME:
+        GameAction();
+        break;
+    case Scene::SceneState::TRANS_OUT:
+        break;
+    }
+}
+
+void Boss::GameAction() {
+    //if (IsEffekseer3DEffectPlaying(m_RoarPlaying) == -1) {
+    //    m_RoarPlaying = PlayEffekseer3DEffect(m_RoarEffect);
+    //    SetPosPlayingEffekseer3DEffect(m_RoarPlaying, m_pRoarBox.lock()->GetWorldMatrix().translate().x,
+    //                                   m_pRoarBox.lock()->GetWorldMatrix().translate().y,
+    //                                   m_pRoarBox.lock()->GetWorldMatrix().translate().z);
+    //    SetColorPlayingEffekseer3DEffect(m_RoarPlaying, 255, 0, 0, 255);
+    //    SetRotationPlayingEffekseer3DEffect(m_RoarPlaying, 0, 90, 0);
+    //}
+    //return;
+    if(m_damageTimer > 0) {
+        m_damageTimer -= GetDeltaTime60();
+    } else {
+        m_damageCount = 0;
     }
 
+    if(m_bossCombo == BossCombo::NONE && m_state == BossState::IDLE) {
+        if(!m_isAngry) {
+            SelectAction();
+        } else {
+            SelectAngryAction();
+        }
+
+        if(m_pHP.lock()->GetHPRate() < 50.0f && !m_isAngry) {
+            ChangeState(BossState::ANGRY);
+        }
+    }
     switch(m_state) {
     case BossState::IDLE:
         m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE));
@@ -100,70 +150,63 @@ void Boss::Update() {
     case BossState::WAIT:
         Wait();
         break;
+    case BossState::TURN_LEFT:
+        m_pModel.lock()->PlayAnimationNoSame(STR(BossState::TURN_LEFT));
+        if(!m_pModel.lock()->IsPlaying()) {
+            ChangeState(BossState::WAIT);
+        } else {
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 1);
+        }
+        break;
+    case BossState::TURN_RIGHT:
+        m_pModel.lock()->PlayAnimationNoSame(STR(BossState::TURN_RIGHT));
+        if(!m_pModel.lock()->IsPlaying()) {
+            ChangeState(BossState::WAIT);
+        } else {
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 1);
+        }
+        break;
+    case BossState::CHASE:
+        ChasePlayer();
+        break;
+    case BossState::ANGRY:
+        PowerUp();
+        break;
+    case BossState::GET_HIT:
+        Damaging();
+        break;
     }
-    //m_pModel.lock()->GetNodeMatrix("mixamorigs::Hip")._11_12_13;
-    //m_pBody.lock()->SetTranslate(m_pModel.lock()->GetNodePosition("mixamorig:Hips"));
-    //if (!m_pModel.lock()->IsPlaying()) {
-    //SetTranslate(m_pModel.lock()->GetNodePosition("mixamorig:Hips"));
-    //}
-    //if(isDead) {
-    //    destroyTimer -= deltaTime;
-    //    return;
-    //}
-
-    //if(state != BossState::ATTACK && state != BossState::GET_HIT) {
-    //    if(!FindPlayer() && state != BossState::GIVE_UP && state != BossState::WAIT) {
-    //        if(!patrolPoint.empty()) {
-    //            ChangeState(BossState::PATROL);
-    //        } else {
-    //            ChangeState(BossState::IDLE);
-    //        }
-    //    }
-    //}
-
-    //float3 move;
-
-    //switch(state) {
-    //case BossState::GET_HIT:
-    //    if(!pModel.lock()->IsPlaying()) {
-    //        ChangeState(BossState::IDLE);
-    //        //isBusy    = false;
-    //    }
-    //    break;
-    //case BossState::GIVE_UP:
-    //    BackToInitialPosition(move);
-    //    break;
-    //case BossState::CHASING:
-    //    ChasePlayer(move);
-    //    break;
-    //case BossState::ATTACK:
-    //    Attack();
-    //    break;
-    //case BossState::WAIT:
-    //    Waiting(deltaTime);
-    //    break;
-    //case BossState::PATROL:
-    //    Patrol(move);
-    //    break;
-    //case BossState::IDLE:
-    //    Idle();
-    //    break;
-    //}
-
-    //move *= speedBase * speedFactor * GetDeltaTime60();
-    //AddTranslate(move);
 }
 
-// 基本描画の後に処理します
+void Boss::TransInAction() {
+    switch(m_state) {
+    case BossState::IDLE:
+        m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE));
+        break;
+    case BossState::TAUNT:
+        Taunt();
+    }
+}
+
 void Boss::LateDraw() {
     if(Scene::IsEdit()) {
         printfDx("\ncombo:%i", m_combo);
         printfDx("\nAnim:%i", m_anim);
-        printfDx("\nwait time:%f", m_waitTime);
+        printfDx("\nAnimName :%s", m_pModel.lock()->GetPlayAnimationName().data());
+        printfDx("\nwait time:%f", m_waitFor);
         printfDx("\nangle:%f", GetDegreeToPosition(m_pPlayer.lock()->GetTranslate()));
+        printfDx("\nDistance: %f", GetDistance(m_pPlayer.lock()->GetTranslate(), GetTranslate()));
+        printfDx("\nDamageCount : %i", m_damageCount);
     }
-
-    m_pHP.lock()->DrawHPBar();
+    switch(m_sceneState) {
+    case Scene::SceneState::TRANS_IN:
+        break;
+    case Scene::SceneState::GAME:
+        m_pHP.lock()->DrawHPBar();
+        break;
+    case Scene::SceneState::TRANS_OUT:
+        break;
+    }
 }
 
 void Boss::GUI() {
@@ -171,7 +214,7 @@ void Boss::GUI() {
 }
 
 void Boss::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
-    if(hitInfo.collision_->GetCollisionGroup() == ComponentCollision::CollisionGroup::ENEMY_WEAPON) {
+    if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::ENEMY_WEAPON) {
         auto* owner = hitInfo.hit_collision_->GetOwner();
         if(auto player = dynamic_cast<Player*>(owner)) {
             if(!m_isHitPlayer) {
@@ -190,53 +233,174 @@ void Boss::Wait() {
     m_bossCombo = BossCombo::NONE;
     m_combo     = 0;
     m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE), true, 0.3f);
-    m_waitTime -= GetDeltaTime60();
+    m_waitFor -= GetDeltaTime60();
 
-    if(m_waitTime <= 0.0f) {
+    if(m_waitFor <= 0.0f || (m_pHP.lock()->GetHPRate() < 50.0f && !m_isAngry)) {
         ChangeState(BossState::IDLE);
     }
 }
 
-bool Boss::FindPlayer() {
-    return false;
+void Boss::ChasePlayer() {
+    float3 move     = m_pPlayer.lock()->GetTranslate() - this->GetTranslate();
+    float  distance = GetDistance(move);
+
+    m_pModel.lock()->PlayAnimationNoSame("Walk", true);
+
+    if(distance > 0) {
+        move = normalize(move);
+        SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 10);
+        move *= 0.5f * GetDeltaTime60();
+        AddTranslate(move);
+    }
+
+    if(distance < CLOSE_DISTANCE) {
+        ChangeState(BossState::IDLE);
+    }
 }
 
-void Boss::ChasePlayer(float3& move) {
-    //auto pos = GetTranslate();
-    //move     = pPlayer.lock()->GetTranslate() - pos;
+void Boss::SelectAction() {
+    float  distance  = GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate());
+    float  angle     = GetDegreeToPosition(m_pPlayer.lock()->GetTranslate());
+    int    random    = rand() % 100 + 1;
+    float3 front     = GetMatrix().axisZ() - GetTranslate();
+    float  dotPlayer = VDot(cast(front), cast(m_pPlayer.lock()->GetTranslate()));
 
-    //if(GetDistance(move) < 6.0f) {
-    //    ChangeState(BossState::ATTACK);
-    //    //isBusy = true;
-    //    move = {0, 0, 0};
-    //    return;
-    //}
-
-    //pModel.lock()->PlayAnimationNoSame("run", true);
-
-    //if(GetDistance(move) > 0) {
-    //    move = normalize(move);
-
-    //    float x     = -move.x;
-    //    float z     = -move.z;
-    //    float theta = atan2(x, z) * RadToDeg;
-
-    //    SetRotationAxisXYZ({0, theta, 0});
-    //    speedFactor = runVal;
-    //}
-}
-
-void Boss::SelectCombo() {
-    float distance = GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate());
-    float angle    = GetDegreeToPosition(m_pPlayer.lock()->GetTranslate());
-    if(distance < 50 && angle < 50) {
+    if(angle >= FRONT_ANGLE && angle <= BACK_ANGLE) {
+        if(dotPlayer < 0) {
+            ChangeState(BossState::TURN_RIGHT);
+        } else {
+            ChangeState(BossState::TURN_LEFT);
+        }
+    } else if(distance < TOO_CLOSE_DISTANCE && angle < FRONT_ANGLE) {
         ChangeState(BossState::ATTACK);
-        SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 50);
-        m_bossCombo = BossCombo::COMBO5;
+        if(random <= 35) {
+            m_bossCombo = BossCombo::BACKFLIP_PUNCH;
+        } else if(random <= 70) {
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 30);
+            m_bossCombo = BossCombo::SWIP;
+        } else if(random <= 80) {
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 50);
+            m_bossCombo = BossCombo::COMBO5;
+        } else {
+            if(dotPlayer < 0) {
+                ChangeState(BossState::TURN_RIGHT);
+            } else {
+                ChangeState(BossState::TURN_LEFT);
+            }
+        }
+        m_combo = 1;
+    } else if(distance < CLOSE_DISTANCE && angle < FRONT_ANGLE) {
+        ChangeState(BossState::ATTACK);
+        if(random <= 30) {
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 50);
+            m_bossCombo = BossCombo::COMBO5;
+        } else if(random <= 90) {
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 30);
+            m_bossCombo = BossCombo::SWIP;
+        } else {
+            if(dotPlayer < 0) {
+                ChangeState(BossState::TURN_RIGHT);
+            } else {
+                ChangeState(BossState::TURN_LEFT);
+            }
+        }
+        m_combo = 1;
+    } /* else if(distance < MIDDLE_DISTANCE && angle < 60) {
+        if(random <= 10) {
+            ChangeState(BossState::ATTACK);
+            m_bossCombo = BossCombo::ROAR_ATTACK;
+            m_combo     = 1;
+        } else if(random <= 50 && angle > 30) {
+            if(dotPlayer < 0) {
+                ChangeState(BossState::TURN_RIGHT);
+            } else {
+                ChangeState(BossState::TURN_LEFT);
+            }
+        } else {
+            ChangeState(BossState::CHASE);
+        }
+    }*/
+    else if(distance < MIDDLE_DISTANCE && angle > BACK_ANGLE) {
+        if(random <= 30) {
+            ChangeState(BossState::ATTACK);
+            m_bossCombo = BossCombo::BACKFLIP_PUNCH;
+            m_combo     = 1;
+        } else {
+            if(dotPlayer < 0) {
+                ChangeState(BossState::TURN_RIGHT);
+            } else {
+                ChangeState(BossState::TURN_LEFT);
+            }
+        }
+    } else if(distance >= CLOSE_DISTANCE && distance <= FAR_DISTANCE) {
+        ChangeState(BossState::CHASE);
+    } else if(distance > FAR_DISTANCE) {
+        ChangeState(BossState::ATTACK);
+        SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
+        m_bossCombo = BossCombo::CHARGE_PUNCH;
         m_combo     = 1;
-    } else if(distance < 50 && angle > 140) {
+    }
+}
+
+void Boss::SelectAngryAction() {
+    float  distance  = GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate());
+    float  angle     = GetDegreeToPosition(m_pPlayer.lock()->GetTranslate());
+    int    random    = rand() % 100 + 1;
+    float3 front     = GetMatrix().axisZ() - GetTranslate();
+    float  dotPlayer = VDot(cast(front), cast(m_pPlayer.lock()->GetTranslate()));
+
+    if(angle >= FRONT_ANGLE && angle <= BACK_ANGLE) {
+        if(dotPlayer < 0) {
+            ChangeState(BossState::TURN_RIGHT);
+        } else {
+            ChangeState(BossState::TURN_LEFT);
+        }
+    } else if(distance < TOO_CLOSE_DISTANCE && angle < FRONT_ANGLE) {
         ChangeState(BossState::ATTACK);
-        m_bossCombo = BossCombo::BACKFLIP_PUNCH;
+        if(random <= 60) {
+            m_bossCombo = BossCombo::BACKFLIP_PUNCH;
+        } else if(random <= 90) {
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 50);
+            m_bossCombo = BossCombo::COMBO5;
+        } else {
+            if(dotPlayer < 0) {
+                ChangeState(BossState::TURN_RIGHT);
+            } else {
+                ChangeState(BossState::TURN_LEFT);
+            }
+        }
+        m_combo = 1;
+    } else if(distance < CLOSE_DISTANCE && angle < FRONT_ANGLE) {
+        ChangeState(BossState::ATTACK);
+        if(random <= 75) {
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 50);
+            m_bossCombo = BossCombo::COMBO5;
+        } else {
+            if(dotPlayer < 0) {
+                ChangeState(BossState::TURN_RIGHT);
+            } else {
+                ChangeState(BossState::TURN_LEFT);
+            }
+        }
+        m_combo = 1;
+    } else if(distance < MIDDLE_DISTANCE && angle > BACK_ANGLE) {
+        if(random <= 90) {
+            ChangeState(BossState::ATTACK);
+            m_bossCombo = BossCombo::BACKFLIP_PUNCH;
+            m_combo     = 1;
+        } else {
+            if(dotPlayer < 0) {
+                ChangeState(BossState::TURN_RIGHT);
+            } else {
+                ChangeState(BossState::TURN_LEFT);
+            }
+        }
+    } else if(distance >= CLOSE_DISTANCE && distance <= FAR_DISTANCE) {
+        ChangeState(BossState::CHASE);
+    } else if(distance > FAR_DISTANCE) {
+        ChangeState(BossState::ATTACK);
+        SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
+        m_bossCombo = BossCombo::CHARGE_PUNCH;
         m_combo     = 1;
     }
 }
@@ -249,27 +413,36 @@ void Boss::Attack() {
     case BossCombo::BACKFLIP_PUNCH:
         BackflipPunch();
         break;
+    case BossCombo::CHARGE_PUNCH:
+        ChargePunch();
+        break;
+    case BossCombo::SWIP:
+        Swip();
+        break;
+        //case BossCombo::ROAR_ATTACK:
+        //    RoarAttack();
+        //    break;
     }
 }
 
-void Boss::AttackAnimation(std::string animName, AnimInfo animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol) {
+void Boss::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol) {
     if(m_pModel.lock()->GetPlayAnimationName() != animName) {
         m_pModel.lock()->PlayAnimationNoSame(animName, false, 0.2F, animInfo.animStartTime);
         m_pModel.lock()->SetAnimationSpeed(animInfo.animStartSpeed);
     }
     m_currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
-    if(m_currAnimTime > animInfo.triggerStartTime) {
+    if(m_currAnimTime >= animInfo.triggerStartTime) {
         m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
         for(int i = 0; i < atkCol.size(); i++) {
             atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
         }
     }
-    if(m_currAnimTime > animInfo.triggerEndTime) {
+    if(m_currAnimTime >= animInfo.triggerEndTime) {
         for(int i = 0; i < atkCol.size(); i++) {
             atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
         }
     }
-    if(m_currAnimTime > animInfo.animCutInTime) {
+    if(m_currAnimTime >= animInfo.animCutInTime) {
         m_combo++;
         m_isHitPlayer = false;
     }
@@ -278,19 +451,25 @@ void Boss::AttackAnimation(std::string animName, AnimInfo animInfo, std::vector<
 void Boss::Combo5() {
     switch(m_combo) {
     case 1:
-        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::SWIP)], {m_pLeftHandBox.lock()});
+        AttackAnimation(STR(BossAnim::SWIP_ATTACK), m_animList[STR(BossAnim::SWIP_ATTACK)], {m_pLeftHandBox.lock()});
         break;
     case 3:
     case 5:
-        AttackAnimation(STR(BossAnim::SWIP), m_animList[STR(BossAnim::QUICK_SWIP)], {m_pLeftHandBox.lock()});
+        if(m_isAngry) {
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 30);
+        }
+        AttackAnimation(STR(BossAnim::SWIP_ATTACK), m_animList[STR(BossAnim::QUICK_SWIP)], {m_pLeftHandBox.lock()});
         break;
     case 2:
     case 4:
+        if(m_isAngry) {
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 30);
+        }
         AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::QUICK_PUNCH)], {m_pRightHandBox.lock()});
         break;
     default:
         ChangeState(BossState::WAIT);
-        m_waitTime = 60.0f;
+        m_waitFor = m_waitTime;
         break;
     }
 }
@@ -314,24 +493,158 @@ void Boss::BackflipPunch() {
         AttackAnimation(STR(BossAnim::DOUBLE_PUNCH), m_animList[STR(BossAnim::DOUBLE_PUNCH)],
                         {m_pLeftHandBox.lock(), m_pRightHandBox.lock()});
         if(m_currAnimTime < m_animList[STR(BossAnim::DOUBLE_PUNCH)].triggerStartTime) {
-            vec *= -2.7f * GetDeltaTime60();
+            float distance = GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate());
+            vec *= distance * -0.25f * GetDeltaTime60();
             AddTranslate(vec);
             SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 10);
         }
         break;
     default:
         ChangeState(BossState::WAIT);
-        m_waitTime = 60.0f;
+        m_waitFor = m_waitTime;
         break;
+    }
+}
+
+void Boss::ChargePunch() {
+    auto   pos = GetTranslate();
+    float3 vec = GetMatrix().axisZ();
+    vec.y      = 0;
+    switch(m_combo) {
+    case 1:
+        AttackAnimation(STR(BossAnim::CHARGE), m_animList[STR(BossAnim::CHARGE)]);
+        break;
+    case 2:
+        AttackAnimation(STR(BossAnim::DOUBLE_PUNCH), m_animList[STR(BossAnim::DOUBLE_PUNCH)],
+                        {m_pLeftHandBox.lock(), m_pRightHandBox.lock()});
+        if(m_currAnimTime < m_animList[STR(BossAnim::DOUBLE_PUNCH)].triggerStartTime) {
+            float distance = GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate());
+            vec *= distance * -0.25f * GetDeltaTime60();
+            AddTranslate(vec);
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 10);
+        }
+        break;
+    default:
+        ChangeState(BossState::WAIT);
+        m_waitFor = m_waitTime;
+        break;
+    }
+}
+
+void Boss::Swip() {
+    float distance;
+    switch(m_combo) {
+    case 1:
+        AttackAnimation(STR(BossAnim::SWIP_ATTACK), m_animList[STR(BossAnim::SWIP_ATTACK)], {m_pLeftHandBox.lock()});
+        break;
+    case 2:
+        distance = GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate());
+        if(distance < 50) {
+            AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::PUNCH)], {m_pRightHandBox.lock()});
+        }
+        break;
+    default:
+        ChangeState(BossState::WAIT);
+        m_waitFor = m_waitTime;
+        break;
+    }
+}
+
+void Boss::Punch() {}
+
+//void Boss::RoarAttack() {
+//    switch(m_combo) {
+//    case 1:
+//
+//        AttackAnimation(STR(BossAnim::ROAR), m_animList[STR(BossAnim::ROAR)], {m_pRoarBox.lock()});
+//        m_playingEffect = PlayEffekseer3DEffect(m_RoarEffect);
+//        SetPosPlayingEffekseer3DEffect(m_playingEffect, m_pRoarBox.lock()->GetWorldMatrix().translate().x,
+//                                       m_pRoarBox.lock()->GetWorldMatrix().translate().y + 17.0f,
+//                                       m_pRoarBox.lock()->GetWorldMatrix().translate().z + 12.0f);
+//        if(IsEffekseer3DEffectPlaying(m_playingEffect) == -1) {
+//            m_playingEffect = PlayEffekseer3DEffect(m_RoarEffect);
+//            auto   attach_frame  = MV1SearchFrame(m_pModel.lock()->GetModel(), "mixamorig:Head");
+//            auto   right_arm_mat = MV1GetFrameLocalWorldMatrix(m_pModel.lock()->GetModel(), attach_frame);
+//            float3 effect_pos    = mul(float4(GetTranslate(), 1.0f), cast(right_arm_mat)).xyz;
+//            //SetPosPlayingEffekseer3DEffect(m_playingEffect, m_pRoarBox.lock()->GetWorldMatrix().translate().x,
+//            //                               m_pRoarBox.lock()->GetWorldMatrix().translate().y + 17.0f,
+//            //                               m_pRoarBox.lock()->GetWorldMatrix().translate().z + 12.0f);
+//            SetPosPlayingEffekseer3DEffect(m_playingEffect, effect_pos.x, effect_pos.y, effect_pos.z);
+//            //SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0,
+//            //                                    0, m_pRoarBox.lock()->GetRotationAxisXYZ().z);
+//        }
+//        break;
+//    default:
+//        ChangeState(BossState::WAIT);
+//        m_waitFor = m_waitTime;
+//        break;
+//    }
+//}
+
+void Boss::Taunt() {
+    switch(m_combo) {
+    case 1:
+        AttackAnimation(STR(BossAnim::TAUNT_ANIM), m_animList[STR(BossAnim::TAUNT_ANIM)]);
+        break;
+    default:
+        ChangeState(BossState::IDLE);
+        break;
+    }
+}
+
+void Boss::PowerUp() {
+    m_pModel.lock()->PlayAnimationNoSame(STR(BossAnim::CHARGE));
+    m_currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
+    if(m_currAnimTime > m_animList[STR(BossAnim::ANGRY_AURA)].triggerStartTime) {
+        m_pModel.lock()->SetAnimationSpeed(m_animList[STR(BossAnim::ANGRY_AURA)].animSpeed);
+        if(m_pAngryBox.expired()) {
+            m_pAngryBox = AddComponent<ComponentCollisionSphere>();
+            m_pAngryBox.lock()->SetTranslate({0, 0, 0});
+            m_pAngryBox.lock()->SetRadius(20.0f);
+            m_pAngryBox.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
+            m_pAngryBox.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
+            m_pAngryBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
+        }
+
+        if(IsEffekseer3DEffectPlaying(m_playingEffect) == -1 && !m_isAngry) {
+            m_isAngry       = true;
+            m_playingEffect = PlayEffekseer3DEffect(m_powerUpEffect);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x, GetTranslate().y, GetTranslate().z);
+        }
+    }
+    if(m_currAnimTime > m_animList[STR(BossAnim::ANGRY_AURA)].triggerEndTime) {
+        if(!m_pAngryBox.expired()) {
+            RemoveComponent(m_pAngryBox.lock());
+            m_pAngryBox.reset();
+        }
+    }
+    if(m_currAnimTime > m_animList[STR(BossAnim::ANGRY_AURA)].animCutInTime) {
+        m_combo++;
+        m_isHitPlayer = false;
+    }
+
+    m_waitTime = ANGRY_WAIT;
+
+    if(!m_pModel.lock()->IsPlaying()) {
+        ChangeState(BossState::WAIT);
+        m_waitFor = m_waitTime;
     }
 }
 
 void Boss::GetHit(int damage) {
     m_pHP.lock()->TakeDamage(damage);
+    m_damageCount += damage;
 
-    if(m_pHP.lock()->GetHP() > 0) {
+    if(m_damageTimer <= 0) {
+        m_damageTimer = DAMAGE_TIME;
+    }
+
+    if(m_damageCount > DAMAGE_CAP) {
         //pModel.lock()->PlayAnimation("getHit", false, 0.25f);
-        //ChangeState(BossState::GET_HIT);
+        ChangeState(BossState::GET_HIT);
+        m_bossCombo   = BossCombo::NONE;
+        m_combo       = 1;
+        m_damageCount = 0;
         //animCheck = AnimCheck::GETTING_HIT;
         //isBusy    = true;
     } else {
@@ -339,22 +652,52 @@ void Boss::GetHit(int damage) {
     }
 }
 
+void Boss::Damaging() {
+    switch(m_combo) {
+    case 1:
+        AttackAnimation(STR(BossState::GET_HIT), m_animList[STR(BossState::GET_HIT)]);
+        break;
+    default:
+        ChangeState(BossState::WAIT);
+        m_waitFor = m_waitTime;
+        break;
+    }
+}
+
 void Boss::Die() {}
+
+void Boss::PlayTaunt() {
+    ChangeState(BossState::TAUNT);
+    m_combo = 1;
+}
+
+bool Boss::IsPlayedTaunt() {
+    if(m_pModel.lock()->GetOldPlayAnimationName() == STR(BossAnim::TAUNT_ANIM)) {
+        ChangeState(BossState::WAIT);
+        return true;
+    }
+
+    return false;
+}
 
 void Boss::ChangeState(BossState state) {
     m_prevState   = this->m_state;
     this->m_state = state;
 }
 
+void Boss::SetSceneState(Scene::SceneState state) {
+    m_sceneState = state;
+}
+
 void Boss::SetAnimList() {
     AnimInfo info         = {};
     info.triggerStartTime = 75;
-    info.triggerEndTime   = 87;
+    info.triggerEndTime   = 83;
     info.animCutInTime    = 83;
     info.animSpeed        = 1.2f;
     info.animStartSpeed   = 2.0f;
 
-    m_animList[STR(BossAnim::SWIP)] = info;
+    m_animList[STR(BossAnim::SWIP_ATTACK)] = info;
 
     info.animStartSpeed = 1.0f;
     info.animStartTime  = 75;
@@ -366,13 +709,14 @@ void Boss::SetAnimList() {
     info.triggerStartTime = 15;
     info.triggerEndTime   = 29;
     info.animCutInTime    = 35;
-    info.animStartSpeed   = 0.5f;
-    info.animSpeed        = 0.5f;
+    info.animStartSpeed   = 1.0f;
+    info.animSpeed        = 1.0f;
 
     m_animList[STR(BossAnim::PUNCH)] = info;
 
-    info.animStartTime = 15;
-    info.animCutInTime = 20;
+    info.animStartTime  = 15;
+    info.triggerEndTime = 20;
+    info.animCutInTime  = 20;
 
     m_animList[STR(BossAnim::QUICK_PUNCH)] = info;
 
@@ -389,9 +733,45 @@ void Boss::SetAnimList() {
     info.triggerEndTime   = 134;
     info.animCutInTime    = 190;
     info.animSpeed        = 2.0f;
-    info.animStartSpeed   = 5.0f;
+    info.animStartSpeed   = 6.0f;
 
     m_animList[STR(BossAnim::DOUBLE_PUNCH)] = info;
+
+    info                  = {};
+    info.triggerStartTime = 20;
+    info.animCutInTime    = 46;
+    info.animStartSpeed   = 0.8f;
+    info.animSpeed        = 1.0f;
+
+    m_animList[STR(BossAnim::CHARGE)] = info;
+
+    info                  = {};
+    info.animStartTime    = 0;
+    info.triggerStartTime = 102;
+    info.triggerEndTime   = 171;
+    info.animCutInTime    = 172;
+
+    m_animList[STR(BossAnim::ROAR)] = info;
+
+    info                  = {};
+    info.triggerStartTime = 27;
+    info.triggerEndTime   = 105;
+    info.animCutInTime    = 170;
+    info.animStartSpeed   = 0.5f;
+
+    m_animList[STR(BossAnim::ANGRY_AURA)] = info;
+
+    info                = {};
+    info.animCutInTime  = 170;
+    info.animStartSpeed = 2.0f;
+    info.animSpeed      = 2.0f;
+
+    m_animList[STR(BossAnim::TAUNT_ANIM)] = info;
+
+    info               = {};
+    info.animCutInTime = 167;
+
+    m_animList[STR(BossState::GET_HIT)] = info;
 }
 //
 //float Boss::getDestroyTimer() {

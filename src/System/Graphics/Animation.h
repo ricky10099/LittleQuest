@@ -101,6 +101,8 @@ class Animation final {
     // アニメーションの総フレームを取得
     float GetAnimationTotalTime() const;
 
+    float GetAnimationSpeed() const;
+
     void SetAnimationSpeed(float speed);
 
     //@}

@@ -18,20 +18,25 @@ class ComponentHP: public Component {
     void Draw() override;
     void GUI() override;
 
-    void SetType(HP_TYPE type);
-    void SetHP(int HP);
-    int  GetHP();
-    void TakeDamage(int damage);
-    void DrawHPBar();
+    void  SetType(HP_TYPE type);
+    void  SetHP(int HP);
+    int   GetHP();
+    float GetHPRate();
+    void  TakeDamage(int damage);
+    void  DrawHPBar();
 
    private:
-    HP_TYPE type = HP_TYPE::MOB;
-    VECTOR  pos2D;
-    float3  pos3D;
+    const float DAMAGE_TIME = 60.0f;
 
-    int maxHP;
-    int currHP;
+    HP_TYPE m_type  = HP_TYPE::MOB;
+    VECTOR  m_pos2D = {0, 0};
+    float3  m_pos3D = {0, 0, 0};
 
+    int   m_maxHP       = 100;
+    int   m_currHP      = m_maxHP;
+    float m_backHP      = (float)m_maxHP;
+    float m_damageTimer = 0;
+    bool  m_decreasing  = false;
     //--------------------------------------------------------------------
     //! @name Cereal処理
     //--------------------------------------------------------------------

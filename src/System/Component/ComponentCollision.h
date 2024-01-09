@@ -183,7 +183,8 @@ class ComponentCollision: public Component {
 
     std::string GetCollisionGroupName() const {
 #pragma warning(disable: 26813)
-        CollisionGroup grp = collision_group_;
+        //CollisionGroup grp = collision_group_;
+        CollisionGroup grp = (CollisionGroup)collision_hit_;
 
         // この関数では「grp」はBITを前提としておらず
         // このタイプの名前を知る必要があり、もし&判定した場合、仮にビットが2つついていると

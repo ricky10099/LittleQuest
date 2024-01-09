@@ -282,9 +282,19 @@ float Animation::GetAnimationTotalTime() const {
     return contexts_[0].animation_total_time_;
 }
 
+float Animation::GetAnimationSpeed() const {
+    if(contexts_) {
+        auto& desc = descs_[contexts_[0].animation_index_];
+        return desc.animation_speed_;
+    }
+    return 1.0f;
+}
+
 void Animation::SetAnimationSpeed(float speed) {
-    auto& desc            = descs_[contexts_[0].animation_index_];
-    desc.animation_speed_ = speed;
+    if(contexts_) {
+        auto& desc            = descs_[contexts_[0].animation_index_];
+        desc.animation_speed_ = speed;
+    }
 }
 
 //---------------------------------------------------------------------------

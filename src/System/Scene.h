@@ -36,6 +36,15 @@ class Scene {
         AliveInAnotherScene,    //!< 別シーン移行でも終了しない
     };
 
+    enum SceneState {
+        LOAD,
+        TRANS_IN,
+        TRANS_OUT,
+        CUT_SCENE,
+        GAME,
+        PAUSE,
+    };
+
     //---------------------------------------------------------------------------
     // シグナル
     //---------------------------------------------------------------------------
@@ -230,6 +239,9 @@ class Scene {
 
         virtual bool Load(std::string_view filename = "");
         //@}
+
+       protected:
+        SceneState scene_state = SceneState::GAME;
 
        private:
         //! オブジェクトの指定処理を指定優先で処理するように登録する

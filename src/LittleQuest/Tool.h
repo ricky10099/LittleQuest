@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <cmath>
 
 #define STR(var) #var
 
@@ -24,4 +25,9 @@ struct AnimInfo {
     float triggerEndTime   = 0;
     float animCutInTime    = 0;
 };
+
+//float3 Lerp(float3 posA, float3 posB, float3 currPos) {
+//    float x, y, z;
+//    return posA + (currPos / (posB - posA)) * (posB - posA);
+//}
 }    // namespace

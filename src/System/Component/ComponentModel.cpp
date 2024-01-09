@@ -430,8 +430,14 @@ const float ComponentModel::GetAnimationTotalTime() {
     return 0.0f;
 }
 
+float ComponentModel::GetAnimationSpeed() const {
+    return animation_->GetAnimationSpeed();
+}
+
 void ComponentModel::SetAnimationSpeed(float speed) {
-    animation_->SetAnimationSpeed(speed);
+    if(IsPlaying()) {
+        animation_->SetAnimationSpeed(speed);
+    }
 }
 
 std::vector<std::string_view> ComponentModel::GetNodesName() {

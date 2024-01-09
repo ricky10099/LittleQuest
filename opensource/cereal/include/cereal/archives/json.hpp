@@ -1,4 +1,4 @@
-/*! \file json.hpp
+﻿/*! \file json.hpp
     \brief JSON input and output archives */
 /*
   Copyright (c) 2014, Randolph Voorhies, Shane Grant
@@ -221,12 +221,14 @@ namespace cereal
           case NodeType::StartArray:
             itsWriter.StartArray();
             // fall through
+            [[fallthrough]];
           case NodeType::InArray:
             itsWriter.EndArray();
             break;
           case NodeType::StartObject:
             itsWriter.StartObject();
             // fall through
+            [[fallthrough]];
           case NodeType::InObject:
             itsWriter.EndObject();
             break;

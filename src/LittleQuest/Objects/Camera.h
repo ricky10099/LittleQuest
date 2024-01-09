@@ -16,10 +16,13 @@ class Camera: public Object {
     void Update() override;
 
     const float3 CameraForward();
-    void         SetCameraLength(float length);
-    void         SetCameraLookTarget(ObjectWeakPtr pTarget);
+
+    void SetCameraLength(float length);
+    void SetCameraLookTarget(ObjectWeakPtr pTarget);
+    void SetCurrentCamera();
+
    private:
-    float3        m_rot{-20, 0, 0};
+    float3        m_rot{-20, -90, 0};
     ObjectWeakPtr m_pTarget;
 
     std::weak_ptr<ComponentCamera>    m_pCamera;
