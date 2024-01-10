@@ -109,6 +109,18 @@ void Boss::Update() {
         GameAction();
         break;
     case Scene::SceneState::TRANS_OUT:
+        TransOutAction();
+        break;
+    }
+}
+
+void Boss::TransInAction() {
+    switch(m_state) {
+    case BossState::IDLE:
+        m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE));
+        break;
+    case BossState::TAUNT:
+        Taunt();
         break;
     }
 }
@@ -142,7 +154,8 @@ void Boss::GameAction() {
     }
     switch(m_state) {
     case BossState::IDLE:
-        m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE));
+        //m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE));
+        Idle();
         break;
     case BossState::ATTACK:
         Attack();
@@ -181,13 +194,14 @@ void Boss::GameAction() {
     }
 }
 
-void Boss::TransInAction() {
+void Boss::TransOutAction() {
     switch(m_state) {
-    case BossState::IDLE:
-        m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE));
+    case BossState::DEAD:
+        Die();
         break;
-    case BossState::TAUNT:
-        Taunt();
+    default:
+        Idle();
+        break;
     }
 }
 
@@ -231,7 +245,9 @@ void Boss::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
     Super::OnHit(hitInfo);
 }
 
-void Boss::Idle() {}
+void Boss::Idle() {
+    m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE), true);
+}
 
 void Boss::Wait() {
     m_bossCombo = BossCombo::NONE;
@@ -672,8 +688,10 @@ void Boss::Damaging() {
 
 void Boss::Die() {
     m_pModel.lock()->PlayAnimationNoSame(STR(BossState::DEAD));
-    RemoveComponent(m_pBodyBox.lock());
-    m_pBodyBox.reset();
+    if(m_pBodyBox.lock()) {
+        RemoveComponent(m_pBodyBox.lock());
+        m_pBodyBox.reset();
+    }
 
     if(!m_pAngryBox.expired()) {
         RemoveComponent(m_pAngryBox.lock());
@@ -686,12 +704,15 @@ void Boss::PlayTaunt() {
     m_combo = 1;
 }
 
+void Boss::PlayDead() {
+    ChangeState(BossState::DEAD);
+}
+
 bool Boss::IsPlayedTaunt() {
     if(m_pModel.lock()->GetOldPlayAnimationName() == STR(BossAnim::TAUNT_ANIM)) {
         ChangeState(BossState::WAIT);
         return true;
     }
-
     return false;
 }
 
@@ -706,6 +727,7 @@ void Boss::ChangeState(BossState state) {
 
 void Boss::SetSceneState(Scene::SceneState state) {
     m_sceneState = state;
+    ChangeState(IDLE);
 }
 
 void Boss::SetAnimList() {

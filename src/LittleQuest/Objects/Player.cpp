@@ -41,7 +41,8 @@ bool Player::Init() {
         {STR(Combo::NORMAL_COMBO2),         "data/LittleQuest/Anim/AxeSet/AxeCombo2.mv1", 0, 1.0f},
         {STR(Combo::NORMAL_COMBO3), "data/LittleQuest/Anim/AxeSet/AxeAttackDownward.mv1", 0, 1.0f},
         {STR(Combo::NORMAL_COMBO4), "data/LittleQuest/Anim/AxeSet/AxeAttackBackhand.mv1", 0, 1.0f},
-        {STR(PlayerState::GET_HIT),     "data/LittleQuest/Anim/SwordSet/SwordGetHit.mv1", 0, 1.0f}
+        {STR(PlayerState::GET_HIT),     "data/LittleQuest/Anim/SwordSet/SwordGetHit.mv1", 0, 1.0f},
+        {   STR(PlayerState::DEAD),   "data/LittleQuest/Anim/KachujinSet/SwordDeath.mv1", 0, 1.0f},
     });
     m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::IDLE), true);
     SetAnimInfo();
@@ -60,7 +61,7 @@ bool Player::Init() {
     }
     m_pHP = AddComponent<ComponentHP>();
     m_pHP.lock()->SetType(ComponentHP::HP_TYPE::PLAYER);
-    m_pHP.lock()->SetHP(150);
+    m_pHP.lock()->SetHP(MAX_HP);
 
     m_pCombo = AddComponent<ComponentCombo>();
 
@@ -81,7 +82,8 @@ bool Player::Init() {
     m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
     m_pWeapon.lock()->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
 
-    m_hitEffect = LoadEffekseerEffect("data/LittleQuest/Effect/LossOfBlood.efk", 0.3f);
+    m_hitEffect   = LoadEffekseerEffect("data/LittleQuest/Effect/LossOfBlood.efk", 0.3f);
+    m_slashEffect = LoadEffekseerEffect("data/LittleQuest/Effect/SwordSlash.efk", 3.5f);
 
     m_selfMatrix  = GetMatrix();
     m_getHit      = false;
@@ -95,68 +97,84 @@ void Player::Update() {
     case Scene::SceneState::TRANS_IN:
         break;
     case Scene::SceneState::GAME:
-        m_movement = float3(0, 0, 0);
-        m_hitTimer -= GetDeltaTime60();
-        m_hitTimer = std::max(0.0f, m_hitTimer);
-
-        if(m_hitTimer <= 0 && m_isHit) {
-            m_isHit = false;
-        }
-
-        if(!m_pCamera.lock()) {
-            m_pCamera      = Scene::GetObjectPtr<Camera>("PlayerCamera");
-            m_cameraLength = m_pCamera.lock()->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
-        } else {
-            float3 v     = m_pCamera.lock()->CameraForward();
-            m_selfMatrix = HelperLib::Math::CreateMatrixByFrontVector(v);
-        }
-
-        InputHandle();
-
-        if(currCombo != Combo::NO_COMBO && m_playerState != PlayerState::ROLL) {
-            m_playerState = PlayerState::ATTACK;
-        }
-
-        if(IsFloat3Zero(m_movement) && m_playerState != PlayerState::GET_HIT && m_playerState != PlayerState::ATTACK &&
-           m_playerState != PlayerState::ROLL) {
-            m_playerState = PlayerState::IDLE;
-        }
-
-        switch(m_playerState) {
-        case PlayerState::GET_HIT:
-            if(!m_pModel.lock()->IsPlaying()) {
-                m_playerState = PlayerState::IDLE;
-            }
-            break;
-        case PlayerState::ATTACK:
-            Attack();
-            break;
-        case PlayerState::ROLL:
-            m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::ROLL));
-            currCombo = Combo::NO_COMBO;
-            if(m_pModel.lock()->IsPlaying()) {
-                m_isInvincible = true;
-                float3 vec     = m_pModel.lock()->GetMatrix().axisZ();
-                vec.y          = 0;
-                m_movement += -vec;
-                m_movement *= 15.0f * GetDeltaTime60();
-                AddTranslate(m_movement);
-            } else {
-                m_isInvincible = false;
-                m_playerState  = PlayerState::IDLE;
-            }
-            //m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::WALK), true, 0.2f, 14.0f);
-            //m_pModel.lock()->SetAnimationSpeed(GetDistance(m_movement) * 10.0f);
-            break;
-        case PlayerState::WALK:
-            Walk();
-            break;
-        default:
-            Idle();
-            break;
-        }
+        GameAction();
         break;
     case Scene::SceneState::TRANS_OUT:
+        TransOutAction();
+        break;
+    }
+}
+
+void Player::GameAction() {
+    m_movement = float3(0, 0, 0);
+    m_hitTimer -= GetDeltaTime60();
+    m_hitTimer = std::max(0.0f, m_hitTimer);
+
+    if(m_hitTimer <= 0 && m_isHit) {
+        m_isHit = false;
+    }
+
+    if(!m_pCamera.lock()) {
+        m_pCamera      = Scene::GetObjectPtr<Camera>("PlayerCamera");
+        m_cameraLength = m_pCamera.lock()->GetComponent<ComponentSpringArm>()->GetSpringArmLength();
+    } else {
+        float3 v     = m_pCamera.lock()->CameraForward();
+        m_selfMatrix = HelperLib::Math::CreateMatrixByFrontVector(v);
+    }
+
+    InputHandle();
+
+    if(currCombo != Combo::NO_COMBO && m_playerState != PlayerState::ROLL) {
+        m_playerState = PlayerState::ATTACK;
+    }
+
+    if(IsFloat3Zero(m_movement) && m_playerState != PlayerState::GET_HIT && m_playerState != PlayerState::ATTACK &&
+       m_playerState != PlayerState::ROLL) {
+        m_playerState = PlayerState::IDLE;
+    }
+
+    switch(m_playerState) {
+    case PlayerState::GET_HIT:
+        if(!m_pModel.lock()->IsPlaying()) {
+            m_playerState = PlayerState::IDLE;
+        }
+        break;
+    case PlayerState::ATTACK:
+        Attack();
+        break;
+    case PlayerState::ROLL:
+        m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::ROLL));
+        currCombo = Combo::NO_COMBO;
+        if(m_pModel.lock()->IsPlaying()) {
+            m_isInvincible = true;
+            float3 vec     = m_pModel.lock()->GetMatrix().axisZ();
+            vec.y          = 0;
+            m_movement += -vec;
+            m_movement *= 15.0f * GetDeltaTime60();
+            AddTranslate(m_movement);
+        } else {
+            m_isInvincible = false;
+            m_playerState  = PlayerState::IDLE;
+        }
+        //m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::WALK), true, 0.2f, 14.0f);
+        //m_pModel.lock()->SetAnimationSpeed(GetDistance(m_movement) * 10.0f);
+        break;
+    case PlayerState::WALK:
+        Walk();
+        break;
+    default:
+        Idle();
+        break;
+    }
+}
+
+void Player::TransOutAction() {
+    switch(m_playerState) {
+    case PlayerState::DEAD:
+        Die();
+        break;
+    default:
+        Idle();
         break;
     }
 }
@@ -223,13 +241,9 @@ void Player::GetHit(int damage) {
 
     m_pHP.lock()->TakeDamage(damage);
 
-    if(m_pHP.lock()->GetHP() > 0) {
-        m_pModel.lock()->PlayAnimation(STR(PlayerState::GET_HIT));
-        m_playerState = PlayerState::GET_HIT;
-        m_getHit      = true;
-    } else {
-        Scene::Change(Scene::GetScene<GameOverScene>());
-    }
+    m_pModel.lock()->PlayAnimation(STR(PlayerState::GET_HIT));
+    m_playerState = PlayerState::GET_HIT;
+    m_getHit      = true;
 }
 
 void Player::InputHandle() {
@@ -315,15 +329,41 @@ void Player::Attack() {
     switch(currCombo) {
     case Combo::NORMAL_COMBO1:
         AttackAnimation(STR(Combo::NORMAL_COMBO1), m_animList[STR(Combo::NORMAL_COMBO1)], Combo::NORMAL_COMBO2);
+        //if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO1)].triggerStartTime) {
+        //    m_playingEffect = PlayEffekseer3DEffect(m_slashEffect);
+        //    SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x, GetTranslate().y + 5, GetTranslate().z + 5);
+        //    SetRotationPlayingEffekseer3DEffect(m_playingEffect, -90 * DegToRad,
+        //                                        (m_pModel.lock()->GetRotationAxisXYZ().y + 80) * DegToRad,
+        //                                        0);
+        //}
         break;
     case Combo::NORMAL_COMBO2:
         AttackAnimation(STR(Combo::NORMAL_COMBO2), m_animList[STR(Combo::NORMAL_COMBO2)], Combo::NORMAL_COMBO3);
+        //if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO2)].triggerStartTime) {
+        //    m_playingEffect = PlayEffekseer3DEffect(m_slashEffect);
+        //    SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x, GetTranslate().y + 5, GetTranslate().z - 5);
+        //    SetRotationPlayingEffekseer3DEffect(m_playingEffect, 90 * DegToRad,
+        //                                        (m_pModel.lock()->GetRotationAxisXYZ().y + 120) * DegToRad,
+        //                                        0);
+        //}
         break;
     case Combo::NORMAL_COMBO3:
         AttackAnimation(STR(Combo::NORMAL_COMBO3), m_animList[STR(Combo::NORMAL_COMBO3)], Combo::NORMAL_COMBO4);
+        //if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].triggerStartTime) {
+        //    m_playingEffect = PlayEffekseer3DEffect(m_slashEffect);
+        //    SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x, GetTranslate().y, GetTranslate().z);
+        //    SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y + 90) * DegToRad,
+        //                                        0);
+        //}
         break;
     case Combo::NORMAL_COMBO4:
         AttackAnimation(STR(Combo::NORMAL_COMBO4), m_animList[STR(Combo::NORMAL_COMBO4)]);
+        //if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO4)].triggerStartTime) {
+        //    m_playingEffect = PlayEffekseer3DEffect(m_slashEffect);
+        //    SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x, GetTranslate().y, GetTranslate().z);
+        //    SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y + 90) * DegToRad,
+        //                                        0);
+        //}
         break;
     default:
         m_playerState = PlayerState::IDLE;
@@ -339,8 +379,8 @@ void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo next
         m_pModel.lock()->SetAnimationSpeed(animInfo.animStartSpeed);
         m_attackList.clear();
     }
-    float currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
-    if(currAnimTime > m_animList[animName].triggerStartTime) {
+    /*float*/ m_currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
+    if(m_currAnimTime > m_animList[animName].triggerStartTime) {
         if(m_isHit) {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0.05f);
         } else {
@@ -349,16 +389,28 @@ void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo next
         m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
         m_waitForCombo = true;
     }
-    if(currAnimTime > m_animList[animName].triggerEndTime) {
+    if(m_currAnimTime > m_animList[animName].triggerEndTime) {
         m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
     }
-    if(currAnimTime > m_animList[animName].animCutInTime) {
+    if(m_currAnimTime > m_animList[animName].animCutInTime) {
         currCombo = Combo::NO_COMBO;
         if(m_isCombo) {
             currCombo = nextCombo;
             m_isCombo = false;
         }
     }
+}
+
+void Player::Die() {
+    m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::DEAD));
+}
+
+bool Player::IsDead() {
+    return m_pHP.lock()->GetHP() <= 0;
+}
+
+void Player::PlayDead() {
+    m_playerState = PlayerState::DEAD;
 }
 
 void Player::SetModelRotation() {
@@ -373,7 +425,8 @@ void Player::SetModelRotation() {
 }
 
 void Player::SetSceneState(Scene::SceneState state) {
-    m_sceneState = state;
+    m_sceneState  = state;
+    m_playerState = PlayerState::IDLE;
 }
 
 void Player::SetAnimInfo() {

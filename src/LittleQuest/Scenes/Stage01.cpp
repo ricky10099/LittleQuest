@@ -15,6 +15,7 @@
 //#include <LittleQuest/Objects/Boss.h>
 #include <LittleQuest/Scenes/GameOverScene.h>
 #include <LittleQuest/Scenes/GameWinScene.h>
+#include <LittleQuest/Scenes/GameTitleScene.h>
 
 #include <System/Component/ComponentAttachModel.h>
 //#include <System/Component/ComponentCamera.h>
@@ -33,6 +34,15 @@ BP_CLASS_IMPL(Stage01, u8"LittleQuest/Stage01")
 //! 初期化
 //---------------------------------------------------------------------------
 bool Stage01::Init() {
+    if(AddFontResourceEx("data/LittleQuest/Fonts/MPLUSCodeLatin-Regular.ttf", FR_PRIVATE, NULL) > 0) {
+    } else {
+        MessageBox(NULL, "フォント読込失敗", "", MB_OK);
+    }
+    m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 30, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
+    GetDrawStringSizeToHandle(&m_stringWidth, &m_stringHeight, NULL, "Press any key back to Title", -1, m_fontHandle);
+    m_clearImage = LoadGraph("data/LittleQuest/Image/clear.png");
+    m_failImage  = LoadGraph("data/LittleQuest/Image/failure.png");
+
     scene_state = Scene::SceneState::TRANS_IN;
 
     // Environment
@@ -213,15 +223,26 @@ void        Stage01::Update() {
         }
         break;
     case Scene::SceneState::GAME:
-        if(m_pBoss.lock()->IsDead() && FadeOut()) {
+        if((m_pBoss.lock()->IsDead() || m_pPlayer.lock()->IsDead()) && FadeOut()) {
             scene_state = Scene::SceneState::TRANS_OUT;
             m_pPlayer.lock()->SetSceneState(scene_state);
+            m_pBoss.lock()->SetSceneState(scene_state);
             m_pPlayer.lock()->SetTranslate(PLAYER_SPAWN_POS);
             m_pBoss.lock()->SetTranslate(BOSS_SPAWN_POS);
         }
         break;
     case Scene::SceneState::TRANS_OUT:
-        if(FadeIn()) {}
+        m_pBoss.lock()->PlayDead();
+        m_pPlayer.lock()->PlayDead();
+
+        m_pCamera.lock()->SetCurrentCamera();
+        if(m_pBoss.lock()->IsDead()) {
+            m_pCamera.lock()->SetPositionAndTarget(BOSS_DEATH_CAM, m_pBoss.lock()->GetTranslate() + float3{0, 15, 0});
+            m_showImage = m_clearImage;
+        } else {
+            m_pCamera.lock()->SetPositionAndTarget(PLAYER_DEATH_CAM, m_pPlayer.lock()->GetTranslate() + float3{0, 10, 0});
+            m_showImage = m_failImage;
+        }
         break;
     }
 
@@ -268,12 +289,30 @@ void Stage01::LateDraw() {
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)m_alpha);
     DrawBox(0, 0, screen_width, screen_height, 0u, TRUE);
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
+
     switch(scene_state) {
     case Scene::SceneState::TRANS_IN:
         break;
     case Scene::SceneState::GAME:
         break;
     case Scene::SceneState::TRANS_OUT:
+        if(FadeIn()) {
+            if(ShowMessage()) {
+                DrawStringToHandle((int)((screen_width * 0.5f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.8),
+                                   "Press any key back to Title", 0xffee42, m_fontHandle, 0xffaf3f);
+                if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1)) {
+                    Scene::Change(Scene::GetScene<GameTitleScene>());
+                }
+            } else {
+                if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1)) {
+                    m_shrinkTimer = SHRINK_TIME;
+                }
+            }
+
+            DrawExtendGraph((int)(screen_width * 0.2f), (int)(screen_height * (0.0f + (0.4f * (m_shrinkTimer / SHRINK_TIME)))),
+                            (int)(screen_width * 0.8f), (int)(screen_height * (1.0f - (0.4f * (m_shrinkTimer / SHRINK_TIME)))),
+                            m_showImage, TRUE);
+        }
         break;
     }
 }
@@ -304,5 +343,12 @@ bool Stage01::FadeOut() {
     }
 
     return m_fadeTimer >= FADE_TIME;
+}
+
+bool Stage01::ShowMessage() {
+    if(m_shrinkTimer < SHRINK_TIME) {
+        m_shrinkTimer += GetDeltaTime60();
+    }
+    return m_shrinkTimer >= SHRINK_TIME;
 }
 }    // namespace LittleQuest

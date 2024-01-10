@@ -30,18 +30,28 @@ class Stage01: public Scene::Base {
 
    private:
     //std::vector<EnemyPtr> enemies;
-    const float  START_CUT_SCENE_TIME = 240;
-    const float  FADE_TIME            = 30;
+    const float  START_CUT_SCENE_TIME = 240.0f;
+    const float  FADE_TIME            = 30.0f;
+    const float  SHRINK_TIME          = 120.0f;
     const float3 CUT_SCENE_POS_1      = {130, 21, -50};
     const float3 CUT_SCENE_POS_2      = {-97, 17, -50};
     const float  FOV_1                = 140.0f;
-    const float  ORG_FOV              = 45;
+    const float  ORG_FOV              = 45.0f;
     const float3 PLAYER_SPAWN_POS     = {-50, 1, -50};
     const float3 BOSS_SPAWN_POS       = {140, 1, -50};
+    const float3 PLAYER_DEATH_CAM     = {-40, 20, -50};
+    const float3 BOSS_DEATH_CAM       = {115, 20, -50};
 
     float m_fadeTimer     = FADE_TIME;
+    float m_shrinkTimer   = 0;
     float m_cutSceneTimer = START_CUT_SCENE_TIME;
     float m_alpha         = 255;
+    int   m_clearImage    = -1;
+    int   m_failImage     = -1;
+    int   m_showImage     = -1;
+    int   m_fontHandle    = -1;
+    int   m_stringWidth   = 0;
+    int   m_stringHeight  = 0;
     bool  m_isLoading     = true;
 
     std::weak_ptr<Player>          m_pPlayer;
@@ -51,5 +61,6 @@ class Stage01: public Scene::Base {
 
     bool FadeIn();
     bool FadeOut();
+    bool ShowMessage();
 };
 }    // namespace LittleQuest

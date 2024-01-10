@@ -13,7 +13,7 @@ bool GameTitleScene::Init() {
     }
     m_image      = LoadGraph("data/LittleQuest/Image/TitleName.png");
     m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 30, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
-    GetDrawStringSizeToHandle(&m_stringWidth, &m_stringHeight, NULL, "Press any key to start", -1, m_fontHandle);
+    GetDrawStringSizeToHandle(&m_stringWidth, &m_stringHeight, NULL, "Press Enter to start", -1, m_fontHandle);
 
     {
         auto groundObj = Scene::CreateObjectPtr<Object>()->SetName("Ground");
@@ -68,7 +68,7 @@ void GameTitleScene::Update() {
             m_showString = !m_showString;
             m_elapsed60  = 1;
         }
-        if(IsKeyOn(KEY_INPUT_RETURN)) {
+        if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1)) {
             scene_state = Scene::SceneState::TRANS_OUT;
         }
         break;
@@ -91,7 +91,6 @@ void GameTitleScene::Update() {
 }
 
 void GameTitleScene::LateDraw() {
-    //int percentage = (int)((m_totalLoadCount - m_loadCount) / (float)m_totalLoadCount * 100);
     int screen_width, screen_height;
     GetScreenState(&screen_width, &screen_height, NULL);
 
@@ -99,7 +98,7 @@ void GameTitleScene::LateDraw() {
     case Scene::SceneState::GAME:
         if(m_showString) {
             DrawStringToHandle((int)((screen_width * 0.5f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.8),
-                               "Press any key to start", 0xffee42, m_fontHandle, 0xffaf3f);
+                               "Press Enter to start", 0xffee42, m_fontHandle, 0xffaf3f);
         }
 
         DrawExtendGraph((int)(screen_width * 0.1f), (int)(screen_height * 0.2f), (int)(screen_width * 0.9f),

@@ -22,9 +22,9 @@ bool show_fps     = true;     //!< FPSの表示
 bool debug_camera = false;    //!< デバッグカメラ
 bool show_debug   = true;
 #else
-bool show_gui     = true;     //!< GUIの表示
+bool show_gui     = false;    //!< GUIの表示
 bool show_grid    = false;    //!< グリッドの表示
-bool show_fps     = true;     //!< FPSの表示
+bool show_fps     = false;    //!< FPSの表示
 bool debug_camera = false;    //!< デバッグカメラ
 bool show_debug   = false;
 #endif

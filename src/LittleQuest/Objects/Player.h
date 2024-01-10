@@ -26,6 +26,8 @@ class Player: public Object {
 
     void GetHit(int damage);
     void SetSceneState(Scene::SceneState state);
+    bool IsDead();
+    void PlayDead();
 
    private:
     const float BASE_SPEED = 0.8f;
@@ -33,6 +35,7 @@ class Player: public Object {
     const float WALK_SPEED = 0.7f;
     const int   BASE_ATK   = 10;
     const float HIT_PAUSE  = 10;
+    const int   MAX_HP     = 100;
 
     enum PlayerState {
         IDLE,
@@ -41,6 +44,7 @@ class Player: public Object {
         ROLL,
         ATTACK,
         GET_HIT,
+        DEAD,
     };
     PlayerState m_playerState = PlayerState::IDLE;
 
@@ -72,6 +76,7 @@ class Player: public Object {
     float  m_speedFactor   = 1.0f;
     float  m_hitTimer      = 0;
     float  m_currAnimSpeed = 1.0f;
+    float  m_currAnimTime  = 0;
     bool   m_getHit        = false;
     bool   m_isCombo       = false;
     bool   m_waitForCombo  = false;
@@ -79,12 +84,16 @@ class Player: public Object {
     bool   m_isInvincible  = false;
     int    m_hitEffect     = -1;
     int    m_playingEffect = -1;
+    int    m_slashEffect   = -1;
 
     void InputHandle();
+    void GameAction();
+    void TransOutAction();
     void Idle();
     void Walk();
     void Jump();
     void Attack();
+    void Die();
     void AttackAnimation(std::string animName, AnimInfo animInfo, Combo nextCombo = Combo::NO_COMBO);
     void SetModelRotation();
     void SetAnimInfo();
