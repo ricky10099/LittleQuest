@@ -135,13 +135,13 @@ bool Stage01::Init() {
         //175
     }
 
-    m_pPlayer = Player::Create({-50, 1, -50});
+    m_pPlayer = Player::Create(PLAYER_SPAWN_POS);
     m_pPlayer.lock()->SetSceneState(scene_state);
 
     m_pPlayerCamera = Camera::Create(m_pPlayer.lock());
     m_pPlayerCamera.lock()->SetName("PlayerCamera");
 
-    m_pBoss = Boss::Create({140, 1, -50});
+    m_pBoss = Boss::Create(BOSS_SPAWN_POS);
     m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
     m_pBoss.lock()->SetSceneState(scene_state);
 
@@ -184,10 +184,7 @@ void        Stage01::Update() {
 
     switch(scene_state) {
     case Scene::SceneState::TRANS_IN:
-        if(m_fadeTimer > 0) {
-            m_fadeTimer -= GetDeltaTime60();
-            m_alpha = abs(m_fadeTimer / FADE_TIME) * 255;
-        } else {
+        if(FadeIn()) {
             m_pBoss.lock()->PlayTaunt();
         }
 
@@ -216,8 +213,15 @@ void        Stage01::Update() {
         }
         break;
     case Scene::SceneState::GAME:
+        if(m_pBoss.lock()->IsDead() && FadeOut()) {
+            scene_state = Scene::SceneState::TRANS_OUT;
+            m_pPlayer.lock()->SetSceneState(scene_state);
+            m_pPlayer.lock()->SetTranslate(PLAYER_SPAWN_POS);
+            m_pBoss.lock()->SetTranslate(BOSS_SPAWN_POS);
+        }
         break;
     case Scene::SceneState::TRANS_OUT:
+        if(FadeIn()) {}
         break;
     }
 
@@ -253,19 +257,19 @@ void        Stage01::Update() {
 //---------------------------------------------------------------------------
 //! 描画
 //---------------------------------------------------------------------------
+void Stage01::Draw() {}
 void Stage01::LateDraw() {
     if(Scene::IsEdit()) {
         //printfDx("\nplayed taunt: %i", m_pBoss.lock()->IsPlayedTaunt());
     }
-
     int screen_width, screen_height;
     GetScreenState(&screen_width, &screen_height, NULL);
 
+    SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)m_alpha);
+    DrawBox(0, 0, screen_width, screen_height, 0u, TRUE);
+    SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
     switch(scene_state) {
     case Scene::SceneState::TRANS_IN:
-        SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)m_alpha);
-        DrawBox(0, 0, screen_width, screen_height, 0u, TRUE);
-        SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
         break;
     case Scene::SceneState::GAME:
         break;
@@ -283,4 +287,22 @@ void Stage01::Exit() {}
 //! GUI表示
 //---------------------------------------------------------------------------
 void Stage01::GUI() {}
+
+bool Stage01::FadeIn() {
+    if(m_fadeTimer > 0) {
+        m_fadeTimer -= GetDeltaTime60();
+        m_alpha = abs(m_fadeTimer / FADE_TIME) * 255;
+    }
+
+    return m_fadeTimer <= 0;
+}
+
+bool Stage01::FadeOut() {
+    if(m_fadeTimer < FADE_TIME) {
+        m_fadeTimer += GetDeltaTime60();
+        m_alpha = abs(m_fadeTimer / FADE_TIME) * 255;
+    }
+
+    return m_fadeTimer >= FADE_TIME;
+}
 }    // namespace LittleQuest

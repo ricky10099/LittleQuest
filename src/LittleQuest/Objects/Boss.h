@@ -25,6 +25,7 @@ class Boss: public Object {
     void SetSceneState(Scene::SceneState state);
     void PlayTaunt();
     bool IsPlayedTaunt();
+    bool IsDead();
 
    protected:
     const float BASE_SPEED         = 0.3f;
@@ -39,7 +40,8 @@ class Boss: public Object {
     const float FRONT_ANGLE        = 60.0f;
     const float BACK_ANGLE         = 140.0f;
     const float DAMAGE_TIME        = 420.0f;
-    const int   DAMAGE_CAP         = 100;
+    const int   MAX_HP             = 20;
+    const int   DAMAGE_CAP         = MAX_HP * 0.15f;
 
     enum BossState {
         IDLE,

@@ -43,7 +43,7 @@ bool Boss::Init() {
         {        STR(BossAnim::ROAR),        "data/LittleQuest/Anim/MutantSet/MutantRoaring.mv1", 0, 1.0f},
         {  STR(BossAnim::TAUNT_ANIM),                "data/LittleQuest/Anim/MutantSet/Taunt.mv1", 0, 1.0f},
         {    STR(BossState::GET_HIT),             "data/LittleQuest/Anim/MutantSet/HeavyHit.mv1", 0, 1.0f},
-        {                      "Die",          "data/LittleQuest/Anim/MutantSet/MutantDying.mv1", 0, 1.0f}
+        {       STR(BossState::DEAD),          "data/LittleQuest/Anim/MutantSet/ZombieDeath.mv1", 0, 1.0f}
     });
     m_pModel.lock()->PlayAnimation(STR(BossState::IDLE), true);
     SetAnimList();
@@ -89,7 +89,7 @@ bool Boss::Init() {
 
     m_pHP = AddComponent<ComponentHP>();
     m_pHP.lock()->SetType(ComponentHP::HP_TYPE::BOSS);
-    m_pHP.lock()->SetHP(1000);
+    m_pHP.lock()->SetHP(MAX_HP);
 
     m_bossCombo = BossCombo::NONE;
     m_state     = BossState::IDLE;
@@ -175,6 +175,9 @@ void Boss::GameAction() {
     case BossState::GET_HIT:
         Damaging();
         break;
+    case BossState::DEAD:
+        Die();
+        break;
     }
 }
 
@@ -197,6 +200,7 @@ void Boss::LateDraw() {
         printfDx("\nangle:%f", GetDegreeToPosition(m_pPlayer.lock()->GetTranslate()));
         printfDx("\nDistance: %f", GetDistance(m_pPlayer.lock()->GetTranslate(), GetTranslate()));
         printfDx("\nDamageCount : %i", m_damageCount);
+        printfDx("\nHP: %i", m_pHP.lock()->GetHP());
     }
     switch(m_sceneState) {
     case Scene::SceneState::TRANS_IN:
@@ -635,20 +639,22 @@ void Boss::GetHit(int damage) {
     m_pHP.lock()->TakeDamage(damage);
     m_damageCount += damage;
 
+    if(m_pHP.lock()->GetHP() <= 0) {
+        ChangeState(BossState::DEAD);
+        m_bossCombo = BossCombo::NONE;
+        m_combo     = 1;
+        return;
+    }
+
     if(m_damageTimer <= 0) {
         m_damageTimer = DAMAGE_TIME;
     }
 
-    if(m_damageCount > DAMAGE_CAP) {
-        //pModel.lock()->PlayAnimation("getHit", false, 0.25f);
+    if(m_damageCount > DAMAGE_CAP && m_state != BossState::ANGRY) {
         ChangeState(BossState::GET_HIT);
         m_bossCombo   = BossCombo::NONE;
         m_combo       = 1;
         m_damageCount = 0;
-        //animCheck = AnimCheck::GETTING_HIT;
-        //isBusy    = true;
-    } else {
-        this->Die();
     }
 }
 
@@ -664,7 +670,16 @@ void Boss::Damaging() {
     }
 }
 
-void Boss::Die() {}
+void Boss::Die() {
+    m_pModel.lock()->PlayAnimationNoSame(STR(BossState::DEAD));
+    RemoveComponent(m_pBodyBox.lock());
+    m_pBodyBox.reset();
+
+    if(!m_pAngryBox.expired()) {
+        RemoveComponent(m_pAngryBox.lock());
+        m_pAngryBox.reset();
+    }
+}
 
 void Boss::PlayTaunt() {
     ChangeState(BossState::TAUNT);
@@ -678,6 +693,10 @@ bool Boss::IsPlayedTaunt() {
     }
 
     return false;
+}
+
+bool Boss::IsDead() {
+    return m_pHP.lock()->GetHP() <= 0;
 }
 
 void Boss::ChangeState(BossState state) {

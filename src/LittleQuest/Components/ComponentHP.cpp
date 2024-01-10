@@ -21,6 +21,8 @@ void ComponentHP::Update() {
         m_backHP -= GetDeltaTime60();
         m_decreasing = true;
     }
+
+    m_backHP = std::max(0.0f, m_backHP);
 }
 
 void ComponentHP::Draw() {
