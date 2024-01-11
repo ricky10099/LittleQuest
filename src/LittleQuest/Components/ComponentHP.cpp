@@ -40,7 +40,7 @@ void ComponentHP::SetType(HP_TYPE type) {
 void ComponentHP::SetHP(int HP) {
     this->m_maxHP  = HP;
     this->m_currHP = this->m_maxHP;
-    this->m_backHP = this->m_currHP;
+    this->m_backHP = (float)this->m_currHP;
 }
 
 int ComponentHP::GetHP() {
@@ -53,7 +53,7 @@ float ComponentHP::GetHPRate() {
 
 void ComponentHP::TakeDamage(int damage) {
     if(this->m_decreasing) {
-        this->m_backHP = this->m_currHP;
+        this->m_backHP = (float)this->m_currHP;
     }
     this->m_currHP -= damage;
     this->m_currHP      = std::max(0, this->m_currHP);

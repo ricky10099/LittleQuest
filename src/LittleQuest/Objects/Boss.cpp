@@ -814,10 +814,6 @@ void Boss::SetAnimList() {
 
     m_animList[STR(BossState::GET_HIT)] = info;
 }
-//
-//float Boss::getDestroyTimer() {
-//    return destroyTimer;
-//}
 }    // namespace LittleQuest
 
 CEREAL_REGISTER_TYPE(LittleQuest::Boss)

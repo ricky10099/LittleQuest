@@ -19,7 +19,7 @@ namespace LittleQuest {
 
 BP_OBJECT_IMPL(Player, "LittleQuest/Player");
 
-PlayerPtr Player::Create(const float3& pos /*, const float3& front*/) {
+PlayerPtr Player::Create(const float3& pos) {
     auto player = Scene::CreateObjectPtr<Player>();
 
     player->SetName("Player");
@@ -86,7 +86,6 @@ bool Player::Init() {
     m_slashEffect = LoadEffekseerEffect("data/LittleQuest/Effect/SwordSlash.efk", 3.5f);
 
     m_selfMatrix  = GetMatrix();
-    m_getHit      = false;
     m_speedFactor = RUN_SPEED;
 
     return Super::Init();
@@ -241,9 +240,13 @@ void Player::GetHit(int damage) {
 
     m_pHP.lock()->TakeDamage(damage);
 
+    if(m_pHP.lock()->GetHP() <= 0) {
+        m_playerState = PlayerState::DEAD;
+        return;
+    }
+
     m_pModel.lock()->PlayAnimation(STR(PlayerState::GET_HIT));
     m_playerState = PlayerState::GET_HIT;
-    m_getHit      = true;
 }
 
 void Player::InputHandle() {
@@ -251,7 +254,13 @@ void Player::InputHandle() {
     m_cameraLength = std::min((std::max(m_cameraLength, 10.0f)), 100.0f);
     m_pCamera.lock()->SetCameraLength(m_cameraLength);
 
-    if(m_playerState != PlayerState::ROLL) {
+    if(m_playerState != PlayerState::ROLL && m_playerState != PlayerState::GET_HIT) {
+        if(IsKeyRepeat(KEY_INPUT_LSHIFT)) {
+            m_speedFactor = WALK_SPEED;
+        } else {
+            m_speedFactor = RUN_SPEED;
+        }
+
         if(IsKeyRepeat(KEY_INPUT_W)) {
             float3 vec = m_selfMatrix.axisZ();
             vec.y      = 0;
@@ -272,6 +281,29 @@ void Player::InputHandle() {
             vec.y      = 0;
             m_movement += vec;
         }
+
+        if(IsMouseDown(MOUSE_INPUT_LEFT)) {
+            m_playerState = PlayerState::ATTACK;
+
+            if(currCombo == Combo::NO_COMBO) {
+                currCombo = Combo::NORMAL_COMBO1;
+            } else if(m_waitForCombo) {
+                m_isCombo      = true;
+                m_waitForCombo = false;
+            }
+        }
+
+        if(IsKeyRepeat(MOUSE_INPUT_RIGHT, 30u)) {
+            m_playerState = PlayerState::ATTACK;
+            if(currCombo == Combo::NO_COMBO) {
+                currCombo = Combo::NORMAL_COMBO1;
+            }
+        } else if(IsMouseDown(MOUSE_INPUT_RIGHT)) {
+        }
+
+        if(!IsFloat3Zero(m_movement)) {
+            m_playerState = PlayerState::WALK;
+        }
     }
 
     if(IsKeyDown(KEY_INPUT_SPACE)) {
@@ -279,34 +311,34 @@ void Player::InputHandle() {
         this->SetModelRotation();
     }
 
-    if(!IsFloat3Zero(m_movement) && m_playerState != PlayerState::ROLL) {
-        m_playerState = PlayerState::WALK;
-    }
+    //if(!IsFloat3Zero(m_movement) && (m_playerState != PlayerState::ROLL && m_playerState != PlayerState::GET_HIT)) {
+    //    m_playerState = PlayerState::WALK;
+    //}
 
-    if(IsKeyRepeat(KEY_INPUT_LSHIFT)) {
-        m_speedFactor = WALK_SPEED;
-    } else {
-        m_speedFactor = RUN_SPEED;
-    }
+    //if(IsKeyRepeat(KEY_INPUT_LSHIFT)) {
+    //    m_speedFactor = WALK_SPEED;
+    //} else {
+    //    m_speedFactor = RUN_SPEED;
+    //}
 
-    if(IsMouseDown(MOUSE_INPUT_LEFT)) {
-        m_playerState = PlayerState::ATTACK;
+    //if(IsMouseDown(MOUSE_INPUT_LEFT)) {
+    //    m_playerState = PlayerState::ATTACK;
 
-        if(currCombo == Combo::NO_COMBO) {
-            currCombo = Combo::NORMAL_COMBO1;
-        } else if(m_waitForCombo) {
-            m_isCombo      = true;
-            m_waitForCombo = false;
-        }
-    }
+    //    if(currCombo == Combo::NO_COMBO) {
+    //        currCombo = Combo::NORMAL_COMBO1;
+    //    } else if(m_waitForCombo) {
+    //        m_isCombo      = true;
+    //        m_waitForCombo = false;
+    //    }
+    //}
 
-    if(IsKeyRepeat(MOUSE_INPUT_RIGHT, 30u)) {
-        m_playerState = PlayerState::ATTACK;
-        if(currCombo == Combo::NO_COMBO) {
-            currCombo = Combo::NORMAL_COMBO1;
-        }
-    } else if(IsMouseDown(MOUSE_INPUT_RIGHT)) {
-    }
+    //if(IsKeyRepeat(MOUSE_INPUT_RIGHT, 30u)) {
+    //    m_playerState = PlayerState::ATTACK;
+    //    if(currCombo == Combo::NO_COMBO) {
+    //        currCombo = Combo::NORMAL_COMBO1;
+    //    }
+    //} else if(IsMouseDown(MOUSE_INPUT_RIGHT)) {
+    //}
 }
 
 void Player::Idle() {
@@ -320,7 +352,7 @@ void Player::Walk() {
     AddTranslate(m_movement);
 
     m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::WALK), true, 0.2f, 14.0f);
-    m_pModel.lock()->SetAnimationSpeed(GetDistance(m_movement) * 7.5f);
+    m_pModel.lock()->SetAnimationSpeed(GetDistance(m_movement) * 5.0f);
 }
 
 void Player::Jump() {}

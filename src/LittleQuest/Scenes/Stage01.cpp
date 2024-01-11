@@ -8,17 +8,11 @@
 #include <LittleQuest/Objects/AbandonHouse.h>
 #include <LittleQuest/Objects/BrokenHouse.h>
 #include <LittleQuest/Objects/DestroyedHouse.h>
-//#include <LittleQuest/Objects/Enemy.h>
-//#include <LittleQuest/Objects/Zombie.h>
-//#include <LittleQuest/Objects/Mutant.h>
-//#include <LittleQuest/Objects/Player.h>
-//#include <LittleQuest/Objects/Boss.h>
 #include <LittleQuest/Scenes/GameOverScene.h>
 #include <LittleQuest/Scenes/GameWinScene.h>
 #include <LittleQuest/Scenes/GameTitleScene.h>
 
 #include <System/Component/ComponentAttachModel.h>
-//#include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentCollisionModel.h>
 #include <System/Component/ComponentModel.h>
 
@@ -229,6 +223,7 @@ void        Stage01::Update() {
             m_pBoss.lock()->SetSceneState(scene_state);
             m_pPlayer.lock()->SetTranslate(PLAYER_SPAWN_POS);
             m_pBoss.lock()->SetTranslate(BOSS_SPAWN_POS);
+            m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
         }
         break;
     case Scene::SceneState::TRANS_OUT:

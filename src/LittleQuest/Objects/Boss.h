@@ -42,7 +42,7 @@ class Boss: public Object {
     const float BACK_ANGLE         = 140.0f;
     const float DAMAGE_TIME        = 420.0f;
     const int   MAX_HP             = 500;
-    const int   DAMAGE_CAP         = MAX_HP * 0.15f;
+    const int   DAMAGE_CAP         = int(MAX_HP * 0.15f);
 
     enum BossState {
         IDLE,

@@ -52,6 +52,8 @@ bool GameTitleScene::Init() {
         springArm->SetSpringArmOffset({0, 0, 0});
     }
 
+    HideMouse(false);
+
     return true;
 }
 

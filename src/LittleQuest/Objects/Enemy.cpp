@@ -268,9 +268,9 @@ void Enemy::GetHit(int damage) {
     }
 }
 
-void Enemy::ChangeState(EnemyState state) {
+void Enemy::ChangeState(EnemyState fState) {
     prevState   = this->state;
-    this->state = state;
+    this->state = fState;
 }
 
 void Enemy::Die() {

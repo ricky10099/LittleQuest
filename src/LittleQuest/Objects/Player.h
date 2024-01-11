@@ -77,7 +77,6 @@ class Player: public Object {
     float  m_hitTimer      = 0;
     float  m_currAnimSpeed = 1.0f;
     float  m_currAnimTime  = 0;
-    bool   m_getHit        = false;
     bool   m_isCombo       = false;
     bool   m_waitForCombo  = false;
     bool   m_isHit         = false;

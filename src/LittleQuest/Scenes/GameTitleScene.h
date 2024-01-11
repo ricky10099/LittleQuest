@@ -21,8 +21,6 @@ class GameTitleScene: public Scene::Base {
     void GUI() override;
 
    private:
-    //Scene::SceneState m_SceneState = Scene::SceneState::GAME;
-
     const float START_TIME       = 120.0f;
     float3      START_CAM_POS    = {-3, 3, 12};
     float3      START_CAM_TARGET = {0, 1.5f, 0};
