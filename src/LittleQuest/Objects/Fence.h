@@ -3,11 +3,11 @@
 #include <System/Scene.h>
 
 namespace LittleQuest {
-USING_PTR(DestroyedHouse);
-class DestroyedHouse: public Object {
+USING_PTR(Fence);
+class Fence: public Object {
    public:
-    BP_OBJECT_TYPE(DestroyedHouse, Object);
-    static DestroyedHousePtr Create(std::string name = "DestroyedHouse", const float3& pos = {0, 0, 0});
+    BP_OBJECT_TYPE(Fence, Object);
+    static FencePtr Create(const float3& pos = {0, 0, 0});
 
     bool Init() override;
     void Update() override;

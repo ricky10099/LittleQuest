@@ -5,57 +5,36 @@
 #include <System/Component/ComponentModel.h>
 
 namespace LittleQuest {
-
-//! @brief Editor上でのCreateObject用の設定
-//! @detail BP_OBJECT_TYPEとセットで用意する
 BP_OBJECT_IMPL(AbandonHouse, "LittleQuest/AbandonHouse");
-
 AbandonHousePtr AbandonHouse::Create(std::string name, const float3& pos) {
-    auto obj = Scene::CreateObjectDelayInitialize<AbandonHouse>();
+    auto obj = Scene::CreateObjectPtr<AbandonHouse>();
     obj->SetName(name);
     obj->SetTranslate(pos);
     obj->AddComponent<ComponentModel>("data/LittleQuest/Model/AbandonHouse/AbandonHouse.mv1");
-    //obj->AddComponent<ComponentCollisionModel>()->AttachToModel();
 
-    //auto box      = Scene::CreateObjectPtr<Object>("AbandonHouseBox");
-    //box->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
-    //box->SetTranslate(obj->GetTranslate() + float3{-5, 0, -5});
-    //box->SetRotationAxisXYZ({0, 90, 0});
-    //box->SetScaleAxisXYZ({1, 1, 19});
-    //box->AddComponent<ComponentCollisionModel>()->AttachToModel();
-    //box->SetStatus(StatusBit::NoDraw, true);
+    obj->m_pBox = Scene::CreateObjectPtr<Object>("AbandonHouseBox");
+    obj->m_pBox->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
+    obj->m_pBox->SetTranslate(pos + float3{-5, 0, -5});
+    obj->m_pBox->SetRotationAxisXYZ({0, 90, 0});
+    obj->m_pBox->SetScaleAxisXYZ({1, 1, 19});
+    obj->m_pBox->AddComponent<ComponentCollisionModel>()->AttachToModel();
+
     return obj;
 }
 
-bool AbandonHouse::Init()    // override
-{
-    //AddComponent<ComponentModel>("data/LittleQuest/Model/AbandonHouse/AbandonHouse.mv1");
-    //AddComponent<ComponentCollisionModel>()->AttachToModel();
-
-    //auto box      = Scene::CreateObjectPtr<Object>("AbandonHouseBox");
-    //auto boxModel = box->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
-    //box->SetTranslate(GetTranslate() + float3{-5, 0, 4});
-    //box->Set
-    auto box = Scene::CreateObjectPtr<Object>("AbandonHouseBox");
-    box->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
-    box->SetTranslate(GetTranslate() + float3{-5, 0, -5});
-    box->SetRotationAxisXYZ({0, 90, 0});
-    box->SetScaleAxisXYZ({1, 1, 19});
-    box->AddComponent<ComponentCollisionModel>()->AttachToModel();
-    box->SetStatus(StatusBit::NoDraw, true);
-
+bool AbandonHouse::Init() {
     return Super::Init();
 }
 
-void AbandonHouse::Update()    // override
-{}
+void AbandonHouse::Update() {
+    if(!m_pBox->GetStatus(StatusBit::NoDraw)) {
+        m_pBox->SetStatus(StatusBit::NoDraw, true);
+    }
+}
 
-// 基本描画の後に処理します
-void AbandonHouse::LateDraw()    // override
-{}
+void AbandonHouse::LateDraw() {}
 
-void AbandonHouse::GUI()    // override
-{
+void AbandonHouse::GUI() {
     Super::GUI();
 }
 

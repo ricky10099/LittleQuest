@@ -9,6 +9,7 @@
 #include <LittleQuest/Objects/BrokenHouse.h>
 #include <LittleQuest/Objects/DestroyedHouse.h>
 #include <LittleQuest/Objects/Rock1.h>
+#include <LittleQuest/Objects/Fence.h>
 #include <LittleQuest/Scenes/GameOverScene.h>
 #include <LittleQuest/Scenes/GameWinScene.h>
 #include <LittleQuest/Scenes/GameTitleScene.h>
@@ -185,6 +186,16 @@ bool Stage01::Init() {
             auto Rock = Rock1::Create({20, 5, -364});
             Rock->SetRotationAxisXYZ({0, 90, 0});
             Rock->SetScaleAxisXYZ({1.0f, 1.0f, 3.0f});
+        }
+
+        int interval = 50;
+        for(int i = -315; i < 210; i += interval) {
+            auto Fence = Fence::Create({-255, 6, i});
+            //Fence->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009.mv1");
+            //Fence->SetTranslate({-255, 6, i});
+            Fence->SetRotationAxisXYZ({0, 90, 0});
+            //Fence->SetScaleAxisXYZ({0.5f, 0.1f, 0.5f});
+            //Fence->AddComponent<ComponentCollisionModel>()->AttachToModel(true);
         }
     }
 

@@ -5,42 +5,36 @@
 #include <System/Component/ComponentModel.h>
 
 namespace LittleQuest {
-
-//! @brief Editor上でのCreateObject用の設定
-//! @detail BP_OBJECT_TYPEとセットで用意する
 BP_OBJECT_IMPL(BrokenHouse, "LittleQuest/BrokenHouse");
-
 BrokenHousePtr BrokenHouse::Create(std::string name, const float3& pos) {
     auto obj = Scene::CreateObjectPtr<BrokenHouse>();
     obj->SetName(name);
     obj->SetTranslate(pos);
     obj->AddComponent<ComponentModel>("data/LittleQuest/Model/BrokenHouse/BrokenHouse.mv1");
 
+    obj->m_pBox = Scene::CreateObjectPtr<Object>("BrokenHouseBox");
+    obj->m_pBox->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
+    obj->m_pBox->SetTranslate(pos + float3{-3, 0, 0});
+    obj->m_pBox->SetRotationAxisXYZ({0, 90, 0});
+    obj->m_pBox->SetScaleAxisXYZ({1, 1, 16});
+    obj->m_pBox->AddComponent<ComponentCollisionModel>()->AttachToModel();
+
     return obj;
 }
 
-bool BrokenHouse::Init()    // override
-{
-    auto box = Scene::CreateObjectPtr<Object>("BrokenHouseBox");
-    box->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
-    box->SetTranslate(GetTranslate() + float3{-3, 0, 0});
-    box->SetRotationAxisXYZ({0, 90, 0});
-    box->SetScaleAxisXYZ({1, 1, 16});
-    box->AddComponent<ComponentCollisionModel>()->AttachToModel();
-    box->SetStatus(StatusBit::NoDraw, true);
-
+bool BrokenHouse::Init() {
     return Super::Init();
 }
 
-void BrokenHouse::Update()    // override
-{}
+void BrokenHouse::Update() {
+    if(!m_pBox->GetStatus(StatusBit::NoDraw)) {
+        m_pBox->SetStatus(StatusBit::NoDraw, true);
+    }
+}
 
-// 基本描画の後に処理します
-void BrokenHouse::LateDraw()    // override
-{}
+void BrokenHouse::LateDraw() {}
 
-void BrokenHouse::GUI()    // override
-{
+void BrokenHouse::GUI() {
     Super::GUI();
 }
 
