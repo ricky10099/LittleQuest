@@ -14,14 +14,21 @@ DestroyedHousePtr DestroyedHouse::Create(std::string name, const float3& pos) {
     auto obj = Scene::CreateObjectPtr<DestroyedHouse>();
     obj->SetName(name);
     obj->SetTranslate(pos);
+    obj->AddComponent<ComponentModel>("data/LittleQuest/Model/DestroyedHouse/DestroyedHouse.mv1");
 
     return obj;
 }
 
 bool DestroyedHouse::Init()    // override
 {
-    AddComponent<ComponentModel>("data/LittleQuest/Model/DestroyedHouse/DestroyedHouse.mv1");
-    AddComponent<ComponentCollisionModel>()->AttachToModel();
+    auto box = Scene::CreateObjectPtr<Object>("DestroyedHouseBox");
+    box->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
+    box->SetTranslate(GetTranslate() + float3{-6, 0, -2});
+    box->SetRotationAxisXYZ({0, 90, 0});
+    box->SetScaleAxisXYZ({0.9, 1, 12});
+    box->AddComponent<ComponentCollisionModel>()->AttachToModel();
+    box->SetStatus(StatusBit::NoDraw, true);
+
     return Super::Init();
 }
 

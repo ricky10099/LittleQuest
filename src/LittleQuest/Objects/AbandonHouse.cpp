@@ -11,17 +11,39 @@ namespace LittleQuest {
 BP_OBJECT_IMPL(AbandonHouse, "LittleQuest/AbandonHouse");
 
 AbandonHousePtr AbandonHouse::Create(std::string name, const float3& pos) {
-    auto obj = Scene::CreateObjectPtr<AbandonHouse>();
+    auto obj = Scene::CreateObjectDelayInitialize<AbandonHouse>();
     obj->SetName(name);
     obj->SetTranslate(pos);
+    obj->AddComponent<ComponentModel>("data/LittleQuest/Model/AbandonHouse/AbandonHouse.mv1");
+    //obj->AddComponent<ComponentCollisionModel>()->AttachToModel();
 
+    //auto box      = Scene::CreateObjectPtr<Object>("AbandonHouseBox");
+    //box->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
+    //box->SetTranslate(obj->GetTranslate() + float3{-5, 0, -5});
+    //box->SetRotationAxisXYZ({0, 90, 0});
+    //box->SetScaleAxisXYZ({1, 1, 19});
+    //box->AddComponent<ComponentCollisionModel>()->AttachToModel();
+    //box->SetStatus(StatusBit::NoDraw, true);
     return obj;
 }
 
 bool AbandonHouse::Init()    // override
 {
-    AddComponent<ComponentModel>("data/LittleQuest/Model/AbandonHouse/AbandonHouse.mv1");
-    AddComponent<ComponentCollisionModel>()->AttachToModel();
+    //AddComponent<ComponentModel>("data/LittleQuest/Model/AbandonHouse/AbandonHouse.mv1");
+    //AddComponent<ComponentCollisionModel>()->AttachToModel();
+
+    //auto box      = Scene::CreateObjectPtr<Object>("AbandonHouseBox");
+    //auto boxModel = box->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
+    //box->SetTranslate(GetTranslate() + float3{-5, 0, 4});
+    //box->Set
+    auto box = Scene::CreateObjectPtr<Object>("AbandonHouseBox");
+    box->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
+    box->SetTranslate(GetTranslate() + float3{-5, 0, -5});
+    box->SetRotationAxisXYZ({0, 90, 0});
+    box->SetScaleAxisXYZ({1, 1, 19});
+    box->AddComponent<ComponentCollisionModel>()->AttachToModel();
+    box->SetStatus(StatusBit::NoDraw, true);
+
     return Super::Init();
 }
 

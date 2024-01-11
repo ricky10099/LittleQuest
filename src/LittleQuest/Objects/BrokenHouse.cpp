@@ -14,14 +14,20 @@ BrokenHousePtr BrokenHouse::Create(std::string name, const float3& pos) {
     auto obj = Scene::CreateObjectPtr<BrokenHouse>();
     obj->SetName(name);
     obj->SetTranslate(pos);
+    obj->AddComponent<ComponentModel>("data/LittleQuest/Model/BrokenHouse/BrokenHouse.mv1");
 
     return obj;
 }
 
 bool BrokenHouse::Init()    // override
 {
-    AddComponent<ComponentModel>("data/LittleQuest/Model/BrokenHouse/BrokenHouse.mv1");
-    AddComponent<ComponentCollisionModel>()->AttachToModel();
+    auto box = Scene::CreateObjectPtr<Object>("BrokenHouseBox");
+    box->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
+    box->SetTranslate(GetTranslate() + float3{-3, 0, 0});
+    box->SetRotationAxisXYZ({0, 90, 0});
+    box->SetScaleAxisXYZ({1, 1, 16});
+    box->AddComponent<ComponentCollisionModel>()->AttachToModel();
+    box->SetStatus(StatusBit::NoDraw, true);
 
     return Super::Init();
 }

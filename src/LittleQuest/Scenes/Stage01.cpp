@@ -8,6 +8,7 @@
 #include <LittleQuest/Objects/AbandonHouse.h>
 #include <LittleQuest/Objects/BrokenHouse.h>
 #include <LittleQuest/Objects/DestroyedHouse.h>
+#include <LittleQuest/Objects/Rock1.h>
 #include <LittleQuest/Scenes/GameOverScene.h>
 #include <LittleQuest/Scenes/GameWinScene.h>
 #include <LittleQuest/Scenes/GameTitleScene.h>
@@ -91,11 +92,6 @@ bool Stage01::Init() {
             broken->SetScaleAxisXYZ(2);
             broken->SetRotationAxisXYZ({0, 90, 0});
         }
-
-        //205 8 -259
-        //124 7 -259
-        //4.5
-        //2.5
         {
             auto Destroyed = DestroyedHouse::Create("DestroyedHouse", {205, 0, 90});
             Destroyed->SetScaleAxisXYZ(2);
@@ -136,7 +132,60 @@ bool Stage01::Init() {
             Destroyed->SetScaleAxisXYZ(2);
             Destroyed->SetRotationAxisXYZ({0, 90, 0});
         }
-        //175
+        {
+            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-205, 2.4, 136});
+            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
+            AbandonHouse->SetScaleAxisXYZ(2.5f);
+        }
+        {
+            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-205, -0.15, 26});
+            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
+            AbandonHouse->SetScaleAxisXYZ(2.5f);
+        }
+        {
+            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-205, -0.5, -103});
+            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
+            AbandonHouse->SetScaleAxisXYZ(2.5f);
+        }
+        {
+            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-205, 0.165, -197});
+            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
+            AbandonHouse->SetScaleAxisXYZ(2.5f);
+        }
+        {
+            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-110, 1.5, 136});
+            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
+            AbandonHouse->SetScaleAxisXYZ(2.5f);
+        }
+        {
+            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-110, -0.2, 26});
+            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
+            AbandonHouse->SetScaleAxisXYZ(2.5f);
+        }
+        {
+            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-110, -0.5, -103});
+            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
+            AbandonHouse->SetScaleAxisXYZ(2.5f);
+        }
+        {
+            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-110, 3.5, -197});
+            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
+            AbandonHouse->SetScaleAxisXYZ(2.5f);
+        }
+        {
+            auto Rock = Rock1::Create({330, -13, -62});
+            Rock->SetScaleAxisXYZ({1.0f, 1.0f, 3.0f});
+        }
+        {
+            auto Rock = Rock1::Create({9, -4, 260});
+            Rock->SetRotationAxisXYZ({0, 90, 0});
+            Rock->SetScaleAxisXYZ({1.0f, 1.0f, 3.0f});
+        }
+        {
+            auto Rock = Rock1::Create({20, 5, -364});
+            Rock->SetRotationAxisXYZ({0, 90, 0});
+            Rock->SetScaleAxisXYZ({1.0f, 1.0f, 3.0f});
+        }
     }
 
     m_pPlayer = Player::Create(PLAYER_SPAWN_POS);
