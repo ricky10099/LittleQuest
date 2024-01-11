@@ -23,6 +23,7 @@ class Player: public Object {
     void LateDraw() override;
     void GUI() override;
     void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
+    void Exit() override;
 
     void GetHit(int damage);
     void SetSceneState(Scene::SceneState state);
@@ -67,6 +68,7 @@ class Player: public Object {
     std::weak_ptr<ComponentHP>                m_pHP;
     std::weak_ptr<ComponentCombo>             m_pCombo;
     std::weak_ptr<ComponentCollisionCapsule>  m_pWeapon;
+    //std::unique_ptr<int>                      m_pEffectList;
 
     Scene::SceneState m_sceneState = Scene::SceneState::GAME;
 
@@ -83,7 +85,10 @@ class Player: public Object {
     bool   m_isInvincible  = false;
     int    m_hitEffect     = -1;
     int    m_playingEffect = -1;
-    int    m_slashEffect   = -1;
+    int    m_slashEffect1  = -1;
+    int    m_slashEffect2  = -1;
+    int    m_slashEffect3  = -1;
+    int*   m_pEffectList;
 
     void InputHandle();
     void GameAction();

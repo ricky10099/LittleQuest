@@ -61,11 +61,11 @@ void ComponentCombo::AddCombo() {
 
 float ComponentCombo::ComboBuff() {
     if(m_currCombo >= 30) {
-        return 2.0f;
+        return 3.0f;
     } else if(m_currCombo >= 20) {
-        return 1.5f;
+        return 2.0f;
     } else if(m_currCombo >= 10) {
-        return 1.25f;
+        return 1.5f;
     }
 
     return 1.0f;

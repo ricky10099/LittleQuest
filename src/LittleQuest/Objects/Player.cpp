@@ -82,8 +82,11 @@ bool Player::Init() {
     m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
     m_pWeapon.lock()->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
 
-    m_hitEffect   = LoadEffekseerEffect("data/LittleQuest/Effect/LossOfBlood.efk", 0.3f);
-    m_slashEffect = LoadEffekseerEffect("data/LittleQuest/Effect/SwordSlash.efk", 3.5f);
+    m_hitEffect    = LoadEffekseerEffect("data/LittleQuest/Effect/LossOfBlood.efk", 0.3f);
+    m_slashEffect1 = LoadEffekseerEffect("data/LittleQuest/Effect/SwordSlash1.efk", 5.0f);
+    m_slashEffect2 = LoadEffekseerEffect("data/LittleQuest/Effect/SwordSlash2.efk", 5.0f);
+    m_slashEffect3 = LoadEffekseerEffect("data/LittleQuest/Effect/SwordSlash3.efk", 5.0f);
+    m_pEffectList  = new int[3]{m_slashEffect1, m_slashEffect2, m_slashEffect3};
 
     m_selfMatrix  = GetMatrix();
     m_speedFactor = RUN_SPEED;
@@ -361,41 +364,39 @@ void Player::Attack() {
     switch(currCombo) {
     case Combo::NORMAL_COMBO1:
         AttackAnimation(STR(Combo::NORMAL_COMBO1), m_animList[STR(Combo::NORMAL_COMBO1)], Combo::NORMAL_COMBO2);
-        //if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO1)].triggerStartTime) {
-        //    m_playingEffect = PlayEffekseer3DEffect(m_slashEffect);
-        //    SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x, GetTranslate().y + 5, GetTranslate().z + 5);
-        //    SetRotationPlayingEffekseer3DEffect(m_playingEffect, -90 * DegToRad,
-        //                                        (m_pModel.lock()->GetRotationAxisXYZ().y + 80) * DegToRad,
-        //                                        0);
-        //}
+        if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO1)].triggerStartTime) {
+            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[(int)m_pCombo.lock()->ComboBuff() - 1]);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x + 3.5f, GetTranslate().y + 6, GetTranslate().z);
+            SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
+                                                90 * DegToRad);
+        }
         break;
     case Combo::NORMAL_COMBO2:
         AttackAnimation(STR(Combo::NORMAL_COMBO2), m_animList[STR(Combo::NORMAL_COMBO2)], Combo::NORMAL_COMBO3);
-        //if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO2)].triggerStartTime) {
-        //    m_playingEffect = PlayEffekseer3DEffect(m_slashEffect);
-        //    SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x, GetTranslate().y + 5, GetTranslate().z - 5);
-        //    SetRotationPlayingEffekseer3DEffect(m_playingEffect, 90 * DegToRad,
-        //                                        (m_pModel.lock()->GetRotationAxisXYZ().y + 120) * DegToRad,
-        //                                        0);
-        //}
+        if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO2)].triggerStartTime) {
+            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[(int)m_pCombo.lock()->ComboBuff() - 1]);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x + 3.5f, GetTranslate().y + 6, GetTranslate().z);
+            SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
+                                                -90 * DegToRad);
+        }
         break;
     case Combo::NORMAL_COMBO3:
         AttackAnimation(STR(Combo::NORMAL_COMBO3), m_animList[STR(Combo::NORMAL_COMBO3)], Combo::NORMAL_COMBO4);
-        //if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].triggerStartTime) {
-        //    m_playingEffect = PlayEffekseer3DEffect(m_slashEffect);
-        //    SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x, GetTranslate().y, GetTranslate().z);
-        //    SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y + 90) * DegToRad,
-        //                                        0);
-        //}
+        if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].triggerStartTime) {
+            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[(int)m_pCombo.lock()->ComboBuff() - 1]);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x + 3.5f, GetTranslate().y + 6, GetTranslate().z);
+            SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
+                                                30 * DegToRad);
+        }
         break;
     case Combo::NORMAL_COMBO4:
         AttackAnimation(STR(Combo::NORMAL_COMBO4), m_animList[STR(Combo::NORMAL_COMBO4)]);
-        //if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO4)].triggerStartTime) {
-        //    m_playingEffect = PlayEffekseer3DEffect(m_slashEffect);
-        //    SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x, GetTranslate().y, GetTranslate().z);
-        //    SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y + 90) * DegToRad,
-        //                                        0);
-        //}
+        if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO4)].triggerStartTime) {
+            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[(int)m_pCombo.lock()->ComboBuff() - 1]);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x + 3.5f, GetTranslate().y + 6, GetTranslate().z);
+            SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
+                                                120 * DegToRad);
+        }
         break;
     default:
         m_playerState = PlayerState::IDLE;
@@ -501,6 +502,10 @@ void Player::SetAnimInfo() {
     info.animSpeed        = 3.0f;
 
     m_animList[STR(Combo::NORMAL_COMBO4)] = info;
+}
+
+void Player::Exit() {
+    delete[] m_pEffectList;
 }
 }    // namespace LittleQuest
 

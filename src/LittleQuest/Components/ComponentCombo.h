@@ -21,14 +21,15 @@ class ComponentCombo: public Component {
     void  AddCombo();
     void  DrawComboBar();
     float ComboBuff();
+
    private:
     const float COMBO_TIMER  = 120;
     const float COMBO_PUASE  = 60;
     const float MAX_COMBO    = 30;
     const int   COMBO_BUFF_0 = GetColor(255, 255, 255);
-    const int   COMBO_BUFF_1 = GetColor(250, 240, 0);
-    const int   COMBO_BUFF_2 = GetColor(255, 127, 0);
-    const int   COMBO_BUFF_3 = GetColor(255, 0, 0);
+    const int   COMBO_BUFF_1 = GetColor(0, 230, 230);
+    const int   COMBO_BUFF_2 = GetColor(0, 200, 255);
+    const int   COMBO_BUFF_3 = GetColor(0, 127, 255);
 
     float m_currCombo       = 0;
     int   m_comboColor      = 0;
