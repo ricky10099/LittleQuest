@@ -106,7 +106,6 @@ void Boss::Update() {
         TransInAction();
         break;
     case Scene::SceneState::GAME:
-        break;
         GameAction();
         break;
     case Scene::SceneState::TRANS_OUT:
