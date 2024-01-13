@@ -35,8 +35,8 @@ class Stage01: public Scene::Base {
     const float  SHRINK_TIME          = 120.0f;
     const float3 CUT_SCENE_POS_1      = {130, 21, -50};
     const float3 CUT_SCENE_POS_2      = {-97, 17, -50};
-    const float  FOV_1                = 140.0f;
-    const float  ORG_FOV              = 45.0f;
+    const float  FOV_INTRO            = 140.0f;
+    const float  FOV_ORG              = 45.0f;
     const float3 PLAYER_SPAWN_POS     = {-50, 1, -50};
     const float3 BOSS_SPAWN_POS       = {140, 1, -50};
     const float3 PLAYER_DEATH_CAM     = {-40, 20, -50};
@@ -50,6 +50,9 @@ class Stage01: public Scene::Base {
     int   m_failImage     = -1;
     int   m_showImage     = -1;
     int   m_fontHandle    = -1;
+    int   m_introBGM      = -1;
+    int   m_BGM           = -1;
+    int   m_loseAudio     = -1;
     int   m_stringWidth   = 0;
     int   m_stringHeight  = 0;
     bool  m_isLoading     = true;

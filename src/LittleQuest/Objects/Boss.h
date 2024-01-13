@@ -20,6 +20,7 @@ class Boss: public Object {
     void LateDraw() override;
     void GUI() override;
     void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
+    void Exit() override;
 
     void GetHit(int damage);
     void SetSceneState(Scene::SceneState state);
@@ -113,10 +114,12 @@ class Boss: public Object {
     //int    m_angryEffect = -1;
     int    m_playingEffect = -1;
     int    m_RoarPlaying   = -1;
+    int    m_attackSE      = -1;
     int    m_damageCount   = 0;
     bool   m_isHitPlayer   = false;
     bool   m_isDead        = false;
     bool   m_isAngry       = false;
+    bool   m_playedSE      = false;
 
     void GameAction();
     void TransInAction();
@@ -127,7 +130,9 @@ class Boss: public Object {
     void SelectAction();
     void SelectAngryAction();
     void Attack();
-    void AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol = {});
+    void AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol = {},
+                         bool playSE = true);
+    void AttackAnimation(std::string animName, AnimInfo& animInfo, bool playSE);
     void Combo5();
     void BackflipPunch();
     void ChargePunch();

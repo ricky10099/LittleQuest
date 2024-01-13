@@ -35,7 +35,7 @@ class Player: public Object {
     const float RUN_SPEED  = 1.0f;
     const float WALK_SPEED = 0.7f;
     const int   BASE_ATK   = 10;
-    const float HIT_PAUSE  = 10;
+    const float HIT_PAUSE  = 20;
     const int   MAX_HP     = 100;
 
     enum PlayerState {
@@ -83,11 +83,14 @@ class Player: public Object {
     bool   m_waitForCombo  = false;
     bool   m_isHit         = false;
     bool   m_isInvincible  = false;
+    bool   m_playedSE      = false;
     int    m_hitEffect     = -1;
     int    m_playingEffect = -1;
     int    m_slashEffect1  = -1;
     int    m_slashEffect2  = -1;
     int    m_slashEffect3  = -1;
+    int    m_swordSE       = -1;
+    int    m_swordHitSE    = -1;
     int*   m_pEffectList;
 
     void InputHandle();

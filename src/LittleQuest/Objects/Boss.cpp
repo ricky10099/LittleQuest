@@ -95,6 +95,8 @@ bool Boss::Init() {
     m_state     = BossState::IDLE;
     m_pPlayer   = Scene::GetObjectPtr<Player>("Player");
 
+    m_attackSE = LoadSoundMem("data/LittleQuest/Audio/SE/BossAttack.wav");
+
     srand((unsigned)time(NULL));
 
     return Super::Init();
@@ -126,15 +128,6 @@ void Boss::TransInAction() {
 }
 
 void Boss::GameAction() {
-    //if (IsEffekseer3DEffectPlaying(m_RoarPlaying) == -1) {
-    //    m_RoarPlaying = PlayEffekseer3DEffect(m_RoarEffect);
-    //    SetPosPlayingEffekseer3DEffect(m_RoarPlaying, m_pRoarBox.lock()->GetWorldMatrix().translate().x,
-    //                                   m_pRoarBox.lock()->GetWorldMatrix().translate().y,
-    //                                   m_pRoarBox.lock()->GetWorldMatrix().translate().z);
-    //    SetColorPlayingEffekseer3DEffect(m_RoarPlaying, 255, 0, 0, 255);
-    //    SetRotationPlayingEffekseer3DEffect(m_RoarPlaying, 0, 90, 0);
-    //}
-    //return;
     if(m_damageTimer > 0) {
         m_damageTimer -= GetDeltaTime60();
     } else {
@@ -154,7 +147,6 @@ void Boss::GameAction() {
     }
     switch(m_state) {
     case BossState::IDLE:
-        //m_pModel.lock()->PlayAnimationNoSame(STR(BossState::IDLE));
         Idle();
         break;
     case BossState::ATTACK:
@@ -445,16 +437,22 @@ void Boss::Attack() {
     }
 }
 
-void Boss::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol) {
+void Boss::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol,
+                           bool playSE) {
     if(m_pModel.lock()->GetPlayAnimationName() != animName) {
         m_pModel.lock()->PlayAnimationNoSame(animName, false, 0.2F, animInfo.animStartTime);
         m_pModel.lock()->SetAnimationSpeed(animInfo.animStartSpeed);
+        m_playedSE = false;
     }
     m_currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
     if(m_currAnimTime >= animInfo.triggerStartTime) {
         m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
         for(int i = 0; i < atkCol.size(); i++) {
             atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
+        }
+        if(!m_playedSE && playSE) {
+            PlaySoundMem(m_attackSE, DX_PLAYTYPE_BACK);
+            m_playedSE = true;
         }
     }
     if(m_currAnimTime >= animInfo.triggerEndTime) {
@@ -466,6 +464,10 @@ void Boss::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector
         m_combo++;
         m_isHitPlayer = false;
     }
+}
+
+void Boss::AttackAnimation(std::string animName, AnimInfo& animInfo, bool playSE) {
+    AttackAnimation(animName, animInfo, {}, playSE);
 }
 
 void Boss::Combo5() {
@@ -500,7 +502,7 @@ void Boss::BackflipPunch() {
     vec.y      = 0;
     switch(m_combo) {
     case 1:
-        AttackAnimation(STR(BossAnim::BACKFLIP), m_animList[STR(BossAnim::BACKFLIP)]);
+        AttackAnimation(STR(BossAnim::BACKFLIP), m_animList[STR(BossAnim::BACKFLIP)], true);
         vec *= 1.0f * GetDeltaTime60();
         AddTranslate(vec);
         if(m_currAnimTime < m_animList[STR(BossAnim::BACKFLIP)].animCutInTime) {
@@ -532,7 +534,7 @@ void Boss::ChargePunch() {
     vec.y      = 0;
     switch(m_combo) {
     case 1:
-        AttackAnimation(STR(BossAnim::CHARGE), m_animList[STR(BossAnim::CHARGE)]);
+        AttackAnimation(STR(BossAnim::CHARGE), m_animList[STR(BossAnim::CHARGE)], false);
         break;
     case 2:
         AttackAnimation(STR(BossAnim::DOUBLE_PUNCH), m_animList[STR(BossAnim::DOUBLE_PUNCH)],
@@ -561,6 +563,8 @@ void Boss::Swip() {
         distance = GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate());
         if(distance < 50) {
             AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::PUNCH)], {m_pRightHandBox.lock()});
+        } else {
+            m_combo++;
         }
         break;
     default:
@@ -604,7 +608,7 @@ void Boss::Punch() {}
 void Boss::Taunt() {
     switch(m_combo) {
     case 1:
-        AttackAnimation(STR(BossAnim::TAUNT_ANIM), m_animList[STR(BossAnim::TAUNT_ANIM)]);
+        AttackAnimation(STR(BossAnim::TAUNT_ANIM), m_animList[STR(BossAnim::TAUNT_ANIM)], false);
         break;
     default:
         ChangeState(BossState::IDLE);
@@ -677,7 +681,7 @@ void Boss::GetHit(int damage) {
 void Boss::Damaging() {
     switch(m_combo) {
     case 1:
-        AttackAnimation(STR(BossState::GET_HIT), m_animList[STR(BossState::GET_HIT)]);
+        AttackAnimation(STR(BossState::GET_HIT), m_animList[STR(BossState::GET_HIT)], false);
         break;
     default:
         ChangeState(BossState::WAIT);
@@ -728,6 +732,11 @@ void Boss::ChangeState(BossState state) {
 void Boss::SetSceneState(Scene::SceneState state) {
     m_sceneState = state;
     ChangeState(IDLE);
+}
+
+void Boss::Exit() {
+    DeleteSoundMem(m_attackSE);
+    DeleteEffekseerEffect(m_powerUpEffect);
 }
 
 void Boss::SetAnimList() {

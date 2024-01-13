@@ -191,11 +191,7 @@ bool Stage01::Init() {
         int interval = 50;
         for(int i = -315; i < 210; i += interval) {
             auto Fence = Fence::Create({-255, 6, i});
-            //Fence->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009.mv1");
-            //Fence->SetTranslate({-255, 6, i});
             Fence->SetRotationAxisXYZ({0, 90, 0});
-            //Fence->SetScaleAxisXYZ({0.5f, 0.1f, 0.5f});
-            //Fence->AddComponent<ComponentCollisionModel>()->AttachToModel(true);
         }
     }
 
@@ -213,11 +209,14 @@ bool Stage01::Init() {
     m_pCamera = obj->AddComponent<ComponentCamera>();
     m_pCamera.lock()->SetCurrentCamera();
     m_pCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_1, m_pBoss.lock()->GetTranslate() + float3{0, 20, 0});
-    m_pCamera.lock()->SetPerspective(FOV_1);
-    //85 20 -50
-    // 120
-    //SetUseLighting(TRUE);
-    //SetGlobalAmbientLight(GetColorF(0, 0, 150, 255));
+    m_pCamera.lock()->SetPerspective(FOV_INTRO);
+
+    m_introBGM  = LoadSoundMem("data/LittleQuest/Audio/BGM/IntroBGM_long.mp3");
+    m_BGM       = LoadSoundMem("data/LittleQuest/Audio/BGM/Thunder_of_God.mp3");
+    m_loseAudio = LoadSoundMem("data/LittleQuest/Audio/BGM/Lose.mp3");
+
+    PlaySoundMem(m_introBGM, DX_PLAYTYPE_BACK);
+    ChangeVolumeSoundMem(170, m_introBGM);
 #ifndef _DEBUG
     HideMouse(true);
 #endif    // !_DEBUG
@@ -259,7 +258,7 @@ void        Stage01::Update() {
             newCamPos       = lerp(CUT_SCENE_POS_1, m_pPlayerCamera.lock()->GetTranslate(), t);
             newCamTarget =
                 lerp(m_pBoss.lock()->GetTranslate() + float3{0, 20, 0}, m_pPlayer.lock()->GetTranslate() + float3{0, 5, 0}, t);
-            newFOV = lerp(float1(FOV_1), ORG_FOV, t);
+            newFOV = lerp(float1(FOV_INTRO), FOV_ORG, t);
             m_pCamera.lock()->SetPositionAndTarget(newCamPos, newCamTarget);
             m_pCamera.lock()->SetPerspective(newFOV);
         }
@@ -267,11 +266,18 @@ void        Stage01::Update() {
         if(m_cutSceneTimer <= 0) {
             m_pPlayerCamera.lock()->SetCurrentCamera();
             scene_state = Scene::SceneState::GAME;
+            PlaySoundMem(m_BGM, DX_PLAYTYPE_LOOP);
+            ChangeVolumeSoundMem(170, m_BGM);
             m_pPlayer.lock()->SetSceneState(scene_state);
             m_pBoss.lock()->SetSceneState(scene_state);
         }
 
-        if(IsKeyDown(KEY_INPUT_P)) {
+        if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE)) {
+            m_fadeTimer     = 0;
+            m_alpha         = 0;
+            m_cutSceneTimer = 0;
+            m_pCamera.lock()->SetPerspective(FOV_ORG);
+
             //m_pPlayerCamera.lock()->SetCurrentCamera();
             //scene_state = Scene::SceneState::GAME;
         }
@@ -287,6 +293,8 @@ void        Stage01::Update() {
         }
         break;
     case Scene::SceneState::TRANS_OUT:
+        StopSoundMem(m_BGM);
+        StopSoundMem(m_introBGM);
         m_pBoss.lock()->PlayDead();
         m_pPlayer.lock()->PlayDead();
 
@@ -297,6 +305,7 @@ void        Stage01::Update() {
         } else {
             m_pCamera.lock()->SetPositionAndTarget(PLAYER_DEATH_CAM, m_pPlayer.lock()->GetTranslate() + float3{0, 10, 0});
             m_showImage = m_failImage;
+            PlaySoundMem(m_loseAudio, DX_PLAYTYPE_BACK);
         }
         break;
     }
@@ -355,11 +364,11 @@ void Stage01::LateDraw() {
             if(ShowMessage()) {
                 DrawStringToHandle((int)((screen_width * 0.5f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.8),
                                    "Press any key back to Title", 0xffee42, m_fontHandle, 0xffaf3f);
-                if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1)) {
+                if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE)) {
                     Scene::Change(Scene::GetScene<GameTitleScene>());
                 }
             } else {
-                if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1)) {
+                if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE)) {
                     m_shrinkTimer = SHRINK_TIME;
                 }
             }
@@ -375,7 +384,17 @@ void Stage01::LateDraw() {
 //---------------------------------------------------------------------------
 //! 終了
 //---------------------------------------------------------------------------
-void Stage01::Exit() {}
+void Stage01::Exit() {
+    if(CheckSoundMem(m_introBGM)) {
+        StopSoundMem(m_introBGM);
+    }
+    if(CheckSoundMem(m_BGM)) {
+        StopSoundMem(m_BGM);
+    }
+
+    DeleteSoundMem(m_introBGM);
+    DeleteSoundMem(m_BGM);
+}
 
 //---------------------------------------------------------------------------
 //! GUI表示

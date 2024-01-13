@@ -30,7 +30,7 @@ class GameTitleScene: public Scene::Base {
     float m_startTimer     = START_TIME;
     float m_alpha          = 0;
     float m_elapsed60      = 0;
-    int   m_image          = -1;
+    int   m_titleImage     = -1;
     int   m_fontHandle     = -1;
     int   m_stringWidth    = 0;
     int   m_stringHeight   = 0;

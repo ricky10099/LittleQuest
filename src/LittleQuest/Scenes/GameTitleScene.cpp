@@ -11,7 +11,7 @@ bool GameTitleScene::Init() {
     } else {
         MessageBox(NULL, "フォント読込失敗", "", MB_OK);
     }
-    m_image      = LoadGraph("data/LittleQuest/Image/TitleName.png");
+    m_titleImage = LoadGraph("data/LittleQuest/Image/TitleName.png");
     m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 30, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
     GetDrawStringSizeToHandle(&m_stringWidth, &m_stringHeight, NULL, "Press Enter to start", -1, m_fontHandle);
 
@@ -70,7 +70,7 @@ void GameTitleScene::Update() {
             m_showString = !m_showString;
             m_elapsed60  = 1;
         }
-        if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1)) {
+        if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE)) {
             scene_state = Scene::SceneState::TRANS_OUT;
         }
         break;
@@ -104,19 +104,23 @@ void GameTitleScene::LateDraw() {
         }
 
         DrawExtendGraph((int)(screen_width * 0.1f), (int)(screen_height * 0.2f), (int)(screen_width * 0.9f),
-                        (int)(screen_height * 0.4f), m_image, TRUE);
+                        (int)(screen_height * 0.4f), m_titleImage, TRUE);
         break;
     case Scene::SceneState::TRANS_OUT:
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)m_alpha);
         DrawBox(0, 0, screen_width, screen_height, 0u, TRUE);
         SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
         DrawExtendGraph((int)(screen_width * 0.1f), (int)(screen_height * (0.2f + (0.2f * (m_alpha / 255)))),
-                        (int)(screen_width * 0.9f), (int)(screen_height * (0.4f + (0.2f * (m_alpha / 255)))), m_image, TRUE);
+                        (int)(screen_width * 0.9f), (int)(screen_height * (0.4f + (0.2f * (m_alpha / 255)))), m_titleImage,
+                        TRUE);
         break;
     }
 }
 
-void GameTitleScene::Exit() {}
+void GameTitleScene::Exit() {
+    DeleteGraph(m_titleImage);
+    DeleteFontToHandle(m_fontHandle);
+}
 
 void GameTitleScene::GUI() {}
 
