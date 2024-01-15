@@ -1,7 +1,12 @@
 ﻿#include <System/Scene.h>
 #include <System/Component/ComponentModel.h>
 
+#include <LittleQuest/Components/ComponentTexture.h>
+#include <LittleQuest/Objects/Camera.h>
+
 namespace LittleQuest {
+//class Camera;
+
 class GameTitleScene: public Scene::Base {
    public:
     BP_CLASS_TYPE(GameTitleScene, Scene::Base);
@@ -39,8 +44,11 @@ class GameTitleScene: public Scene::Base {
     bool  m_isStart        = false;
     bool  m_showString     = true;
 
-    ComponentModelPtr  m_pModel;
-    ComponentCameraPtr m_pCamera;
+    ComponentModelPtr                 m_pModel;
+    ComponentCameraPtr                m_pCamera;
+    std::weak_ptr<Camera>             m_pSceneCamera;
+    std::weak_ptr<ComponentTexture2D> m_pTitle;
+    std::weak_ptr<Texture>            m_ptTitle;
 };
 
 }    // namespace LittleQuest

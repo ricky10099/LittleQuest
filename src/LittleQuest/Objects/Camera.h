@@ -2,10 +2,10 @@
 
 #include <System/Component/ComponentSpringArm.h>
 
+#ifndef CAMERA_OBJ_HEADER
+#    define CAMERA_OBJ_HEADER
 namespace LittleQuest {
-
 USING_PTR(Camera);
-
 class Camera: public Object {
     BP_OBJECT_TYPE(Camera, Object);
 
@@ -29,3 +29,4 @@ class Camera: public Object {
     std::weak_ptr<ComponentSpringArm> m_pSpringArm;
 };
 }    // namespace LittleQuest
+#endif

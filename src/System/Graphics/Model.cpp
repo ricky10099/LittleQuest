@@ -257,6 +257,11 @@ Model::~Model() {
         tex_null_black_.reset();
         tex_null_normal_.reset();
     }
+
+    if(textureIBL_diffuse_)
+        textureIBL_diffuse_.reset();
+    if(textureIBL_specular_)
+        textureIBL_specular_.reset();
 }
 
 //---------------------------------------------------------------------------

@@ -13,6 +13,7 @@
 #include <LittleQuest/Scenes/GameOverScene.h>
 #include <LittleQuest/Scenes/GameWinScene.h>
 #include <LittleQuest/Scenes/GameTitleScene.h>
+#include <LittleQuest/Components/ComponentTexture.h>
 
 #include <System/Component/ComponentAttachModel.h>
 #include <System/Component/ComponentCollisionModel.h>
@@ -34,11 +35,20 @@ bool Stage01::Init() {
     } else {
         MessageBox(NULL, "フォント読込失敗", "", MB_OK);
     }
-    m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 30, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
+    m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 40, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
     GetDrawStringSizeToHandle(&m_stringWidth, &m_stringHeight, NULL, "Press any key back to Title", -1, m_fontHandle);
+    m_timerFontHandle = CreateFontToHandle("M PLUS Code Latin", 80, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
+    GetDrawStringSizeToHandle(&m_timerWidth, &m_timerHeight, NULL, "88:88.888", -1, m_timerFontHandle);
     m_clearImage = LoadGraph("data/LittleQuest/Image/clear.png");
     m_failImage  = LoadGraph("data/LittleQuest/Image/failure.png");
-
+    {
+        auto clearObj = Scene::CreateObjectPtr<Object>()->SetName("ClearTexture");
+        m_pClearImage = clearObj->AddComponent<ComponentTexture2D>("data/LittleQuest/Image/Clear.png");
+    }
+    {
+        auto failObj = Scene::CreateObjectPtr<Object>()->SetName("FailTexture");
+        m_pFailImage = failObj->AddComponent<ComponentTexture2D>("data/LittleQuest/Image/Failure.png");
+    }
     scene_state = Scene::SceneState::TRANS_IN;
 
     // Environment
@@ -216,7 +226,7 @@ bool Stage01::Init() {
     m_loseAudio = LoadSoundMem("data/LittleQuest/Audio/BGM/Lose.mp3");
 
     PlaySoundMem(m_introBGM, DX_PLAYTYPE_BACK);
-    ChangeVolumeSoundMem(170, m_introBGM);
+    ChangeVolumeSoundMem((int)(MAX_VOLUME * 0.35), m_introBGM);
 #ifndef _DEBUG
     HideMouse(true);
 #endif    // !_DEBUG
@@ -245,6 +255,11 @@ void        Stage01::Update() {
     float3 newCamTarget;
     float  newFOV;
 
+    if(!CheckSoundMem(m_introBGM) && !CheckSoundMem(m_BGM)) {
+        PlaySoundMem(m_BGM, DX_PLAYTYPE_LOOP);
+        ChangeVolumeSoundMem((int)(MAX_VOLUME * 0.35), m_BGM);
+    }
+
     switch(scene_state) {
     case Scene::SceneState::TRANS_IN:
         if(FadeIn()) {
@@ -266,8 +281,7 @@ void        Stage01::Update() {
         if(m_cutSceneTimer <= 0) {
             m_pPlayerCamera.lock()->SetCurrentCamera();
             scene_state = Scene::SceneState::GAME;
-            PlaySoundMem(m_BGM, DX_PLAYTYPE_LOOP);
-            ChangeVolumeSoundMem(170, m_BGM);
+
             m_pPlayer.lock()->SetSceneState(scene_state);
             m_pBoss.lock()->SetSceneState(scene_state);
         }
@@ -277,12 +291,16 @@ void        Stage01::Update() {
             m_alpha         = 0;
             m_cutSceneTimer = 0;
             m_pCamera.lock()->SetPerspective(FOV_ORG);
-
-            //m_pPlayerCamera.lock()->SetCurrentCamera();
-            //scene_state = Scene::SceneState::GAME;
         }
         break;
     case Scene::SceneState::GAME:
+        m_second -= GetDeltaTime();
+        if(m_second <= 0) {
+            m_minute--;
+            m_minute = std::max(0, m_minute);
+
+            m_second = 59.99f;
+        }
         if((m_pBoss.lock()->IsDead() || m_pPlayer.lock()->IsDead()) && FadeOut()) {
             scene_state = Scene::SceneState::TRANS_OUT;
             m_pPlayer.lock()->SetSceneState(scene_state);
@@ -293,6 +311,8 @@ void        Stage01::Update() {
         }
         break;
     case Scene::SceneState::TRANS_OUT:
+        m_endingTimer -= GetDeltaTime60();
+
         StopSoundMem(m_BGM);
         StopSoundMem(m_introBGM);
         m_pBoss.lock()->PlayDead();
@@ -301,10 +321,12 @@ void        Stage01::Update() {
         m_pCamera.lock()->SetCurrentCamera();
         if(m_pBoss.lock()->IsDead()) {
             m_pCamera.lock()->SetPositionAndTarget(BOSS_DEATH_CAM, m_pBoss.lock()->GetTranslate() + float3{0, 15, 0});
-            m_showImage = m_clearImage;
+            m_showImage  = m_clearImage;
+            m_pShowImage = m_pClearImage.lock();
         } else {
             m_pCamera.lock()->SetPositionAndTarget(PLAYER_DEATH_CAM, m_pPlayer.lock()->GetTranslate() + float3{0, 10, 0});
-            m_showImage = m_failImage;
+            m_showImage  = m_failImage;
+            m_pShowImage = m_pFailImage.lock();
             PlaySoundMem(m_loseAudio, DX_PLAYTYPE_BACK);
         }
         break;
@@ -353,18 +375,26 @@ void Stage01::LateDraw() {
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)m_alpha);
     DrawBox(0, 0, screen_width, screen_height, 0u, TRUE);
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
+    int   timerColor = 0xffffff;
+    float size       = 0;
+    if(m_minute <= 0) {
+        timerColor = 0xff0000;
+    }
 
     switch(scene_state) {
     case Scene::SceneState::TRANS_IN:
         break;
     case Scene::SceneState::GAME:
+        DrawFormatStringToHandle((int)((screen_width * 0.9f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.1), timerColor,
+                                 m_timerFontHandle, "%02i:%02.3f", m_minute, m_second);
         break;
     case Scene::SceneState::TRANS_OUT:
         if(FadeIn()) {
             if(ShowMessage()) {
                 DrawStringToHandle((int)((screen_width * 0.5f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.8),
                                    "Press any key back to Title", 0xffee42, m_fontHandle, 0xffaf3f);
-                if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE)) {
+                if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
+                   m_endingTimer <= 0) {
                     Scene::Change(Scene::GetScene<GameTitleScene>());
                 }
             } else {
@@ -372,10 +402,10 @@ void Stage01::LateDraw() {
                     m_shrinkTimer = SHRINK_TIME;
                 }
             }
-
-            DrawExtendGraph((int)(screen_width * 0.2f), (int)(screen_height * (0.0f + (0.4f * (m_shrinkTimer / SHRINK_TIME)))),
-                            (int)(screen_width * 0.8f), (int)(screen_height * (1.0f - (0.4f * (m_shrinkTimer / SHRINK_TIME)))),
-                            m_showImage, TRUE);
+            m_pShowImage.lock()->SetPosition(
+                (screen_width * 0.2f), (screen_height * (0.0f + (0.4f * (m_shrinkTimer / SHRINK_TIME)))), (screen_width * 0.8f),
+                (screen_height * (1.0f - (0.4f * (m_shrinkTimer / SHRINK_TIME)))));
+            m_pShowImage.lock()->DrawTexture();
         }
         break;
     }

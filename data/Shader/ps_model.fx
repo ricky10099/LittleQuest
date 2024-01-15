@@ -87,22 +87,21 @@ PS_OUTPUT main(PS_INPUT_3D input)
 
 	
 	// 光源計算
-    float3 L = normalize(float3(1, 1, -1));
-	
+    float3 L = normalize(float3(0, 100, 0));
 	// 拡散反射光 Diffuse
 	// Lambertモデル
     static const float Kd = 1.0 / 3.141592;
     float diffuse = saturate(dot(N, L)) * Kd; // 正規化Lambert
 	
 	// 鏡面反射光 Specular
-    float3 V = normalize(eye_position_ * float3(1, 1, -1) - input.worldPosition_);
+    float3 V = normalize(eye_position_ * float3(1, 1, 1) - input.worldPosition_);
     float3 H = normalize(N + V);
     float NdotH = saturate(dot(N, H));
     float NdotV = saturate(dot(N, V));
     float NdotL = saturate(dot(N, L));
 	
-    float roughness = 0.8;  // ラフネス(表面の粗さ)
-    float metallic  = 0.0;  // メタリック (金属度合い)
+    float roughness = 0.9;  // ラフネス(表面の粗さ)
+    float metallic  = 0.3;  // メタリック (金属度合い)
 
     float diffuseFactor = 1.0 - metallic;
     
@@ -130,16 +129,17 @@ PS_OUTPUT main(PS_INPUT_3D input)
     float brdf = roughness4
 				/ //---------------------------------------------------------
 				  (4.0 * PI * denominator * denominator * (roughness + 0.5) +0.000001);
-    //brdf = 1;
+    brdf *= 1;
     float3 specular = specularColor * brdf * NdotL;
 #endif
 	// 結果
     float4 vertexColor = input.diffuse_;
 	
-    float3 lightColor = float3(1, 1, 1) * 0.2;
+    float3 lightColor = float3(1, 1, 0.5) * 4;
 	
-	
-    output.color0_.rgb = lightColor * (albedo * vertexColor.rgb) * diffuse * diffuseFactor + lightColor * specular;
+    float specularFactor = 0;
+    
+    output.color0_.rgb = lightColor * (albedo * vertexColor.rgb) * diffuse * diffuseFactor + lightColor * specular * specularFactor;
     output.color0_.a = 1.0;
 
     float3 R = reflect(-V, N);
@@ -148,15 +148,15 @@ PS_OUTPUT main(PS_INPUT_3D input)
     float3 iblSpecular = ibl_specular_texture.SampleLevel(DiffuseSampler, R, mipLevel).rgb;
 
     iblDiffuse  *= 1;
-    iblSpecular *= 0.1;
+    iblSpecular *= 0.3;
     
     float3 environmentBRDF = specularColor + pow(1.0 - max(roughness, NdotV), 3.0);
-    output.color0_.rgb += (albedo * vertexColor.rgb) /** iblDiffuse */* diffuseFactor +
-                                                   /*iblSpecular **/ environmentBRDF;
+    output.color0_.rgb += (albedo * vertexColor.rgb) * iblDiffuse * diffuseFactor +
+                                                   iblSpecular * environmentBRDF;
     
     
 
-//    output.color0_.rgb = fresnel;
+    //output.color0_.rgb = F;
 
 
      //output.color0_.rgb = N * 0.5 + 0.5;	// [-1～+1] → [0～+1]に変換

@@ -45,7 +45,6 @@ bool Player::Init() {
         {   STR(PlayerState::DEAD),   "data/LittleQuest/Anim/KachujinSet/SwordDeath.mv1", 0, 1.0f},
     });
     m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::IDLE), true);
-    //m_pModel.lock()->UseShader(false);
 
     SetAnimInfo();
 

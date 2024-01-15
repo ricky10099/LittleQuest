@@ -154,6 +154,7 @@ class ComponentModel
         return model_status_.is(ModelBit::Initialized);
     }    //!< モデルが読み込まれているか?
     bool UseShader() const {
+        //return false;
         return model_status_.is(ModelBit::UseShader);
     }    //!< シェーダーを利用するか?
 
