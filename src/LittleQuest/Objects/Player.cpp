@@ -84,7 +84,7 @@ bool Player::Init() {
     m_pWeapon.lock()->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
 
     m_hitEffect    = LoadEffekseerEffect("data/LittleQuest/Effect/LossOfBlood.efk", 0.5f);
-    m_slashEffect1 = LoadEffekseerEffect("data/LittleQuest/Effect/SwordSlash1.efk", 5.0f);
+    m_slashEffect1 = LoadEffekseerEffect("data/LittleQuest/Effect/SwordSlashSprite1.efk", 5.0f);
     m_slashEffect2 = LoadEffekseerEffect("data/LittleQuest/Effect/SwordSlash2.efk", 5.0f);
     m_slashEffect3 = LoadEffekseerEffect("data/LittleQuest/Effect/SwordSlash3.efk", 5.0f);
     m_pEffectList  = new int[3]{m_slashEffect1, m_slashEffect2, m_slashEffect3};
@@ -367,15 +367,14 @@ void Player::Attack() {
     switch(currCombo) {
     case Combo::NORMAL_COMBO1:
         AttackAnimation(STR(Combo::NORMAL_COMBO1), m_animList[STR(Combo::NORMAL_COMBO1)], Combo::NORMAL_COMBO2);
-        //if(!m_playedSE) {
-        //    PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
-        //    m_playedSE = true;
-        //}
         if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO1)].triggerStartTime) {
-            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[(int)m_pCombo.lock()->ComboBuff() - 1]);
+            /* m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[(int)m_pCombo.lock()->ComboBuff() - 1]);
             SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x + 3.5f, GetTranslate().y + 6, GetTranslate().z);
             SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
-                                                90 * DegToRad);
+                                                90 * DegToRad);*/
+            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[(int)m_pCombo.lock()->ComboBuff() - 1]);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x + 3.5f, GetTranslate().y + 6, GetTranslate().z);
+            SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad, 0);
             if(!m_playedSE) {
                 PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
                 m_playedSE = true;
@@ -384,15 +383,11 @@ void Player::Attack() {
         break;
     case Combo::NORMAL_COMBO2:
         AttackAnimation(STR(Combo::NORMAL_COMBO2), m_animList[STR(Combo::NORMAL_COMBO2)], Combo::NORMAL_COMBO3);
-        //if(!m_playedSE) {
-        //    PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
-        //    m_playedSE = true;
-        //}
         if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO2)].triggerStartTime) {
             m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[(int)m_pCombo.lock()->ComboBuff() - 1]);
             SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x + 3.5f, GetTranslate().y + 6, GetTranslate().z);
             SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
-                                                -90 * DegToRad);
+                                                180 * DegToRad);
             if(!m_playedSE) {
                 PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
                 m_playedSE = true;
@@ -401,15 +396,11 @@ void Player::Attack() {
         break;
     case Combo::NORMAL_COMBO3:
         AttackAnimation(STR(Combo::NORMAL_COMBO3), m_animList[STR(Combo::NORMAL_COMBO3)], Combo::NORMAL_COMBO4);
-        //if(!m_playedSE) {
-        //    PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
-        //    m_playedSE = true;
-        //}
         if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO3)].triggerStartTime) {
             m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[(int)m_pCombo.lock()->ComboBuff() - 1]);
             SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x + 3.5f, GetTranslate().y + 6, GetTranslate().z);
             SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
-                                                30 * DegToRad);
+                                                -50 * DegToRad);
             if(!m_playedSE) {
                 PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
                 m_playedSE = true;
@@ -418,15 +409,11 @@ void Player::Attack() {
         break;
     case Combo::NORMAL_COMBO4:
         AttackAnimation(STR(Combo::NORMAL_COMBO4), m_animList[STR(Combo::NORMAL_COMBO4)]);
-        //if(!m_playedSE) {
-        //    PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
-        //    m_playedSE = true;
-        //}
         if(m_currAnimTime > m_animList[STR(Combo::NORMAL_COMBO4)].triggerStartTime) {
             m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[(int)m_pCombo.lock()->ComboBuff() - 1]);
             SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x + 3.5f, GetTranslate().y + 6, GetTranslate().z);
             SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
-                                                120 * DegToRad);
+                                                52 * DegToRad);
             if(!m_playedSE) {
                 PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
                 m_playedSE = true;
