@@ -6,6 +6,8 @@
 s32 WINDOW_W = 1280;
 s32 WINDOW_H = 720;
 
+bool s_exit = false;
+
 //---------------------------------------------------------------------------
 //! アプリケーションエントリーポイント
 //---------------------------------------------------------------------------
@@ -58,6 +60,8 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
          DxLib_End();
          return -1;
     }
+
+    Effekseer_InitDistortion();
 
     // Effekseer対応
     SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
@@ -118,6 +122,10 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
         SystemUpdate();
         UpdateEffekseer3D();
 
+        if(s_exit) {
+            break;
+        }
+
         // ---------------
         // 描画処理
         // ---------------
@@ -132,6 +140,7 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
         // ---------------
         // 画面更新
         // ---------------
+
         ScreenFlip();
     }
 

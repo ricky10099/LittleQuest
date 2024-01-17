@@ -150,6 +150,10 @@ void ComponentCollision::AttachToModel(const std::string_view name) {
     }
 }
 
+int ComponentCollision::GetAttachedNode() {
+    return attach_node_;
+}
+
 void ComponentCollision::guiCollisionData() {
     //----------------------------------------------------------------------------
     // GUIコリジョン基本情報

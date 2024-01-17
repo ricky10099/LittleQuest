@@ -51,10 +51,11 @@ void ComponentCombo::GUI() {
     Super::GUI();
 }
 
-void ComponentCombo::AddCombo() {
+void ComponentCombo::AddCombo(int combo) {
     if(m_currCombo < MAX_COMBO) {
-        ++m_currCombo;
+        m_currCombo += combo;
     }
+    m_currCombo       = std::min(m_currCombo, MAX_COMBO);
     m_comboTimer      = COMBO_TIMER;
     m_comboPauseTimer = COMBO_PUASE;
 }

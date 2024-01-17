@@ -42,7 +42,7 @@ class Boss: public Object {
     const float FRONT_ANGLE        = 60.0f;
     const float BACK_ANGLE         = 140.0f;
     const float DAMAGE_TIME        = 420.0f;
-    const int   MAX_HP             = 500;
+    const int   MAX_HP             = 750;
     const int   DAMAGE_CAP         = int(MAX_HP * 0.15f);
 
     enum BossState {
@@ -96,30 +96,37 @@ class Boss: public Object {
     std::weak_ptr<ComponentCollisionCapsule>  m_pRightHandBox;
     std::weak_ptr<ComponentCollisionSphere>   m_pAngryBox;
     std::unordered_map<std::string, AnimInfo> m_animList;
+    std::unordered_map<BossCombo, float>      m_comboList;
     //std::weak_ptr<ComponentCollisionCapsule> m_pRoarBox;
 
     Scene::SceneState m_sceneState = Scene::SceneState::GAME;
 
-    float3 m_move          = {0, 0, 0};
-    float  m_waitFor       = 0.0f;
-    float  m_waitTime      = NORMAL_WAIT;
-    float  m_degree        = 0.0f;
-    float  m_speedFactor   = 1.0f;
-    float  m_destroyTimer  = 5.0f;
-    float  m_currAnimTime  = 0.0f;
-    float  m_damageTimer   = 0;
-    int    m_combo         = 0;
-    int    m_RoarEffect    = -1;
-    int    m_powerUpEffect = -1;
+    float3 m_move                   = {0, 0, 0};
+    float  m_waitFor                = 0.0f;
+    float  m_waitTime               = NORMAL_WAIT;
+    float  m_degree                 = 0.0f;
+    float  m_speedFactor            = 1.0f;
+    float  m_destroyTimer           = 5.0f;
+    float  m_currAnimTime           = 0.0f;
+    float  m_damageTimer            = 0;
+    int    m_combo                  = 0;
+    //int    m_RoarEffect             = -1;
+    int    m_powerUpEffect          = -1;
     //int    m_angryEffect = -1;
-    int    m_playingEffect = -1;
-    int    m_RoarPlaying   = -1;
-    int    m_attackSE      = -1;
-    int    m_damageCount   = 0;
-    bool   m_isHitPlayer   = false;
-    bool   m_isDead        = false;
-    bool   m_isAngry       = false;
-    bool   m_playedSE      = false;
+    int    m_punchEffect            = -1;
+    int    m_powerPunchEffect       = -1;
+    int    m_doublePunchEffect      = -1;
+    int    m_powerDoublePunchEffect = -1;
+    int    m_playingEffect          = -1;
+    //int    m_RoarPlaying            = -1;
+    int    m_attackSE               = -1;
+    int    m_damageCount            = 0;
+    int    m_attackVal              = 10;
+    int*   m_pEffectList;
+    bool   m_isHitPlayer = false;
+    bool   m_isDead      = false;
+    bool   m_isAngry     = false;
+    bool   m_playedSE    = false;
 
     void GameAction();
     void TransInAction();
@@ -137,7 +144,6 @@ class Boss: public Object {
     void BackflipPunch();
     void ChargePunch();
     void Swip();
-    void Punch();
     //void RoarAttack();
     void PowerUp();
     void Taunt();
@@ -145,5 +151,6 @@ class Boss: public Object {
     void Die();
     void ChangeState(BossState state);
     void SetAnimList();
+    void SetComboList();
 };
 }    // namespace LittleQuest

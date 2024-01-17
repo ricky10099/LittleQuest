@@ -320,6 +320,10 @@ void SystemInit() {
 
     // シェーダー読込
     shader_ps_tonemapping_ = std::make_shared<ShaderPs>("data/Shader/ps_tonemapping");
+
+#ifndef _DEBUG
+    SetSysCommandOffFlag(TRUE);
+#endif
 }
 
 //---------------------------------------------------------------------------------

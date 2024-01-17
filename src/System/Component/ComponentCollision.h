@@ -258,6 +258,7 @@ class ComponentCollision: public Component {
 
     void AttachToModel(const std::string_view node);
 
+    int GetAttachedNode();
 #if 1
     //! @brief コリジョンマトリクス
     float* GetColMatrixFloat() {

@@ -597,6 +597,8 @@ class Scene {
 
     //@}
 
+    static void ExitApp();
+
    private:
     static Status<EditorStatusBit> editor_status_;    //!< 状態
     static float2                  inspector_size;

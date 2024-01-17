@@ -49,7 +49,7 @@ PS_OUTPUT main(PS_INPUT input)
 #endif
 	
 	// sRGBへ変換
-	color.rgb = pow(color.rgb, 1.0 / 2.2);
+    color.rgb = pow(abs(color.rgb), 1.0 / 2.2);
 
 	output.color0_ = color;
 

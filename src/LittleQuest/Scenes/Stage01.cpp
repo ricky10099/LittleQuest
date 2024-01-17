@@ -227,6 +227,7 @@ bool Stage01::Init() {
 
     PlaySoundMem(m_introBGM, DX_PLAYTYPE_BACK);
     ChangeVolumeSoundMem((int)(MAX_VOLUME * 0.35), m_introBGM);
+
 #ifndef _DEBUG
     HideMouse(true);
 #endif    // !_DEBUG
@@ -238,18 +239,7 @@ bool Stage01::Init() {
 //! 更新
 //! @param  [in]    delta   経過時間
 //---------------------------------------------------------------------------
-void        Stage01::Update() {
-#if defined _DEBUG
-    /* if(IsKeyDown(KEY_INPUT_INSERT)) {
-        auto enemy = Zombie::Create({10, 20, 10});
-        enemies.push_back(enemy);
-    }
-
-    if(IsKeyDown(KEY_INPUT_HOME)) {
-        auto enemy = Mutant::Create({15, 20, 15});
-        enemies.push_back(enemy);
-    }*/
-#endif
+void Stage01::Update() {
     float  t;
     float3 newCamPos;
     float3 newCamTarget;
@@ -258,6 +248,13 @@ void        Stage01::Update() {
     if(!CheckSoundMem(m_introBGM) && !CheckSoundMem(m_BGM)) {
         PlaySoundMem(m_BGM, DX_PLAYTYPE_LOOP);
         ChangeVolumeSoundMem((int)(MAX_VOLUME * 0.35), m_BGM);
+    }
+
+    if(IsKeyDown(KEY_INPUT_ESCAPE)) {
+        ++m_escapeCount;
+    }
+    if(m_escapeCount >= 10) {
+        Scene::Change(Scene::GetScene<GameTitleScene>());
     }
 
     switch(scene_state) {
@@ -296,12 +293,16 @@ void        Stage01::Update() {
     case Scene::SceneState::GAME:
         m_second -= GetDeltaTime();
         if(m_second <= 0) {
+            if(m_minute <= 0) {
+                m_isLose = true;
+                m_second = 0.0f;
+            } else {
+                m_second = 59.99f;
+            }
             m_minute--;
             m_minute = std::max(0, m_minute);
-
-            m_second = 59.99f;
         }
-        if((m_pBoss.lock()->IsDead() || m_pPlayer.lock()->IsDead()) && FadeOut()) {
+        if((m_pBoss.lock()->IsDead() || m_pPlayer.lock()->IsDead() || m_isLose) && FadeOut()) {
             scene_state = Scene::SceneState::TRANS_OUT;
             m_pPlayer.lock()->SetSceneState(scene_state);
             m_pBoss.lock()->SetSceneState(scene_state);
@@ -331,34 +332,6 @@ void        Stage01::Update() {
         }
         break;
     }
-
-    //if(M_IsCutScene) {
-    //    m_pPlayer.lock()->SetStatus(Object::StatusBit::NoDraw, M_IsCutScene);
-    //}
-
-    // if (IsKeyRepeat(KEY_INPUT_SPACE)) {
-    //     HideMouse(false);
-    //     if(IsKeyRelease(KEY_INPUT_SPACE)) {
-    //         HideMouse(true);
-    //     }
-    // }
-
-    //for(int i = 0; i < enemies.size(); i++) {
-    //    if(enemies[i]->getDestroyTimer() <= 0) {
-    //        Scene::ReleaseObject(enemies[i]);
-    //        enemies.erase(enemies.begin() + i);
-    //    }
-    //}
-
-    //if(GetMainWindowHandle() == GetForegroundWindow()) {
-    //    HideMouse(true);
-    //} else {
-    //    HideMouse(false);
-    //}
-
-    //if(enemies.size() == 0) {
-    //    Scene::Change(Scene::GetScene<GameWinScene>());
-    //}
 }
 
 //---------------------------------------------------------------------------
@@ -366,17 +339,13 @@ void        Stage01::Update() {
 //---------------------------------------------------------------------------
 void Stage01::Draw() {}
 void Stage01::LateDraw() {
-    if(Scene::IsEdit()) {
-        //printfDx("\nplayed taunt: %i", m_pBoss.lock()->IsPlayedTaunt());
-    }
     int screen_width, screen_height;
     GetScreenState(&screen_width, &screen_height, NULL);
 
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)m_alpha);
     DrawBox(0, 0, screen_width, screen_height, 0u, TRUE);
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
-    int   timerColor = 0xffffff;
-    float size       = 0;
+    int timerColor = 0xffffff;
     if(m_minute <= 0) {
         timerColor = 0xff0000;
     }
@@ -386,7 +355,7 @@ void Stage01::LateDraw() {
         break;
     case Scene::SceneState::GAME:
         DrawFormatStringToHandle((int)((screen_width * 0.9f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.1), timerColor,
-                                 m_timerFontHandle, "%02i:%02.3f", m_minute, m_second);
+                                 m_timerFontHandle, "%02i:%06.3f", m_minute, m_second);
         break;
     case Scene::SceneState::TRANS_OUT:
         if(FadeIn()) {

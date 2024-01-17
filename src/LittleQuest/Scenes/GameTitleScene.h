@@ -26,23 +26,33 @@ class GameTitleScene: public Scene::Base {
     void GUI() override;
 
    private:
-    const float START_TIME       = 120.0f;
-    float3      START_CAM_POS    = {-3, 3, 12};
-    float3      START_CAM_TARGET = {0, 1.5f, 0};
-    float3      END_CAM_POS      = {-1, 6, 20};
-    float3      END_CAM_TARGET   = {0, 5, 0};
+    const float  START_TIME       = 120.0f;
+    const float  VIDEO_TIME       = 360.0f;
+    const float3 START_CAM_POS    = {-3, 3, 12};
+    const float3 START_CAM_TARGET = {0, 1.5f, 0};
+    const float3 END_CAM_POS      = {-1, 6, 20};
+    const float3 END_CAM_TARGET   = {0, 5, 0};
 
     float m_startTimer     = START_TIME;
     float m_alpha          = 0;
     float m_elapsed60      = 0;
-    int   m_titleImage     = -1;
-    int   m_fontHandle     = -1;
+    float m_videoTimer     = 0;
     int   m_stringWidth    = 0;
     int   m_stringHeight   = 0;
     int   m_loadCount      = 0;
     int   m_totalLoadCount = 0;
+    int   m_escapeCount    = 0;
+    int   m_titleImage     = -1;
+    int   m_fontHandle     = -1;
+    int   m_demoVideo1     = -1;
+    int   m_demoVideo2     = -1;
+    int   m_demoVideo3     = -1;
+    int   m_prevVideo      = -1;
+    int   m_currVideo      = -1;
+    int*  m_videoList;
     bool  m_isStart        = false;
     bool  m_showString     = true;
+    bool  m_isPlayingVideo = false;
 
     ComponentModelPtr                 m_pModel;
     ComponentCameraPtr                m_pCamera;

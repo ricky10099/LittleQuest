@@ -46,7 +46,7 @@ class Stage01: public Scene::Base {
     float m_shrinkTimer     = 0;
     float m_cutSceneTimer   = START_CUT_SCENE_TIME;
     float m_alpha           = 255;
-    float m_second          = 10.0;
+    float m_second          = 0.0f;
     float m_elapsed         = 0;
     float m_endingTimer     = 600;
     int   m_clearImage      = -1;
@@ -61,8 +61,10 @@ class Stage01: public Scene::Base {
     int   m_stringHeight    = 0;
     int   m_timerWidth      = 0;
     int   m_timerHeight     = 0;
-    int   m_minute          = 0;
+    int   m_minute          = 3;
+    int   m_escapeCount     = 0;
     bool  m_isLoading       = true;
+    bool  m_isLose          = false;
 
     std::weak_ptr<Player>             m_pPlayer;
     std::weak_ptr<Boss>               m_pBoss;

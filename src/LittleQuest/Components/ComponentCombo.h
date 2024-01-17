@@ -18,7 +18,7 @@ class ComponentCombo: public Component {
     //void Draw() override;
     void GUI() override;
 
-    void  AddCombo();
+    void  AddCombo(int combo);
     void  DrawComboBar();
     float ComboBuff();
 

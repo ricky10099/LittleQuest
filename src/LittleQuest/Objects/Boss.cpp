@@ -46,10 +46,17 @@ bool Boss::Init() {
         {       STR(BossState::DEAD),          "data/LittleQuest/Anim/MutantSet/ZombieDeath.mv1", 0, 1.0f}
     });
     m_pModel.lock()->PlayAnimation(STR(BossState::IDLE), true);
+
     SetAnimList();
+    SetComboList();
 
     //m_RoarEffect = LoadEffekseerEffect("data/Pierre01/MonsterRoar.efk", 5.0f);
-    m_powerUpEffect = LoadEffekseerEffect("data/LittleQuest/Effect/PowerUp.efk", 20.0f);
+    m_powerUpEffect          = LoadEffekseerEffect("data/LittleQuest/Effect/PowerUp.efk", 20.0f);
+    m_punchEffect            = LoadEffekseerEffect("data/LittleQuest/Effect/PunchSprite.efk", 2.5f);
+    m_powerPunchEffect       = LoadEffekseerEffect("data/LittleQuest/Effect/PunchSprite2.efk", 2.5f);
+    m_doublePunchEffect      = LoadEffekseerEffect("data/LittleQuest/Effect/DoublePunchSprite.efk", 1.5f);
+    m_powerDoublePunchEffect = LoadEffekseerEffect("data/LittleQuest/Effect/DoublePunchSprite2.efk", 1.5f);
+    m_pEffectList            = new int[4]{m_punchEffect, m_powerPunchEffect, m_doublePunchEffect, m_powerDoublePunchEffect};
     //m_angryEffect   = LoadEffekseerEffect("data/LittleQuest/Effect/Angry1.efk", 10.0f);
 
     m_pBodyBox = AddComponent<ComponentCollisionCapsule>();
@@ -198,16 +205,7 @@ void Boss::TransOutAction() {
 }
 
 void Boss::LateDraw() {
-    if(Scene::IsEdit()) {
-        printfDx("\ncombo:%i", m_combo);
-        printfDx("\nAnim:%i", m_anim);
-        printfDx("\nAnimName :%s", m_pModel.lock()->GetPlayAnimationName().data());
-        printfDx("\nwait time:%f", m_waitFor);
-        printfDx("\nangle:%f", GetDegreeToPosition(m_pPlayer.lock()->GetTranslate()));
-        printfDx("\nDistance: %f", GetDistance(m_pPlayer.lock()->GetTranslate(), GetTranslate()));
-        printfDx("\nDamageCount : %i", m_damageCount);
-        printfDx("\nHP: %i", m_pHP.lock()->GetHP());
-    }
+    if(Scene::IsEdit()) {}
     switch(m_sceneState) {
     case Scene::SceneState::TRANS_IN:
         break;
@@ -229,7 +227,7 @@ void Boss::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
         if(auto player = dynamic_cast<Player*>(owner)) {
             if(!m_isHitPlayer) {
                 m_isHitPlayer = true;
-                player->GetHit(30);
+                player->GetHit((int)(m_comboList[m_bossCombo] * m_attackVal * (1 + m_isAngry)));
             }
         }
     }
@@ -369,11 +367,14 @@ void Boss::SelectAngryAction() {
         }
     } else if(distance < TOO_CLOSE_DISTANCE && angle < FRONT_ANGLE) {
         ChangeState(BossState::ATTACK);
-        if(random <= 60) {
+        if(random <= 40) {
             m_bossCombo = BossCombo::BACKFLIP_PUNCH;
-        } else if(random <= 90) {
+        } else if(random <= 70) {
             SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 50);
             m_bossCombo = BossCombo::COMBO5;
+        } else if(random <= 90) {
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 30);
+            m_bossCombo = BossCombo::SWIP;
         } else {
             if(dotPlayer < 0) {
                 ChangeState(BossState::TURN_RIGHT);
@@ -450,6 +451,7 @@ void Boss::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector
         for(int i = 0; i < atkCol.size(); i++) {
             atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
         }
+
         if(!m_playedSE && playSE) {
             PlaySoundMem(m_attackSE, DX_PLAYTYPE_BACK);
             m_playedSE = true;
@@ -474,20 +476,41 @@ void Boss::Combo5() {
     switch(m_combo) {
     case 1:
         AttackAnimation(STR(BossAnim::SWIP_ATTACK), m_animList[STR(BossAnim::SWIP_ATTACK)], {m_pLeftHandBox.lock()});
+        if(m_currAnimTime >= m_animList[STR(BossAnim::SWIP_ATTACK)].triggerStartTime) {
+            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[0 + m_isAngry]);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x - 15 * sinf(GetRotationAxisXYZ().y * DegToRad),
+                                           GetTranslate().y + 12,
+                                           GetTranslate().z - 15 * cosf(GetRotationAxisXYZ().y * DegToRad));
+            SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, GetRotationAxisXYZ().y * DegToRad, -30 * DegToRad);
+        }
         break;
     case 3:
     case 5:
         if(m_isAngry) {
-            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 30);
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 1);
         }
         AttackAnimation(STR(BossAnim::SWIP_ATTACK), m_animList[STR(BossAnim::QUICK_SWIP)], {m_pLeftHandBox.lock()});
+        if(m_currAnimTime >= m_animList[STR(BossAnim::QUICK_SWIP)].triggerStartTime) {
+            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[0 + m_isAngry]);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x - 15 * sinf(GetRotationAxisXYZ().y * DegToRad),
+                                           GetTranslate().y + 12,
+                                           GetTranslate().z - 15 * cosf(GetRotationAxisXYZ().y * DegToRad));
+            SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, GetRotationAxisXYZ().y * DegToRad, -80 * DegToRad);
+        }
         break;
     case 2:
     case 4:
         if(m_isAngry) {
-            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 30);
+            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 1);
         }
         AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::QUICK_PUNCH)], {m_pRightHandBox.lock()});
+        if(m_currAnimTime >= m_animList[STR(BossAnim::QUICK_PUNCH)].triggerStartTime) {
+            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[0 + m_isAngry]);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x - 15 * sinf(GetRotationAxisXYZ().y * DegToRad),
+                                           GetTranslate().y + 12,
+                                           GetTranslate().z - 15 * cosf(GetRotationAxisXYZ().y * DegToRad));
+            SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, GetRotationAxisXYZ().y * DegToRad, 80 * DegToRad);
+        }
         break;
     default:
         ChangeState(BossState::WAIT);
@@ -519,6 +542,12 @@ void Boss::BackflipPunch() {
             vec *= distance * -0.25f * GetDeltaTime60();
             AddTranslate(vec);
             SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 10);
+        } else {
+            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[2 + m_isAngry]);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x - 15 * sinf(GetRotationAxisXYZ().y * DegToRad),
+                                           GetTranslate().y + 12,
+                                           GetTranslate().z - 15 * cosf(GetRotationAxisXYZ().y * DegToRad));
+            SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, GetRotationAxisXYZ().y * DegToRad, 0);
         }
         break;
     default:
@@ -544,6 +573,12 @@ void Boss::ChargePunch() {
             vec *= distance * -0.25f * GetDeltaTime60();
             AddTranslate(vec);
             SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 10);
+        } else {
+            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[2 + m_isAngry]);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x - 15 * sinf(GetRotationAxisXYZ().y * DegToRad),
+                                           GetTranslate().y + 12,
+                                           GetTranslate().z - 15 * cosf(GetRotationAxisXYZ().y * DegToRad));
+            SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, GetRotationAxisXYZ().y * DegToRad, 0);
         }
         break;
     default:
@@ -558,11 +593,25 @@ void Boss::Swip() {
     switch(m_combo) {
     case 1:
         AttackAnimation(STR(BossAnim::SWIP_ATTACK), m_animList[STR(BossAnim::SWIP_ATTACK)], {m_pLeftHandBox.lock()});
+        if(m_currAnimTime >= m_animList[STR(BossAnim::SWIP_ATTACK)].triggerStartTime) {
+            m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[0 + m_isAngry]);
+            SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x - 15 * sinf(GetRotationAxisXYZ().y * DegToRad),
+                                           GetTranslate().y + 12,
+                                           GetTranslate().z - 15 * cosf(GetRotationAxisXYZ().y * DegToRad));
+            SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, GetRotationAxisXYZ().y * DegToRad, -30 * DegToRad);
+        }
         break;
     case 2:
         distance = GetDistance(this->GetTranslate(), m_pPlayer.lock()->GetTranslate());
         if(distance < 50) {
             AttackAnimation(STR(BossAnim::PUNCH), m_animList[STR(BossAnim::PUNCH)], {m_pRightHandBox.lock()});
+            if(m_currAnimTime >= m_animList[STR(BossAnim::PUNCH)].triggerStartTime) {
+                m_playingEffect = PlayEffekseer3DEffect(m_pEffectList[0 + m_isAngry]);
+                SetPosPlayingEffekseer3DEffect(m_playingEffect, GetTranslate().x - 15 * sinf(GetRotationAxisXYZ().y * DegToRad),
+                                               GetTranslate().y + 12,
+                                               GetTranslate().z - 15 * cosf(GetRotationAxisXYZ().y * DegToRad));
+                SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, GetRotationAxisXYZ().y * DegToRad, 80 * DegToRad);
+            }
         } else {
             m_combo++;
         }
@@ -573,8 +622,6 @@ void Boss::Swip() {
         break;
     }
 }
-
-void Boss::Punch() {}
 
 //void Boss::RoarAttack() {
 //    switch(m_combo) {
@@ -640,6 +687,7 @@ void Boss::PowerUp() {
         if(!m_pAngryBox.expired()) {
             RemoveComponent(m_pAngryBox.lock());
             m_pAngryBox.reset();
+            StopEffekseer3DEffect(m_playingEffect);
         }
     }
     if(m_currAnimTime > m_animList[STR(BossAnim::ANGRY_AURA)].animCutInTime) {
@@ -735,8 +783,14 @@ void Boss::SetSceneState(Scene::SceneState state) {
 }
 
 void Boss::Exit() {
+    delete[] m_pEffectList;
+
     DeleteSoundMem(m_attackSE);
     DeleteEffekseerEffect(m_powerUpEffect);
+    DeleteEffekseerEffect(m_punchEffect);
+    DeleteEffekseerEffect(m_powerPunchEffect);
+    DeleteEffekseerEffect(m_doublePunchEffect);
+    DeleteEffekseerEffect(m_powerDoublePunchEffect);
 }
 
 void Boss::SetAnimList() {
@@ -822,6 +876,13 @@ void Boss::SetAnimList() {
     info.animCutInTime = 167;
 
     m_animList[STR(BossState::GET_HIT)] = info;
+}
+
+void Boss::SetComboList() {
+    m_comboList[BossCombo::SWIP]           = 1;
+    m_comboList[BossCombo::COMBO5]         = 0.7f;
+    m_comboList[BossCombo::BACKFLIP_PUNCH] = 1;
+    m_comboList[BossCombo::CHARGE_PUNCH]   = 2;
 }
 }    // namespace LittleQuest
 

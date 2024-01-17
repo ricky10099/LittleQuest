@@ -22,9 +22,9 @@ PS_OUTPUT main(PS_INPUT input)
     float3 iblDiffuse = ibl_diffuse_texture.SampleLevel(DiffuseSampler, 1, 0.0).rgb * (1.0 / PI);
 	// 出力カラー = テクスチャカラー * ディフューズカラー
 	output.color0_ = color * input.diffuse_;
-    output.color0_.rgb = (pow(color.rgb, 2.2) * input.diffuse_.rgb);
+    output.color0_.rgb = (pow(abs(color.rgb), 2.2) * input.diffuse_.rgb);
 	
-    output.color0_.rgb += (pow(color.rgb, 2.2) * input.diffuse_.rgb) * iblDiffuse;
+    output.color0_.rgb += (pow(abs(color.rgb), 2.2) * input.diffuse_.rgb) * iblDiffuse;
 	// 出力パラメータを返す
 	return output;
 }

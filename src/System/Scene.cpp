@@ -15,6 +15,8 @@
 //=============================================================
 BP_BASE_IMPL_ABSOLUTE(Scene::Base, u8"シーン基底");
 
+extern bool s_exit;
+
 namespace {
 #ifdef _DEBUG
 bool scene_edit = true;    //!< エディター状態
@@ -787,10 +789,11 @@ void Scene::Change(BasePtr scene) {
     SetNextScene(scene);
 }
 
-void Scene::PreUpdate() {
+void        Scene::PreUpdate() {
+#if defined _DEBUG
     if(IsKeyOn(KEY_INPUT_F1))
         scene_pause = !scene_pause;
-
+#endif
     if(IsKeyOn(KEY_INPUT_F2))
         scene_step = true;
 
@@ -1510,6 +1513,10 @@ bool Scene::Save(std::string_view filename) {
 
 bool Scene::Load(std::string_view filename) {
     return current_scene_->Load(filename);
+}
+
+void Scene::ExitApp() {
+    s_exit = true;
 }
 
 //----------------------------------------------------------------------------

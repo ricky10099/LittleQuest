@@ -76,7 +76,7 @@ PS_OUTPUT main(PS_INPUT_3D input)
 	// ※元のカラー画像はリニア空間ではなくsRGBの画像
 	// 法線マップなどの数値データーをカラー画像に使用しているものは
 	// リニア空間になっているため変換不要
-    albedo = pow(albedo, 2.2);
+    albedo = pow(abs(albedo), 2.2);
 	
 	
 	
