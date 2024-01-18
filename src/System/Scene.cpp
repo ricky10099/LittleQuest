@@ -9,13 +9,15 @@
 #include <System/SystemMain.h>    // ResetDeltaTime
 
 #include <algorithm>
-
 //=============================================================
 // シーン ローカル変数
 //=============================================================
 BP_BASE_IMPL_ABSOLUTE(Scene::Base, u8"シーン基底");
 
-extern bool s_exit;
+extern bool exit_app;
+extern int  bgm_volume;
+extern int  se_volume;
+extern int  audio[2];
 
 namespace {
 #ifdef _DEBUG
@@ -23,10 +25,28 @@ bool scene_edit = true;    //!< エディター状態
 #else
 bool scene_edit = false;    //!< エディター状態
 #endif
-bool  scene_pause   = false;    //!< ポーズ中
-bool  scene_step    = false;    //!< 1フレームスキップ
-float scene_time    = 0.0f;     //!< タイマー
-float scene_overlap = 0.0f;     //!< シーン切り替えオーバーラップ
+bool  scene_pause     = false;    //!< ポーズ中
+bool  scene_can_pause = false;
+bool  scene_draw_menu = false;
+bool  stop_pause      = false;
+bool  scene_step      = false;    //!< 1フレームスキップ
+float scene_time      = 0.0f;     //!< タイマー
+float scene_overlap   = 0.0f;     //!< シーン切り替えオーバーラップ
+
+int           font_handle         = -1;
+int           bgm_handle          = -1;
+constexpr int MENU_MAX            = 4;
+int           select_num          = 0;
+float         menu_x[MENU_MAX]    = {0.4f, 0.4f, 0.5f, 0.5f};
+float         menu_y[MENU_MAX]    = {0.32f, 0.42f, 0.52f, 0.62f};
+const char*   menu_text[MENU_MAX] = {"BGM", "SE", "Resume", "Back to Title"};
+float         volume_list[2]      = {bgm_volume / 100.0f, se_volume / 100.0f};
+
+std::vector<std::function<void()>> menu_function;
+std::vector<Scene::BGMInfo>        bgm_list;
+
+int bgm_index = -1;
+//std::vector<BGMInfo> bgm_list;
 
 bool scene_change_next = false;    //!< 次のシーンへ移行する
 
@@ -179,6 +199,7 @@ ObjectWeakPtrVec leak_objs;
 
 Scene::BasePtr                 Scene::current_scene_ = nullptr;    //!< 現在のシーン
 Scene::BasePtr                 Scene::next_scene_    = nullptr;    //!< 変更シーン
+Scene::BasePtr                 Scene::queue_scene_   = nullptr;    //!< 変更シーン
 Scene::BasePtrMap              Scene::scenes_        = {};         //!< 存在する全シーン
 Status<Scene::EditorStatusBit> Scene::editor_status_;              //!< シーン状態
 float2                         Scene::inspector_size{300, 300};
@@ -761,6 +782,14 @@ void Scene::ChangeNextScene() {
     scene_pause = false;    // ポーズ解除
 }
 
+void Scene::QueueScene(BasePtr scene) {
+    queue_scene_ = scene;
+}
+
+void Scene::NextScene() {
+    Change(queue_scene_);
+}
+
 //! 現在アクティブなシーンを取得します
 Scene::Base* Scene::GetCurrentScene() {
     return current_scene_.get();
@@ -772,6 +801,15 @@ void Scene::Init() {
     // Worldが出来上がり、その後、
     // 個別にオブジェクトは作成されるため
     // Update内で、Initする形をとる
+    scene_can_pause = false;
+    scene_draw_menu = false;
+    font_handle     = CreateFontToHandle("M PLUS Code Latin", 50, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
+    bgm_index       = -1;
+
+    menu_function.emplace_back(SetBGMVolume);
+    menu_function.emplace_back(SetSEVolume);
+    menu_function.emplace_back(Pause);
+    menu_function.emplace_back(NextScene);
 
     debug_scene_name = current_scene_->typeInfo()->className();
     if(next_scene_)
@@ -954,6 +992,59 @@ void        Scene::PreUpdate() {
 void Scene::Update() {
     f32 delta = GetDeltaTime();
 
+    if((IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) || IsKeyDown(KEY_INPUT_ESCAPE)) && scene_can_pause) {
+        Pause();
+        select_num = 0;
+    }
+
+    if(scene_draw_menu) {
+        HideMouse(false);
+        if(IsKeyDown(KEY_INPUT_UP) || IsPadDown(PAD_ID::PAD_UP, DX_PADTYPE_DUAL_SENSE)) {
+            --select_num;
+        }
+        if(IsKeyDown(KEY_INPUT_DOWN) || IsPadDown(PAD_ID::PAD_DOWN, DX_PADTYPE_DUAL_SENSE)) {
+            ++select_num;
+        }
+
+        if(select_num < 0) {
+            select_num = MENU_MAX - 1;
+        }
+        if(select_num >= MENU_MAX) {
+            select_num = 0;
+        }
+
+        switch(select_num) {
+        case 0:
+        case 1:
+            menu_function[select_num]();
+            break;
+        }
+
+        if(IsKeyDown(KEY_INPUT_RETURN) || IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)) {
+            menu_function[select_num]();
+        }
+
+        if(IsPadDown(PAD_ID::PAD_2, DX_PADTYPE_DUAL_SENSE)) {
+            Pause();
+        }
+    }
+
+    bool next_bgm_exist = (int)(bgm_list.size() - 1) > bgm_index;
+    bool no_bgm;
+
+    for(int i = 0; i < bgm_list.size(); ++i) {
+        no_bgm = (CheckSoundMem(bgm_list[i].bgm_handle) == 0);
+        if(!no_bgm) {
+            break;
+        }
+    }
+
+    if(next_bgm_exist && no_bgm) {
+        ++bgm_index;
+        PlaySoundMem(bgm_list[bgm_index].bgm_handle, bgm_list[bgm_index].play_type);
+        ChangeVolumeSoundMem((int)(255 * (GetBGMVolume() / 100.0f)), bgm_list[bgm_index].bgm_handle);
+    }
+
     if(current_scene_) {
         if(!scene_pause || scene_step) {
             current_scene_->Update();
@@ -1004,6 +1095,56 @@ void Scene::Draw() {
     current_scene_->LateDraw();
     current_scene_->GetSignals(ProcTiming::LateDraw)();
 
+    if(scene_draw_menu) {
+        int screen_width, screen_height;
+        GetScreenState(&screen_width, &screen_height, NULL);
+        SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+        DrawBoxAA(screen_width * 0.3f, screen_height * 0.3f, screen_width * 0.7f, screen_height * 0.7f, 0u, TRUE);
+        SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
+
+        int mouseX, mouseY;
+        GetMousePoint(&mouseX, &mouseY);
+
+        int   string_width, string_height;
+        float x1, x2, y1, y2;
+
+        for(int i = 0; i < MENU_MAX; ++i) {
+            GetDrawStringSizeToHandle(&string_width, &string_height, NULL, menu_text[i], -1, font_handle);
+            x1 = screen_width * menu_x[i] - string_width * 0.5f;
+            y1 = screen_height * menu_y[i];
+            DrawStringFToHandle(x1, y1, menu_text[i], 0xffffff, font_handle);
+
+            x1 = screen_width * menu_x[i] - string_width * 0.5f;
+            x2 = screen_width * menu_x[i] + string_width * 0.5f;
+            y1 = screen_height * menu_y[i];
+            y2 = screen_height * menu_y[i] + string_height;
+
+            if(mouseX > (int)x1 && mouseX < (int)x2 && mouseY > (int)y1 && mouseY < (int)y2) {
+                select_num = i;
+                if(IsMouseDown(MOUSE_INPUT_LEFT)) {
+                    menu_function[select_num]();
+                }
+            }
+
+            x1 = screen_width * menu_x[i] - string_width * 0.5f;
+            x2 = screen_width * menu_x[i] + string_width * 0.5f;
+            y1 = screen_height * menu_y[i] + string_height;
+
+            if(select_num == i) {
+                DrawLineAA(x1, y1, x2, y1, 0xffff00, 2.0f);
+            }
+        }
+
+        for(int i = 0; i < 2; ++i) {
+            x1 = screen_width * 0.45f;
+            x2 = screen_width * 0.45f + (audio[i] / 100.0f) * (screen_width * 0.65f - screen_width * 0.45f);
+            y1 = screen_height * menu_y[i];
+            y2 = screen_height * menu_y[i] + string_height;
+
+            DrawBoxAA(x1, y1, x2, y2, 0xffffff, TRUE);
+        }
+    }
+
     current_scene_->PostDraw();
     current_scene_->GetSignals(ProcTiming::PostDraw)();
 
@@ -1034,7 +1175,7 @@ void Scene::Draw() {
         }
     }
 
-    // PauseSystem::DrawPause();
+    //PauseSystem::DrawPause();
 }
 
 void Scene::Exit() {
@@ -1050,7 +1191,9 @@ void Scene::Exit() {
 #if 0
     physx_lib->Exit();
 #endif
+    //DeleteFontToHandle(font_handle);
     //	Change( nullptr );
+
     ChangeNextScene();
 }
 
@@ -1267,6 +1410,48 @@ void Scene::GUI() {
 
 bool Scene::IsPause() {
     return scene_pause && !scene_step;
+}
+
+void Scene::Pause() {
+    scene_pause     = !IsPause();
+    scene_draw_menu = !scene_draw_menu;
+}
+
+void Scene::SetCanPause(bool canPause) {
+    scene_can_pause = canPause;
+}
+
+void Scene::SetSceneBGMList(std::vector<BGMInfo> bgmList) {
+    bgm_list = bgmList;
+}
+
+void Scene::SetBGMVolume() {
+    if(IsKeyDown(KEY_INPUT_LEFT) || IsPadDown(PAD_ID::PAD_LEFT, DX_PADTYPE_DUAL_SENSE)) {
+        audio[0] -= 5;
+    }
+    if(IsKeyDown(KEY_INPUT_RIGHT) || IsPadDown(PAD_ID::PAD_RIGHT, DX_PADTYPE_DUAL_SENSE)) {
+        audio[0] += 5;
+    }
+    audio[0] = std::max(0, std::min(100, audio[0]));
+    ChangeVolumeSoundMem((int)(255 * (audio[0] / 100.0f)), bgm_list[bgm_index].bgm_handle);
+}
+
+void Scene::SetSEVolume() {
+    if(IsKeyDown(KEY_INPUT_LEFT) || IsPadDown(PAD_ID::PAD_LEFT, DX_PADTYPE_DUAL_SENSE)) {
+        audio[1] -= 5;
+    }
+    if(IsKeyDown(KEY_INPUT_RIGHT) || IsPadDown(PAD_ID::PAD_RIGHT, DX_PADTYPE_DUAL_SENSE)) {
+        audio[1] += 5;
+    }
+    audio[1] = std::max(0, std::min(100, audio[1]));
+}
+
+int Scene::GetBGMVolume() {
+    return audio[0];
+}
+
+int Scene::GetSEVolume() {
+    return audio[1];
 }
 
 float Scene::GetTime() {
@@ -1516,7 +1701,8 @@ bool Scene::Load(std::string_view filename) {
 }
 
 void Scene::ExitApp() {
-    s_exit = true;
+    DeleteFontToHandle(font_handle);
+    exit_app = true;
 }
 
 //----------------------------------------------------------------------------

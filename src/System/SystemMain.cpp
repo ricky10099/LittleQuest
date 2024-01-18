@@ -321,6 +321,11 @@ void SystemInit() {
     // シェーダー読込
     shader_ps_tonemapping_ = std::make_shared<ShaderPs>("data/Shader/ps_tonemapping");
 
+    if(AddFontResourceEx("data/LittleQuest/Fonts/MPLUSCodeLatin-Regular.ttf", FR_PRIVATE, NULL) > 0) {
+    } else {
+        MessageBox(NULL, "フォント読込失敗", "", MB_OK);
+    }
+
 #ifndef _DEBUG
     SetSysCommandOffFlag(TRUE);
 #endif

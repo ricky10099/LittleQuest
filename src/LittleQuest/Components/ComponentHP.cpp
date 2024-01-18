@@ -81,7 +81,7 @@ void ComponentHP::DrawHPBar() {
         posX2 = (int)(screenWidth * 0.3f);
         posY2 = (int)(screenHeight * 0.065f);
         DrawBoxAA(posX - 2.0f, posY - 2.0f, posX2 + 2.0f, posY2 + 2.0f, GetColor(255, 255, 255), FALSE, 2.0f);
-        DrawFillBox(posX, posY, (int)(posX + ((m_backHP / (float)m_maxHP) * (posX2 - posX))), posY2, GetColor(200, 0, 0));
+        DrawFillBox(posX, posY, (int)(posX + ((m_backHP / (float)m_maxHP) * (posX2 - posX))), posY2, GetColor(100, 0, 0));
         DrawFillBox(posX, posY, (int)(posX + ((m_currHP / (float)m_maxHP) * (posX2 - posX))), posY2, GetColor(0, 255, 0));
         break;
     case HP_TYPE::BOSS:
@@ -90,7 +90,7 @@ void ComponentHP::DrawHPBar() {
         posX2 = (int)(screenWidth * 0.85f);
         posY2 = (int)(screenHeight * 0.92f);
         DrawBoxAA(posX - 2.0f, posY - 2.0f, posX2 + 2.0f, posY2 + 2.0f, GetColor(0, 0, 0), FALSE, 2.0f);
-        DrawFillBox(posX, posY, (int)(posX + ((m_backHP / (float)m_maxHP) * (posX2 - posX))), posY2, GetColor(200, 0, 0));
+        DrawFillBox(posX, posY, (int)(posX + ((m_backHP / (float)m_maxHP) * (posX2 - posX))), posY2, GetColor(100, 0, 0));
         DrawFillBox(posX, posY, (int)(posX + ((m_currHP / (float)m_maxHP) * (posX2 - posX))), posY2, GetColor(255, 0, 0));
         break;
     }

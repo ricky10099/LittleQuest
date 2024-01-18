@@ -34,6 +34,15 @@ bool Camera::Init() {
 
 void Camera::Update() {
     if(m_pCamera.lock()->GetCurrentCamera().lock() == m_pCamera.lock()) {
+        DINPUT_JOYSTATE DInputState;
+        switch(GetJoypadType(DX_INPUT_PAD1)) {
+        case DX_PADTYPE_DUAL_SENSE:
+            GetJoypadDirectInputState(DX_INPUT_PAD1, &DInputState);
+            m_rot += {-DInputState.Rz * 0.001f, DInputState.Z * 0.001f, 0};
+            break;
+        default:
+            break;
+        }
         m_rot += {-GetMouseMoveY() * 0.1f, GetMouseMoveX() * 0.1f, 0};
         m_rot.x = max(min(m_rot.x, 40.0f), -70.0f);
         m_pSpringArm.lock()->SetSpringArmRotate(m_rot);

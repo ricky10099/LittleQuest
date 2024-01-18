@@ -13,6 +13,8 @@
 #include <System/Component/ComponentSpringArm.h>
 #include <System/Component/ComponentTargetTracking.h>
 
+//extern int se_volume;
+
 namespace LittleQuest {
 
 BP_OBJECT_IMPL(Boss, "LittleQuest/Boss");
@@ -454,6 +456,7 @@ void Boss::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector
 
         if(!m_playedSE && playSE) {
             PlaySoundMem(m_attackSE, DX_PLAYTYPE_BACK);
+            ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), m_attackSE);
             m_playedSE = true;
         }
     }
@@ -773,7 +776,6 @@ bool Boss::IsDead() {
 }
 
 void Boss::ChangeState(BossState state) {
-    m_prevState   = this->m_state;
     this->m_state = state;
 }
 

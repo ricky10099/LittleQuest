@@ -45,6 +45,10 @@ class Scene {
         PAUSE,
     };
 
+    struct BGMInfo {
+        int bgm_handle = -1;
+        int play_type  = DX_PLAYTYPE_LOOP;
+    };
     //---------------------------------------------------------------------------
     // シグナル
     //---------------------------------------------------------------------------
@@ -315,6 +319,10 @@ class Scene {
     //! 次のシーンに切り替える
     static void ChangeNextScene();
 
+    static void QueueScene(BasePtr scene);
+
+    static void NextScene();
+
     //  現在アクティブなシーンを取得します
     static Scene::Base* GetCurrentScene();
 
@@ -475,6 +483,20 @@ class Scene {
     //! @retval false ポーズしていない
     static bool IsPause();
 
+    static void Pause();
+
+    static void SetCanPause(bool canPause);
+
+    static void SetSceneBGMList(std::vector<BGMInfo> bgmList);
+
+    static void SetBGMVolume();
+
+    static void SetSEVolume();
+
+    static int GetBGMVolume();
+
+    static int GetSEVolume();
+
     //! シーン内時間の取得
     //! @return シーンが始まってからの時間
     static float GetTime();
@@ -616,6 +638,7 @@ class Scene {
 
     static BasePtr current_scene_;    //!< 現在のシーン
     static BasePtr next_scene_;       //!< 変更シーン
+    static BasePtr queue_scene_;
 
     static BasePtrMap scenes_;    //!< 存在する全シーン
 };

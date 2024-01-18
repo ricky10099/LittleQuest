@@ -15,6 +15,8 @@
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
 
+//extern int se_volume;
+
 namespace LittleQuest {
 
 BP_OBJECT_IMPL(Player, "LittleQuest/Player");
@@ -81,7 +83,7 @@ bool Player::Init() {
     m_pWeapon.lock()->SetTranslate({10, 13, -4});
     m_pWeapon.lock()->SetRotationAxisXYZ({0, 0, -92});
     m_pWeapon.lock()->SetRadius(0.2f);
-    m_pWeapon.lock()->SetHeight(7.2f);
+    m_pWeapon.lock()->SetHeight(10.0f);
     m_pWeapon.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
     m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
     m_pWeapon.lock()->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
@@ -159,6 +161,7 @@ void Player::GameAction() {
         m_currCombo = Combo::NO_COMBO;
         m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
         if(m_pModel.lock()->IsPlaying()) {
+            m_movement     = {};
             m_isInvincible = true;
             float3 vec     = m_pModel.lock()->GetMatrix().axisZ();
             vec.y          = 0;
@@ -195,7 +198,6 @@ void Player::TransOutAction() {
 }
 
 void Player::LateDraw() {
-    if(Scene::IsEdit()) {}
     switch(m_sceneState) {
     case Scene::SceneState::TRANS_IN:
         break;
@@ -234,6 +236,7 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
                 m_pCombo.lock()->AddCombo(m_comboList[m_currCombo]);
                 m_playingEffect = PlayEffekseer3DEffect(m_hitEffect);
                 PlaySoundMem(m_swordHitSE, DX_PLAYTYPE_BACK);
+                ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), m_swordHitSE);
                 SetPosPlayingEffekseer3DEffect(m_playingEffect, hitInfo.hit_position_.x, hitInfo.hit_position_.y,
                                                hitInfo.hit_position_.z);
             }
@@ -249,6 +252,7 @@ void Player::GetHit(int damage) {
     }
 
     m_pHP.lock()->TakeDamage(damage);
+    StartJoypadVibration(DX_INPUT_PAD1, 250, 500, -1);
 
     if(m_pHP.lock()->GetHP() <= 0) {
         m_playerState = PlayerState::DEAD;
@@ -263,15 +267,31 @@ void Player::GetHit(int damage) {
 }
 
 void Player::InputHandle() {
+    DINPUT_JOYSTATE DInputState;
     m_cameraLength -= GetMouseWheelRotVol() * 3;
+    if(IsPadRepeat(PAD_ID::PAD_5, DX_PADTYPE_DUAL_SENSE)) {
+        ++m_cameraLength;
+    }
+    if(IsPadRepeat(PAD_ID::PAD_6, DX_PADTYPE_DUAL_SENSE)) {
+        --m_cameraLength;
+    }
     m_cameraLength = std::min((std::max(m_cameraLength, 10.0f)), 100.0f);
     m_pCamera.lock()->SetCameraLength(m_cameraLength);
-
     if(m_playerState != PlayerState::ROLL && m_playerState != PlayerState::GET_HIT && m_playerState != PlayerState::DEAD) {
         if(IsKeyRepeat(KEY_INPUT_LSHIFT)) {
             m_speedFactor = WALK_SPEED;
         } else {
             m_speedFactor = RUN_SPEED;
+        }
+
+        GetJoypadDirectInputState(DX_INPUT_PAD1, &DInputState);
+        switch(GetJoypadType(DX_INPUT_PAD1)) {
+        case DX_PADTYPE_DUAL_SENSE:
+            m_movement += float3{-DInputState.X, 0, DInputState.Y};
+            m_movement = mul(float4{m_movement, 1.0f}, m_selfMatrix).xyz;
+            break;
+        default:
+            break;
         }
 
         if(IsKeyRepeat(KEY_INPUT_W)) {
@@ -295,7 +315,7 @@ void Player::InputHandle() {
             m_movement += vec;
         }
 
-        if(IsMouseDown(MOUSE_INPUT_LEFT)) {
+        if(IsMouseDown(MOUSE_INPUT_LEFT) || IsPadDown(PAD_ID::PAD_4, DX_PADTYPE_DUAL_SENSE)) {
             m_playerState = PlayerState::ATTACK;
 
             if(m_currCombo == Combo::NO_COMBO) {
@@ -305,7 +325,7 @@ void Player::InputHandle() {
             }
         }
 
-        if(IsMouseRepeat(MOUSE_INPUT_RIGHT, 1)) {
+        if(IsMouseRepeat(MOUSE_INPUT_RIGHT, 1) || IsPadRepeat(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)) {
             m_chargeTime += GetDeltaTime60();
             if(m_chargeTime >= SPECIAL_CHARGE_TIME && !m_charged) {
                 StopEffekseer3DEffect(m_playingChargeEffect);
@@ -316,7 +336,7 @@ void Player::InputHandle() {
             }
             SetPosPlayingEffekseer3DEffect(m_playingChargeEffect, GetTranslate().x, GetTranslate().y + 7, GetTranslate().z);
             m_speedFactor = WALK_SPEED;
-        } else if(m_chargeTime > 0) {
+        } else if(m_chargeTime > 0 && m_currCombo == Combo::NO_COMBO) {
             StopEffekseer3DEffect(m_playingChargeEffect);
             if(m_chargeTime >= SPECIAL_CHARGE_TIME) {
                 m_isCombo = true;
@@ -331,7 +351,7 @@ void Player::InputHandle() {
         if(!IsFloat3Zero(m_movement)) {
             m_playerState = PlayerState::WALK;
         }
-        if(IsKeyDown(KEY_INPUT_SPACE)) {
+        if(IsKeyDown(KEY_INPUT_SPACE) || IsPadDown(PAD_ID::PAD_2, DX_PADTYPE_DUAL_SENSE)) {
             m_chargeTime = 0;
             m_charged    = false;
             StopEffekseer3DEffect(m_playingChargeEffect);
@@ -369,6 +389,7 @@ void Player::Attack() {
                                                     0);
 
                 PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
+                ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), m_swordSE);
                 m_playedFX = true;
             }
         }
@@ -382,6 +403,7 @@ void Player::Attack() {
                 SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
                                                     180 * DegToRad);
                 PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
+                ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), m_swordSE);
                 m_playedFX = true;
             }
         }
@@ -395,6 +417,7 @@ void Player::Attack() {
                 SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
                                                     -50 * DegToRad);
                 PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
+                ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), m_swordSE);
                 m_playedFX = true;
             }
         }
@@ -408,6 +431,7 @@ void Player::Attack() {
                 SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
                                                     52 * DegToRad);
                 PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
+                ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), m_swordSE);
                 m_playedFX = true;
             }
         }
@@ -425,6 +449,7 @@ void Player::Attack() {
                 SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0, (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad,
                                                     180 * DegToRad);
                 PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
+                ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), m_swordSE);
                 m_playedFX = true;
             }
         }
@@ -439,6 +464,7 @@ void Player::Attack() {
                 SetRotationPlayingEffekseer3DEffect(m_playingEffect, -20 * DegToRad,
                                                     (m_pModel.lock()->GetRotationAxisXYZ().y) * DegToRad, 180 * DegToRad);
                 PlaySoundMem(m_swordSE, DX_PLAYTYPE_BACK);
+                ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), m_swordSE);
                 m_playedFX = true;
             }
         }

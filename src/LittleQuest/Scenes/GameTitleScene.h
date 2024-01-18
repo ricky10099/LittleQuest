@@ -54,8 +54,8 @@ class GameTitleScene: public Scene::Base {
     bool  m_showString     = true;
     bool  m_isPlayingVideo = false;
 
-    ComponentModelPtr                 m_pModel;
-    ComponentCameraPtr                m_pCamera;
+    std::weak_ptr<ComponentModel>     m_pModel;
+    std::weak_ptr<ComponentCamera>    m_pCamera;
     std::weak_ptr<Camera>             m_pSceneCamera;
     std::weak_ptr<ComponentTexture2D> m_pTitle;
     std::weak_ptr<Texture>            m_ptTitle;

@@ -9,8 +9,9 @@ constexpr u32 MAX_PAD_NUM  = static_cast<u32>(PAD_ID::PAD_ID_MAX);    //<! 上�
 constexpr u32 MAX_PAD_TYPE = static_cast<u32>(PAD_NO::PAD_NO_MAX);    //<! PAD接続最大数
 constexpr u32 PAD_BUTTONS[MAX_PAD_NUM] = {PAD_INPUT_UP, PAD_INPUT_DOWN, PAD_INPUT_LEFT, PAD_INPUT_RIGHT,
 
-                                          PAD_INPUT_A,  PAD_INPUT_B,    PAD_INPUT_C,    PAD_INPUT_X,     PAD_INPUT_Y,
-                                          PAD_INPUT_Z,  PAD_INPUT_L,    PAD_INPUT_R,    PAD_INPUT_START, PAD_INPUT_M};
+                                          PAD_INPUT_1,  PAD_INPUT_2,    PAD_INPUT_3,    PAD_INPUT_4,     PAD_INPUT_5,
+                                          PAD_INPUT_6,  PAD_INPUT_7,    PAD_INPUT_8,    PAD_INPUT_9,     PAD_INPUT_10,
+                                          PAD_INPUT_11, PAD_INPUT_12,   PAD_INPUT_13,   PAD_INPUT_14,    PAD_INPUT_15};
 constexpr u32 PAD_TYPES[MAX_PAD_TYPE]  = {DX_INPUT_PAD1, DX_INPUT_PAD2, DX_INPUT_PAD3, DX_INPUT_PAD4};
 
 u32 pads_[MAX_PAD_TYPE][MAX_PAD_NUM];
@@ -56,33 +57,33 @@ void InputPadExit() {
 //---------------------------------------------------------------------------
 // 特定パッドボタンの1回だけ押下検証
 //---------------------------------------------------------------------------
-bool IsPadOn(PAD_ID padID, PAD_NO pad_no) {
-    return (pads_[static_cast<u32>(pad_no)][static_cast<u32>(padID)] == 1);
+bool IsPadOn(PAD_ID padID, int padType, PAD_NO pad_no) {
+    return (pads_[static_cast<u32>(pad_no)][static_cast<u32>(padID)] == 1) && (padType == GetJoypadType((int)pad_no + 1));
 }
 
 //---------------------------------------------------------------------------
 // 特定パッドボタンの解放検証
 //---------------------------------------------------------------------------
-bool IsPadRelease(PAD_ID padID, PAD_NO pad_no) {
-    return (pads_[static_cast<u32>(pad_no)][static_cast<u32>(padID)] == 0);
+bool IsPadRelease(PAD_ID padID, int padType, PAD_NO pad_no) {
+    return (pads_[static_cast<u32>(pad_no)][static_cast<u32>(padID)] == 0) && (padType == GetJoypadType((int)pad_no + 1));
 }
 
 //---------------------------------------------------------------------------
 // 特定パッドボタンの長押し検証
 //---------------------------------------------------------------------------
-bool IsPadRepeat(PAD_ID padID, PAD_NO pad_no, u32 frame) {
-    return (pads_[static_cast<u32>(pad_no)][static_cast<u32>(padID)] >= frame);
+bool IsPadRepeat(PAD_ID padID, int padType, PAD_NO pad_no, u32 frame) {
+    return (pads_[static_cast<u32>(pad_no)][static_cast<u32>(padID)] >= frame) && (padType == GetJoypadType((int)pad_no + 1));
 }
 
 //---------------------------------------------------------------------------
-bool IsPadDown(PAD_ID padID, PAD_NO pad_no) {
-    return IsPadOn(padID, pad_no);
+bool IsPadDown(PAD_ID padID, int padType, PAD_NO pad_no) {
+    return IsPadOn(padID, padType, pad_no);
 }
 
-bool IsPadUp(PAD_ID padID, PAD_NO pad_no) {
-    return IsPadRelease(padID, pad_no);
+bool IsPadUp(PAD_ID padID, int padType, PAD_NO pad_no) {
+    return IsPadRelease(padID, padType, pad_no);
 }
 
-bool IsPad(PAD_ID padID, PAD_NO pad_no) {
-    return IsPadRepeat(padID, pad_no, 1);
+bool IsPad(PAD_ID padID, int padType, PAD_NO pad_no) {
+    return IsPadRepeat(padID, padType, pad_no, 1);
 }

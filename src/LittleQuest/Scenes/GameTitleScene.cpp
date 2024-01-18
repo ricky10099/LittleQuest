@@ -1,6 +1,5 @@
 ﻿#include "GameTitleScene.h"
 #include "Stage01.h"
-//#include <LittleQuest/Objects/Camera.h>
 
 #include <System/Component/ComponentSpringArm.h>
 
@@ -8,12 +7,8 @@ namespace LittleQuest {
 BP_CLASS_IMPL(GameTitleScene, u8"LittleQuest/GameTitleScene");
 
 bool GameTitleScene::Init() {
-    if(AddFontResourceEx("data/LittleQuest/Fonts/MPLUSCodeLatin-Regular.ttf", FR_PRIVATE, NULL) > 0) {
-    } else {
-        MessageBox(NULL, "フォント読込失敗", "", MB_OK);
-    }
     m_titleImage = LoadGraph("data/LittleQuest/Image/TitleName.png");
-    m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 40, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
+    m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 55, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 3);
     GetDrawStringSizeToHandle(&m_stringWidth, &m_stringHeight, NULL, "Press Enter to start", -1, m_fontHandle);
 
     {
@@ -41,15 +36,15 @@ bool GameTitleScene::Init() {
         playerObj->SetScaleAxisXYZ({0.3f});
         playerObj->SetTranslate({0, 2.3f, 0});
         m_pModel = playerObj->AddComponent<ComponentModel>("data/LittleQuest/Model/Kachujin/Kachujin.mv1");
-        m_pModel->SetAnimation({
+        m_pModel.lock()->SetAnimation({
             {  "Sit", "data/LittleQuest/Anim/KachujinSet/SittingIdle.mv1", 0, 1.0f},
             {"Stand",    "data/LittleQuest/Anim/KachujinSet/Standing.mv1", 0, 2.0f},
         });
-        m_pModel->PlayAnimationNoSame("Sit", true);
+        m_pModel.lock()->PlayAnimationNoSame("Sit", true);
 
         auto cameraObj = Scene::CreateObjectPtr<Object>()->SetName(u8"Camera");
         m_pCamera      = cameraObj->AddComponent<ComponentCamera>();
-        m_pCamera->SetPositionAndTarget(START_CAM_POS, START_CAM_TARGET);
+        m_pCamera.lock()->SetPositionAndTarget(START_CAM_POS, START_CAM_TARGET);
         auto springArm = cameraObj->AddComponent<ComponentSpringArm>();
         springArm->SetSpringArmObject(playerObj);
         springArm->SetSpringArmRotate({0, 47, 0});
@@ -111,7 +106,7 @@ void GameTitleScene::Update() {
 #ifndef _DEBUG
            || IsMouseDown(MOUSE_INPUT_1)
 #endif    // !_DEBUG
-        ) {
+           || IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) || IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)) {
             if(m_isPlayingVideo) {
                 m_isPlayingVideo = false;
             } else {
@@ -125,10 +120,10 @@ void GameTitleScene::Update() {
         t            = abs(1 - (m_startTimer / START_TIME));
         newPos       = lerp(START_CAM_POS, END_CAM_POS, t);
         newTarget    = lerp(START_CAM_TARGET, END_CAM_TARGET, t);
-        m_pCamera->SetPositionAndTarget(newPos, newTarget);
+        m_pCamera.lock()->SetPositionAndTarget(newPos, newTarget);
         m_alpha = t * 255;
 
-        m_pModel->PlayAnimationNoSame("Stand", false, 1.0f);
+        m_pModel.lock()->PlayAnimationNoSame("Stand", false, 1.0f);
 
         if(m_startTimer <= 0) {
             Scene::Change(Scene::GetScene<Stage01>());
@@ -145,7 +140,7 @@ void GameTitleScene::LateDraw() {
     case Scene::SceneState::GAME:
         if(m_showString) {
             DrawStringToHandle((int)((screen_width * 0.5f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.8),
-                               "Press Enter to start", 0xffee42 /*0xffff00*/, m_fontHandle, 0xffaf3f /*0xffffff*/);
+                               "Press Enter to start", 0xffee42, m_fontHandle, 0xffaf3f);
         }
         m_pTitle.lock()->SetPosition((screen_width * 0.1f), (screen_height * 0.2f), (screen_width * 0.9f),
                                      (screen_height * 0.4f));

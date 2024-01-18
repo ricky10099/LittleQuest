@@ -19,6 +19,8 @@
 #include <System/Component/ComponentCollisionModel.h>
 #include <System/Component/ComponentModel.h>
 
+extern int bgm_volume;
+
 namespace LittleQuest {
 
 BP_CLASS_IMPL(Stage01, u8"LittleQuest/Stage01")
@@ -31,11 +33,7 @@ BP_CLASS_IMPL(Stage01, u8"LittleQuest/Stage01")
 //! 初期化
 //---------------------------------------------------------------------------
 bool Stage01::Init() {
-    if(AddFontResourceEx("data/LittleQuest/Fonts/MPLUSCodeLatin-Regular.ttf", FR_PRIVATE, NULL) > 0) {
-    } else {
-        MessageBox(NULL, "フォント読込失敗", "", MB_OK);
-    }
-    m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 40, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
+    m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 55, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 3);
     GetDrawStringSizeToHandle(&m_stringWidth, &m_stringHeight, NULL, "Press any key back to Title", -1, m_fontHandle);
     m_timerFontHandle = CreateFontToHandle("M PLUS Code Latin", 80, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
     GetDrawStringSizeToHandle(&m_timerWidth, &m_timerHeight, NULL, "88:88.888", -1, m_timerFontHandle);
@@ -225,13 +223,12 @@ bool Stage01::Init() {
     m_BGM       = LoadSoundMem("data/LittleQuest/Audio/BGM/Thunder_of_God.mp3");
     m_loseAudio = LoadSoundMem("data/LittleQuest/Audio/BGM/Lose.mp3");
 
-    PlaySoundMem(m_introBGM, DX_PLAYTYPE_BACK);
-    ChangeVolumeSoundMem((int)(MAX_VOLUME * 0.35), m_introBGM);
-
-#ifndef _DEBUG
-    HideMouse(true);
-#endif    // !_DEBUG
-
+    Scene::SetSceneBGMList({
+        {m_introBGM, DX_PLAYTYPE_BACK},
+        {     m_BGM, DX_PLAYTYPE_LOOP}
+    });
+    Scene::QueueScene(Scene::GetScene<GameTitleScene>());
+    Scene::SetCanPause(true);
     return true;
 }
 
@@ -245,17 +242,9 @@ void Stage01::Update() {
     float3 newCamTarget;
     float  newFOV;
 
-    if(!CheckSoundMem(m_introBGM) && !CheckSoundMem(m_BGM)) {
-        PlaySoundMem(m_BGM, DX_PLAYTYPE_LOOP);
-        ChangeVolumeSoundMem((int)(MAX_VOLUME * 0.35), m_BGM);
-    }
-
-    if(IsKeyDown(KEY_INPUT_ESCAPE)) {
-        ++m_escapeCount;
-    }
-    if(m_escapeCount >= 10) {
-        Scene::Change(Scene::GetScene<GameTitleScene>());
-    }
+#ifndef _DEBUG
+    HideMouse(true);
+#endif    // !_DEBUG
 
     switch(scene_state) {
     case Scene::SceneState::TRANS_IN:
@@ -278,12 +267,12 @@ void Stage01::Update() {
         if(m_cutSceneTimer <= 0) {
             m_pPlayerCamera.lock()->SetCurrentCamera();
             scene_state = Scene::SceneState::GAME;
-
             m_pPlayer.lock()->SetSceneState(scene_state);
             m_pBoss.lock()->SetSceneState(scene_state);
         }
 
-        if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE)) {
+        if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
+           /*IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) || */ IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)) {
             m_fadeTimer     = 0;
             m_alpha         = 0;
             m_cutSceneTimer = 0;
@@ -312,6 +301,7 @@ void Stage01::Update() {
         }
         break;
     case Scene::SceneState::TRANS_OUT:
+        Scene::SetCanPause(false);
         m_endingTimer -= GetDeltaTime60();
 
         StopSoundMem(m_BGM);
@@ -363,11 +353,14 @@ void Stage01::LateDraw() {
                 DrawStringToHandle((int)((screen_width * 0.5f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.8),
                                    "Press any key back to Title", 0xffee42, m_fontHandle, 0xffaf3f);
                 if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
-                   m_endingTimer <= 0) {
+                   IsKeyDown(KEY_INPUT_ESCAPE) || IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) ||
+                   IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE) || m_endingTimer <= 0) {
                     Scene::Change(Scene::GetScene<GameTitleScene>());
                 }
             } else {
-                if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE)) {
+                if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
+                   IsKeyDown(KEY_INPUT_ESCAPE) || IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) ||
+                   IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)) {
                     m_shrinkTimer = SHRINK_TIME;
                 }
             }

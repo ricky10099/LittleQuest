@@ -37,7 +37,8 @@ class Player: public Object {
     const float HIT_PAUSE           = 20;
     const float SPECIAL_CHARGE_TIME = 75.0f;
     const int   BASE_ATK            = 3;
-    const int   MAX_HP              = 150;
+    const int   MAX_HP              = 200;
+    const int   MAX_VOLUME          = 255;
 
     enum PlayerState {
         IDLE,

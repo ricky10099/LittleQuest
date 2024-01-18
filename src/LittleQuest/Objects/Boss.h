@@ -42,8 +42,9 @@ class Boss: public Object {
     const float FRONT_ANGLE        = 60.0f;
     const float BACK_ANGLE         = 140.0f;
     const float DAMAGE_TIME        = 420.0f;
-    const int   MAX_HP             = 750;
+    const int   MAX_HP             = 500;
     const int   DAMAGE_CAP         = int(MAX_HP * 0.15f);
+    const int   MAX_VOLUME         = 255;
 
     enum BossState {
         IDLE,
@@ -57,8 +58,7 @@ class Boss: public Object {
         TAUNT,
         DEAD,
     };
-    BossState m_state     = BossState::IDLE;
-    BossState m_prevState = BossState::IDLE;
+    BossState m_state = BossState::IDLE;
 
     enum BossCombo {
         SWIP,

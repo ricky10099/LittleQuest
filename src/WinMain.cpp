@@ -6,7 +6,10 @@
 s32 WINDOW_W = 1280;
 s32 WINDOW_H = 720;
 
-bool s_exit = false;
+bool exit_app   = false;
+int  bgm_volume = 30;
+int  se_volume  = 75;
+int  audio[2]   = {bgm_volume, se_volume};
 
 //---------------------------------------------------------------------------
 //! アプリケーションエントリーポイント
@@ -122,7 +125,7 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
         SystemUpdate();
         UpdateEffekseer3D();
 
-        if(s_exit) {
+        if(exit_app) {
             break;
         }
 
