@@ -1,42 +1,89 @@
-﻿#include <System/Scene.h>
+﻿//---------------------------------------------------------------------------
+//! @file   ComponentHP.h
+//! @brief  HPコンポーネント
+//---------------------------------------------------------------------------
+#include <System/Scene.h>
 #include <System/Component/Component.h>
 #include <System/Component/ComponentModel.h>
 #include <System/Utils/IniFileLib.h>
 
 namespace LittleQuest {
+//////////////////////////////////////////////////////////////
+//! @brief HPコンポーネントクラス
+//////////////////////////////////////////////////////////////
 class ComponentHP: public Component {
    public:
     BP_COMPONENT_TYPE(ComponentHP, Component);
+    //! HPゲージタイプの列挙型
     enum HP_TYPE {
-        PLAYER,
-        BOSS,
-        MOB,
+        PLAYER,    //!< プレイヤー
+        BOSS,      //!< ボス
     };
 
-    void Init() override;
+    //------------------------------------------------------------
+    //! @brief 更新処理を行います。
+    //------------------------------------------------------------
     void Update() override;
-    void Draw() override;
-    void GUI() override;
 
-    void  SetType(HP_TYPE type);
-    void  SetHP(int HP);
-    int   GetHP();
+    //------------------------------------------------------------
+    //! @brief ゲージのタイプを設定します。
+    //!
+    //! @param type HPゲージ列挙型のタイプ
+    //------------------------------------------------------------
+    void SetType(HP_TYPE type);
+
+    //------------------------------------------------------------
+    //! @brief 最大のHP量を設定します。
+    //!
+    //! @param HP 最大のHP量
+    //------------------------------------------------------------
+    void SetHP(int HP);
+
+    //------------------------------------------------------------
+    //! @brief 現在のHP量を取得します。
+    //!
+    //! @return 現在のHP量
+    //------------------------------------------------------------
+    int GetHP();
+
+    //------------------------------------------------------------
+    //! @brief HPのパーセントを取得します。
+    //!
+    //! @return 現在のHPのパーセント
+    //------------------------------------------------------------
     float GetHPRate();
-    void  TakeDamage(int damage);
-    void  DrawHPBar();
+
+    //------------------------------------------------------------
+    //! @brief ダメージの計算を行います。
+    //!
+    //! @param damage ダメージ量
+    //------------------------------------------------------------
+    void TakeDamage(int damage);
+
+    //------------------------------------------------------------
+    //! @brief HPゲージを描画します。
+    //------------------------------------------------------------
+    void DrawHPBar();
 
    private:
+    //! ダメージアニメーションを表示する時間
     const float DAMAGE_TIME = 60.0f;
 
-    HP_TYPE m_type  = HP_TYPE::MOB;
-    VECTOR  m_pos2D = {0, 0};
-    float3  m_pos3D = {0, 0, 0};
+    //! HPゲージのタイプ
+    HP_TYPE m_type        = HP_TYPE::PLAYER;
+    //! ゲージを描画する座標
+    VECTOR  m_pos2D       = {0, 0, 0};
+    //! 最大HP量
+    int     m_maxHP       = 100;
+    //! 現在のHP量
+    int     m_currHP      = m_maxHP;
+    //! ゲージ裏のHP量（ダメージアニメーション）
+    float   m_backHP      = (float)m_maxHP;
+    //! ダメージアニメーションのタイマー
+    float   m_damageTimer = 0;
+    //! アニメーション中なのか
+    bool    m_decreasing  = false;
 
-    int   m_maxHP       = 100;
-    int   m_currHP      = m_maxHP;
-    float m_backHP      = (float)m_maxHP;
-    float m_damageTimer = 0;
-    bool  m_decreasing  = false;
     //--------------------------------------------------------------------
     //! @name Cereal処理
     //--------------------------------------------------------------------

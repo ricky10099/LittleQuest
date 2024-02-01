@@ -42,17 +42,9 @@ class GameTitleScene: public Scene::Base {
     int   m_loadCount      = 0;
     int   m_totalLoadCount = 0;
     int   m_escapeCount    = 0;
-    int   m_titleImage     = -1;
     int   m_fontHandle     = -1;
-    int   m_demoVideo1     = -1;
-    int   m_demoVideo2     = -1;
-    int   m_demoVideo3     = -1;
-    int   m_prevVideo      = -1;
-    int   m_currVideo      = -1;
-    int*  m_videoList;
     bool  m_isStart        = false;
     bool  m_showString     = true;
-    bool  m_isPlayingVideo = false;
 
     std::weak_ptr<ComponentModel>     m_pModel;
     std::weak_ptr<ComponentCamera>    m_pCamera;

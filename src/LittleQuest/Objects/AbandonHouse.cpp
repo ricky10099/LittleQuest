@@ -6,6 +6,9 @@
 
 namespace LittleQuest {
 BP_OBJECT_IMPL(AbandonHouse, "LittleQuest/AbandonHouse");
+//------------------------------------------------------------
+// オブジェクトを生成します。
+//------------------------------------------------------------
 AbandonHousePtr AbandonHouse::Create(std::string name, const float3& pos) {
     auto obj = Scene::CreateObjectPtr<AbandonHouse>();
     obj->SetName(name);
@@ -22,25 +25,13 @@ AbandonHousePtr AbandonHouse::Create(std::string name, const float3& pos) {
     return obj;
 }
 
-bool AbandonHouse::Init() {
-    return Super::Init();
-}
-
+//------------------------------------------------------------
+// 更新処理を行います。
+//------------------------------------------------------------
 void AbandonHouse::Update() {
     if(!m_pBox->GetStatus(StatusBit::NoDraw)) {
         m_pBox->SetStatus(StatusBit::NoDraw, true);
     }
-}
-
-void AbandonHouse::LateDraw() {}
-
-void AbandonHouse::GUI() {
-    Super::GUI();
-}
-
-void AbandonHouse::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
-{
-    Super::OnHit(hitInfo);
 }
 }    // namespace LittleQuest
 

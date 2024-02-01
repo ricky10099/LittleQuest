@@ -7,7 +7,6 @@ namespace LittleQuest {
 BP_CLASS_IMPL(GameTitleScene, u8"LittleQuest/GameTitleScene");
 
 bool GameTitleScene::Init() {
-    m_titleImage = LoadGraph("data/LittleQuest/Image/TitleName.png");
     m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 55, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 3);
     GetDrawStringSizeToHandle(&m_stringWidth, &m_stringHeight, NULL, "Press Enter to start", -1, m_fontHandle);
 
@@ -51,13 +50,6 @@ bool GameTitleScene::Init() {
         springArm->SetSpringArmOffset({0, 0, 0});
     }
 
-#if 0
-    m_demoVideo1 = LoadGraph("data/LittleQuest/Video/Demo1.mpg");
-    m_demoVideo2 = LoadGraph("data/LittleQuest/Video/Demo2.mpg");
-    m_demoVideo3 = LoadGraph("data/LittleQuest/Video/Demo3.mpg");
-    m_videoList  = new int[3]{m_demoVideo1, m_demoVideo2, m_demoVideo3};
-#endif
-
     HideMouse(false);
     srand((unsigned)time(NULL));
 
@@ -70,23 +62,6 @@ void GameTitleScene::Update() {
     float3 newTarget;
 
     m_elapsed60 += GetDeltaTime60();
-    if(!m_isPlayingVideo) {
-        m_videoTimer += GetDeltaTime60();
-    }
-
-#if 0
-    if(m_videoTimer >= VIDEO_TIME) {
-        //PlayMovie("data/LittleQuest/Video/Demo1.mpg", 1, DX_MOVIEPLAYTYPE_BCANCEL);
-        m_isPlayingVideo = true;
-        int random       = rand() % 3;
-        if(random == m_prevVideo) {
-            random = ++random % 3;
-        }
-        m_prevVideo = m_currVideo;
-        m_currVideo = random;
-        m_videoTimer = 0.0f;
-    }
-#endif
 
     if(IsKeyDown(KEY_INPUT_ESCAPE)) {
         ++m_escapeCount;
@@ -107,11 +82,7 @@ void GameTitleScene::Update() {
            || IsMouseDown(MOUSE_INPUT_1)
 #endif    // !_DEBUG
            || IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) || IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)) {
-            if(m_isPlayingVideo) {
-                m_isPlayingVideo = false;
-            } else {
-                scene_state = Scene::SceneState::TRANS_OUT;
-            }
+            scene_state = Scene::SceneState::TRANS_OUT;
         }
         break;
     case Scene::SceneState::TRANS_OUT:
@@ -145,12 +116,6 @@ void GameTitleScene::LateDraw() {
         m_pTitle.lock()->SetPosition((screen_width * 0.1f), (screen_height * 0.2f), (screen_width * 0.9f),
                                      (screen_height * 0.4f));
         m_pTitle.lock()->DrawTexture();
-#if 0
-        if(m_isPlayingVideo) {
-            PlayMovieToGraph(m_videoList[m_currVideo]);
-            DrawExtendGraph(0, 0, screen_width * 0.9, screen_height * 0.9, m_videoList[m_currVideo], FALSE);
-        }
-#endif
         break;
     case Scene::SceneState::TRANS_OUT:
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)m_alpha);
@@ -164,14 +129,6 @@ void GameTitleScene::LateDraw() {
 }
 
 void GameTitleScene::Exit() {
-    delete[] m_videoList;
-
-    DeleteGraph(m_titleImage);
-#if 0
-    DeleteGraph(m_demoVideo1);
-    DeleteGraph(m_demoVideo2);
-    DeleteGraph(m_demoVideo3);
-#endif
     DeleteFontToHandle(m_fontHandle);
 }
 

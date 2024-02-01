@@ -10,40 +10,104 @@ namespace LittleQuest {
 USING_PTR(Boss);
 
 class ComponentHP;
+//////////////////////////////////////////////////////////////
+//! @brief ボスクラス
+//////////////////////////////////////////////////////////////
 class Boss: public Object {
    public:
     BP_OBJECT_TYPE(Boss, Object);
+    //------------------------------------------------------------
+    //! @brief ボスを生成します。
+    //------------------------------------------------------------
     static BossPtr Create(const float3& pos);
 
+    //------------------------------------------------------------
+    //! @brief 初期化処理を行います。
+    //!
+    //! @return 初期化できたかどうか
+    //------------------------------------------------------------
     bool Init() override;
+    //------------------------------------------------------------
+    //! @brief 更新処理を行います。
+    //------------------------------------------------------------
     void Update() override;
+    //------------------------------------------------------------
+    //! @brief 遅い描画の処理を行います。
+    //------------------------------------------------------------
     void LateDraw() override;
+    //------------------------------------------------------------
+    //! @brief ImGUIの処理を行います。
+    //------------------------------------------------------------
     void GUI() override;
+    //------------------------------------------------------------
+    //! @brief 当たりのコールバック
+    //!
+    //! @param hitInfo　当たったコリジョンのヒット情報
+    //------------------------------------------------------------
     void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
+    //------------------------------------------------------------
+    //! @brief 終了処理を行います。
+    //------------------------------------------------------------
     void Exit() override;
 
+    //------------------------------------------------------------
+    //! @brief 攻撃される処理を行います。
+    //!
+    //! @param damage 受けるダメージ
+    //------------------------------------------------------------
     void GetHit(int damage);
-    void SetSceneState(Scene::SceneState state);
+    //------------------------------------------------------------
+    //! @brief
+    //------------------------------------------------------------
+    //void SetSceneState(Scene::SceneState state);
+    //------------------------------------------------------------
+    //! @brief 挑発動画を再生します。
+    //------------------------------------------------------------
     void PlayTaunt();
+    //------------------------------------------------------------
+    //! @brief 死亡動画を再生します。
+    //------------------------------------------------------------
     void PlayDead();
+    //------------------------------------------------------------
+    //! @brief 挑発動画が再生したのか。
+    //!
+    //! @retval true 再生した
+    //! @retval false 再生していない
+    //------------------------------------------------------------
     bool IsPlayedTaunt();
+    //------------------------------------------------------------
+    //! @brief ボスが倒されたのか。
+    //!
+    //! @retval true 倒された
+    //! @retval false 倒されていない
+    //------------------------------------------------------------
     bool IsDead();
 
    protected:
-    const float BASE_SPEED         = 0.3f;
+    //! 移動スピード
     const float WALK_SPEED         = 0.5f;
-    const float RUN_SPEED          = 1.f;
+    //! 怒っていない時の待機時間
     const float NORMAL_WAIT        = 120.f;
+    //! 怒っている時の待機時間
     const float ANGRY_WAIT         = 30.f;
+    //! 超近距離
     const float TOO_CLOSE_DISTANCE = 15.0f;
+    //! 近距離
     const float CLOSE_DISTANCE     = 30.0f;
+    //! 中距離
     const float MIDDLE_DISTANCE    = 60.0f;
+    //! 遠距離
     const float FAR_DISTANCE       = 90.0;
+    //! 前の角度
     const float FRONT_ANGLE        = 60.0f;
+    //! 背後の角度
     const float BACK_ANGLE         = 140.0f;
+    //! ダメージ溜まる時間
     const float DAMAGE_TIME        = 420.0f;
-    const int   MAX_HP             = 500;
+    //! ダメージ溜まるキャップ
     const int   DAMAGE_CAP         = int(MAX_HP * 0.15f);
+    //! 最大HP
+    const int   MAX_HP             = 500;
     const int   MAX_VOLUME         = 255;
 
     enum BossState {
@@ -97,7 +161,6 @@ class Boss: public Object {
     std::weak_ptr<ComponentCollisionSphere>   m_pAngryBox;
     std::unordered_map<std::string, AnimInfo> m_animList;
     std::unordered_map<BossCombo, float>      m_comboList;
-    //std::weak_ptr<ComponentCollisionCapsule> m_pRoarBox;
 
     Scene::SceneState m_sceneState = Scene::SceneState::GAME;
 
@@ -110,15 +173,12 @@ class Boss: public Object {
     float  m_currAnimTime           = 0.0f;
     float  m_damageTimer            = 0;
     int    m_combo                  = 0;
-    //int    m_RoarEffect             = -1;
     int    m_powerUpEffect          = -1;
-    //int    m_angryEffect = -1;
     int    m_punchEffect            = -1;
     int    m_powerPunchEffect       = -1;
     int    m_doublePunchEffect      = -1;
     int    m_powerDoublePunchEffect = -1;
     int    m_playingEffect          = -1;
-    //int    m_RoarPlaying            = -1;
     int    m_attackSE               = -1;
     int    m_damageCount            = 0;
     int    m_attackVal              = 10;
@@ -144,7 +204,6 @@ class Boss: public Object {
     void BackflipPunch();
     void ChargePunch();
     void Swip();
-    //void RoarAttack();
     void PowerUp();
     void Taunt();
     void Damaging();

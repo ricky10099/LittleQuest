@@ -15,8 +15,6 @@
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
 
-//extern int se_volume;
-
 namespace LittleQuest {
 
 BP_OBJECT_IMPL(Player, "LittleQuest/Player");

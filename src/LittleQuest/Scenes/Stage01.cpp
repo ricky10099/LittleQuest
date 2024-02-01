@@ -37,8 +37,7 @@ bool Stage01::Init() {
     GetDrawStringSizeToHandle(&m_stringWidth, &m_stringHeight, NULL, "Press any key back to Title", -1, m_fontHandle);
     m_timerFontHandle = CreateFontToHandle("M PLUS Code Latin", 80, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
     GetDrawStringSizeToHandle(&m_timerWidth, &m_timerHeight, NULL, "88:88.888", -1, m_timerFontHandle);
-    m_clearImage = LoadGraph("data/LittleQuest/Image/clear.png");
-    m_failImage  = LoadGraph("data/LittleQuest/Image/failure.png");
+
     {
         auto clearObj = Scene::CreateObjectPtr<Object>()->SetName("ClearTexture");
         m_pClearImage = clearObj->AddComponent<ComponentTexture2D>("data/LittleQuest/Image/Clear.png");
@@ -312,11 +311,9 @@ void Stage01::Update() {
         m_pCamera.lock()->SetCurrentCamera();
         if(m_pBoss.lock()->IsDead()) {
             m_pCamera.lock()->SetPositionAndTarget(BOSS_DEATH_CAM, m_pBoss.lock()->GetTranslate() + float3{0, 15, 0});
-            m_showImage  = m_clearImage;
             m_pShowImage = m_pClearImage.lock();
         } else {
             m_pCamera.lock()->SetPositionAndTarget(PLAYER_DEATH_CAM, m_pPlayer.lock()->GetTranslate() + float3{0, 10, 0});
-            m_showImage  = m_failImage;
             m_pShowImage = m_pFailImage.lock();
             PlaySoundMem(m_loseAudio, DX_PLAYTYPE_BACK);
         }

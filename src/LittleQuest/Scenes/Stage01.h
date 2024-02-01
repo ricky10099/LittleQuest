@@ -49,9 +49,6 @@ class Stage01: public Scene::Base {
     float m_second          = 0.0f;
     float m_elapsed         = 0;
     float m_endingTimer     = 600;
-    int   m_clearImage      = -1;
-    int   m_failImage       = -1;
-    int   m_showImage       = -1;
     int   m_fontHandle      = -1;
     int   m_timerFontHandle = -1;
     int   m_introBGM        = -1;

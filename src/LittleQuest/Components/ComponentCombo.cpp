@@ -1,20 +1,15 @@
 ﻿#include "ComponentCombo.h"
 
 namespace LittleQuest {
-void ComponentCombo::Init() {
-    Super::Init();
-}
-
+//------------------------------------------------------------
+//  更新処理を行います。
+//------------------------------------------------------------
 void ComponentCombo::Update() {
     Super::Update();
 
-    if(m_comboPauseTimer > 0) {
-        m_comboPauseTimer -= GetDeltaTime60();
-    } else {
+    if(m_comboTimer > 0) {
         m_comboTimer -= GetDeltaTime60();
-    }
-
-    if(m_comboTimer <= 0) {
+    } else {
         m_currCombo -= GetDeltaTime60();
     }
 
@@ -31,35 +26,37 @@ void ComponentCombo::Update() {
     }
 }
 
-void ComponentCombo::DrawComboBar() {
-    int screenWidth, screenHeight;
-    GetScreenState(&screenWidth, &screenHeight, nullptr);
-
-    int posX  = (int)(screenWidth * 0.05);
-    int posY  = (int)(screenHeight * 0.08);
-    int posX2 = (int)(screenWidth * 0.2);
-    int posY2 = (int)(screenHeight * 0.1);
-    DrawBoxAA(posX - 2.0f, posY - 2.0f, posX2 + 2.0f, posY2 + 2.0f, GetColor(255, 255, 255), FALSE, 2.0f);
-    DrawFillBox(posX, posY, (int)(posX + ((m_currCombo / MAX_COMBO) * (posX2 - posX))), posY2, m_comboColor);
-    DrawLine((int)(posX + (posX2 - posX) * 0.33f), posY, (int)(posX + (posX2 - posX) * 0.33f), posY2, GetColor(255, 255, 255),
-             2);
-    DrawLine((int)(posX + (posX2 - posX) * 0.66f), posY, (int)(posX + (posX2 - posX) * 0.66f), posY2, GetColor(255, 255, 255),
-             2);
-}
-
-void ComponentCombo::GUI() {
-    Super::GUI();
-}
-
+//------------------------------------------------------------
+//  コンボ数を増やします。
+//------------------------------------------------------------
 void ComponentCombo::AddCombo(int combo) {
     if(m_currCombo < MAX_COMBO) {
         m_currCombo += combo;
     }
-    m_currCombo       = std::min(m_currCombo, MAX_COMBO);
-    m_comboTimer      = COMBO_TIMER;
-    m_comboPauseTimer = COMBO_PUASE;
+    m_currCombo  = std::min(m_currCombo, MAX_COMBO);
+    m_comboTimer = COMBO_TIMER;
 }
 
+//------------------------------------------------------------
+//  コンボゲージを描画します。
+//------------------------------------------------------------
+void ComponentCombo::DrawComboBar() {
+    int screenWidth, screenHeight;
+    GetScreenState(&screenWidth, &screenHeight, nullptr);
+
+    float posX  = screenWidth * 0.05;
+    float posY  = screenHeight * 0.08;
+    float posX2 = screenWidth * 0.2;
+    float posY2 = screenHeight * 0.1;
+    DrawBoxAA(posX - 2.0f, posY - 2.0f, posX2 + 2.0f, posY2 + 2.0f, GetColor(255, 255, 255), FALSE, 2.0f);
+    DrawFillBox(posX, posY, (posX + ((m_currCombo / MAX_COMBO) * (posX2 - posX))), posY2, m_comboColor);
+    DrawLineAA((posX + (posX2 - posX) * 0.33f), posY, (posX + (posX2 - posX) * 0.33f), posY2, GetColor(255, 255, 255), 2);
+    DrawLineAA((posX + (posX2 - posX) * 0.66f), posY, (posX + (posX2 - posX) * 0.66f), posY2, GetColor(255, 255, 255), 2);
+}
+
+//------------------------------------------------------------
+//  コンボによる攻撃力バフ。
+//------------------------------------------------------------
 float ComponentCombo::ComboBuff() {
     if(m_currCombo >= 30) {
         return 3.0f;

@@ -13,8 +13,6 @@
 #include <System/Component/ComponentSpringArm.h>
 #include <System/Component/ComponentTargetTracking.h>
 
-//extern int se_volume;
-
 namespace LittleQuest {
 
 BP_OBJECT_IMPL(Boss, "LittleQuest/Boss");
@@ -27,13 +25,13 @@ BossPtr Boss::Create(const float3& pos) {
 
     return pBoss;
 }
+
 bool Boss::Init() {
     m_pModel = AddComponent<ComponentModel>("data/LittleQuest/Model/MawJLaygo/MawJLaygo.mv1");
     m_pModel.lock()->SetScaleAxisXYZ({0.15f});
     m_pModel.lock()->SetAnimation({
         {       STR(BossState::IDLE),           "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
         {                     "Walk",        "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 1.0f},
-        {                      "Run",            "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
         {  STR(BossState::TURN_LEFT),       "data/LittleQuest/Anim/MutantSet/MutantLeftTurn.mv1", 0, 2.0f},
         { STR(BossState::TURN_RIGHT),      "data/LittleQuest/Anim/MutantSet/MutantRightTurn.mv1", 0, 2.0f},
         { STR(BossAnim::SWIP_ATTACK),        "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
@@ -52,14 +50,12 @@ bool Boss::Init() {
     SetAnimList();
     SetComboList();
 
-    //m_RoarEffect = LoadEffekseerEffect("data/Pierre01/MonsterRoar.efk", 5.0f);
     m_powerUpEffect          = LoadEffekseerEffect("data/LittleQuest/Effect/PowerUp.efk", 20.0f);
     m_punchEffect            = LoadEffekseerEffect("data/LittleQuest/Effect/PunchSprite.efk", 2.5f);
     m_powerPunchEffect       = LoadEffekseerEffect("data/LittleQuest/Effect/PunchSprite2.efk", 2.5f);
     m_doublePunchEffect      = LoadEffekseerEffect("data/LittleQuest/Effect/DoublePunchSprite.efk", 1.5f);
     m_powerDoublePunchEffect = LoadEffekseerEffect("data/LittleQuest/Effect/DoublePunchSprite2.efk", 1.5f);
     m_pEffectList            = new int[4]{m_punchEffect, m_powerPunchEffect, m_doublePunchEffect, m_powerDoublePunchEffect};
-    //m_angryEffect   = LoadEffekseerEffect("data/LittleQuest/Effect/Angry1.efk", 10.0f);
 
     m_pBodyBox = AddComponent<ComponentCollisionCapsule>();
     m_pBodyBox.lock()->SetTranslate({0, 0, -4});
@@ -86,15 +82,6 @@ bool Boss::Init() {
     m_pRightHandBox.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
     m_pRightHandBox.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
     m_pRightHandBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
-
-    //m_pRoarBox = AddComponent<ComponentCollisionCapsule>();
-    //m_pRoarBox.lock()->AttachToModel("mixamorig:Head");
-    //m_pRoarBox.lock()->SetTranslate({0, -110, -115});
-    //m_pRoarBox.lock()->SetHeight(35.0f);
-    //m_pRoarBox.lock()->SetRadius(15.0f);
-    //m_pRoarBox.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY_WEAPON);
-    //m_pRoarBox.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
-    //m_pRoarBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
 
     m_pHP = AddComponent<ComponentHP>();
     m_pHP.lock()->SetType(ComponentHP::HP_TYPE::BOSS);
@@ -261,7 +248,7 @@ void Boss::ChasePlayer() {
     if(distance > 0) {
         move = normalize(move);
         SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 10);
-        move *= 0.5f * GetDeltaTime60();
+        move *= WALK_SPEED * GetDeltaTime60();
         AddTranslate(move);
     }
 
@@ -317,22 +304,7 @@ void Boss::SelectAction() {
             }
         }
         m_combo = 1;
-    } /* else if(distance < MIDDLE_DISTANCE && angle < 60) {
-        if(random <= 10) {
-            ChangeState(BossState::ATTACK);
-            m_bossCombo = BossCombo::ROAR_ATTACK;
-            m_combo     = 1;
-        } else if(random <= 50 && angle > 30) {
-            if(dotPlayer < 0) {
-                ChangeState(BossState::TURN_RIGHT);
-            } else {
-                ChangeState(BossState::TURN_LEFT);
-            }
-        } else {
-            ChangeState(BossState::CHASE);
-        }
-    }*/
-    else if(distance < MIDDLE_DISTANCE && angle > BACK_ANGLE) {
+    } else if(distance < MIDDLE_DISTANCE && angle > BACK_ANGLE) {
         if(random <= 30) {
             ChangeState(BossState::ATTACK);
             m_bossCombo = BossCombo::BACKFLIP_PUNCH;
@@ -434,9 +406,6 @@ void Boss::Attack() {
     case BossCombo::SWIP:
         Swip();
         break;
-        //case BossCombo::ROAR_ATTACK:
-        //    RoarAttack();
-        //    break;
     }
 }
 
@@ -626,35 +595,6 @@ void Boss::Swip() {
     }
 }
 
-//void Boss::RoarAttack() {
-//    switch(m_combo) {
-//    case 1:
-//
-//        AttackAnimation(STR(BossAnim::ROAR), m_animList[STR(BossAnim::ROAR)], {m_pRoarBox.lock()});
-//        m_playingEffect = PlayEffekseer3DEffect(m_RoarEffect);
-//        SetPosPlayingEffekseer3DEffect(m_playingEffect, m_pRoarBox.lock()->GetWorldMatrix().translate().x,
-//                                       m_pRoarBox.lock()->GetWorldMatrix().translate().y + 17.0f,
-//                                       m_pRoarBox.lock()->GetWorldMatrix().translate().z + 12.0f);
-//        if(IsEffekseer3DEffectPlaying(m_playingEffect) == -1) {
-//            m_playingEffect = PlayEffekseer3DEffect(m_RoarEffect);
-//            auto   attach_frame  = MV1SearchFrame(m_pModel.lock()->GetModel(), "mixamorig:Head");
-//            auto   right_arm_mat = MV1GetFrameLocalWorldMatrix(m_pModel.lock()->GetModel(), attach_frame);
-//            float3 effect_pos    = mul(float4(GetTranslate(), 1.0f), cast(right_arm_mat)).xyz;
-//            //SetPosPlayingEffekseer3DEffect(m_playingEffect, m_pRoarBox.lock()->GetWorldMatrix().translate().x,
-//            //                               m_pRoarBox.lock()->GetWorldMatrix().translate().y + 17.0f,
-//            //                               m_pRoarBox.lock()->GetWorldMatrix().translate().z + 12.0f);
-//            SetPosPlayingEffekseer3DEffect(m_playingEffect, effect_pos.x, effect_pos.y, effect_pos.z);
-//            //SetRotationPlayingEffekseer3DEffect(m_playingEffect, 0,
-//            //                                    0, m_pRoarBox.lock()->GetRotationAxisXYZ().z);
-//        }
-//        break;
-//    default:
-//        ChangeState(BossState::WAIT);
-//        m_waitFor = m_waitTime;
-//        break;
-//    }
-//}
-
 void Boss::Taunt() {
     switch(m_combo) {
     case 1:
@@ -779,10 +719,10 @@ void Boss::ChangeState(BossState state) {
     this->m_state = state;
 }
 
-void Boss::SetSceneState(Scene::SceneState state) {
-    m_sceneState = state;
-    ChangeState(IDLE);
-}
+//void Boss::SetSceneState(Scene::SceneState state) {
+//    m_sceneState = state;
+//    ChangeState(IDLE);
+//}
 
 void Boss::Exit() {
     delete[] m_pEffectList;

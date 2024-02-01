@@ -4,17 +4,23 @@
 
 namespace LittleQuest {
 USING_PTR(AbandonHouse);
+//////////////////////////////////////////////////////////////
+//! @brief 放棄された家クラス
+//////////////////////////////////////////////////////////////
 class AbandonHouse: public Object {
    public:
     BP_OBJECT_TYPE(AbandonHouse, Object);
+    //------------------------------------------------------------
+    //! @brief 放棄された家を生成します。
+    //------------------------------------------------------------
     static AbandonHousePtr Create(std::string name = "AbandonHouse", const float3& pos = {0, 0, 0});
 
-    bool Init() override;
+    //------------------------------------------------------------
+    //! @brief 更新処理を行います。
+    //------------------------------------------------------------
     void Update() override;
-    void LateDraw() override;
-    void GUI() override;
-    void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
    private:
+    //! モデルコリジョンボックス
     ObjectPtr m_pBox;
 };
 }    // namespace LittleQuest

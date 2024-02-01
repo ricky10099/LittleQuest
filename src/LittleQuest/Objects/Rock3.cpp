@@ -17,27 +17,22 @@ Rock3Ptr Rock3::Create(const float3& pos) {
     return obj;
 }
 
-bool Rock3::Init()    // override
-{
+bool Rock3::Init() {
     AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj004.mv1");
     AddComponent<ComponentCollisionModel>()->AttachToModel();
     return Super::Init();
 }
 
-void Rock3::Update()    // override
-{}
+void Rock3::Update() {}
 
 // 基本描画の後に処理します
-void Rock3::LateDraw()    // override
-{}
+void Rock3::LateDraw() {}
 
-void Rock3::GUI()    // override
-{
+void Rock3::GUI() {
     Super::GUI();
 }
 
-void Rock3::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
-{
+void Rock3::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
     Super::OnHit(hitInfo);
 }
 }    // namespace LittleQuest

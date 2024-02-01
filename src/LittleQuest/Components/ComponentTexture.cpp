@@ -1,6 +1,9 @@
 ﻿#include "ComponentTexture.h"
 
 namespace LittleQuest {
+//------------------------------------------------------------
+//  初期化処理を行います。
+//------------------------------------------------------------
 void ComponentTexture2D::Init() {
     Super::Init();
 
@@ -27,10 +30,9 @@ void ComponentTexture2D::Init() {
     m_vertex[3].v   = 1.0f;
 }
 
-void ComponentTexture2D::Update() {
-    Super::Update();
-}
-
+//------------------------------------------------------------
+//  テクスチャを描画します。
+//------------------------------------------------------------
 void ComponentTexture2D::DrawTexture() {
     SetUseTextureToShader(0, *m_pTexture);
     SetUsePixelShader(*m_pShaderPS);
@@ -40,15 +42,14 @@ void ComponentTexture2D::DrawTexture() {
     SetUseTextureToShader(0, -1);
 }
 
+//------------------------------------------------------------
+//  テクスチャの描画座標を設定します。
+//------------------------------------------------------------
 void ComponentTexture2D::SetPosition(float x1, float y1, float x2, float y2) {
     m_vertex[0].pos = {x1, y1, 0.0f};
     m_vertex[1].pos = {x2, y1, 0.0f};
     m_vertex[2].pos = {x1, y2, 0.0f};
     m_vertex[3].pos = {x2, y2, 0.0f};
-}
-
-void ComponentTexture2D::GUI() {
-    Super::GUI();
 }
 
 BP_COMPONENT_IMPL(ComponentTexture2D, u8"Textureasdコンポーネント");

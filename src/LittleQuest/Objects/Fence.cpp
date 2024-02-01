@@ -14,9 +14,8 @@ FencePtr Fence::Create(const float3& pos) {
 
     obj->m_pBox = Scene::CreateObjectPtr<Object>("FenceBox");
     obj->m_pBox->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
-    obj->m_pBox->SetTranslate(pos /* + float3{-5, 0, -5}*/);
+    obj->m_pBox->SetTranslate(pos);
     obj->m_pBox->SetRotationAxisXYZ({0, 90, 0});
-    //obj->m_pBox->SetScaleAxisXYZ({1, 1, 19});
     obj->m_pBox->AddComponent<ComponentCollisionModel>()->AttachToModel();
 
     return obj;
