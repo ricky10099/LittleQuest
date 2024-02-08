@@ -206,10 +206,6 @@ void Boss::LateDraw() {
     }
 }
 
-void Boss::GUI() {
-    Super::GUI();
-}
-
 void Boss::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
     if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::ENEMY_WEAPON) {
         auto* owner = hitInfo.hit_collision_->GetOwner();
@@ -719,10 +715,10 @@ void Boss::ChangeState(BossState state) {
     this->m_state = state;
 }
 
-//void Boss::SetSceneState(Scene::SceneState state) {
-//    m_sceneState = state;
-//    ChangeState(IDLE);
-//}
+void Boss::SetSceneState(Scene::SceneState state) {
+    m_sceneState = state;
+    ChangeState(IDLE);
+}
 
 void Boss::Exit() {
     delete[] m_pEffectList;

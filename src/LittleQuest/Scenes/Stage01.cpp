@@ -10,8 +10,6 @@
 #include <LittleQuest/Objects/DestroyedHouse.h>
 #include <LittleQuest/Objects/Rock1.h>
 #include <LittleQuest/Objects/Fence.h>
-#include <LittleQuest/Scenes/GameOverScene.h>
-#include <LittleQuest/Scenes/GameWinScene.h>
 #include <LittleQuest/Scenes/GameTitleScene.h>
 #include <LittleQuest/Components/ComponentTexture.h>
 
@@ -60,123 +58,16 @@ bool Stage01::Init() {
         skyboxObj->SetRotationAxisXYZ({0, 180, 0});
         skyboxObj->AddComponent<ComponentModel>("data/LittleQuest/Model/Skybox.mv1")->SetScaleAxisXYZ(100.0f);
 
-        {
-            auto broken = BrokenHouse::Create("BrokenHouse", {205, 7, -179});
+        for(int i = 0; i < sizeof(ABANDONHOUSE_POS) / sizeof(*ABANDONHOUSE_POS); ++i) {
+            auto broken = BrokenHouse::Create("BrokenHouse", BROKENHOUSE_POS[i]);
             broken->SetScaleAxisXYZ(2);
             broken->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto broken = BrokenHouse::Create("BrokenHouse", {124, 6.5, -179});
-            broken->SetScaleAxisXYZ(2);
-            broken->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto broken = BrokenHouse::Create("BrokenHouse", {51, 5.5f, -179});
-            broken->SetScaleAxisXYZ(2);
-            broken->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto broken = BrokenHouse::Create("BrokenHouse", {-23, 2.5f, -179});
-            broken->SetScaleAxisXYZ(2);
-            broken->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto broken = BrokenHouse::Create("BrokenHouse", {205, 8, -259});
-            broken->SetScaleAxisXYZ(2);
-            broken->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto broken = BrokenHouse::Create("BrokenHouse", {124, 7, -259});
-            broken->SetScaleAxisXYZ(2);
-            broken->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto broken = BrokenHouse::Create("BrokenHouse", {51, 4.5f, -259});
-            broken->SetScaleAxisXYZ(2);
-            broken->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto broken = BrokenHouse::Create("BrokenHouse", {-23, 2.5f, -259});
-            broken->SetScaleAxisXYZ(2);
-            broken->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto Destroyed = DestroyedHouse::Create("DestroyedHouse", {205, 0, 90});
+
+            auto Destroyed = DestroyedHouse::Create("DestroyedHouse", DESTROYEDHOUSE_POS[i]);
             Destroyed->SetScaleAxisXYZ(2);
             Destroyed->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto Destroyed = DestroyedHouse::Create("DestroyedHouse", {124, 0.5f, 90});
-            Destroyed->SetScaleAxisXYZ(2);
-            Destroyed->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto Destroyed = DestroyedHouse::Create("DestroyedHouse", {51, 0.6f, 90});
-            Destroyed->SetScaleAxisXYZ(2);
-            Destroyed->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto Destroyed = DestroyedHouse::Create("DestroyedHouse", {-23, 2.5f, 90});
-            Destroyed->SetScaleAxisXYZ(2);
-            Destroyed->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto Destroyed = DestroyedHouse::Create("DestroyedHouse", {205, 0, 175});
-            Destroyed->SetScaleAxisXYZ(2);
-            Destroyed->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto Destroyed = DestroyedHouse::Create("DestroyedHouse", {124, 0.5f, 175});
-            Destroyed->SetScaleAxisXYZ(2);
-            Destroyed->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto Destroyed = DestroyedHouse::Create("DestroyedHouse", {51, 0.6f, 175});
-            Destroyed->SetScaleAxisXYZ(2);
-            Destroyed->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto Destroyed = DestroyedHouse::Create("DestroyedHouse", {-23, 2.5f, 175});
-            Destroyed->SetScaleAxisXYZ(2);
-            Destroyed->SetRotationAxisXYZ({0, 90, 0});
-        }
-        {
-            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-205, 2.4, 136});
-            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
-            AbandonHouse->SetScaleAxisXYZ(2.5f);
-        }
-        {
-            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-205, -0.15, 26});
-            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
-            AbandonHouse->SetScaleAxisXYZ(2.5f);
-        }
-        {
-            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-205, -0.5, -103});
-            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
-            AbandonHouse->SetScaleAxisXYZ(2.5f);
-        }
-        {
-            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-205, 0.165, -197});
-            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
-            AbandonHouse->SetScaleAxisXYZ(2.5f);
-        }
-        {
-            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-110, 1.5, 136});
-            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
-            AbandonHouse->SetScaleAxisXYZ(2.5f);
-        }
-        {
-            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-110, -0.2, 26});
-            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
-            AbandonHouse->SetScaleAxisXYZ(2.5f);
-        }
-        {
-            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-110, -0.5, -103});
-            AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
-            AbandonHouse->SetScaleAxisXYZ(2.5f);
-        }
-        {
-            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", {-110, 3.5, -197});
+
+            auto AbandonHouse = AbandonHouse::Create("AbandonHouse", ABANDONHOUSE_POS[i]);
             AbandonHouse->SetRotationAxisXYZ({0, 90, 0});
             AbandonHouse->SetScaleAxisXYZ(2.5f);
         }
@@ -218,9 +109,8 @@ bool Stage01::Init() {
     m_pCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_1, m_pBoss.lock()->GetTranslate() + float3{0, 20, 0});
     m_pCamera.lock()->SetPerspective(FOV_INTRO);
 
-    m_introBGM  = LoadSoundMem("data/LittleQuest/Audio/BGM/IntroBGM_long.mp3");
-    m_BGM       = LoadSoundMem("data/LittleQuest/Audio/BGM/Thunder_of_God.mp3");
-    m_loseAudio = LoadSoundMem("data/LittleQuest/Audio/BGM/Lose.mp3");
+    m_introBGM = LoadSoundMem("data/LittleQuest/Audio/BGM/IntroBGM_long.mp3");
+    m_BGM      = LoadSoundMem("data/LittleQuest/Audio/BGM/Thunder_of_God.mp3");
 
     Scene::SetSceneBGMList({
         {m_introBGM, DX_PLAYTYPE_BACK},
@@ -315,16 +205,11 @@ void Stage01::Update() {
         } else {
             m_pCamera.lock()->SetPositionAndTarget(PLAYER_DEATH_CAM, m_pPlayer.lock()->GetTranslate() + float3{0, 10, 0});
             m_pShowImage = m_pFailImage.lock();
-            PlaySoundMem(m_loseAudio, DX_PLAYTYPE_BACK);
         }
         break;
     }
 }
 
-//---------------------------------------------------------------------------
-//! 描画
-//---------------------------------------------------------------------------
-void Stage01::Draw() {}
 void Stage01::LateDraw() {
     int screen_width, screen_height;
     GetScreenState(&screen_width, &screen_height, NULL);
@@ -384,11 +269,6 @@ void Stage01::Exit() {
     DeleteSoundMem(m_introBGM);
     DeleteSoundMem(m_BGM);
 }
-
-//---------------------------------------------------------------------------
-//! GUI表示
-//---------------------------------------------------------------------------
-void Stage01::GUI() {}
 
 bool Stage01::FadeIn() {
     if(m_fadeTimer > 0) {

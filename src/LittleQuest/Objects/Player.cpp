@@ -52,13 +52,13 @@ bool Player::Init() {
     SetComboList();
 
     {
-        m_pSword   = Scene::CreateObjectPtr<Object>("Katana");
-        auto model = m_pSword.lock()->AddComponent<ComponentModel>();
+        auto sword = Scene::CreateObjectPtr<Object>("Katana");
+        auto model = sword->AddComponent<ComponentModel>();
         model->Load("data/LittleQuest/Model/Katana/Katana.mv1");
         model->SetRotationAxisXYZ({0, -10, 0});
         model->SetScaleAxisXYZ({3.5f, 4.5f, 4.5f});
 
-        auto attach = m_pSword.lock()->AddComponent<ComponentAttachModel>();
+        auto attach = sword->AddComponent<ComponentAttachModel>();
         attach->SetAttachObject(shared_from_this(), "mixamorig:RightHand");
         attach->SetAttachRotate({175, 0, -90});
         attach->SetAttachOffset({-65, 13, -4});
@@ -206,10 +206,6 @@ void Player::LateDraw() {
     case Scene::SceneState::TRANS_OUT:
         break;
     }
-}
-
-void Player::GUI() {
-    Super::GUI();
 }
 
 void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
@@ -372,8 +368,6 @@ void Player::Walk() {
     m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::WALK), true, 0.2f, 14.0f);
     m_pModel.lock()->SetAnimationSpeed(GetDistance(m_movement) * 5.0f);
 }
-
-void Player::Jump() {}
 
 void Player::Attack() {
     switch(m_currCombo) {

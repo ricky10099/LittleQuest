@@ -4,17 +4,23 @@
 
 namespace LittleQuest {
 USING_PTR(DestroyedHouse);
+//////////////////////////////////////////////////////////////
+//! @brief 破壊された家クラス
+//////////////////////////////////////////////////////////////
 class DestroyedHouse: public Object {
    public:
     BP_OBJECT_TYPE(DestroyedHouse, Object);
+    //------------------------------------------------------------
+    //! @brief 破壊された家を生成します。
+    //------------------------------------------------------------
     static DestroyedHousePtr Create(std::string name = "DestroyedHouse", const float3& pos = {0, 0, 0});
 
-    bool Init() override;
+    //------------------------------------------------------------
+    //! @brief 更新処理を行います。
+    //------------------------------------------------------------
     void Update() override;
-    void LateDraw() override;
-    void GUI() override;
-    void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
    private:
+    //! モデルコリジョンボックス
     ObjectPtr m_pBox;
 };
 }    // namespace LittleQuest

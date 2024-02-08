@@ -44,12 +44,12 @@ void ComponentCombo::DrawComboBar() {
     int screenWidth, screenHeight;
     GetScreenState(&screenWidth, &screenHeight, nullptr);
 
-    float posX  = screenWidth * 0.05;
-    float posY  = screenHeight * 0.08;
-    float posX2 = screenWidth * 0.2;
-    float posY2 = screenHeight * 0.1;
+    float posX  = screenWidth * 0.05f;
+    float posY  = screenHeight * 0.08f;
+    float posX2 = screenWidth * 0.2f;
+    float posY2 = screenHeight * 0.1f;
     DrawBoxAA(posX - 2.0f, posY - 2.0f, posX2 + 2.0f, posY2 + 2.0f, GetColor(255, 255, 255), FALSE, 2.0f);
-    DrawFillBox(posX, posY, (posX + ((m_currCombo / MAX_COMBO) * (posX2 - posX))), posY2, m_comboColor);
+    DrawBoxAA(posX, posY, (posX + ((m_currCombo / MAX_COMBO) * (posX2 - posX))), posY2, m_comboColor, TRUE);
     DrawLineAA((posX + (posX2 - posX) * 0.33f), posY, (posX + (posX2 - posX) * 0.33f), posY2, GetColor(255, 255, 255), 2);
     DrawLineAA((posX + (posX2 - posX) * 0.66f), posY, (posX + (posX2 - posX) * 0.66f), posY2, GetColor(255, 255, 255), 2);
 }

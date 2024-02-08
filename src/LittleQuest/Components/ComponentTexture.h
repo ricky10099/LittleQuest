@@ -1,6 +1,6 @@
 ﻿//---------------------------------------------------------------------------
 //! @file   ComponentTexture.h
-//! @brief  テクスチャコンポーネント
+//! @brief  2Dテクスチャコンポーネント
 //---------------------------------------------------------------------------
 #include <System/Scene.h>
 #include <System/Component/Component.h>
@@ -9,9 +9,9 @@
 #    define COMPONENTTEXTURE2D_HEADER
 namespace LittleQuest {
 //////////////////////////////////////////////////////////////
-//! @brief テクスチャコンポーネントクラス
+//! @brief 2Dテクスチャコンポーネントクラス
 //!
-//! @memo シェーダーを使うテクスチャ
+//! シェーダーを使うテクスチャ
 //////////////////////////////////////////////////////////////
 class ComponentTexture2D: public Component {
    public:
