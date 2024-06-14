@@ -13,18 +13,12 @@ namespace {
 //! モデルリソースプール
 std::unordered_map<std::string, std::shared_ptr<ResourceModel>> resource_model_pool;
 
-std::shared_ptr<Texture> textureIBL_diffuse_;     //!< IBLテクスチャ(Diffuse)
-std::shared_ptr<Texture> textureIBL_specular_;    //!< IBLテクスチャ(Specular)
 }    // namespace
 
 //---------------------------------------------------------------------------
 //! 読み込み
 //---------------------------------------------------------------------------
 bool Model::load(std::string_view path) {
-    if(!textureIBL_diffuse_)
-        textureIBL_diffuse_ = std::make_shared<Texture>("data/IBL/iblDiffuseHDR.dds");
-    if(!textureIBL_specular_)
-        textureIBL_specular_ = std::make_shared<Texture>("data/IBL/iblSpecularHDR.dds");
     //----------------------------------------------------------
     // モデルリソース読み込み
     //----------------------------------------------------------
@@ -158,9 +152,6 @@ void Model::renderByMesh(s32 mesh, ShaderVs* override_vs, ShaderPs* override_ps)
     // オリジナルシェーダーを使用をONにする
     MV1SetUseOrigShader(true);
 
-    SetUseTextureToShader(11, *textureIBL_diffuse_);
-    SetUseTextureToShader(12, *textureIBL_specular_);
-
     for(s32 t = 0; t < MV1GetMeshTListNum(mv1_handle_, mesh); ++t) {    // メッシュに含まれるトライアングルリストの数
 
         // トライアングルリスト番号
@@ -204,9 +195,6 @@ void Model::renderByMesh(s32 mesh, ShaderVs* override_vs, ShaderPs* override_ps)
         // 描画
         MV1DrawTriangleList(mv1_handle_, tlist);
     }
-
-    SetUseTextureToShader(11, -1);
-    SetUseTextureToShader(12, -1);
 
     // オリジナルシェーダー使用をOFFにする
     MV1SetUseOrigShader(false);
@@ -257,11 +245,6 @@ Model::~Model() {
         tex_null_black_.reset();
         tex_null_normal_.reset();
     }
-
-    if(textureIBL_diffuse_)
-        textureIBL_diffuse_.reset();
-    if(textureIBL_specular_)
-        textureIBL_specular_.reset();
 }
 
 //---------------------------------------------------------------------------
@@ -297,7 +280,7 @@ void Model::overrideTexture(Model::TextureType type, std::shared_ptr<Texture>& t
 //---------------------------------------------------------------------------
 matrix Model::worldMatrix() const {
     return mat_world_;
-};
+}
 
 //---------------------------------------------------------------------------
 //! [DxLib] MV1ハンドルを取得

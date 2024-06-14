@@ -20,6 +20,9 @@ class ComponentCollisionLine
     ComponentCollisionLine() {
         collision_type_ = CollisionType::LINE;
     }
+    ComponentCollisionLinePtr SetName(const std::string_view& name) {
+        return Component::SetName<ComponentCollisionLine>(name);
+    }
 
     virtual void Init() override;          //!< 初期化
     virtual void Update() override;        //!< 更新
@@ -76,15 +79,21 @@ class ComponentCollisionLine
 
     //@}
 
-#if 1    // CompoentCollisionからの移行
-
-    inline ComponentCollisionLinePtr SetName(std::string_view name) {
-        name_ = name;
+#if 1        // CompoentCollisionからの移行
+#    if 0    // 通常Componentへ移動
+	inline ComponentCollisionLinePtr SetName( std::string_view name )
+	{
+		name_ = name;
+		return std::dynamic_pointer_cast<ComponentCollisionLine>( shared_from_this() );
+	}
+#    endif
+    inline ComponentCollisionLinePtr SetHitCollisionGroup(u32 hit_group) {
+        collision_hit_ = hit_group;
         return std::dynamic_pointer_cast<ComponentCollisionLine>(shared_from_this());
     }
 
-    inline ComponentCollisionLinePtr SetHitCollisionGroup(u32 hit_group) {
-        collision_hit_ = hit_group;
+    inline ComponentCollisionLinePtr SetOverlapCollisionGroup(u32 overlap_group) {
+        collision_overlap_ = overlap_group;
         return std::dynamic_pointer_cast<ComponentCollisionLine>(shared_from_this());
     }
 
@@ -102,7 +111,7 @@ class ComponentCollisionLine
    protected:
 #ifdef USE_JOLT_PHYSICS
     bool set_size_ = false;
-#endif    // USE_JOLT_PHYSICS
+#endif    //USE_JOLT_PHYSICS
     float line_scale_ = 1.0f;
 
    private:

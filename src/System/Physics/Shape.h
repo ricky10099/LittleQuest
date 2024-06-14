@@ -5,6 +5,10 @@
 #pragma once
 
 namespace shape {
+//--------------------------------------------------------------
+//! デフォルト質量
+//--------------------------------------------------------------
+constexpr float default_density_ = 1000.0f;
 
 //--------------------------------------------------------------
 //! 形状の種類
@@ -33,7 +37,8 @@ class Base {
     }
 
    protected:
-    shape::Type type_ = shape::Type::Unknown;
+    shape::Type type_    = shape::Type::Unknown;
+    f32         density_ = default_density_;
 };
 
 //===========================================================================
@@ -45,7 +50,12 @@ class Sphere: public shape::Base {
     f32    radius_;      //!< 半径
 
     //! コンストラクタ
-    Sphere(const float3& position, f32 radius): shape::Base(shape::Type::Sphere), position_(position), radius_(radius) {}
+    Sphere(const float3& position, f32 radius, f32 density = default_density_)
+        : shape::Base(shape::Type::Sphere)
+        , position_(position)
+        , radius_(radius) {
+        density_ = density;
+    }
 };
 
 //===========================================================================
@@ -56,7 +66,9 @@ class Box: public shape::Base {
     float3 extent_;    //!< 幅
 
     //! コンストラクタ
-    Box(const float3& extent): shape::Base(shape::Type::Box), extent_(extent) {}
+    Box(const float3& extent, f32 density = default_density_): shape::Base(shape::Type::Box), extent_(extent) {
+        density_ = density;
+    }
 };
 
 //===========================================================================
@@ -68,7 +80,12 @@ class Capsule: public shape::Base {
     f32 radius_;         //!< 半径
 
     //! コンストラクタ
-    Capsule(f32 half_height, f32 radius): shape::Base(shape::Type::Capsule), half_height_(half_height), radius_(radius) {}
+    Capsule(f32 half_height, f32 radius, f32 density = default_density_)
+        : shape::Base(shape::Type::Capsule)
+        , half_height_(half_height)
+        , radius_(radius) {
+        density_ = density;
+    }
 };
 
 //===========================================================================
@@ -80,7 +97,12 @@ class Cylinder: public shape::Base {
     f32 radius_;         //!< 半径
 
     //! コンストラクタ
-    Cylinder(f32 half_height, f32 radius): shape::Base(shape::Type::Box), half_height_(half_height), radius_(radius) {}
+    Cylinder(f32 half_height, f32 radius, f32 density = default_density_)
+        : shape::Base(shape::Type::Box)
+        , half_height_(half_height)
+        , radius_(radius) {
+        density_ = density;
+    }
 };
 
 //===========================================================================

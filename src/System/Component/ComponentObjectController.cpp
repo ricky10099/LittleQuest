@@ -172,22 +172,22 @@ void ComponentObjectController::GUI() {
     ImGui::Begin(GetOwner()->GetName().data());
     {
         ImGui::Separator();
-        if(ImGui::TreeNode(u8"ObjectController")) {
+        if(ImGui::TreeNode("ObjectController")) {
             // GUI上でオーナーから自分(SampleObjectController)を削除します
-            if(ImGui::Button(u8"削除"))
+            if(ImGui::Button("削除"))
                 GetOwner()->RemoveComponent(shared_from_this());
 
             // 移動の基本情報
-            ImGui::DragFloat(u8"移動速度", &move_speed_, 0.1f);
-            ImGui::DragFloat(u8"移動回転角度", &rot_speed_, 1.0f);
+            ImGui::DragFloat("移動速度", &move_speed_, 0.1f);
+            ImGui::DragFloat("移動回転角度", &rot_speed_, 1.0f);
 
             // カメラの基本情報
-            ImGui::Checkbox(u8"カメラ方向にMouseを使用", &use_mouse_);
-            ImGui::DragFloat(u8"カメラ左右回転スピード", &mouse_left_right_);
-            ImGui::DragFloat(u8"カメラ上下回転スピード", &mouse_up_down_);
+            ImGui::Checkbox("カメラ方向にMouseを使用", &use_mouse_);
+            ImGui::DragFloat("カメラ左右回転スピード", &mouse_left_right_);
+            ImGui::DragFloat("カメラ上下回転スピード", &mouse_up_down_);
 
-            ImGui::DragFloat(u8"見る方向上リミット", &limit_cam_up_);
-            ImGui::DragFloat(u8"見る方向下リミット", &limit_cam_down_);
+            ImGui::DragFloat("見る方向上リミット", &limit_cam_up_);
+            ImGui::DragFloat("見る方向下リミット", &limit_cam_down_);
 
             ImGui::TreePop();
         }
@@ -195,7 +195,7 @@ void ComponentObjectController::GUI() {
     ImGui::End();
 }
 
-BP_COMPONENT_IMPL(ComponentObjectController, u8"移動コンポーネント");
+BP_COMPONENT_IMPL(ComponentObjectController, "移動コンポーネント");
 
 CEREAL_REGISTER_TYPE(ComponentObjectController)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, ComponentObjectController)

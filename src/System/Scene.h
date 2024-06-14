@@ -36,6 +36,7 @@ class Scene {
         AliveInAnotherScene,    //!< 別シーン移行でも終了しない
     };
 
+#pragma region Customized structure
     enum SceneState {
         LOAD,
         TRANS_IN,
@@ -49,6 +50,8 @@ class Scene {
         int bgm_handle = -1;
         int play_type  = DX_PLAYTYPE_LOOP;
     };
+#pragma endregion
+
     //---------------------------------------------------------------------------
     // シグナル
     //---------------------------------------------------------------------------
@@ -77,16 +80,17 @@ class Scene {
 
         virtual bool Init() {
             return true;
-        };                          //!< 初期化
+        }                           //!< 初期化
         virtual void Update(){};    //!< 更新
         virtual void Draw(){};      //!< 描画
         virtual void Exit(){};      //!< 終了
         virtual void GUI(){};       //!< GUI表示
 
-        virtual void PreUpdate(){};     //!< 更新前処理
-        virtual void LateUpdate(){};    //!< 通常更新の後更新処理
-        virtual void PrePhysics(){};    //!< 物理前(アクション後)処理
-        virtual void PostUpdate(){};    //!< 更新後(物理後)処理
+        virtual void PreUpdate(){};      //!< 更新前処理
+        virtual void LateUpdate(){};     //!< 通常更新の後更新処理
+        virtual void PrePhysics(){};     //!< 物理前(アクション後)処理
+        virtual void PostPhysics(){};    //!< 物理後処理
+        virtual void PostUpdate(){};     //!< 更新後(物理後)処理
 
         virtual void PreDraw(){};     //!< 描画前処理
         virtual void LateDraw(){};    //!< 遅い描画の処理
@@ -105,12 +109,12 @@ class Scene {
         //! @param obj オブジェクト
         //! @param update 更新プライオリティ
         //! @param draw 描画プライオリティ
-        void PreRegister(ObjectPtr obj, Priority update = Priority::NORMAL, Priority draw = Priority::NORMAL);
+        void PreRegister(ObjectPtr obj, ProcPriority update = ProcPriority::NORMAL, ProcPriority draw = ProcPriority::NORMAL);
 
         template<class T>
-        void PreRegister(T* obj, Priority update, Priority draw);
+        void PreRegister(T* obj, ProcPriority update, ProcPriority draw);
 
-        void Register(ObjectPtr obj, Priority update = Priority::NORMAL, Priority draw = Priority::NORMAL);
+        void Register(ObjectPtr obj, ProcPriority update = ProcPriority::NORMAL, ProcPriority draw = ProcPriority::NORMAL);
         void RegisterForLoad(ObjectPtr obj);
         void Unregister(ObjectPtr obj);
         void UnregisterAll();
@@ -122,10 +126,10 @@ class Scene {
         //@{
 
         //! 優先を設定変更します
-        void SetPriority(ObjectPtr obj, ProcTiming timing, Priority priority);
+        void SetPriority(ObjectPtr obj, ProcTiming timing, ProcPriority priority);
 
         //! 優先を設定変更します
-        void SetPriority(ComponentPtr commponent, ProcTiming timing, Priority priority);
+        void SetPriority(ComponentPtr commponent, ProcTiming timing, ProcPriority priority);
 
         //@}
         //----------------------------------------------------------------------
@@ -244,8 +248,10 @@ class Scene {
         virtual bool Load(std::string_view filename = "");
         //@}
 
+#pragma region Customized Protected var
        protected:
         SceneState scene_state = SceneState::GAME;
+#pragma endregion
 
        private:
         //! オブジェクトの指定処理を指定優先で処理するように登録する
@@ -254,8 +260,7 @@ class Scene {
         //! オブジェクトの指定処理を削除する
         void resetProc(ObjectPtr obj, SlotProc& slot);
 
-        //! @brief
-        //! コンポーネントの指定処理を指定優先で処理するように登録する
+        //! @brief コンポーネントの指定処理を指定優先で処理するように登録する
         void setProc(ComponentPtr component, SlotProc& slot);
 
         //! @brief コンポーネントの指定処理を削除する
@@ -307,8 +312,7 @@ class Scene {
 
     //! シーン切り替え
     //! @param scene 次に再生するシーン
-    //! @details 内部的には、SetNextScene() -> ChangeNextScene()
-    //! が呼ばれています
+    //! @details 内部的には、SetNextScene() -> ChangeNextScene() が呼ばれています
     static void Change(BasePtr scene);
 
     //! 次のシーンをセットする
@@ -319,9 +323,11 @@ class Scene {
     //! 次のシーンに切り替える
     static void ChangeNextScene();
 
+#pragma region Customized private function
     static void QueueScene(BasePtr scene);
 
     static void NextScene();
+#pragma endregion
 
     //  現在アクティブなシーンを取得します
     static Scene::Base* GetCurrentScene();
@@ -332,11 +338,8 @@ class Scene {
     //----------------------------------------------------------------
     //@{
     template<class T>
-    static std::shared_ptr<T> [[deprecated("命名変更 "
-                                           "CreateObjectPtr()"
-                                           "を使用してください")]] CreateObject(bool     no_transform = false,
-                                                                                Priority update       = Priority::NORMAL,
-                                                                                Priority draw         = Priority::NORMAL) {
+    static std::shared_ptr<T> [[deprecated("命名変更 CreateObjectPtr()を使用してください")]] CreateObject(
+        bool no_transform = false, ProcPriority update = ProcPriority::NORMAL, ProcPriority draw = ProcPriority::NORMAL) {
         return CreateObjectPtr<T>(no_transform, update, draw);
     }
 
@@ -347,8 +350,8 @@ class Scene {
     //! @param draw 描画優先
     template<class T>
     static std::shared_ptr<T>    //
-        CreateObjectPtr(const std::string_view name = u8"object", bool no_transform = false, Priority update = Priority::NORMAL,
-                        Priority draw = Priority::NORMAL) {
+        CreateObjectPtr(const std::string_view name = "object", bool no_transform = false,
+                        ProcPriority update = ProcPriority::NORMAL, ProcPriority draw = ProcPriority::NORMAL) {
         if(current_scene_) {
             auto tmp = std::make_shared<T>();
             current_scene_->PreRegister(tmp, update, draw);
@@ -377,7 +380,7 @@ class Scene {
 	//! @param draw 描画優先
 	template <class T>
 	static std::shared_ptr<T>
-	CreateObjectPtr( bool no_transform, Priority update = Priority::NORMAL, Priority draw = Priority::NORMAL )
+	CreateObjectPtr( bool no_transform, ProcPriority update = ProcPriority::NORMAL, ProcPriority draw = ProcPriority::NORMAL )
 	{
 		if( current_scene_ )
 		{
@@ -407,9 +410,9 @@ class Scene {
     //! @param update 処理優先
     //! @param draw 描画優先
     template<class T>
-    static std::shared_ptr<T> CreateObjectDelayInitialize(const std::string_view name = u8"object", bool no_transform = false,
-                                                          Priority update = Priority::NORMAL,
-                                                          Priority draw   = Priority::NORMAL) {
+    static std::shared_ptr<T> CreateObjectDelayInitialize(const std::string_view name = "object", bool no_transform = false,
+                                                          ProcPriority update = ProcPriority::NORMAL,
+                                                          ProcPriority draw   = ProcPriority::NORMAL) {
         if(current_scene_) {
             auto tmp = std::make_shared<T>();
             current_scene_->PreRegister(tmp, update, draw);
@@ -446,8 +449,7 @@ class Scene {
     static void Init();
 
     //! @brief シーン更新前処理
-    //! @detail
-    //! 基本的にはUpdate集団より先にで行いたいものをこの層で処理します
+    //! @detail 基本的にはUpdate集団より先にで行いたいものをこの層で処理します
     static void PreUpdate();
 
     //! シーン更新
@@ -455,8 +457,12 @@ class Scene {
     static void Update();
 
     //! @brief Physics前処理
-    //! @detail OwnerObject移動によるコリジョンコンポーネント付随処理
+    //! @detail OwnerObject移動によるコリジョンコンポーネント前処理
     static void PrePhysics();
+
+    //! @brief Physics後処理
+    //! @detail OwnerObject移動によるコリジョンコンポーネント移動後処理
+    static void PostPhysics();
 
     //! @brief シーン更新後の処理
     //! @detail Physicsおよびすべての当たり判定後に処理します
@@ -483,6 +489,7 @@ class Scene {
     //! @retval false ポーズしていない
     static bool IsPause();
 
+#pragma region Customized function
     static void Pause();
 
     static void SetCanPause(bool canPause);
@@ -497,6 +504,17 @@ class Scene {
 
     static int GetSEVolume();
 
+    //! @brief エディター状態設定
+    //! @param edit Editor状態
+    static void SetEdit(bool edit);
+
+    //! @brief エディター状態取得
+    //! @retval true: エディター状態
+    static const bool IsEdit();
+
+    static void ExitApp();
+#pragma endregion
+
     //! シーン内時間の取得
     //! @return シーンが始まってからの時間
     static float GetTime();
@@ -505,14 +523,6 @@ class Scene {
     static size_t GetSceneCount() {
         return scenes_.size();
     }
-
-    //! @brief エディター状態設定
-    //! @param edit Editor状態
-    static void SetEdit(bool edit);
-
-    //! @brief エディター状態取得
-    //! @retval true: エディター状態
-    static const bool IsEdit();
 
     //@}
     //----------------------------------------------------------------
@@ -532,8 +542,7 @@ class Scene {
 
     //! @brief オブジェクトサーチ&取得
     //! @tparam T 取得したいオブジェクトタイプ
-    //! @details
-    //! 同じタイプのオブジェクトが複数あると先に見つかったものを返します
+    //! @details 同じタイプのオブジェクトが複数あると先に見つかったものを返します
     //! @return オブジェクト
     template<class T>
     static std::vector<std::shared_ptr<T>> GetObjectsPtr() {
@@ -618,8 +627,6 @@ class Scene {
     static bool Load(std::string_view filename = "");
 
     //@}
-
-    static void ExitApp();
 
    private:
     static Status<EditorStatusBit> editor_status_;    //!< 状態

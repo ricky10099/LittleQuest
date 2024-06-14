@@ -10,7 +10,7 @@
 #include <System/Object.h>
 #include <System/Scene.h>
 
-BP_COMPONENT_IMPL(ComponentCollisionSphere, u8"SphereCollision機能クラス");
+BP_COMPONENT_IMPL(ComponentCollisionSphere, "SphereCollision機能クラス");
 
 void ComponentCollisionSphere::Init() {
     __super::Init();
@@ -29,7 +29,7 @@ void ComponentCollisionSphere::PostUpdate() {
 void ComponentCollisionSphere::Draw() {
     __super::Draw();
 
-    if(!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame))
+    if(!IsShowDebug() && !collision_status_.is(CollisionBit::ShowInGame))
         return;
 
     float scale = 1.0f;
@@ -68,24 +68,24 @@ void ComponentCollisionSphere::GUI() {
         ImGui::Separator();
         auto ui_name = std::string("Collision Sphere:") + std::to_string(collision_id_);
         if(ImGui::TreeNode(ui_name.c_str())) {
-            if(ImGui::Button(u8"削除")) {
+            if(ImGui::Button("削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
             // コリジョン情報を出す
             GUICollisionData();
 
-            std::string colname = u8"COL:" + std::to_string(collision_id_) + "/ ";
+            std::string colname = "COL:" + std::to_string(collision_id_) + "/ ";
 
             float* mat = GetColMatrixFloat();
             float  matrixTranslation[3], matrixRotation[3], matrixScale[3];
             DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
-            ImGui::DragFloat3((colname + u8"座標(T)").c_str(), matrixTranslation, 0.01f);
-            // ImGui::DragFloat3( u8"COL回転(R)", matrixRotation, 0.1f );
-            // ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
+            ImGui::DragFloat3((colname + "座標(T)").c_str(), matrixTranslation, 0.01f);
+            //ImGui::DragFloat3( u8"COL回転(R)", matrixRotation, 0.1f );
+            //ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
             RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, mat);
 
-            ImGui::DragFloat((colname + u8"半径(R)").c_str(), &radius_, 0.01f, 0.01f, 1000.0f, "%.2f");
+            ImGui::DragFloat((colname + "半径(R)").c_str(), &radius_, 0.01f, 0.01f, 1000.0f, "%.2f");
 
             ImGui::TreePop();
         }

@@ -125,9 +125,8 @@ class ComponentSpringArm: public Component {
     // @param arc アーカイバ
     // @param ver バージョン
     CEREAL_SAVELOAD(arc, ver) {
-        arc(cereal::make_nvp("owner", owner_));    //< オーナー
-        arc(cereal::make_nvp("spring_arm_status",
-                             spring_arm_status_.get()));    //< カメラステート
+        arc(cereal::make_nvp("owner", owner_));                                  //< オーナー
+        arc(cereal::make_nvp("spring_arm_status", spring_arm_status_.get()));    //< カメラステート
         arc(CEREAL_NVP(spring_arm_rotate_));
         arc(CEREAL_NVP(spring_arm_offset_));
         arc(CEREAL_NVP(spring_arm_length_));

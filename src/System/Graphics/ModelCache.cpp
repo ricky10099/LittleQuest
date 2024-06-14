@@ -46,16 +46,14 @@ bool ModelCache::save(int mv1_handle) const {
     std::vector<u32>    iarray;    // インデックス配列
 
     // 指定のパスにモデルを保存する
-    //  MV1SaveModelToMV1FileWithStrLen(handle_, path.data(), path.size(),
-    //  MV1_SAVETYPE_NORMAL);
+    //  MV1SaveModelToMV1FileWithStrLen(handle_, path.data(), path.size(), MV1_SAVETYPE_NORMAL);
 
     //--------------------------------------------------------------
     // MV1モデルから頂点形状を抽出する
     //--------------------------------------------------------------
     {
         bool is_transform = true;
-        MV1SetupReferenceMesh(mv1_handle, -1, is_transform,
-                              true);    // 参照用メッシュのセットアップ
+        MV1SetupReferenceMesh(mv1_handle, -1, is_transform, true);    // 参照用メッシュのセットアップ
         auto poly_list = MV1GetReferenceMesh(mv1_handle, -1, is_transform, true);    // 参照用メッシュを取得する
 
         // 頂点インデックス配列を抽出
@@ -90,8 +88,7 @@ bool ModelCache::save(int mv1_handle) const {
             iarray.push_back(i2);
         }
 
-        MV1TerminateReferenceMesh(mv1_handle, -1, false,
-                                  true);    // 参照用メッシュの後始末
+        MV1TerminateReferenceMesh(mv1_handle, -1, false, true);    // 参照用メッシュの後始末
     }
 
     //----------------------------------------------------------
@@ -286,8 +283,7 @@ bool ModelCache::load() {
             u32 b = indices_[i + 1];
             u32 c = indices_[i + 2];
 
-            // ワイヤーフレーム描画にするために三角形abcインデックスを a-b, b-c,
-            // c-a という順に接続する
+            // ワイヤーフレーム描画にするために三角形abcインデックスを a-b, b-c, c-a という順に接続する
             iarray.push_back(a);
             iarray.push_back(b);
             iarray.push_back(b);

@@ -20,6 +20,9 @@ class ComponentCollisionCapsule
     ComponentCollisionCapsule() {
         collision_type_ = CollisionType::CAPSULE;
     }
+    ComponentCollisionCapsulePtr SetName(const std::string_view& name) {
+        return Component::SetName<ComponentCollisionCapsule>(name);
+    }
 
     virtual void Init() override;
     virtual void Update() override;
@@ -87,15 +90,21 @@ class ComponentCollisionCapsule
         return gravity_.y;
     }
 
-#if 1    // CompoentCollisionからの移行
-
-    inline ComponentCollisionCapsulePtr SetName(std::string_view name) {
-        name_ = name;
+#if 1        // CompoentCollisionからの移行
+#    if 0    // 通常コンポーネントへ
+	inline ComponentCollisionCapsulePtr SetName( std::string_view name )
+	{
+		name_ = name;
+		return std::dynamic_pointer_cast<ComponentCollisionCapsule>( shared_from_this() );
+	}
+#    endif
+    inline ComponentCollisionCapsulePtr SetHitCollisionGroup(u32 hit_group) {
+        collision_hit_ = hit_group;
         return std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this());
     }
 
-    inline ComponentCollisionCapsulePtr SetHitCollisionGroup(u32 hit_group) {
-        collision_hit_ = hit_group;
+    inline ComponentCollisionCapsulePtr SetOverlapCollisionGroup(u32 overlap_group) {
+        collision_overlap_ = overlap_group;
         return std::dynamic_pointer_cast<ComponentCollisionCapsule>(shared_from_this());
     }
 
@@ -144,7 +153,7 @@ class ComponentCollisionCapsule
     CapsuleListener listener_;
     // 重力加速度
     float3          gravity_ = 0.0f;
-#endif    // USE_JOLT_PHYSICS
+#endif    //USE_JOLT_PHYSICS
     //--------------------------------------------------------------------
     //! @name Cereal処理
     //--------------------------------------------------------------------

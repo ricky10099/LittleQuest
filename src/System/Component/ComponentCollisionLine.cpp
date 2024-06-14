@@ -11,7 +11,7 @@
 #include <System/Object.h>
 #include <System/Scene.h>
 
-BP_COMPONENT_IMPL(ComponentCollisionLine, u8"SphereCollision機能クラス");
+BP_COMPONENT_IMPL(ComponentCollisionLine, "SphereCollision機能クラス");
 
 //-----------------------------------------------
 //! @brief 初期化
@@ -41,12 +41,12 @@ void ComponentCollisionLine::PostUpdate() {
 //-----------------------------------------------
 void ComponentCollisionLine::Draw() {
     //エディターモードや、ShowInGameフラグがない場合は、表示しない
-    if(!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame))
+    if(!IsShowDebug() && !collision_status_.is(CollisionBit::ShowInGame))
         return;
 
     __super::Draw();
 
-    // auto trans = mul(inverse(collision_transform_), GetWorldMatrix());
+    //auto trans = mul(inverse(collision_transform_), GetWorldMatrix());
 
     SetUseLighting(FALSE);
     SetLightEnable(FALSE);
@@ -55,8 +55,8 @@ void ComponentCollisionLine::Draw() {
     VECTOR pos1 = cast(line[0]);
     VECTOR pos2 = cast(line[1]);
 
-    // printfDx("{%2.1f, %2.1f, %2.1f}", pos1.x, pos1.y, pos1.z);
-    // printfDx("{%2.1f, %2.1f, %2.1f}", pos2.x, pos2.y, pos2.z);
+    //printfDx("{%2.1f, %2.1f, %2.1f}", pos1.x, pos1.y, pos1.z);
+    //printfDx("{%2.1f, %2.1f, %2.1f}", pos2.x, pos2.y, pos2.z);
 
     DrawLine3D(pos1, pos2, GetColor(255, 0, 0));
     SetLightEnable(TRUE);
@@ -81,22 +81,22 @@ void ComponentCollisionLine::GUI() {
         ImGui::Separator();
         auto ui_name = std::string("Collision Line:") + std::to_string(collision_id_);
         if(ImGui::TreeNode(ui_name.c_str())) {
-            if(ImGui::Button(u8"削除")) {
+            if(ImGui::Button("削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
             // コリジョン情報を出す
             GUICollisionData();
 
-            std::string colname = u8"COL:" + std::to_string(collision_id_) + "/ ";
+            std::string colname = "COL:" + std::to_string(collision_id_) + "/ ";
 
             auto   line = GetLine();
             float3 pos1 = line[0];
             float3 pos2 = line[1];
 
             bool change = false;
-            change |= ImGui::DragFloat3((colname + u8" Start").data(), (float*)&pos1, 0.1f);
-            change |= ImGui::DragFloat3((colname + u8" End").data(), (float*)&pos2, 0.1f);
+            change |= ImGui::DragFloat3((colname + " Start").data(), (float*)&pos1, 0.1f);
+            change |= ImGui::DragFloat3((colname + " End").data(), (float*)&pos2, 0.1f);
 
             if(HelperLib::Math::NearlyEqual(pos1.x, pos2.x) && HelperLib::Math::NearlyEqual(pos1.y, pos2.y) &&
                HelperLib::Math::NearlyEqual(pos1.z, pos2.z)) {

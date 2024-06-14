@@ -7,7 +7,7 @@
 #include <System/ImGui.h>
 #include <System/Utils/HelperLib.h>
 
-BP_COMPONENT_IMPL(ComponentTargetTracking, u8"TargetTracking機能クラス");
+BP_COMPONENT_IMPL(ComponentTargetTracking, "TargetTracking機能クラス");
 
 namespace {
 std::string null_name = "  ";
@@ -87,8 +87,7 @@ void ComponentTargetTracking::PostUpdate() {
         // モデルを通常に戻すインバーズマトリクスを取得しておく
         auto fmat = inverse(HelperLib::Math::CreateMatrixByFrontVector(model_vec));
 
-        // ターゲットへの向きを取得して(
-        // MV1GetFrameLocalWorldMatrixでとると100%位置はあっているがどうやら…1Frame遅れる)
+        // ターゲットへの向きを取得して( MV1GetFrameLocalWorldMatrixでとると100%位置はあっているがどうやら…1Frame遅れる)
         float3 node_pos  = tracking_matrix_._41_42_43;
         float3 model_pos = mul(float4(node_pos, 1), GetOwner()->GetMatrix()).xyz;
 
@@ -153,15 +152,14 @@ void ComponentTargetTracking::PostUpdate() {
 #endif
         RecomposeMatrixFromComponents((float*)&node_trans, (float*)&node_rot, (float*)&node_scale, (float*)mat.f32_128_0);
 
-        // auto roty = matrix::rotateY(radians((float1)theta_xz));
-        // auto rotx = matrix::rotateX(radians((float1)theta_yz));
-        // mat = mul(mul(tracking_matrix_, rotx), roty);
+        //auto roty = matrix::rotateY(radians((float1)theta_xz));
+        //auto rotx = matrix::rotateX(radians((float1)theta_yz));
+        //mat = mul(mul(tracking_matrix_, rotx), roty);
 
         MV1SetFrameUserLocalMatrix(model->GetModel(), tracked_node_index_, cast(mat));
 
         // これをONにすると他のGizmoのIsOverなどがチェックが取れずPICKが常に有効になる(地面が選ばれてしまう)
-        // ShowGizmo( (float*)mat.f32_128_0, ImGuizmo::OPERATION::TRANSLATE,
-        // ImGuizmo::MODE::LOCAL, 0xab1245 );
+        //ShowGizmo( (float*)mat.f32_128_0, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, 0xab1245 );
     }
 }
 
@@ -187,15 +185,15 @@ void ComponentTargetTracking::GUI() {
     ImGui::Begin(obj_name.data());
     {
         ImGui::Separator();
-        if(ImGui::TreeNode(u8"TargetTracking")) {
-            if(ImGui::Button(u8"削除")) {
+        if(ImGui::TreeNode("TargetTracking")) {
+            if(ImGui::Button("削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
             int select_node_index = -1;
             if(auto model = GetOwner()->GetComponent<ComponentModel>()) {
                 auto list         = model->GetNodesName();
-                select_node_index = Combo(u8"トラッキングノード", tracked_node_, list);
+                select_node_index = Combo("トラッキングノード", tracked_node_, list);
                 if(select_node_index < list.size())
                     SetTrackingNode(select_node_index);
             }
@@ -212,7 +210,7 @@ void ComponentTargetTracking::GUI() {
                 for(auto obj: objs) {
                     names.push_back(obj->GetName());
                 }
-                int id = Combo(u8"ターゲットオブジェクト", name, names) - 1;
+                int id = Combo("ターゲットオブジェクト", name, names) - 1;
 
                 if(id >= 0) {
                     tracking_object_ = objs[id];
@@ -227,14 +225,14 @@ void ComponentTargetTracking::GUI() {
             }
 
             if(!tracking_status_.is(TrackingBit::ObjectTracking)) {
-                ImGui::DragFloat3(u8"ターゲットポイント", (float*)&look_at_, 0.01f);
+                ImGui::DragFloat3("ターゲットポイント", (float*)&look_at_, 0.01f);
             }
 
             ImGui::Separator();
-            ImGui::DragFloat2(u8"左右角度制限", (float*)&limit_lr_, 0.1f, 0, 180, "%.1f");
-            ImGui::DragFloat2(u8"上下角度制限", (float*)&limit_ud_, 0.1f, 0, 89, "%.1f");
+            ImGui::DragFloat2("左右角度制限", (float*)&limit_lr_, 0.1f, 0, 180, "%.1f");
+            ImGui::DragFloat2("上下角度制限", (float*)&limit_ud_, 0.1f, 0, 89, "%.1f");
             ImGui::Separator();
-            ImGui::DragFloat3(u8"前ベクトル", (float*)&front_vector_, 0.1f, 0, 180, "%.1f");
+            ImGui::DragFloat3("前ベクトル", (float*)&front_vector_, 0.1f, 0, 180, "%.1f");
 
             ImGui::TreePop();
         }

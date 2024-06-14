@@ -183,8 +183,11 @@ bool ShaderBase::compile() {
         // #define SHADER_VARIANT  index の形式でプリプロセッサ定義
         auto number_string = std::to_string(index);
 
+        auto dxlib_version = std::format("{:#x}", DXLIB_VERSION);
+
         const D3D_SHADER_MACRO defines[]{
             {"SHADER_VARIANT", number_string.c_str()},
+            { "DXLIB_VERSION", dxlib_version.c_str()},
             {         nullptr,               nullptr},
         };
 
@@ -193,11 +196,9 @@ bool ShaderBase::compile() {
 
         auto hr = D3DCompile(source.data(),                     // [in]  ソースコードのメモリ上のアドレス
                              source.size(),                     // [in]  ソースコードサイズ
-                             convertTo(source_path).c_str(),    // [in]
-                             // ソースコードのファイルパス(使用しない場合はnullptr)
-                             defines,                              // [in]  プリプロセッサマクロ定義
-                             D3D_COMPILE_STANDARD_FILE_INCLUDE,    // [in]
-                                                                   // カスタムインクルード処理
+                             convertTo(source_path).c_str(),    // [in]  ソースコードのファイルパス(使用しない場合はnullptr)
+                             defines,                           // [in]  プリプロセッサマクロ定義
+                             D3D_COMPILE_STANDARD_FILE_INCLUDE,    // [in]  カスタムインクルード処理
                              "main",                               // [in]  関数名
                              target_names[type_],                  // [in]  シェーダーモデル名
                              compile_flags,                        // [in]  コンパイラフラグ  (D3DCOMPILE_xxxx)

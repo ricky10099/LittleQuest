@@ -8,7 +8,7 @@
 #include <System/Object.h>
 #include <unordered_map>
 
-BP_COMPONENT_IMPL(ComponentEffect, u8"Effectコンポーネント");
+BP_COMPONENT_IMPL(ComponentEffect, "Effectコンポーネント");
 
 std::unordered_map<std::string, int> ComponentEffect::exist_effects_resource_{};
 int                                  ComponentEffect::component_effect_count = 0;
@@ -57,7 +57,8 @@ void ComponentEffect::Init() {
     __super::Init();
 
     // 位置決定はアタッチよりも遅くする必要がある
-    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PostUpdate, Priority(PRIORITY(Priority::LOWEST) + 1));
+    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PostUpdate,
+                                          static_cast<ProcPriority>(ProcPriority::LOWEST + 1));
 }
 
 //! @brief モデル更新
@@ -132,7 +133,7 @@ void ComponentEffect::GUI() {
 
         // モデルコンポーネント表示
         if(ImGui::TreeNode("Effect")) {
-            if(ImGui::Button(u8"削除")) {
+            if(ImGui::Button("削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
@@ -142,9 +143,9 @@ void ComponentEffect::GUI() {
             ImGui::BeginDisabled(true);    // UI上の編集不可(ReadOnly)
             {
                 if(loaded)
-                    ImGui::Checkbox(u8"【LoadOK】", &loaded);
+                    ImGui::Checkbox("【LoadOK】", &loaded);
                 else
-                    ImGui::TextColored({1, 0, 0, 1}, u8"【LoadNG】");
+                    ImGui::TextColored({1, 0, 0, 1}, "【LoadNG】");
             }
             ImGui::EndDisabled();
 
@@ -153,7 +154,7 @@ void ComponentEffect::GUI() {
             // ファイル名
             char file_name[1024];
             sprintf_s(file_name, "%s", path_.c_str());
-            if(ImGui::InputText(u8"File", file_name, 1024)) {
+            if(ImGui::InputText("File", file_name, 1024)) {
                 path_ = file_name;
                 effect_status_.off(EffectBit::Initialized);
                 Load(path_);
@@ -183,17 +184,17 @@ void ComponentEffect::GUI() {
 
             // アニメーション名
             if(IsPlaying()) {
-                ImGui::TextColored({0.5, 1, 0.5, 1}, u8"再生中");
-                ImGui::Text(u8"[%3.2f]%s", effect_time_, GetEffectName().data());
+                ImGui::TextColored({0.5, 1, 0.5, 1}, "再生中");
+                ImGui::Text("[%3.2f]%s", effect_time_, GetEffectName().data());
                 ImGui::Separator();
             }
 
             // モデル姿勢
-            if(ImGui::TreeNode(u8"エフェクト姿勢")) {
-                ImGui::DragFloat4(u8"Ｘ軸", effect_transform_.f32_128_0, 0.01f, -10000.0f, 10000.0f, "%.2f");
-                ImGui::DragFloat4(u8"Ｙ軸", effect_transform_.f32_128_1, 0.01f, -10000.0f, 10000.0f, "%.2f");
-                ImGui::DragFloat4(u8"Ｚ軸", effect_transform_.f32_128_2, 0.01f, -10000.0f, 10000.0f, "%.2f");
-                ImGui::DragFloat4(u8"座標", effect_transform_.f32_128_3, 0.01f, -10000.0f, 10000.0f, "%.2f");
+            if(ImGui::TreeNode("エフェクト姿勢")) {
+                ImGui::DragFloat4("Ｘ軸", effect_transform_.f32_128_0, 0.01f, -10000.0f, 10000.0f, "%.2f");
+                ImGui::DragFloat4("Ｙ軸", effect_transform_.f32_128_1, 0.01f, -10000.0f, 10000.0f, "%.2f");
+                ImGui::DragFloat4("Ｚ軸", effect_transform_.f32_128_2, 0.01f, -10000.0f, 10000.0f, "%.2f");
+                ImGui::DragFloat4("座標", effect_transform_.f32_128_3, 0.01f, -10000.0f, 10000.0f, "%.2f");
                 ImGui::Separator();
                 ImGui::TreePop();
             }
@@ -202,9 +203,9 @@ void ComponentEffect::GUI() {
             float* mat = effect_transform_.f32_128_0;
             float  matrixTranslation[3], matrixRotation[3], matrixScale[3];
             DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
-            ImGui::DragFloat3(u8"座標(T)", matrixTranslation, 0.01f, -100000.00f, 100000.0f, "%.2f");
-            ImGui::DragFloat3(u8"回転(R)", matrixRotation, 0.1f, -360.0f, 360.0f, "%.2f");
-            ImGui::DragFloat3(u8"サイズ(S)", matrixScale, 0.01f, 0.00f, 1000.0f, "%.2f");
+            ImGui::DragFloat3("座標(T)", matrixTranslation, 0.01f, -100000.00f, 100000.0f, "%.2f");
+            ImGui::DragFloat3("回転(R)", matrixRotation, 0.1f, -360.0f, 360.0f, "%.2f");
+            ImGui::DragFloat3("サイズ(S)", matrixScale, 0.01f, 0.00f, 1000.0f, "%.2f");
             RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, mat);
 
             ImGui::TreePop();

@@ -21,6 +21,7 @@ enum struct ProcTiming : u32 {
     Update,
     LateUpdate,
     PrePhysics,
+    PostPhysics,
     PostUpdate,
 
     PreDraw,
@@ -34,6 +35,22 @@ enum struct ProcTiming : u32 {
     HDR,
     Filter,
     UI,
+
+    NUM,
+};
+
+//---------------------------------------------------------------------------
+//! プライオリティ
+//---------------------------------------------------------------------------
+enum ProcPriority {
+    NONE = -1,    //!< なし
+
+    HIGHEST    = 100,      //!< 最優先
+    HIGH       = 1000,     //!< 優先高
+    NORMAL     = 10000,    //!< 通常
+    LOW        = 15000,    //!< 優先低
+    LOWEST     = 20000,    //!< 最低優先
+    IFPOSSIBLE = 50000,    //!< 処理時間が無ければ処理しない
 
     NUM,
 };
@@ -103,7 +120,7 @@ struct SlotProc {
         return timing_;
     }
 
-    const Priority GetPriority() const {
+    const ProcPriority GetPriority() const {
         return priority_;
     }
 
@@ -129,7 +146,7 @@ struct SlotProc {
         return false;
     }
 
-    void SetProc(std::string name, ProcTiming timing, Priority prio, ProcTimingFunc func) {
+    void SetProc(std::string name, ProcTiming timing, ProcPriority prio, ProcTimingFunc func) {
         name_     = name;
         dirty_    = true;
         timing_   = timing;
@@ -141,7 +158,7 @@ struct SlotProc {
         return proc_;
     }
 
-    void SetAddProc(std::shared_ptr<Callable> func, ProcTiming timing, Priority prio) {
+    void SetAddProc(std::shared_ptr<Callable> func, ProcTiming timing, ProcPriority prio) {
         name_     = func->GetName();
         dirty_    = true;
         timing_   = timing;
@@ -154,7 +171,7 @@ struct SlotProc {
    private:
     std::string               name_{};
     ProcTiming                timing_   = ProcTiming::Draw;
-    Priority                  priority_ = Priority::NORMAL;
+    ProcPriority              priority_ = ProcPriority::NORMAL;
     sigslot::connection       connect_{};
     bool                      dirty_ = true;
     ProcTimingFunc            proc_;

@@ -82,11 +82,12 @@ void ComponentCollision::SetName(std::string_view name)
 {
     name_ = name;
 }
-#endif
 
-std::string_view ComponentCollision::GetName() {
-    return name_;
+std::string_view ComponentCollision::GetName()
+{
+	return name_;
 }
+#endif
 
 const char* const collisionGroupName[] = {
     "WALL", "GROUND", "PLAYER", "ENEMY ", "WEAPON", "ITEM  ", "CAMERA", "ETC",
@@ -158,13 +159,13 @@ void ComponentCollision::guiCollisionData() {
     //----------------------------------------------------------------------------
     // GUIコリジョン基本情報
     //----------------------------------------------------------------------------
-    auto str = u8"コリジョンタイプ : " + CollisionTypeName[(u32)collision_type_];
+    auto str = "コリジョンタイプ : " + CollisionTypeName[(u32)collision_type_];
     ImGui::Text(str.c_str());
     ImGui::Separator();
-    ImGui::Text(u8"コリジョングループ: ");
+    ImGui::Text("コリジョングループ: ");
     ImGui::SameLine();
     int index = GetCollisionGroupIndex();
-    if(ImGui::Combo(u8"##コリジョングループ", &index, collisionGroupName,
+    if(ImGui::Combo("##コリジョングループ", &index, collisionGroupName,
                     (sizeof(collisionGroupName) / sizeof(collisionGroupName[0])))) {
         collision_group_ = static_cast<CollisionGroup>(1 << index);
     }
@@ -173,16 +174,15 @@ void ComponentCollision::guiCollisionData() {
     //----------------------------------------------------------------------------
     // ゲーム中のヒット表示
     //----------------------------------------------------------------------------
-    //  ImGui::CheckboxFlags(u8"初期化済み", &collision_status_.get(), 1 <<
-    //  (u32)CollisionBit::Initialized);
-    ImGui::CheckboxFlags(u8"ヒットしない", &collision_status_.get(), 1 << (u32)CollisionBit::DisableHit);
-    ImGui::CheckboxFlags(u8"ゲーム中表示", &collision_status_.get(), 1 << (u32)CollisionBit::ShowInGame);
+    //  ImGui::CheckboxFlags(u8"初期化済み", &collision_status_.get(), 1 << (u32)CollisionBit::Initialized);
+    ImGui::CheckboxFlags("ヒットしない", &collision_status_.get(), 1 << (u32)CollisionBit::DisableHit);
+    ImGui::CheckboxFlags("ゲーム中表示", &collision_status_.get(), 1 << (u32)CollisionBit::ShowInGame);
     ImGui::Separator();
 
     //----------------------------------------------------------------------------
     // Hitするグループの設定
     //----------------------------------------------------------------------------
-    if(ImGui::TreeNode(u8"Hitするグループ")) {
+    if(ImGui::TreeNode("Hitするグループ")) {
         ImGui::CheckboxFlags("WALL", (u32*)&collision_hit_, (u32)CollisionGroup::WALL);
         ImGui::CheckboxFlags("GROUND", (u32*)&collision_hit_, (u32)CollisionGroup::GROUND);
         ImGui::CheckboxFlags("PLAYER", (u32*)&collision_hit_, (u32)CollisionGroup::PLAYER);
@@ -197,7 +197,7 @@ void ComponentCollision::guiCollisionData() {
     //----------------------------------------------------------------------------
     // Hitするがオーバーラップするグループ
     //----------------------------------------------------------------------------
-    if(ImGui::TreeNode(u8"オーバーラップするグループ")) {
+    if(ImGui::TreeNode("オーバーラップするグループ")) {
         ImGui::CheckboxFlags("WALL", (u32*)&collision_overlap_, (u32)CollisionGroup::WALL);
         ImGui::CheckboxFlags("GROUND", (u32*)&collision_overlap_, (u32)CollisionGroup::GROUND);
         ImGui::CheckboxFlags("PLAYER", (u32*)&collision_overlap_, (u32)CollisionGroup::PLAYER);
@@ -213,10 +213,10 @@ void ComponentCollision::guiCollisionData() {
     //----------------------------------------------------------------------------
     // 重力設定
     //----------------------------------------------------------------------------
-    ImGui::Checkbox(u8"重力を使用する", &use_gravity_);
-    ImGui::DragFloat3(u8"重力加速度", (float*)&gravity_);
+    ImGui::Checkbox("重力を使用する", &use_gravity_);
+    ImGui::DragFloat3("重力加速度", (float*)&gravity_);
 
-    if(ImGui::DragFloat(u8"質量", (float*)&collision_mass_, 0.001f, 0, 1000000.0f)) {
+    if(ImGui::DragFloat("質量", (float*)&collision_mass_, 0.001f, 0, 1000000.0f)) {
         collision_mass_ = std::min(1000000.0f, std::max(collision_mass_, 0.001f));
     }
 }
@@ -293,8 +293,8 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
         // ComponentTransform(オブジェクト姿勢)
         if(auto cmp = col2->GetOwner()->GetComponent<ComponentTransform>()) {
             epos1    = mul(col2->GetMatrix(), cmp->GetMatrix())._41_42_43;
-            // pos1 = mul( float4( pos1, 0 ) , cmp->GetMatrix() ).xyz;
-            // pos1 += cmp->GetTranslate().xyz;
+            //pos1 = mul( float4( pos1, 0 ) , cmp->GetMatrix() ).xyz;
+            //pos1 += cmp->GetTranslate().xyz;
             float sx = length(cmp->GetVectorAxisX());
             float sy = length(cmp->GetVectorAxisY());
             float sz = length(cmp->GetVectorAxisZ());
@@ -467,8 +467,8 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
     } else {
         if(auto cmp = col1->GetOwner()->GetComponent<ComponentTransform>()) {
             pos1     = mul(col1->GetMatrix(), cmp->GetWorldMatrix())._41_42_43;
-            // pos1 = mul( float4( pos1, 0 ) , cmp->GetMatrix() ).xyz;
-            // pos1 += cmp->GetTranslate().xyz;
+            //pos1 = mul( float4( pos1, 0 ) , cmp->GetMatrix() ).xyz;
+            //pos1 += cmp->GetTranslate().xyz;
             float sx = length(cmp->GetVectorAxisX());
             float sy = length(cmp->GetVectorAxisY());
             float sz = length(cmp->GetVectorAxisZ());
@@ -488,8 +488,8 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
     } else {
         if(auto cmp = col2->GetOwner()->GetComponent<ComponentTransform>()) {
             pos2     = mul(col2->GetMatrix(), cmp->GetWorldMatrix())._41_42_43;
-            // pos2 = mul( float4( pos2, 0 ), cmp->GetMatrix() ).xyz;
-            // pos2 += cmp->GetTranslate().xyz;
+            //pos2 = mul( float4( pos2, 0 ), cmp->GetMatrix() ).xyz;
+            //pos2 += cmp->GetTranslate().xyz;
             float sx = length(cmp->GetVectorAxisX());
             float sy = length(cmp->GetVectorAxisY());
             float sz = length(cmp->GetVectorAxisZ());
@@ -660,8 +660,7 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionSpherePt
         float3 ocenter = opos + info.push_;
         float3 ncenter = cpos + info.push_;
 
-        // DrawCapsule3D( cast( ocenter ), cast( ncenter ), radius, 10,
-        // GetColor( 0, 0, 255 ), GetColor( 0, 0, 255 ), FALSE );
+        //DrawCapsule3D( cast( ocenter ), cast( ncenter ), radius, 10, GetColor( 0, 0, 255 ), GetColor( 0, 0, 255 ), FALSE );
 
         // スピードは一旦無視。面倒なのでカプセルをそのまま利用
         hit_poly_dim = MV1CollCheck_Capsule(mdl->GetModel(), -1, cast(ocenter), cast(ncenter), radius);
@@ -788,7 +787,7 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
 
     MV1_COLL_RESULT_POLY hit_poly{};
     float3               bottom = cpos;     //-float3{ 0, col1->GetRadius() * scale, 0 };
-    float3               top    = cpos1;    // bottom + float3{ 0, col1->GetRadius() * scale * 2, 0 };
+    float3               top    = cpos1;    //bottom + float3{ 0, col1->GetRadius() * scale * 2, 0 };
     hit_poly                    = MV1CollCheck_Line(mdl->GetModel(), -1, cast(top), cast(bottom));
 
     if(hit_poly.HitFlag != 0) {
@@ -867,8 +866,7 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
         float3 oc = opos1 - float3(0, radius, 0) + info.push_;
         float3 cc = cpos1 - float3(0, radius, 0) + info.push_;
 
-        // DrawCapsule3D( cast( oc ), cast( cc ), radius, 10, GetColor( 0, 0,
-        // 255 ), GetColor( 0, 0, 255 ), FALSE );
+        //DrawCapsule3D( cast( oc ), cast( cc ), radius, 10, GetColor( 0, 0, 255 ), GetColor( 0, 0, 255 ), FALSE );
 
         hit_poly_dim = MV1CollCheck_Capsule(mdl->GetModel(), -1, cast(oc), cast(cc), radius);
         for(int i = 0; i < hit_poly_dim.HitNum; i++) {
@@ -915,8 +913,7 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionCapsuleP
         float3 bottomx = cpos + info.push_ + float3(0, radius, 0);
         float3 topx    = cpos1 - float3(0, radius, 0);
 
-        // DrawCapsule3D( cast( topx ), cast( bottomx ), radius, 10, GetColor(
-        // 0, 0, 255 ), GetColor( 0, 0, 255 ), FALSE );
+        //DrawCapsule3D( cast( topx ), cast( bottomx ), radius, 10, GetColor( 0, 0, 255 ), GetColor( 0, 0, 255 ), FALSE );
 
         hit_poly_dim = MV1CollCheck_Capsule(mdl->GetModel(), -1, cast(topx), cast(bottomx), radius);
         for(int i = 0; i < hit_poly_dim.HitNum; i++) {

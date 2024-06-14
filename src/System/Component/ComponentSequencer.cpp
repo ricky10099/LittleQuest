@@ -185,8 +185,7 @@ void SequenceObject::Update(bool playing, float frame) {
                 if(fabs(frame - animation_frame_old_) > 1.0f && !component->IsPlaying())
                     component->PlayAnimation(animation_name_, false, 0.0f, animation_frame_old_ / 60.0f);
 
-                // component->Update( ( frame - animation_frame_old_ ) / 60.0f
-                // );
+                //component->Update( ( frame - animation_frame_old_ ) / 60.0f );
                 animation_frame_old_ = i_frame;
             }
 
@@ -320,7 +319,7 @@ void SequenceObject::GUI(uint32_t start, uint32_t end) {
                 ImGui::DragScalar(frame_name.data(), ImGuiDataType_U32, &effect_keys_[index], 1, &start, &end);
                 std::string check_name = "Loop##checkbox-eff" + std::to_string(reinterpret_cast<uint64_t>(this));
                 ImGui::Checkbox(check_name.data(), &effect_values_[index].loop_);
-                // ImGui::InputText( "Effect", &effect_values_[ index ].name_ );
+                //ImGui::InputText( "Effect", &effect_values_[ index ].name_ );
 
                 show_guizmo_ = false;
             }
@@ -331,7 +330,7 @@ void SequenceObject::GUI(uint32_t start, uint32_t end) {
     }
 }
 
-BP_COMPONENT_IMPL(ComponentSequencer, u8"Sequencer機能クラス");
+BP_COMPONENT_IMPL(ComponentSequencer, "Sequencer機能クラス");
 
 void ComponentSequencer::Init() {
     __super::Init();
@@ -366,7 +365,7 @@ void ComponentSequencer::Update() {
                 }
             }
 
-            if(ImGui::Button(u8"オブジェクト追加")) {
+            if(ImGui::Button("オブジェクト追加")) {
                 objects_.push_back(std::make_shared<SequenceObject>());
             }
 
@@ -374,7 +373,7 @@ void ComponentSequencer::Update() {
                 auto& seq_obj = objects_[i];
                 if(ImGui::IsSelectedNeoGroup(seq_obj->GetName().data())) {
                     ImGui::SameLine();
-                    if(ImGui::Button(u8"オブジェクト削除")) {
+                    if(ImGui::Button("オブジェクト削除")) {
                         objects_.erase(objects_.begin() + i);
                     }
                 }

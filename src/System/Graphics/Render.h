@@ -92,8 +92,7 @@ Texture* GetDepthStencil();
 //! RenderTargetにイメージをコピー
 //!	@param	[out]	dst_render_target	出力先RenderTarget
 //! @param	[in]	src_texture		    コピー元テクスチャ
-//! @param	[in]	shader_ps_handle  	カスタムのピクセルシェーダー
-//! (-1の場合は単純コピー)
+//! @param	[in]	shader_ps_handle  	カスタムのピクセルシェーダー (-1の場合は単純コピー)
 void CopyToRenderTarget(Texture* dst_render_target, Texture* src_texture, int shader_ps_handle = -1);
 
 //===========================================================================

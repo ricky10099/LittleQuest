@@ -4,7 +4,7 @@
 #include <System/Component/ComponentSpringArm.h>
 
 namespace LittleQuest {
-BP_CLASS_IMPL(GameTitleScene, u8"LittleQuest/GameTitleScene");
+BP_CLASS_IMPL(GameTitleScene, "LittleQuest/GameTitleScene");
 
 bool GameTitleScene::Init() {
     m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 55, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 3);
@@ -41,7 +41,7 @@ bool GameTitleScene::Init() {
         });
         m_pModel.lock()->PlayAnimationNoSame("Sit", true);
 
-        auto cameraObj = Scene::CreateObjectPtr<Object>()->SetName(u8"Camera");
+        auto cameraObj = Scene::CreateObjectPtr<Object>()->SetName("Camera");
         m_pCamera      = cameraObj->AddComponent<ComponentCamera>();
         m_pCamera.lock()->SetPositionAndTarget(START_CAM_POS, START_CAM_TARGET);
         auto springArm = cameraObj->AddComponent<ComponentSpringArm>();
@@ -81,7 +81,7 @@ void GameTitleScene::Update() {
 #ifndef _DEBUG
            || IsMouseDown(MOUSE_INPUT_1)
 #endif    // !_DEBUG
-           || IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) || IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)) {
+           /*|| IsPadOn(PAD_ID::PAD_10) || IsPadOn(PAD_ID::PAD_3)*/) {
             scene_state = Scene::SceneState::TRANS_OUT;
         }
         break;

@@ -22,6 +22,9 @@ class ComponentCollisionModel
         collision_mass_  = -1;    //< 移動しないように
         collision_group_ = CollisionGroup::GROUND;
     }
+    ComponentCollisionModelPtr SetName(const std::string_view& name) {
+        return Component::SetName<ComponentCollisionModel>(name);
+    }
 
     virtual void Init() override;
     virtual void Update() override;
@@ -73,14 +76,20 @@ class ComponentCollisionModel
     float3 checkMovement(float3 pos, float3 vec, float force = 1.0f);
 
 #if 1    // CompoentCollisionからの移行
-
-    inline ComponentCollisionModelPtr SetName(std::string_view name) {
-        name_ = name;
+#    if 0
+	inline ComponentCollisionModelPtr SetName( std::string_view name )
+	{
+		name_ = name;
+		return std::dynamic_pointer_cast<ComponentCollisionModel>( shared_from_this() );
+	}
+#    endif
+    inline ComponentCollisionModelPtr SetHitCollisionGroup(u32 hit_group) {
+        collision_hit_ = hit_group;
         return std::dynamic_pointer_cast<ComponentCollisionModel>(shared_from_this());
     }
 
-    inline ComponentCollisionModelPtr SetHitCollisionGroup(u32 hit_group) {
-        collision_hit_ = hit_group;
+    inline ComponentCollisionModelPtr SetOverlapCollisionGroup(u32 overlap_group) {
+        collision_overlap_ = overlap_group;
         return std::dynamic_pointer_cast<ComponentCollisionModel>(shared_from_this());
     }
 

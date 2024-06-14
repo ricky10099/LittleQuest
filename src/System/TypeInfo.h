@@ -13,8 +13,7 @@ class Type {
     //! @param  [in]    class_name  クラスの名前
     //! @param  [in]    class_size  クラスのサイズ(単位:bytes)
     //! @param  [in]    desc_name   説明文文字列
-    //! @param  [in]    parent_type
-    //! 親クラスの型情報(親がないクラスはnullptr)
+    //! @param  [in]    parent_type 親クラスの型情報(親がないクラスはnullptr)
     Type(const char* class_name, size_t class_size, const char* desc_name, Type* parent_type = nullptr);
 
     //  インスタンスを作成(クラスをnewしてポインタを返す)
@@ -64,10 +63,8 @@ class Type {
     //! この手法で生成するツリー構造は初期化順序が不同でも構築できる
     //! 但しグローバル変数領域に定義する場合のみ利用可能。
     //!
-    //! @attention
-    //! 変数の初期値は意図的に設定していません。グローバル変数の0クリア仕様で動作を想定しています。
-    //! @attention
-    //! ここにnullptr初期化を記述すると起動時初期化順序によっては上書きされてしまうため注意
+    //! @attention 変数の初期値は意図的に設定していません。グローバル変数の0クリア仕様で動作を想定しています。
+    //! @attention ここにnullptr初期化を記述すると起動時初期化順序によっては上書きされてしまうため注意
     //----------------------------------------------------------
     //@{
 

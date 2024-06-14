@@ -5,10 +5,11 @@
 #include <System/Component/ComponentTransform.h>
 #include <System/Object.h>
 #include <System/Scene.h>
+#include <System/Component/ComponentPhysics.h>
 
 #include <ImGuizmo/ImGuizmo.h>
 
-BP_COMPONENT_IMPL(ComponentTransform, u8"Transform機能クラス");
+BP_COMPONENT_IMPL(ComponentTransform, "Transform機能クラス");
 
 Component* ComponentTransform::select_component_ = nullptr;
 
@@ -111,7 +112,27 @@ void ComponentTransform::Init() {
     __super::Init();
 
     // 初期段階で前回設定のワールドマトリクス使用しないようにする
-    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PreUpdate, Priority::HIGHEST);
+    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PreUpdate, ProcPriority::HIGHEST);
+}
+
+void ComponentTransform::PrePhysics() {
+    // 移動可能な物体
+    if(auto cmp_physics = GetOwner()->GetComponent<ComponentPhysics>()) {
+        if(!cmp_physics->GetPhysicsStatus(ComponentPhysics::PhysicsBit::Static)) {
+            auto       mx = cmp_physics->GetWorldMatrix();
+            quaternion q((float3x3)mx);
+            auto       trans = mx.translate();
+            auto       t     = GetDeltaTime();
+            auto       body  = cmp_physics->GetRigidBody();
+            if(body) {
+                float3 v = {0, body->linearVelocity().y, 0};
+                if(v.y > 0)
+                    v.y = 0;
+                body->moveKinematic(trans, q, t);
+                body->addLinearVelocity(v);
+            }
+        }
+    }
 }
 
 //! @brief 更新後の処理
@@ -127,18 +148,21 @@ void ComponentTransform::GUI() {
     assert(GetOwner());
     auto obj_name = GetOwner()->GetName();
 
+    // GUIによる場所の移動をおこなったか?
+    bool update = false;
+
     if(is_guizmo_) {
         // Gizmo表示
         float* ptr = GetMatrixFloat();
         if(world_transform_enable_)
             ptr = world_transform_.f32_128_0;
 
-        ShowGizmo(ptr, gizmo_operation_, gizmo_mode_, reinterpret_cast<uint64_t>(this));
+        if(ShowGizmo(ptr, gizmo_operation_, gizmo_mode_, reinterpret_cast<uint64_t>(this)))
+            update = true;
 
         // キーにより、Manipulateの処理を変更する
-        // TODO :
-        // 一旦UE4に合わせておくが、のちにEditor.iniで設定できるようにする W =
-        // Translate / E = Rotate / R = Scale (Same UE5)
+        // TODO : 一旦UE4に合わせておくが、のちにEditor.iniで設定できるようにする
+        // W = Translate / E = Rotate / R = Scale (Same UE5)
         if(!ImGui::IsAnyItemActive()) {
             if(ImGui::IsKeyPressed(ImGuiKey::ImGuiKey_W))
                 gizmo_operation_ = ImGuizmo::TRANSLATE;
@@ -155,10 +179,11 @@ void ComponentTransform::GUI() {
         ImGui::Separator();
         is_guizmo_ = false;
         if(ImGui::TreeNode("Transform")) {
-            ImGui::DragFloat4(u8"Ｘ軸", VectorAxisXFloat(), 0.01f, -10000.0f, 10000.0f, "%.2f");
-            ImGui::DragFloat4(u8"Ｙ軸", VectorAxisYFloat(), 0.01f, -10000.0f, 10000.0f, "%.2f");
-            ImGui::DragFloat4(u8"Ｚ軸", VectorAxisZFloat(), 0.01f, -10000.0f, 10000.0f, "%.2f");
-            ImGui::DragFloat4(u8"座標", TranslateFloat(), 0.01f, -10000.0f, 10000.0f, "%.2f");
+            ImGui::DragFloat4("Ｘ軸", VectorAxisXFloat(), 0.01f, -10000.0f, 10000.0f, "%.2f");
+            ImGui::DragFloat4("Ｙ軸", VectorAxisYFloat(), 0.01f, -10000.0f, 10000.0f, "%.2f");
+            ImGui::DragFloat4("Ｚ軸", VectorAxisZFloat(), 0.01f, -10000.0f, 10000.0f, "%.2f");
+            ImGui::DragFloat4("座標", TranslateFloat(), 0.01f, -10000.0f, 10000.0f, "%.2f");
+
             ImGui::Separator();
             ImGui::TreePop();
         }
@@ -171,19 +196,19 @@ void ComponentTransform::GUI() {
 
         // ギズモモードの選択
         // ギズモの座標
-        if(ImGui::RadioButton(u8"座標", gizmo_operation_ == ImGuizmo::TRANSLATE))
+        if(ImGui::RadioButton("座標", gizmo_operation_ == ImGuizmo::TRANSLATE))
             gizmo_operation_ = ImGuizmo::TRANSLATE;
         ImGui::SameLine();
         // ギズモの回転
-        if(ImGui::RadioButton(u8"回転", gizmo_operation_ == ImGuizmo::ROTATE))
+        if(ImGui::RadioButton("回転", gizmo_operation_ == ImGuizmo::ROTATE))
             gizmo_operation_ = ImGuizmo::ROTATE;
         ImGui::SameLine();
         // ギズモのスケール
-        if(ImGui::RadioButton(u8"スケール", gizmo_operation_ == ImGuizmo::SCALE))
+        if(ImGui::RadioButton("スケール", gizmo_operation_ == ImGuizmo::SCALE))
             gizmo_operation_ = ImGuizmo::SCALE;
         ImGui::SameLine();
         // ギズモの全部
-        if(ImGui::RadioButton(u8"全部", gizmo_operation_ == ImGuizmo::UNIVERSAL))
+        if(ImGui::RadioButton("全部", gizmo_operation_ == ImGuizmo::UNIVERSAL))
             gizmo_operation_ = ImGuizmo::UNIVERSAL;
 
         // ギズモスケール以外はLocal/Worldの選択ができるようにしておく
@@ -196,20 +221,24 @@ void ComponentTransform::GUI() {
         }
 
         // TRSにてマトリクスを再度作成する
-        bool   update = false;
-        float* mat    = GetMatrixFloat();
+        float* mat = GetMatrixFloat();
         float  matrixTranslation[3], matrixRotation[3], matrixScale[3];
         DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
 
-        if(ImGui::DragFloat3(u8"座標(T)", matrixTranslation, 0.1f))
+        if(ImGui::DragFloat3("座標(T)", matrixTranslation, 0.1f))
             update = true;
 
-        ImGui::DragFloat3(u8"回転(R)", matrixRotation, 0.1f);
-        ImGui::DragFloat3(u8"スケール(S)", matrixScale, 0.01f);
+        ImGui::DragFloat3("回転(R)", matrixRotation, 0.1f);
+        ImGui::DragFloat3("スケール(S)", matrixScale, 0.01f);
         RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, mat);
 
-        if(update)
+        if(update) {
+            // 親が ComponentPhysics を持っている場合はそちらを変更する必要がある
+            if(auto cmp_physics = GetOwner()->GetComponent<ComponentPhysics>())
+                cmp_physics->SetPhysicsMatrix(cmp_physics->GetWorldMatrix());
+
             PostUpdate();
+        }
     }
     ImGui::End();
 }

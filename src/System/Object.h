@@ -9,6 +9,7 @@
 
 #include <System/Component/Component.h>
 #include <System/Component/ComponentCollision.h>
+#include <System/Component/ComponentPhysics.h>
 #include <System/Component/ComponentTransform.h>
 
 #include <System/Utils/HelperLib.h>
@@ -121,11 +122,12 @@ class Object
     virtual void Exit();          //!< 終了
     virtual void GUI();           //!< GUI表示
 
-    virtual void PreUpdate();     //!< 更新前処理
-    virtual void PostUpdate();    //!< 更新後処理
-    virtual void PreDraw();       //!< 描画前処理
-    virtual void PostDraw();      //!< 描画後処理
-    virtual void PrePhysics();    //!< 物理シミュレーション前処理
+    virtual void PreUpdate();      //!< 更新前処理
+    virtual void PostUpdate();     //!< 更新後処理
+    virtual void PreDraw();        //!< 描画前処理
+    virtual void PostDraw();       //!< 描画後処理
+    virtual void PrePhysics();     //!< 物理シミュレーション前処理
+    virtual void PostPhysics();    //!< 物理シミュレーション後処理
 
     virtual void InitSerialize();    //!< シリアライズでもどらないユーザー処理関数などを設定
 
@@ -201,13 +203,13 @@ class Object
     //! @tparam T コンポーネントタイプ
     //! @return 追加されたコンポーネント
     template<class T>
-    std::shared_ptr<T> GetComponent();
+    std::shared_ptr<T> GetComponent(const std::string_view& name = "");
 
     //! コンポーネント取得
     //! @tparam T コンポーネントタイプ
     //! @return 追加されたコンポーネント
     template<class T>
-    std::shared_ptr<T> GetComponent() const;
+    std::shared_ptr<T> GetComponent(const std::string_view& name = "") const;
 
     template<class T>
     std::vector<std::shared_ptr<T>> GetComponents();
@@ -237,19 +239,23 @@ class Object
 
     //! @brief コンポーネントのヒットコールバック
     //! @param hitInfo ヒット情報
-    virtual void OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
+    virtual void OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hit_info) {
         if(auto cmp = GetComponent<ComponentTransform>()) {
-            cmp->AddTranslate(hitInfo.push_);
+            cmp->AddTranslate(hit_info.push_);
         }
         // 地面に当たっている時
         // @todo 重力加速も初期化する
 #pragma warning(disable: 26813)
         // ここは&で参照すべき所ではない
-        if(hitInfo.hit_collision_->GetCollisionGroup() == ComponentCollision::CollisionGroup::GROUND) {
-            hitInfo.collision_->SetCollisionStatus(ComponentCollision::CollisionBit::IsGround, true);
+        if(hit_info.hit_collision_->GetCollisionGroup() == ComponentCollision::CollisionGroup::GROUND) {
+            hit_info.collision_->SetCollisionStatus(ComponentCollision::CollisionBit::IsGround, true);
         }
 #pragma warning(default: 26813)
     }
+
+    //! @brief コンポーネントのヒットコールバック
+    //! @param hitInfo ヒット情報
+    virtual void OnHitPhysics([[maybe_unused]] const ComponentPhysics::HitInfo& hit_info) {}
 
     //@}
     //----------------------------------------------------------------
@@ -271,15 +277,15 @@ class Object
     }
 
     /**
-         * @brief           プロセス設定
-         * @param proc_name プロセス名
-         * @param func      処理
-         * @param timing    タイミング
-         * @param prio      処理優先
-         * @return          プロセス
-         */
+     * @brief           プロセス設定
+     * @param proc_name プロセス名
+     * @param func      処理
+     * @param timing    タイミング
+     * @param prio      処理優先
+     * @return          プロセス
+    */
     SlotProc& SetProc(const std::string& proc_name, ProcTimingFunc func, ProcTiming timing = ProcTiming::Update,
-                      Priority prio = Priority::NORMAL) {
+                      ProcPriority prio = ProcPriority::NORMAL) {
         auto& proc = GetProc(proc_name, timing);
         if(proc_name != proc.GetName() || timing != proc.GetTiming() || prio != proc.GetPriority() || proc.IsDirty()) {
             proc.SetProc(proc_name, timing, prio, func);
@@ -288,7 +294,7 @@ class Object
     }
 
     SlotProc& SetAddProc(std::shared_ptr<Callable> func, ProcTiming timing = ProcTiming::Draw,
-                         Priority prio = Priority::NORMAL) {
+                         ProcPriority prio = ProcPriority::NORMAL) {
         auto& proc = GetProc(func->GetName(), timing);
         if(func->GetName() != proc.GetName() || timing != proc.GetTiming() || prio != proc.GetPriority() || proc.IsDirty()) {
             proc.SetAddProc(func, timing, prio);
@@ -346,8 +352,7 @@ class Object
 
     //! 全コンポーネントの取得
     //! @return コンポーネントそのものを受け取る
-    //! @attention auto&
-    //! で受け取ってください。(autoで受け取ると別物になります【C++17】)
+    //! @attention auto& で受け取ってください。(autoで受け取ると別物になります【C++17】)
     ComponentPtrVec& GetComponents() {
         return components_;
     }
@@ -430,8 +435,8 @@ std::shared_ptr<T> Object::AddComponent(Args... args) {
     ptr->Construct(shared_from_this(), std::forward<Args>(args)...);
 
     std::shared_ptr<T> component = std::shared_ptr<T>(ptr);
-    // std::shared_ptr<T> comp = std::make_shared<T>(shared_from_this(),
-    // std::forward<Args>(args)...); comp->Init();
+    // std::shared_ptr<T> comp = std::make_shared<T>(shared_from_this(), std::forward<Args>(args)...);
+    // comp->Init();
     components_.push_back(component);
 
     return component;
@@ -441,15 +446,19 @@ std::shared_ptr<T> Object::AddComponent(Args... args) {
 //! @tparam T コンポーネントタイプ
 //! @return 追加されたコンポーネント
 template<class T>
-std::shared_ptr<T> Object::GetComponent() {
+std::shared_ptr<T> Object::GetComponent(const std::string_view& name) {
     assert(this != nullptr &&
            "実行しているオブジェクト(this)"
            "がありません。「再試行」をおして、「呼び出し履歴」からどこでemptyになったのかを確認してください。");
 
     for(auto& component: components_) {
         auto cast = std::dynamic_pointer_cast<T>(component);
-        if(cast)
-            return cast;
+        if(cast) {
+            if(name == "")
+                return cast;
+            else if(name == cast->GetName())
+                return cast;
+        }
     }
 
     return nullptr;
@@ -459,15 +468,19 @@ std::shared_ptr<T> Object::GetComponent() {
 //! @tparam T コンポーネントタイプ
 //! @return 追加されたコンポーネント
 template<class T>
-std::shared_ptr<T> Object::GetComponent() const {
+std::shared_ptr<T> Object::GetComponent(const std::string_view& name) const {
     assert(this != nullptr &&
            "実行しているオブジェクト(this)"
            "がありません。「再試行」をおして、「呼び出し履歴」からどこでemptyになったのかを確認してください。");
 
     for(auto& component: components_) {
         auto cast = std::dynamic_pointer_cast<T>(component);
-        if(cast)
-            return cast;
+        if(cast) {
+            if(name == "")
+                return cast;
+            else if(name == cast->GetName())
+                return cast;
+        }
     }
 
     return nullptr;
@@ -513,7 +526,7 @@ void Object::RemoveComponent() {
            "実行しているオブジェクト(this)"
            "がありません。「再試行」をおして、「呼び出し履歴」からどこでemptyになったのかを確認してください。");
 
-    for(size_t i = components_.size() - 1; i >= 0; --i) {
+    for(int i = components_.size() - 1; i >= 0; --i) {
         auto& c = components_[i];
 
         if(std::dynamic_pointer_cast<_Type>(c)) {

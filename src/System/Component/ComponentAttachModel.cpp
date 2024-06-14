@@ -5,7 +5,7 @@
 #include <System/Scene.h>
 #include <System/ImGui.h>
 
-BP_COMPONENT_IMPL(ComponentAttachModel, u8"AttachModel機能クラス");
+BP_COMPONENT_IMPL(ComponentAttachModel, "AttachModel機能クラス");
 
 //---------------------------------------------------------
 //! 初期化
@@ -14,7 +14,7 @@ void ComponentAttachModel::Init() {
     __super::Init();
 
     // モデルの姿勢が完了した後実行したい
-    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PostUpdate, Priority::LOWEST);
+    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PostUpdate, ProcPriority::LOWEST);
 
     SetAttachModelStatus(AttachModelBit::Initialized, true);
 }
@@ -130,16 +130,16 @@ void ComponentAttachModel::GUI() {
         node_manipulate_ = false;
 
         ImGui::Separator();
-        if(ImGui::TreeNode(u8"AttachModel")) {
+        if(ImGui::TreeNode("AttachModel")) {
             node_manipulate_ = true;
 
-            if(ImGui::Button(u8"削除")) {
+            if(ImGui::Button("削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
             u32* bit = &attach_model_status_.get();
             u32  val = *bit;
-            ImGui::CheckboxFlags(u8"初期化済", &val, 1 << (int)AttachModelBit::Initialized);
+            ImGui::CheckboxFlags("初期化済", &val, 1 << (int)AttachModelBit::Initialized);
 
             if(ImGui::BeginCombo("AttachObject", object_name_.data())) {
                 auto objs = Scene::GetObjectsPtr<Object>();
@@ -168,8 +168,8 @@ void ComponentAttachModel::GUI() {
                 }
             }
 
-            ImGui::DragFloat3(u8"AttachModel回転", (float*)&attach_model_rotate_, 0.1f, -10000.0f, 10000.0f, "%.1f");
-            ImGui::DragFloat3(u8"AttachModelオフセット", (float*)&attach_model_offset_, 0.1f, -10000.0f, 10000.0f, "%.1f");
+            ImGui::DragFloat3("AttachModel回転", (float*)&attach_model_rotate_, 0.1f, -10000.0f, 10000.0f, "%.1f");
+            ImGui::DragFloat3("AttachModelオフセット", (float*)&attach_model_offset_, 0.1f, -10000.0f, 10000.0f, "%.1f");
 
             ImGui::TreePop();
         }

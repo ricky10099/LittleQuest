@@ -6,7 +6,7 @@
 #include <System/Debug/DebugCamera.h>
 #include <System/ImGui.h>
 
-BP_COMPONENT_IMPL(ComponentCamera, u8"Camera機能クラス");
+BP_COMPONENT_IMPL(ComponentCamera, "Camera機能クラス");
 
 ComponentCameraWeakPtr ComponentCamera::current_camera_{};
 
@@ -93,8 +93,8 @@ void ComponentCamera::SetCameraTransform() {
         current_camera_ = std::weak_ptr<ComponentCamera>(std::dynamic_pointer_cast<ComponentCamera>(shared_from_this()));
     }
 
-    //	if( !camera_status_.is( CameraBit::Current ) || ( DebugCamera::IsUse()
-    //&& !camera_status_.is( CameraBit::DebugCameara ) ) ) 		return;
+    //	if( !camera_status_.is( CameraBit::Current ) || ( DebugCamera::IsUse() && !camera_status_.is( CameraBit::DebugCameara ) ) )
+    //		return;
 
     auto position = GetPosition();
     auto target   = GetTarget();
@@ -141,13 +141,13 @@ float3 ComponentCamera::GetPosition() const {
     }
 
     /*
-        auto   transform = GetOwner()->GetComponent<ComponentTransform>();
-        if( transform )
-                //position = mul( position, transform->GetMatrix() );
-                position = mul( transform->GetMatrix(), position );
+	auto   transform = GetOwner()->GetComponent<ComponentTransform>();
+	if( transform )
+		//position = mul( position, transform->GetMatrix() );
+		position = mul( transform->GetMatrix(), position );
 
-        return position.xyz;
-        */
+	return position.xyz;
+	*/
     return position.xyz;
 }
 
@@ -200,18 +200,18 @@ void ComponentCamera::GUI() {
     ImGui::Begin(obj_name.data());
     {
         ImGui::Separator();
-        if(ImGui::TreeNode(u8"Camera")) {
-            if(ImGui::Button(u8"削除")) {
+        if(ImGui::TreeNode("Camera")) {
+            if(ImGui::Button("削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
-            if(ImGui::TreeNode(u8"カメラステータス")) {
+            if(ImGui::TreeNode("カメラステータス")) {
                 u32* bit = &camera_status_.get();
                 u32  val = *bit;
-                ImGui::CheckboxFlags(u8"初期化済", &val, 1 << (int)CameraBit::Initialized);
-                bool req = ImGui::CheckboxFlags(u8"カレントカメラ", &val, 1 << (int)CameraBit::Current);
-                ImGui::CheckboxFlags(u8"タイムライン使用", bit, 1 << (int)CameraBit::EnableTimeLine);
-                ImGui::CheckboxFlags(u8"カメラ【視錐台(Frustum)】を表示", bit, 1 << (int)CameraBit::ShowFrustum);
+                ImGui::CheckboxFlags("初期化済", &val, 1 << (int)CameraBit::Initialized);
+                bool req = ImGui::CheckboxFlags("カレントカメラ", &val, 1 << (int)CameraBit::Current);
+                ImGui::CheckboxFlags("タイムライン使用", bit, 1 << (int)CameraBit::EnableTimeLine);
+                ImGui::CheckboxFlags("カメラ【視錐台(Frustum)】を表示", bit, 1 << (int)CameraBit::ShowFrustum);
 
                 if(req) {
                     if((val & 1 << (int)CameraBit::Current) == 0) {
@@ -226,17 +226,17 @@ void ComponentCamera::GUI() {
                 ImGui::TreePop();
             }
 
-            ImGui::DragFloat3(u8"カメラ座標", &position_.f32[0], 0.1f, -10000.0f, 10000.0f, "%.2f");
-            ImGui::DragFloat3(u8"注視点", &look_at_.f32[0], 0.1f, -10000.0f, 10000.0f, "%.2f");
-            ImGui::DragFloat3(u8"上ベクトル", &up_.f32[0], 0.1f, -10000.0f, 10000.0f, "%.2f");
+            ImGui::DragFloat3("カメラ座標", &position_.f32[0], 0.1f, -10000.0f, 10000.0f, "%.2f");
+            ImGui::DragFloat3("注視点", &look_at_.f32[0], 0.1f, -10000.0f, 10000.0f, "%.2f");
+            ImGui::DragFloat3("上ベクトル", &up_.f32[0], 0.1f, -10000.0f, 10000.0f, "%.2f");
 
             bool nf = false;
-            nf |= ImGui::DragFloat(u8"Near", &near_z_, 0.01f, -10000.0f, 10000.0f, "%.2f");
-            nf |= ImGui::DragFloat(u8"Far", &far_z_, 0.01f, -10000.0f, 10000.0f, "%.2f");
+            nf |= ImGui::DragFloat("Near", &near_z_, 0.01f, -10000.0f, 10000.0f, "%.2f");
+            nf |= ImGui::DragFloat("Far", &far_z_, 0.01f, -10000.0f, 10000.0f, "%.2f");
             if(nf)
                 SetCameraNearFar(near_z_, far_z_);
 
-            ImGui::DragFloat(u8"画角", &fovy_, 0.1f, 1.0f, 180.0f, "%.2f");
+            ImGui::DragFloat("画角", &fovy_, 0.1f, 1.0f, 180.0f, "%.2f");
 
             ImGui::TreePop();
         }

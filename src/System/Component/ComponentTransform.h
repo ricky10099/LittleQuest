@@ -4,11 +4,7 @@
 //---------------------------------------------------------------------------
 #pragma once
 #include <System/Component/Component.h>
-#include <System/Cereal.h>
-#include <System/VectorMath.h>
 #include <ImGuizmo/ImGuizmo.h>
-#include <System/Utils/HelperLib.h>
-#include <DxLib.h>
 #include <memory>
 
 class ComponentTransform;
@@ -38,15 +34,6 @@ class IMatrix {
     //! @return Transform の Matrix
     virtual const matrix& GetMatrix() const = 0;
 
-#if 0
-	//! @brief TransformのMatrix情報を取得します
-	//! @return Transform の Matrix
-	[[deprecated( "Matrix()を使用してください" )]] virtual matrix& GetMatrix()
-	{
-		return Matrix();
-	};
-#endif
-
     virtual std::shared_ptr<T> SharedThis() = 0;
 
     //! @brief ワールドMatrixの取得
@@ -67,14 +54,7 @@ class IMatrix {
     float* GetMatrixFloat() {
         return Matrix().f32_128_0;
     }
-#if 0
-	//! @brief TransformのMatrix情報を取得します
-	//! @return Transform の Matrix
-	const float* GetMatrixFloat() const
-	{
-		return GetMatrix().f32_128_0;
-	}
-#endif
+
     //! @brief 位置をセットします
     //! @param translate 位置
     //! @return 自分のSharedPtr
@@ -466,6 +446,7 @@ class ComponentTransform
         world_transform_enable_ = false;
     }
 
+    virtual void PrePhysics() override;
     virtual void PostUpdate() override;
     virtual void GUI() override;    //!< GUI処理
 

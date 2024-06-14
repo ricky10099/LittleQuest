@@ -17,7 +17,7 @@ class ShaderBase {
 
     // 作成
     //! @param [in] path            ファイルパス
-    //! @param [in] type シェーダーの種類(DX_SHADERTYPE_VERTEXなど)
+    //! @param [in] type            シェーダーの種類(DX_SHADERTYPE_VERTEXなど)
     //! @param [in] variant_count    シェーダーバリエーション数(default:0)
     ShaderBase(std::string_view path, u32 type, u32 variant_count = 0);
 

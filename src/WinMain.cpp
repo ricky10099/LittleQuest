@@ -25,7 +25,7 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
     IniFileLib   ini("Game.ini");
     const bool   is_fullscreen = ini.GetBool("System", "FullScreen");
     const float2 screen_size   = ini.GetFloat2("System", "ScreenSize", {WINDOW_W, WINDOW_H});
-    const auto   title_name    = ini.GetString("System", "Title", "BaseProject2022");
+    const auto   title_name    = ini.GetString("System", "Title", "BaseProject2024");
 
     WINDOW_W = static_cast<int>(screen_size.x);
     WINDOW_H = static_cast<int>(screen_size.y);
@@ -39,6 +39,14 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
          // 高DPI対応のための自動リサイズを抑制するために手動でウィンドウサイズを指定。
         // 但し、フルスクリーンモードでこれを実行すると描画範囲が壊れるためウィンドウモード時のみ実行
         SetWindowSize(WINDOW_W, WINDOW_H);
+
+        if(ini.GetBool("System", "GUIEditor")) {
+             int width  = GetSystemMetrics(SM_CXSCREEN);
+             int height = GetSystemMetrics(SM_CYSCREEN);
+             int pos_x  = std::max((width - (WINDOW_W + 400)) / 2, 0);
+             int pos_y  = std::max((height - (WINDOW_H + 200)) / 2, 0);
+             SetWindowPosition(pos_x, pos_y);
+        }
     }
 
      SetBackgroundColor(0, 0, 0);
@@ -64,11 +72,10 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
          return -1;
     }
 
-    Effekseer_InitDistortion();
-
     // Effekseer対応
     SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
     Effekseer_SetGraphicsDeviceLostCallbackFunctions();
+    Effekseer_InitDistortion();
 
     SetDrawScreen(DX_SCREEN_BACK);
     SetTransColor(255, 0, 255);
@@ -143,7 +150,6 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
         // ---------------
         // 画面更新
         // ---------------
-
         ScreenFlip();
     }
 

@@ -58,11 +58,11 @@ class ComponentCollision: public Component {
     //! @details 当たった回数分ここに来ます
     virtual void OnHit(const HitInfo& hitInfo);
 
-#if 0
+#if 0    // 通常コンポーネントへ移動
     void SetName(std::string_view name);
-#endif
 
-    std::string_view GetName();
+	std::string_view GetName();
+#endif
 
     //---------------------------------------------------------------------------
     //! コリジョンステータス
@@ -183,8 +183,7 @@ class ComponentCollision: public Component {
 
     std::string GetCollisionGroupName() const {
 #pragma warning(disable: 26813)
-        //CollisionGroup grp = collision_group_;
-        CollisionGroup grp = (CollisionGroup)collision_hit_;
+        CollisionGroup grp = collision_group_;
 
         // この関数では「grp」はBITを前提としておらず
         // このタイプの名前を知る必要があり、もし&判定した場合、仮にビットが2つついていると
@@ -210,6 +209,7 @@ class ComponentCollision: public Component {
             return "ETC";
         if(grp == CollisionGroup::NONE)
             return "NONE";
+
         // 登録し忘れの可能性があります
         return "UNKNOWN";
 #pragma warning(default: 26813)
@@ -332,7 +332,7 @@ class ComponentCollision: public Component {
         return use_gravity_;
     }
 
-    void Overlap(u32 bit) {
+    void [[deprecated("Overlap()は古い命名です。SetOverlapCollisionGroup()を使用してください")]] Overlap(u32 bit) {
         collision_overlap_ = bit;
     }
 
@@ -461,10 +461,11 @@ class ComponentCollision: public Component {
 
     float difficult_to_climb_ = 1.0f;
 
-    // bool is_overlap_ = false;
+    //bool is_overlap_ = false;
 
-    std::string name_ = "None";
-
+#if 0    // 通常コンポーネントへ
+	std::string name_ = "None";
+#endif
 #ifdef USE_JOLT_PHYSICS
 
    public:
@@ -500,8 +501,9 @@ class ComponentCollision: public Component {
             arc(cereal::make_nvp("collision_overlap", collision_overlap_));
         } else if(ver >= 1) {
             arc(cereal::make_nvp("use_gravity", use_gravity_), cereal::make_nvp("gravity", gravity_),
-                cereal::make_nvp("now_gravity", now_gravity_), cereal::make_nvp("difficult_to_climb", difficult_to_climb_),
-                cereal::make_nvp("name", name_));
+                cereal::make_nvp("now_gravity", now_gravity_), cereal::make_nvp("difficult_to_climb", difficult_to_climb_));
+            if(ver <= 2)
+                arc(cereal::make_nvp("name", name_));
         }
         arc(cereal::make_nvp("Component", cereal::base_class<Component>(this)));
     }
@@ -509,7 +511,7 @@ class ComponentCollision: public Component {
     //@}
 };
 
-CEREAL_CLASS_VERSION(ComponentCollision, 2);
+CEREAL_CLASS_VERSION(ComponentCollision, 3);
 
 CEREAL_REGISTER_TYPE(ComponentCollision)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, ComponentCollision)

@@ -20,6 +20,9 @@ class ComponentCollisionSphere
     ComponentCollisionSphere() {
         collision_type_ = CollisionType::SPHERE;
     }
+    ComponentCollisionSpherePtr SetName(const std::string_view& name) {
+        return Component::SetName<ComponentCollisionSphere>(name);
+    }
 
     virtual void Init() override;
     virtual void Update() override;
@@ -68,15 +71,21 @@ class ComponentCollisionSphere
     }
 
     //@}
-#if 1    // CompoentCollisionからの移行
-
-    inline ComponentCollisionSpherePtr SetName(std::string_view name) {
-        name_ = name;
+#if 1        // CompoentCollisionからの移行
+#    if 0    // 通常コンポーネントへ
+	inline ComponentCollisionSpherePtr SetName( std::string_view name )
+	{
+		name_ = name;
+		return std::dynamic_pointer_cast<ComponentCollisionSphere>( shared_from_this() );
+	}
+#    endif
+    inline ComponentCollisionSpherePtr SetHitCollisionGroup(u32 hit_group) {
+        collision_hit_ = hit_group;
         return std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this());
     }
 
-    inline ComponentCollisionSpherePtr SetHitCollisionGroup(u32 hit_group) {
-        collision_hit_ = hit_group;
+    inline ComponentCollisionSpherePtr SetOverlapCollisionGroup(u32 overlap_group) {
+        collision_overlap_ = overlap_group;
         return std::dynamic_pointer_cast<ComponentCollisionSphere>(shared_from_this());
     }
 
@@ -94,7 +103,7 @@ class ComponentCollisionSphere
    protected:
 #ifdef USE_JOLT_PHYSICS
     bool set_size_ = false;
-#endif                       // USE_JOLT_PHYSICS
+#endif                       //USE_JOLT_PHYSICS
     float radius_ = 1.0f;    //!< 半径
 
    private:

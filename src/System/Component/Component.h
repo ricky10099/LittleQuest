@@ -124,6 +124,16 @@ class Component: public std::enable_shared_from_this<Component> {
     ObjectPtr       GetOwnerPtr();          //!< オーナー(従属しているオブジェクト)の取得(SharedPtr)
     const ObjectPtr GetOwnerPtr() const;    //!< オーナー(従属しているオブジェクト)の取得(SharedPtr)
 
+    template<class T>
+    std::shared_ptr<T> SetName(const std::string_view& name) {
+        name_ = name;
+        return std::dynamic_pointer_cast<T>(shared_from_this());
+    }
+
+    const std::string_view GetName() const {
+        return name_;
+    }
+
     virtual void Init();          //!< 初期化
     virtual void Update();        //!< アップデート
     virtual void LateUpdate();    //!< 遅いアップデート
@@ -132,15 +142,24 @@ class Component: public std::enable_shared_from_this<Component> {
     virtual void Exit();          //!< 終了
     virtual void GUI();           //!< GUI表示
 
-    virtual void PreUpdate();     //!< 更新前処理
-    virtual void PostUpdate();    //!< 更新後処理
-    virtual void PreDraw();       //!< 描画前処理
-    virtual void PostDraw();      //!< 描画後処理
-    virtual void PrePhysics();    //!< Physics前処理
+    virtual void PreUpdate();      //!< 更新前処理
+    virtual void PostUpdate();     //!< 更新後処理
+    virtual void PreDraw();        //!< 描画前処理
+    virtual void PostDraw();       //!< 描画後処理
+    virtual void PrePhysics();     //!< Physics前処理
+    virtual void PostPhysics();    //!< Physics後処理
 
     virtual void InitSerialize();    //!< シリアライズでもどらないユーザー処理関数などを設定
 
-    void SetPriority(ProcTiming timing, Priority priority);
+    void SetPriority(ProcTiming timing, ProcPriority priority);
+
+#define UNIQUE_TEXT(n) UniqueText(n).c_str()
+
+    std::string UniqueText(const std::string_view& name, int id = 0) {
+        auto str =
+            std::string(name) + "##" + std::string(name) + "." + std::to_string(id) + "." + std::to_string((size_t)(this));
+        return str;
+    }
 
     //----------------------------------------------------------
     //! @name  コンポーネントオブジェクト登録メソッド
@@ -161,7 +180,7 @@ class Component: public std::enable_shared_from_this<Component> {
     }
 
     SlotProc& SetProc(std::string proc_name, ProcTimingFunc func, ProcTiming timing = ProcTiming::Update,
-                      Priority prio = Priority::NORMAL) {
+                      ProcPriority prio = ProcPriority::NORMAL) {
         auto& proc = GetProc(proc_name, timing);
         proc.SetProc(proc_name, timing, prio, func);
         return proc;
@@ -196,13 +215,15 @@ class Component: public std::enable_shared_from_this<Component> {
     bool GetStatus(StatusBit b);             //!< ステータスの取得
 
     Component();
-    void Construct(ObjectPtr owner);
+    virtual void Construct(ObjectPtr owner);
 
    protected:
     ObjectPtr owner_ = nullptr;    //!< オーナー
     SlotProcs proc_timings_;       //!< 登録処理(update)
 
     float update_delta_time_ = 0.0f;    //!< update以外で使用できるように
+
+    std::string name_;
 
    private:
     Status<StatusBit> status_;    //!< コンポーネント状態
@@ -221,7 +242,11 @@ class Component: public std::enable_shared_from_this<Component> {
             CEREAL_NVP(proc_timings_),    //< プロセスタイミング
             CEREAL_NVP(status_.get())     //< ステータス
         );
+        if(ver >= 2)
+            arc(CEREAL_NVP(name_));
     }
 
     //@}
 };
+
+CEREAL_CLASS_VERSION(Component, 2);

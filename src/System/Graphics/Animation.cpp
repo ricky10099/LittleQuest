@@ -3,7 +3,6 @@
 //! @brief  アニメーション
 //---------------------------------------------------------------------------
 #include "Animation.h"
-#include "System/EaseCurve.h"
 
 namespace {
 
@@ -33,7 +32,7 @@ Animation::~Animation() {
         if(x == -1)
             continue;
 
-        MV1DeleteModel(x);
+        DxLib::MV1DeleteModel(x);
         x = -1;
     }
 }
@@ -93,13 +92,11 @@ void Animation::update(f32 dt) {
     //----------------------------------------------------------
     // アニメーションを進める
     //----------------------------------------------------------
-    for(u32 i = 0; i < 2; ++i) {
+    float blend_ratio_total = 0.0f;
+    for(u32 i = 0; i < std::size(contexts_); ++i) {
         auto& c = contexts_[i];
 
         if(c.animation_index_ == -1)
-            continue;
-
-        if(c.is_playing_ == false)
             continue;
 
         auto& desc = descs_[c.animation_index_];
@@ -121,28 +118,38 @@ void Animation::update(f32 dt) {
         }
 
         // 新しいアニメーション再生時間をセット
-        MV1SetAttachAnimTime(model_handle_, c.animation_attach_index_, c.play_time_);
+        DxLib::MV1SetAttachAnimTime(model_handle_, c.animation_attach_index_, c.play_time_);
+
+        //----------------------------------------------------------
+        // アニメーションブレンド
+        //----------------------------------------------------------
+
+        // ブレンドを進める
+        c.blend_ratio_ += ((1.0f / blend_time_) * dt) * ((i == 0) ? +1.0f : -1.0f);
+        c.blend_ratio_ = std::clamp(c.blend_ratio_, 0.0f, 1.0f);
+
+        blend_ratio_total += c.blend_ratio_;
     }
 
     //----------------------------------------------------------
     // アニメーションブレンド
     //----------------------------------------------------------
+    blend_ratio_total = std::max(FLT_EPSILON, blend_ratio_total);
 
-    // ブレンドを進める
-    blend_ratio_ = std::max(0.0f, blend_ratio_ - 1.0f / blend_time_ * dt);
+    for(u32 i = 0; i < std::size(contexts_); ++i) {
+        auto& c = contexts_[i];
 
-    // 線形で等速補間すると硬い動きになるためEaseカーブ補間
-    auto ease  = GetEaseFunction(EaseType::InOutCubic);    // 加減速
-    f32  ratio = ease(blend_ratio_);
+        float ratio = c.blend_ratio_;
 
-    // ブレンド比率を設定
-    MV1SetAttachAnimBlendRate(model_handle_, contexts_[0].animation_attach_index_, 1.0f - ratio);
-    MV1SetAttachAnimBlendRate(model_handle_, contexts_[1].animation_attach_index_, ratio);
+        DxLib::MV1SetAttachAnimBlendRate(model_handle_, c.animation_attach_index_, ratio / blend_ratio_total);
 
-    // 補間完了後は補間元のアニメーションを停止
-    if(blend_ratio_ == 0.0f) {    // float値の==判定は0.0fのみ正確に判定できる
-        detachAnimation(1);
-        contexts_[1].is_playing_ = false;
+        // 補間完了後は補間元のアニメーションを停止
+        if(i > 0) {
+            if(c.blend_ratio_ == 0.0f) {    // float値の==判定は0.0fのみ正確に判定できる
+                detachAnimation(i);
+                c.is_playing_ = false;
+            }
+        }
     }
 }
 
@@ -157,8 +164,9 @@ void Animation::bindModel(Model* model) {
     auto* last = model_;
     if(last) {
         // [DxLib]モデルとアニメーションの関連付けを解除
-        detachAnimation(0);
-        detachAnimation(1);
+        for(u32 i = 0; i < CONTEXT_COUNT; ++i) {
+            detachAnimation(i);
+        }
 
         model_        = nullptr;
         model_handle_ = -1;
@@ -184,13 +192,16 @@ bool Animation::play(std::string_view name, bool is_loop, f32 blend_time, f32 st
     //----------------------------------------------------------
     // [DxLib] 設定されているアニメーションを一旦解除
     //----------------------------------------------------------
-    detachAnimation(0);
-    detachAnimation(1);
+    for(u32 i = 0; i < CONTEXT_COUNT; ++i) {
+        detachAnimation(i);
+    }
 
     // 補間のために現在のアニメーションを補間前として設定
     // [0] = 現在のアニメーション
-    // [1] = 以前のアニメーション
-    contexts_[1] = contexts_[0];
+    // [1以降] = 以前のアニメーション
+    for(s32 i = CONTEXT_COUNT - 2; i >= 0; --i) {
+        contexts_[i + 1] = contexts_[i];
+    }
 
     //----------------------------------------------------------
     // 新規再生
@@ -211,24 +222,24 @@ bool Animation::play(std::string_view name, bool is_loop, f32 blend_time, f32 st
         // 現在の時間
         c.play_time_       = start_time;    // 開始位置は start_time から
 
-        c.is_playing_ = true;
-        c.is_loop_    = is_loop;
+        c.is_playing_  = true;
+        c.is_loop_     = is_loop;
+        c.blend_ratio_ = 0.0f;
     }
 
     //----------------------------------------------------------
     // アニメーション再生を設定
     //----------------------------------------------------------
-    for(u32 i = 0; i < 2; ++i) {
+    for(u32 i = 0; i < CONTEXT_COUNT; ++i) {
         attachAnimation(i);
-    }
-
-    // 補間対象のアニメーションがある場合は補間開始
-    if(contexts_[1].animation_index_ != -1) {
-        blend_ratio_ = 1.0f;
     }
 
     // ポーズ解除
     is_paused_ = false;
+
+    // 強制的に再更新(時間は進めない)
+    // これを実行することで1フレームだけ不定値になってT-poseになる現象を回避
+    update(0.0f);
 
     return true;
 }
@@ -268,11 +279,12 @@ bool Animation::isActive() const {
     return isValid();
 }
 
+#pragma region Customize
 //---------------------------------------------------------------------------
 //! アニメーションの再生フレームを取得
 //---------------------------------------------------------------------------
-float Animation::GetAnimationPlayTime() const {
-    return contexts_[0].play_time_;
+float          Animation::GetAnimationPlayTime() const {
+             return contexts_[0].play_time_;
 }
 
 //---------------------------------------------------------------------------
@@ -296,6 +308,7 @@ void Animation::SetAnimationSpeed(float speed) {
         desc.animation_speed_ = speed;
     }
 }
+#pragma endregion
 
 //---------------------------------------------------------------------------
 //! アニメーションを割り当て
@@ -312,13 +325,13 @@ bool Animation::attachAnimation(s32 context_index) {
     auto animation_index = desc.animation_index_;               // アニメーション番号
     auto mv1_handle      = mv1_handles_[c.animation_index_];    // [DxLib] アニメーションのMV1
 
-    c.animation_attach_index_ = MV1AttachAnim(model_handle_, animation_index, mv1_handle, true);
+    c.animation_attach_index_ = DxLib::MV1AttachAnim(model_handle_, animation_index, mv1_handle, true);
 
     // アニメーション総再生時間を取得
-    c.animation_total_time_ = MV1GetAttachAnimTotalTime(model_handle_, c.animation_attach_index_);
+    c.animation_total_time_ = DxLib::MV1GetAttachAnimTotalTime(model_handle_, c.animation_attach_index_);
 
     // アニメーション再生時間を初期化
-    MV1SetAttachAnimTime(model_handle_, c.animation_attach_index_, c.play_time_);
+    DxLib::MV1SetAttachAnimTime(model_handle_, c.animation_attach_index_, c.play_time_);
 
     return true;
 }
@@ -327,7 +340,7 @@ bool Animation::attachAnimation(s32 context_index) {
 //! アニメーション割り当てを解除
 //---------------------------------------------------------------------------
 void Animation::detachAnimation(s32 context_index) {
-    MV1DetachAnim(model_handle_, contexts_[context_index].animation_attach_index_);
+    DxLib::MV1DetachAnim(model_handle_, contexts_[context_index].animation_attach_index_);
     contexts_[context_index].animation_attach_index_ = -1;
 }
 
@@ -348,7 +361,7 @@ ResourceAnimation::ResourceAnimation(std::string_view path) {
     path_ = convertTo(resource_path);
 
     // アニメーションが含まれるモデルデータを読み込み
-    mv1_handle_ = MV1LoadModel(resource_path.c_str());
+    mv1_handle_ = DxLib::MV1LoadModel(resource_path.c_str());
 
     // ハンドルの非同期読み込み処理が完了したら呼ばれる関数
     auto finish_callback = []([[maybe_unused]] int mv1_handle, void* data) {
@@ -364,8 +377,8 @@ ResourceAnimation::ResourceAnimation(std::string_view path) {
     SetUseASyncLoadFlag(true);
     {
         // モデルの読み込み
-        mv1_handle_ = MV1LoadModel(resource_path.c_str());
-        SetASyncLoadFinishCallback(mv1_handle_, (void (*)(int, void*))finish_callback, this);
+        mv1_handle_ = DxLib::MV1LoadModel(resource_path.c_str());
+        DxLib::SetASyncLoadFinishCallback(mv1_handle_, (void (*)(int, void*))finish_callback, this);
     }
     SetUseASyncLoadFlag(false);
 }
@@ -376,7 +389,7 @@ ResourceAnimation::ResourceAnimation(std::string_view path) {
 ResourceAnimation::~ResourceAnimation() {
     // アニメーションを解放
     if(mv1_handle_ != -1) {
-        MV1DeleteModel(mv1_handle_);
+        DxLib::MV1DeleteModel(mv1_handle_);
     }
 }
 

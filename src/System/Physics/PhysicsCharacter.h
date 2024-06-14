@@ -92,36 +92,29 @@ class Character {
     //! 移動
     //! @param  [in]    delta_time      シミュレーションステップ時間
     //! @param  [in]    move_vector     移動ベクトル
-    //! @param  [in]    old_position    移動前の位置(
-    //! update()実行前の座標が必要です )
-    //! @param  [in]    jump_vector
-    //! ジャンプ方向ベクトル(ジャンプしない場合は0で渡します)
+    //! @param  [in]    old_position    移動前の位置( update()実行前の座標が必要です )
+    //! @param  [in]    jump_vector     ジャンプ方向ベクトル(ジャンプしない場合は0で渡します)
     //! @return 新しい補正後の移動速度
     //! 内部でwalkStairs()による階段歩行も行います
     virtual float3 move(f32 delta_time, const float3& move_vector, const float3& old_position,
                         const float3& jump_vector = float3(0.0f, 0.0f, 0.0f)) = 0;
 
     //! 階段を歩けるかどうかを取得
-    //! @details
-    //! この関数はキャラクターが急すぎる斜面（垂直な壁など）に移動した場合にtrueを返します。
+    //! @details この関数はキャラクターが急すぎる斜面（垂直な壁など）に移動した場合にtrueを返します。
     //! 階段を上ろうとする場合はwalkStairsを呼び出すことになります。
     //! @param  [in]    move_vector     移動ベクトル
     virtual bool canWalkStairs(const float3& move_vector) const = 0;
 
     //! 階段歩行
-    //! @param  [in]    delta_time シミュレーションのステップ時間
-    //! @param  [in]    step_up
-    //! ステップアップする方向と距離（これが最大ステップ高に相当する）
-    //! @param  [in]    step_forward
-    //! 踏み台昇降の後に前に踏み出す方向と距離
+    //! @param  [in]    delta_time          シミュレーションのステップ時間
+    //! @param  [in]    step_up             ステップアップする方向と距離（これが最大ステップ高に相当する）
+    //! @param  [in]    step_forward        踏み台昇降の後に前に踏み出す方向と距離
     //! @param  [in]    step_forward_test   床を検査する方向と距離
-    //! @param inStepDownExtra
-    //! ステップダウンする最後に加算される平行移動。上より下にステップダウンできるようにします。不要な場合は0に設定します。
+    //! @param inStepDownExtra  ステップダウンする最後に加算される平行移動。上より下にステップダウンできるようにします。不要な場合は0に設定します。
     //! @return 階段の歩行が成功した場合はtrueが戻ります
     //!
     //! 引数 step_forward_test について
-    //! 高い周波数で走行している場合 step_forward
-    //! は非常に小さくなり、降りるときに階段の側面にぶつかる可能性があります。
+    //! 高い周波数で走行している場合 step_forward は非常に小さくなり、降りるときに階段の側面にぶつかる可能性があります。
     //! そのため、最大傾斜角度に違反する法線が発生する可能性があります。
     //! このような場合は上昇位置からこの距離を使って再度テストし、有効なスロープを見つけるかどうかを確認します。
     virtual bool walkStairs(f32 delta_time, const float3& step_up, const float3& step_forward, const float3& step_forward_test,
@@ -135,8 +128,7 @@ class Character {
     //! @param  [in]    shape           形状
     //! @param  [in]    shape_offset    形状位置をずらすオフセット
     //! @retval true    正常終了(形状の入れ替え成功)
-    //! @retval false
-    //! 形状の入れ替え後に衝突物があり、切り替えできなかった場合
+    //! @retval false   形状の入れ替え後に衝突物があり、切り替えできなかった場合
     virtual bool setShape(const shape::Base& shape, const float3& shape_offset = float3(0.0f, 0.0f, 0.0f)) = 0;
 
     //! シェイプを取得

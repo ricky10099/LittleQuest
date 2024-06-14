@@ -339,9 +339,10 @@ config_project("JoltPhysics", "StaticLib")
 	removefiles {
 	}
 
-	-- プリプロセッサ #define
-   	defines {
-	}
+-- プリプロセッサ #define
+defines {
+	"JPH_DEBUG_RENDERER=1",
+}
 
 	-- フォルダ分け
 	vpaths {
@@ -433,6 +434,8 @@ config_project("QuestProject", "WindowedApp")
 	--	"_CRT_SECURE_NO_WARNINGS",
 	"_DISABLE_EXTENDED_ALIGNED_STORAGE",
 	--"USE_JOLT_PHYSICS",
+	"JPH_DEBUG_RENDERER=1",
+	"_SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING",
 	}
 
 	-- プリコンパイル済ヘッダー

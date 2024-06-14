@@ -5,63 +5,63 @@ pushd "%~dp0"
 
 set CLANG_FORMAT_CONFIG=.clang-format-reference
 
-echo ‘Sƒ\[ƒXƒR[ƒh‚ð®Œ`‚µ‚Ü‚·
+echo ï¿½Sï¿½\ï¿½[ï¿½Xï¿½Rï¿½[ï¿½hï¿½ð®Œ`ï¿½ï¿½ï¿½Ü‚ï¿½
 
-:: ƒ†[ƒU[’è‹`ƒtƒ@ƒCƒ‹‚Å•ÏŠ·
+:: ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½ï¿½`ï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Å•ÏŠï¿½
 if "%1"=="User" (
-    echo ƒ†[ƒU[’è‹`‚Ì®Œ`‚ðŽÀs‚µ‚Ü‚·
+    echo ï¿½ï¿½ï¿½[ï¿½Uï¿½[ï¿½ï¿½`ï¿½Ìï¿½ï¿½`ï¿½ï¿½ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½Ü‚ï¿½
     set CLANG_FORMAT_CONFIG=.clang-format
 )
 
 ::---------------------------------------------------------------
-:: VisualStudio“à‚Ìclag-format‚ÌƒpƒX‚ðŒŸo
+:: VisualStudioï¿½ï¿½ï¿½ï¿½clag-formatï¿½Ìƒpï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½o
 ::---------------------------------------------------------------
 set VSWHERE_PATH="C:/Program Files (x86)/Microsoft Visual Studio/Installer/vswhere.exe"
 
 if not exist %VSWHERE_PATH% (
-	echo VisualStudio‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ.
+	echo VisualStudioï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½gï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½.
 	goto error_finish
 )
 
-:: VisualStudio‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚éƒpƒX‚ðŽæ“¾
+:: VisualStudioï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½gï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½pï¿½Xï¿½ï¿½ï¿½æ“¾
 for /f "usebackq delims=" %%i in (`%VSWHERE_PATH% -latest -property installationPath`) do (
 	set VS_PATH=%%i
 )
 
-:: VisualStudio“à‚ÌLLVM‚ÌƒpƒX
+:: VisualStudioï¿½ï¿½ï¿½ï¿½LLVMï¿½Ìƒpï¿½X
 set VS_LLVM_PATH=%VS_PATH%\VC\Tools\Llvm\x64\bin
 
-:: clang-format‚ÌƒpƒX
+:: clang-formatï¿½Ìƒpï¿½X
 set CLANG_FORMAT_PATH="%VS_LLVM_PATH%\clang-format.exe"
 
 ::---------------------------------------------------------------
-:: clang-format‚ªŽÀs‚Å‚«‚é‚©‚Ç‚¤‚©ƒ`ƒFƒbƒN
+:: clang-formatï¿½ï¿½ï¿½ï¿½ï¿½sï¿½Å‚ï¿½ï¿½é‚©ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½`ï¿½Fï¿½bï¿½N
 ::---------------------------------------------------------------
 if not exist %CLANG_FORMAT_PATH% (
-	echo clang-format‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ.
+	echo clang-formatï¿½ï¿½ï¿½ï¿½ï¿½Â‚ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½.
 	goto error_finish
 )
 
-:: ƒ[ƒJƒ‹‚Ìclang-format‚Ìƒtƒ‹ƒpƒX‚ð—˜—p (style‚Éƒtƒ@ƒCƒ‹Žw’è‚Å‚«‚é‹@”\‚ªLLVM14‚©‚ç‚Ì‚Ý‚Ì‚½‚ß)
-:: VisutalStudio‚ªLLVM14ƒx[ƒX‚É‚È‚Á‚½‚ç‚±‚Ìˆ—‚Í•s—v‚É‚È‚è‚Ü‚·
-for /f "delims=" %%f in ('dir /b /s  bin\clang-format.exe') do (
-  set CLANG_FORMAT_PATH="%%f"
-)
+:: ï¿½ï¿½ï¿½[ï¿½Jï¿½ï¿½ï¿½ï¿½clang-formatï¿½Ìƒtï¿½ï¿½ï¿½pï¿½Xï¿½ð—˜—p (styleï¿½Éƒtï¿½@ï¿½Cï¿½ï¿½ï¿½wï¿½ï¿½Å‚ï¿½ï¿½ï¿½@ï¿½\ï¿½ï¿½LLVM14ï¿½ï¿½ï¿½ï¿½Ì‚Ý‚Ì‚ï¿½ï¿½ï¿½)
+:: VisutalStudioï¿½ï¿½LLVM14ï¿½xï¿½[ï¿½Xï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½ç‚±ï¿½Ìï¿½ï¿½ï¿½ï¿½Í•sï¿½vï¿½É‚È‚ï¿½Ü‚ï¿½
+::for /f "delims=" %%f in ('dir /b /s  bin\clang-format.exe') do (
+::  set CLANG_FORMAT_PATH="%%f"
+::)
 
-:: ƒo[ƒWƒ‡ƒ“•\Ž¦
+:: ï¿½oï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½
 %CLANG_FORMAT_PATH% --version
 
 ::---------------------------------------------------------------
-:: src’¼‰º‚Ì‚·‚×‚Ä‚Ìƒ\[ƒXƒR[ƒh‚Éclang-format‚ðŽÀs
+:: srcï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½ï¿½×‚Ä‚Ìƒ\ï¿½[ï¿½Xï¿½Rï¿½[ï¿½hï¿½ï¿½clang-formatï¿½ï¿½ï¿½ï¿½ï¿½s
 ::---------------------------------------------------------------
 pushd "%~dp0src"
 
 for /f "delims=" %%f in ('dir /b /s src *.c *.cpp *.cxx *.cc *.hpp *.h *.hxx *.inl') do (
   set /p X="." < nul
-  %CLANG_FORMAT_PATH% -i -style=file:%CLANG_FORMAT_CONFIG% "%%f"
+  start /B "" %CLANG_FORMAT_PATH% -i -style=file:%CLANG_FORMAT_CONFIG% "%%f"
 )
 
-echo Š®—¹‚µ‚Ü‚µ‚½.
+echo ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½.
 
 goto finish
 

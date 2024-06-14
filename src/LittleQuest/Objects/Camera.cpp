@@ -5,7 +5,7 @@
 #include <System/Component/ComponentSpringArm.h>
 
 namespace LittleQuest {
-BP_OBJECT_IMPL(Camera, u8"LittleQuest/Camera");
+BP_OBJECT_IMPL(Camera, "LittleQuest/Camera");
 
 CameraPtr Camera::Create(ObjectPtr obj) {
     auto pCamera       = Scene::CreateObjectDelayInitialize<Camera>();

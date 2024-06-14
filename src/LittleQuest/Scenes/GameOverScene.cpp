@@ -3,7 +3,7 @@
 #include "GameTitleScene.h"
 
 namespace LittleQuest {
-BP_CLASS_IMPL(GameOverScene, u8"LittleQuest/GameOverScene");
+BP_CLASS_IMPL(GameOverScene, "LittleQuest/GameOverScene");
 
 bool GameOverScene::Init() {
     image = LoadGraph("data/LittleQuest/Image/GameOver.png");

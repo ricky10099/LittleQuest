@@ -13,8 +13,8 @@ class Animation final {
    public:
     //! アニメーション定義オプション
     struct Desc {
-        std::string name_{};                    //!< アニメーション名(任意)
-        std::string file_path_{};               //!< ファイルパス
+        std::string name_;                      //!< アニメーション名(任意)
+        std::string file_path_;                 //!< ファイルパス
         u32         animation_index_ = 0;       //!< ファイル内のアニメーション番号
         f32         animation_speed_ = 1.0f;    //!< アニメーションの再生速度(default:1.0f)
     };
@@ -91,10 +91,10 @@ class Animation final {
     bool isValid() const;
 
     // 利用可能な状態かどうか取得
-    //! @note
-    //! 利用可能になっていない状態でDxLibアニメーション関数を呼ぶと非同期ロードがブロッキングされます
+    //! @note   利用可能になっていない状態でDxLibアニメーション関数を呼ぶと非同期ロードがブロッキングされます
     bool isActive() const;
 
+#pragma region Customize
     // 再生フレームの取得
     float GetAnimationPlayTime() const;
 
@@ -104,6 +104,7 @@ class Animation final {
     float GetAnimationSpeed() const;
 
     void SetAnimationSpeed(float speed);
+#pragma endregion
 
     //@}
     //----------------------------------------------------------
@@ -154,11 +155,12 @@ class Animation final {
         int  animation_attach_index_ = -1;       //!< [DxLib] アタッチされたスロット番号
         f32  animation_total_time_   = 0.0f;     //!< 総再生時間
         f32  play_time_              = 0.0f;     //!< 現在再生中の時間
+        f32  blend_ratio_            = 0.0f;     //!< ブレンド比(0.0f～1.0f)
     };
 
-    Context contexts_[2];           //!< 構造体はアニメーションブレンドのため2系統を持つ
-    f32     blend_ratio_ = 0.0f;    //!< ブレンド比(0.0f～1.0f)
-    f32     blend_time_  = 1.0f;    //!< ブレンドの補間時間
+    static constexpr u32 CONTEXT_COUNT = 4;
+    Context              contexts_[CONTEXT_COUNT];    //!< 構造体はアニメーションブレンドのため複数持つ
+    f32                  blend_time_ = 1.0f;          //!< ブレンドの補間時間
 
     //@}
 };
@@ -182,8 +184,7 @@ class ResourceAnimation final {
     bool isValid() const;
 
     // 利用可能な状態かどうか取得
-    //! @note
-    //! 利用可能になっていない状態でDxLibアニメーション関数を呼ぶと非同期ロードがブロッキングされます
+    //! @note   利用可能になっていない状態でDxLibアニメーション関数を呼ぶと非同期ロードがブロッキングされます
     bool isActive() const;
 
     // [DxLib] MV1ハンドルを取得

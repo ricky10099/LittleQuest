@@ -7,7 +7,7 @@
 #include <System/Scene.h>
 #include <System/Graphics/Render.h>
 
-BP_COMPONENT_IMPL(ComponentFilterFade, u8"FilterFade機能クラス");
+BP_COMPONENT_IMPL(ComponentFilterFade, "FilterFade機能クラス");
 
 namespace {
 
@@ -30,8 +30,7 @@ ComponentFilterFade::ComponentFilterFade() {
     shader_ps_ = std::make_shared<ShaderPs>("data/Shader/ps_filter_fade");
 
     // ワークテクスチャ作成
-    //! @todo
-    //! ここで作成するワークテクスチャは一時バッファのため、全体で共有利用するほうが良い。
+    //! @todo ここで作成するワークテクスチャは一時バッファのため、全体で共有利用するほうが良い。
     texture_work_ = std::make_shared<Texture>(WINDOW_W, WINDOW_H, DXGI_FORMAT_R8G8B8A8_UNORM);
 
     //-----------------------------------------------
@@ -88,7 +87,7 @@ void ComponentFilterFade::Init() {
     };
 
     // 描画タイミングを設定して描画
-    SetProc("FilterDraw", draw, ProcTiming::Filter, Priority::NORMAL);
+    SetProc("FilterDraw", draw, ProcTiming::Filter, ProcPriority::NORMAL);
 }
 
 //---------------------------------------------------------------------------
@@ -131,16 +130,16 @@ void ComponentFilterFade::GUI() {
     ImGui::Begin(objName.data());
     {
         ImGui::Separator();
-        if(ImGui::TreeNode(u8"フェード処理")) {
-            if(ImGui::Button(u8"削除")) {
+        if(ImGui::TreeNode("フェード処理")) {
+            if(ImGui::Button("削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
             //--------------------------------------------------
             // 調整項目を表示
             //--------------------------------------------------
-            ImGui::SliderFloat(u8"フェード係数", &fade_alpha_, 0.0f, 1.0f, "%1.2f");
-            ImGui::DragInt(u8"モザイクの最大幅", &mosaic_width_, 1.0f, 1, 256, "%3.1f");
+            ImGui::SliderFloat("フェード係数", &fade_alpha_, 0.0f, 1.0f, "%1.2f");
+            ImGui::DragInt("モザイクの最大幅", &mosaic_width_, 1.0f, 1, 256, "%3.1f");
 
             ImGui::TreePop();
         }

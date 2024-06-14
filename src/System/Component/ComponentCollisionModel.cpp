@@ -11,7 +11,7 @@
 #include <System/Object.h>
 #include <System/Scene.h>
 
-BP_COMPONENT_IMPL(ComponentCollisionModel, u8"ModelCollision機能クラス");
+BP_COMPONENT_IMPL(ComponentCollisionModel, "ModelCollision機能クラス");
 
 void ComponentCollisionModel::Init() {
     __super::Init();
@@ -41,7 +41,7 @@ void ComponentCollisionModel::Draw() {
         ref_poly_ = MV1GetReferenceMesh(ref_model_, -1, TRUE);
     }
 
-    if(!Scene::IsEdit() && !collision_status_.is(CollisionBit::ShowInGame))
+    if(!IsShowDebug() && !collision_status_.is(CollisionBit::ShowInGame))
         return;
 
     __super::Draw();
@@ -88,24 +88,24 @@ void ComponentCollisionModel::GUI() {
         ImGui::Separator();
         auto ui_name = std::string("Collision Model:") + std::to_string(collision_id_);
         if(ImGui::TreeNode(ui_name.c_str())) {
-            if(ImGui::Button(u8"削除")) {
+            if(ImGui::Button("削除")) {
                 GetOwner()->RemoveComponent(shared_from_this());
             }
 
             // コリジョン情報を出す
             GUICollisionData(false);
 
-            std::string colname = u8"COL:" + std::to_string(collision_id_) + "/ ";
+            std::string colname = "COL:" + std::to_string(collision_id_) + "/ ";
 
             float* mat = GetColMatrixFloat();
             float  matrixTranslation[3], matrixRotation[3], matrixScale[3];
             DecomposeMatrixToComponents(mat, matrixTranslation, matrixRotation, matrixScale);
-            ImGui::DragFloat3((colname + u8"座標(T)").c_str(), matrixTranslation, 0.01f);
-            // ImGui::DragFloat3( u8"COL回転(R)", matrixRotation, 0.1f );
-            // ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
+            ImGui::DragFloat3((colname + "座標(T)").c_str(), matrixTranslation, 0.01f);
+            //ImGui::DragFloat3( u8"COL回転(R)", matrixRotation, 0.1f );
+            //ImGui::DragFloat3( u8"COLサイズ(S)", matrixScale, 0.01f );
             RecomposeMatrixFromComponents(matrixTranslation, matrixRotation, matrixScale, mat);
 
-            if(ImGui::Button(u8"モデルにコリジョンを張り付ける")) {
+            if(ImGui::Button("モデルにコリジョンを張り付ける")) {
                 if(ref_model_ == -1)
                     AttachToModel(true);
             }
@@ -198,8 +198,7 @@ const matrix ComponentCollisionModel::GetWorldMatrix() const {
 
 //! @brief マップに対する正確な移動量を割り出す(傾きによる移動量)
 //! @param vec 動きたい移動量
-//! @param force 山に上る時の上りにくさ (1.0で普通に楽々上る
-//! ~ 3.0くらいだともう登れない )
+//! @param force 山に上る時の上りにくさ (1.0で普通に楽々上る ~ 3.0くらいだともう登れない )
 //! @return 実際動ける量
 float3 ComponentCollisionModel::checkMovement(float3 pos, float3 vec, float force) {
     MV1_COLL_RESULT_POLY hit_poly{};

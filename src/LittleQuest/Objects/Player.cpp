@@ -263,12 +263,12 @@ void Player::GetHit(int damage) {
 void Player::InputHandle() {
     DINPUT_JOYSTATE DInputState;
     m_cameraLength -= GetMouseWheelRotVol() * 3;
-    if(IsPadRepeat(PAD_ID::PAD_5, DX_PADTYPE_DUAL_SENSE)) {
-        ++m_cameraLength;
-    }
-    if(IsPadRepeat(PAD_ID::PAD_6, DX_PADTYPE_DUAL_SENSE)) {
-        --m_cameraLength;
-    }
+    //if(IsPadRepeat(PAD_ID::PAD_5)) {
+    //    ++m_cameraLength;
+    //}
+    //if(IsPadRepeat(PAD_ID::PAD_6)) {
+    //    --m_cameraLength;
+    //}
     m_cameraLength = std::min((std::max(m_cameraLength, 10.0f)), 100.0f);
     m_pCamera.lock()->SetCameraLength(m_cameraLength);
     if(m_playerState != PlayerState::ROLL && m_playerState != PlayerState::GET_HIT && m_playerState != PlayerState::DEAD) {
@@ -309,7 +309,7 @@ void Player::InputHandle() {
             m_movement += vec;
         }
 
-        if(IsMouseDown(MOUSE_INPUT_LEFT) || IsPadDown(PAD_ID::PAD_4, DX_PADTYPE_DUAL_SENSE)) {
+        if(IsMouseDown(MOUSE_INPUT_LEFT) /* || IsPadOn(PAD_ID::PAD_4)*/) {
             m_playerState = PlayerState::ATTACK;
 
             if(m_currCombo == Combo::NO_COMBO) {
@@ -319,7 +319,7 @@ void Player::InputHandle() {
             }
         }
 
-        if(IsMouseRepeat(MOUSE_INPUT_RIGHT, 1) || IsPadRepeat(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)) {
+        if(IsMouseRepeat(MOUSE_INPUT_RIGHT, 1) /* || IsPadRepeat(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)*/) {
             m_chargeTime += GetDeltaTime60();
             if(m_chargeTime >= SPECIAL_CHARGE_TIME && !m_charged) {
                 StopEffekseer3DEffect(m_playingChargeEffect);
@@ -345,7 +345,7 @@ void Player::InputHandle() {
         if(!IsFloat3Zero(m_movement)) {
             m_playerState = PlayerState::WALK;
         }
-        if(IsKeyDown(KEY_INPUT_SPACE) || IsPadDown(PAD_ID::PAD_2, DX_PADTYPE_DUAL_SENSE)) {
+        if(IsKeyDown(KEY_INPUT_SPACE) /* || IsPadDown(PAD_ID::PAD_2, DX_PADTYPE_DUAL_SENSE)*/) {
             m_chargeTime = 0;
             m_charged    = false;
             StopEffekseer3DEffect(m_playingChargeEffect);

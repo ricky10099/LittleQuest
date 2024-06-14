@@ -79,9 +79,8 @@ class ComponentAttachModel: public Component {
     // @param arc アーカイバ
     // @param ver バージョン
     CEREAL_SAVELOAD(arc, ver) {
-        arc(cereal::make_nvp("owner", owner_));    //< オーナー
-        arc(cereal::make_nvp("attach_model_status",
-                             attach_model_status_.get()));    //< カメラステート
+        arc(cereal::make_nvp("owner", owner_));                                      //< オーナー
+        arc(cereal::make_nvp("attach_model_status", attach_model_status_.get()));    //< カメラステート
         arc(CEREAL_NVP(attach_model_rotate_));
         arc(CEREAL_NVP(attach_model_offset_));
         arc(CEREAL_NVP(object_name_));

@@ -9,15 +9,18 @@
 #include <System/SystemMain.h>    // ResetDeltaTime
 
 #include <algorithm>
+
 //=============================================================
 // シーン ローカル変数
 //=============================================================
-BP_BASE_IMPL_ABSOLUTE(Scene::Base, u8"シーン基底");
+BP_BASE_IMPL_ABSOLUTE(Scene::Base, "シーン基底");
 
-extern bool exit_app;
-extern int  bgm_volume;
-extern int  se_volume;
-extern int  audio[2];
+#pragma region Customize extern
+extern bool    exit_app;
+extern int     bgm_volume;
+extern int     se_volume;
+extern int     audio[2];
+#pragma endregion
 
 namespace {
 #ifdef _DEBUG
@@ -25,13 +28,20 @@ bool scene_edit = true;    //!< エディター状態
 #else
 bool scene_edit = false;    //!< エディター状態
 #endif
-bool  scene_pause     = false;    //!< ポーズ中
-bool  scene_can_pause = false;
-bool  scene_draw_menu = false;
-bool  stop_pause      = false;
-bool  scene_step      = false;    //!< 1フレームスキップ
-float scene_time      = 0.0f;     //!< タイマー
-float scene_overlap   = 0.0f;     //!< シーン切り替えオーバーラップ
+#ifdef _DEBUG
+bool scene_fps = true;    //!< FPS状態
+#else
+bool scene_fps  = false;    //!< FPS状態
+#endif
+bool  scene_pause   = false;    //!< ポーズ中
+bool  scene_step    = false;    //!< 1フレームスキップ
+float scene_time    = 0.0f;     //!< タイマー
+float scene_overlap = 0.0f;     //!< シーン切り替えオーバーラップ
+
+#pragma region Customize var
+bool                     scene_can_pause = false;
+bool                     scene_draw_menu = false;
+bool                     stop_pause      = false;
 
 int           font_handle         = -1;
 int           bgm_handle          = -1;
@@ -47,6 +57,7 @@ std::vector<Scene::BGMInfo>        bgm_list;
 
 int bgm_index = -1;
 //std::vector<BGMInfo> bgm_list;
+#pragma endregion
 
 bool scene_change_next = false;    //!< 次のシーンへ移行する
 
@@ -58,22 +69,21 @@ std::string                 sel_item = "";
 
 std::string debug_scene_name;
 
-// auto BindObjectUpdate( ProcTiming proc, ObjectPtr obj )
+//auto BindObjectUpdate( ProcTiming proc, ObjectPtr obj )
 auto BindObject(ProcTiming proc, ObjectPtr obj) {
     using ObjectType = void (Object::*)();
 
     ObjectType func_table[] = {
-        &Object::PreUpdate, &Object::Update, &Object::LateUpdate, &Object::PrePhysics, &Object::PostUpdate,
-        &Object::PreDraw,   &Object::Draw,   &Object::LateDraw,   &Object::PostDraw,
+        &Object::PreUpdate,  &Object::Update,  &Object::LateUpdate, &Object::PrePhysics, &Object::PostPhysics,
+        &Object::PostUpdate, &Object::PreDraw, &Object::Draw,       &Object::LateDraw,   &Object::PostDraw,
     };
 
     assert(static_cast<u32>(proc) < static_cast<u32>(ProcTiming::NUM));
 
     return std::bind(func_table[static_cast<int>(proc)], obj.get());
 
-    // assert( !"処理がBindできません" );
-    // return std::bind( &Object::Update, obj.get(), std::placeholders::_1
-    // );
+    //assert( !"処理がBindできません" );
+    //return std::bind( &Object::Update, obj.get(), std::placeholders::_1 );
 }
 #if 0
 	auto BindObjectProc( ProcTiming proc, ObjectPtr obj )
@@ -110,7 +120,7 @@ auto BindObject(ProcTiming proc, ObjectPtr obj) {
 	}
 #endif
 
-// auto BindComponentUpdate( ProcTiming proc, ComponentPtr cmp )
+//auto BindComponentUpdate( ProcTiming proc, ComponentPtr cmp )
 auto BindComponent(ProcTiming proc, ComponentPtr cmp) {
 #if 0
     if(ProcTiming::PreUpdate == proc)
@@ -150,8 +160,8 @@ auto BindComponent(ProcTiming proc, ComponentPtr cmp) {
     using ComponentType = void (Component::*)();
 
     ComponentType func_table[] = {
-        &Component::PreUpdate, &Component::Update, &Component::LateUpdate, &Component::PrePhysics, &Component::PostUpdate,
-        &Component::PreDraw,   &Component::Draw,   &Component::LateDraw,   &Component::PostDraw,
+        &Component::PreUpdate,  &Component::Update,  &Component::LateUpdate, &Component::PrePhysics, &Component::PostPhysics,
+        &Component::PostUpdate, &Component::PreDraw, &Component::Draw,       &Component::LateDraw,   &Component::PostDraw,
     };
 
     assert(static_cast<u32>(proc) < static_cast<u32>(ProcTiming::NUM));
@@ -221,7 +231,7 @@ Scene::Base::~Base() {
 //! @param obj 優先を変更したいオブジェクト
 //! @param timing 固定処理
 //! @param priority 設定する優先
-void Scene::Base::SetPriority(ObjectPtr obj, ProcTiming timing, Priority priority) {
+void Scene::Base::SetPriority(ObjectPtr obj, ProcTiming timing, ProcPriority priority) {
     // 以前いるプライオリティから削除し、
     // 設定したい優先に設定する
     auto& proc     = obj->GetProc(GetProcTimingName(timing), timing);
@@ -236,19 +246,19 @@ void Scene::Base::SetPriority(ObjectPtr obj, ProcTiming timing, Priority priorit
 //!	@param component 優先を変更したいコンポーネント
 //!	@param timing 固定処理
 //!	@param priority 設定する優先
-void Scene::Base::SetPriority(ComponentPtr component, ProcTiming timing, Priority priority) {
+void Scene::Base::SetPriority(ComponentPtr component, ProcTiming timing, ProcPriority priority) {
     constexpr int prio_component_offset = 10;
     // 以前いるプライオリティから削除し、
     // 設定したい優先に設定する
     auto&         proc                  = component->GetProc(GetProcTimingName(timing), timing);
     proc.timing_                        = timing;
-    proc.priority_                      = Priority((int)(priority) + prio_component_offset);
+    proc.priority_                      = static_cast<ProcPriority>(priority + prio_component_offset);
     proc.proc_                          = BindComponent(timing, component);
     resetProc(component, proc);
     setProc(component, proc);
 }
 
-void Scene::Base::PreRegister(ObjectPtr obj, Priority update, Priority draw) {
+void Scene::Base::PreRegister(ObjectPtr obj, ProcPriority update, ProcPriority draw) {
     {
         auto itr = std::find(pre_objects_.begin(), pre_objects_.end(), obj);
         // すでに存在している?
@@ -271,7 +281,7 @@ void Scene::Base::PreRegister(ObjectPtr obj, Priority update, Priority draw) {
     pre_objects_.push_back(obj);
 }
 
-void Scene::Base::Register(ObjectPtr obj, Priority update, Priority draw) {
+void Scene::Base::Register(ObjectPtr obj, ProcPriority update, ProcPriority draw) {
     auto itr = std::find(objects_.begin(), objects_.end(), obj);
     if(itr != objects_.end()) {
         // すでに存在している
@@ -308,6 +318,13 @@ void Scene::Base::Register(ObjectPtr obj, Priority update, Priority draw) {
     proc_pre_physics.proc_     = BindObject(ProcTiming::PrePhysics, obj);
     proc_pre_physics.dirty_    = false;
     setProc(obj, proc_pre_physics);
+
+    auto& proc_post_physics     = obj->GetProc(GetProcTimingName(ProcTiming::PostPhysics), ProcTiming::PostPhysics);
+    proc_post_physics.timing_   = ProcTiming::PostPhysics;
+    proc_post_physics.priority_ = update;
+    proc_post_physics.proc_     = BindObject(ProcTiming::PostPhysics, obj);
+    proc_post_physics.dirty_    = false;
+    setProc(obj, proc_post_physics);
 
     auto& proc_postupdate     = obj->GetProc(GetProcTimingName(ProcTiming::PostUpdate), ProcTiming::PostUpdate);
     proc_postupdate.timing_   = ProcTiming::PostUpdate;
@@ -366,6 +383,9 @@ void Scene::Base::RegisterForLoad(ObjectPtr obj) {
 
     auto& proc_pre_physics  = obj->GetProc(GetProcTimingName(ProcTiming::PrePhysics), ProcTiming::PrePhysics);
     proc_pre_physics.dirty_ = true;
+
+    auto& proc_post_physics  = obj->GetProc(GetProcTimingName(ProcTiming::PostPhysics), ProcTiming::PostPhysics);
+    proc_post_physics.dirty_ = true;
 
     auto& proc_postupdate  = obj->GetProc(GetProcTimingName(ProcTiming::PostUpdate), ProcTiming::PostUpdate);
     proc_postupdate.dirty_ = true;
@@ -562,8 +582,7 @@ void Scene::functionSerialize(ObjectPtr obj) {
     // オブジェクト
     if(!obj->GetStatus(Object::StatusBit::Serialized)) {
         obj->InitSerialize();
-        assert("継承先のInitSerialize()にて__super::InitSerialize()"
-               "を入れてください." &&
+        assert("継承先のInitSerialize()にて__super::InitSerialize()を入れてください." &&
                obj->GetStatus(Object::StatusBit::Serialized));
 
         // シリアライズされない処理を確認
@@ -584,8 +603,7 @@ void Scene::functionSerialize(ObjectPtr obj) {
         }
         if(!component->GetStatus(Component::StatusBit::Serialized)) {
             component->InitSerialize();
-            assert("継承先のInitSerialize()にて__super::InitSerialize()"
-                   "を入れてください." &&
+            assert("継承先のInitSerialize()にて__super::InitSerialize()を入れてください." &&
                    component->GetStatus(Component::StatusBit::Serialized));
 
             checkSerialized(component);
@@ -609,9 +627,9 @@ void Scene::checkSerialized(ObjectPtr obj) {
         [[maybe_unused]] auto& p    = proc.second;
 
         if(p.GetProc() == nullptr && p.GetAddProc() == nullptr) {
-            assert(0 && "SetProcで追加した処理がSerializeされません。処理をProcAddProc()"
-                        "で作成して登録するか、初期化する同じシーンを選択しInitSerialize()"
-                        "で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
+            assert(
+                0 &&
+                "SetProcで追加した処理がSerializeされません。処理をProcAddProc()で作成して登録するか、初期化する同じシーンを選択しInitSerialize()で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
 
             itr = obj->proc_timings_.erase(itr);
             continue;
@@ -635,9 +653,9 @@ void Scene::checkSerialized(ComponentPtr comp) {
         [[maybe_unused]] auto& p    = proc.second;
 
         if(p.GetProc() == nullptr && p.GetAddProc() == nullptr) {
-            assert(0 && "SetProcで追加した処理がSerializeされません。処理をProcAddProc()"
-                        "で作成して登録するか、初期化する同じシーンを選択しInitSerialize()"
-                        "で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
+            assert(
+                0 &&
+                "SetProcで追加した処理がSerializeされません。処理をProcAddProc()で作成して登録するか、初期化する同じシーンを選択しInitSerialize()で初期化してください。ここは、「無視」することで進めますが、処理は復活しません");
 
             itr = comp->proc_timings_.erase(itr);
             continue;
@@ -720,10 +738,9 @@ void Scene::CheckLeak() {
                 }
 
                 if(leak) {
-                    std::string str = "オブジェクト名: " + std::string(o->GetName()) +
-                                      "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか"
-                                      "確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. "
-                                      "Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
+                    std::string str =
+                        "オブジェクト名: " + std::string(o->GetName()) +
+                        "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
                     MessageBox(GetMainWindowHandle(), str.c_str(), "Objectが正しく解放できませんでした.", MB_OK);
                 }
                 // リークとしてとらえておく
@@ -759,10 +776,9 @@ void Scene::ChangeNextScene() {
                 }
 
                 if(leak) {
-                    std::string str = "オブジェクト名: " + std::string(o->GetName()) +
-                                      "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか"
-                                      "確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. "
-                                      "Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
+                    std::string str =
+                        "オブジェクト名: " + std::string(o->GetName()) +
+                        "\nオブジェクト内にてComponentPtrなどの変数で\nコンポーネントを確保したままになってないか確認してください.\n解決方法は、\n\n1. Objectの変数としない\n2. Exit()でnullptrにする\n3. weak_ptrに変更する\n\nいずれかを行うことで解決します.";
                     MessageBox(GetMainWindowHandle(), str.c_str(), "Objectが正しく解放できませんでした.", MB_OK);
                 }
                 // リークとしてとらえておく
@@ -782,14 +798,6 @@ void Scene::ChangeNextScene() {
     scene_pause = false;    // ポーズ解除
 }
 
-void Scene::QueueScene(BasePtr scene) {
-    queue_scene_ = scene;
-}
-
-void Scene::NextScene() {
-    Change(queue_scene_);
-}
-
 //! 現在アクティブなシーンを取得します
 Scene::Base* Scene::GetCurrentScene() {
     return current_scene_.get();
@@ -801,6 +809,8 @@ void Scene::Init() {
     // Worldが出来上がり、その後、
     // 個別にオブジェクトは作成されるため
     // Update内で、Initする形をとる
+
+#pragma region Customized init
     scene_can_pause = false;
     scene_draw_menu = false;
     font_handle     = CreateFontToHandle("M PLUS Code Latin", 50, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
@@ -810,6 +820,7 @@ void Scene::Init() {
     menu_function.emplace_back(SetSEVolume);
     menu_function.emplace_back(Pause);
     menu_function.emplace_back(NextScene);
+#pragma endregion
 
     debug_scene_name = current_scene_->typeInfo()->className();
     if(next_scene_)
@@ -831,10 +842,10 @@ void        Scene::PreUpdate() {
 #if defined _DEBUG
     if(IsKeyOn(KEY_INPUT_F1))
         scene_pause = !scene_pause;
-#endif
+
     if(IsKeyOn(KEY_INPUT_F2))
         scene_step = true;
-
+#endif
     if(next_scene_ != nullptr || scene_change_next) {
         // シーン切り替え
         current_scene_->Exit();
@@ -842,7 +853,7 @@ void        Scene::PreUpdate() {
         // 継承し忘れの時のため
         Scene::Exit();
 
-        // ChangeNextScene();
+        //ChangeNextScene();
         scene_time = 0.0f;
     }
 
@@ -882,7 +893,7 @@ void        Scene::PreUpdate() {
                ((scene_pause && !scene_step) && !obj->GetStatus(Object::StatusBit::DisablePause)))
                 is_pause = true;
 
-            // if( !is_pause )
+            //if( !is_pause )
             {
                 // Init前状態
                 if(!obj->GetStatus(Object::StatusBit::Initialized)) {
@@ -992,17 +1003,18 @@ void        Scene::PreUpdate() {
 void Scene::Update() {
     f32 delta = GetDeltaTime();
 
-    if((IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) || IsKeyDown(KEY_INPUT_ESCAPE)) && scene_can_pause) {
+#pragma region MyRegion
+    if((/*IsPadOn(PAD_ID::PAD_10) ||*/ IsKeyDown(KEY_INPUT_ESCAPE)) && scene_can_pause) {
         Pause();
         select_num = 0;
     }
 
     if(scene_draw_menu) {
         HideMouse(false);
-        if(IsKeyDown(KEY_INPUT_UP) || IsPadDown(PAD_ID::PAD_UP, DX_PADTYPE_DUAL_SENSE)) {
+        if(IsKeyDown(KEY_INPUT_UP) || IsPadOn(PAD_ID::PAD_UP)) {
             --select_num;
         }
-        if(IsKeyDown(KEY_INPUT_DOWN) || IsPadDown(PAD_ID::PAD_DOWN, DX_PADTYPE_DUAL_SENSE)) {
+        if(IsKeyDown(KEY_INPUT_DOWN) || IsPadOn(PAD_ID::PAD_DOWN)) {
             ++select_num;
         }
 
@@ -1020,13 +1032,13 @@ void Scene::Update() {
             break;
         }
 
-        if(IsKeyDown(KEY_INPUT_RETURN) || IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)) {
+        if(IsKeyDown(KEY_INPUT_RETURN) /* || IsPadOn(PAD_ID::PAD_3)*/) {
             menu_function[select_num]();
         }
 
-        if(IsPadDown(PAD_ID::PAD_2, DX_PADTYPE_DUAL_SENSE)) {
-            Pause();
-        }
+        //if(IsPadOn(PAD_ID::PAD_2)) {
+        //    Pause();
+        //}
     }
 
     bool next_bgm_exist = (int)(bgm_list.size() - 1) > bgm_index;
@@ -1044,6 +1056,7 @@ void Scene::Update() {
         PlaySoundMem(bgm_list[bgm_index].bgm_handle, bgm_list[bgm_index].play_type);
         ChangeVolumeSoundMem((int)(255 * (GetBGMVolume() / 100.0f)), bgm_list[bgm_index].bgm_handle);
     }
+#pragma endregion
 
     if(current_scene_) {
         if(!scene_pause || scene_step) {
@@ -1071,6 +1084,14 @@ void Scene::PrePhysics() {
     }
 }
 
+void Scene::PostPhysics() {
+    if(current_scene_) {
+        current_scene_->PostPhysics();
+
+        current_scene_->GetSignals(ProcTiming::PostPhysics)();
+    }
+}
+
 void Scene::PostUpdate() {
     if(current_scene_) {
         current_scene_->PostUpdate();
@@ -1095,6 +1116,7 @@ void Scene::Draw() {
     current_scene_->LateDraw();
     current_scene_->GetSignals(ProcTiming::LateDraw)();
 
+#pragma region MyRegion
     if(scene_draw_menu) {
         int screen_width, screen_height;
         GetScreenState(&screen_width, &screen_height, NULL);
@@ -1144,6 +1166,7 @@ void Scene::Draw() {
             DrawBoxAA(x1, y1, x2, y2, 0xffffff, TRUE);
         }
     }
+#pragma endregion
 
     current_scene_->PostDraw();
     current_scene_->GetSignals(ProcTiming::PostDraw)();
@@ -1175,7 +1198,7 @@ void Scene::Draw() {
         }
     }
 
-    //PauseSystem::DrawPause();
+    // PauseSystem::DrawPause();
 }
 
 void Scene::Exit() {
@@ -1191,14 +1214,12 @@ void Scene::Exit() {
 #if 0
     physx_lib->Exit();
 #endif
-    //DeleteFontToHandle(font_handle);
     //	Change( nullptr );
-
     ChangeNextScene();
 }
 
 template<class T>
-void Scene::Base::PreRegister(T* obj, Priority update, Priority draw) {
+void Scene::Base::PreRegister(T* obj, ProcPriority update, ProcPriority draw) {
     auto obj_ptr = std::shared_ptr<T>(obj);
     PreRegister(obj_ptr, update, draw);
 }
@@ -1246,7 +1267,7 @@ void Scene::GUI() {
 
     ImGui::Begin(name.c_str(), (bool*)nullptr, flags);
     {
-        ImGui::InputText(u8"名前", debug_scene_name.data(), 1024, ImGuiInputTextFlags_EnterReturnsTrue);
+        ImGui::InputText("名前", debug_scene_name.data(), 1024, ImGuiInputTextFlags_EnterReturnsTrue);
 
         if(ImGui::Button("Save")) {
             Save(debug_scene_name);
@@ -1256,18 +1277,18 @@ void Scene::GUI() {
             Load(debug_scene_name.data());
         }
 
-        if(ImGui::TreeNode(u8"登録シーン")) {
-            ImGui::Text(u8"シーン数 : %d", GetSceneCount());
-            ImGui::Text(u8"TODO: 存在シーン列挙");
-            ImGui::Text(u8"全Object数 : %d", Object::ExistObjectCount());
+        if(ImGui::TreeNode("登録シーン")) {
+            ImGui::Text("シーン数 : %d", GetSceneCount());
+            ImGui::Text("TODO: 存在シーン列挙");
+            ImGui::Text("全Object数 : %d", Object::ExistObjectCount());
 
             if(leak_objs.size() > 0)
-                ImGui::TextColored({1, 0, 0, 1}, u8"LeakObject数 : %d", leak_objs.size());
+                ImGui::TextColored({1, 0, 0, 1}, "LeakObject数 : %d", leak_objs.size());
             ImGui::TreePop();
         }
 
-        ImGui::DragFloat(u8"経過時間", &scene_time, 0.1f, 0, 0, "%.2f");
-        ImGui::Text(u8"シーン内Object数 : %d", current_scene_->GetObjectPtrVec().size());
+        ImGui::DragFloat("経過時間", &scene_time, 0.1f, 0, 0, "%.2f");
+        ImGui::Text("シーン内Object数 : %d", current_scene_->GetObjectPtrVec().size());
 
         //------------------------------------------
         // 登録されているObjectを列挙する
@@ -1356,16 +1377,15 @@ void Scene::GUI() {
         }
         ImGui::EndChild();
         /*
-                ImGui::ListBox( u8"シーン内オブジェクト", &select_object_index,
-           listbox.data(), (int)listbox.size(), size ); if( select_object_index
-           != -1 )
-                {
-                        selectObject = current_scene_->GetObjectPtrVec()[
-           select_object_index ]; auto obj	 = selectObject.lock(); bool b
-           = !obj->GetStatus( Object::StatusBit::ShowGUI ); obj->SetStatus(
-           Object::StatusBit::ShowGUI, b );
-                }
-                */
+		ImGui::ListBox( u8"シーン内オブジェクト", &select_object_index, listbox.data(), (int)listbox.size(), size );
+		if( select_object_index != -1 )
+		{
+			selectObject = current_scene_->GetObjectPtrVec()[ select_object_index ];
+			auto obj	 = selectObject.lock();
+			bool b		 = !obj->GetStatus( Object::StatusBit::ShowGUI );
+			obj->SetStatus( Object::StatusBit::ShowGUI, b );
+		}
+		*/
         auto ims       = ImGui::GetWindowSize();
         inspector_size = {ims.x, ims.y};
 
@@ -1412,9 +1432,10 @@ bool Scene::IsPause() {
     return scene_pause && !scene_step;
 }
 
-void Scene::Pause() {
-    scene_pause     = !IsPause();
-    scene_draw_menu = !scene_draw_menu;
+#pragma region Customized function
+void                      Scene::Pause() {
+                         scene_pause     = !IsPause();
+                         scene_draw_menu = !scene_draw_menu;
 }
 
 void Scene::SetCanPause(bool canPause) {
@@ -1426,10 +1447,10 @@ void Scene::SetSceneBGMList(std::vector<BGMInfo> bgmList) {
 }
 
 void Scene::SetBGMVolume() {
-    if(IsKeyDown(KEY_INPUT_LEFT) || IsPadDown(PAD_ID::PAD_LEFT, DX_PADTYPE_DUAL_SENSE)) {
+    if(IsKeyDown(KEY_INPUT_LEFT) || IsPadOn(PAD_ID::PAD_LEFT)) {
         audio[0] -= 5;
     }
-    if(IsKeyDown(KEY_INPUT_RIGHT) || IsPadDown(PAD_ID::PAD_RIGHT, DX_PADTYPE_DUAL_SENSE)) {
+    if(IsKeyDown(KEY_INPUT_RIGHT) || IsPadOn(PAD_ID::PAD_RIGHT)) {
         audio[0] += 5;
     }
     audio[0] = std::max(0, std::min(100, audio[0]));
@@ -1437,10 +1458,10 @@ void Scene::SetBGMVolume() {
 }
 
 void Scene::SetSEVolume() {
-    if(IsKeyDown(KEY_INPUT_LEFT) || IsPadDown(PAD_ID::PAD_LEFT, DX_PADTYPE_DUAL_SENSE)) {
+    if(IsKeyDown(KEY_INPUT_LEFT) || IsPadOn(PAD_ID::PAD_LEFT)) {
         audio[1] -= 5;
     }
-    if(IsKeyDown(KEY_INPUT_RIGHT) || IsPadDown(PAD_ID::PAD_RIGHT, DX_PADTYPE_DUAL_SENSE)) {
+    if(IsKeyDown(KEY_INPUT_RIGHT) || IsPadOn(PAD_ID::PAD_RIGHT)) {
         audio[1] += 5;
     }
     audio[1] = std::max(0, std::min(100, audio[1]));
@@ -1454,16 +1475,30 @@ int Scene::GetSEVolume() {
     return audio[1];
 }
 
-float Scene::GetTime() {
-    return scene_time;
-}
-
 void Scene::SetEdit(bool edit) {
     scene_edit = edit;
 }
 
 const bool Scene::IsEdit() {
     return scene_edit;
+}
+
+void Scene::QueueScene(BasePtr scene) {
+    queue_scene_ = scene;
+}
+
+void Scene::NextScene() {
+    Change(queue_scene_);
+}
+
+void Scene::ExitApp() {
+    DeleteFontToHandle(font_handle);
+    exit_app = true;
+}
+#pragma endregion
+
+float Scene::GetTime() {
+    return scene_time;
 }
 
 //! @brief ComponentCollisionの当たり判定を行う
@@ -1493,7 +1528,7 @@ void Scene::CheckComponentCollisions() {
                         if(!col_1->IsGroupHit(col_2))
                             continue;
 
-                        //! @todo オブジェクトの当たりをチェックする
+                        // コリジョンどうしの当たりをチェックする
                         ComponentCollision::HitInfo hitInfo;
                         hitInfo = col_1->IsHit(col_2);
 
@@ -1700,11 +1735,6 @@ bool Scene::Load(std::string_view filename) {
     return current_scene_->Load(filename);
 }
 
-void Scene::ExitApp() {
-    DeleteFontToHandle(font_handle);
-    exit_app = true;
-}
-
 //----------------------------------------------------------------------------
 // Doxygen Sceneマニュアル
 //----------------------------------------------------------------------------
@@ -1718,10 +1748,9 @@ void Scene::ExitApp() {
 //!	class SceneSample : public Scene::Base
 //!	{
 //!	public:
-//!		std::string Name() override {   //<
-//!シーンに名前をつける必要があります 			return "Sample"; //<
-//!別のシーンに同じ名前はを使用しないでください。 		} //<
-//! SceneXXXXのXXXXを名前にするとよいと思います。
+//!		std::string Name() override {   //< シーンに名前をつける必要があります
+//!			return "Sample";            //< 別のシーンに同じ名前はを使用しないでください。
+//!		}                               //< SceneXXXXのXXXXを名前にするとよいと思います。
 //!
 //!		bool Init() override
 //!		{
@@ -1752,8 +1781,7 @@ void Scene::ExitApp() {
 //!	};
 //!	@endcode
 //!
-//!	@li 【簡易Scene使用方法】②シーンを切り替える
-//!(初期はGameMainで切り替えます)
+//!	@li 【簡易Scene使用方法】②シーンを切り替える (初期はGameMainで切り替えます)
 //!	@code
 //!	// 例: シーンを「SceneSample」に変更します
 //!	  Scene::Change( Scene::GetScene<SceneSample>() );
