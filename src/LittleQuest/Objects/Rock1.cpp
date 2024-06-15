@@ -4,11 +4,6 @@
 #include <System/Component/ComponentModel.h>
 
 namespace LittleQuest {
-
-//! @brief Editor上でのCreateObject用の設定
-//! @detail BP_OBJECT_TYPEとセットで用意する
-BP_OBJECT_IMPL(Rock1, "LittleQuest/Rock1");
-
 Rock1Ptr Rock1::Create(const float3& pos) {
     auto obj = Scene::CreateObjectPtr<Rock1>();
     obj->SetName("Rock1");

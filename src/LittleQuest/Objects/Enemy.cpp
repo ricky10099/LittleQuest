@@ -14,9 +14,6 @@
 #include <System/Component/ComponentTargetTracking.h>
 
 namespace LittleQuest {
-
-BP_OBJECT_IMPL(Enemy, "LittleQuest/Enemy");
-
 bool Enemy::Init() {
     prevState = state = EnemyState::IDLE;
 

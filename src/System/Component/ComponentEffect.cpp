@@ -8,8 +8,6 @@
 #include <System/Object.h>
 #include <unordered_map>
 
-BP_COMPONENT_IMPL(ComponentEffect, u8"Effectコンポーネント");
-
 std::unordered_map<std::string, int> ComponentEffect::exist_effects_resource_{};
 int                                  ComponentEffect::component_effect_count = 0;
 
@@ -57,7 +55,8 @@ void ComponentEffect::Init() {
     __super::Init();
 
     // 位置決定はアタッチよりも遅くする必要がある
-    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PostUpdate, Priority(PRIORITY(Priority::LOWEST) + 1));
+    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PostUpdate,
+                                          static_cast<ProcPriority>(ProcPriority::LOWEST + 1));
 }
 
 //! @brief モデル更新

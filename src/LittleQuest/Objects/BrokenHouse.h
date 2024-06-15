@@ -6,7 +6,7 @@ namespace LittleQuest {
 USING_PTR(BrokenHouse);
 class BrokenHouse: public Object {
    public:
-    BP_OBJECT_TYPE(BrokenHouse, Object);
+    BP_OBJECT_DECL(BrokenHouse, "LittleQuest/BrokenHouse");
     static BrokenHousePtr Create(std::string name = "BrokenHouse", const float3& pos = {0, 0, 0});
 
     bool Init() override;

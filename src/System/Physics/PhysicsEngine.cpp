@@ -83,7 +83,7 @@ bool AssertFailedImpl(const char* expression, const char* message, const char* f
     OutputDebugStringA(s.c_str());
 
     return true;
-};
+}
 
 #endif    // JPH_ENABLE_ASSERTS
 
@@ -97,11 +97,9 @@ bool AssertFailedImpl(const char* expression, const char* message, const char* f
 // 少なくとも、動かないオブジェクトと動くオブジェクトのレイヤーを用意して
 // フレームごとに静的オブジェクトでいっぱいのツリー更新を実行する必要がないようにする必要があります。
 //
-// オブジェクトレイヤーとBroad-phase
-// Layerとの間に1対1のマッピングが可能ですが、
+// オブジェクトレイヤーとBroad-phase Layerとの間に1対1のマッピングが可能ですが、
 // 多くのオブジェクトレイヤーがある場合は多くのブロードフェーズツリーを作成することになり、効率的ではありません。
-// Broad-phase Layerを微調整したい場合 JPH_TRACK_BROADPHASE_STATS
-// を定義して出力メッセージで報告される統計情報を見てください。
+// Broad-phase Layerを微調整したい場合 JPH_TRACK_BROADPHASE_STATS を定義して出力メッセージで報告される統計情報を見てください。
 namespace BroadPhaseLayers {
 
     constexpr JPH::BroadPhaseLayer NON_MOVING(0);
@@ -281,16 +279,13 @@ class MyBodyActivationListener: public JPH::BodyActivationListener {
     //! アクティブになる時
     virtual void OnBodyActivated([[maybe_unused]] const JPH::BodyID& body_id,
                                  [[maybe_unused]] JPH::uint64        body_user_data) override {
-        // std::cout << "オブジェクトがアクティブになりました." <<
-        // std::endl;
+        // std::cout << "オブジェクトがアクティブになりました." << std::endl;
     }
 
     //! 非アクティブになる時
     virtual void OnBodyDeactivated([[maybe_unused]] const JPH::BodyID& body_id,
                                    [[maybe_unused]] JPH::uint64        body_user_data) override {
-        // std::cout <<
-        // "オブジェクトが非アクティブ(スリープ状態)に移行しました." <<
-        // std::endl;
+        // std::cout << "オブジェクトが非アクティブ(スリープ状態)に移行しました." << std::endl;
     }
 };
 
@@ -325,20 +320,18 @@ class EngineImpl final: public physics::Engine {
 
     //  シーン最適化を実行
     //! @details これによって衝突検出のパフォーマンスが向上します
-    //! @attention
-    //! かなり重い処理のため、毎フレームまたは新しいレベルセクションのストリーミング時などには
+    //! @attention かなり重い処理のため、毎フレームまたは新しいレベルセクションのストリーミング時などには
     //! @attention 絶対に呼び出さない方がよいでしょう。
     virtual void optimize() override;
 
     //  オブジェクトレイヤーをカスタム設定
-    //! @param  [in]    layers
-    //! 自前レイヤーとphysics::ObjectLayersが対応するペアの配列先頭(nullptrで解除)
+    //! @param  [in]    layers      自前レイヤーとphysics::ObjectLayersが対応するペアの配列先頭(nullptrで解除)
     //! @param  [in]    layerCount  配列数
     virtual void setLayerAlias(const std::pair<physics::ObjectLayers, u16>* layers, size_t layerCount) override;
 
     //  オブジェクトレイヤー同士が衝突するかどうかをカスタマイズ
-    //! コールバック関数の [第1引数] 対象のレイヤー [第2引数]
-    //! 相手のレイヤー [戻り値] true:衝突する false:衝突しない
+    //! コールバック関数の [第1引数] 対象のレイヤー [第2引数] 相手のレイヤー
+    //! [戻り値] true:衝突する false:衝突しない
     virtual void overrideLayerCollide(std::function<bool(u16, u16)> callback) override;
 
     // 重力を取得
@@ -375,24 +368,19 @@ class EngineImpl final: public physics::Engine {
     std::unique_ptr<JPH::PhysicsSystem>       jph_physics_system_;    //!< Physicsシステム
     static inline JPH::PhysicsSystem* physics_system_ = nullptr;      //!< Physicsシステムのstaticアクセス用の参照
     static inline JPH::BodyInterface* body_interface_ = nullptr;      //!< ボディインターフェイス参照
-    static inline JPH::TempAllocator* temp_allocator_ = nullptr;      //!< !
-        //!< テンポラリアロケーターのstaticアクセス用の参照
+    static inline JPH::TempAllocator* temp_allocator_ = nullptr;    //!< ! テンポラリアロケーターのstaticアクセス用の参照
 
     //! テンポラリアロケーター
-    //! @details
-    //! 物理演算の更新中にアロケーションを行う必要がないように、事前アロケーションを行っています。
-    //!          もし事前割り当てをしたくない場合はTempAllocatorMallocを使って
-    //!          malloc/freeにフォールバックすることもできます。
+    //! @details 物理演算の更新中にアロケーションを行う必要がないように、事前アロケーションを行っています。
+    //!          もし事前割り当てをしたくない場合はTempAllocatorMallocを使って malloc/freeにフォールバックすることもできます。
     std::unique_ptr<JPH::TempAllocator> jph_temp_allocator_;
 
     //! オブジェクト層からBroad-phase層へのマッピングテーブル
-    //! @attention
-    //! これはインターフェースですのでPhysicsシステムはこのインスタンスへ参照します。
+    //! @attention これはインターフェースですのでPhysicsシステムはこのインスタンスへ参照します。
     //!            このインスタンスはシステムの解放まで必要です。
     BPLayerInterfaceImpl broad_phase_layer_interface_;
 
-    MyBodyActivationListener body_activation_listener_;    //!< ユーザーコールバック
-                                                           //!< BodyActivationListener
+    MyBodyActivationListener body_activation_listener_;    //!< ユーザーコールバック BodyActivationListener
     MyContactListener        contact_listener_;            //!< ユーザーコールバック ContactListener
 
     bool is_valid_ = false;    //!< 正常に初期化されているか
@@ -573,8 +561,7 @@ void EngineImpl::optimize() {
     // 物理シミュレーションを開始する前にBroad-phaseを最適化することができます。
     // これによって衝突検出のパフォーマンスが向上します
     // これは高価な操作なので、毎フレームまたは新しいレベルセクションのストリーミング時などには絶対に呼び出さない方がよいでしょう。
-    // 代替策はすべての新しいオブジェクトを一度に
-    // 1つずつではなく、バッチで挿入してBroad-phaseを効率的に維持することです。
+    // 代替策はすべての新しいオブジェクトを一度に 1つずつではなく、バッチで挿入してBroad-phaseを効率的に維持することです。
     jph_physics_system_->OptimizeBroadPhase();    // ※このタイミングではまだオブジェクトが1つもないため無意味です。
 }
 

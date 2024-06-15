@@ -4,8 +4,6 @@
 #include <System/Scene.h>
 #include <System/ImGui.h>
 
-BP_COMPONENT_IMPL(ComponentSpringArm, u8"SpringArm機能クラス");
-
 //---------------------------------------------------------
 //! 初期化
 //---------------------------------------------------------
@@ -13,9 +11,9 @@ void ComponentSpringArm::Init() {
     __super::Init();
 
     // PreUpdateの最後で自分の位置を設定する(ターゲットの移動の後)
-    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::Update, Priority::LOWEST);
+    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::Update, ProcPriority::LOWEST);
     // 向きはPostUpdateの最初で行っておく(カメラのPost向きよりも前になるように)
-    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PostUpdate, Priority::HIGHEST);
+    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PostUpdate, ProcPriority::HIGHEST);
 
     spring_arm_status_.on(SpringArmBit::Initialized);
 }
@@ -36,6 +34,9 @@ void ComponentSpringArm::Update() {
         if(!owner->GetStatus(Object::StatusBit::Located)) {
             owner->UseWarp();
         }
+
+        if(auto physics = owner->GetComponent<ComponentPhysics>())
+            physics->MoveToWorldMatrix();
     }
 }
 

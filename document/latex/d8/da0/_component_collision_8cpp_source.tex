@@ -1,0 +1,1101 @@
+\hypertarget{_component_collision_8cpp_source}{}\doxysection{Component\+Collision.\+cpp}
+\label{_component_collision_8cpp_source}\index{ComponentCollision.cpp@{ComponentCollision.cpp}}
+\mbox{\hyperlink{_component_collision_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ ComponentCollision.h}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ コリジョンコンポーネント(ベースクラス)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_collision_8h}{System/Component/ComponentCollision.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_transform_8h}{System/Component/ComponentTransform.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_collision_capsule_8h}{System/Component/ComponentCollisionCapsule.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_collision_sphere_8h}{System/Component/ComponentCollisionSphere.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_collision_model_8h}{System/Component/ComponentCollisionModel.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_collision_line_8h}{System/Component/ComponentCollisionLine.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_model_8h}{System/Component/ComponentModel.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_helper_lib_8h}{System/Utils/HelperLib.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_object_8h}{System/Object.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00020}00020\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00021}00021\ \textcolor{comment}{//\ 大きな値を取得する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00022}00022\ float3\ merge(float3\ v1,\ float3\ v2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00023}00023\ \ \ \ \ float3\ vh\{v2.x,\ v2.y,\ v2.z\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{if}(fabs(v1.x)\ >\ fabs(v2.x))}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ vh.x\ =\ v1.x;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00028}00028\ \ \ \ \ \textcolor{keywordflow}{if}(fabs(v1.y)\ >\ fabs(v2.y))}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ vh.y\ =\ v1.y;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{if}(fabs(v1.z)\ >\ fabs(v2.z))}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ vh.z\ =\ v1.z;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{keywordflow}{return}\ vh;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00035}00035\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00036}00036\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00038}\mbox{\hyperlink{class_component_collision_a0444b688615901c5101199447e5978e1}{00038}}\ \mbox{\hyperlink{class_component_collision_a0444b688615901c5101199447e5978e1}{ComponentCollision::ComponentCollision}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00039}00039\ \ \ \ \ \textcolor{comment}{//\ 複数設定可能とする}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00040}00040\ \ \ \ \ \mbox{\hyperlink{class_component_aac4e8d8c91f13222669b6066f50f6ab9}{SetStatus}}(\mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a6b554ca9a13e5407990948d4c68e8229}{Component::StatusBit::SameType}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00041}00041\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00043}\mbox{\hyperlink{class_component_collision_a94fbf4e3003bbf24fdffab518536ce40}{00043}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_a94fbf4e3003bbf24fdffab518536ce40}{ComponentCollision::Construct}}(ObjectPtr\ owner)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00044}00044\ \ \ \ \ \textcolor{comment}{//\ 識別子設定}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00045}00045\ \ \ \ \ assert(owner);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00046}00046\ \ \ \ \ \mbox{\hyperlink{class_component_aaf224b0e73780a9c3cbad323a0ec59f5}{owner\_}}\ \ \ \ =\ owner;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00047}00047\ \ \ \ \ \textcolor{keyword}{auto}\ cmps\ =\ owner-\/>GetComponents<\mbox{\hyperlink{class_component_collision}{ComponentCollision}}>();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{keywordtype}{int}\ \ max\ \ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{for}(ComponentCollisionPtr\ cmp:\ cmps)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((\textcolor{keywordtype}{int})cmp-\/>collision\_id\_\ >\ max)}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ max\ =\ (\textcolor{keywordtype}{int})cmp-\/>\mbox{\hyperlink{class_component_collision_af40acb66ae551af4b1282068ef0413d7}{collision\_id\_}};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00054}00054\ \ \ \ \ \textcolor{comment}{//\ 割り出したIDを\ collision\_id\_\ に入れる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00055}00055\ \ \ \ \ \mbox{\hyperlink{class_component_collision_af40acb66ae551af4b1282068ef0413d7}{collision\_id\_}}\ =\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})(max\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00056}00056\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00057}00057\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00058}00058\ \textcolor{comment}{//!\ @brief\ 当たった情報はコールバックで送られてくる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00059}00059\ \textcolor{comment}{//!\ @param\ hitInfo\ 当たった情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00060}00060\ \textcolor{comment}{//!\ @details\ 当たった回数分ここに来ます}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00061}\mbox{\hyperlink{class_component_collision_a412887df689fc1fcb9cf1956f97929ce}{00061}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_a412887df689fc1fcb9cf1956f97929ce}{ComponentCollision::OnHit}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{HitInfo}}\&\ hitInfo)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00062}00062\ \ \ \ \ \textcolor{keyword}{auto}\ obj\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00064}00064\ \ \ \ \ \textcolor{comment}{//\ Staticな物質にぶつかった場合、gravity\_を下げる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{if}(hitInfo.\mbox{\hyperlink{struct_component_collision_1_1_hit_info_a57fe6831b0522f5114aca8b0c12486a7}{hit\_collision\_}}-\/>GetMass()\ <\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ vec\ =\ obj-\/>GetTranslate()\ -\/\ obj-\/>GetOldWorldMatrix().translate();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ float3\ nvc\ =\ \{0.0f,\ -\/1.0f,\ 0.0f\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(length(vec).x\ <=\ 0\ ||\ length(\mbox{\hyperlink{class_component_collision_a9ff189df0b91e45fd2d8a925f8d94bbe}{now\_gravity\_}}).x\ <=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_a9ff189df0b91e45fd2d8a925f8d94bbe}{now\_gravity\_}}\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ nvc\ \ \ \ \ =\ normalize(vec);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ d\ =\ dot(normalize(\mbox{\hyperlink{class_component_collision_a9ff189df0b91e45fd2d8a925f8d94bbe}{now\_gravity\_}}),\ nvc);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_a9ff189df0b91e45fd2d8a925f8d94bbe}{now\_gravity\_}}\ *=\ (1\ -\/\ d\ *\ d\ *\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00075}00075\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00077}00077\ \ \ \ \ obj-\/>OnHit(hitInfo);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00078}00078\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00080}00080\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00081}00081\ \textcolor{keywordtype}{void}\ ComponentCollision::SetName(std::string\_view\ name)}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00082}00082\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00083}00083\ \ \ \ \ \mbox{\hyperlink{class_component_collision_a238103056a281d08151c0b556bbbcb20}{name\_}}\ =\ name;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00084}00084\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00085}00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00087}\mbox{\hyperlink{class_component_collision_a080b316d9ac4d2f083402e273044c6fc}{00087}}\ std::string\_view\ \mbox{\hyperlink{class_component_collision_a080b316d9ac4d2f083402e273044c6fc}{ComponentCollision::GetName}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_collision_a238103056a281d08151c0b556bbbcb20}{name\_}};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00089}00089\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00091}\mbox{\hyperlink{_component_collision_8cpp_acfefe1d351c7952300c03d5496a5e42b}{00091}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}\ \mbox{\hyperlink{_component_collision_8cpp_acfefe1d351c7952300c03d5496a5e42b}{collisionGroupName}}[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00092}00092\ \ \ \ \ \textcolor{stringliteral}{"{}WALL"{}},\ \textcolor{stringliteral}{"{}GROUND"{}},\ \textcolor{stringliteral}{"{}PLAYER"{}},\ \textcolor{stringliteral}{"{}ENEMY\ "{}},\ \textcolor{stringliteral}{"{}WEAPON"{}},\ \textcolor{stringliteral}{"{}ITEM\ \ "{}},\ \textcolor{stringliteral}{"{}CAMERA"{}},\ \textcolor{stringliteral}{"{}ETC"{}},}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00093}00093\ \};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00095}\mbox{\hyperlink{class_component_collision_a7f3cf1b4259c82671d1fe0ab515dfd4f}{00095}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_a7f3cf1b4259c82671d1fe0ab515dfd4f}{ComponentCollision::GUICollisionData}}(\textcolor{keywordtype}{bool}\ use\_attach)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00096}00096\ \ \ \ \ \textcolor{comment}{//\ コリジョンデータ表示}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00097}00097\ \ \ \ \ \mbox{\hyperlink{class_component_collision_ab2e3cf71fa639a9758de957261482b3a}{guiCollisionData}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00099}00099\ \ \ \ \ \textcolor{comment}{//\ アタッチが存在必要な時}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{if}(use\_attach)}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_a1c400d03366108fb65ccb6877210368d}{guiCollisionDataAttach}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00102}00102\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00104}\mbox{\hyperlink{class_component_collision_a8928152ceb11e9abde8783b676ede74a}{00104}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_a8928152ceb11e9abde8783b676ede74a}{ComponentCollision::LateUpdate}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00105}00105\ \ \ \ \ \_\_super::LateUpdate();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00107}00107\ \ \ \ \ \textcolor{comment}{//\ モデルにアタッチしている場合}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00108}00108\ \ \ \ \ \textcolor{comment}{//\ attach\_node\_matrix\_\ にモデルのNode位置を設定する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_collision_abe3b52ccae56611004f143f9534a3499}{attach\_node\_}}\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_a8d78046138a5fee6167b6a56db600fdc}{attach\_node\_matrix\_}}\ =\ \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix::identity}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>GetComponent<ComponentModel>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_a8d78046138a5fee6167b6a56db600fdc}{attach\_node\_matrix\_}}\ =\ MV1GetFrameLocalWorldMatrix(mdl-\/>GetModel(),\ \mbox{\hyperlink{class_component_collision_abe3b52ccae56611004f143f9534a3499}{attach\_node\_}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00114}00114\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00115}00115\ \textcolor{preprocessor}{\#ifdef\ USE\_JOLT\_PHYSICS}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00116}00116\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00117}00117\ \ \ \ \ \textcolor{comment}{//\ 重力加速度}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00118}00118\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_collision_a06330f2567778636d147ee9038158d64}{use\_gravity\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a634c129849b163809658689d759a5c23}{SetGravity}}(\mbox{\hyperlink{class_component_collision_a9ff189df0b91e45fd2d8a925f8d94bbe}{now\_gravity\_}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_a9ff189df0b91e45fd2d8a925f8d94bbe}{now\_gravity\_}}\ +=\ \mbox{\hyperlink{class_component_collision_a402baed27cf6d1dbbd8bdfc1dca217db}{gravity\_}}\ *\ \mbox{\hyperlink{_system_main_8cpp_a452fbbb7d3c2ce1a51dbcfbb8274c617}{GetDeltaTime}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00121}00121\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_a9ff189df0b91e45fd2d8a925f8d94bbe}{now\_gravity\_}}\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00123}00123\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00124}00124\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00125}00125\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00127}\mbox{\hyperlink{class_component_collision_a07797720b03a52d7ef99b6c264b717fc}{00127}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_a07797720b03a52d7ef99b6c264b717fc}{ComponentCollision::PostUpdate}}()\ \{\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00128}00128\ \textcolor{comment}{\ \ \ \ //!\ 古いマトリクスを更新します}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00129}00129\ \textcolor{comment}{}\ \ \ \ \mbox{\hyperlink{class_component_collision_a56fe7bf6d5b1f6e5ad9c6e48393c7fbb}{old\_transform\_}}\ =\ \mbox{\hyperlink{class_component_collision_a7c35f5cbec169010e664494423e8994f}{collision\_transform\_}};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00130}00130\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00131}00131\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00132}00132\ \textcolor{comment}{//!\ @brief\ GUI処理}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00133}\mbox{\hyperlink{class_component_collision_af718f2408feb81680296dbb55becaf1b}{00133}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_af718f2408feb81680296dbb55becaf1b}{ComponentCollision::GUI}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00135}\mbox{\hyperlink{class_component_collision_ae32da63aa682d4c3170b82830c8510c8}{00135}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_ae32da63aa682d4c3170b82830c8510c8}{ComponentCollision::AttachToModel}}(\textcolor{keywordtype}{int}\ node)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00136}00136\ \ \ \ \ \mbox{\hyperlink{class_component_collision_abe3b52ccae56611004f143f9534a3499}{attach\_node\_}}\ =\ node;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00137}00137\ \textcolor{preprocessor}{\#ifdef\ USE\_JOLT\_PHYSICS}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00138}00138\ \ \ \ \ \textcolor{keywordflow}{if}(GetRigidBody())}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ GetRigidBody()-\/>setGravityFactor(0.0f);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00140}00140\ \textcolor{preprocessor}{\#endif\ USE\_JOLT\_PHYSICS}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00141}00141\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00143}\mbox{\hyperlink{class_component_collision_a092c178453abff068b19e59578cdf038}{00143}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_ae32da63aa682d4c3170b82830c8510c8}{ComponentCollision::AttachToModel}}(\textcolor{keyword}{const}\ std::string\_view\ name)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00144}00144\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>GetComponent<ComponentModel>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_abe3b52ccae56611004f143f9534a3499}{attach\_node\_}}\ =\ mdl-\/>GetNodeIndex(name);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00146}00146\ \textcolor{preprocessor}{\#ifdef\ USE\_JOLT\_PHYSICS}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(GetRigidBody())}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ GetRigidBody()-\/>setGravityFactor(0.0f);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00149}00149\ \textcolor{preprocessor}{\#endif\ USE\_JOLT\_PHYSICS}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00150}00150\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00151}00151\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00153}\mbox{\hyperlink{class_component_collision_a2000e6a32abacaf3d32bdb00115546e7}{00153}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_component_collision_a2000e6a32abacaf3d32bdb00115546e7}{ComponentCollision::GetAttachedNode}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00154}00154\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_collision_abe3b52ccae56611004f143f9534a3499}{attach\_node\_}};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00155}00155\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00156}00156\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00157}\mbox{\hyperlink{class_component_collision_ab2e3cf71fa639a9758de957261482b3a}{00157}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_ab2e3cf71fa639a9758de957261482b3a}{ComponentCollision::guiCollisionData}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00158}00158\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00159}00159\ \ \ \ \ \textcolor{comment}{//\ GUIコリジョン基本情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00160}00160\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00161}00161\ \ \ \ \ \textcolor{keyword}{auto}\ str\ =\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}コリジョンタイプ\ :\ "{}}\ +\ \mbox{\hyperlink{class_component_collision_a9cc00683556722e2d809cd9ba1f51422}{CollisionTypeName}}[(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a0703267eaf89608f466562899e659aa5}{collision\_type\_}}];}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00162}00162\ \ \ \ \ ImGui::Text(str.c\_str());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00163}00163\ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00164}00164\ \ \ \ \ ImGui::Text(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}コリジョングループ:\ "{}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00165}00165\ \ \ \ \ ImGui::SameLine();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00166}00166\ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ \mbox{\hyperlink{class_component_collision_a54afc5d8b83ab4bf6b994a9ab1eaaff1}{GetCollisionGroupIndex}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00167}00167\ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Combo(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}\#\#コリジョングループ"{}},\ \&index,\ \mbox{\hyperlink{_component_collision_8cpp_acfefe1d351c7952300c03d5496a5e42b}{collisionGroupName}},}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keyword}{sizeof}(\mbox{\hyperlink{_component_collision_8cpp_acfefe1d351c7952300c03d5496a5e42b}{collisionGroupName}})\ /\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{_component_collision_8cpp_acfefe1d351c7952300c03d5496a5e42b}{collisionGroupName}}[0]))))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_ade25258ae0d5861b1351b37cfba62b41}{collision\_group\_}}\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebf}{CollisionGroup}}\textcolor{keyword}{>}(1\ <<\ index);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00170}00170\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00171}00171\ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00173}00173\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00174}00174\ \ \ \ \ \textcolor{comment}{//\ ゲーム中のヒット表示}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00175}00175\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00176}00176\ \ \ \ \ \textcolor{comment}{//\ \ ImGui::CheckboxFlags(u8"{}初期化済み"{},\ \&collision\_status\_.get(),\ 1\ <<}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00177}00177\ \ \ \ \ \textcolor{comment}{//\ \ (u32)CollisionBit::Initialized);}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00178}00178\ \ \ \ \ ImGui::CheckboxFlags(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}ヒットしない"{}},\ \&\mbox{\hyperlink{class_component_collision_a7ccef5dcf94b38e8bb2b13589ffba1ed}{collision\_status\_}}.\mbox{\hyperlink{struct_status_a5ab7163f7b7a66a3194abef65187eddc}{get}}(),\ 1\ <<\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a09ef016a0bdbe352924b8c714b8f6e5daf5dcb4a16c9cba228cbc26f01d9ab113}{CollisionBit::DisableHit}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00179}00179\ \ \ \ \ ImGui::CheckboxFlags(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}ゲーム中表示"{}},\ \&\mbox{\hyperlink{class_component_collision_a7ccef5dcf94b38e8bb2b13589ffba1ed}{collision\_status\_}}.\mbox{\hyperlink{struct_status_a5ab7163f7b7a66a3194abef65187eddc}{get}}(),\ 1\ <<\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a09ef016a0bdbe352924b8c714b8f6e5da84bc9636c1bdddab2cc7fd1c05fd8da9}{CollisionBit::ShowInGame}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00180}00180\ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00182}00182\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00183}00183\ \ \ \ \ \textcolor{comment}{//\ Hitするグループの設定}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00184}00184\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00185}00185\ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::TreeNode(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Hitするグループ"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}WALL"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_aa2ea132001b00585d45467e08c8a0543}{collision\_hit\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa48d536b2de1195d0c9f6ea8ab884085e}{CollisionGroup::WALL}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}GROUND"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_aa2ea132001b00585d45467e08c8a0543}{collision\_hit\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfadedcb56e75fe1488e20865e0ea36d0b9}{CollisionGroup::GROUND}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}PLAYER"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_aa2ea132001b00585d45467e08c8a0543}{collision\_hit\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa07c80e2a355d91402a00d82b1fa13855}{CollisionGroup::PLAYER}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}ENEMY"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_aa2ea132001b00585d45467e08c8a0543}{collision\_hit\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa92b09d1635332c90ae8508618a174244}{CollisionGroup::ENEMY}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}WEAPON"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_aa2ea132001b00585d45467e08c8a0543}{collision\_hit\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa192633948703cf46924846d15ea7b5c1}{CollisionGroup::WEAPON}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}ITEM"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_aa2ea132001b00585d45467e08c8a0543}{collision\_hit\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa2b911c015ed17a423c74ab9987330e60}{CollisionGroup::ITEM}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}CAMERA"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_aa2ea132001b00585d45467e08c8a0543}{collision\_hit\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfaddf0d6b21537d984fea6544f58101fa8}{CollisionGroup::CAMERA}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}ETC"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_aa2ea132001b00585d45467e08c8a0543}{collision\_hit\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa602bcb15b1e1b9719d1fae7b1b512431}{CollisionGroup::ETC}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ ImGui::TreePop();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00195}00195\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00197}00197\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00198}00198\ \ \ \ \ \textcolor{comment}{//\ Hitするがオーバーラップするグループ}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00199}00199\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00200}00200\ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::TreeNode(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}オーバーラップするグループ"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}WALL"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_ad9c8ca02fbf7cb8c8d51624ab0678f04}{collision\_overlap\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa48d536b2de1195d0c9f6ea8ab884085e}{CollisionGroup::WALL}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}GROUND"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_ad9c8ca02fbf7cb8c8d51624ab0678f04}{collision\_overlap\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfadedcb56e75fe1488e20865e0ea36d0b9}{CollisionGroup::GROUND}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}PLAYER"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_ad9c8ca02fbf7cb8c8d51624ab0678f04}{collision\_overlap\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa07c80e2a355d91402a00d82b1fa13855}{CollisionGroup::PLAYER}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}ENEMY"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_ad9c8ca02fbf7cb8c8d51624ab0678f04}{collision\_overlap\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa92b09d1635332c90ae8508618a174244}{CollisionGroup::ENEMY}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}WEAPON"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_ad9c8ca02fbf7cb8c8d51624ab0678f04}{collision\_overlap\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa192633948703cf46924846d15ea7b5c1}{CollisionGroup::WEAPON}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}ITEM"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_ad9c8ca02fbf7cb8c8d51624ab0678f04}{collision\_overlap\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa2b911c015ed17a423c74ab9987330e60}{CollisionGroup::ITEM}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00207}00207\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}CAMERA"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_ad9c8ca02fbf7cb8c8d51624ab0678f04}{collision\_overlap\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfaddf0d6b21537d984fea6544f58101fa8}{CollisionGroup::CAMERA}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}ETC"{}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*)\&\mbox{\hyperlink{class_component_collision_ad9c8ca02fbf7cb8c8d51624ab0678f04}{collision\_overlap\_}},\ (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})\mbox{\hyperlink{class_component_collision_a5b62afb68692a7efbde21ae661bd1ebfa602bcb15b1e1b9719d1fae7b1b512431}{CollisionGroup::ETC}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ ImGui::TreePop();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00210}00210\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00211}00211\ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00213}00213\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00214}00214\ \ \ \ \ \textcolor{comment}{//\ 重力設定}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00215}00215\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00216}00216\ \ \ \ \ ImGui::Checkbox(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}重力を使用する"{}},\ \&\mbox{\hyperlink{class_component_collision_a06330f2567778636d147ee9038158d64}{use\_gravity\_}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00217}00217\ \ \ \ \ ImGui::DragFloat3(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}重力加速度"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_component_collision_a402baed27cf6d1dbbd8bdfc1dca217db}{gravity\_}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00219}00219\ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::DragFloat(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}質量"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_component_collision_a4ee515355f686d895f4a469f2f5f8d68}{collision\_mass\_}},\ 0.001f,\ 0,\ 1000000.0f))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_a4ee515355f686d895f4a469f2f5f8d68}{collision\_mass\_}}\ =\ std::min(1000000.0f,\ std::max(\mbox{\hyperlink{class_component_collision_a4ee515355f686d895f4a469f2f5f8d68}{collision\_mass\_}},\ 0.001f));}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00221}00221\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00222}00222\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00224}\mbox{\hyperlink{class_component_collision_a1c400d03366108fb65ccb6877210368d}{00224}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_a1c400d03366108fb65ccb6877210368d}{ComponentCollision::guiCollisionDataAttach}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00225}00225\ \ \ \ \ \textcolor{comment}{//\ モデルにアタッチしているかを調べる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00226}00226\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ cmp\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>GetComponent<ComponentModel>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GUIでの\ AttachNodeの切り替えに対応させる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ attach\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_collision_abe3b52ccae56611004f143f9534a3499}{attach\_node\_}}\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 既にアタッチ済み}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ attach\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Checkbox(\textcolor{stringliteral}{"{}AttachNode"{}},\ \&attach))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!attach)}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_abe3b52ccae56611004f143f9534a3499}{attach\_node\_}}\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ アタッチしていない}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Checkbox(\textcolor{stringliteral}{"{}AttachNode"{}},\ \&attach))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(attach)}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_abe3b52ccae56611004f143f9534a3499}{attach\_node\_}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00243}00243\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GUIノードを列挙します}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ items\ =\ cmp-\/>GetNodesNamePChar();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Combo(\textcolor{stringliteral}{"{}Node"{}},\ \&\mbox{\hyperlink{class_component_collision_abe3b52ccae56611004f143f9534a3499}{attach\_node\_}},\ items.data(),\ (\textcolor{keywordtype}{int})items.size()))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 切り替えたとき}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_a7c35f5cbec169010e664494423e8994f}{collision\_transform\_}}\ =\ \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix::identity}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00250}00250\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00251}00251\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00252}00252\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00253}00253\ \textcolor{comment}{//!\ @brief\ Capsule\ VS\ Sphere}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00254}00254\ \textcolor{comment}{//!\ @param\ col1\ Capsuleコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00255}00255\ \textcolor{comment}{//!\ @param\ col2\ Sphere\ コリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00256}00256\ \textcolor{comment}{//!\ @return\ 当たり情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00257}\mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{00257}}\ \textcolor{comment}{}\mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionCapsulePtr\ col1,\ ComponentCollisionSpherePtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00258}00258\ \ \ \ \ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ info\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00260}00260\ \ \ \ \ \textcolor{comment}{//\ 自分のコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00261}00261\ \ \ \ \ float3\ cpos1\ =\ col1-\/>GetTranslate();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00262}00262\ \ \ \ \ float3\ cpos2\ =\ col1-\/>GetVectorAxisY()\ *\ col1-\/>GetHeight()\ +\ cpos1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00263}00263\ \ \ \ \ \textcolor{keywordtype}{float}\ \ cs\ \ \ \ =\ 1.0f;\ \ \ \ \textcolor{comment}{//<\ スケール}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00265}00265\ \ \ \ \ float3\ epos1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00266}00266\ \ \ \ \ \textcolor{keywordtype}{float}\ \ es\ =\ 1.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00268}00268\ \ \ \ \ \textcolor{comment}{//\ モデルアタッチ}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00269}00269\ \ \ \ \ \textcolor{keywordflow}{if}(col1-\/>attach\_node\_\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00270}00270\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ col1-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ cpos1\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(cpos1,\ 1),\ col1-\/>attach\_node\_matrix\_).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ cpos2\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(cpos2,\ 1),\ col1-\/>attach\_node\_matrix\_).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ cpos2\ =\ normalize(cpos2\ -\/\ cpos1)\ *\ col1-\/>GetHeight()\ +\ cpos1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00274}00274\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00275}00275\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00276}00276\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ComponentTransform(オブジェクト姿勢)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00277}00277\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ cmp\ =\ col1-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_transform}{ComponentTransform}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 高さに回転とスケールを掛け合わせる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ cpos1\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(cpos1,\ 1),\ cmp-\/>GetMatrix()).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ cpos2\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(cpos2,\ 1),\ cmp-\/>GetMatrix()).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 半径はXZで平均としておく}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ cs\ \ \ \ =\ (length(cmp-\/>GetMatrix().axisX())\ +\ length(cmp-\/>GetMatrix().axisZ()))\ /\ 2;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00283}00283\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00284}00284\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00286}00286\ \ \ \ \ \textcolor{comment}{//\ モデルアタッチ}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00287}00287\ \ \ \ \ \textcolor{keywordflow}{if}(col2-\/>attach\_node\_\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00288}00288\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ col1-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ epos1\ =\ col2-\/>GetTranslate();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ epos1\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(epos1,\ 1),\ col2-\/>attach\_node\_matrix\_).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00291}00291\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00292}00292\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00293}00293\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ComponentTransform(オブジェクト姿勢)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00294}00294\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ cmp\ =\ col2-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_transform}{ComponentTransform}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ epos1\ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(col2-\/>GetMatrix(),\ cmp-\/>GetMatrix()).\_41\_42\_43;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pos1\ =\ mul(\ float4(\ pos1,\ 0\ )\ ,\ cmp-\/>GetMatrix()\ ).xyz;}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pos1\ +=\ cmp-\/>GetTranslate().xyz;}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sx\ =\ length(cmp-\/>GetVectorAxisX());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00299}00299\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sy\ =\ length(cmp-\/>GetVectorAxisY());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00300}00300\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sz\ =\ length(cmp-\/>GetVectorAxisZ());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \ \ es\ \ \ \ \ \ \ =\ (sx\ +\ sy\ +\ sz)\ /\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00302}00302\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00303}00303\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00305}00305\ \ \ \ \ \textcolor{keywordtype}{float}\ \ cr\ =\ col1-\/>GetRadius()\ *\ cs;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00306}00306\ \ \ \ \ float3\ cv\ =\ normalize(cpos1\ -\/\ cpos2);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00307}00307\ \ \ \ \ VECTOR\ c1\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(cpos1\ -\/\ cv\ *\ cr);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00308}00308\ \ \ \ \ VECTOR\ c2\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(cpos2\ +\ cv\ *\ cr);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00309}00309\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00310}00310\ \ \ \ \ \textcolor{keywordtype}{float}\ \ er\ =\ col2-\/>GetRadius()\ *\ es;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00311}00311\ \ \ \ \ VECTOR\ e1\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(epos1);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00313}00313\ \ \ \ \ \textcolor{comment}{//\ 跳ね返り点が欲しいため、HitCheck\_Capsule\_Capsuleは使わない}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00314}00314\ \ \ \ \ SEGMENT\_POINT\_RESULT\ result;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00315}00315\ \ \ \ \ Segment\_Point\_Analyse(\&c1,\ \&c2,\ \&e1,\ \&result);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00316}00316\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00317}00317\ \ \ \ \ \textcolor{keywordflow}{if}(result.Seg\_Point\_MinDist\_Square\ <\ (cr\ +\ er)\ *\ (cr\ +\ er))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00318}00318\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 線と線で一番近くなる点を求め、ベクトル化する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00319}00319\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 最も近い点}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00320}00320\ \ \ \ \ \ \ \ \ float3\ c0\ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.Seg\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00321}00321\ \ \ \ \ \ \ \ \ float3\ e0\ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(e1);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00322}00322\ \ \ \ \ \ \ \ \ float3\ vec\ =\ e0\ -\/\ c0;\ \ \ \ \textcolor{comment}{//\ 調べたほうの跳ね返りの方向(100\%)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00323}00323\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ len\ =\ length(vec);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00324}00324\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(abs(len)\ <=\ abs(len)\ *\ FLT\_EPSILON)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00325}00325\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 全く同じ位置にいる場合はz移動する形にしておく}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00326}00326\ \ \ \ \ \ \ \ \ \ \ \ \ vec\ =\ \{0,\ 0,\ 1\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00327}00327\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00328}00328\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00329}00329\ \ \ \ \ \ \ \ \ float3\ vs\ =\ normalize(vec)\ *\ (cr\ +\ er);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00330}00330\ \ \ \ \ \ \ \ \ vec\ -\/=\ vs;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00331}00331\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00332}00332\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ このpush\_は、調べたほうの押し戻し方向100\%で作成する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00333}00333\ \ \ \ \ \ \ \ \ info.push\_\ \ \ \ \ \ \ \ \ =\ vec;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00334}00334\ \ \ \ \ \ \ \ \ info.hit\_\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00335}00335\ \ \ \ \ \ \ \ \ info.hit\_position\_\ =\ (e0\ +\ c0)\ *\ 0.5f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00336}00336\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00337}00337\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00338}00338\ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00339}00339\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00340}00340\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00341}00341\ \textcolor{comment}{//!\ @brief\ Sphere\ VS\ Capsule}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00342}00342\ \textcolor{comment}{//!\ @param\ col1\ Sphereコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00343}00343\ \textcolor{comment}{//!\ @param\ col2\ Capsule\ コリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00344}00344\ \textcolor{comment}{//!\ @return\ 当たり情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00345}\mbox{\hyperlink{class_component_collision_a675957da5f924d6a6ee0bbfbcb52943f}{00345}}\ \textcolor{comment}{}\mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionSpherePtr\ col1,\ ComponentCollisionCapsulePtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00346}00346\ \ \ \ \ \textcolor{keyword}{auto}\ hit\ \ =\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{isHit}}(col2,\ col1);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00347}00347\ \ \ \ \ hit.push\_\ =\ -\/hit.push\_;\ \ \ \ \textcolor{comment}{//\ push方向を反対にする}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00348}00348\ \ \ \ \ \textcolor{keywordflow}{return}\ hit;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00349}00349\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00350}00350\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00351}00351\ \textcolor{comment}{//!\ @brief\ Capsule\ VS\ Capsule}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00352}00352\ \textcolor{comment}{//!\ @param\ col1\ Capsuleコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00353}00353\ \textcolor{comment}{//!\ @param\ col2\ Capsule\ コリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00354}00354\ \textcolor{comment}{//!\ @return\ 当たり情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00355}\mbox{\hyperlink{class_component_collision_a854cfd26167c281516cc37561ba36c84}{00355}}\ \textcolor{comment}{}\mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionCapsulePtr\ col1,\ ComponentCollisionCapsulePtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00356}00356\ \ \ \ \ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ info\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00357}00357\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00358}00358\ \ \ \ \ \textcolor{comment}{//\ 自分のコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00359}00359\ \ \ \ \ float3\ cpos1\ =\ col1-\/>GetTranslate();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00360}00360\ \ \ \ \ float3\ cpos2\ =\ normalize(col1-\/>GetVectorAxisY())\ *\ col1-\/>GetHeight()\ +\ cpos1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00361}00361\ \ \ \ \ \textcolor{keywordtype}{float}\ \ cs\ \ \ \ =\ 1.0f;\ \ \ \ \textcolor{comment}{//<\ スケール}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00362}00362\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00363}00363\ \ \ \ \ \textcolor{comment}{//\ モデルアタッチ}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00364}00364\ \ \ \ \ \textcolor{keywordflow}{if}(col1-\/>attach\_node\_\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00365}00365\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ col1-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ cpos1\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(cpos1,\ 1),\ col1-\/>attach\_node\_matrix\_).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ cpos2\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(cpos2,\ 1),\ col1-\/>attach\_node\_matrix\_).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ cpos2\ =\ normalize(cpos2\ -\/\ cpos1)\ *\ col1-\/>GetHeight()\ +\ cpos1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00369}00369\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00370}00370\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00371}00371\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ComponentTransform(オブジェクト姿勢)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00372}00372\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ cmp\ =\ col1-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_transform}{ComponentTransform}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ mtx\ =\ cmp-\/>GetWorldMatrix();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 高さに回転とスケールを掛け合わせる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ cpos1\ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(cpos1,\ 1),\ mtx).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00376}00376\ \ \ \ \ \ \ \ \ \ \ \ \ cpos2\ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(cpos2,\ 1),\ mtx).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00377}00377\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 半径はXZで平均としておく}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ cs\ \ \ \ \ \ \ \ =\ (length(mtx.axisX())\ +\ length(mtx.axisZ()))\ /\ 2;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00379}00379\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00380}00380\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00381}00381\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00382}00382\ \ \ \ \ \textcolor{comment}{//\ 相手のコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00383}00383\ \ \ \ \ float3\ epos1\ =\ col2-\/>GetTranslate();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00384}00384\ \ \ \ \ float3\ epos2\ =\ normalize(col2-\/>GetVectorAxisY())\ *\ col2-\/>GetHeight()\ +\ epos1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00385}00385\ \ \ \ \ \textcolor{keywordtype}{float}\ \ es\ \ \ \ =\ 1.0f;\ \ \ \ \textcolor{comment}{//<\ スケール}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00386}00386\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00387}00387\ \ \ \ \ \textcolor{comment}{//\ モデルアタッチ}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00388}00388\ \ \ \ \ \textcolor{keywordflow}{if}(col2-\/>attach\_node\_\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00389}00389\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ col2-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ epos1\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(epos1,\ 1),\ col2-\/>attach\_node\_matrix\_).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ epos2\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(epos2,\ 1),\ col2-\/>attach\_node\_matrix\_).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ epos2\ =\ normalize(epos2\ -\/\ epos1)\ *\ col2-\/>GetHeight()\ +\ epos1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00393}00393\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00394}00394\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00395}00395\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ComponentTransform(オブジェクト姿勢)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00396}00396\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ cmp\ =\ col2-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_transform}{ComponentTransform}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ mtx\ =\ cmp-\/>GetWorldMatrix();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 高さに回転とスケールを掛け合わせる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ epos1\ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(epos1,\ 1),\ mtx).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ epos2\ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(epos2,\ 1),\ mtx).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 半径はXZで平均としておく}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ es\ \ \ \ \ \ \ \ =\ (length(mtx.axisX())\ +\ length(mtx.axisZ()))\ /\ 2;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00403}00403\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00404}00404\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00405}00405\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00406}00406\ \ \ \ \ \textcolor{keywordtype}{float}\ \ cr\ =\ col1-\/>GetRadius()\ *\ cs;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00407}00407\ \ \ \ \ float3\ cv\ =\ normalize(cpos1\ -\/\ cpos2);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00408}00408\ \ \ \ \ VECTOR\ c1\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(cpos1\ -\/\ (cv\ *\ cr));}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00409}00409\ \ \ \ \ VECTOR\ c2\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(cpos2\ +\ (cv\ *\ cr));}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00410}00410\ \ \ \ \ \textcolor{keywordtype}{float}\ \ er\ =\ col2-\/>GetRadius()\ *\ es;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00411}00411\ \ \ \ \ float3\ ev\ =\ normalize(epos1\ -\/\ epos2);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00412}00412\ \ \ \ \ VECTOR\ e1\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(epos1\ -\/\ (ev\ *\ er));}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00413}00413\ \ \ \ \ VECTOR\ e2\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(epos2\ +\ (ev\ *\ er));}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00414}00414\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00415}00415\ \ \ \ \ \textcolor{comment}{//\ 跳ね返り点が欲しいため、HitCheck\_Capsule\_Capsuleは使わない}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00416}00416\ \ \ \ \ SEGMENT\_SEGMENT\_RESULT\ result;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00417}00417\ \ \ \ \ Segment\_Segment\_Analyse(\&c1,\ \&c2,\ \&e1,\ \&e2,\ \&result);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00418}00418\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00419}00419\ \textcolor{preprocessor}{\#if\ 0\ \ \ \ }\textcolor{comment}{//\ 当たり不具合チェック用}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00420}00420\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ col1-\/>attach\_node\_\ )}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00421}00421\ \ \ \ \ \ \ \ \ DrawCapsule3D(\ c1,\ c2,\ cr,\ 10,\ GetColor(\ 0,\ 0,\ 255\ ),\ GetColor(\ 0,\ 0,\ 255\ ),\ FALSE\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00422}00422\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00423}00423\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ col2-\/>attach\_node\_\ )}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00424}00424\ \ \ \ \ \ \ \ \ DrawCapsule3D(\ e1,\ e2,\ er,\ 10,\ GetColor(\ 0,\ 0,\ 255\ ),\ GetColor(\ 0,\ 0,\ 255\ ),\ FALSE\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00425}00425\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00426}00426\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00427}00427\ \ \ \ \ \textcolor{keywordflow}{if}(result.SegA\_SegB\_MinDist\_Square\ <\ (cr\ +\ er)\ *\ (cr\ +\ er))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00428}00428\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 線と線で一番近くなる点を求め、ベクトル化する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00429}00429\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 最も近い点}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00430}00430\ \ \ \ \ \ \ \ \ float3\ c0\ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.SegA\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00431}00431\ \ \ \ \ \ \ \ \ float3\ e0\ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.SegB\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00432}00432\ \ \ \ \ \ \ \ \ float3\ vec\ =\ e0\ -\/\ c0;\ \ \ \ \textcolor{comment}{//\ 調べたほうの跳ね返りの方向(100\%)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00433}00433\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00434}00434\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ len\ =\ length(vec);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00435}00435\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(abs(len)\ <=\ abs(len)\ *\ FLT\_EPSILON)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00436}00436\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 全く同じ位置にいる場合はz移動する形にしておく}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ vec\ =\ \{0,\ 0,\ 1\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00438}00438\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00439}00439\ \ \ \ \ \ \ \ \ float3\ vs\ =\ normalize(vec)\ *\ (cr\ +\ er);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00440}00440\ \ \ \ \ \ \ \ \ vec\ -\/=\ vs;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00441}00441\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00442}00442\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ このpush\_は、調べたほうの押し戻し方向100\%で作成する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00443}00443\ \ \ \ \ \ \ \ \ info.push\_\ \ \ \ \ \ \ \ \ =\ vec;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00444}00444\ \ \ \ \ \ \ \ \ info.hit\_\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00445}00445\ \ \ \ \ \ \ \ \ info.hit\_position\_\ =\ (e0\ +\ c0)\ *\ 0.5f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00446}00446\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00447}00447\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00448}00448\ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00449}00449\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00450}00450\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00451}00451\ \textcolor{comment}{//!\ @brief\ Sphere\ VS\ Sphere}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00452}00452\ \textcolor{comment}{//!\ @param\ col1\ Sphereコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00453}00453\ \textcolor{comment}{//!\ @param\ col2\ Sphere\ コリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00454}00454\ \textcolor{comment}{//!\ @return\ 当たり情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00455}\mbox{\hyperlink{class_component_collision_aa9fdb656b5a2d37818e43f5035bb33f4}{00455}}\ \textcolor{comment}{}\mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionSpherePtr\ col1,\ ComponentCollisionSpherePtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00456}00456\ \ \ \ \ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ info\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00457}00457\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00458}00458\ \ \ \ \ float3\ pos1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00459}00459\ \ \ \ \ \textcolor{keywordtype}{float}\ \ scale1\ =\ 1.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00460}00460\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00461}00461\ \ \ \ \ \textcolor{comment}{//\ モデルアタッチ}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00462}00462\ \ \ \ \ \textcolor{keywordflow}{if}(col1-\/>attach\_node\_\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00463}00463\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ col1-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ \ \ pos1\ =\ col1-\/>GetTranslate();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ \ \ pos1\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(pos1,\ 1),\ col1-\/>attach\_node\_matrix\_).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00466}00466\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00467}00467\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00468}00468\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ cmp\ =\ col1-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_transform}{ComponentTransform}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00469}00469\ \ \ \ \ \ \ \ \ \ \ \ \ pos1\ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(col1-\/>GetMatrix(),\ cmp-\/>GetWorldMatrix()).\_41\_42\_43;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00470}00470\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pos1\ =\ mul(\ float4(\ pos1,\ 0\ )\ ,\ cmp-\/>GetMatrix()\ ).xyz;}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00471}00471\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pos1\ +=\ cmp-\/>GetTranslate().xyz;}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00472}00472\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sx\ =\ length(cmp-\/>GetVectorAxisX());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00473}00473\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sy\ =\ length(cmp-\/>GetVectorAxisY());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00474}00474\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sz\ =\ length(cmp-\/>GetVectorAxisZ());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00475}00475\ \ \ \ \ \ \ \ \ \ \ \ \ scale1\ \ \ =\ (sx\ +\ sy\ +\ sz)\ /\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00476}00476\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00477}00477\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00478}00478\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00479}00479\ \ \ \ \ float3\ pos2;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00480}00480\ \ \ \ \ \textcolor{keywordtype}{float}\ \ scale2\ =\ 1.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00481}00481\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00482}00482\ \ \ \ \ \textcolor{comment}{//\ モデルアタッチ}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00483}00483\ \ \ \ \ \textcolor{keywordflow}{if}(col2-\/>attach\_node\_\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00484}00484\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ col2-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00485}00485\ \ \ \ \ \ \ \ \ \ \ \ \ pos2\ =\ col2-\/>GetTranslate();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00486}00486\ \ \ \ \ \ \ \ \ \ \ \ \ pos2\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(pos2,\ 1),\ col2-\/>attach\_node\_matrix\_).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00487}00487\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00488}00488\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00489}00489\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ cmp\ =\ col2-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_transform}{ComponentTransform}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ pos2\ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(col2-\/>GetMatrix(),\ cmp-\/>GetWorldMatrix()).\_41\_42\_43;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00491}00491\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pos2\ =\ mul(\ float4(\ pos2,\ 0\ ),\ cmp-\/>GetMatrix()\ ).xyz;}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00492}00492\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ pos2\ +=\ cmp-\/>GetTranslate().xyz;}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00493}00493\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sx\ =\ length(cmp-\/>GetVectorAxisX());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00494}00494\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sy\ =\ length(cmp-\/>GetVectorAxisY());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00495}00495\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sz\ =\ length(cmp-\/>GetVectorAxisZ());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00496}00496\ \ \ \ \ \ \ \ \ \ \ \ \ scale2\ \ \ =\ (sx\ +\ sy\ +\ sz)\ /\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00497}00497\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00498}00498\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00499}00499\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00500}00500\ \ \ \ \ \textcolor{keywordflow}{if}(HitCheck\_Sphere\_Sphere(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pos1),\ col1-\/>GetRadius()\ *\ scale1,\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pos2),\ col2-\/>GetRadius()\ *\ scale2))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00501}00501\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 中間地点を当たった場所にする}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00502}00502\ \ \ \ \ \ \ \ \ info.hit\_\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00503}00503\ \ \ \ \ \ \ \ \ info.hit\_position\_\ =\ (pos1\ -\/\ pos2)\ *\ 0.5f\ +\ pos2;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00504}00504\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00505}00505\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 押し出し方向}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00506}00506\ \ \ \ \ \ \ \ \ float3\ distance\ =\ pos1\ -\/\ pos2;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00507}00507\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ len\ \ \ \ \ \ =\ length(distance);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00508}00508\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(abs(len)\ <=\ abs(len)\ *\ FLT\_EPSILON)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00509}00509\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 全く同じ位置にいる場合はz移動する形にしておく}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00510}00510\ \ \ \ \ \ \ \ \ \ \ \ \ distance\ =\ \{0,\ 0,\ 1\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00511}00511\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00512}00512\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00513}00513\ \ \ \ \ \ \ \ \ float3\ vec\ \ \ \ \ =\ normalize(distance);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00514}00514\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ reallen\ =\ col1-\/>GetRadius()\ *\ scale1\ +\ col2-\/>GetRadius()\ *\ scale2;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00515}00515\ \ \ \ \ \ \ \ \ vec\ \ \ \ \ \ \ \ \ \ \ \ =\ vec\ *\ (reallen\ -\/\ len);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00516}00516\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00517}00517\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ このpush\_は、調べたほうの押し戻し方向100\%で作成する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00518}00518\ \ \ \ \ \ \ \ \ info.push\_\ =\ vec;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00519}00519\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00520}00520\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00521}00521\ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00522}00522\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00523}00523\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00524}00524\ \textcolor{comment}{//!\ @brief\ Model\ VS\ Sphere}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00525}00525\ \textcolor{comment}{//!\ @param\ col1\ Model\ コリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00526}00526\ \textcolor{comment}{//!\ @param\ col2\ Sphereコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00527}00527\ \textcolor{comment}{//!\ @return\ 当たり情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00528}\mbox{\hyperlink{class_component_collision_a2e8994f75df34bcaa60801143d00702e}{00528}}\ \textcolor{comment}{}\mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionSpherePtr\ col1,\ ComponentCollisionModelPtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00529}00529\ \ \ \ \ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ info\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00530}00530\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00531}00531\ \ \ \ \ \textcolor{comment}{//\ モデルが存在していない}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00532}00532\ \ \ \ \ \textcolor{keyword}{auto}\ mdl\ =\ col2-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00533}00533\ \ \ \ \ \textcolor{keywordflow}{if}(mdl\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00534}00534\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00535}00535\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00536}00536\ \ \ \ \ float3\ opos\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00537}00537\ \ \ \ \ float3\ cpos\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00538}00538\ \ \ \ \ \textcolor{keywordflow}{if}(col1-\/>attach\_node\_\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00539}00539\ \ \ \ \ \ \ \ \ cpos\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(col1-\/>GetTranslate(),\ 1),\ col1-\/>attach\_node\_matrix\_).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00540}00540\ \ \ \ \ \ \ \ \ opos\ =\ cpos;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00541}00541\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00542}00542\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ オブジェクト位置に対するコリジョン(1フレーム前)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00543}00543\ \ \ \ \ \ \ \ \ opos\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(col1-\/>GetTranslate(),\ 1),\ col1-\/>GetOwner()-\/>GetOldWorldMatrix()).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00544}00544\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00545}00545\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ オブジェクト位置に対するコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00546}00546\ \ \ \ \ \ \ \ \ cpos\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(col1-\/>GetTranslate(),\ 1),\ col1-\/>GetOwner()-\/>GetWorldMatrix()).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00547}00547\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00548}00548\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 実際の移動できる量にする}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00549}00549\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ move\ \ =\ cpos\ -\/\ opos;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00550}00550\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ movey\ =\ move.y;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00551}00551\ \ \ \ \ \ \ \ \ move.y\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00552}00552\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00553}00553\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(col1-\/>IsUseGravity())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00554}00554\ \ \ \ \ \ \ \ \ \ \ \ \ move\ \ \ =\ col2-\/>checkMovement(opos,\ move,\ \mbox{\hyperlink{class_component_collision_a470351b0810d3f25425899603dbe257b}{difficult\_to\_climb\_}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00555}00555\ \ \ \ \ \ \ \ \ \ \ \ \ move.y\ =\ movey;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00556}00556\ \ \ \ \ \ \ \ \ \ \ \ \ cpos\ \ \ =\ opos\ +\ move;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00557}00557\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 当たりからキャラの位置を求める}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00559}00559\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ rot\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ col1-\/>GetOwner()-\/>GetWorldMatrix();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00560}00560\ \ \ \ \ \ \ \ \ \ \ \ \ rot.\_41\_42\_43\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ float3\{0.0f,\ 0.0f,\ 0.0f\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00561}00561\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ col1r\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(col1-\/>GetTranslate(),\ 1),\ rot).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ \ \ col1-\/>GetOwner()-\/>Translate()\ =\ cpos\ -\/\ col1r;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00563}00563\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00564}00564\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00565}00565\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00566}00566\ \ \ \ \ \textcolor{keywordtype}{float}\ scale\ =\ 1.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00567}00567\ \ \ \ \ \textcolor{keywordflow}{if}(col1-\/>attach\_node\_\ <\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00568}00568\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ mat\ =\ col1-\/>GetMatrix();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00569}00569\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sx\ \ =\ length(mat.axisVectorX());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00570}00570\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sy\ \ =\ length(mat.axisVectorY());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00571}00571\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sz\ \ =\ length(mat.axisVectorZ());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00572}00572\ \ \ \ \ \ \ \ \ scale\ \ \ \ \ =\ (sx\ +\ sy\ +\ sz)\ /\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00573}00573\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00574}00574\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00575}00575\ \ \ \ \ \textcolor{keywordtype}{float}\ radius\ =\ col1-\/>GetRadius()\ *\ scale;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00576}00576\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00577}00577\ \ \ \ \ MV1\_COLL\_RESULT\_POLY\ hit\_poly\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00578}00578\ \ \ \ \ float3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bottom\ =\ cpos\ -\/\ float3\{\ 0,\ col1-\/>GetRadius()\ *\ scale,\ 0\ \};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00579}00579\ \ \ \ \ float3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ top\ \ \ \ =\ opos\ +\ float3\{\ 0,\ col1-\/>GetRadius()\ *\ scale,\ 0\ \};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00580}00580\ \ \ \ \ hit\_poly\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ MV1CollCheck\_Line(\ mdl-\/>GetModel(),\ -\/1,\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ top\ ),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ bottom\ )\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00581}00581\ \ \ \ \ DrawLine3D(\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ top\ ),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ bottom\ ),\ 0xff00ffff\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00582}00582\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00583}00583\ \ \ \ \ \textcolor{keywordflow}{if}(\ hit\_poly.HitFlag\ !=\ 0\ )}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00584}00584\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00585}00585\ \ \ \ \ \ \ \ \ float3\ pos\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ hit\_poly.HitPosition\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00586}00586\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00587}00587\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 半径分押し戻し}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00588}00588\ \ \ \ \ \ \ \ \ float3\ vec\ =\ pos\ -\/\ bottom;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00589}00589\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00590}00590\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 一旦1つ目の当たりだけで返してみる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00591}00591\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ このpush\_は、調べたほうの押し戻し方向100\%で作成する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00592}00592\ \ \ \ \ \ \ \ \ info.push\_\ \ \ \ \ \ \ \ \ =\ vec;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00593}00593\ \ \ \ \ \ \ \ \ info.hit\_\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00594}00594\ \ \ \ \ \ \ \ \ info.hit\_position\_\ =\ pos;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00595}00595\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00596}00596\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00597}00597\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00598}00598\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00599}00599\ \ \ \ \ \textcolor{comment}{//\ 球当たりの確認}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00600}00600\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00601}00601\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 戻し量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00602}00602\ \ \ \ \ \ \ \ \ float3\ vh\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00603}00603\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00604}00604\ \ \ \ \ \ \ \ \ MV1\_COLL\_RESULT\_POLY\_DIM\ hit\_poly\_dim\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00605}00605\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00606}00606\ \ \ \ \ \ \ \ \ float3\ oc\ =\ opos;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00607}00607\ \ \ \ \ \ \ \ \ float3\ cc\ =\ cpos\ -\/\ \mbox{\hyperlink{class_component_collision_a9ff189df0b91e45fd2d8a925f8d94bbe}{now\_gravity\_}};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00608}00608\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00609}00609\ \ \ \ \ \ \ \ \ \textcolor{comment}{//DrawCapsule3D(\ cast(\ oc\ ),\ cast(\ cc\ ),\ radius,\ 10,\ GetColor(\ 0,\ 0,\ 255\ ),\ GetColor(\ 0,\ 0,\ 255\ ),\ FALSE\ );}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00610}00610\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00611}00611\ \ \ \ \ \ \ \ \ hit\_poly\_dim\ =\ MV1CollCheck\_Capsule(\ mdl-\/>GetModel(),\ -\/1,\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ oc\ ),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ cc\ ),\ radius\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00612}00612\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ hit\_poly\_dim.HitNum;\ i++\ )}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00613}00613\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00614}00614\ \ \ \ \ \ \ \ \ \ \ \ \ SEGMENT\_TRIANGLE\_RESULT\ result\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00615}00615\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00616}00616\ \ \ \ \ \ \ \ \ \ \ \ \ VECTOR\ v1\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ oc\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00617}00617\ \ \ \ \ \ \ \ \ \ \ \ \ VECTOR\ v2\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ cc\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00618}00618\ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::Segment\_Triangle\_Analyse(\ \&v1,}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00619}00619\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&v2,}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00620}00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&hit\_poly\_dim.Dim[\ i\ ].Position[\ 0\ ],}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00621}00621\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&hit\_poly\_dim.Dim[\ i\ ].Position[\ 1\ ],}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00622}00622\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&hit\_poly\_dim.Dim[\ i\ ].Position[\ 2\ ],}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00623}00623\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&result\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00624}00624\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00625}00625\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ line\_pos\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ result.Seg\_MinDist\_Pos\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00626}00626\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ tri\_pos\ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ result.Tri\_MinDist\_Pos\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00627}00627\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00628}00628\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ カプセルへの戻し方向}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00629}00629\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{namespace_helper_lib_1_1_math_aabd062a1600edfb36769494ffcb377d6}{HelperLib::Math::NearlyEqual}}(\ length(\ line\_pos\ -\/\ tri\_pos\ ),\ 0\ )\ )}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00630}00630\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00631}00631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ v\ =\ (\ tri\_pos\ -\/\ cpos\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00632}00632\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vh\ \ \ \ \ \ \ =\ merge(\ vh,\ v\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00633}00633\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00634}00634\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00635}00635\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00636}00636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ vec\ =\ normalize(\ line\_pos\ -\/\ tri\_pos\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00637}00637\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 戻し量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00638}00638\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ len\ =\ radius\ -\/\ length(\ line\_pos\ -\/\ tri\_pos\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00639}00639\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ v\ \ \ =\ vec\ *\ len;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00640}00640\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vh\ \ \ \ \ \ \ \ \ =\ merge(\ vh,\ v\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00641}00641\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00642}00642\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00643}00643\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00644}00644\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ hit\_poly\_dim.HitNum\ >\ 0\ )}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00645}00645\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00646}00646\ \ \ \ \ \ \ \ \ \ \ \ \ info.push\_\ \ \ \ \ \ \ \ \ =\ vh;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00647}00647\ \ \ \ \ \ \ \ \ \ \ \ \ info.hit\_\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00648}00648\ \ \ \ \ \ \ \ \ \ \ \ \ info.hit\_position\_\ =\ cpos\ -\/\ vh;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00649}00649\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00650}00650\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00651}00651\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00652}00652\ \textcolor{preprocessor}{\#if\ 1}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00653}00653\ \ \ \ \ \textcolor{comment}{//\ 当たりの確認(通常)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00654}00654\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00655}00655\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 戻し量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00656}00656\ \ \ \ \ \ \ \ \ float3\ vh\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00657}00657\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00658}00658\ \ \ \ \ \ \ \ \ MV1\_COLL\_RESULT\_POLY\_DIM\ hit\_poly\_dim\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00659}00659\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00660}00660\ \ \ \ \ \ \ \ \ float3\ ocenter\ =\ opos\ +\ info.push\_;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00661}00661\ \ \ \ \ \ \ \ \ float3\ ncenter\ =\ cpos\ +\ info.push\_;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00662}00662\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00663}00663\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DrawCapsule3D(\ cast(\ ocenter\ ),\ cast(\ ncenter\ ),\ radius,\ 10,}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00664}00664\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GetColor(\ 0,\ 0,\ 255\ ),\ GetColor(\ 0,\ 0,\ 255\ ),\ FALSE\ );}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00665}00665\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00666}00666\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ スピードは一旦無視。面倒なのでカプセルをそのまま利用}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00667}00667\ \ \ \ \ \ \ \ \ hit\_poly\_dim\ =\ MV1CollCheck\_Capsule(mdl-\/>GetModel(),\ -\/1,\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(ocenter),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(ncenter),\ radius);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00668}00668\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ hit\_poly\_dim.HitNum;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00669}00669\ \ \ \ \ \ \ \ \ \ \ \ \ SEGMENT\_TRIANGLE\_RESULT\ result\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00670}00670\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00671}00671\ \ \ \ \ \ \ \ \ \ \ \ \ VECTOR\ v1\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(ocenter);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00672}00672\ \ \ \ \ \ \ \ \ \ \ \ \ VECTOR\ v2\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(ncenter);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00673}00673\ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::Segment\_Triangle\_Analyse(\&v1,\ \&v2,\ \&hit\_poly\_dim.Dim[i].Position[0],\ \&hit\_poly\_dim.Dim[i].Position[1],}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00674}00674\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&hit\_poly\_dim.Dim[i].Position[2],\ \&result);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00675}00675\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00676}00676\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ line\_pos\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.Seg\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00677}00677\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ tri\_pos\ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.Tri\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00678}00678\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ tri\_nml\ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(hit\_poly\_dim.Dim[i].Normal);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00679}00679\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00680}00680\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ カプセルへの戻し方向}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00681}00681\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_helper_lib_1_1_math_aabd062a1600edfb36769494ffcb377d6}{HelperLib::Math::NearlyEqual}}(length(line\_pos\ -\/\ tri\_pos),\ 0))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00682}00682\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ v\ =\ (tri\_pos\ -\/\ ncenter);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00683}00683\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\ \ \ \ \ \ \ \ =\ v\ +\ (tri\_nml\ *\ radius);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00684}00684\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00685}00685\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vh\ =\ merge(vh,\ v);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00686}00686\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00687}00687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ vec\ =\ normalize(line\_pos\ -\/\ tri\_pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00688}00688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 戻し量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00689}00689\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ len\ =\ radius\ -\/\ length(line\_pos\ -\/\ tri\_pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00690}00690\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ v\ \ \ =\ vec\ *\ len;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00691}00691\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vh\ \ \ \ \ \ \ \ \ =\ merge(vh,\ v);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00692}00692\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00693}00693\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00694}00694\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(hit\_poly\_dim.HitNum\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00695}00695\ \ \ \ \ \ \ \ \ \ \ \ \ info.push\_\ +=\ vh;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00696}00696\ \ \ \ \ \ \ \ \ \ \ \ \ info.hit\_\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00697}00697\ \ \ \ \ \ \ \ \ \ \ \ \ info.hit\_position\_\ +=\ (cpos\ -\/\ vh);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00698}00698\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00699}00699\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00700}00700\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00701}00701\ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00702}00702\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00703}00703\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00704}00704\ \textcolor{comment}{//!\ @brief\ Sphere\ VS\ Capsule}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00705}00705\ \textcolor{comment}{//!\ @param\ col1\ Sphereコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00706}00706\ \textcolor{comment}{//!\ @param\ col2\ Capsule\ コリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00707}00707\ \textcolor{comment}{//!\ @return\ 当たり情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00708}\mbox{\hyperlink{class_component_collision_ad997e54e5cce00844fcc4a5307d92c18}{00708}}\ \textcolor{comment}{}\mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionModelPtr\ col1,\ ComponentCollisionLinePtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00709}00709\ \ \ \ \ \textcolor{keyword}{auto}\ hit\ \ =\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{isHit}}(col2,\ col1);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00710}00710\ \ \ \ \ hit.push\_\ =\ -\/hit.push\_;\ \ \ \ \textcolor{comment}{//\ push方向を反対にする}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00711}00711\ \ \ \ \ \textcolor{keywordflow}{return}\ hit;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00712}00712\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00713}00713\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00714}00714\ \textcolor{comment}{//!\ @brief\ Sphere\ VS\ Capsule}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00715}00715\ \textcolor{comment}{//!\ @param\ col1\ Sphereコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00716}00716\ \textcolor{comment}{//!\ @param\ col2\ Capsule\ コリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00717}00717\ \textcolor{comment}{//!\ @return\ 当たり情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00718}\mbox{\hyperlink{class_component_collision_a98b53043a3e2aea2969844fdbe969662}{00718}}\ \textcolor{comment}{}\mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionModelPtr\ col1,\ ComponentCollisionSpherePtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00719}00719\ \ \ \ \ \textcolor{keyword}{auto}\ hit\ \ =\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{isHit}}(col2,\ col1);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00720}00720\ \ \ \ \ hit.push\_\ =\ -\/hit.push\_;\ \ \ \ \textcolor{comment}{//\ push方向を反対にする}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00721}00721\ \ \ \ \ \textcolor{keywordflow}{return}\ hit;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00722}00722\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00723}00723\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00724}00724\ \textcolor{comment}{//!\ @brief\ Model\ VS\ Capsule}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00725}00725\ \textcolor{comment}{//!\ @param\ col1\ Modelコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00726}00726\ \textcolor{comment}{//!\ @param\ col2\ Capsule\ コリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00727}00727\ \textcolor{comment}{//!\ @return\ 当たり情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00728}\mbox{\hyperlink{class_component_collision_a3f6809820ad10622e13ee3dd8032cbd8}{00728}}\ \textcolor{comment}{}\mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionCapsulePtr\ col1,\ ComponentCollisionModelPtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00729}00729\ \ \ \ \ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ info\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00730}00730\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00731}00731\ \ \ \ \ \textcolor{comment}{//\ モデルが存在していない}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00732}00732\ \ \ \ \ \textcolor{keyword}{auto}\ mdl\ =\ col2-\/>GetOwner()-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00733}00733\ \ \ \ \ \textcolor{keywordflow}{if}(mdl\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00734}00734\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00735}00735\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00736}00736\ \ \ \ \ float3\ opos\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00737}00737\ \ \ \ \ float3\ cpos\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00738}00738\ \ \ \ \ float3\ opos1\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00739}00739\ \ \ \ \ float3\ cpos1\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00740}00740\ \ \ \ \ \textcolor{keyword}{auto}\ \ \ trans\ =\ col1-\/>\mbox{\hyperlink{class_component_model_a2d81d6d6069d89e842d2bb287de0444d}{GetWorldMatrix}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00741}00741\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00742}00742\ \ \ \ \ \textcolor{keywordflow}{if}(col1-\/>attach\_node\_\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00743}00743\ \ \ \ \ \ \ \ \ cpos\ \ =\ trans.\mbox{\hyperlink{classmatrix_af2b5677c2f4ae2e615b4bab101e2c358}{translate}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00744}00744\ \ \ \ \ \ \ \ \ cpos1\ =\ normalize((float3\&)trans.axisVectorY())\ *\ col1-\/>GetHeight()\ +\ cpos;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00745}00745\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00746}00746\ \ \ \ \ \ \ \ \ opos\ \ =\ cpos;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00747}00747\ \ \ \ \ \ \ \ \ opos1\ =\ cpos1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00748}00748\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00749}00749\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ オブジェクト位置に対するコリジョン(1フレーム前)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00750}00750\ \ \ \ \ \ \ \ \ opos\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(col1-\/>GetTranslate(),\ 1),\ col1-\/>GetOwner()-\/>GetOldWorldMatrix()).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00751}00751\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00752}00752\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ オブジェクト位置に対するコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00753}00753\ \ \ \ \ \ \ \ \ cpos\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(col1-\/>GetTranslate(),\ 1),\ col1-\/>GetOwner()-\/>GetWorldMatrix()).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00754}00754\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00755}00755\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 実際の移動できる量にする}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00756}00756\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ move\ \ =\ cpos\ -\/\ opos;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00757}00757\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ movey\ =\ move.y;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00758}00758\ \ \ \ \ \ \ \ \ move.y\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00759}00759\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00760}00760\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(col1-\/>IsUseGravity())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00761}00761\ \ \ \ \ \ \ \ \ \ \ \ \ move\ \ \ =\ col2-\/>checkMovement(opos,\ move,\ \mbox{\hyperlink{class_component_collision_a470351b0810d3f25425899603dbe257b}{difficult\_to\_climb\_}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00762}00762\ \ \ \ \ \ \ \ \ \ \ \ \ move.y\ =\ movey;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00763}00763\ \ \ \ \ \ \ \ \ \ \ \ \ cpos\ \ \ =\ opos\ +\ move;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00764}00764\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00765}00765\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 当たりからキャラの位置を求める}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00766}00766\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ rot\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ col1-\/>GetOwner()-\/>GetMatrix();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00767}00767\ \ \ \ \ \ \ \ \ \ \ \ \ rot.\_41\_42\_43\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ float3\{0.0f,\ 0.0f,\ 0.0f\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00768}00768\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ col1r\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(col1-\/>GetTranslate(),\ 1),\ rot).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00769}00769\ \ \ \ \ \ \ \ \ \ \ \ \ col1-\/>GetOwner()-\/>Translate()\ =\ cpos\ -\/\ col1r;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00770}00770\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00771}00771\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00772}00772\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ その頭の位置}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00773}00773\ \ \ \ \ \ \ \ \ opos1\ =}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00774}00774\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(col1-\/>GetTranslate()\ +\ float3(0,\ col1-\/>GetHeight(),\ 0),\ 1),\ col1-\/>GetOwner()-\/>GetOldWorldMatrix()).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00775}00775\ \ \ \ \ \ \ \ \ cpos1\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(col1-\/>GetTranslate()\ +\ float3(0,\ col1-\/>GetHeight(),\ 0),\ 1),\ col1-\/>GetOwner()-\/>GetWorldMatrix()).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00776}00776\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00777}00777\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00778}00778\ \ \ \ \ \textcolor{keywordtype}{float}\ scale\ =\ 1.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00779}00779\ \ \ \ \ \textcolor{keywordflow}{if}(col1-\/>attach\_node\_\ <\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00780}00780\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ mat\ =\ col1-\/>GetMatrix();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00781}00781\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sx\ \ =\ length(mat.axisVectorX());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00782}00782\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sy\ \ =\ length(mat.axisVectorY());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00783}00783\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ sz\ \ =\ length(mat.axisVectorZ());}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00784}00784\ \ \ \ \ \ \ \ \ scale\ \ \ \ \ =\ (sx\ +\ sy\ +\ sz)\ /\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00785}00785\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00786}00786\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00787}00787\ \ \ \ \ \textcolor{keywordtype}{float}\ radius\ =\ col1-\/>GetRadius()\ *\ scale;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00788}00788\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00789}00789\ \ \ \ \ MV1\_COLL\_RESULT\_POLY\ hit\_poly\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00790}00790\ \ \ \ \ float3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bottom\ =\ cpos;\ \ \ \ \ \textcolor{comment}{//-\/float3\{\ 0,\ col1-\/>GetRadius()\ *\ scale,\ 0\ \};}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00791}00791\ \ \ \ \ float3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ top\ \ \ \ =\ cpos1;\ \ \ \ \textcolor{comment}{//\ bottom\ +\ float3\{\ 0,\ col1-\/>GetRadius()\ *\ scale\ *\ 2,\ 0\ \};}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00792}00792\ \ \ \ \ hit\_poly\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ MV1CollCheck\_Line(mdl-\/>GetModel(),\ -\/1,\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(top),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(bottom));}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00793}00793\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00794}00794\ \ \ \ \ \textcolor{keywordflow}{if}(hit\_poly.HitFlag\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00795}00795\ \ \ \ \ \ \ \ \ float3\ pos\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(hit\_poly.HitPosition);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00796}00796\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00797}00797\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 半径分押し戻し}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00798}00798\ \ \ \ \ \ \ \ \ float3\ vec\ =\ pos\ -\/\ cpos;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00799}00799\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00800}00800\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 一旦1つ目の当たりだけで返してみる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00801}00801\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ このpush\_は、調べたほうの押し戻し方向100\%で作成する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00802}00802\ \ \ \ \ \ \ \ \ info.push\_\ \ \ \ \ \ \ \ \ =\ vec;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00803}00803\ \ \ \ \ \ \ \ \ info.hit\_\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00804}00804\ \ \ \ \ \ \ \ \ info.hit\_position\_\ =\ pos;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00805}00805\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00806}00806\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00807}00807\ \ \ \ \ \textcolor{comment}{//\ 下の球当たりの確認}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00808}00808\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00809}00809\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 戻し量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00810}00810\ \ \ \ \ \ \ \ \ float3\ vh\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00811}00811\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00812}00812\ \ \ \ \ \ \ \ \ MV1\_COLL\_RESULT\_POLY\_DIM\ hit\_poly\_dim\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00813}00813\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00814}00814\ \ \ \ \ \ \ \ \ float3\ oc\ =\ opos\ +\ float3(\ 0,\ radius,\ 0\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00815}00815\ \ \ \ \ \ \ \ \ float3\ cc\ =\ cpos\ +\ float3(\ 0,\ radius,\ 0\ )\ -\/\ \mbox{\hyperlink{class_component_collision_a9ff189df0b91e45fd2d8a925f8d94bbe}{now\_gravity\_}};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00816}00816\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00817}00817\ \ \ \ \ \ \ \ \ \textcolor{comment}{//DrawCapsule3D(\ cast(\ oc\ ),\ cast(\ cc\ ),\ radius,\ 10,\ GetColor(\ 0,\ 0,\ 255\ ),\ GetColor(\ 0,\ 0,\ 255\ ),\ FALSE\ );}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00818}00818\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00819}00819\ \ \ \ \ \ \ \ \ hit\_poly\_dim\ =\ MV1CollCheck\_Capsule(\ mdl-\/>GetModel(),\ -\/1,\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ oc\ ),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ cc\ ),\ radius\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00820}00820\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ hit\_poly\_dim.HitNum;\ i++\ )}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00821}00821\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00822}00822\ \ \ \ \ \ \ \ \ \ \ \ \ SEGMENT\_TRIANGLE\_RESULT\ result\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00823}00823\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00824}00824\ \ \ \ \ \ \ \ \ \ \ \ \ VECTOR\ v1\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ oc\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00825}00825\ \ \ \ \ \ \ \ \ \ \ \ \ VECTOR\ v2\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ cc\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00826}00826\ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::Segment\_Triangle\_Analyse(\ \&v1,}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00827}00827\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&v2,}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00828}00828\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&hit\_poly\_dim.Dim[\ i\ ].Position[\ 0\ ],}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00829}00829\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&hit\_poly\_dim.Dim[\ i\ ].Position[\ 1\ ],}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00830}00830\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&hit\_poly\_dim.Dim[\ i\ ].Position[\ 2\ ],}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00831}00831\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&result\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00832}00832\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00833}00833\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ line\_pos\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ result.Seg\_MinDist\_Pos\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00834}00834\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ tri\_pos\ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\ result.Tri\_MinDist\_Pos\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00835}00835\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00836}00836\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ カプセルへの戻し方向}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00837}00837\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{namespace_helper_lib_1_1_math_aabd062a1600edfb36769494ffcb377d6}{HelperLib::Math::NearlyEqual}}(\ length(\ line\_pos\ -\/\ tri\_pos\ ),\ 0\ )\ )}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00838}00838\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00839}00839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ v\ =\ (\ tri\_pos\ -\/\ cpos\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00840}00840\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vh\ \ \ \ \ \ \ =\ merge(\ vh,\ v\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00841}00841\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00842}00842\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00843}00843\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00844}00844\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ vec\ =\ normalize(\ line\_pos\ -\/\ tri\_pos\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00845}00845\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 戻し量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00846}00846\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ len\ =\ radius\ -\/\ length(\ line\_pos\ -\/\ tri\_pos\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00847}00847\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ v\ \ \ =\ vec\ *\ len;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00848}00848\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vh\ \ \ \ \ \ \ \ \ =\ merge(\ vh,\ v\ );}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00849}00849\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00850}00850\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00851}00851\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00852}00852\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ hit\_poly\_dim.HitNum\ >\ 0\ )}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00853}00853\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00854}00854\ \ \ \ \ \ \ \ \ \ \ \ \ info.push\_\ \ \ \ \ \ \ \ \ +=\ vh;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00855}00855\ \ \ \ \ \ \ \ \ \ \ \ \ info.hit\_\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00856}00856\ \ \ \ \ \ \ \ \ \ \ \ \ info.hit\_position\_\ +=\ cpos\ -\/\ vh;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00857}00857\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00858}00858\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00859}00859\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00860}00860\ \ \ \ \ \textcolor{comment}{//\ 上の球当たりの確認}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00861}00861\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00862}00862\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 戻し量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00863}00863\ \ \ \ \ \ \ \ \ float3\ vh\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00864}00864\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00865}00865\ \ \ \ \ \ \ \ \ MV1\_COLL\_RESULT\_POLY\_DIM\ hit\_poly\_dim\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00866}00866\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00867}00867\ \ \ \ \ \ \ \ \ float3\ oc\ =\ opos1\ -\/\ float3(0,\ radius,\ 0)\ +\ info.push\_;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00868}00868\ \ \ \ \ \ \ \ \ float3\ cc\ =\ cpos1\ -\/\ float3(0,\ radius,\ 0)\ +\ info.push\_;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00869}00869\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00870}00870\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DrawCapsule3D(\ cast(\ oc\ ),\ cast(\ cc\ ),\ radius,\ 10,\ GetColor(\ 0,\ 0,}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00871}00871\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 255\ ),\ GetColor(\ 0,\ 0,\ 255\ ),\ FALSE\ );}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00872}00872\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00873}00873\ \ \ \ \ \ \ \ \ hit\_poly\_dim\ =\ MV1CollCheck\_Capsule(mdl-\/>GetModel(),\ -\/1,\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(oc),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(cc),\ radius);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00874}00874\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ hit\_poly\_dim.HitNum;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00875}00875\ \ \ \ \ \ \ \ \ \ \ \ \ SEGMENT\_TRIANGLE\_RESULT\ result\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00876}00876\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00877}00877\ \ \ \ \ \ \ \ \ \ \ \ \ VECTOR\ v1\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(oc);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00878}00878\ \ \ \ \ \ \ \ \ \ \ \ \ VECTOR\ v2\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(cc);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00879}00879\ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::Segment\_Triangle\_Analyse(\&v1,\ \&v2,\ \&hit\_poly\_dim.Dim[i].Position[0],\ \&hit\_poly\_dim.Dim[i].Position[1],}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00880}00880\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&hit\_poly\_dim.Dim[i].Position[2],\ \&result);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00881}00881\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00882}00882\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ line\_pos\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.Seg\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00883}00883\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ tri\_pos\ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.Tri\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00884}00884\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00885}00885\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ カプセルへの戻し方向}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00886}00886\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_helper_lib_1_1_math_aabd062a1600edfb36769494ffcb377d6}{HelperLib::Math::NearlyEqual}}(length(line\_pos\ -\/\ tri\_pos),\ 0))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00887}00887\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ v\ =\ (tri\_pos\ -\/\ cpos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00888}00888\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vh\ \ \ \ \ \ \ =\ merge(vh,\ v);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00889}00889\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00890}00890\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ vec\ =\ normalize(line\_pos\ -\/\ tri\_pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00891}00891\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 戻し量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00892}00892\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ len\ =\ radius\ -\/\ length(line\_pos\ -\/\ tri\_pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00893}00893\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ v\ \ \ =\ vec\ *\ len;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00894}00894\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vh\ \ \ \ \ \ \ \ \ =\ merge(vh,\ v);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00895}00895\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00896}00896\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00897}00897\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(hit\_poly\_dim.HitNum\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00898}00898\ \ \ \ \ \ \ \ \ \ \ \ \ info.push\_\ +=\ vh;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00899}00899\ \ \ \ \ \ \ \ \ \ \ \ \ info.hit\_\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00900}00900\ \ \ \ \ \ \ \ \ \ \ \ \ info.hit\_position\_\ +=\ (cpos\ -\/\ vh);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00901}00901\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00902}00902\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00903}00903\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00904}00904\ \ \ \ \ \textcolor{comment}{//\ 当たりの確認(通常カプセル)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00905}00905\ \ \ \ \ float3\ nyopos\ =\ opos;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00906}00906\ \ \ \ \ float3\ nycpos\ =\ cpos;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00907}00907\ \ \ \ \ nyopos.y\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00908}00908\ \ \ \ \ nycpos.y\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00909}00909\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{namespace_helper_lib_1_1_math_aabd062a1600edfb36769494ffcb377d6}{HelperLib::Math::NearlyEqual}}(length(nyopos\ -\/\ nycpos),\ 0))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00910}00910\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 戻し量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00911}00911\ \ \ \ \ \ \ \ \ float3\ vh\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00912}00912\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00913}00913\ \ \ \ \ \ \ \ \ MV1\_COLL\_RESULT\_POLY\_DIM\ hit\_poly\_dim\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00914}00914\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00915}00915\ \ \ \ \ \ \ \ \ float3\ bottomx\ =\ cpos\ +\ info.push\_\ +\ float3(0,\ radius,\ 0);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00916}00916\ \ \ \ \ \ \ \ \ float3\ topx\ \ \ \ =\ cpos1\ -\/\ float3(0,\ radius,\ 0);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00917}00917\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00918}00918\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DrawCapsule3D(\ cast(\ topx\ ),\ cast(\ bottomx\ ),\ radius,\ 10,\ GetColor(}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00919}00919\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0,\ 0,\ 255\ ),\ GetColor(\ 0,\ 0,\ 255\ ),\ FALSE\ );}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00920}00920\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00921}00921\ \ \ \ \ \ \ \ \ hit\_poly\_dim\ =\ MV1CollCheck\_Capsule(mdl-\/>GetModel(),\ -\/1,\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(topx),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(bottomx),\ radius);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00922}00922\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ hit\_poly\_dim.HitNum;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00923}00923\ \ \ \ \ \ \ \ \ \ \ \ \ SEGMENT\_TRIANGLE\_RESULT\ result\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00924}00924\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00925}00925\ \ \ \ \ \ \ \ \ \ \ \ \ VECTOR\ v1\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(topx);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00926}00926\ \ \ \ \ \ \ \ \ \ \ \ \ VECTOR\ v2\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(bottomx);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00927}00927\ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::Segment\_Triangle\_Analyse(\&v1,\ \&v2,\ \&hit\_poly\_dim.Dim[i].Position[0],\ \&hit\_poly\_dim.Dim[i].Position[1],}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00928}00928\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&hit\_poly\_dim.Dim[i].Position[2],\ \&result);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00929}00929\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00930}00930\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ line\_pos\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.Seg\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00931}00931\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ tri\_pos\ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.Tri\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00932}00932\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00933}00933\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ カプセルへの戻し方向}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00934}00934\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_helper_lib_1_1_math_aabd062a1600edfb36769494ffcb377d6}{HelperLib::Math::NearlyEqual}}(length(line\_pos\ -\/\ tri\_pos),\ 0))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00935}00935\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ v\ =\ (tri\_pos\ -\/\ cpos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00936}00936\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vh\ \ \ \ \ \ \ =\ merge(vh,\ v);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00937}00937\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00938}00938\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ vec\ =\ normalize(line\_pos\ -\/\ tri\_pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00939}00939\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 戻し量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00940}00940\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ len\ =\ radius\ -\/\ length(line\_pos\ -\/\ tri\_pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00941}00941\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ v\ \ \ =\ vec\ *\ len;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00942}00942\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vh\ \ \ \ \ \ \ \ \ =\ merge(vh,\ v);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00943}00943\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00944}00944\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00945}00945\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(hit\_poly\_dim.HitNum\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00946}00946\ \ \ \ \ \ \ \ \ \ \ \ \ info.push\_\ +=\ vh;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00947}00947\ \ \ \ \ \ \ \ \ \ \ \ \ info.hit\_\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00948}00948\ \ \ \ \ \ \ \ \ \ \ \ \ info.hit\_position\_\ +=\ (cpos\ -\/\ vh);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00949}00949\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00950}00950\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00951}00951\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00952}00952\ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00953}00953\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00954}00954\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00955}00955\ \textcolor{comment}{//\ Line(col1)とSphere(col2)の当たりをチェックします}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00956}\mbox{\hyperlink{class_component_collision_a6e245a1c9791affeb72a2db97b692414}{00956}}\ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionLinePtr\ col1,\ ComponentCollisionSpherePtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00957}00957\ \ \ \ \ \textcolor{comment}{//\ 当たり情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00958}00958\ \ \ \ \ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ info\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00959}00959\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00960}00960\ \ \ \ \ \textcolor{comment}{//\ ラインの情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00961}00961\ \ \ \ \ \textcolor{keyword}{auto}\ line\_owner\ =\ col1-\/>GetOwner();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00962}00962\ \ \ \ \ \textcolor{keyword}{auto}\ line\_comp\ \ =\ line\_owner-\/>GetComponent<\mbox{\hyperlink{class_component_collision_line}{ComponentCollisionLine}}>();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00963}00963\ \ \ \ \ \textcolor{keyword}{auto}\ line\ \ \ \ \ \ \ =\ line\_comp-\/>\mbox{\hyperlink{class_component_collision_line_a0667aca4d6a6b6a3497f0203a2e25378}{GetWorldLine}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00964}00964\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00965}00965\ \ \ \ \ \textcolor{comment}{//\ 球の情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00966}00966\ \ \ \ \ \textcolor{keyword}{auto}\ sphere\_owner\ =\ col2-\/>GetOwner();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00967}00967\ \ \ \ \ \textcolor{keywordflow}{if}(sphere\_owner\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00968}00968\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00969}00969\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00970}00970\ \ \ \ \ \textcolor{keyword}{auto}\ sphere\ =\ sphere\_owner-\/>GetComponent<\mbox{\hyperlink{class_component_collision_sphere}{ComponentCollisionSphere}}>();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00971}00971\ \ \ \ \ \textcolor{keywordflow}{if}(sphere\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00972}00972\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00973}00973\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00974}00974\ \ \ \ \ \textcolor{keyword}{auto}\ \ pos\ \ \ \ =\ sphere-\/>\mbox{\hyperlink{class_component_collision_sphere_abafe6091c6f976f1fb5f9ef324b80c6c}{GetWorldMatrix}}().\mbox{\hyperlink{classmatrix_af2b5677c2f4ae2e615b4bab101e2c358}{translate}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00975}00975\ \ \ \ \ \textcolor{keywordtype}{float}\ radius\ =\ sphere-\/>GetRadius();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00976}00976\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00977}00977\ \ \ \ \ SEGMENT\_POINT\_RESULT\ result;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00978}00978\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00979}00979\ \ \ \ \ \textcolor{comment}{//\ ライン情報と点情報を用意する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00980}00980\ \ \ \ \ VECTOR\ start\ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(line[0]);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00981}00981\ \ \ \ \ VECTOR\ end\ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(line[1]);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00982}00982\ \ \ \ \ VECTOR\ center\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00983}00983\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00984}00984\ \ \ \ \ \textcolor{comment}{//\ ラインと点により分析する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00985}00985\ \ \ \ \ Segment\_Point\_Analyse(\&start,\ \&end,\ \&center,\ \&result);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00986}00986\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00987}00987\ \ \ \ \ \textcolor{comment}{//\ 点にライン上で一番近い位置を割り出す}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00988}00988\ \ \ \ \ \textcolor{keyword}{auto}\ \ point\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.Seg\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00989}00989\ \ \ \ \ \textcolor{comment}{//\ その位置から点までの距離を割り出す}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00990}00990\ \ \ \ \ \textcolor{keywordtype}{float}\ len\ \ \ =\ length(point\ -\/\ pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00991}00991\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00992}00992\ \ \ \ \ \textcolor{comment}{//\ その距離が半径よりも小さければ当たっている}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00993}00993\ \ \ \ \ \textcolor{keywordflow}{if}(len\ <=\ radius)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00994}00994\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ vec\ \ \ \ \ \ \ \ \ \ \ =\ normalize(line[0]\ -\/\ line[1]);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00995}00995\ \ \ \ \ \ \ \ \ info.hit\_\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00996}00996\ \ \ \ \ \ \ \ \ info.hit\_position\_\ =\ point\ +\ vec\ *\ acos(len\ /\ radius)\ /\ 0.5f\ *\ DX\_PI\_F;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00997}00997\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00998}00998\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l00999}00999\ \ \ \ \ \textcolor{comment}{//\ 判定結果を返す}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01000}01000\ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01001}01001\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01002}01002\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01003}01003\ \textcolor{comment}{//\ Line(col1)とCapsule(col2)の当たりをチェックします}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01004}\mbox{\hyperlink{class_component_collision_a49f867bd9f1c18d653f2a4dc8389c0c0}{01004}}\ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionLinePtr\ col1,\ ComponentCollisionCapsulePtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01005}01005\ \ \ \ \ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ info\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01006}01006\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01007}01007\ \ \ \ \ \textcolor{comment}{//\ ラインの情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01008}01008\ \ \ \ \ \textcolor{keyword}{auto}\ line\_owner\ =\ col1-\/>GetOwner();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01009}01009\ \ \ \ \ \textcolor{keyword}{auto}\ line\_comp\ \ =\ line\_owner-\/>GetComponent<\mbox{\hyperlink{class_component_collision_line}{ComponentCollisionLine}}>();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01010}01010\ \ \ \ \ \textcolor{keyword}{auto}\ line\ \ \ \ \ \ \ =\ line\_comp-\/>\mbox{\hyperlink{class_component_collision_line_a0667aca4d6a6b6a3497f0203a2e25378}{GetWorldLine}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01011}01011\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01012}01012\ \ \ \ \ \textcolor{comment}{//\ カプセルの情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01013}01013\ \ \ \ \ \textcolor{keyword}{auto}\ capsule\_owner\ =\ col2-\/>GetOwner();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01014}01014\ \ \ \ \ \textcolor{keywordflow}{if}(capsule\_owner\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01015}01015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01016}01016\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01017}01017\ \ \ \ \ \textcolor{keyword}{auto}\ capsule\ =\ capsule\_owner-\/>GetComponent<\mbox{\hyperlink{class_component_collision_capsule}{ComponentCollisionCapsule}}>();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01018}01018\ \ \ \ \ \textcolor{keywordflow}{if}(capsule\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01019}01019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01020}01020\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01021}01021\ \ \ \ \ \textcolor{comment}{//\ カプセルの状態を分析}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01022}01022\ \ \ \ \ \textcolor{keyword}{auto}\ \ mat\ \ \ \ =\ capsule-\/>\mbox{\hyperlink{class_component_collision_capsule_a369d37c750750594b01ec61d356b0ae1}{GetWorldMatrix}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01023}01023\ \ \ \ \ \textcolor{keyword}{auto}\ \ pos\ \ \ \ =\ mat.\mbox{\hyperlink{classmatrix_af2b5677c2f4ae2e615b4bab101e2c358}{translate}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01024}01024\ \ \ \ \ \textcolor{keywordtype}{float}\ height\ =\ capsule-\/>GetHeight();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01025}01025\ \ \ \ \ \textcolor{keywordtype}{float}\ radius\ =\ capsule-\/>GetRadius();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01026}01026\ \ \ \ \ \textcolor{keyword}{auto}\ \ pos1\ \ \ =\ pos\ +\ height\ *\ mat.\mbox{\hyperlink{classmatrix_a8cacc60f5c84e6354664ffe9349b1257}{axisY}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01027}01027\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01028}01028\ \ \ \ \ SEGMENT\_SEGMENT\_RESULT\ result;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01029}01029\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01030}01030\ \ \ \ \ \textcolor{comment}{//\ ライン情報とカプセルの縦ラインを互いにチェックする}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01031}01031\ \ \ \ \ VECTOR\ l1\_start\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(line[0]);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01032}01032\ \ \ \ \ VECTOR\ l1\_end\ \ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(line[1]);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01033}01033\ \ \ \ \ VECTOR\ l2\_start\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01034}01034\ \ \ \ \ VECTOR\ l2\_end\ \ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pos1);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01035}01035\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01036}01036\ \ \ \ \ \textcolor{comment}{//\ ラインどうしの状態を分析}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01037}01037\ \ \ \ \ Segment\_Segment\_Analyse(\&l1\_start,\ \&l1\_end,\ \&l2\_start,\ \&l2\_end,\ \&result);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01038}01038\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01039}01039\ \ \ \ \ \textcolor{comment}{//\ ライン上の一番近い点を割り出し、その距離を確認する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01040}01040\ \ \ \ \ \textcolor{keyword}{auto}\ \ point\ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.SegA\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01041}01041\ \ \ \ \ \textcolor{keyword}{auto}\ \ cap\_point\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(result.SegB\_MinDist\_Pos);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01042}01042\ \ \ \ \ \textcolor{keywordtype}{float}\ len\ \ \ \ \ \ \ =\ length(point\ -\/\ cap\_point);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01043}01043\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01044}01044\ \ \ \ \ \textcolor{comment}{//\ 片方はラインなのであくまで半径よりもこれが小さいかで}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01045}01045\ \ \ \ \ \textcolor{comment}{//\ 当たったかどうかが判定できる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01046}01046\ \ \ \ \ \textcolor{keywordflow}{if}(len\ <=\ radius)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01047}01047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 当たったら情報を入れておく}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01048}01048\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ vec\ \ \ \ \ \ \ \ \ \ \ =\ normalize(line[0]\ -\/\ line[1]);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01049}01049\ \ \ \ \ \ \ \ \ info.hit\_\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01050}01050\ \ \ \ \ \ \ \ \ info.hit\_position\_\ =\ point\ +\ vec\ *\ acos(len\ /\ radius)\ /\ 0.5f\ *\ DX\_PI\_F;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01051}01051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01052}01052\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01053}01053\ \ \ \ \ \textcolor{comment}{//\ 判定結果を返す}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01054}01054\ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01055}01055\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01056}01056\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01057}01057\ \textcolor{comment}{//\ ライン(col1)とモデル(col2)での当たりを判定する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01058}\mbox{\hyperlink{class_component_collision_a68c3b374f827beb8ea6e9440f8fbf484}{01058}}\ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionLinePtr\ col1,\ ComponentCollisionModelPtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01059}01059\ \ \ \ \ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ info\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01060}01060\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01061}01061\ \ \ \ \ \textcolor{comment}{//\ ライン情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01062}01062\ \ \ \ \ \textcolor{keyword}{auto}\ line\_owner\ =\ col1-\/>GetOwner();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01063}01063\ \ \ \ \ \textcolor{keyword}{auto}\ line\_comp\ \ =\ line\_owner-\/>GetComponent<\mbox{\hyperlink{class_component_collision_line}{ComponentCollisionLine}}>();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01064}01064\ \ \ \ \ \textcolor{keyword}{auto}\ line\ \ \ \ \ \ \ =\ line\_comp-\/>\mbox{\hyperlink{class_component_collision_line_a0667aca4d6a6b6a3497f0203a2e25378}{GetWorldLine}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01065}01065\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01066}01066\ \ \ \ \ \textcolor{comment}{//\ モデル情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01067}01067\ \ \ \ \ \textcolor{keyword}{auto}\ model\_owner\ =\ col2-\/>GetOwner();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01068}01068\ \ \ \ \ \textcolor{keywordflow}{if}(model\_owner\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01069}01069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01070}01070\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01071}01071\ \ \ \ \ \textcolor{keyword}{auto}\ model\ =\ model\_owner-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>();}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01072}01072\ \ \ \ \ \textcolor{keywordflow}{if}(model\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01073}01073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01074}01074\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01075}01075\ \ \ \ \ MV1\_COLL\_RESULT\_POLY\ hit\_poly\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01076}01076\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01077}01077\ \ \ \ \ \textcolor{comment}{//\ MV1とラインのチェック関数を呼び出す}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01078}01078\ \ \ \ \ hit\_poly\ =\ MV1CollCheck\_Line(model-\/>GetModel(),\ -\/1,\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(line[0]),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(line[1]));}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01079}01079\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01080}01080\ \ \ \ \ \textcolor{comment}{//\ 当たったかどうかのフラグを設定し、当たった位置も入れておく}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01081}01081\ \ \ \ \ info.hit\_\ \ \ \ \ \ \ \ \ \ =\ hit\_poly.HitFlag;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01082}01082\ \ \ \ \ info.hit\_position\_\ =\ float3(hit\_poly.HitPosition.x,\ hit\_poly.HitPosition.y,\ hit\_poly.HitPosition.z);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01083}01083\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01084}01084\ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01085}01085\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01086}01086\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01087}01087\ \textcolor{comment}{//!\ @brief\ Capsule\ VS\ Model}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01088}01088\ \textcolor{comment}{//!\ @param\ col1\ Capsuleコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01089}01089\ \textcolor{comment}{//!\ @param\ col2\ Model\ コリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01090}01090\ \textcolor{comment}{//!\ @return\ 当たり情報}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01091}\mbox{\hyperlink{class_component_collision_a0b023a86141dae87fdd1ddc8e7e268f7}{01091}}\ \textcolor{comment}{}\mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollision::HitInfo}}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{ComponentCollision::isHit}}(ComponentCollisionModelPtr\ col1,\ ComponentCollisionCapsulePtr\ col2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01092}01092\ \ \ \ \ \textcolor{keyword}{auto}\ hit\ \ =\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{isHit}}(col2,\ col1);}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01093}01093\ \ \ \ \ hit.push\_\ =\ -\/hit.push\_;\ \ \ \ \textcolor{comment}{//\ push方向を反対にする}}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01094}01094\ \ \ \ \ \textcolor{keywordflow}{return}\ hit;}
+\DoxyCodeLine{\Hypertarget{_component_collision_8cpp_source_l01095}01095\ \}}
+
+\end{DoxyCode}

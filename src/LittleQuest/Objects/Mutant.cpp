@@ -12,8 +12,6 @@
 #include <System/Component/ComponentTargetTracking.h>
 
 namespace LittleQuest {
-BP_OBJECT_IMPL(Mutant, "LittleQuest/Mutant");
-
 MutantPtr Mutant::Create(const float3& pos, bool isPatrol) {
     auto enemy = Scene::CreateObjectDelayInitialize<Mutant>();
     enemy->SetName("Mutant");

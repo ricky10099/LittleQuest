@@ -1,0 +1,184 @@
+\hypertarget{_proc_timing_8h_source}{}\doxysection{Proc\+Timing.\+h}
+\label{_proc_timing_8h_source}\index{ProcTiming.h@{ProcTiming.h}}
+\mbox{\hyperlink{_proc_timing_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ ProcTiming.h}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ 処理タイミング}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00005}00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_priority_8h}{Priority.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_signals_8h}{System/Signals.h}}>}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_cereal_8h}{System/Cereal.h}}>}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <functional>}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00011}00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_object}{Object}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00012}00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_component}{Component}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00013}\mbox{\hyperlink{_proc_timing_8h_a2deff0220e6921920b821b718ebc8b94}{00013}}\ \mbox{\hyperlink{_typedef_8h_ae1b2d029be4658cd85fd1bc379e76178}{USING\_PTR}}(\mbox{\hyperlink{class_object}{Object}});}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00014}\mbox{\hyperlink{_proc_timing_8h_acf719dccd2f400d5bef112558e3ab522}{00014}}\ \mbox{\hyperlink{_typedef_8h_ae1b2d029be4658cd85fd1bc379e76178}{USING\_PTR}}(\mbox{\hyperlink{class_component}{Component}});}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00016}\mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{00016}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{ProcTimingFunc}}\ =\ std::function<void()>;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00017}00017\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00018}00018\ \textcolor{comment}{//!\ タイミング}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00019}\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{00019}}\ \textcolor{comment}{}\textcolor{keyword}{enum\ struct}\ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{ProcTiming}}\ :\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00020}00020\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba4d6938dc46ac97dde005fab44a01386c}{PreUpdate}}\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00021}00021\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba06933067aafd48425d67bcb01bba5cb6}{Update}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00022}00022\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba2609005edfde618c70f2140bb3e9b7c2}{LateUpdate}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00023}00023\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba601c11681e9b4876cd5fcd08474eee98}{PrePhysics}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00024}00024\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6bad1265336b66d91a1fc4f5904e34591f4}{PostUpdate}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00026}00026\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba0182552d5e4261f81f5da8211bdc4fd5}{PreDraw}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba2d03c2d5a7ec65ef4619e0582c272ec2}{Draw}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00028}00028\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6baec48f96242d5a4fb2470c5166bc8c801}{LateDraw}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00029}00029\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba6cc86790e3e99e2f8fdd8722c99151c6}{PostDraw}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00031}00031\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba3f39588bb19e28051d9aedfbb170025c}{Shadow}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00032}00032\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6baf9b9ec1143901183f0e08f9f685d5fb5}{Gbuffer}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00033}00033\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba9914a0ce04a7b7b6a8e39bec55064b82}{Light}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00034}00034\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba6cad826248cd3f4e93da71e7b49928e3}{HDR}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00035}00035\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6bad7778d0c64b6ba21494c97f77a66885a}{Filter}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00036}00036\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba71ff71526d15db86eb50fcac245d183b}{UI}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00038}00038\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba44119bf3bae5d40a8d0766b91c304aac}{NUM}},}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00039}00039\ \};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00040}00040\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00041}00041\ \textcolor{comment}{//!\ プライオリティ設定}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00042}\mbox{\hyperlink{_proc_timing_8h_a6461e51a4f1ff47f46759c9668dc10c1}{00042}}\ \textcolor{comment}{}\textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_proc_timing_8h_a6461e51a4f1ff47f46759c9668dc10c1}{TIMING}}(\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{ProcTiming}}\ p)\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00043}00043\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(p);}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00044}00044\ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00045}00045\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00046}00046\ \textcolor{comment}{//!\ プライオリティ設定(Macro)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00047}\mbox{\hyperlink{_proc_timing_8h_a79954a1c537a0d505633565cfa3a164b}{00047}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ OBJTIMING(p)\ TIMING(ProcTiming::\#\#p)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00049}00049\ std::string\ \mbox{\hyperlink{_proc_timing_8h_ac6580db62c4a37f293339076616d1a06}{GetProcTimingName}}(\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{ProcTiming}}\ proc);}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00051}\mbox{\hyperlink{_proc_timing_8h_a677cbee623f7bded94f1e096826e5e51}{00051}}\ \mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{ProcTimingFunc}}\ \mbox{\hyperlink{_proc_timing_8h_a677cbee623f7bded94f1e096826e5e51}{GetProcTimingFunc}}(\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{ProcTiming}}\ proc);}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00053}\mbox{\hyperlink{class_callable}{00053}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_callable}{Callable}}\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00054}00054\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00055}\mbox{\hyperlink{class_callable_ad159e1fea111f37d3baf07daccb624c4}{00055}}\ \ \ \ \ \mbox{\hyperlink{class_callable_ad159e1fea111f37d3baf07daccb624c4}{Callable}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00056}\mbox{\hyperlink{class_callable_a2719fce13d5311b5a2d409bd787c98a1}{00056}}\ \ \ \ \ \mbox{\hyperlink{class_callable_a2719fce13d5311b5a2d409bd787c98a1}{Callable}}(\textcolor{keyword}{const}\ std::string\&\ name)\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00057}00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_callable_ad1e68c15788a8ee8e707ede406d6f3f3}{SetName}}(name);}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00058}00058\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00059}\mbox{\hyperlink{class_callable_a84ab6ce6283cbf84c8b002e1941fad5d}{00059}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_callable_a84ab6ce6283cbf84c8b002e1941fad5d}{\string~Callable}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00060}\mbox{\hyperlink{class_callable_a23ddda5ee112e39f8807ea483a6335e9}{00060}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_callable_a23ddda5ee112e39f8807ea483a6335e9}{Exec}}()\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00061}\mbox{\hyperlink{class_callable_ad1e68c15788a8ee8e707ede406d6f3f3}{00061}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_callable_ad1e68c15788a8ee8e707ede406d6f3f3}{SetName}}(\textcolor{keyword}{const}\ std::string\&\ str)\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00062}00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_callable_ad2d8b621e6d955dbf1bd2d5b4fbff5c9}{name\_}}\ =\ str;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00063}00063\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00064}\mbox{\hyperlink{class_callable_a767831f753dce12546b55566e56bec66}{00064}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{class_callable_a767831f753dce12546b55566e56bec66}{GetName}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_callable_ad2d8b621e6d955dbf1bd2d5b4fbff5c9}{name\_}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00066}00066\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00068}00068\ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00069}\mbox{\hyperlink{class_callable_ad2d8b621e6d955dbf1bd2d5b4fbff5c9}{00069}}\ \ \ \ \ std::string\ \mbox{\hyperlink{class_callable_ad2d8b621e6d955dbf1bd2d5b4fbff5c9}{name\_}}\{\};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00070}00070\ \};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00072}\mbox{\hyperlink{_proc_timing_8h_a467d763ebd1698c335ae5ee88d44c839}{00072}}\ \textcolor{preprocessor}{\#define\ ProcAddProc(name,\ x)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00073}00073\ \textcolor{preprocessor}{\ \ \ \ class\ Callable\#\#name:\ public\ Callable\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00074}00074\ \textcolor{preprocessor}{\ \ \ \ \ \ \ public:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00075}00075\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ Callable\#\#name():\ Callable(\#name)\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00076}00076\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ void\ Exec\ x;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00077}00077\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00078}00078\ \textcolor{preprocessor}{\ \ \ \ \ \ \ private:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00079}00079\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ CEREAL\_SAVELOAD(arc,\ ver)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00080}00080\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(name\_));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00081}00081\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00082}00082\ \textcolor{preprocessor}{\ \ \ \ \};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00083}00083\ \textcolor{preprocessor}{\ \ \ \ std::shared\_ptr<Callable\#\#name>\ name\ =\ std::make\_shared<Callable\#\#name>();\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00084}00084\ \textcolor{preprocessor}{\ \ \ \ CEREAL\_REGISTER\_TYPE(Callable\#\#name);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00085}00085\ \textcolor{preprocessor}{\ \ \ \ CEREAL\_REGISTER\_POLYMORPHIC\_RELATION(Callable,\ Callable\#\#name)}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00086}00086\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00087}00087\ \textcolor{comment}{//!\ スロット}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00088}\mbox{\hyperlink{struct_slot_proc}{00088}}\ \textcolor{comment}{}\textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_slot_proc}{SlotProc}}\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00089}\mbox{\hyperlink{struct_slot_proc_a032858ae1fe02d2d1170981c2af2d67c}{00089}}\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_scene}{Scene}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00090}\mbox{\hyperlink{struct_slot_proc_a0720b5f434e636e22a3ed34f847eec57}{00090}}\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_object}{Object}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00091}\mbox{\hyperlink{struct_slot_proc_a90717717700965c100968cff0188e244}{00091}}\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_component}{Component}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00093}00093\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00094}\mbox{\hyperlink{struct_slot_proc_a6e31651108be324da0d7ef98160aa86f}{00094}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_slot_proc_a6e31651108be324da0d7ef98160aa86f}{IsDirty}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_slot_proc_ad4897937c83b69cc4171689cf1deac7b}{dirty\_}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00096}00096\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00098}\mbox{\hyperlink{struct_slot_proc_a17f51c187f80269a3017c74d7c7d96d8}{00098}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_slot_proc_a17f51c187f80269a3017c74d7c7d96d8}{ResetDirty}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00099}00099\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_ad4897937c83b69cc4171689cf1deac7b}{dirty\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00100}00100\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00102}\mbox{\hyperlink{struct_slot_proc_a4fbadfdc7cf4e854bce6f34ba85f2ec2}{00102}}\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{ProcTiming}}\ \mbox{\hyperlink{struct_slot_proc_a4fbadfdc7cf4e854bce6f34ba85f2ec2}{GetTiming}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_slot_proc_afa28cff4321d4844c7d936e4911769fc}{timing\_}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00104}00104\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00106}\mbox{\hyperlink{struct_slot_proc_ad5e5be152636988e967d4d0f01b936c8}{00106}}\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}\ \mbox{\hyperlink{struct_slot_proc_ad5e5be152636988e967d4d0f01b936c8}{GetPriority}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_slot_proc_ae8c00d327073bee2f088f9fe45ce38a3}{priority\_}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00108}00108\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00110}\mbox{\hyperlink{struct_slot_proc_a8138ddc0ef831e2dfa2324b855d110ae}{00110}}\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{struct_slot_proc_a8138ddc0ef831e2dfa2324b855d110ae}{GetAddProc}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_slot_proc_a944c841747a9b600596c953002b8350b}{func\_}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00112}00112\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00114}\mbox{\hyperlink{struct_slot_proc_ac2d722ea06bcb57d3baec44b2f405191}{00114}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{struct_slot_proc_ac2d722ea06bcb57d3baec44b2f405191}{GetName}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_slot_proc_a46592494936047b700f792afd9c80c10}{name\_}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00116}00116\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00118}\mbox{\hyperlink{struct_slot_proc_a0863c82d1f9f46520560a840a0307c47}{00118}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_slot_proc_a0863c82d1f9f46520560a840a0307c47}{IsUpdate}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{struct_slot_proc_afa28cff4321d4844c7d936e4911769fc}{timing\_}})\ <\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(ProcTiming::PreDraw))\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00121}00121\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00123}00123\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00125}\mbox{\hyperlink{struct_slot_proc_ad202ed56a44aafb537c4b326d4f64b83}{00125}}\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_slot_proc_ad202ed56a44aafb537c4b326d4f64b83}{IsDraw}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{struct_slot_proc_afa28cff4321d4844c7d936e4911769fc}{timing\_}})\ >=\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(ProcTiming::PreDraw))\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00128}00128\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00130}00130\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00132}\mbox{\hyperlink{struct_slot_proc_ac2587b251324ddbc472f9c7cba6cc6e2}{00132}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_slot_proc_ac2587b251324ddbc472f9c7cba6cc6e2}{SetProc}}(std::string\ name,\ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{ProcTiming}}\ timing,\ \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}\ prio,\ \mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{ProcTimingFunc}}\ func)\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00133}00133\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_a46592494936047b700f792afd9c80c10}{name\_}}\ \ \ \ \ =\ name;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00134}00134\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_ad4897937c83b69cc4171689cf1deac7b}{dirty\_}}\ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00135}00135\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_afa28cff4321d4844c7d936e4911769fc}{timing\_}}\ \ \ =\ timing;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00136}00136\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_ae8c00d327073bee2f088f9fe45ce38a3}{priority\_}}\ =\ prio;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00137}00137\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_ac359353b9cb17a91f8011fe794563ad4}{proc\_}}\ \ \ \ \ =\ func;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00138}00138\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00140}\mbox{\hyperlink{struct_slot_proc_ac86dbdd3ddef0738a72754ce134284d1}{00140}}\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{ProcTimingFunc}}\&\ \mbox{\hyperlink{struct_slot_proc_ac86dbdd3ddef0738a72754ce134284d1}{GetProc}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_slot_proc_ac359353b9cb17a91f8011fe794563ad4}{proc\_}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00142}00142\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00144}\mbox{\hyperlink{struct_slot_proc_af9255943d55f96c95c1e3d0c607d66e0}{00144}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_slot_proc_af9255943d55f96c95c1e3d0c607d66e0}{SetAddProc}}(std::shared\_ptr<Callable>\ func,\ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{ProcTiming}}\ timing,\ \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}\ prio)\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00145}00145\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_a46592494936047b700f792afd9c80c10}{name\_}}\ \ \ \ \ =\ func-\/>GetName();}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00146}00146\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_ad4897937c83b69cc4171689cf1deac7b}{dirty\_}}\ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00147}00147\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_afa28cff4321d4844c7d936e4911769fc}{timing\_}}\ \ \ =\ timing;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00148}00148\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_ae8c00d327073bee2f088f9fe45ce38a3}{priority\_}}\ =\ prio;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00149}00149\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_a944c841747a9b600596c953002b8350b}{func\_}}\ \ \ \ \ =\ func;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00151}00151\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_ac359353b9cb17a91f8011fe794563ad4}{proc\_}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00152}00152\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00154}00154\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00155}\mbox{\hyperlink{struct_slot_proc_a46592494936047b700f792afd9c80c10}{00155}}\ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_a46592494936047b700f792afd9c80c10}{name\_}}\{\};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00156}\mbox{\hyperlink{struct_slot_proc_afa28cff4321d4844c7d936e4911769fc}{00156}}\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{ProcTiming}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_afa28cff4321d4844c7d936e4911769fc}{timing\_}}\ \ \ =\ ProcTiming::Draw;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00157}\mbox{\hyperlink{struct_slot_proc_ae8c00d327073bee2f088f9fe45ce38a3}{00157}}\ \ \ \ \ \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_ae8c00d327073bee2f088f9fe45ce38a3}{priority\_}}\ =\ Priority::NORMAL;}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00158}\mbox{\hyperlink{struct_slot_proc_a152a1ecab50ca81d00fc973572a1e5b0}{00158}}\ \ \ \ \ sigslot::connection\ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_a152a1ecab50ca81d00fc973572a1e5b0}{connect\_}}\{\};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00159}\mbox{\hyperlink{struct_slot_proc_ad4897937c83b69cc4171689cf1deac7b}{00159}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_ad4897937c83b69cc4171689cf1deac7b}{dirty\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00160}\mbox{\hyperlink{struct_slot_proc_ac359353b9cb17a91f8011fe794563ad4}{00160}}\ \ \ \ \ \mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{ProcTimingFunc}}\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_ac359353b9cb17a91f8011fe794563ad4}{proc\_}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00161}\mbox{\hyperlink{struct_slot_proc_a944c841747a9b600596c953002b8350b}{00161}}\ \ \ \ \ std::shared\_ptr<Callable>\ \mbox{\hyperlink{struct_slot_proc_a944c841747a9b600596c953002b8350b}{func\_}};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00163}00163\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00164}00164\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00165}00165\ \textcolor{comment}{\ \ \ \ //!\ @name\ Cereal処理}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00166}00166\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00167}00167\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00168}\mbox{\hyperlink{struct_slot_proc_a5fc223b2777739892108c6daad2f2b08}{00168}}\ \textcolor{comment}{}\ \ \ \ \mbox{\hyperlink{struct_slot_proc_a5fc223b2777739892108c6daad2f2b08}{CEREAL\_SAVELOAD}}(arc,\ ver)\ \{}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00169}00169\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_slot_proc_ad4897937c83b69cc4171689cf1deac7b}{dirty\_}}\ =\ \textcolor{keyword}{true};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//セーブするときにdirty\_つける}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00170}00170\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{struct_slot_proc_a46592494936047b700f792afd9c80c10}{name\_}}),\ \ \ \ \textcolor{comment}{//\ name}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ CEREAL\_NVP(\mbox{\hyperlink{struct_slot_proc_afa28cff4321d4844c7d936e4911769fc}{timing\_}}),\ CEREAL\_NVP(\mbox{\hyperlink{struct_slot_proc_ae8c00d327073bee2f088f9fe45ce38a3}{priority\_}}),\ CEREAL\_NVP(\mbox{\hyperlink{struct_slot_proc_ad4897937c83b69cc4171689cf1deac7b}{dirty\_}}),\ CEREAL\_NVP(\mbox{\hyperlink{struct_slot_proc_a944c841747a9b600596c953002b8350b}{func\_}}));}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ connect\_\ は再構築させる}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00173}00173\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00174}00174\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00175}00175\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00176}00176\ \textcolor{comment}{}\};}
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{_proc_timing_8h_source_l00178}\mbox{\hyperlink{_proc_timing_8h_ab05faf2a61120596baea980b99128c56}{00178}}\ \textcolor{keyword}{using\ }\mbox{\hyperlink{_proc_timing_8h_ab05faf2a61120596baea980b99128c56}{SlotProcs}}\ =\ std::unordered\_map<std::string,\ SlotProc>;}
+
+\end{DoxyCode}

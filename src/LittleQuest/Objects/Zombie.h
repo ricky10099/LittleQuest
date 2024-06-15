@@ -11,7 +11,7 @@ USING_PTR(Zombie);
 //! @detail Draw()は存在しません。Object標準にて描画されます
 class Zombie: public Enemy {
    public:
-    BP_OBJECT_TYPE(Zombie, Enemy);
+    BP_OBJECT_DECL(Zombie, "LittleQuest/Zombie");
 
     //! @brief 生成関数
     static ZombiePtr Create(const float3& pos, const float3& front = {0, 0, 1});

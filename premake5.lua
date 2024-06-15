@@ -4,8 +4,8 @@ require "bin/setup"
 --============================================================================
 -- ソリューションファイル
 --============================================================================
-config_solution("QuestProject")
-    startproject "QuestProject"		-- スタートアッププロジェクト名
+config_solution("LittleQuest")
+    startproject "LittleQuest"		-- スタートアッププロジェクト名
 
 	-- プリプロセッサ #define
    	defines {
@@ -341,6 +341,7 @@ config_project("JoltPhysics", "StaticLib")
 
 	-- プリプロセッサ #define
    	defines {
+   		"JPH_DEBUG_RENDERER=1",
 	}
 
 	-- フォルダ分け
@@ -377,7 +378,7 @@ config_project("cereal", "StaticLib")
 -- プロジェクトファイル
 --============================================================================
 group ""
-config_project("QuestProject", "WindowedApp")
+config_project("LittleQuest", "WindowedApp")
 
 	local SOURCE_PATH = "src"
 	local DXLIB_PATH  = "dxlib"
@@ -431,8 +432,10 @@ config_project("QuestProject", "WindowedApp")
 	-- プリプロセッサ #define
    	defines {
 	--	"_CRT_SECURE_NO_WARNINGS",
-	"_DISABLE_EXTENDED_ALIGNED_STORAGE",
-	--"USE_JOLT_PHYSICS",
+		"_DISABLE_EXTENDED_ALIGNED_STORAGE",
+	--	"USE_JOLT_PHYSICS",
+   		"JPH_DEBUG_RENDERER=1",
+   		"_SILENCE_CXX23_ALIGNED_STORAGE_DEPRECATION_WARNING",
 	}
 
 	-- プリコンパイル済ヘッダー
@@ -466,7 +469,7 @@ config_project("QuestProject", "WindowedApp")
 		"ImGui",
 		"ImGuizmo",
 		"implot",
-		"Im-neo-sequencer",
+		"im-neo-sequencer",
 		"JoltPhysics",
 		"meshoptimizer",
 	}

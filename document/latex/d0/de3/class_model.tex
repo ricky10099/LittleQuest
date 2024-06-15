@@ -1,0 +1,906 @@
+\hypertarget{class_model}{}\doxysection{Model クラス}
+\label{class_model}\index{Model@{Model}}
+
+
+3Dモデル  
+
+
+
+
+{\ttfamily \#include $<$Model.\+h$>$}
+
+
+
+Model 連携図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{d0/db1/class_model__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{公開型}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383}{Texture\+Type}} \{ \newline
+\mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a41178642cae095a6bdb909119b4d16e8}{Diffuse}}
+, \mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a39b0044dd8789d333e7794f359406740}{Specular}}
+, \mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a2c64c5cf613d8b9f4f7f3980d29aca10}{AO}}
+, \mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a960b44c579bc2f6818d2daaf9e4c16f0}{Normal}}
+, \newline
+\mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383af879d0a27915d351a8e47c2223777710}{Albedo}}
+, \mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a767078b82d60bc9dfaec29326b0b7c06}{Roughness}}
+, \mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a7d8a3680c55ec85a2231e2a48ecc88f3}{Metalness}}
+, \mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383aa6b9ceeb520a512bb3184db6b54160e3}{Count\+Max}}
+ \}
+\begin{DoxyCompactList}\small\item\em テクスチャの種類 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{公開メンバ関数}
+\begin{Indent}\textbf{ 初期化}\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_model_ae3b375de5f6df4faf74a95d64748e048}{Model}} ()
+\begin{DoxyCompactList}\small\item\em デフォルトコンストラクタ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_model_af901728cb5ba68052b87d7940dac3230}{Model}} (std\+::string\+\_\+view \mbox{\hyperlink{class_model_accc87d0d67ed4aed6b888e231fbc77c0}{path}})
+\item 
+virtual \mbox{\hyperlink{class_model_ad6ebd2062a0b823db841a0b88baac4c0}{$\sim$\+Model}} ()
+\item 
+bool \mbox{\hyperlink{class_model_a5152263c8143d2d3dc958ec04ab77e2c}{load}} (std\+::string\+\_\+view \mbox{\hyperlink{class_model_accc87d0d67ed4aed6b888e231fbc77c0}{path}})
+\begin{DoxyCompactList}\small\item\em 読み込み \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 描画}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_model_ab8afe0a3c375a9ca38b29d1effcce91a}{update}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} dt)
+\begin{DoxyCompactList}\small\item\em 更新 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_model_aff8852b13d07a3846d612900b3fd4e5e}{render}} (\mbox{\hyperlink{class_shader_vs}{Shader\+Vs}} $\ast$override\+\_\+vs=nullptr, \mbox{\hyperlink{class_shader_ps}{Shader\+Ps}} $\ast$override\+\_\+ps=nullptr)
+\begin{DoxyCompactList}\small\item\em 描画 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_model_aa488888038630d70eda43d40351a425c}{render\+By\+Mesh}} (\mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}} mesh\+\_\+index, \mbox{\hyperlink{class_shader_vs}{Shader\+Vs}} $\ast$override\+\_\+vs=nullptr, \mbox{\hyperlink{class_shader_ps}{Shader\+Ps}} $\ast$override\+\_\+ps=nullptr)
+\begin{DoxyCompactList}\small\item\em メッシュ番号指定で描画 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 設定}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_model_a823399bc37b8c202c1da238abf569467}{set\+World\+Matrix}} (const \mbox{\hyperlink{classmatrix}{matrix}} \&mat\+\_\+world)
+\begin{DoxyCompactList}\small\item\em ワールド行列を設定 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_model_ad4913b52989226b174e17e88fe531a97}{use\+Shader}} (bool use)
+\begin{DoxyCompactList}\small\item\em シェーダーを使うかどうかを設定 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_model_a2bc3ec47ebf1e447e54ade5da7b9ae95}{bind\+Animation}} (\mbox{\hyperlink{class_animation}{Animation}} $\ast$animation)
+\begin{DoxyCompactList}\small\item\em アニメーションを設定 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_model_a19f9f9806fc6502dd08853fbf0ed6cbc}{override\+Texture}} (\mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383}{Model\+::\+Texture\+Type}} type, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_texture}{Texture}} $>$ \&texture)
+\begin{DoxyCompactList}\small\item\em 既存テクスチャをオーバーライドします \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 取得}\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{class_model_a7cdb3b04dee78440d2f50bc5ba8f496f}{world\+Matrix}} () const
+\begin{DoxyCompactList}\small\item\em ワールド行列を設定 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_model_acb78883b26b576dab9a11ab65ee36fb9}{operator int}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} MV1ハンドルを取得 \end{DoxyCompactList}\item 
+const std\+::wstring \& \mbox{\hyperlink{class_model_accc87d0d67ed4aed6b888e231fbc77c0}{path}} () const
+\begin{DoxyCompactList}\small\item\em ファイルパスを取得 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_model_a436f875911534be67157ec5055ba5c4d}{is\+Valid}} () const
+\begin{DoxyCompactList}\small\item\em 初期化が正しく成功しているかどうかを取得 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_model_a900e20ada3398b6dd12a16dd71307ae0}{is\+Active}} () const
+\begin{DoxyCompactList}\small\item\em 利用可能な状態かどうか取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_resource_model}{Resource\+Model}} $\ast$ \mbox{\hyperlink{class_model_ace0fbe89210f733a1aeb5c583316e9df}{resource}} () const
+\begin{DoxyCompactList}\small\item\em モデルリソースを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{静的公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{class_model_a9089cf0cf2bc2889181f46206967b718}{VS\+\_\+\+VARIANT\+\_\+\+COUNT}} = DX\+\_\+\+MV1\+\_\+\+VERTEX\+\_\+\+TYPE\+\_\+\+NUM
+\begin{DoxyCompactList}\small\item\em 頂点シェーダーのバリエーション数 \end{DoxyCompactList}\item 
+static constexpr \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{class_model_a1ba5a63f7dcff6298a8c1ea89b12abad}{PS\+\_\+\+VARIANT\+\_\+\+COUNT}} = 1
+\begin{DoxyCompactList}\small\item\em ピクセルシェーダーのバリエーション数 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{静的非公開変数類}
+\begin{Indent}\textbf{ 共用で使用するリソース}\par
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{class_model_ac6bd2ec24e16144b59e474c6184ae29f}{ref\+\_\+counter\+\_\+}} = 0
+\begin{DoxyCompactList}\small\item\em 参照カウンター \end{DoxyCompactList}\item 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_shader_vs}{Shader\+Vs}} $>$ \mbox{\hyperlink{class_model_a47918f023be20640b68900bac1fa87f1}{shader\+\_\+vs\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 頂点シェーダー \end{DoxyCompactList}\item 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_shader_ps}{Shader\+Ps}} $>$ \mbox{\hyperlink{class_model_a42bdc4f47dfd04479de23abef50e25dd}{shader\+\_\+ps\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ピクセルシェーダー \end{DoxyCompactList}\item 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_texture}{Texture}} $>$ \mbox{\hyperlink{class_model_ab84e189d866741a70a477c907abed6fe}{tex\+\_\+null\+\_\+white\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 白\+Nullテクスチャ (1,1,1,1) \end{DoxyCompactList}\item 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_texture}{Texture}} $>$ \mbox{\hyperlink{class_model_a81d2bc31a646152ef6b430693a1e15eb}{tex\+\_\+null\+\_\+black\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 黒\+Nullテクスチャ (0,0,0,1) \end{DoxyCompactList}\item 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_texture}{Texture}} $>$ \mbox{\hyperlink{class_model_a4921f0c7183746997301c76222b26a1b}{tex\+\_\+null\+\_\+normal\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 法線\+Nullテクスチャ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{copy/move禁止}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_resource_model}{Resource\+Model}} $>$ \mbox{\hyperlink{class_model_a11a8470f22847581fa8f97dd0cc22661}{resource\+\_\+model\+\_\+}}
+\begin{DoxyCompactList}\small\item\em モデルリソース \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_model_a47facb59fb362a26985f5be68e2b5254}{mv1\+\_\+handle\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} MV1モデルハンドル \end{DoxyCompactList}\item 
+std\+::wstring \mbox{\hyperlink{class_model_a5cc1dde4bc86a475b2892b8752a67880}{path\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ファイルパス \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_model_a2d492e5e0790176ea959022926ba8529}{use\+\_\+shader\+\_\+}} = true
+\begin{DoxyCompactList}\small\item\em シェーダーを使うかどうか \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{class_model_a2bc452ee4a02707474c3a3ded4f1b839}{mat\+\_\+world\+\_\+}} = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()
+\begin{DoxyCompactList}\small\item\em ワールド行列 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_animation}{Animation}} $\ast$ \mbox{\hyperlink{class_model_a5df928d24583233a4d2178dccd24bdb7}{animation\+\_\+}} = nullptr
+\begin{DoxyCompactList}\small\item\em 関連付けられているアニメーション \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_model_a2f240b8a0fd2cc9716d339c526285839}{need\+\_\+initialize\+\_\+}} = true
+\item 
+std\+::array$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_texture}{Texture}} $>$, static\+\_\+cast$<$ \mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}} $>$(\mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383aa6b9ceeb520a512bb3184db6b54160e3}{Model\+::\+Texture\+Type\+::\+Count\+Max}})$>$ \mbox{\hyperlink{class_model_a9392874ed9290000725ad5e64884d351}{overrided\+Textures\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 上書きするテクスチャ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_model_a02d5e1b3c0845c9965df08be4c5828d3}{Model}} (const \mbox{\hyperlink{class_model}{Model}} \&)=delete
+\item 
+\mbox{\hyperlink{class_model_aa63ed36c55c961ae097d9c1384131433}{Model}} (\mbox{\hyperlink{class_model}{Model}} \&\&)=delete
+\item 
+void \mbox{\hyperlink{class_model_a2c5ea123b0825284af9d43eb2e1091d1}{operator=}} (const \mbox{\hyperlink{class_model}{Model}} \&)=delete
+\item 
+void \mbox{\hyperlink{class_model_a5c6a34684de1cc9ce56894a73c658fa1}{operator=}} (\mbox{\hyperlink{class_model}{Model}} \&\&)=delete
+\item 
+void \mbox{\hyperlink{class_model_a65fa8704c6830c4c7f3fc67615417947}{on\+\_\+initialize}} ()
+\begin{DoxyCompactList}\small\item\em 遅延初期化 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+3Dモデル 
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00014}{14}} 行目に定義があります。
+
+
+
+\doxysubsection{列挙型メンバ詳解}
+\mbox{\Hypertarget{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383}\label{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383}} 
+\index{Model@{Model}!TextureType@{TextureType}}
+\index{TextureType@{TextureType}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{TextureType}{TextureType}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383}{Model\+::\+Texture\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+テクスチャの種類 
+
+\begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Diffuse@{Diffuse}!Model@{Model}}\index{Model@{Model}!Diffuse@{Diffuse}}}\mbox{\Hypertarget{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a41178642cae095a6bdb909119b4d16e8}\label{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a41178642cae095a6bdb909119b4d16e8}} 
+Diffuse&ディフューズ \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Specular@{Specular}!Model@{Model}}\index{Model@{Model}!Specular@{Specular}}}\mbox{\Hypertarget{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a39b0044dd8789d333e7794f359406740}\label{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a39b0044dd8789d333e7794f359406740}} 
+Specular&スペキュラー \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AO@{AO}!Model@{Model}}\index{Model@{Model}!AO@{AO}}}\mbox{\Hypertarget{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a2c64c5cf613d8b9f4f7f3980d29aca10}\label{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a2c64c5cf613d8b9f4f7f3980d29aca10}} 
+AO&Ambient Occlusion \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Normal@{Normal}!Model@{Model}}\index{Model@{Model}!Normal@{Normal}}}\mbox{\Hypertarget{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a960b44c579bc2f6818d2daaf9e4c16f0}\label{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a960b44c579bc2f6818d2daaf9e4c16f0}} 
+Normal&法線マップ \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Albedo@{Albedo}!Model@{Model}}\index{Model@{Model}!Albedo@{Albedo}}}\mbox{\Hypertarget{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383af879d0a27915d351a8e47c2223777710}\label{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383af879d0a27915d351a8e47c2223777710}} 
+Albedo&アルベド \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Roughness@{Roughness}!Model@{Model}}\index{Model@{Model}!Roughness@{Roughness}}}\mbox{\Hypertarget{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a767078b82d60bc9dfaec29326b0b7c06}\label{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a767078b82d60bc9dfaec29326b0b7c06}} 
+Roughness&ラフネス \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Metalness@{Metalness}!Model@{Model}}\index{Model@{Model}!Metalness@{Metalness}}}\mbox{\Hypertarget{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a7d8a3680c55ec85a2231e2a48ecc88f3}\label{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a7d8a3680c55ec85a2231e2a48ecc88f3}} 
+Metalness&メタルネス(\+Metallic) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CountMax@{CountMax}!Model@{Model}}\index{Model@{Model}!CountMax@{CountMax}}}\mbox{\Hypertarget{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383aa6b9ceeb520a512bb3184db6b54160e3}\label{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383aa6b9ceeb520a512bb3184db6b54160e3}} 
+Count\+Max&定義個数 \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00023}{23}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{class_model_ae3b375de5f6df4faf74a95d64748e048}\label{class_model_ae3b375de5f6df4faf74a95d64748e048}} 
+\index{Model@{Model}!Model@{Model}}
+\index{Model@{Model}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{Model()}{Model()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Model\+::\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+デフォルトコンストラクタ 
+
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00224}{224}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00171}{ref\+\_\+counter\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_af901728cb5ba68052b87d7940dac3230}\label{class_model_af901728cb5ba68052b87d7940dac3230}} 
+\index{Model@{Model}!Model@{Model}}
+\index{Model@{Model}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{Model()}{Model()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Model\+::\+Model (\begin{DoxyParamCaption}\item[{std\+::string\+\_\+view}]{path }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em path} & ファイルパス \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00228}{228}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}, \mbox{\hyperlink{_model_8cpp_source_l00315}{path()}}, \mbox{\hyperlink{_model_8h_source_l00171}{ref\+\_\+counter\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_ad6ebd2062a0b823db841a0b88baac4c0}\label{class_model_ad6ebd2062a0b823db841a0b88baac4c0}} 
+\index{Model@{Model}!````~Model@{$\sim$Model}}
+\index{````~Model@{$\sim$Model}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{$\sim$Model()}{~Model()}}
+{\footnotesize\ttfamily Model\+::$\sim$\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00236}{236}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00159}{animation\+\_\+}}, \mbox{\hyperlink{_animation_8cpp_source_l00152}{Animation\+::bind\+Model()}}, \mbox{\hyperlink{_model_8h_source_l00155}{mv1\+\_\+handle\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00171}{ref\+\_\+counter\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00173}{shader\+\_\+ps\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00172}{shader\+\_\+vs\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00175}{tex\+\_\+null\+\_\+black\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00176}{tex\+\_\+null\+\_\+normal\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00174}{tex\+\_\+null\+\_\+white\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_a02d5e1b3c0845c9965df08be4c5828d3}\label{class_model_a02d5e1b3c0845c9965df08be4c5828d3}} 
+\index{Model@{Model}!Model@{Model}}
+\index{Model@{Model}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{Model()}{Model()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Model\+::\+Model (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_model}{Model}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_model_aa63ed36c55c961ae097d9c1384131433}\label{class_model_aa63ed36c55c961ae097d9c1384131433}} 
+\index{Model@{Model}!Model@{Model}}
+\index{Model@{Model}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{Model()}{Model()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Model\+::\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_model}{Model}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_model_a2bc3ec47ebf1e447e54ade5da7b9ae95}\label{class_model_a2bc3ec47ebf1e447e54ade5da7b9ae95}} 
+\index{Model@{Model}!bindAnimation@{bindAnimation}}
+\index{bindAnimation@{bindAnimation}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{bindAnimation()}{bindAnimation()}}
+{\footnotesize\ttfamily void Model\+::bind\+Animation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_animation}{Animation}} $\ast$}]{animation }\end{DoxyParamCaption})}
+
+
+
+アニメーションを設定 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em animation} & 関連付けるアニメーション(nullptrの場合は解除する) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00270}{270}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00159}{animation\+\_\+}}, \mbox{\hyperlink{_animation_8cpp_source_l00152}{Animation\+::bind\+Model()}}.
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00152}{Animation\+::bind\+Model()}}, \mbox{\hyperlink{_animation_8cpp_source_l00025}{Animation\+::$\sim$\+Animation()}}.
+
+\mbox{\Hypertarget{class_model_a900e20ada3398b6dd12a16dd71307ae0}\label{class_model_a900e20ada3398b6dd12a16dd71307ae0}} 
+\index{Model@{Model}!isActive@{isActive}}
+\index{isActive@{isActive}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{isActive()}{isActive()}}
+{\footnotesize\ttfamily bool Model\+::is\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+利用可能な状態かどうか取得 
+
+\begin{DoxyNote}{覚え書き}
+利用可能になっていない状態で\+Dx\+Lib MV1関連の関数を呼ぶと非同期ロードがブロッキングされます 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00332}{332}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00154}{resource\+\_\+model\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_a436f875911534be67157ec5055ba5c4d}\label{class_model_a436f875911534be67157ec5055ba5c4d}} 
+\index{Model@{Model}!isValid@{isValid}}
+\index{isValid@{isValid}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{isValid()}{isValid()}}
+{\footnotesize\ttfamily bool Model\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+初期化が正しく成功しているかどうかを取得 
+
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00322}{322}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00154}{resource\+\_\+model\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_a5152263c8143d2d3dc958ec04ab77e2c}\label{class_model_a5152263c8143d2d3dc958ec04ab77e2c}} 
+\index{Model@{Model}!load@{load}}
+\index{load@{load}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily bool Model\+::load (\begin{DoxyParamCaption}\item[{std\+::string\+\_\+view}]{path }\end{DoxyParamCaption})}
+
+
+
+読み込み 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em path} & ファイルパス \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 成功(正常終了) \\
+\hline
+{\em false} & 失敗(エラー終了) \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00023}{23}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00159}{animation\+\_\+}}, \mbox{\hyperlink{_animation_8cpp_source_l00152}{Animation\+::bind\+Model()}}, \mbox{\hyperlink{_model_8h_source_l00155}{mv1\+\_\+handle\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00160}{need\+\_\+initialize\+\_\+}}, \mbox{\hyperlink{_model_8cpp_source_l00315}{path()}}, \mbox{\hyperlink{_model_8h_source_l00020}{PS\+\_\+\+VARIANT\+\_\+\+COUNT}}, \mbox{\hyperlink{_model_8h_source_l00154}{resource\+\_\+model\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00173}{shader\+\_\+ps\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00172}{shader\+\_\+vs\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00175}{tex\+\_\+null\+\_\+black\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00176}{tex\+\_\+null\+\_\+normal\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00174}{tex\+\_\+null\+\_\+white\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00017}{VS\+\_\+\+VARIANT\+\_\+\+COUNT}}.
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00228}{Model()}}.
+
+\mbox{\Hypertarget{class_model_a65fa8704c6830c4c7f3fc67615417947}\label{class_model_a65fa8704c6830c4c7f3fc67615417947}} 
+\index{Model@{Model}!on\_initialize@{on\_initialize}}
+\index{on\_initialize@{on\_initialize}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{on\_initialize()}{on\_initialize()}}
+{\footnotesize\ttfamily void Model\+::on\+\_\+initialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+遅延初期化 
+
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00349}{349}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00155}{mv1\+\_\+handle\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00160}{need\+\_\+initialize\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00154}{resource\+\_\+model\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00088}{render()}}, \mbox{\hyperlink{_model_8cpp_source_l00111}{render\+By\+Mesh()}}.
+
+\mbox{\Hypertarget{class_model_acb78883b26b576dab9a11ab65ee36fb9}\label{class_model_acb78883b26b576dab9a11ab65ee36fb9}} 
+\index{Model@{Model}!operator int@{operator int}}
+\index{operator int@{operator int}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{operator int()}{operator int()}}
+{\footnotesize\ttfamily Model\+::operator int (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} MV1ハンドルを取得 
+
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00305}{305}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_model_a2c5ea123b0825284af9d43eb2e1091d1}\label{class_model_a2c5ea123b0825284af9d43eb2e1091d1}} 
+\index{Model@{Model}!operator=@{operator=}}
+\index{operator=@{operator=}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Model\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_model}{Model}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_model_a5c6a34684de1cc9ce56894a73c658fa1}\label{class_model_a5c6a34684de1cc9ce56894a73c658fa1}} 
+\index{Model@{Model}!operator=@{operator=}}
+\index{operator=@{operator=}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Model\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_model}{Model}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_model_a19f9f9806fc6502dd08853fbf0ed6cbc}\label{class_model_a19f9f9806fc6502dd08853fbf0ed6cbc}} 
+\index{Model@{Model}!overrideTexture@{overrideTexture}}
+\index{overrideTexture@{overrideTexture}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{overrideTexture()}{overrideTexture()}}
+{\footnotesize\ttfamily void Model\+::override\+Texture (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383}{Model\+::\+Texture\+Type}}}]{type,  }\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_texture}{Texture}} $>$ \&}]{texture }\end{DoxyParamCaption})}
+
+
+
+既存テクスチャをオーバーライドします 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em type} & テクスチャの種類 \\
+\hline
+\mbox{\texttt{ in}}  & {\em texture} & オーバーライドするテクスチャ(nullptrでオーバーライド解除) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00291}{291}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00164}{overrided\+Textures\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_accc87d0d67ed4aed6b888e231fbc77c0}\label{class_model_accc87d0d67ed4aed6b888e231fbc77c0}} 
+\index{Model@{Model}!path@{path}}
+\index{path@{path}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{path()}{path()}}
+{\footnotesize\ttfamily const std\+::wstring \& Model\+::path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+ファイルパスを取得 
+
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00315}{315}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00156}{path\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}, \mbox{\hyperlink{_model_8cpp_source_l00228}{Model()}}.
+
+\mbox{\Hypertarget{class_model_aff8852b13d07a3846d612900b3fd4e5e}\label{class_model_aff8852b13d07a3846d612900b3fd4e5e}} 
+\index{Model@{Model}!render@{render}}
+\index{render@{render}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void Model\+::render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_shader_vs}{Shader\+Vs}} $\ast$}]{override\+\_\+vs = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{class_shader_ps}{Shader\+Ps}} $\ast$}]{override\+\_\+ps = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+描画 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em override\+\_\+vs} & 上書きする頂点シェーダー (nullptrで無効化) \\
+\hline
+\mbox{\texttt{ in}}  & {\em override\+\_\+ps} & 上書きするピクセルシェーダー (nullptrで無効化) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00088}{88}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00158}{mat\+\_\+world\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00155}{mv1\+\_\+handle\+\_\+}}, \mbox{\hyperlink{_model_8cpp_source_l00349}{on\+\_\+initialize()}}, \mbox{\hyperlink{_model_8cpp_source_l00111}{render\+By\+Mesh()}}, \mbox{\hyperlink{_model_8h_source_l00154}{resource\+\_\+model\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_aa488888038630d70eda43d40351a425c}\label{class_model_aa488888038630d70eda43d40351a425c}} 
+\index{Model@{Model}!renderByMesh@{renderByMesh}}
+\index{renderByMesh@{renderByMesh}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{renderByMesh()}{renderByMesh()}}
+{\footnotesize\ttfamily void Model\+::render\+By\+Mesh (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}}}]{mesh\+\_\+index,  }\item[{\mbox{\hyperlink{class_shader_vs}{Shader\+Vs}} $\ast$}]{override\+\_\+vs = {\ttfamily nullptr},  }\item[{\mbox{\hyperlink{class_shader_ps}{Shader\+Ps}} $\ast$}]{override\+\_\+ps = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+メッシュ番号指定で描画 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em mesh\+\_\+index} & メッシュ番号 \\
+\hline
+\mbox{\texttt{ in}}  & {\em override\+\_\+vs} & 上書きする頂点シェーダー (nullptrで無効化) \\
+\hline
+\mbox{\texttt{ in}}  & {\em override\+\_\+ps} & 上書きするピクセルシェーダー (nullptrで無効化) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00111}{111}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a41178642cae095a6bdb909119b4d16e8}{Diffuse}}, \mbox{\hyperlink{_model_8h_source_l00158}{mat\+\_\+world\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00155}{mv1\+\_\+handle\+\_\+}}, \mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a960b44c579bc2f6818d2daaf9e4c16f0}{Normal}}, \mbox{\hyperlink{_model_8cpp_source_l00349}{on\+\_\+initialize()}}, \mbox{\hyperlink{_model_8h_source_l00164}{overrided\+Textures\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00154}{resource\+\_\+model\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00173}{shader\+\_\+ps\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00172}{shader\+\_\+vs\+\_\+}}, \mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383a39b0044dd8789d333e7794f359406740}{Specular}}, \mbox{\hyperlink{_model_8h_source_l00176}{tex\+\_\+null\+\_\+normal\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00157}{use\+\_\+shader\+\_\+}}, \mbox{\hyperlink{_shader_8h_source_l00033}{Shader\+Base\+::variant()}}.
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00088}{render()}}.
+
+\mbox{\Hypertarget{class_model_ace0fbe89210f733a1aeb5c583316e9df}\label{class_model_ace0fbe89210f733a1aeb5c583316e9df}} 
+\index{Model@{Model}!resource@{resource}}
+\index{resource@{resource}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{resource()}{resource()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_resource_model}{Resource\+Model}} $\ast$ Model\+::resource (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+モデルリソースを取得 
+
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00342}{342}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00154}{resource\+\_\+model\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_shape_8cpp_source_l00019}{shape\+::\+Convex\+Hull\+::\+Convex\+Hull()}}, \mbox{\hyperlink{_shape_8cpp_source_l00044}{shape\+::\+Mesh\+::\+Mesh()}}.
+
+\mbox{\Hypertarget{class_model_a823399bc37b8c202c1da238abf569467}\label{class_model_a823399bc37b8c202c1da238abf569467}} 
+\index{Model@{Model}!setWorldMatrix@{setWorldMatrix}}
+\index{setWorldMatrix@{setWorldMatrix}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{setWorldMatrix()}{setWorldMatrix()}}
+{\footnotesize\ttfamily void Model\+::set\+World\+Matrix (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classmatrix}{matrix}} \&}]{mat\+\_\+world }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ワールド行列を設定 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00088}{88}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}, \mbox{\hyperlink{_model_8h_source_l00158}{mat\+\_\+world\+\_\+}}, \mbox{\hyperlink{_model_8h_source_l00155}{mv1\+\_\+handle\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_ab8afe0a3c375a9ca38b29d1effcce91a}\label{class_model_ab8afe0a3c375a9ca38b29d1effcce91a}} 
+\index{Model@{Model}!update@{update}}
+\index{update@{update}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Model\+::update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{dt }\end{DoxyParamCaption})}
+
+
+
+更新 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em dt} & 経過時間(単位\+:秒) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00083}{83}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_model_ad4913b52989226b174e17e88fe531a97}\label{class_model_ad4913b52989226b174e17e88fe531a97}} 
+\index{Model@{Model}!useShader@{useShader}}
+\index{useShader@{useShader}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{useShader()}{useShader()}}
+{\footnotesize\ttfamily void Model\+::use\+Shader (\begin{DoxyParamCaption}\item[{bool}]{use }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+シェーダーを使うかどうかを設定 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00094}{94}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00157}{use\+\_\+shader\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_a7cdb3b04dee78440d2f50bc5ba8f496f}\label{class_model_a7cdb3b04dee78440d2f50bc5ba8f496f}} 
+\index{Model@{Model}!worldMatrix@{worldMatrix}}
+\index{worldMatrix@{worldMatrix}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{worldMatrix()}{worldMatrix()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} Model\+::world\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+ワールド行列を設定 
+
+
+
+ \mbox{\hyperlink{_model_8cpp_source}{Model.\+cpp}} の \mbox{\hyperlink{_model_8cpp_source_l00298}{298}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8h_source_l00158}{mat\+\_\+world\+\_\+}}.
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{class_model_a5df928d24583233a4d2178dccd24bdb7}\label{class_model_a5df928d24583233a4d2178dccd24bdb7}} 
+\index{Model@{Model}!animation\_@{animation\_}}
+\index{animation\_@{animation\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{animation\_}{animation\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_animation}{Animation}}$\ast$ Model\+::animation\+\_\+ = nullptr\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+関連付けられているアニメーション 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00159}{159}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00270}{bind\+Animation()}}, \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}, \mbox{\hyperlink{_model_8cpp_source_l00236}{$\sim$\+Model()}}.
+
+\mbox{\Hypertarget{class_model_a2bc452ee4a02707474c3a3ded4f1b839}\label{class_model_a2bc452ee4a02707474c3a3ded4f1b839}} 
+\index{Model@{Model}!mat\_world\_@{mat\_world\_}}
+\index{mat\_world\_@{mat\_world\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{mat\_world\_}{mat\_world\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} Model\+::mat\+\_\+world\+\_\+ = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ワールド行列 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00158}{158}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00088}{render()}}, \mbox{\hyperlink{_model_8cpp_source_l00111}{render\+By\+Mesh()}}, \mbox{\hyperlink{_model_8h_source_l00088}{set\+World\+Matrix()}}, \mbox{\hyperlink{_model_8cpp_source_l00298}{world\+Matrix()}}.
+
+\mbox{\Hypertarget{class_model_a47facb59fb362a26985f5be68e2b5254}\label{class_model_a47facb59fb362a26985f5be68e2b5254}} 
+\index{Model@{Model}!mv1\_handle\_@{mv1\_handle\_}}
+\index{mv1\_handle\_@{mv1\_handle\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{mv1\_handle\_}{mv1\_handle\_}}
+{\footnotesize\ttfamily int Model\+::mv1\+\_\+handle\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} MV1モデルハンドル 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00155}{155}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}, \mbox{\hyperlink{_model_8cpp_source_l00349}{on\+\_\+initialize()}}, \mbox{\hyperlink{_model_8cpp_source_l00088}{render()}}, \mbox{\hyperlink{_model_8cpp_source_l00111}{render\+By\+Mesh()}}, \mbox{\hyperlink{_model_8h_source_l00088}{set\+World\+Matrix()}}, \mbox{\hyperlink{_model_8cpp_source_l00236}{$\sim$\+Model()}}.
+
+\mbox{\Hypertarget{class_model_a2f240b8a0fd2cc9716d339c526285839}\label{class_model_a2f240b8a0fd2cc9716d339c526285839}} 
+\index{Model@{Model}!need\_initialize\_@{need\_initialize\_}}
+\index{need\_initialize\_@{need\_initialize\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{need\_initialize\_}{need\_initialize\_}}
+{\footnotesize\ttfamily bool Model\+::need\+\_\+initialize\+\_\+ = true\hspace{0.3cm}{\ttfamily [private]}}
+
+初期化要求フラグ true\+:初期化が必要 false\+:初期化済または完了で不要 
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00160}{160}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}, \mbox{\hyperlink{_model_8cpp_source_l00349}{on\+\_\+initialize()}}.
+
+\mbox{\Hypertarget{class_model_a9392874ed9290000725ad5e64884d351}\label{class_model_a9392874ed9290000725ad5e64884d351}} 
+\index{Model@{Model}!overridedTextures\_@{overridedTextures\_}}
+\index{overridedTextures\_@{overridedTextures\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{overridedTextures\_}{overridedTextures\_}}
+{\footnotesize\ttfamily std\+::array$<$std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_texture}{Texture}}$>$, static\+\_\+cast$<$\mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}}$>$(\mbox{\hyperlink{class_model_ac127747e1f2c7fb7d6a3ff86c0dc8383aa6b9ceeb520a512bb3184db6b54160e3}{Model\+::\+Texture\+Type\+::\+Count\+Max}})$>$ Model\+::overrided\+Textures\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+上書きするテクスチャ 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00164}{164}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00291}{override\+Texture()}}, \mbox{\hyperlink{_model_8cpp_source_l00111}{render\+By\+Mesh()}}.
+
+\mbox{\Hypertarget{class_model_a5cc1dde4bc86a475b2892b8752a67880}\label{class_model_a5cc1dde4bc86a475b2892b8752a67880}} 
+\index{Model@{Model}!path\_@{path\_}}
+\index{path\_@{path\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{path\_}{path\_}}
+{\footnotesize\ttfamily std\+::wstring Model\+::path\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ファイルパス 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00156}{156}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00315}{path()}}.
+
+\mbox{\Hypertarget{class_model_a1ba5a63f7dcff6298a8c1ea89b12abad}\label{class_model_a1ba5a63f7dcff6298a8c1ea89b12abad}} 
+\index{Model@{Model}!PS\_VARIANT\_COUNT@{PS\_VARIANT\_COUNT}}
+\index{PS\_VARIANT\_COUNT@{PS\_VARIANT\_COUNT}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{PS\_VARIANT\_COUNT}{PS\_VARIANT\_COUNT}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} Model\+::\+PS\+\_\+\+VARIANT\+\_\+\+COUNT = 1\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+ピクセルシェーダーのバリエーション数 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00020}{20}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}.
+
+\mbox{\Hypertarget{class_model_ac6bd2ec24e16144b59e474c6184ae29f}\label{class_model_ac6bd2ec24e16144b59e474c6184ae29f}} 
+\index{Model@{Model}!ref\_counter\_@{ref\_counter\_}}
+\index{ref\_counter\_@{ref\_counter\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{ref\_counter\_}{ref\_counter\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} Model\+::ref\+\_\+counter\+\_\+ = 0\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+参照カウンター 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00171}{171}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00224}{Model()}}, \mbox{\hyperlink{_model_8cpp_source_l00236}{$\sim$\+Model()}}.
+
+\mbox{\Hypertarget{class_model_a11a8470f22847581fa8f97dd0cc22661}\label{class_model_a11a8470f22847581fa8f97dd0cc22661}} 
+\index{Model@{Model}!resource\_model\_@{resource\_model\_}}
+\index{resource\_model\_@{resource\_model\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{resource\_model\_}{resource\_model\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_resource_model}{Resource\+Model}}$>$ Model\+::resource\+\_\+model\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+モデルリソース 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00154}{154}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00332}{is\+Active()}}, \mbox{\hyperlink{_model_8cpp_source_l00322}{is\+Valid()}}, \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}, \mbox{\hyperlink{_model_8cpp_source_l00349}{on\+\_\+initialize()}}, \mbox{\hyperlink{_model_8cpp_source_l00088}{render()}}, \mbox{\hyperlink{_model_8cpp_source_l00111}{render\+By\+Mesh()}}, \mbox{\hyperlink{_model_8cpp_source_l00342}{resource()}}.
+
+\mbox{\Hypertarget{class_model_a42bdc4f47dfd04479de23abef50e25dd}\label{class_model_a42bdc4f47dfd04479de23abef50e25dd}} 
+\index{Model@{Model}!shader\_ps\_@{shader\_ps\_}}
+\index{shader\_ps\_@{shader\_ps\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{shader\_ps\_}{shader\_ps\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_shader_ps}{Shader\+Ps}}$>$ Model\+::shader\+\_\+ps\+\_\+\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+ピクセルシェーダー 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00173}{173}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}, \mbox{\hyperlink{_model_8cpp_source_l00111}{render\+By\+Mesh()}}, \mbox{\hyperlink{_model_8cpp_source_l00236}{$\sim$\+Model()}}.
+
+\mbox{\Hypertarget{class_model_a47918f023be20640b68900bac1fa87f1}\label{class_model_a47918f023be20640b68900bac1fa87f1}} 
+\index{Model@{Model}!shader\_vs\_@{shader\_vs\_}}
+\index{shader\_vs\_@{shader\_vs\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{shader\_vs\_}{shader\_vs\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_shader_vs}{Shader\+Vs}}$>$ Model\+::shader\+\_\+vs\+\_\+\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+頂点シェーダー 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00172}{172}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}, \mbox{\hyperlink{_model_8cpp_source_l00111}{render\+By\+Mesh()}}, \mbox{\hyperlink{_model_8cpp_source_l00236}{$\sim$\+Model()}}.
+
+\mbox{\Hypertarget{class_model_a81d2bc31a646152ef6b430693a1e15eb}\label{class_model_a81d2bc31a646152ef6b430693a1e15eb}} 
+\index{Model@{Model}!tex\_null\_black\_@{tex\_null\_black\_}}
+\index{tex\_null\_black\_@{tex\_null\_black\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{tex\_null\_black\_}{tex\_null\_black\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_texture}{Texture}}$>$ Model\+::tex\+\_\+null\+\_\+black\+\_\+\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+黒\+Nullテクスチャ (0,0,0,1) 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00175}{175}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}, \mbox{\hyperlink{_model_8cpp_source_l00236}{$\sim$\+Model()}}.
+
+\mbox{\Hypertarget{class_model_a4921f0c7183746997301c76222b26a1b}\label{class_model_a4921f0c7183746997301c76222b26a1b}} 
+\index{Model@{Model}!tex\_null\_normal\_@{tex\_null\_normal\_}}
+\index{tex\_null\_normal\_@{tex\_null\_normal\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{tex\_null\_normal\_}{tex\_null\_normal\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_texture}{Texture}}$>$ Model\+::tex\+\_\+null\+\_\+normal\+\_\+\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+法線\+Nullテクスチャ 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00176}{176}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}, \mbox{\hyperlink{_model_8cpp_source_l00111}{render\+By\+Mesh()}}, \mbox{\hyperlink{_model_8cpp_source_l00236}{$\sim$\+Model()}}.
+
+\mbox{\Hypertarget{class_model_ab84e189d866741a70a477c907abed6fe}\label{class_model_ab84e189d866741a70a477c907abed6fe}} 
+\index{Model@{Model}!tex\_null\_white\_@{tex\_null\_white\_}}
+\index{tex\_null\_white\_@{tex\_null\_white\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{tex\_null\_white\_}{tex\_null\_white\_}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{class_texture}{Texture}}$>$ Model\+::tex\+\_\+null\+\_\+white\+\_\+\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+白\+Nullテクスチャ (1,1,1,1) 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00174}{174}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}, \mbox{\hyperlink{_model_8cpp_source_l00236}{$\sim$\+Model()}}.
+
+\mbox{\Hypertarget{class_model_a2d492e5e0790176ea959022926ba8529}\label{class_model_a2d492e5e0790176ea959022926ba8529}} 
+\index{Model@{Model}!use\_shader\_@{use\_shader\_}}
+\index{use\_shader\_@{use\_shader\_}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{use\_shader\_}{use\_shader\_}}
+{\footnotesize\ttfamily bool Model\+::use\+\_\+shader\+\_\+ = true\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+シェーダーを使うかどうか 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00157}{157}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00111}{render\+By\+Mesh()}}, \mbox{\hyperlink{_model_8h_source_l00094}{use\+Shader()}}.
+
+\mbox{\Hypertarget{class_model_a9089cf0cf2bc2889181f46206967b718}\label{class_model_a9089cf0cf2bc2889181f46206967b718}} 
+\index{Model@{Model}!VS\_VARIANT\_COUNT@{VS\_VARIANT\_COUNT}}
+\index{VS\_VARIANT\_COUNT@{VS\_VARIANT\_COUNT}!Model@{Model}}
+\doxysubsubsection{\texorpdfstring{VS\_VARIANT\_COUNT}{VS\_VARIANT\_COUNT}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} Model\+::\+VS\+\_\+\+VARIANT\+\_\+\+COUNT = DX\+\_\+\+MV1\+\_\+\+VERTEX\+\_\+\+TYPE\+\_\+\+NUM\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+頂点シェーダーのバリエーション数 
+
+
+
+ \mbox{\hyperlink{_model_8h_source}{Model.\+h}} の \mbox{\hyperlink{_model_8h_source_l00017}{17}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00023}{load()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_model_8h}{Model.\+h}}\item 
+\mbox{\hyperlink{_model_8cpp}{Model.\+cpp}}\end{DoxyCompactItemize}

@@ -6,7 +6,7 @@ namespace LittleQuest {
 USING_PTR(Fence);
 class Fence: public Object {
    public:
-    BP_OBJECT_TYPE(Fence, Object);
+    BP_OBJECT_DECL(Fence, "LittleQuest/Fence");
     static FencePtr Create(const float3& pos = {0, 0, 0});
 
     bool Init() override;

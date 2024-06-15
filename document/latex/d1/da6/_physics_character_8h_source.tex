@@ -1,0 +1,231 @@
+\hypertarget{_physics_character_8h_source}{}\doxysection{Physics\+Character.\+h}
+\label{_physics_character_8h_source}\index{PhysicsCharacter.h@{PhysicsCharacter.h}}
+\mbox{\hyperlink{_physics_character_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ PhysicsCharacter.h}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ キャラクターコントローラー}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00005}00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00007}\mbox{\hyperlink{namespaceshape}{00007}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceshape}{shape}}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00008}00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classshape_1_1_base}{Base}};}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00009}00009\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ shape}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00011}00011\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacephysics}{physics}}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00013}00013\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00014}00014\ \textcolor{comment}{//!\ キャラクターコントローラー}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00015}00015\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00016}\mbox{\hyperlink{classphysics_1_1_character}{00016}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classphysics_1_1_character}{Character}}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00017}00017\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_settings}{ContactSettings}};}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener}{ContactListener}};}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00021}00021\ \ \ \ \ \textcolor{comment}{//\ 接地状態}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00022}\mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873}{00022}}\ \ \ \ \ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873}{GroundState}}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a2b9beed57034f5727573d7ded76cf777}{OnGround}},\ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ キャラクターが地上にいて自由に動ける状態}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a50f80f8d96a6d65de73ba8a6b9910761}{OnSteepGround}},\ \ \ \ \textcolor{comment}{//!<\ キャラクターは急すぎる斜面にいて、これ以上登れない。もし斜面から滑りたいのであれば、呼び出し手は下降速度をかけ始める必要があります。}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a9ed2d871602556951e39f3cebd08d6cb}{NotSupported}},\ \ \ \ \textcolor{comment}{//!<\ キャラクターがオブジェクトに触れているが、そのオブジェクトに対応していないため落下する必要がある。GetGroundXXX関数は、タッチされたオブジェクトの情報を返します。}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873aee4e669a07b061d70b9b79dfed9cb5e7}{InAir}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ キャラクターは空宙にいる}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00027}00027\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00029}00029\ \ \ \ \ \textcolor{comment}{//\ コンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00030}\mbox{\hyperlink{classphysics_1_1_character_af464a1bf99009eab8e2d28f68e11808f}{00030}}\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_character_af464a1bf99009eab8e2d28f68e11808f}{Character}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00032}00032\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00033}00033\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ コンタクトリスナー}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00034}00034\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00035}00035\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00036}00036\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00037}00037\ \textcolor{comment}{\ \ \ \ //!\ コンタクトリスナーを設定}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00038}\mbox{\hyperlink{classphysics_1_1_character_a312ff4bf8d4d23672f70481de601e174}{00038}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_character_a312ff4bf8d4d23672f70481de601e174}{setListener}}(\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener}{physics::Character::ContactListener}}*\ \mbox{\hyperlink{classphysics_1_1_character_af75d79d7efe3e5a592474b1f9bdc542f}{listener}})\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00039}00039\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00040}00040\ \textcolor{comment}{\ \ \ \ //!\ コンタクトリスナーを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00041}\mbox{\hyperlink{classphysics_1_1_character_af75d79d7efe3e5a592474b1f9bdc542f}{00041}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener}{physics::Character::ContactListener}}*\ \mbox{\hyperlink{classphysics_1_1_character_af75d79d7efe3e5a592474b1f9bdc542f}{listener}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00042}00042\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00043}00043\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00044}00044\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00045}00045\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ パラメーター}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00046}00046\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00047}00047\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00048}00048\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00049}00049\ \textcolor{comment}{\ \ \ \ //!\ 速度を取得\ (単位:m/s)}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00050}\mbox{\hyperlink{classphysics_1_1_character_a8e6a4bb7757c969fb3fc3a35ff866696}{00050}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_character_a8e6a4bb7757c969fb3fc3a35ff866696}{linearVelocity}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00051}00051\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00052}00052\ \textcolor{comment}{\ \ \ \ //!\ 速度を設定\ (単位:m/s)}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00053}\mbox{\hyperlink{classphysics_1_1_character_a7a466020621512467bf8b2c99cbd7410}{00053}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_character_a7a466020621512467bf8b2c99cbd7410}{setLinearVelocity}}(\textcolor{keyword}{const}\ float3\&\ linear\_velocity)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00054}00054\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00055}00055\ \textcolor{comment}{\ \ \ \ //!\ 位置を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00056}\mbox{\hyperlink{classphysics_1_1_character_a4dd722578045fe3b4f9343efa7f1f9a4}{00056}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_character_a4dd722578045fe3b4f9343efa7f1f9a4}{position}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00057}00057\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00058}00058\ \textcolor{comment}{\ \ \ \ //!\ 位置を設定}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00059}\mbox{\hyperlink{classphysics_1_1_character_ade4826fc25e3722627329a79fad55302}{00059}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_character_ade4826fc25e3722627329a79fad55302}{setPosition}}(\textcolor{keyword}{const}\ float3\&\ p)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00060}00060\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00061}00061\ \textcolor{comment}{\ \ \ \ //!\ 回転姿勢を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00062}\mbox{\hyperlink{classphysics_1_1_character_a6af7cf39f8ca37c9009003875bb06468}{00062}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ quaternion\ \mbox{\hyperlink{classphysics_1_1_character_a6af7cf39f8ca37c9009003875bb06468}{rotation}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00063}00063\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00064}00064\ \textcolor{comment}{\ \ \ \ //!\ 回転姿勢を設定}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00065}\mbox{\hyperlink{classphysics_1_1_character_af06acd9d0fe75db90f2b82282c5b283f}{00065}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_character_af06acd9d0fe75db90f2b82282c5b283f}{setRotation}}(\textcolor{keyword}{const}\ quaternion\&\ r)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00066}00066\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00067}00067\ \textcolor{comment}{\ \ \ \ //!\ ワールド行列を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00068}\mbox{\hyperlink{classphysics_1_1_character_a2eeffe7b11fe0663f455e198bc3681c3}{00068}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{classphysics_1_1_character_a2eeffe7b11fe0663f455e198bc3681c3}{worldMatrix}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00069}00069\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00070}00070\ \textcolor{comment}{\ \ \ \ //!\ 重心の変換行列を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00071}\mbox{\hyperlink{classphysics_1_1_character_a2e47b974eaaf62e982e657e251b26201}{00071}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{classphysics_1_1_character_a2e47b974eaaf62e982e657e251b26201}{centerOfMassTransform}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00072}00072\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00073}00073\ \textcolor{comment}{\ \ \ \ //!\ 質量を設定\ (単位:kg)}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00074}\mbox{\hyperlink{classphysics_1_1_character_a35601f6453ac278e80f3fb81157ad7a5}{00074}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_character_a35601f6453ac278e80f3fb81157ad7a5}{setMass}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ mass)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00075}00075\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00076}00076\ \textcolor{comment}{\ \ \ \ //!\ キャラクターがまだ歩ける最大傾斜角度を設定する\ (単位:ラジアン)}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00077}\mbox{\hyperlink{classphysics_1_1_character_aff28ca0b1c3abccb44914e43f54eeefd}{00077}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_character_aff28ca0b1c3abccb44914e43f54eeefd}{setMaxSlopeAngle}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ max\_slope\_angle)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00078}00078\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00079}00079\ \textcolor{comment}{\ \ \ \ //!\ キャラクターが他の物体を押すことができる最大の力を設定（単位:N）}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00080}\mbox{\hyperlink{classphysics_1_1_character_a1850bc55a8663491fee199f7fb31f3d8}{00080}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_character_a1850bc55a8663491fee199f7fb31f3d8}{setMaxStrength}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ max\_strength)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00081}00081\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00082}00082\ \textcolor{comment}{\ \ \ \ //!\ ジオメトリからどれだけ離れられるかの距離を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00083}\mbox{\hyperlink{classphysics_1_1_character_ab76bde2e4a93c6be241012d48b19bd74}{00083}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \mbox{\hyperlink{classphysics_1_1_character_ab76bde2e4a93c6be241012d48b19bd74}{characterPadding}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00084}00084\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00085}00085\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00086}00086\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00087}00087\ \textcolor{comment}{\ \ \ \ //!\ 更新}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00088}00088\ \textcolor{comment}{\ \ \ \ //!\ 現在の速度に応じてキャラクターを移動させます。}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00089}00089\ \textcolor{comment}{\ \ \ \ //!\ @param\ [in]\ delta\_time\ \ シミュレーションステップ時間}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00090}\mbox{\hyperlink{classphysics_1_1_character_a6368798da0919a9f9d39db5b13e23edd}{00090}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_character_a6368798da0919a9f9d39db5b13e23edd}{update}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ delta\_time)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00091}00091\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00092}00092\ \textcolor{comment}{\ \ \ \ //!\ 移動}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00093}00093\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ delta\_time\ \ \ \ \ \ シミュレーションステップ時間}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00094}00094\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ move\_vector\ \ \ \ \ 移動ベクトル}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00095}00095\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ old\_position\ \ \ \ 移動前の位置(}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00096}00096\ \textcolor{comment}{\ \ \ \ //!\ update()実行前の座標が必要です\ )}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00097}00097\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ jump\_vector}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00098}00098\ \textcolor{comment}{\ \ \ \ //!\ ジャンプ方向ベクトル(ジャンプしない場合は0で渡します)}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00099}00099\ \textcolor{comment}{\ \ \ \ //!\ @return\ 新しい補正後の移動速度}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00100}00100\ \textcolor{comment}{\ \ \ \ //!\ 内部でwalkStairs()による階段歩行も行います}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00101}\mbox{\hyperlink{classphysics_1_1_character_a07bd7bb40708ed1beb8f2d06d5f9daca}{00101}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_character_a07bd7bb40708ed1beb8f2d06d5f9daca}{move}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ delta\_time,\ \textcolor{keyword}{const}\ float3\&\ move\_vector,\ \textcolor{keyword}{const}\ float3\&\ old\_position,}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ float3\&\ jump\_vector\ =\ float3(0.0f,\ 0.0f,\ 0.0f))\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00103}00103\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00104}00104\ \textcolor{comment}{\ \ \ \ //!\ 階段を歩けるかどうかを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00105}00105\ \textcolor{comment}{\ \ \ \ //!\ @details}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00106}00106\ \textcolor{comment}{\ \ \ \ //!\ この関数はキャラクターが急すぎる斜面（垂直な壁など）に移動した場合にtrueを返します。}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00107}00107\ \textcolor{comment}{\ \ \ \ //!\ 階段を上ろうとする場合はwalkStairsを呼び出すことになります。}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00108}00108\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ move\_vector\ \ \ \ \ 移動ベクトル}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00109}\mbox{\hyperlink{classphysics_1_1_character_a2258c4316e1079fa738005bfbf502316}{00109}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classphysics_1_1_character_a2258c4316e1079fa738005bfbf502316}{canWalkStairs}}(\textcolor{keyword}{const}\ float3\&\ move\_vector)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00110}00110\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00111}00111\ \textcolor{comment}{\ \ \ \ //!\ 階段歩行}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00112}00112\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ delta\_time\ シミュレーションのステップ時間}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00113}00113\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ step\_up}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00114}00114\ \textcolor{comment}{\ \ \ \ //!\ ステップアップする方向と距離（これが最大ステップ高に相当する）}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00115}00115\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ step\_forward}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00116}00116\ \textcolor{comment}{\ \ \ \ //!\ 踏み台昇降の後に前に踏み出す方向と距離}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00117}00117\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ step\_forward\_test\ \ \ 床を検査する方向と距離}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00118}00118\ \textcolor{comment}{\ \ \ \ //!\ @param\ inStepDownExtra}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00119}00119\ \textcolor{comment}{\ \ \ \ //!\ ステップダウンする最後に加算される平行移動。上より下にステップダウンできるようにします。不要な場合は0に設定します。}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00120}00120\ \textcolor{comment}{\ \ \ \ //!\ @return\ 階段の歩行が成功した場合はtrueが戻ります}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00121}00121\ \textcolor{comment}{\ \ \ \ //!}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00122}00122\ \textcolor{comment}{\ \ \ \ //!\ 引数\ step\_forward\_test\ について}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00123}00123\ \textcolor{comment}{\ \ \ \ //!\ 高い周波数で走行している場合\ step\_forward}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00124}00124\ \textcolor{comment}{\ \ \ \ //!\ は非常に小さくなり、降りるときに階段の側面にぶつかる可能性があります。}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00125}00125\ \textcolor{comment}{\ \ \ \ //!\ そのため、最大傾斜角度に違反する法線が発生する可能性があります。}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00126}00126\ \textcolor{comment}{\ \ \ \ //!\ このような場合は上昇位置からこの距離を使って再度テストし、有効なスロープを見つけるかどうかを確認します。}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00127}\mbox{\hyperlink{classphysics_1_1_character_a5c310f6ab55042491d41f831634199c1}{00127}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classphysics_1_1_character_a5c310f6ab55042491d41f831634199c1}{walkStairs}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ delta\_time,\ \textcolor{keyword}{const}\ float3\&\ step\_up,\ \textcolor{keyword}{const}\ float3\&\ step\_forward,\ \textcolor{keyword}{const}\ float3\&\ step\_forward\_test,}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ float3\&\ step\_down\_extra\ =\ float3(0.0f,\ 0.0f,\ 0.0f))\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00129}00129\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00130}00130\ \textcolor{comment}{\ \ \ \ //!\ 衝突点を再検出}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00131}00131\ \textcolor{comment}{\ \ \ \ //!\ この機能はキャラクターがテレポートした後に、新しい世界とのコンタクトを決定するために使用することができます。}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00132}\mbox{\hyperlink{classphysics_1_1_character_a1c8eab5932aa07a6c7777b05658c7a2a}{00132}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_character_a1c8eab5932aa07a6c7777b05658c7a2a}{refleshContacts}}()\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00133}00133\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00134}00134\ \textcolor{comment}{\ \ \ \ //!\ キャラクターの形状を入れ替える（しゃがみ、構え方など）}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00135}00135\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ shape\ \ \ \ \ \ \ \ \ \ \ 形状}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00136}00136\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ shape\_offset\ \ \ \ 形状位置をずらすオフセット}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00137}00137\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ \ \ \ 正常終了(形状の入れ替え成功)}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00138}00138\ \textcolor{comment}{\ \ \ \ //!\ @retval\ false}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00139}00139\ \textcolor{comment}{\ \ \ \ //!\ 形状の入れ替え後に衝突物があり、切り替えできなかった場合}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00140}\mbox{\hyperlink{classphysics_1_1_character_add6b0d15ca001aec9f26747094859ea2}{00140}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classphysics_1_1_character_add6b0d15ca001aec9f26747094859ea2}{setShape}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classshape_1_1_base}{shape::Base}}\&\ \mbox{\hyperlink{namespaceshape}{shape}},\ \textcolor{keyword}{const}\ float3\&\ shape\_offset\ =\ float3(0.0f,\ 0.0f,\ 0.0f))\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00141}00141\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00142}00142\ \textcolor{comment}{\ \ \ \ //!\ シェイプを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00143}\mbox{\hyperlink{classphysics_1_1_character_ac27dc5721dd843a3b4dd182fd55fd101}{00143}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classshape_1_1_base}{shape::Base}}*\ \mbox{\hyperlink{classphysics_1_1_character_ac27dc5721dd843a3b4dd182fd55fd101}{shape}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00144}00144\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00145}00145\ \textcolor{comment}{\ \ \ \ //!\ シェイプの移動オフセットを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00146}\mbox{\hyperlink{classphysics_1_1_character_a2e72aef2bd84dff611547cdb640e1c2e}{00146}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_character_a2e72aef2bd84dff611547cdb640e1c2e}{shapeOffset}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00148}00148\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00149}00149\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 接地判定関連}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00150}00150\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00151}00151\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00152}00152\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00153}00153\ \textcolor{comment}{\ \ \ \ //!\ 現在の接地状態を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00154}\mbox{\hyperlink{classphysics_1_1_character_a8a24875f6882a34c25776422cc83ff13}{00154}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873}{Character::GroundState}}\ \mbox{\hyperlink{classphysics_1_1_character_a8a24875f6882a34c25776422cc83ff13}{groundState}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00155}00155\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00156}00156\ \textcolor{comment}{\ \ \ \ //!\ 接地している足元の位置座標を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00157}\mbox{\hyperlink{classphysics_1_1_character_a75ef2bba3278c6effed998b2f61c71e0}{00157}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_character_a75ef2bba3278c6effed998b2f61c71e0}{groundPosition}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00158}00158\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00159}00159\ \textcolor{comment}{\ \ \ \ //!\ 接地している足元の法線を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00160}\mbox{\hyperlink{classphysics_1_1_character_a44010813f6325b7ab5965052d1a711fe}{00160}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_character_a44010813f6325b7ab5965052d1a711fe}{groundNormal}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00161}00161\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00162}00162\ \textcolor{comment}{\ \ \ \ //!\ 接地している足元の速度を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00163}\mbox{\hyperlink{classphysics_1_1_character_a7a562edf20007702fae5f8a25c7fc9b8}{00163}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_character_a7a562edf20007702fae5f8a25c7fc9b8}{groundVelocity}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00164}00164\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00165}00165\ \textcolor{comment}{\ \ \ \ //!\ キャラクターが立っているオブジェクトのボディIDを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00166}\mbox{\hyperlink{classphysics_1_1_character_afefff07cea497a369bca10f06f202809}{00166}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ \mbox{\hyperlink{classphysics_1_1_character_afefff07cea497a369bca10f06f202809}{groundBodyID}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00167}00167\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00168}00168\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00169}00169\ \textcolor{comment}{}\};}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00171}00171\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00172}00172\ \textcolor{comment}{//!\ 衝突設定情報}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00173}00173\ \textcolor{comment}{//!\ キャラクタの衝突応答の動作をオーバーライドするための設定です}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00174}00174\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00175}\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_settings}{00175}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_settings}{Character::ContactSettings}}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00176}00176\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00177}\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_settings_afafd22453fa36c29d797d87a7d1d3a4d}{00177}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classphysics_1_1_character_1_1_contact_settings_afafd22453fa36c29d797d87a7d1d3a4d}{can\_push\_character\_}}\ \ \ =\ \textcolor{keyword}{true};\ \ \ \ \textcolor{comment}{//!<\ 他のボディがキャラクターを押すことができるかどうか}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00178}\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_settings_a00ecf326490f2bf3db460646186a2773}{00178}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classphysics_1_1_character_1_1_contact_settings_a00ecf326490f2bf3db460646186a2773}{can\_receive\_impulses\_}}\ =\ \textcolor{keyword}{true};\ \ \ \ \textcolor{comment}{//!<\ キャラクタがー他のボディから押されるかどうか}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00179}00179\ \};}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00181}00181\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00182}00182\ \textcolor{comment}{//!\ キャラクターコンタクトリスナー}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00183}00183\ \textcolor{comment}{//!\ キャラクターに登録することでイベントをコールバックで受け取ることができます}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00184}00184\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00185}\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener}{00185}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener}{Character::ContactListener}}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00186}00186\ \ \ \ \textcolor{keyword}{public}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00187}00187\ \textcolor{comment}{\ \ \ \ //!\ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00188}\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener_aab7f10b8906ef7b2c0691d0dcf22eb23}{00188}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener_aab7f10b8906ef7b2c0691d0dcf22eb23}{\string~ContactListener}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00190}00190\ \ \ \ \ \textcolor{comment}{//\ \ キャラクターが指定されたボディと衝突可能かどうかをチェックします。}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00191}00191\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ character\ \ \ \ \ \ \ 対象のキャラクター}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00192}00192\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ other\_body\_id\ \ \ 相手のボディID}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00193}00193\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ \ \ \ 衝突可能}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00194}00194\ \textcolor{comment}{\ \ \ \ //!\ @retval\ false\ \ \ 衝突しない}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00195}\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener_aa9f498cc746fd128013e9b2e2da5c16a}{00195}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener_aa9f498cc746fd128013e9b2e2da5c16a}{onContactValidate}}([[maybe\_unused]]\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classphysics_1_1_character}{physics::Character}}*\ character,\ [[maybe\_unused]]\ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ other\_body\_id)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00196}00196\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ デフォルトは常に衝突許可}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00197}00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00198}00198\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00200}00200\ \ \ \ \ \textcolor{comment}{//\ \ キャラクターがボディと衝突するたびに呼び出されます}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00201}00201\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ character\ \ \ \ \ \ \ \ \ \ \ 対象のキャラクター}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00202}00202\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ other\_body\_id\ \ \ \ \ \ \ 相手のボディID}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00203}00203\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ contact\_position\ \ \ \ 衝突位置}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00204}00204\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ contact\_normal\ \ \ \ \ \ 衝突法線}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00205}00205\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [out]\ \ \ result\ \ \ \ \ \ \ \ \ \ \ \ \ \ 衝突許可情報}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00206}\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener_a10137e9acf5d583049b6e6b681b94290}{00206}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener_a10137e9acf5d583049b6e6b681b94290}{onContactAdded}}([[maybe\_unused]]\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classphysics_1_1_character}{physics::Character}}*\ character,\ [[maybe\_unused]]\ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ other\_body\_id,}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ \textcolor{keyword}{const}\ float3\&\ contact\_position,\ [[maybe\_unused]]\ \textcolor{keyword}{const}\ float3\&\ contact\_normal,}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ \mbox{\hyperlink{classphysics_1_1_character_1_1_contact_settings}{physics::Character::ContactSettings}}\&\ result)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00209}00209\ \ \ \ \ \ \ \ \ result.can\_push\_character\_\ \ \ =\ \textcolor{keyword}{true};\ \ \ \ \textcolor{comment}{//\ 相手のオブジェクトから押される}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00210}00210\ \ \ \ \ \ \ \ \ result.can\_receive\_impulses\_\ =\ \textcolor{keyword}{true};\ \ \ \ \textcolor{comment}{//\ 相手のオブジェクトをキャラクターで押すことができる}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00211}00211\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00212}00212\ \};}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00214}00214\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00215}00215\ \textcolor{comment}{//!\ @name\ \ \ 生成}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00216}00216\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00217}00217\ \textcolor{comment}{//@\{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00218}00218\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00219}00219\ \textcolor{comment}{//\ キャラクターを作成}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00220}00220\ \textcolor{comment}{//!\ @param\ \ [in]\ \ \ \ layer\ \ \ オブジェクトレイヤー(カテゴリー)}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00221}00221\ \textcolor{comment}{}std::shared\_ptr<physics::Character>\ \mbox{\hyperlink{namespacephysics_a826efe90e97d11b9e77fdc5f86109f15}{createCharacter}}(\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ layer);}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00222}00222\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00223}00223\ \textcolor{comment}{//@\}}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00224}00224\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_character_8h_source_l00225}00225\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ physics}}
+
+\end{DoxyCode}

@@ -1,0 +1,281 @@
+\hypertarget{_render_8cpp_source}{}\doxysection{Render.\+cpp}
+\label{_render_8cpp_source}\index{Render.cpp@{Render.cpp}}
+\mbox{\hyperlink{_render_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00002}00002\ \textcolor{comment}{//\ \ @file\ \ \ Render.cpp}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00003}00003\ \textcolor{comment}{//\ \ @brief\ \ 描画関数のDXライブラリ拡張}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00004}00004\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_render_8h}{System/Graphics/Render.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_texture_8h}{Texture.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_win_main_8h}{WinMain.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00009}00009\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00011}00011\ std::shared\_ptr<Texture>\ \ texture\_back\_buffer\_;\ \ \ \ \ \ \textcolor{comment}{//!<\ バックバッファ}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00012}00012\ std::shared\_ptr<Texture>\ \ texture\_depth\_stencil\_;\ \ \ \ \textcolor{comment}{//!<\ デフォルトのデプスステンシル}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00013}00013\ std::shared\_ptr<ShaderPs>\ shader\_ps\_texture\_;\ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 通常コピー用のシェーダー}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00015}00015\ \mbox{\hyperlink{struct_target_desc}{TargetDesc}}\ target\_desc\_;\ \ \ \ \textcolor{comment}{//!<\ 現在のRenderTarget情報}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00017}00017\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00019}00019\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00020}00020\ \textcolor{comment}{//!\ Render初期化}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00021}00021\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00022}\mbox{\hyperlink{_render_8cpp_a05289d9a01a96e895fd86fddc0eca131}{00022}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_render_8cpp_a05289d9a01a96e895fd86fddc0eca131}{RenderInit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00024}00024\ \ \ \ \ \textcolor{comment}{//\ バックバッファを取得}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00026}00026\ \ \ \ \ \textcolor{keyword}{auto}*\ d3d\_back\_buffer\ \ \ =\ \textcolor{keyword}{static\_cast<}ID3D11Texture2D*\textcolor{keyword}{>}(\textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(GetUseDirect3D11BackBufferTexture2D()));}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00027}00027\ \ \ \ \ \textcolor{keyword}{auto}*\ d3d\_depth\_stencil\ =\ \textcolor{keyword}{static\_cast<}ID3D11Texture2D*\textcolor{keyword}{>}(\textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(GetUseDirect3D11DepthStencilTexture2D()));}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00029}00029\ \ \ \ \ texture\_back\_buffer\_\ \ \ =\ std::make\_shared<Texture>(d3d\_back\_buffer);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00030}00030\ \ \ \ \ texture\_depth\_stencil\_\ =\ std::make\_shared<Texture>(d3d\_depth\_stencil);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00032}00032\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00033}00033\ \ \ \ \ \textcolor{comment}{//\ シェーダー作成}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00035}00035\ \ \ \ \ shader\_ps\_texture\_\ =\ std::make\_shared<ShaderPs>(\textcolor{stringliteral}{"{}data/Shader/ps\_texture"{}});}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00038}00038\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00040}00040\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00041}00041\ \textcolor{comment}{//!\ Render終了}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00042}00042\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00043}\mbox{\hyperlink{_render_8cpp_ab9d46ca95b48137614293b5bf24a8a42}{00043}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_render_8cpp_ab9d46ca95b48137614293b5bf24a8a42}{RenderExit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00044}00044\ \ \ \ \ texture\_back\_buffer\_.reset();}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00045}00045\ \ \ \ \ texture\_depth\_stencil\_.reset();}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00046}00046\ \ \ \ \ shader\_ps\_texture\_.reset();}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00047}00047\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00049}00049\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00050}00050\ \textcolor{comment}{//!\ D3Dデバイスを取得}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00051}00051\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00052}\mbox{\hyperlink{_render_8cpp_aea7cfbfd95b4f3811244b85063c3ac9d}{00052}}\ ID3D11Device*\ \mbox{\hyperlink{_render_8cpp_aea7cfbfd95b4f3811244b85063c3ac9d}{GetD3DDevice}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}ID3D11Device*\textcolor{keyword}{>}(\textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(GetUseDirect3D11Device()));}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00054}00054\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00056}00056\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00057}00057\ \textcolor{comment}{//!\ D3Dデバイスコンテキストを取得}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00058}00058\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00059}\mbox{\hyperlink{_render_8cpp_a78a59eaee0fdb6dc4ea0db0b863e1a10}{00059}}\ ID3D11DeviceContext*\ \mbox{\hyperlink{_render_8cpp_a78a59eaee0fdb6dc4ea0db0b863e1a10}{GetD3DDeviceContext}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{reinterpret\_cast<}ID3D11DeviceContext*\textcolor{keyword}{>}(\textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(GetUseDirect3D11DeviceContext()));}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00061}00061\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00063}00063\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00064}00064\ \textcolor{comment}{//!\ 現在のカラーバッファをクリア}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00065}00065\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00066}\mbox{\hyperlink{_render_8cpp_acff1ef100ab5993b21a9fe6054b034f6}{00066}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_render_8cpp_acff1ef100ab5993b21a9fe6054b034f6}{ClearColor}}(\textcolor{keyword}{const}\ float4\&\ clear\_color)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00067}00067\ \ \ \ \ \textcolor{keyword}{auto}*\ color\_texture\ =\ target\_desc\_.color\_targets\_[0];}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{if}(color\_texture\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00072}00072\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_acff1ef100ab5993b21a9fe6054b034f6}{ClearColor}}(color\_texture,\ clear\_color);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00073}00073\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00075}00075\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00076}00076\ \textcolor{comment}{//!\ 現在のデプスバッファをクリア}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00077}00077\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00078}\mbox{\hyperlink{_render_8cpp_a84c27947c851ca64ee91741333fd7460}{00078}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_render_8cpp_a84c27947c851ca64ee91741333fd7460}{ClearDepth}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ depth\_value)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00079}00079\ \ \ \ \ \textcolor{keyword}{auto}*\ depth\_stencil\ =\ target\_desc\_.depth\_stencil\_;}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{if}(depth\_stencil\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00084}00084\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a84c27947c851ca64ee91741333fd7460}{ClearDepth}}(depth\_stencil,\ depth\_value);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00085}00085\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00087}00087\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00088}00088\ \textcolor{comment}{//!\ 現在のステンシルバッファをクリア}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00089}00089\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00090}\mbox{\hyperlink{_render_8cpp_a683d429791e76207ac17dd87946493f2}{00090}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_render_8cpp_a683d429791e76207ac17dd87946493f2}{ClearStencil}}(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\ stencil\_value)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00091}00091\ \ \ \ \ \textcolor{keyword}{auto}*\ depth\_stencil\ =\ target\_desc\_.depth\_stencil\_;}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00093}00093\ \ \ \ \ \textcolor{keywordflow}{if}(depth\_stencil\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00096}00096\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a683d429791e76207ac17dd87946493f2}{ClearStencil}}(depth\_stencil,\ stencil\_value);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00097}00097\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00099}00099\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00100}00100\ \textcolor{comment}{//!\ カラーバッファをクリア}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00101}00101\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00102}\mbox{\hyperlink{_render_8cpp_a47df9f64312ac6d5dc7136fd0907f6ba}{00102}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_render_8cpp_acff1ef100ab5993b21a9fe6054b034f6}{ClearColor}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_texture}{Texture}}*\ texture,\ \textcolor{keyword}{const}\ float4\&\ clear\_color)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00103}00103\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ color[4];}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00104}00104\ \ \ \ \ store(clear\_color,\ color);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00105}00105\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a78a59eaee0fdb6dc4ea0db0b863e1a10}{GetD3DDeviceContext}}()-\/>ClearRenderTargetView(texture-\/>\mbox{\hyperlink{class_texture_a496d0b82437139031e35a232e81d9985}{rtv}}(),\ color);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00106}00106\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00108}00108\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00109}00109\ \textcolor{comment}{//!\ デプスバッファをクリア}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00110}00110\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00111}\mbox{\hyperlink{_render_8cpp_a93a5467ef3b2c3a3d6d864211cf89b01}{00111}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_render_8cpp_a84c27947c851ca64ee91741333fd7460}{ClearDepth}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_texture}{Texture}}*\ texture,\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ depth\_value)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00112}00112\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a78a59eaee0fdb6dc4ea0db0b863e1a10}{GetD3DDeviceContext}}()-\/>ClearDepthStencilView(texture-\/>\mbox{\hyperlink{class_texture_adae0710525cf51a10a5b44c8bfc12704}{dsv}}(),\ D3D11\_CLEAR\_DEPTH,\ depth\_value,\ 0);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00113}00113\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00115}00115\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00116}00116\ \textcolor{comment}{//!\ ステンシルバッファをクリア}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00117}00117\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00118}\mbox{\hyperlink{_render_8cpp_a08a81d4e78cad6ab12c09e1e524d27d5}{00118}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_render_8cpp_a683d429791e76207ac17dd87946493f2}{ClearStencil}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_texture}{Texture}}*\ texture,\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\ stencil\_value)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00119}00119\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a78a59eaee0fdb6dc4ea0db0b863e1a10}{GetD3DDeviceContext}}()-\/>ClearDepthStencilView(texture-\/>\mbox{\hyperlink{class_texture_adae0710525cf51a10a5b44c8bfc12704}{dsv}}(),\ D3D11\_CLEAR\_STENCIL,\ stencil\_value,\ 0);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00120}00120\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00122}00122\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00123}00123\ \textcolor{comment}{//!\ 現在のRenderTarget情報を取得}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00124}00124\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00125}\mbox{\hyperlink{_render_8cpp_ad21a1134aefefb45dfae818c4fce1cac}{00125}}\ \mbox{\hyperlink{struct_target_desc}{TargetDesc}}\ \mbox{\hyperlink{_render_8cpp_ad21a1134aefefb45dfae818c4fce1cac}{GetRenderTarget}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00126}00126\ \ \ \ \ \textcolor{keywordflow}{return}\ target\_desc\_;}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00127}00127\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00129}00129\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00130}00130\ \textcolor{comment}{//!\ RenderTargetを一括設定\ (TargetDesc指定)}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00131}00131\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00132}\mbox{\hyperlink{_render_8cpp_a510ef5c7299810ce44233328a48be555}{00132}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_render_8cpp_a510ef5c7299810ce44233328a48be555}{SetRenderTarget}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_target_desc}{TargetDesc}}\&\ desc)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00133}00133\ \ \ \ \ \textcolor{comment}{//\ 保存}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00134}00134\ \ \ \ \ target\_desc\_\ =\ desc;}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00136}00136\ \ \ \ \ \textcolor{comment}{//\ カラーターゲットを配列として取得}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00137}00137\ \ \ \ \ std::array<ID3D11RenderTargetView*,\ D3D11\_SIMULTANEOUS\_RENDER\_TARGET\_COUNT>\ rtvs;}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00138}00138\ \ \ \ \ \textcolor{keywordflow}{for}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ i\ =\ 0;\ i\ <\ desc.\mbox{\hyperlink{struct_target_desc_a5e387289cfbe02d81f19656cab3bfa67}{color\_count\_}};\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ rtvs[i]\ =\ desc.\mbox{\hyperlink{struct_target_desc_a40b7294492aa9a06521f2521c211078c}{color\_targets\_}}[i]\ ?\ desc.\mbox{\hyperlink{struct_target_desc_a40b7294492aa9a06521f2521c211078c}{color\_targets\_}}[i]-\/>rtv()\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00140}00140\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00142}00142\ \ \ \ \ \textcolor{comment}{//\ デプスバッファ}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00143}00143\ \ \ \ \ ID3D11DepthStencilView*\ dsv\ =\ desc.\mbox{\hyperlink{struct_target_desc_a058498dfb0e8846a3fd12573b4d9adaa}{depth\_stencil\_}}\ ?\ desc.\mbox{\hyperlink{struct_target_desc_a058498dfb0e8846a3fd12573b4d9adaa}{depth\_stencil\_}}-\/>\mbox{\hyperlink{class_texture_adae0710525cf51a10a5b44c8bfc12704}{dsv}}()\ :\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00145}00145\ \ \ \ \ \textcolor{comment}{//\ [DxLib]\ DXライブラリ内部のプリミティブバッファをフラッシュさせる}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00146}00146\ \ \ \ \ RenderVertex();}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00148}00148\ \ \ \ \ \textcolor{comment}{//\ RenderTarget設定}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00149}00149\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a78a59eaee0fdb6dc4ea0db0b863e1a10}{GetD3DDeviceContext}}()-\/>OMSetRenderTargets(desc.\mbox{\hyperlink{struct_target_desc_a5e387289cfbe02d81f19656cab3bfa67}{color\_count\_}},\ rtvs.data(),\ dsv);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00151}00151\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00152}00152\ \ \ \ \ \textcolor{comment}{//\ ビューポートとシザー領域を更新}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00153}00153\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00154}00154\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ RenderTargetの解像度を取得}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ w\ =\ desc.\mbox{\hyperlink{struct_target_desc_a40b7294492aa9a06521f2521c211078c}{color\_targets\_}}[0]-\/>width();}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ h\ =\ desc.\mbox{\hyperlink{struct_target_desc_a40b7294492aa9a06521f2521c211078c}{color\_targets\_}}[0]-\/>height();}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ D3D11\_VIEWPORT\ viewport\{0,\ 0,\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\textcolor{keyword}{>}(w),\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\textcolor{keyword}{>}(h),\ 0.0f,\ 1.0f\};}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a78a59eaee0fdb6dc4ea0db0b863e1a10}{GetD3DDeviceContext}}()-\/>RSSetViewports(1,\ \&viewport);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00162}00162\ \ \ \ \ \ \ \ \ D3D11\_RECT\ rect\{0,\ 0,\ \textcolor{keyword}{static\_cast<}LONG\textcolor{keyword}{>}(w),\ \textcolor{keyword}{static\_cast<}LONG\textcolor{keyword}{>}(h)\};}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a78a59eaee0fdb6dc4ea0db0b863e1a10}{GetD3DDeviceContext}}()-\/>RSSetScissorRects(1,\ \&rect);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00164}00164\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00165}00165\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00167}00167\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00168}00168\ \textcolor{comment}{//!\ RenderTargetを設定}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00169}00169\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00170}\mbox{\hyperlink{_render_8cpp_a0a896ecd0eb713d919f77ac21fcae8d7}{00170}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_render_8cpp_a510ef5c7299810ce44233328a48be555}{SetRenderTarget}}(\mbox{\hyperlink{class_texture}{Texture}}*\ color\_target,\ \mbox{\hyperlink{class_texture}{Texture}}*\ depth\_stencil)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00171}00171\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a510ef5c7299810ce44233328a48be555}{SetRenderTarget}}(1,\ \&color\_target,\ depth\_stencil);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00172}00172\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00174}00174\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00175}00175\ \textcolor{comment}{//!\ RenderTargetを設定(Multiple\ Render\ Target)}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00176}00176\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00177}\mbox{\hyperlink{_render_8cpp_ac03f8830527e44f5d3717a375ba5a6de}{00177}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_render_8cpp_a510ef5c7299810ce44233328a48be555}{SetRenderTarget}}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ color\_count,\ \mbox{\hyperlink{class_texture}{Texture}}**\ color\_targets,\ \mbox{\hyperlink{class_texture}{Texture}}*\ depth\_stencil)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00178}00178\ \ \ \ \ \mbox{\hyperlink{struct_target_desc}{TargetDesc}}\ desc;}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00180}00180\ \ \ \ \ desc.\mbox{\hyperlink{struct_target_desc_a5e387289cfbe02d81f19656cab3bfa67}{color\_count\_}}\ =\ color\_count;}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00181}00181\ \ \ \ \ \textcolor{comment}{//\ テクスチャ配列をコピー}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00182}00182\ \ \ \ \ \textcolor{keywordflow}{for}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ i\ =\ 0;\ i\ <\ color\_count;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ desc.\mbox{\hyperlink{struct_target_desc_a40b7294492aa9a06521f2521c211078c}{color\_targets\_}}[i]\ =\ color\_targets[i];}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00184}00184\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00185}00185\ \ \ \ \ desc.\mbox{\hyperlink{struct_target_desc_a058498dfb0e8846a3fd12573b4d9adaa}{depth\_stencil\_}}\ =\ depth\_stencil;}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00187}00187\ \ \ \ \ \textcolor{comment}{//\ 設定}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00188}00188\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a510ef5c7299810ce44233328a48be555}{SetRenderTarget}}(desc);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00189}00189\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00191}00191\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00192}00192\ \textcolor{comment}{//!\ デフォルトのバックバッファを取得\ (R8G8B8A8\_UNORM)}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00193}00193\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00194}\mbox{\hyperlink{_render_8cpp_a8561269468a8e445ad1b992a8e0b8142}{00194}}\ \mbox{\hyperlink{class_texture}{Texture}}*\ \mbox{\hyperlink{_render_8cpp_a8561269468a8e445ad1b992a8e0b8142}{GetBackBuffer}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00195}00195\ \ \ \ \ \textcolor{keywordflow}{return}\ texture\_back\_buffer\_.get();}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00196}00196\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00198}00198\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00199}00199\ \textcolor{comment}{//!\ デフォルトのデプスバッファを取得\ (D32\_FLOAT)}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00200}00200\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00201}\mbox{\hyperlink{_render_8cpp_abbb529e1fb437600e34fc58aa8ab8bcb}{00201}}\ \mbox{\hyperlink{class_texture}{Texture}}*\ \mbox{\hyperlink{_render_8cpp_abbb529e1fb437600e34fc58aa8ab8bcb}{GetDepthStencil}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00202}00202\ \ \ \ \ \textcolor{keywordflow}{return}\ texture\_depth\_stencil\_.get();}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00203}00203\ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00205}00205\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00206}00206\ \textcolor{comment}{//!\ RenderTargetにイメージをコピー}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00207}00207\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00208}\mbox{\hyperlink{_render_8cpp_ae3fd154fc45bb61f3c0f6829ced1380c}{00208}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_render_8cpp_ae3fd154fc45bb61f3c0f6829ced1380c}{CopyToRenderTarget}}(\mbox{\hyperlink{class_texture}{Texture}}*\ dest\_render\_target,\ \mbox{\hyperlink{class_texture}{Texture}}*\ source\_texture,\ \textcolor{keywordtype}{int}\ shader\_ps\_handle)\ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00209}00209\ \ \ \ \ \textcolor{comment}{//\ 今のRenderTarget情報を保存しておく(関数終了時に復元するため)}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00210}00210\ \ \ \ \ \textcolor{keyword}{auto}\ current\_target\_desc\ =\ \mbox{\hyperlink{_render_8cpp_ad21a1134aefefb45dfae818c4fce1cac}{GetRenderTarget}}();}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00212}00212\ \ \ \ \ \textcolor{comment}{//\ 描画先を変更}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00213}00213\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a510ef5c7299810ce44233328a48be555}{SetRenderTarget}}(dest\_render\_target);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00215}00215\ \ \ \ \ SetDrawMode(DX\_DRAWMODE\_BILINEAR);\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ テクスチャをバイリニア補間}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00216}00216\ \ \ \ \ SetTextureAddressMode(DX\_TEXADDRESS\_CLAMP);\ \ \ \ \textcolor{comment}{//\ テクスチャを繰り返しなし}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00218}00218\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00219}00219\ \textcolor{comment}{\ \ \ \ //!\ フルスクリーン2D三角形の描画}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00220}00220\ \textcolor{comment}{\ \ \ \ //!\ @see\ GDC'14\ Vertex\ Shader\ Tricks}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00221}00221\ \textcolor{comment}{\ \ \ \ //!\ 通常の四角形描画では三角形2枚で描画しますが、斜めのエッジ部分が2回ラスタライズされます。}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00222}00222\ \textcolor{comment}{\ \ \ \ //!\ 無駄を省くために巨大な三角形で覆うことでこの問題を解決できます。(数\%の高速化効果)}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00223}00223\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//\ \ A}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00224}00224\ \ \ \ \ \textcolor{comment}{//\ \ |\ \ ＼\ \ \ \ \ \ \ \ \ \ \ \ 本来のスクリーンを△ABCで覆うと有効ピクセル部分は}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00225}00225\ \ \ \ \ \textcolor{comment}{//\ \ |\ \ \ \ \ \ ＼\ \ \ \ \ \ \ \ 矩形ラスタライズされるようになります}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00226}00226\ \ \ \ \ \textcolor{comment}{//\ \ |\ \ \ \ \ \ \ \ \ \ ＼}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00227}00227\ \ \ \ \ \textcolor{comment}{//\ \ +-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/+}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00228}00228\ \ \ \ \ \textcolor{comment}{//\ \ |\ \ \ \ \ \ |\ \ \ \ \ \ |\ \ ＼}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00229}00229\ \ \ \ \ \textcolor{comment}{//\ \ +-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/+\ \ \ \ \ \ ＼}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00230}00230\ \ \ \ \ \textcolor{comment}{//\ \ |\ \ \ \ \ \ |\ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ ＼}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00231}00231\ \ \ \ \ \textcolor{comment}{//\ \ B-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/C}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00232}00232\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00233}00233\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ w\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\textcolor{keyword}{>}(\mbox{\hyperlink{_win_main_8cpp_ac78343b652d0b3d9a31151e3e9b8b099}{WINDOW\_W}});\ \ \ \ \textcolor{comment}{//\ 解像度\ 幅}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ h\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\textcolor{keyword}{>}(\mbox{\hyperlink{_win_main_8cpp_a3a609d6fe30ef0043ca04a806c67f602}{WINDOW\_H}});\ \ \ \ \textcolor{comment}{//\ 解像度\ 高さ}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ VERTEX2DSHADER\ v[3]\{\};}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 頂点}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ v[0].pos\ =\ \{0.0f,\ -\/h,\ 0.0f\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2D座標}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ v[0].rhw\ =\ 1.0f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rhw\ =\ 1.0f\ 初期化は2D描画に必須}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ v[0].dif\ =\ GetColorU8(255,\ 255,\ 255,\ 255);\ \ \ \ \textcolor{comment}{//\ カラー}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ v[0].u\ \ \ =\ 0.0f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ テクスチャ座標\ U}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ v[0].v\ \ \ =\ -\/1.0f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ テクスチャ座標\ V}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ v[1].pos\ =\ \{0.0f,\ h,\ 0.0f\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2D座標}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ v[1].rhw\ =\ 1.0f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rhw\ =\ 1.0f\ 初期化は2D描画に必須}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00248}00248\ \ \ \ \ \ \ \ \ v[1].dif\ =\ GetColorU8(255,\ 255,\ 255,\ 255);\ \ \ \ \textcolor{comment}{//\ カラー}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ v[1].u\ \ \ =\ 0.0f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ テクスチャ座標\ U}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ v[1].v\ \ \ =\ 1.0f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ テクスチャ座標\ V}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00252}00252\ \ \ \ \ \ \ \ \ v[2].pos\ =\ \{w\ *\ 2.0f,\ h,\ 0.0f\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2D座標}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ v[2].rhw\ =\ 1.0f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rhw\ =\ 1.0f\ 初期化は2D描画に必須}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ v[2].dif\ =\ GetColorU8(255,\ 255,\ 255,\ 255);\ \ \ \ \textcolor{comment}{//\ カラー}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00255}00255\ \ \ \ \ \ \ \ \ v[2].u\ \ \ =\ 2.0f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ テクスチャ座標\ U}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ v[2].v\ \ \ =\ 1.0f;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ テクスチャ座標\ V}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 使用するテクスチャを設定\ (slot=0)}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ SetUseTextureToShader(0,\ *source\_texture);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 使用するピクセルシェーダーを設定\ (2Dの場合は頂点シェーダー不要)}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ ps\ =\ (shader\_ps\_handle\ !=\ -\/1)\ ?\ shader\_ps\_handle\ :\ *shader\_ps\_texture\_;}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ SetUsePixelShader(ps);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 描画}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00266}00266\ \ \ \ \ \ \ \ \ DrawPrimitive2DToShader(v,\ 3,\ DX\_PRIMTYPE\_TRIANGLELIST);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00267}00267\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00268}00268\ \ \ \ \ \textcolor{comment}{//\ 使い終わったらテクスチャ設定を解除}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00269}00269\ \ \ \ \ \textcolor{comment}{//\ 解除しておかないとモデル描画に影響あり。}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00270}00270\ \ \ \ \ SetUseTextureToShader(0,\ -\/1);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00271}00271\ \ \ \ \ SetUsePixelShader(-\/1);}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00273}00273\ \ \ \ \ \textcolor{comment}{//\ 描画先を元に戻す}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00274}00274\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a510ef5c7299810ce44233328a48be555}{SetRenderTarget}}(current\_target\_desc);\ \ \ \ \textcolor{comment}{//\ 元に戻す}}
+\DoxyCodeLine{\Hypertarget{_render_8cpp_source_l00275}00275\ \}}
+
+\end{DoxyCode}

@@ -5,6 +5,14 @@
 #pragma once
 
 //--------------------------------------------------------------
+//!	@name	前方宣言
+//--------------------------------------------------------------
+//!@{
+
+class Texture;
+
+//!@}
+//--------------------------------------------------------------
 //!	@name	システム関数
 //--------------------------------------------------------------
 //@{
@@ -50,6 +58,23 @@ void SetDeltaTime(f32);
 //! @param  [in]    active  true:表示する false:非表示
 void ShowGrid(bool active);
 
+//! @brief メニュー表示
+//! @return true:表示する false:非表示
 bool IsShowMenu();
+
+//! @brief デバッグ表示
+//! @return true:表示する false:非表示
+bool IsShowDebug();
+
+//! @brief GUI表示
+//! @return true:表示する false:非表示
+bool IsShowGUI();
+
+//! @brief FPS表示
+//! @return true:表示する false:非表示
+bool IsShowFPS();
+
+//! RenderTarget HDRバッファを取得
+Texture* GetHdrBuffer();
 
 //@}

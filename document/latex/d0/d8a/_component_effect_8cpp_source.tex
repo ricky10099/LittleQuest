@@ -1,0 +1,301 @@
+\hypertarget{_component_effect_8cpp_source}{}\doxysection{Component\+Effect.\+cpp}
+\label{_component_effect_8cpp_source}\index{ComponentEffect.cpp@{ComponentEffect.cpp}}
+\mbox{\hyperlink{_component_effect_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ ComponentEffect.h}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ モデルコンポーネント}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_scene_8h}{System/Scene.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_effect_8h}{System/Component/ComponentEffect.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_transform_8h}{System/Component/ComponentTransform.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_object_8h}{System/Object.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00011}\mbox{\hyperlink{_component_effect_8cpp_a043d95b30512ae6332f4017f65ba7f6c}{00011}}\ \mbox{\hyperlink{_component_8h_acb5da28bae949d7ba8d6a74c97e1e394}{BP\_COMPONENT\_IMPL}}(\mbox{\hyperlink{class_component_effect}{ComponentEffect}},\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Effectコンポーネント"{}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00013}00013\ std::unordered\_map<std::string,\ int>\ \mbox{\hyperlink{class_component_effect_a58d485db4477d97b7501571331a909bd}{ComponentEffect::exist\_effects\_resource\_}}\{\};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00014}00014\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a3247ae0217b8d7f067900f7cdc1bab44}{ComponentEffect::component\_effect\_count}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00015}00015\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00016}00016\ \textcolor{comment}{//!\ @brief\ Effekseerエフェクトロード}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00017}00017\ \textcolor{comment}{//!\ @param\ path\ エフェクトファイル(.efkefc)}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00018}\mbox{\hyperlink{class_component_effect_a804422954e7bdc9b06072b057ec3fcfb}{00018}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_effect_a804422954e7bdc9b06072b057ec3fcfb}{ComponentEffect::Load}}(std::string\_view\ path)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00019}00019\ \ \ \ \ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063abe78aa55f62b5e1e6bd8a62ddedefcc9}{EffectBit::ErrorFileNotFound}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00021}00021\ \ \ \ \ \mbox{\hyperlink{class_component_effect_aa9408fafd5b1fee499df98e2557dcfdd}{path\_}}\ =\ path;}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{comment}{//\ ファイルが存在しているか?}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{namespace_helper_lib_1_1_file_ac03dcd4f8590d144b37f62bb2e2c2a16}{HelperLib::File::CheckFileExistence}}(\mbox{\hyperlink{class_component_effect_aa9408fafd5b1fee499df98e2557dcfdd}{path\_}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ロードできなかった}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063abe78aa55f62b5e1e6bd8a62ddedefcc9}{EffectBit::ErrorFileNotFound}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063a59d87a4758a9d35fbaf6b204341bb399}{EffectBit::Initialized}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{keyword}{auto}\ resource\ =\ \mbox{\hyperlink{class_component_effect_a58d485db4477d97b7501571331a909bd}{exist\_effects\_resource\_}}.find(\mbox{\hyperlink{class_component_effect_aa9408fafd5b1fee499df98e2557dcfdd}{path\_}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{if}(resource\ !=\ \mbox{\hyperlink{class_component_effect_a58d485db4477d97b7501571331a909bd}{exist\_effects\_resource\_}}.end())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ リソースが存在する場合}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_af95a6f35cc7cea097c6ce8181e9fb4ec}{effect\_handle\_}}\ =\ resource-\/>second;}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 初期化済み}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063a59d87a4758a9d35fbaf6b204341bb399}{EffectBit::Initialized}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00039}00039\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{int}\ result\ =\ LoadEffekseerEffect(\mbox{\hyperlink{namespace_helper_lib_1_1_string_adac3e13ba867e58c5b5d83da01d1d365}{HelperLib::String::ToWString}}(\mbox{\hyperlink{class_component_effect_aa9408fafd5b1fee499df98e2557dcfdd}{path\_}}).data());}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00042}00042\ \ \ \ \ \textcolor{keywordflow}{if}(result\ ==\ -\/1)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ロードできなかった}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063abe78aa55f62b5e1e6bd8a62ddedefcc9}{EffectBit::ErrorFileNotFound}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00046}00046\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{class_component_effect_af95a6f35cc7cea097c6ce8181e9fb4ec}{effect\_handle\_}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ result;}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{comment}{//\ リソースの登録}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00050}00050\ \ \ \ \ \mbox{\hyperlink{class_component_effect_a58d485db4477d97b7501571331a909bd}{exist\_effects\_resource\_}}[\mbox{\hyperlink{class_component_effect_aa9408fafd5b1fee499df98e2557dcfdd}{path\_}}]\ =\ \mbox{\hyperlink{class_component_effect_af95a6f35cc7cea097c6ce8181e9fb4ec}{effect\_handle\_}};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00052}00052\ \ \ \ \ \textcolor{comment}{//\ 初期化済み、未スタートにしておく}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00053}00053\ \ \ \ \ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063a59d87a4758a9d35fbaf6b204341bb399}{EffectBit::Initialized}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00054}00054\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00056}\mbox{\hyperlink{class_component_effect_aa5fa74ccd2c64d6c214acb3188d17d24}{00056}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_effect_aa5fa74ccd2c64d6c214acb3188d17d24}{ComponentEffect::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00057}00057\ \ \ \ \ \_\_super::Init();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{comment}{//\ 位置決定はアタッチよりも遅くする必要がある}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00060}00060\ \ \ \ \ \mbox{\hyperlink{class_scene_a8ef78e083da6e5e0ff7a78a8453ec2c1}{Scene::GetCurrentScene}}()-\/>\mbox{\hyperlink{class_scene_1_1_base_aa8ab84711532c119c55e0da898a553f5}{SetPriority}}(shared\_from\_this(),\ ProcTiming::PostUpdate,\ \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}(\mbox{\hyperlink{_priority_8h_a925cf30ed8c3485da847905c12c964bc}{PRIORITY}}(Priority::LOWEST)\ +\ 1));}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00061}00061\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00062}00062\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00063}00063\ \textcolor{comment}{//!\ @brief\ モデル更新}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00064}00064\ \textcolor{comment}{//!\ @param\ delta\ 1フレームの秒数}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00065}\mbox{\hyperlink{class_component_effect_afb1bac8bbb0e38101a273c66110316e4}{00065}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_effect_afb1bac8bbb0e38101a273c66110316e4}{ComponentEffect::PostUpdate}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{keywordtype}{float}\ delta\ =\ \mbox{\hyperlink{_system_main_8cpp_a452fbbb7d3c2ce1a51dbcfbb8274c617}{GetDeltaTime}}();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00068}00068\ \ \ \ \ \textcolor{comment}{//\ モデルが存在しているならばTransform設定を行う}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_effect_a6f3a1ebd7e0784196b0eb39af29848e5}{IsValid}}()\ \&\&\ \mbox{\hyperlink{class_component_effect_aafce65b4b099c6b3519da1a7df1843b5}{IsPlaying}}())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ アニメーションがあり再生している?}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a4984fd2aff073eaa50fa9282298d4517}{effect\_time\_}}\ +=\ (delta\ *\ \mbox{\hyperlink{class_component_effect_aa41ce6e27afbba78a0c09fffa5727af4}{effect\_speed\_}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ mat\ \ =\ \mbox{\hyperlink{class_component_effect_ab62838a33d9378b9aba56c9c3b770314}{effect\_transform\_}};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ trns\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a4e9dfbca25ab6d6e9303910192b89564}{GetComponent}}<\mbox{\hyperlink{class_component_transform}{ComponentTransform}}>();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(trns)}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ mat\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(mat,\ trns-\/>GetMatrix());}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Drawはここで抑えておく}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_a5d0f46197b5848036645711f7b079cb5}{GetStatus}}(\mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0add349546b418e50c23e2d88a3342a68f}{Component::StatusBit::NoDraw}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//システムして「すべて描くモード」が使用されているため消すことができない。}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//よってスケールを0にして表示するようにして消したように見せかける}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ SetScalePlayingEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}},\ 0,\ 0,\ 0);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ matz\ =\ (\textcolor{keywordtype}{float}*)mat.f32\_128\_0;}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ pos[3],\ rot[3],\ scale[3];}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_a6d9d86eb5b39827e671616046aef46d8}{DecomposeMatrixToComponents}}(matz,\ pos,\ rot,\ scale);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ SetPosPlayingEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}},\ pos[0],\ pos[1],\ pos[2]);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ SetScalePlayingEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}},\ scale[0],\ scale[1],\ scale[2]);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ SetRotationPlayingEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}},\ radians((float1)rot[0]),\ radians((float1)rot[1]),}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ radians((float1)rot[2]));}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00094}00094\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00095}00095\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00096}00096\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00097}00097\ \textcolor{comment}{//!\ @brief\ モデル描画}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00098}\mbox{\hyperlink{class_component_effect_ae3fef8f2bd852efe5b1da2f0e625d141}{00098}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_effect_ae3fef8f2bd852efe5b1da2f0e625d141}{ComponentEffect::Draw}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063a59d87a4758a9d35fbaf6b204341bb399}{EffectBit::Initialized}}))}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_scene_af55f3f7ec30aacbcfc3c8ad231bf2024}{Scene::IsPause}}()\ ||\ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063ae99180abf47a8b3a856e0bcb2656990a}{EffectBit::Paused}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ SetSpeedPlayingEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}},\ 0.0f);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00104}00104\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ SetSpeedPlayingEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}},\ \mbox{\hyperlink{class_component_effect_aa41ce6e27afbba78a0c09fffa5727af4}{effect\_speed\_}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00106}00106\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00108}00108\ \ \ \ \ \textcolor{keywordtype}{bool}\ playing\ =\ IsEffekseer3DEffectPlaying(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}})\ ==\ 0\ ?\ !\mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063ae99180abf47a8b3a856e0bcb2656990a}{EffectBit::Paused}})\ :\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00109}00109\ \ \ \ \ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_ad9dc31e328652e8e835aa12d89195811}{set}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063ac9dbb2b7c84159b632d71e512eba8428}{EffectBit::Playing}},\ playing);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00110}00110\ \ \ \ \ \textcolor{keywordflow}{if}(!playing\ \&\&\ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063a89d7b10cb4238977d2b523dfd9ea7745}{EffectBit::Loop}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a1eb00bc4705ebcac1ff347f2cfef3939}{Play}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00112}00112\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00113}00113\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00114}00114\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00115}00115\ \textcolor{comment}{//!\ @brief\ 終了処理}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00116}\mbox{\hyperlink{class_component_effect_af95f3c852a53b5be7be77d273ea7c309}{00116}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_effect_af95f3c852a53b5be7be77d273ea7c309}{ComponentEffect::Exit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00117}00117\ \ \ \ \ \_\_super::Exit();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00119}00119\ \ \ \ \ \mbox{\hyperlink{class_component_effect_a1914f9d72a7f9e493befe84b56a80d9a}{Stop}}();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00120}00120\ \ \ \ \ \textcolor{comment}{//\ ここで解放必要なし}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00121}00121\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00122}00122\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00123}00123\ \textcolor{comment}{//!\ @brief\ GUI処理}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00124}\mbox{\hyperlink{class_component_effect_a06729e9054aff28dbbbceb4cc8c7cad5}{00124}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_effect_a06729e9054aff28dbbbceb4cc8c7cad5}{ComponentEffect::GUI}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00125}00125\ \ \ \ \ \textcolor{comment}{//\ オーナーの取得}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00126}00126\ \ \ \ \ assert(\mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}());}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00127}00127\ \ \ \ \ \textcolor{keyword}{auto}\ obj\_name\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a1b62160fcfdc36e88ed94d99334d99c8}{GetName}}();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00129}00129\ \ \ \ \ ImGui::Begin(obj\_name.data());}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00130}00130\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モデルコンポーネント表示}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::TreeNode(\textcolor{stringliteral}{"{}Effect"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}削除"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_ac38b3442d6f6e93af4cdb35a9be08dbc}{RemoveComponent}}(shared\_from\_this());}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ロード完了チェックフラグ}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ loaded\ =\ \mbox{\hyperlink{class_component_effect_a6f3a1ebd7e0784196b0eb39af29848e5}{IsValid}}();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::BeginDisabled(\textcolor{keyword}{true});\ \ \ \ \textcolor{comment}{//\ UI上の編集不可(ReadOnly)}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(loaded)}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Checkbox(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}【LoadOK】"{}},\ \&loaded);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::TextColored(\{1,\ 0,\ 0,\ 1\},\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}【LoadNG】"{}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndDisabled();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::SameLine();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ファイル名}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ file\_name[1024];}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ sprintf\_s(file\_name,\ \textcolor{stringliteral}{"{}\%s"{}},\ \mbox{\hyperlink{class_component_effect_aa9408fafd5b1fee499df98e2557dcfdd}{path\_}}.c\_str());}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::InputText(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}File"{}},\ file\_name,\ 1024))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_aa9408fafd5b1fee499df98e2557dcfdd}{path\_}}\ =\ file\_name;}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063a59d87a4758a9d35fbaf6b204341bb399}{EffectBit::Initialized}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a804422954e7bdc9b06072b057ec3fcfb}{Load}}(\mbox{\hyperlink{class_component_effect_aa9408fafd5b1fee499df98e2557dcfdd}{path\_}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_effect_a6f3a1ebd7e0784196b0eb39af29848e5}{IsValid}}())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\textcolor{stringliteral}{"{}Loop"{}},\ \&\mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_a5ab7163f7b7a66a3194abef65187eddc}{get}}(),\ 1\ <<\ (\textcolor{keywordtype}{int})\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063a89d7b10cb4238977d2b523dfd9ea7745}{EffectBit::Loop}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_effect_a4515bc34ba77cb9a06a44fc69a5723b2}{IsPaused}}())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\textcolor{stringliteral}{"{}Resume"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a944e93a76ea6b44bb167049a69c6c475}{PlayPause}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_component_effect_aafce65b4b099c6b3519da1a7df1843b5}{IsPlaying}}())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\textcolor{stringliteral}{"{}Play"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a1eb00bc4705ebcac1ff347f2cfef3939}{Play}}();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\textcolor{stringliteral}{"{}Pause"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a944e93a76ea6b44bb167049a69c6c475}{PlayPause}}();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ アニメーション名}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_effect_aafce65b4b099c6b3519da1a7df1843b5}{IsPlaying}}())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::TextColored(\{0.5,\ 1,\ 0.5,\ 1\},\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}再生中"{}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Text(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}[\%3.2f]\%s"{}},\ \mbox{\hyperlink{class_component_effect_a4984fd2aff073eaa50fa9282298d4517}{effect\_time\_}},\ \mbox{\hyperlink{class_component_effect_a5ba7abfdf5d82616d07df592030424e8}{GetEffectName}}().data());}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モデル姿勢}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::TreeNode(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}エフェクト姿勢"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat4(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Ｘ軸"{}},\ \mbox{\hyperlink{class_component_effect_ab62838a33d9378b9aba56c9c3b770314}{effect\_transform\_}}.f32\_128\_0,\ 0.01f,\ -\/10000.0f,\ 10000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat4(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Ｙ軸"{}},\ \mbox{\hyperlink{class_component_effect_ab62838a33d9378b9aba56c9c3b770314}{effect\_transform\_}}.f32\_128\_1,\ 0.01f,\ -\/10000.0f,\ 10000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat4(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Ｚ軸"{}},\ \mbox{\hyperlink{class_component_effect_ab62838a33d9378b9aba56c9c3b770314}{effect\_transform\_}}.f32\_128\_2,\ 0.01f,\ -\/10000.0f,\ 10000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat4(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}座標"{}},\ \mbox{\hyperlink{class_component_effect_ab62838a33d9378b9aba56c9c3b770314}{effect\_transform\_}}.f32\_128\_3,\ 0.01f,\ -\/10000.0f,\ 10000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::TreePop();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 姿勢を\ TRSで変更できるように設定}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ mat\ =\ \mbox{\hyperlink{class_component_effect_ab62838a33d9378b9aba56c9c3b770314}{effect\_transform\_}}.f32\_128\_0;}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ matrixTranslation[3],\ matrixRotation[3],\ matrixScale[3];}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_a6d9d86eb5b39827e671616046aef46d8}{DecomposeMatrixToComponents}}(mat,\ matrixTranslation,\ matrixRotation,\ matrixScale);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat3(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}座標(T)"{}},\ matrixTranslation,\ 0.01f,\ -\/100000.00f,\ 100000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat3(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}回転(R)"{}},\ matrixRotation,\ 0.1f,\ -\/360.0f,\ 360.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat3(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}サイズ(S)"{}},\ matrixScale,\ 0.01f,\ 0.00f,\ 1000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_abe00c8be42f2761185a0ccfca2ded81a}{RecomposeMatrixFromComponents}}(matrixTranslation,\ matrixRotation,\ matrixScale,\ mat);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::TreePop();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00211}00211\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00212}00212\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00213}00213\ \ \ \ \ ImGui::End();}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00214}00214\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00216}\mbox{\hyperlink{class_component_effect_a1eb00bc4705ebcac1ff347f2cfef3939}{00216}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_effect_a1eb00bc4705ebcac1ff347f2cfef3939}{ComponentEffect::Play}}(\textcolor{keywordtype}{bool}\ loop)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00217}00217\ \ \ \ \ \textcolor{comment}{//\ 前のエフェクトは止める}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00218}00218\ \ \ \ \ StopEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00220}00220\ \ \ \ \ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_ad9dc31e328652e8e835aa12d89195811}{set}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063a89d7b10cb4238977d2b523dfd9ea7745}{EffectBit::Loop}},\ loop);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00221}00221\ \ \ \ \ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_ad9dc31e328652e8e835aa12d89195811}{set}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063ac9dbb2b7c84159b632d71e512eba8428}{EffectBit::Playing}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00223}00223\ \ \ \ \ \mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}}\ =\ PlayEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_af95a6f35cc7cea097c6ce8181e9fb4ec}{effect\_handle\_}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00224}00224\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00225}00225\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00226}\mbox{\hyperlink{class_component_effect_a1914f9d72a7f9e493befe84b56a80d9a}{00226}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_effect_a1914f9d72a7f9e493befe84b56a80d9a}{ComponentEffect::Stop}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00227}00227\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}}\ !=\ -\/1)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ StopEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}}\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00230}00230\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00231}00231\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00233}\mbox{\hyperlink{class_component_effect_adf88ee145287ed2d52907cb84a6cbb27}{00233}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_effect_adf88ee145287ed2d52907cb84a6cbb27}{ComponentEffect::SetPlaySpeed}}(\textcolor{keywordtype}{float}\ speed)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00234}00234\ \ \ \ \ \mbox{\hyperlink{class_component_effect_aa41ce6e27afbba78a0c09fffa5727af4}{effect\_speed\_}}\ =\ speed;}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00235}00235\ \ \ \ \ SetSpeedPlayingEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}},\ \mbox{\hyperlink{class_component_effect_aa41ce6e27afbba78a0c09fffa5727af4}{effect\_speed\_}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00236}00236\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00238}\mbox{\hyperlink{class_component_effect_af1a56b7ea0d1d36ae96616afee77e766}{00238}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_component_effect_af1a56b7ea0d1d36ae96616afee77e766}{ComponentEffect::GetPlaySpeed}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00239}00239\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_effect_aa41ce6e27afbba78a0c09fffa5727af4}{effect\_speed\_}};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00240}00240\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00242}\mbox{\hyperlink{class_component_effect_aafce65b4b099c6b3519da1a7df1843b5}{00242}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_effect_aafce65b4b099c6b3519da1a7df1843b5}{ComponentEffect::IsPlaying}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00243}00243\ \ \ \ \ \textcolor{comment}{//\ まだ初期化できてない場合はfalse}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00244}00244\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_component_effect_a6f3a1ebd7e0784196b0eb39af29848e5}{IsValid}}())}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00247}00247\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063ac9dbb2b7c84159b632d71e512eba8428}{EffectBit::Playing}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00248}00248\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00250}\mbox{\hyperlink{class_component_effect_a944e93a76ea6b44bb167049a69c6c475}{00250}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_effect_a944e93a76ea6b44bb167049a69c6c475}{ComponentEffect::PlayPause}}(\textcolor{keywordtype}{bool}\ is\_pause)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00251}00251\ \ \ \ \ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_ad9dc31e328652e8e835aa12d89195811}{set}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063ae99180abf47a8b3a856e0bcb2656990a}{EffectBit::Paused}},\ is\_pause);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00252}00252\ \ \ \ \ \textcolor{keywordflow}{if}(is\_pause)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ポーズはスピード0.0で代用}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ SetSpeedPlayingEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}},\ 0.0f);}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00255}00255\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 通常スピードに戻す}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ SetSpeedPlayingEffekseer3DEffect(\mbox{\hyperlink{class_component_effect_a9939b88cdcc8467c5a5371ab7a8bf7c8}{effect\_play\_handle\_}},\ \mbox{\hyperlink{class_component_effect_aa41ce6e27afbba78a0c09fffa5727af4}{effect\_speed\_}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00258}00258\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00259}00259\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00261}\mbox{\hyperlink{class_component_effect_a4515bc34ba77cb9a06a44fc69a5723b2}{00261}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_effect_a4515bc34ba77cb9a06a44fc69a5723b2}{ComponentEffect::IsPaused}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00262}00262\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063ae99180abf47a8b3a856e0bcb2656990a}{EffectBit::Paused}}))}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00265}00265\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00266}00266\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00268}\mbox{\hyperlink{class_component_effect_a6f3a1ebd7e0784196b0eb39af29848e5}{00268}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_effect_a6f3a1ebd7e0784196b0eb39af29848e5}{ComponentEffect::IsValid}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00269}00269\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_effect_a7bb32c2d750996622ddf161ec908539b}{effect\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(\mbox{\hyperlink{class_component_effect_a0111177be3f43aea08f44bde5ad18063a59d87a4758a9d35fbaf6b204341bb399}{EffectBit::Initialized}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00270}00270\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00272}\mbox{\hyperlink{class_component_effect_a5ba7abfdf5d82616d07df592030424e8}{00272}}\ \textcolor{keyword}{const}\ std::string\_view\ \mbox{\hyperlink{class_component_effect_a5ba7abfdf5d82616d07df592030424e8}{ComponentEffect::GetEffectName}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00273}00273\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespace_helper_lib_1_1_file_adc88fd8307af14c6e7b5565dda878033}{HelperLib::File::GetOnlyFileNameWithoutExtension}}(\mbox{\hyperlink{class_component_effect_aa9408fafd5b1fee499df98e2557dcfdd}{path\_}});}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00274}00274\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00275}00275\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00276}\mbox{\hyperlink{class_component_effect_a6c20205d927a3998ae8d3a9ceee6f900}{00276}}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_component_effect_a6c20205d927a3998ae8d3a9ceee6f900}{ComponentEffect::GetEffectTime}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00277}00277\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_effect_aafce65b4b099c6b3519da1a7df1843b5}{IsPlaying}}())}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00278}00278\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_effect_a4984fd2aff073eaa50fa9282298d4517}{effect\_time\_}};}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00279}00279\ }
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00280}00280\ \ \ \ \ \textcolor{keywordflow}{return}\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00281}00281\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00282}00282\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00283}00283\ \textcolor{comment}{//!\ @brief\ ワールドMatrixの取得}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00284}00284\ \textcolor{comment}{//!\ @return\ 他のコンポーネントも含めた位置}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00285}00285\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00286}\mbox{\hyperlink{class_component_effect_a35c314cbb60b193556626081b7ba5dfc}{00286}}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_effect_a35c314cbb60b193556626081b7ba5dfc}{ComponentEffect::GetWorldMatrix}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00287}00287\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(\mbox{\hyperlink{class_component_effect_ad9fb03f637710c92522cb0fd05f92e56}{GetMatrix}}(),\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_component_effect_a35c314cbb60b193556626081b7ba5dfc}{GetWorldMatrix}}());}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00288}00288\ \}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00289}00289\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00290}00290\ \textcolor{comment}{//!\ @brief\ 1フレーム前のワールドMatrixの取得}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00291}00291\ \textcolor{comment}{//!\ @return\ 他のコンポーネントも含めた位置}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00292}00292\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00293}\mbox{\hyperlink{class_component_effect_a2eb12864e70edf570f38647a8074e955}{00293}}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_effect_a2eb12864e70edf570f38647a8074e955}{ComponentEffect::GetOldWorldMatrix}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00294}00294\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(\mbox{\hyperlink{class_component_effect_ad9fb03f637710c92522cb0fd05f92e56}{GetMatrix}}(),\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_component_effect_a2eb12864e70edf570f38647a8074e955}{GetOldWorldMatrix}}());}
+\DoxyCodeLine{\Hypertarget{_component_effect_8cpp_source_l00295}00295\ \}}
+
+\end{DoxyCode}

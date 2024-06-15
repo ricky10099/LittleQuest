@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: ComponentCollisionSphere.h ソースファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_ef68f1e1f5148ff8ef7fb1c955106c3c.html">System</a></li><li class="navelem"><a class="el" href="../../dir_62db5b8162a41e57b9d75d02d7d318ce.html">Component</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">ComponentCollisionSphere.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../dd/d26/_component_collision_sphere_8h.html">[詳解]</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//---------------------------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//! @file   ComponentCollisionSphere.h</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//! @brief  コリジョンコンポーネント</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"></span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="../../da/dba/_component_collision_8h.html">System/Component/ComponentCollision.h</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/d46/_component_transform_8h.html">System/Component/ComponentTransform.h</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;ImGuizmo/ImGuizmo.h&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;DxLib.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="../../dd/d26/_component_collision_sphere_8h.html#acc04294e3db85f0d2344094113b75171">   11</a></span><a class="code hl_define" href="../../d2/db9/_typedef_8h.html#ae1b2d029be4658cd85fd1bc379e76178">USING_PTR</a>(<a class="code hl_class" href="../../d7/df9/class_component_collision_sphere.html">ComponentCollisionSphere</a>);</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"></span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//! @brief コリジョンコンポーネントクラス</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html">   14</a></span><span class="comment"></span><span class="keyword">class </span><a class="code hl_class" href="../../d7/df9/class_component_collision_sphere.html">ComponentCollisionSphere</a></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    : <span class="keyword">public</span> <a class="code hl_class" href="../../d7/d33/class_component_collision.html">ComponentCollision</a></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    , <span class="keyword">public</span> <a class="code hl_class" href="../../d5/d5d/class_i_matrix.html">IMatrix</a>&lt;ComponentCollisionSphere&gt; {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>   <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#a532495e4404aceb58a003ed8818a71ae">   18</a></span>    <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a532495e4404aceb58a003ed8818a71ae">BP_COMPONENT_TYPE</a>(<a class="code hl_class" href="../../d7/df9/class_component_collision_sphere.html">ComponentCollisionSphere</a>, <a class="code hl_class" href="../../d7/d33/class_component_collision.html">ComponentCollision</a>);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#a1ca8aa78f5a44edf2ec5e12e91087a13">   20</a></span>    <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a1ca8aa78f5a44edf2ec5e12e91087a13">ComponentCollisionSphere</a>() {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_variable" href="../../d7/d33/class_component_collision.html#a0703267eaf89608f466562899e659aa5">collision_type_</a> = <a class="code hl_enumvalue" href="../../d7/d33/class_component_collision.html#ac871fff0db414ee6b5a1e6b3acd05ebea6f7cea7381e843e2ee0338b4a92b0d43">CollisionType::SPHERE</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#af31a956a4d218eee1772fd4faf9526e1">Init</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#af9074e0bfc8f8554a7e5df1caf39a74c">Update</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#af26b5f8f58841c5ec377be0302c4138b">PostUpdate</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a6f8655ba1f7da28cc84742d2432ceb80">Draw</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a1297c8ae595be629ae34e38ce79ea2d6">Exit</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a24ab3835e6e0a273d251556693322425">GUI</a>() <span class="keyword">override</span>;    <span class="comment">//!&lt; GUI</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment"></span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">    //! @brief 半径の設定</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">    //! @param radius 半径</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="comment"></span>    ComponentCollisionSpherePtr <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a45e67a769ca514763b3b0f3a557e6778">SetRadius</a>(<span class="keywordtype">float</span> radius);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="comment"></span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="comment">    //! @brief 半径の取得</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">    //! @return 半径</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment"></span>    <span class="keywordtype">float</span> <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a251915d5d954da0ff481c609d3e76b80">GetRadius</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    HitInfo <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a4ef5b1f7d19490a6c833c82b16c9b3e8">IsHit</a>(ComponentCollisionPtr col) <span class="keyword">override</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment">//----------------------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">    //! @name IMatrixインターフェースの利用するための定義</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="comment"></span>    <span class="comment">//----------------------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="comment">    //@{</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="comment"></span><span class="comment">    //! @brief TransformのMatrix情報を取得します</span><span class="comment"></span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="comment">    //! @return ComponentTransform の Matrix</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#a2fc0ee6a00274ebc98c7bb8774eb3db9">   48</a></span><span class="comment"></span>    <a class="code hl_class" href="../../d1/d8d/classmatrix.html">matrix</a>&amp; <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a2fc0ee6a00274ebc98c7bb8774eb3db9">Matrix</a>()<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d7/d33/class_component_collision.html#a7c35f5cbec169010e664494423e8994f">collision_transform_</a>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#a15b7b1eb056538fd7cc334c0984454a3">   52</a></span>    <span class="keyword">const</span> <a class="code hl_class" href="../../d1/d8d/classmatrix.html">matrix</a>&amp; <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a15b7b1eb056538fd7cc334c0984454a3">GetMatrix</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d7/d33/class_component_collision.html#a7c35f5cbec169010e664494423e8994f">collision_transform_</a>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#acad219357c646912969a9365aa3b5d54">   56</a></span>    <span class="keyword">virtual</span> ComponentCollisionSpherePtr <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#acad219357c646912969a9365aa3b5d54">SharedThis</a>()<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="keywordflow">return</span> std::dynamic_pointer_cast&lt;ComponentCollisionSphere&gt;(shared_from_this());</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment"></span> </div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span><span class="comment">    //! @brief ワールドMatrixの取得</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="comment">    //! @return 他のコンポーネントも含めた位置</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="comment"></span>    <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code hl_class" href="../../d1/d8d/classmatrix.html">matrix</a> <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#abafe6091c6f976f1fb5f9ef324b80c6c">GetWorldMatrix</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="comment"></span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">    //! @brief 1フレーム前のワールドMatrixの取得</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">    //! @return 他のコンポーネントも含めた位置</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#a9c64ec9a56db48407f5978d664710ab3">   66</a></span><span class="comment"></span>    <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code hl_class" href="../../d1/d8d/classmatrix.html">matrix</a> <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a9c64ec9a56db48407f5978d664710ab3">GetOldWorldMatrix</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d7/d33/class_component_collision.html#a56fe7bf6d5b1f6e5ad9c6e48393c7fbb">old_transform_</a>;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span><span class="comment"></span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="comment">    //@}</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment"></span><span class="preprocessor">#if 1    </span><span class="comment">// CompoentCollisionからの移行</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#a58bec1cecd991ee372b84c88ef03082c">   73</a></span>    <span class="keyword">inline</span> ComponentCollisionSpherePtr <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a58bec1cecd991ee372b84c88ef03082c">SetName</a>(std::string_view name) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <a class="code hl_variable" href="../../d7/d33/class_component_collision.html#a238103056a281d08151c0b556bbbcb20">name_</a> = name;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">return</span> std::dynamic_pointer_cast&lt;ComponentCollisionSphere&gt;(shared_from_this());</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#ac28cb1580490f0a01830d3b56683cdad">   78</a></span>    <span class="keyword">inline</span> ComponentCollisionSpherePtr <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#ac28cb1580490f0a01830d3b56683cdad">SetHitCollisionGroup</a>(<a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a> hit_group) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <a class="code hl_variable" href="../../d7/d33/class_component_collision.html#aa2ea132001b00585d45467e08c8a0543">collision_hit_</a> = hit_group;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        <span class="keywordflow">return</span> std::dynamic_pointer_cast&lt;ComponentCollisionSphere&gt;(shared_from_this());</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#a6cb3e704694ae7345e8e927e300c031a">   83</a></span>    <span class="keyword">inline</span> ComponentCollisionSpherePtr <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a6cb3e704694ae7345e8e927e300c031a">SetCollisionGroup</a>(<a class="code hl_enumeration" href="../../d7/d33/class_component_collision.html#a5b62afb68692a7efbde21ae661bd1ebf">CollisionGroup</a> grp) {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <a class="code hl_variable" href="../../d7/d33/class_component_collision.html#ade25258ae0d5861b1351b37cfba62b41">collision_group_</a> = grp;</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordflow">return</span> std::dynamic_pointer_cast&lt;ComponentCollisionSphere&gt;(shared_from_this());</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    }</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#af4d3322b093a158b40436469d432fb43">   88</a></span>    <span class="keyword">inline</span> ComponentCollisionSpherePtr <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#af4d3322b093a158b40436469d432fb43">SetMass</a>(<span class="keywordtype">float</span> mass) {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <a class="code hl_variable" href="../../d7/d33/class_component_collision.html#a4ee515355f686d895f4a469f2f5f8d68">collision_mass_</a> = mass;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">return</span> std::dynamic_pointer_cast&lt;ComponentCollisionSphere&gt;(shared_from_this());</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>   <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#ifdef USE_JOLT_PHYSICS</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">bool</span> set_size_ = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#endif                       </span><span class="comment">// USE_JOLT_PHYSICS</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#a46a442d3f4483a4846e24a9c8bdfa50d">   98</a></span>    <span class="keywordtype">float</span> <a class="code hl_variable" href="../../d7/df9/class_component_collision_sphere.html#a46a442d3f4483a4846e24a9c8bdfa50d">radius_</a> = 1.0f;    <span class="comment">//!&lt; 半径</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>   <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="comment">//--------------------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="comment">    //! @name Cereal処理</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="comment"></span>    <span class="comment">//--------------------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="comment">    //@{</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="../../d7/df9/class_component_collision_sphere.html#a608def1848e381786a2994fc8793a843">  105</a></span><span class="comment"></span>    <a class="code hl_function" href="../../d7/df9/class_component_collision_sphere.html#a608def1848e381786a2994fc8793a843">CEREAL_SAVELOAD</a>(arc, ver) {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        arc(cereal::make_nvp(<span class="stringliteral">&quot;owner&quot;</span>, <a class="code hl_variable" href="../../d2/d00/class_component.html#aaf224b0e73780a9c3cbad323a0ec59f5">owner_</a>));</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        arc(cereal::make_nvp(<span class="stringliteral">&quot;radius&quot;</span>, <a class="code hl_variable" href="../../d7/df9/class_component_collision_sphere.html#a46a442d3f4483a4846e24a9c8bdfa50d">radius_</a>));</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        arc(cereal::make_nvp(<span class="stringliteral">&quot;ComponentCollision&quot;</span>, cereal::base_class&lt;ComponentCollision&gt;(<span class="keyword">this</span>)));</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    }</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="comment"></span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="comment">    //@}</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="comment"></span>};</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>CEREAL_REGISTER_TYPE(<a class="code hl_class" href="../../d7/df9/class_component_collision_sphere.html">ComponentCollisionSphere</a>)</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>CEREAL_REGISTER_POLYMORPHIC_RELATION(<a class="code hl_class" href="../../d7/d33/class_component_collision.html">ComponentCollision</a>, <a class="code hl_class" href="../../d7/df9/class_component_collision_sphere.html">ComponentCollisionSphere</a>)</div>
+<div class="ttc" id="a_component_collision_8h_html"><div class="ttname"><a href="../../da/dba/_component_collision_8h.html">ComponentCollision.h</a></div><div class="ttdoc">コリジョンコンポーネント(ベースクラス)</div></div>
+<div class="ttc" id="a_component_transform_8h_html"><div class="ttname"><a href="../../d0/d46/_component_transform_8h.html">ComponentTransform.h</a></div><div class="ttdoc">トランスフォームコンポーネント(座標と姿勢と大きさ)</div></div>
+<div class="ttc" id="a_typedef_8h_html_a70c1fcc1a4e96af8f6580f708657cd41"><div class="ttname"><a href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdoc">32bit 符号なし整数</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/db9/_typedef_8h_source.html#l00023">Typedef.h:23</a></div></div>
+<div class="ttc" id="a_typedef_8h_html_ae1b2d029be4658cd85fd1bc379e76178"><div class="ttname"><a href="../../d2/db9/_typedef_8h.html#ae1b2d029be4658cd85fd1bc379e76178">USING_PTR</a></div><div class="ttdeci">#define USING_PTR(obj)</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/db9/_typedef_8h_source.html#l00034">Typedef.h:34</a></div></div>
+<div class="ttc" id="aclass_component_collision_html"><div class="ttname"><a href="../../d7/d33/class_component_collision.html">ComponentCollision</a></div><div class="ttdoc">モデルコンポーネントクラス</div><div class="ttdef"><b>Definition:</b> <a href="../../da/dba/_component_collision_8h_source.html#l00026">ComponentCollision.h:26</a></div></div>
+<div class="ttc" id="aclass_component_collision_html_a0703267eaf89608f466562899e659aa5"><div class="ttname"><a href="../../d7/d33/class_component_collision.html#a0703267eaf89608f466562899e659aa5">ComponentCollision::collision_type_</a></div><div class="ttdeci">CollisionType collision_type_</div><div class="ttdef"><b>Definition:</b> <a href="../../da/dba/_component_collision_8h_source.html#l00445">ComponentCollision.h:445</a></div></div>
+<div class="ttc" id="aclass_component_collision_html_a238103056a281d08151c0b556bbbcb20"><div class="ttname"><a href="../../d7/d33/class_component_collision.html#a238103056a281d08151c0b556bbbcb20">ComponentCollision::name_</a></div><div class="ttdeci">std::string name_</div><div class="ttdef"><b>Definition:</b> <a href="../../da/dba/_component_collision_8h_source.html#l00466">ComponentCollision.h:466</a></div></div>
+<div class="ttc" id="aclass_component_collision_html_a4ee515355f686d895f4a469f2f5f8d68"><div class="ttname"><a href="../../d7/d33/class_component_collision.html#a4ee515355f686d895f4a469f2f5f8d68">ComponentCollision::collision_mass_</a></div><div class="ttdeci">float collision_mass_</div><div class="ttdoc">押し戻される量に影響(マイナスは戻されない)</div><div class="ttdef"><b>Definition:</b> <a href="../../da/dba/_component_collision_8h_source.html#l00452">ComponentCollision.h:452</a></div></div>
+<div class="ttc" id="aclass_component_collision_html_a56fe7bf6d5b1f6e5ad9c6e48393c7fbb"><div class="ttname"><a href="../../d7/d33/class_component_collision.html#a56fe7bf6d5b1f6e5ad9c6e48393c7fbb">ComponentCollision::old_transform_</a></div><div class="ttdeci">matrix old_transform_</div><div class="ttdoc">1フレーム前の状態 (WorldTransform)</div><div class="ttdef"><b>Definition:</b> <a href="../../da/dba/_component_collision_8h_source.html#l00443">ComponentCollision.h:443</a></div></div>
+<div class="ttc" id="aclass_component_collision_html_a5b62afb68692a7efbde21ae661bd1ebf"><div class="ttname"><a href="../../d7/d33/class_component_collision.html#a5b62afb68692a7efbde21ae661bd1ebf">ComponentCollision::CollisionGroup</a></div><div class="ttdeci">CollisionGroup</div><div class="ttdef"><b>Definition:</b> <a href="../../da/dba/_component_collision_8h_source.html#l00128">ComponentCollision.h:128</a></div></div>
+<div class="ttc" id="aclass_component_collision_html_a7c35f5cbec169010e664494423e8994f"><div class="ttname"><a href="../../d7/d33/class_component_collision.html#a7c35f5cbec169010e664494423e8994f">ComponentCollision::collision_transform_</a></div><div class="ttdeci">matrix collision_transform_</div><div class="ttdoc">コリジョン用のトランスフォーム</div><div class="ttdef"><b>Definition:</b> <a href="../../da/dba/_component_collision_8h_source.html#l00440">ComponentCollision.h:440</a></div></div>
+<div class="ttc" id="aclass_component_collision_html_aa2ea132001b00585d45467e08c8a0543"><div class="ttname"><a href="../../d7/d33/class_component_collision.html#aa2ea132001b00585d45467e08c8a0543">ComponentCollision::collision_hit_</a></div><div class="ttdeci">u32 collision_hit_</div><div class="ttdoc">デフォルトではすべてに当たる</div><div class="ttdef"><b>Definition:</b> <a href="../../da/dba/_component_collision_8h_source.html#l00447">ComponentCollision.h:447</a></div></div>
+<div class="ttc" id="aclass_component_collision_html_ac871fff0db414ee6b5a1e6b3acd05ebea6f7cea7381e843e2ee0338b4a92b0d43"><div class="ttname"><a href="../../d7/d33/class_component_collision.html#ac871fff0db414ee6b5a1e6b3acd05ebea6f7cea7381e843e2ee0338b4a92b0d43">ComponentCollision::CollisionType::SPHERE</a></div><div class="ttdeci">@ SPHERE</div></div>
+<div class="ttc" id="aclass_component_collision_html_ade25258ae0d5861b1351b37cfba62b41"><div class="ttname"><a href="../../d7/d33/class_component_collision.html#ade25258ae0d5861b1351b37cfba62b41">ComponentCollision::collision_group_</a></div><div class="ttdeci">CollisionGroup collision_group_</div><div class="ttdoc">自分のコリジョンタイプ</div><div class="ttdef"><b>Definition:</b> <a href="../../da/dba/_component_collision_8h_source.html#l00446">ComponentCollision.h:446</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html">ComponentCollisionSphere</a></div><div class="ttdoc">コリジョンコンポーネントクラス</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00014">ComponentCollisionSphere.h:16</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a1297c8ae595be629ae34e38ce79ea2d6"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a1297c8ae595be629ae34e38ce79ea2d6">ComponentCollisionSphere::Exit</a></div><div class="ttdeci">virtual void Exit() override</div><div class="ttdoc">終了</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00053">ComponentCollisionSphere.cpp:53</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a15b7b1eb056538fd7cc334c0984454a3"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a15b7b1eb056538fd7cc334c0984454a3">ComponentCollisionSphere::GetMatrix</a></div><div class="ttdeci">const matrix &amp; GetMatrix() const override</div><div class="ttdoc">TransformのMatrix情報を取得します</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00052">ComponentCollisionSphere.h:52</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a1ca8aa78f5a44edf2ec5e12e91087a13"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a1ca8aa78f5a44edf2ec5e12e91087a13">ComponentCollisionSphere::ComponentCollisionSphere</a></div><div class="ttdeci">ComponentCollisionSphere()</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00020">ComponentCollisionSphere.h:20</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a24ab3835e6e0a273d251556693322425"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a24ab3835e6e0a273d251556693322425">ComponentCollisionSphere::GUI</a></div><div class="ttdeci">virtual void GUI() override</div><div class="ttdoc">GUI</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00058">ComponentCollisionSphere.cpp:58</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a251915d5d954da0ff481c609d3e76b80"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a251915d5d954da0ff481c609d3e76b80">ComponentCollisionSphere::GetRadius</a></div><div class="ttdeci">float GetRadius() const</div><div class="ttdoc">半径の取得</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00105">ComponentCollisionSphere.cpp:105</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a2fc0ee6a00274ebc98c7bb8774eb3db9"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a2fc0ee6a00274ebc98c7bb8774eb3db9">ComponentCollisionSphere::Matrix</a></div><div class="ttdeci">matrix &amp; Matrix() override</div><div class="ttdoc">TransformのMatrix情報を取得します</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00048">ComponentCollisionSphere.h:48</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a45e67a769ca514763b3b0f3a557e6778"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a45e67a769ca514763b3b0f3a557e6778">ComponentCollisionSphere::SetRadius</a></div><div class="ttdeci">ComponentCollisionSpherePtr SetRadius(float radius)</div><div class="ttdoc">半径の設定</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00098">ComponentCollisionSphere.cpp:98</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a46a442d3f4483a4846e24a9c8bdfa50d"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a46a442d3f4483a4846e24a9c8bdfa50d">ComponentCollisionSphere::radius_</a></div><div class="ttdeci">float radius_</div><div class="ttdoc">半径</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00098">ComponentCollisionSphere.h:98</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a4ef5b1f7d19490a6c833c82b16c9b3e8"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a4ef5b1f7d19490a6c833c82b16c9b3e8">ComponentCollisionSphere::IsHit</a></div><div class="ttdeci">HitInfo IsHit(ComponentCollisionPtr col) override</div><div class="ttdoc">当たっているかを調べる</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00112">ComponentCollisionSphere.cpp:112</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a532495e4404aceb58a003ed8818a71ae"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a532495e4404aceb58a003ed8818a71ae">ComponentCollisionSphere::BP_COMPONENT_TYPE</a></div><div class="ttdeci">BP_COMPONENT_TYPE(ComponentCollisionSphere, ComponentCollision)</div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a58bec1cecd991ee372b84c88ef03082c"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a58bec1cecd991ee372b84c88ef03082c">ComponentCollisionSphere::SetName</a></div><div class="ttdeci">ComponentCollisionSpherePtr SetName(std::string_view name)</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00073">ComponentCollisionSphere.h:73</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a608def1848e381786a2994fc8793a843"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a608def1848e381786a2994fc8793a843">ComponentCollisionSphere::CEREAL_SAVELOAD</a></div><div class="ttdeci">CEREAL_SAVELOAD(arc, ver)</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00105">ComponentCollisionSphere.h:105</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a6cb3e704694ae7345e8e927e300c031a"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a6cb3e704694ae7345e8e927e300c031a">ComponentCollisionSphere::SetCollisionGroup</a></div><div class="ttdeci">ComponentCollisionSpherePtr SetCollisionGroup(CollisionGroup grp)</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00083">ComponentCollisionSphere.h:83</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a6f8655ba1f7da28cc84742d2432ceb80"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a6f8655ba1f7da28cc84742d2432ceb80">ComponentCollisionSphere::Draw</a></div><div class="ttdeci">virtual void Draw() override</div><div class="ttdoc">描画</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00029">ComponentCollisionSphere.cpp:29</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_a9c64ec9a56db48407f5978d664710ab3"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#a9c64ec9a56db48407f5978d664710ab3">ComponentCollisionSphere::GetOldWorldMatrix</a></div><div class="ttdeci">virtual const matrix GetOldWorldMatrix() const override</div><div class="ttdoc">1フレーム前のワールドMatrixの取得</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00066">ComponentCollisionSphere.h:66</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_abafe6091c6f976f1fb5f9ef324b80c6c"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#abafe6091c6f976f1fb5f9ef324b80c6c">ComponentCollisionSphere::GetWorldMatrix</a></div><div class="ttdeci">virtual const matrix GetWorldMatrix() const override</div><div class="ttdoc">ワールドMatrixの取得</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00141">ComponentCollisionSphere.cpp:141</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_ac28cb1580490f0a01830d3b56683cdad"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#ac28cb1580490f0a01830d3b56683cdad">ComponentCollisionSphere::SetHitCollisionGroup</a></div><div class="ttdeci">ComponentCollisionSpherePtr SetHitCollisionGroup(u32 hit_group)</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00078">ComponentCollisionSphere.h:78</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_acad219357c646912969a9365aa3b5d54"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#acad219357c646912969a9365aa3b5d54">ComponentCollisionSphere::SharedThis</a></div><div class="ttdeci">virtual ComponentCollisionSpherePtr SharedThis() override</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00056">ComponentCollisionSphere.h:56</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_af26b5f8f58841c5ec377be0302c4138b"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#af26b5f8f58841c5ec377be0302c4138b">ComponentCollisionSphere::PostUpdate</a></div><div class="ttdeci">virtual void PostUpdate() override</div><div class="ttdoc">PostUpdate</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00024">ComponentCollisionSphere.cpp:24</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_af31a956a4d218eee1772fd4faf9526e1"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#af31a956a4d218eee1772fd4faf9526e1">ComponentCollisionSphere::Init</a></div><div class="ttdeci">virtual void Init() override</div><div class="ttdoc">初期化</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00015">ComponentCollisionSphere.cpp:15</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_af4d3322b093a158b40436469d432fb43"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#af4d3322b093a158b40436469d432fb43">ComponentCollisionSphere::SetMass</a></div><div class="ttdeci">ComponentCollisionSpherePtr SetMass(float mass)</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d26/_component_collision_sphere_8h_source.html#l00088">ComponentCollisionSphere.h:88</a></div></div>
+<div class="ttc" id="aclass_component_collision_sphere_html_af9074e0bfc8f8554a7e5df1caf39a74c"><div class="ttname"><a href="../../d7/df9/class_component_collision_sphere.html#af9074e0bfc8f8554a7e5df1caf39a74c">ComponentCollisionSphere::Update</a></div><div class="ttdeci">virtual void Update() override</div><div class="ttdoc">アップデート</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00019">ComponentCollisionSphere.cpp:19</a></div></div>
+<div class="ttc" id="aclass_component_html_aaf224b0e73780a9c3cbad323a0ec59f5"><div class="ttname"><a href="../../d2/d00/class_component.html#aaf224b0e73780a9c3cbad323a0ec59f5">Component::owner_</a></div><div class="ttdeci">ObjectPtr owner_</div><div class="ttdoc">オーナー</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/d20/_component_8h_source.html#l00202">Component.h:202</a></div></div>
+<div class="ttc" id="aclass_i_matrix_html"><div class="ttname"><a href="../../d5/d5d/class_i_matrix.html">IMatrix</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d0/d46/_component_transform_8h_source.html#l00031">ComponentTransform.h:31</a></div></div>
+<div class="ttc" id="aclassmatrix_html"><div class="ttname"><a href="../../d1/d8d/classmatrix.html">matrix</a></div><div class="ttdoc">4x4行列</div><div class="ttdef"><b>Definition:</b> <a href="../../de/d57/_vector_math_8h_source.html#l00081">VectorMath.h:81</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>

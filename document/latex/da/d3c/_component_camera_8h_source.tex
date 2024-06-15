@@ -1,0 +1,199 @@
+\hypertarget{_component_camera_8h_source}{}\doxysection{Component\+Camera.\+h}
+\label{_component_camera_8h_source}\index{ComponentCamera.h@{ComponentCamera.h}}
+\mbox{\hyperlink{_component_camera_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_frustum_8h}{System/Graphics/Frustum.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_8h}{System/Component/Component.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_cereal_8h}{System/Cereal.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00007}\mbox{\hyperlink{_component_camera_8h_a23894d59306dcc7d1bc1742d29d5c4a9}{00007}}\ \mbox{\hyperlink{_typedef_8h_ae1b2d029be4658cd85fd1bc379e76178}{USING\_PTR}}(\mbox{\hyperlink{class_component_camera}{ComponentCamera}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00009}\mbox{\hyperlink{class_component_camera}{00009}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_component_camera}{ComponentCamera}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00010}\mbox{\hyperlink{class_component_camera_a0720b5f434e636e22a3ed34f847eec57}{00010}}\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_object}{Object}};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00012}00012\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00013}\mbox{\hyperlink{class_component_camera_a6627aece035731e548ed9b20e545bf88}{00013}}\ \ \ \ \ \mbox{\hyperlink{class_component_camera_a6627aece035731e548ed9b20e545bf88}{BP\_COMPONENT\_TYPE}}(\mbox{\hyperlink{class_component_camera}{ComponentCamera}},\ \mbox{\hyperlink{class_component}{Component}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00015}\mbox{\hyperlink{class_component_camera_a40b3508a2d308f41592a761e100671ac}{00015}}\ \ \ \ \ \mbox{\hyperlink{class_component_camera_a40b3508a2d308f41592a761e100671ac}{ComponentCamera}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00017}00017\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_camera_a328be3c422706943e08a8b2dc9dfd839}{Init}}()\ \textcolor{keyword}{override};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ カメラ初期化}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_camera_a7f1617d2233a2eb18a519e0da3c5e59c}{PreUpdate}}()\ \textcolor{keyword}{override};\ \ \ \ \ \textcolor{comment}{//!<\ カメラ更新}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_camera_ab380d0d6c5fdec8b5b988508a69faf78}{Update}}()\ \textcolor{keyword}{override};\ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ カメラ更新}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_camera_aa00f486a2d73674c8cd109cd1d932cf3}{PostUpdate}}()\ \textcolor{keyword}{override};\ \ \ \ \textcolor{comment}{//!<\ カメラ更新}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_camera_a5263b6d73b76c27046febbadcc013029}{Draw}}()\ \textcolor{keyword}{override};\ \ \ \ \textcolor{comment}{//!<\ 標準カメラや別のカメラから見た時のカメラモデルを表示する}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_camera_aea0f99c360937710193504fac54c6d6f}{Exit}}()\ \textcolor{keyword}{override};\ \ \ \ \textcolor{comment}{//!<\ カメラ終了処理}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_camera_af99a56d7b776568a6a546ae1b101950c}{GUI}}()\ \textcolor{keyword}{override};\ \ \ \ \ \textcolor{comment}{//!<\ カメラGUI処理}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00024}00024\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00025}00025\ \textcolor{comment}{\ \ \ \ //!\ @brief\ カメラの位置設定}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00026}00026\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_camera_a1f7cb13c939d554fe0555da6924dc791}{SetCameraTransform}}();}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00027}00027\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00028}00028\ \textcolor{comment}{\ \ \ \ //!\ @brief\ カレントカメラに設定します}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00029}\mbox{\hyperlink{class_component_camera_a2078822e1be00930762e103eb00aa55d}{00029}}\ \textcolor{comment}{}\ \ \ \ ComponentCameraPtr\ \mbox{\hyperlink{class_component_camera_a2078822e1be00930762e103eb00aa55d}{SetCurrentCamera}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00030}00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fa1168725d440a45b4db14a1591f972815}{CameraBit::ChangeReq}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::dynamic\_pointer\_cast<ComponentCamera>(shared\_from\_this());}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00034}\mbox{\hyperlink{class_component_camera_a509eb0b9209d4c8b782ba4352a121da8}{00034}}\ \ \ \ \ \textcolor{keyword}{static}\ ComponentCameraWeakPtr\ \mbox{\hyperlink{class_component_camera_a509eb0b9209d4c8b782ba4352a121da8}{GetCurrentCamera}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_camera_a1635958a30b9413e12c96e1f148728b0}{current\_camera\_}};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00036}00036\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00037}00037\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00038}00038\ \textcolor{comment}{\ \ \ \ //!\ @brief\ 画角設定}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00039}00039\ \textcolor{comment}{\ \ \ \ //!\ @param\ fov\ \ \ \ \ \ \ \ \ \ 画角(角度0\string~360[通常45\string~90くらい])}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00040}00040\ \textcolor{comment}{\ \ \ \ //!\ @param\ aspect\_ratio\ アスペクト比}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00041}\mbox{\hyperlink{class_component_camera_a0442691eefc86d49c12434bb45637c22}{00041}}\ \textcolor{comment}{}\ \ \ \ std::shared\_ptr<ComponentCamera>\ \mbox{\hyperlink{class_component_camera_a0442691eefc86d49c12434bb45637c22}{SetPerspective}}(\textcolor{keywordtype}{float}\ fov,\ \textcolor{keywordtype}{float}\ aspect\_ratio\ =\ 16.0f\ /\ 9.0f)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00042}00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_aa028675067ec9613520c30b647aaba24}{fovy\_}}\ \ \ \ \ \ \ \ \ =\ fov;}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a9c055e01d5980aa23a8c1f910cc69759}{aspect\_ratio\_}}\ =\ aspect\_ratio;}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::dynamic\_pointer\_cast<ComponentCamera>(shared\_from\_this());}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00045}00045\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00046}00046\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00047}00047\ \textcolor{comment}{\ \ \ \ //!\ @brief\ カメラポジションとターゲットの設定}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00048}00048\ \textcolor{comment}{\ \ \ \ //!\ @param\ position\ カメラポジション}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00049}00049\ \textcolor{comment}{\ \ \ \ //!\ @param\ look\_at\ \ 注視点ターゲット}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00050}00050\ \textcolor{comment}{\ \ \ \ //!\ @param\ up\ \ \ \ \ \ \ 上ベクトル}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00051}\mbox{\hyperlink{class_component_camera_aa731d4bb9df9e83a9c09b44eb47cac56}{00051}}\ \textcolor{comment}{}\ \ \ \ std::shared\_ptr<ComponentCamera>\ \mbox{\hyperlink{class_component_camera_aa731d4bb9df9e83a9c09b44eb47cac56}{SetPositionAndTarget}}(float3\ position,\ float3\ look\_at,\ float3\ up\ =\ \{0.0f,\ 1.0f,\ 0.0f\})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00052}00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_aceb4427abd51dce87f686a23ce2eb802}{position\_}}\ =\ position;}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ab9b257b6a5650f6865c63b810d1705b4}{look\_at\_}}\ \ =\ look\_at;}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00054}00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a379e9665338af1ce050a6c695eb71c7c}{up\_}}\ \ \ \ \ \ \ =\ up;}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::dynamic\_pointer\_cast<ComponentCamera>(shared\_from\_this());}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00057}00057\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00058}00058\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00059}00059\ \textcolor{comment}{\ \ \ \ //!\ @brief\ Near/Farの設定}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00060}00060\ \textcolor{comment}{\ \ \ \ //!\ @param\ near\_z\ \ \ 近クリップ面のZ値}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00061}00061\ \textcolor{comment}{\ \ \ \ //!\ @param\ far\_z\ \ \ \ 遠クリップ面のZ値}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00062}\mbox{\hyperlink{class_component_camera_a69a38d077b11e4193f47860755547f5b}{00062}}\ \textcolor{comment}{}\ \ \ \ std::shared\_ptr<ComponentCamera>\ \mbox{\hyperlink{class_component_camera_a69a38d077b11e4193f47860755547f5b}{SetNearFar}}(\textcolor{keywordtype}{float}\ near\_z,\ \textcolor{keywordtype}{float}\ far\_z)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00063}00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a72f91dbc6a2b3742264ff33d04c74845}{near\_z\_}}\ =\ near\_z;}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00064}00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a982262f750e25bae4db3edcbcdfac86c}{far\_z\_}}\ \ =\ far\_z;}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::dynamic\_pointer\_cast<ComponentCamera>(shared\_from\_this());}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00068}00068\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00069}00069\ \textcolor{comment}{\ \ \ \ //!\ @brief\ カメラの更新タイミングを設定する}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00070}00070\ \textcolor{comment}{\ \ \ \ //!\ @param\ timing\ 処理するタイミング}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00071}00071\ \textcolor{comment}{\ \ \ \ //!\ @detail\ ProcTiming::PreUpdate}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00072}00072\ \textcolor{comment}{\ \ \ \ //!\ カメラを設定してそれに対してオブジェクトを動かす時に利用する}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00073}00073\ \textcolor{comment}{\ \ \ \ //!\ @detail\ ProcTiming::Update}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00074}00074\ \textcolor{comment}{\ \ \ \ //!\ プレイヤーをカメラを設定して追いかける時などに利用する(Default)}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00075}\mbox{\hyperlink{class_component_camera_aa5e4733947d6f6a8472f77608b13bc5e}{00075}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_camera_aa5e4733947d6f6a8472f77608b13bc5e}{SetUpdateTiming}}(\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{ProcTiming}}\ timing)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(timing\ ==\ ProcTiming::Update)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fa7a58cf175935b06cc472242ef54a17de}{CameraBit::UpdateOnUpdate}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fabf8ba2207d498c5939c2aa3773b08799}{CameraBit::UpdateOnPreUpdate}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fad13dc178b8345b31c5fceb91b760c794}{CameraBit::UpdateOnPostUpdate}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00080}00080\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(timing\ ==\ ProcTiming::PreUpdate)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fabf8ba2207d498c5939c2aa3773b08799}{CameraBit::UpdateOnPreUpdate}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fa7a58cf175935b06cc472242ef54a17de}{CameraBit::UpdateOnUpdate}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fad13dc178b8345b31c5fceb91b760c794}{CameraBit::UpdateOnPostUpdate}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(timing\ ==\ ProcTiming::PostUpdate)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fad13dc178b8345b31c5fceb91b760c794}{CameraBit::UpdateOnPostUpdate}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fabf8ba2207d498c5939c2aa3773b08799}{CameraBit::UpdateOnPreUpdate}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fa7a58cf175935b06cc472242ef54a17de}{CameraBit::UpdateOnUpdate}});}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00088}00088\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00089}00089\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00090}00090\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00091}00091\ \textcolor{comment}{\ \ \ \ //!\ @brief\ カメラ位置の取得}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00092}00092\ \textcolor{comment}{\ \ \ \ //!\ @return\ カメラ位置}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00093}00093\ \textcolor{comment}{}\ \ \ \ float3\ \mbox{\hyperlink{class_component_camera_a9852b990506a61ed569b15a17a327d66}{GetPosition}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00094}00094\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00095}00095\ \textcolor{comment}{\ \ \ \ //!\ @brief\ カメラターゲットの取得}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00096}00096\ \textcolor{comment}{\ \ \ \ //!\ @return\ カメラターゲット}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00097}00097\ \textcolor{comment}{}\ \ \ \ float3\ \mbox{\hyperlink{class_component_camera_a193d994778a0b47909817f6fe2039a95}{GetTarget}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00099}\mbox{\hyperlink{struct_component_camera_1_1_camera_ray}{00099}}\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_component_camera_1_1_camera_ray}{CameraRay}}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00100}\mbox{\hyperlink{struct_component_camera_1_1_camera_ray_a09bc165c2575e677ba66b9265615d9a5}{00100}}\ \ \ \ \ \ \ \ \ float3\ \mbox{\hyperlink{struct_component_camera_1_1_camera_ray_a09bc165c2575e677ba66b9265615d9a5}{start}};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00101}\mbox{\hyperlink{struct_component_camera_1_1_camera_ray_a8c27697b54cbe084822e9223469bd61d}{00101}}\ \ \ \ \ \ \ \ \ float3\ \mbox{\hyperlink{struct_component_camera_1_1_camera_ray_a8c27697b54cbe084822e9223469bd61d}{end}};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00102}00102\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00103}00103\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00104}00104\ \textcolor{comment}{\ \ \ \ //!\ @brief\ マウス位置からカメラレイを取得します}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00105}00105\ \textcolor{comment}{\ \ \ \ //!\ @param\ mouse\_pos\_x\ マウスX位置}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00106}00106\ \textcolor{comment}{\ \ \ \ //!\ @param\ mouse\_pos\_y\ マウスY位置}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00107}00107\ \textcolor{comment}{\ \ \ \ //!\ @return\ カメラレイ}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00108}00108\ \textcolor{comment}{}\ \ \ \ \mbox{\hyperlink{struct_component_camera_1_1_camera_ray}{CameraRay}}\ \mbox{\hyperlink{class_component_camera_a9e609cf1e199c21ed92257291c05aea3}{MousePositionRay}}(\textcolor{keywordtype}{int}\ mouse\_pos\_x,\ \textcolor{keywordtype}{int}\ mouse\_pos\_y);}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00110}00110\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00111}00111\ \textcolor{comment}{\ \ \ \ //!\ モデルステータス}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00112}00112\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00113}\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936f}{00113}}\ \ \ \ \ \textcolor{keyword}{enum\ struct}\ \mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936f}{CameraBit}}\ :\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00114}00114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fa59d87a4758a9d35fbaf6b204341bb399}{Initialized}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 初期化済み}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00115}00115\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fadf948fb94ab60cab4be0783d6e7f50a1}{EnableTimeLine}},\ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ TimelineComponentを利用して移動する}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00116}00116\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fa1168725d440a45b4db14a1591f972815}{ChangeReq}},\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ カレントカメラ変更リクエスト}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00117}00117\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fa222a267cc5778206b253be35ee3ddab5}{Current}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 現状のカレントのカメラ}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00118}00118\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fabf8ba2207d498c5939c2aa3773b08799}{UpdateOnPreUpdate}},\ \ \ \ \ \textcolor{comment}{//!<\ PreUpdate時に更新する}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00119}00119\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fa7a58cf175935b06cc472242ef54a17de}{UpdateOnUpdate}},\ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ Update時に更新する}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00120}00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fad13dc178b8345b31c5fceb91b760c794}{UpdateOnPostUpdate}},\ \ \ \ \textcolor{comment}{//!<\ PostUpdate時に更新する}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00121}00121\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fa0a74e56a18669233abd34a237825d6d8}{ShowFrustum}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ Frustumを描画する}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00122}00122\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fa9cc55728caf6cde84f46e8e517b84ada}{DebugCamera}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 自分がデバッグカメラ}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00123}00123\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00125}\mbox{\hyperlink{class_component_camera_a1ed5f580d53d5cc4514aaf826ba2244c}{00125}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_camera_a1ed5f580d53d5cc4514aaf826ba2244c}{SetCameraStatus}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936f}{CameraBit}}\ bit,\ \textcolor{keywordtype}{bool}\ on)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00126}00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_ad9dc31e328652e8e835aa12d89195811}{set}}(bit,\ on);}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00127}00127\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00128}\mbox{\hyperlink{class_component_camera_a5f781b34b76b935b337ea73240129c1a}{00128}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_camera_a5f781b34b76b935b337ea73240129c1a}{GetCameraStatus}}(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936f}{CameraBit}}\ bit)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(bit);}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00130}00130\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00132}00132\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00133}\mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{00133}}\ \ \ \ \ \mbox{\hyperlink{struct_status}{Status<CameraBit>}}\ \mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}};\ \ \ \ \textcolor{comment}{//!<\ 状態}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00135}\mbox{\hyperlink{class_component_camera_aceb4427abd51dce87f686a23ce2eb802}{00135}}\ \ \ \ \ float3\ \mbox{\hyperlink{class_component_camera_aceb4427abd51dce87f686a23ce2eb802}{position\_}}\ =\ \{0,\ 5,\ -\/10\};\ \ \ \ \textcolor{comment}{//!<\ カメラ座標}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00136}\mbox{\hyperlink{class_component_camera_ab9b257b6a5650f6865c63b810d1705b4}{00136}}\ \ \ \ \ float3\ \mbox{\hyperlink{class_component_camera_ab9b257b6a5650f6865c63b810d1705b4}{look\_at\_}}\ \ =\ \{0,\ 0,\ 0\};\ \ \ \ \ \ \textcolor{comment}{//!<\ 注視点}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00137}\mbox{\hyperlink{class_component_camera_a379e9665338af1ce050a6c695eb71c7c}{00137}}\ \ \ \ \ float3\ \mbox{\hyperlink{class_component_camera_a379e9665338af1ce050a6c695eb71c7c}{up\_}}\ \ \ \ \ \ \ =\ \{0,\ 1,\ 0\};\ \ \ \ \ \ \textcolor{comment}{//!<\ 上ベクトル}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00139}\mbox{\hyperlink{class_component_camera_a9c055e01d5980aa23a8c1f910cc69759}{00139}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_component_camera_a9c055e01d5980aa23a8c1f910cc69759}{aspect\_ratio\_}}\ =\ 16.0f\ /\ 9.0f;\ \ \ \ \textcolor{comment}{//!<\ アスペクト比}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00140}\mbox{\hyperlink{class_component_camera_aa028675067ec9613520c30b647aaba24}{00140}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_component_camera_aa028675067ec9613520c30b647aaba24}{fovy\_}}\ \ \ \ \ \ \ \ \ =\ 45.0f;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ FieldOfView}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00141}\mbox{\hyperlink{class_component_camera_a72f91dbc6a2b3742264ff33d04c74845}{00141}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_component_camera_a72f91dbc6a2b3742264ff33d04c74845}{near\_z\_}}\ \ \ \ \ \ \ =\ 0.01f;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ Near}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00142}\mbox{\hyperlink{class_component_camera_a982262f750e25bae4db3edcbcdfac86c}{00142}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_component_camera_a982262f750e25bae4db3edcbcdfac86c}{far\_z\_}}\ \ \ \ \ \ \ \ =\ 10000.0f;\ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ Far}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00144}\mbox{\hyperlink{class_component_camera_a07cf228154cc3ec1426ce1a717aaafcf}{00144}}\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_camera_a07cf228154cc3ec1426ce1a717aaafcf}{mat\_view\_}};\ \ \ \ \textcolor{comment}{//!<\ ビュー行列。Updateで計算、Draw手前で使用している}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00145}\mbox{\hyperlink{class_component_camera_a9e43a22ea7e64c3f14c8d0425621e186}{00145}}\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_camera_a9e43a22ea7e64c3f14c8d0425621e186}{mat\_proj\_}};\ \ \ \ \textcolor{comment}{//!<\ 投影行列。Updateで計算、Draw手前で使用している}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00147}\mbox{\hyperlink{class_component_camera_ac9d29d85c18edd1c1c4645596f57ef5f}{00147}}\ \ \ \ \ \mbox{\hyperlink{class_frustum}{Frustum}}\ \mbox{\hyperlink{class_component_camera_ac9d29d85c18edd1c1c4645596f57ef5f}{frustum\_}}\{\};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00149}\mbox{\hyperlink{class_component_camera_a1635958a30b9413e12c96e1f148728b0}{00149}}\ \ \ \ \ \textcolor{keyword}{static}\ ComponentCameraWeakPtr\ \mbox{\hyperlink{class_component_camera_a1635958a30b9413e12c96e1f148728b0}{current\_camera\_}};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00151}00151\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00152}00152\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 定数バッファ}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00153}00153\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00154}00154\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00155}00155\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00156}\mbox{\hyperlink{struct_component_camera_1_1_camera_info}{00156}}\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_component_camera_1_1_camera_info}{CameraInfo}}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00157}\mbox{\hyperlink{struct_component_camera_1_1_camera_info_ad0cce95ebbe29aec7985851063f82235}{00157}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{struct_component_camera_1_1_camera_info_ad0cce95ebbe29aec7985851063f82235}{mat\_view\_}};\ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ ビュー行列}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00158}\mbox{\hyperlink{struct_component_camera_1_1_camera_info_a6c58b90000f2b83f9c1191518f55a460}{00158}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{struct_component_camera_1_1_camera_info_a6c58b90000f2b83f9c1191518f55a460}{mat\_proj\_}};\ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 投影行列}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00159}\mbox{\hyperlink{struct_component_camera_1_1_camera_info_ae9ba631c6f64f8562405a38e1dbdd3d9}{00159}}\ \ \ \ \ \ \ \ \ float3\ \mbox{\hyperlink{struct_component_camera_1_1_camera_info_ae9ba631c6f64f8562405a38e1dbdd3d9}{eye\_position\_}};\ \ \ \ \textcolor{comment}{//!<\ カメラの位置}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00160}00160\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00162}\mbox{\hyperlink{class_component_camera_a4b57da0d2934cc479742fa4eed5d0956}{00162}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_component_camera_a4b57da0d2934cc479742fa4eed5d0956}{cb\_camera\_info\_}}\ =\ -\/1;\ \ \ \ \textcolor{comment}{//!<\ [DxLib]\ カメラ情報定数バッファハンドル}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00163}00163\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00164}00164\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00165}00165\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00166}00166\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00167}00167\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00168}00168\ \textcolor{comment}{\ \ \ \ //!\ @name\ Cereal処理}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00169}00169\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00170}00170\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00171}00171\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00172}00172\ \textcolor{comment}{\ \ \ \ //!\ @brief\ セーブロード}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00173}00173\ \textcolor{comment}{\ \ \ \ //!\ @param\ arc\ アーカイバ}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00174}00174\ \textcolor{comment}{\ \ \ \ //!\ @param\ ver\ バージョン}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00175}\mbox{\hyperlink{class_component_camera_a48edb0c7c1c083b053be1563372e57c1}{00175}}\ \textcolor{comment}{}\ \ \ \ \mbox{\hyperlink{class_component_camera_a48edb0c7c1c083b053be1563372e57c1}{CEREAL\_SAVELOAD}}(arc,\ ver)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00176}00176\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_component_aaf224b0e73780a9c3cbad323a0ec59f5}{owner\_}}));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ オーナー}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00177}00177\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_component_camera_ac5b5970fd5b43add81924b22ab32dd38}{camera\_status\_}}.\mbox{\hyperlink{struct_status_a5ab7163f7b7a66a3194abef65187eddc}{get}}()));\ \ \ \ \textcolor{comment}{//<\ カメラステート}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00178}00178\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_component_camera_aceb4427abd51dce87f686a23ce2eb802}{position\_}}),\ CEREAL\_NVP(\mbox{\hyperlink{class_component_camera_ab9b257b6a5650f6865c63b810d1705b4}{look\_at\_}}),}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ CEREAL\_NVP(\mbox{\hyperlink{class_component_camera_a379e9665338af1ce050a6c695eb71c7c}{up\_}}));\ \ \ \ \textcolor{comment}{//<\ カメラ位置とターゲット}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00180}00180\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_component_camera_a9c055e01d5980aa23a8c1f910cc69759}{aspect\_ratio\_}}),}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ CEREAL\_NVP(\mbox{\hyperlink{class_component_camera_aa028675067ec9613520c30b647aaba24}{fovy\_}}));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ アスペクト比と画角}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00182}00182\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_component_camera_a72f91dbc6a2b3742264ff33d04c74845}{near\_z\_}}),\ CEREAL\_NVP(\mbox{\hyperlink{class_component_camera_a982262f750e25bae4db3edcbcdfac86c}{far\_z\_}}));\ \ \ \ \textcolor{comment}{//<\ Near/Far}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00183}00183\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_component_camera_a1635958a30b9413e12c96e1f148728b0}{current\_camera\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00184}00184\ \ \ \ \ \ \ \ \ arc(cereal::make\_nvp(\textcolor{stringliteral}{"{}Component"{}},\ cereal::base\_class<Component>(\textcolor{keyword}{this})));}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00186}00186\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_camera_a328be3c422706943e08a8b2dc9dfd839}{Init}}();}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00187}00187\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00188}00188\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00189}00189\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00190}00190\ \textcolor{comment}{}\};}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00192}00192\ CEREAL\_REGISTER\_TYPE(\mbox{\hyperlink{class_component_camera}{ComponentCamera}})}
+\DoxyCodeLine{\Hypertarget{_component_camera_8h_source_l00193}00193\ CEREAL\_REGISTER\_POLYMORPHIC\_RELATION(\mbox{\hyperlink{class_component}{Component}},\ \mbox{\hyperlink{class_component_camera}{ComponentCamera}})}
+
+\end{DoxyCode}

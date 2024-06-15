@@ -1,0 +1,483 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: TypeInfo.h ファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_ef68f1e1f5148ff8ef7fb1c955106c3c.html">System</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">クラス</a> &#124;
+<a href="#define-members">マクロ定義</a>  </div>
+  <div class="headertitle"><div class="title">TypeInfo.h ファイル</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>クラス型情報  
+<a href="#details">[詳解]</a></p>
+<div class="textblock"><div class="dynheader">
+被依存関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d8/d79/_type_info_8h__dep__incl.png" border="0" usemap="#a_type_info_8hdep" alt=""/></div>
+<map name="a_type_info_8hdep" id="a_type_info_8hdep">
+<area shape="rect" title="クラス型情報" alt="" coords="2065,5,2147,31"/>
+<area shape="rect" href="../../d2/ddd/_precompile_8h.html" title=" " alt="" coords="1065,79,1163,104"/>
+<area shape="rect" href="../../de/d56/_scene_8h.html" title="シーン" alt="" coords="2071,79,2141,104"/>
+<area shape="rect" href="../../d3/ddf/_type_info_8cpp.html" title="クラス型情報" alt="" coords="2165,79,2260,104"/>
+<area shape="rect" href="../../dc/d91/_precompile_8cpp.html" title=" " alt="" coords="66,152,178,177"/>
+<area shape="rect" href="../../d3/dd5/_abandon_house_8h.html" title=" " alt="" coords="4697,152,4819,177"/>
+<area shape="rect" href="../../d0/dcc/_boss_8h.html" title=" " alt="" coords="312,299,375,324"/>
+<area shape="rect" href="../../d5/da8/_stage01_8h.html" title="Stage01シーン" alt="" coords="501,372,583,397"/>
+<area shape="rect" href="../../dc/d41/_broken_house_8h.html" title=" " alt="" coords="952,152,1063,177"/>
+<area shape="rect" href="../../d5/d91/_camera_8h.html" title=" " alt="" coords="797,299,876,324"/>
+<area shape="rect" href="../../d7/d80/_game_title_scene_8h.html" title=" " alt="" coords="1373,372,1503,397"/>
+<area shape="rect" href="../../d2/d77/_system_main_8cpp.html" title="システムメイン" alt="" coords="3138,445,3258,471"/>
+<area shape="rect" href="../../da/dbb/_component_8cpp.html" title=" " alt="" coords="1139,152,1252,177"/>
+<area shape="rect" href="../../da/d85/_component_attach_model_8cpp.html" title=" " alt="" coords="1277,152,1463,177"/>
+<area shape="rect" href="../../d2/de0/_component_camera_8cpp.html" title=" " alt="" coords="1488,152,1647,177"/>
+<area shape="rect" href="../../dc/d7b/_component_collision_capsule_8cpp.html" title=" " alt="" coords="1671,152,1880,177"/>
+<area shape="rect" href="../../d9/d14/_component_collision_line_8cpp.html" title=" " alt="" coords="1905,152,2091,177"/>
+<area shape="rect" href="../../d8/d18/_component_collision_model_8cpp.html" title=" " alt="" coords="2115,152,2313,177"/>
+<area shape="rect" href="../../d3/d5d/_component_collision_sphere_8cpp.html" title=" " alt="" coords="2337,152,2539,177"/>
+<area shape="rect" href="../../d5/d6b/_component_combo_8h.html" title="コンボコンポーネント" alt="" coords="5,299,145,324"/>
+<area shape="rect" href="../../d0/d8a/_component_effect_8cpp.html" title=" " alt="" coords="2563,152,2710,177"/>
+<area shape="rect" href="../../da/de8/_component_filter_fade_8cpp.html" title="フェードフィルターコンポーネント" alt="" coords="2734,152,2905,177"/>
+<area shape="rect" href="../../d5/db0/_component_h_p_8h.html" title="HPコンポーネント" alt="" coords="170,299,287,324"/>
+<area shape="rect" href="../../d0/dc0/_component_object_controller_8h.html" title=" " alt="" coords="2929,152,3121,177"/>
+<area shape="rect" href="../../db/dd6/_component_sequencer_8cpp.html" title=" " alt="" coords="3145,152,3320,177"/>
+<area shape="rect" href="../../d3/de8/_component_spring_arm_8cpp.html" title=" " alt="" coords="3344,152,3519,177"/>
+<area shape="rect" href="../../d4/d72/_component_target_tracking_8cpp.html" title=" " alt="" coords="3543,152,3741,177"/>
+<area shape="rect" href="../../da/d14/_component_texture_8h.html" title="テクスチャコンポーネント" alt="" coords="1155,299,1297,324"/>
+<area shape="rect" href="../../d2/de3/_component_transform_8cpp.html" title="トランスフォームコンポーネント(座標と姿勢と大きさ)" alt="" coords="3766,152,3937,177"/>
+<area shape="rect" href="../../d8/dec/_debug_camera_8cpp.html" title=" " alt="" coords="3961,152,4091,177"/>
+<area shape="rect" href="../../d1/ded/_destroyed_house_8h.html" title=" " alt="" coords="2851,225,2980,251"/>
+<area shape="rect" href="../../d4/d1e/_enemy_8h.html" title=" " alt="" coords="467,152,542,177"/>
+<area shape="rect" href="../../d6/d89/_mutant_8h.html" title=" " alt="" coords="501,225,575,251"/>
+<area shape="rect" href="../../d1/d39/_player_8h.html" title=" " alt="" coords="355,225,425,251"/>
+<area shape="rect" href="../../da/d82/_zombie_8h.html" title=" " alt="" coords="599,225,674,251"/>
+<area shape="rect" href="../../d6/d78/_fence_8h.html" title=" " alt="" coords="4801,225,4870,251"/>
+<area shape="rect" href="../../d7/d04/_game_over_scene_8h.html" title=" " alt="" coords="658,372,789,397"/>
+<area shape="rect" href="../../dc/d68/_game_win_scene_8h.html" title=" " alt="" coords="901,299,1029,324"/>
+<area shape="rect" href="../../d9/da5/_input_key_8cpp.html" title="キー入力管理" alt="" coords="4115,152,4214,177"/>
+<area shape="rect" href="../../d8/ded/_object_8cpp.html" title="オブジェクト ベースクラス" alt="" coords="4238,152,4323,177"/>
+<area shape="rect" href="../../d5/dfe/_rock1_8h.html" title=" " alt="" coords="1032,372,1103,397"/>
+<area shape="rect" href="../../df/dff/_rock2_8h.html" title=" " alt="" coords="4348,152,4419,177"/>
+<area shape="rect" href="../../d3/d6c/_rock3_8h.html" title=" " alt="" coords="4443,152,4513,177"/>
+<area shape="rect" href="../../d9/d44/_scene_8cpp.html" title=" " alt="" coords="4537,152,4621,177"/>
+<area shape="rect" href="../../de/d38/_abandon_house_8cpp.html" title=" " alt="" coords="4585,225,4720,251"/>
+<area shape="rect" href="../../d4/de0/_stage01_8cpp.html" title="Stage01シーン" alt="" coords="1093,445,1188,471"/>
+<area shape="rect" href="../../df/d75/_boss_8cpp.html" title=" " alt="" coords="298,372,375,397"/>
+<area shape="rect" href="../../d2/d82/_player_8cpp.html" title=" " alt="" coords="396,445,480,471"/>
+<area shape="rect" href="../../d3/d4b/_broken_house_8cpp.html" title=" " alt="" coords="951,225,1077,251"/>
+<area shape="rect" href="../../d1/d33/_camera_8cpp.html" title=" " alt="" coords="813,372,905,397"/>
+</map>
+</div>
+</div>
+<p><a href="../../d7/d4e/_type_info_8h_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+クラス</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/df6/class_type.html">Type</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">型情報基底  <a href="../../d8/df6/class_type.html#details">[詳解]</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d49/class_class_type.html">ClassType&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">クラス用型情報 ClassType&lt;T&gt;  <a href="../../d2/d49/class_class_type.html#details">[詳解]</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+マクロ定義</h2></td></tr>
+<tr class="memitem:a6f6adb32f2a8dedfa1e5055a3d504528"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4e/_type_info_8h.html#a6f6adb32f2a8dedfa1e5055a3d504528">BP_BASE_TYPE</a>(CLASS)</td></tr>
+<tr class="separator:a6f6adb32f2a8dedfa1e5055a3d504528"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f2deaf2ee9db163d859f22abfd8a8fe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4e/_type_info_8h.html#a0f2deaf2ee9db163d859f22abfd8a8fe">BP_CLASS_TYPE</a>(CLASS,  PARENT_CLASS)</td></tr>
+<tr class="separator:a0f2deaf2ee9db163d859f22abfd8a8fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dacd60932c8cdc85cc7a4a156ddad15"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4e/_type_info_8h.html#a9dacd60932c8cdc85cc7a4a156ddad15">BP_CLASS_IMPL</a>(CLASS,  DESC_NAME)</td></tr>
+<tr class="separator:a9dacd60932c8cdc85cc7a4a156ddad15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e99fe85be8cda3c0ae4182ab0dc088d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4e/_type_info_8h.html#a4e99fe85be8cda3c0ae4182ab0dc088d">BP_BASE_IMPL</a>(CLASS,  DESC_NAME)</td></tr>
+<tr class="separator:a4e99fe85be8cda3c0ae4182ab0dc088d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab699f718334ecf83808eb6ffd03aeefb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4e/_type_info_8h.html#ab699f718334ecf83808eb6ffd03aeefb">BP_BASE_IMPL_ABSOLUTE</a>(CLASS,  DESC_NAME)</td></tr>
+<tr class="separator:ab699f718334ecf83808eb6ffd03aeefb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+関数</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">ユーティリティー</div></td></tr>
+<tr class="memitem:a684d99a63b75caab69ed8d3c59aa77a4"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4e/_type_info_8h.html#a684d99a63b75caab69ed8d3c59aa77a4">CreateInstanceFromName</a> (std::string_view class_name, <a class="el" href="../../d8/df6/class_type.html">Type</a> &amp;base_type)</td></tr>
+<tr class="memdesc:a684d99a63b75caab69ed8d3c59aa77a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">名前を指定して指定基底クラス型でnewする  <br /></td></tr>
+<tr class="separator:a684d99a63b75caab69ed8d3c59aa77a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a120da460d3041c0c47f7ef7296feedfb"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
+<tr class="memitem:a120da460d3041c0c47f7ef7296feedfb"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d7/d4e/_type_info_8h.html#a120da460d3041c0c47f7ef7296feedfb">CreateInstanceFromName</a> (std::string_view class_name)</td></tr>
+<tr class="separator:a120da460d3041c0c47f7ef7296feedfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1d341408d1e8466dc6666a295c34c08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d8/df6/class_type.html">Type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d4e/_type_info_8h.html#ae1d341408d1e8466dc6666a295c34c08">GetRootTypeInfo</a> ()</td></tr>
+<tr class="memdesc:ae1d341408d1e8466dc6666a295c34c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">ルートの型情報を取得する  <br /></td></tr>
+<tr class="separator:ae1d341408d1e8466dc6666a295c34c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>クラス型情報 </p>
+
+<p class="definition"> <a class="el" href="../../d7/d4e/_type_info_8h_source.html">TypeInfo.h</a> に定義があります。</p>
+</div><h2 class="groupheader">マクロ定義詳解</h2>
+<a id="a4e99fe85be8cda3c0ae4182ab0dc088d" name="a4e99fe85be8cda3c0ae4182ab0dc088d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e99fe85be8cda3c0ae4182ab0dc088d">&#9670;&#160;</a></span>BP_BASE_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BP_BASE_IMPL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">CLASS, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">DESC_NAME&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line"><span class="comment">    /*! 型情報の実体 */</span>                                                    \</div>
+<div class="line">    <a class="code hl_class" href="../../d2/d49/class_class_type.html">ClassType&lt;CLASS&gt;</a> CLASS::TypeInfo(#CLASS, <span class="keyword">sizeof</span>(CLASS), DESC_NAME, <span class="keyword">nullptr</span>); \</div>
+<div class="line">    <span class="keywordtype">void</span>*            CLASS::createInstance() {                                   \</div>
+<div class="line">                   <span class="keywordflow">return</span> <span class="keyword">new</span> CLASS();                                           \</div>
+<div class="line">    }</div>
+<div class="ttc" id="aclass_class_type_html"><div class="ttname"><a href="../../d2/d49/class_class_type.html">ClassType</a></div><div class="ttdoc">クラス用型情報 ClassType&lt;T&gt;</div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d4e/_type_info_8h_source.html#l00085">TypeInfo.h:85</a></div></div>
+</div><!-- fragment --><p>クラス内cpp宣言 基底クラス用 グローバル変数で BP_BASE_IMPL(クラス名, u8任意の名前文字列) で宣言します </p><div class="fragment"><div class="line"><a class="code hl_define" href="../../d7/d4e/_type_info_8h.html#a4e99fe85be8cda3c0ae4182ab0dc088d">BP_BASE_IMPL</a>(A, <a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a><span class="stringliteral">&quot;基底クラス&quot;</span>)</div>
+<div class="ttc" id="a_type_info_8h_html_a4e99fe85be8cda3c0ae4182ab0dc088d"><div class="ttname"><a href="../../d7/d4e/_type_info_8h.html#a4e99fe85be8cda3c0ae4182ab0dc088d">BP_BASE_IMPL</a></div><div class="ttdeci">#define BP_BASE_IMPL(CLASS, DESC_NAME)</div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d4e/_type_info_8h_source.html#l00158">TypeInfo.h:158</a></div></div>
+<div class="ttc" id="a_typedef_8h_html_a987e4d6cf789cb59dbb390728271e4d6"><div class="ttname"><a href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdoc">8bit 符号なし整数</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/db9/_typedef_8h_source.html#l00021">Typedef.h:21</a></div></div>
+</div><!-- fragment --> 
+<p class="definition"> <a class="el" href="../../d7/d4e/_type_info_8h_source.html">TypeInfo.h</a> の <a class="el" href="../../d7/d4e/_type_info_8h_source.html#l00158">158</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="ab699f718334ecf83808eb6ffd03aeefb" name="ab699f718334ecf83808eb6ffd03aeefb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab699f718334ecf83808eb6ffd03aeefb">&#9670;&#160;</a></span>BP_BASE_IMPL_ABSOLUTE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BP_BASE_IMPL_ABSOLUTE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">CLASS, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">DESC_NAME&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line"><span class="comment">    /*! 型情報の実体 */</span>                                                    \</div>
+<div class="line">    <a class="code hl_class" href="../../d2/d49/class_class_type.html">ClassType&lt;CLASS&gt;</a> CLASS::TypeInfo(#CLASS, <span class="keyword">sizeof</span>(CLASS), DESC_NAME, <span class="keyword">nullptr</span>); \</div>
+<div class="line">    <span class="keywordtype">void</span>*            CLASS::createInstance() {                                   \</div>
+<div class="line">                   <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;                                               \</div>
+<div class="line">    }</div>
+</div><!-- fragment -->
+<p class="definition"> <a class="el" href="../../d7/d4e/_type_info_8h_source.html">TypeInfo.h</a> の <a class="el" href="../../d7/d4e/_type_info_8h_source.html#l00166">166</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="a6f6adb32f2a8dedfa1e5055a3d504528" name="a6f6adb32f2a8dedfa1e5055a3d504528"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f6adb32f2a8dedfa1e5055a3d504528">&#9670;&#160;</a></span>BP_BASE_TYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BP_BASE_TYPE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">CLASS</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">    <span class="keyword">using </span>MyClass = CLASS; <span class="comment">/*! 自クラスの型 */</span>                              \</div>
+<div class="line">                                                                                  \<span class="comment"></span></div>
+<div class="line"><span class="comment">    /*! 型情報 */</span>                                                              \</div>
+<div class="line">    <span class="keyword">static</span> <a class="code hl_class" href="../../d2/d49/class_class_type.html">ClassType&lt;CLASS&gt;</a> TypeInfo;                                             \</div>
+<div class="line">                                                                                  \<span class="comment"></span></div>
+<div class="line"><span class="comment">    /*! 型情報を取得 */</span>                                                     \</div>
+<div class="line">    <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code hl_class" href="../../d8/df6/class_type.html">Type</a>* typeInfo()<span class="keyword"> const </span>{                                        \</div>
+<div class="line">        <span class="keywordflow">return</span> &amp;TypeInfo;                                                         \</div>
+<div class="line">    }                                                                             \</div>
+<div class="line">                                                                                  \<span class="comment"></span></div>
+<div class="line"><span class="comment">    /*! インスタンスを作成(クラスをnewしてポインタを返す)*/</span> \</div>
+<div class="line">    <span class="keyword">static</span> <span class="keywordtype">void</span>* createInstance();</div>
+<div class="ttc" id="aclass_type_html"><div class="ttname"><a href="../../d8/df6/class_type.html">Type</a></div><div class="ttdoc">型情報基底</div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d4e/_type_info_8h_source.html#l00010">TypeInfo.h:10</a></div></div>
+</div><!-- fragment --><p>クラス内ヘッダー宣言 基底クラス用 publicで BP_BASE_TYPE(クラス名) で宣言します</p>
+<div class="fragment"><div class="line"><span class="keyword">class </span>A</div>
+<div class="line">{</div>
+<div class="line"><span class="keyword">public</span>:</div>
+<div class="line">    <a class="code hl_define" href="../../d7/d4e/_type_info_8h.html#a6f6adb32f2a8dedfa1e5055a3d504528">BP_BASE_TYPE</a>(A)</div>
+<div class="ttc" id="a_type_info_8h_html_a6f6adb32f2a8dedfa1e5055a3d504528"><div class="ttname"><a href="../../d7/d4e/_type_info_8h.html#a6f6adb32f2a8dedfa1e5055a3d504528">BP_BASE_TYPE</a></div><div class="ttdeci">#define BP_BASE_TYPE(CLASS)</div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d4e/_type_info_8h_source.html#l00108">TypeInfo.h:108</a></div></div>
+</div><!-- fragment --> 
+<p class="definition"> <a class="el" href="../../d7/d4e/_type_info_8h_source.html">TypeInfo.h</a> の <a class="el" href="../../d7/d4e/_type_info_8h_source.html#l00108">108</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="a9dacd60932c8cdc85cc7a4a156ddad15" name="a9dacd60932c8cdc85cc7a4a156ddad15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dacd60932c8cdc85cc7a4a156ddad15">&#9670;&#160;</a></span>BP_CLASS_IMPL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BP_CLASS_IMPL</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">CLASS, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">DESC_NAME&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line"><span class="comment">    /*! 型情報の実体 */</span>                                                             \</div>
+<div class="line">    <a class="code hl_class" href="../../d2/d49/class_class_type.html">ClassType&lt;CLASS&gt;</a> CLASS::TypeInfo(#CLASS, <span class="keyword">sizeof</span>(CLASS), DESC_NAME, &amp;Super::TypeInfo); \</div>
+<div class="line">    <span class="keywordtype">void</span>*            CLASS::createInstance() {                                            \</div>
+<div class="line">                   <span class="keywordflow">return</span> <span class="keyword">new</span> CLASS();                                                    \</div>
+<div class="line">    }</div>
+</div><!-- fragment --><p>クラス内cpp宣言 グローバル変数で BP_CLASS_IMPL(クラス名, u8任意の名前文字列) で宣言します </p><div class="fragment"><div class="line"><a class="code hl_define" href="../../d7/d4e/_type_info_8h.html#a9dacd60932c8cdc85cc7a4a156ddad15">BP_CLASS_IMPL</a>(B, <a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a><span class="stringliteral">&quot;クラスB&quot;</span>)</div>
+<div class="ttc" id="a_type_info_8h_html_a9dacd60932c8cdc85cc7a4a156ddad15"><div class="ttname"><a href="../../d7/d4e/_type_info_8h.html#a9dacd60932c8cdc85cc7a4a156ddad15">BP_CLASS_IMPL</a></div><div class="ttdeci">#define BP_CLASS_IMPL(CLASS, DESC_NAME)</div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d4e/_type_info_8h_source.html#l00144">TypeInfo.h:144</a></div></div>
+</div><!-- fragment --> 
+<p class="definition"> <a class="el" href="../../d7/d4e/_type_info_8h_source.html">TypeInfo.h</a> の <a class="el" href="../../d7/d4e/_type_info_8h_source.html#l00144">144</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="a0f2deaf2ee9db163d859f22abfd8a8fe" name="a0f2deaf2ee9db163d859f22abfd8a8fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f2deaf2ee9db163d859f22abfd8a8fe">&#9670;&#160;</a></span>BP_CLASS_TYPE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BP_CLASS_TYPE</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">CLASS, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">PARENT_CLASS&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>値:</b><div class="fragment"><div class="line">    <span class="keyword">using </span>Super = PARENT_CLASS; <span class="comment">/* 親クラスの型 */</span> \</div>
+<div class="line">    BP_BASE_TYPE(CLASS);</div>
+</div><!-- fragment --><p>クラス内ヘッダー宣言 publicで BP_BASE_TYPE(クラス名, 親クラス名) で宣言します</p>
+<div class="fragment"><div class="line"><span class="keyword">class </span>B : <span class="keyword">public</span> A</div>
+<div class="line">{</div>
+<div class="line"><span class="keyword">public</span>:</div>
+<div class="line">    <a class="code hl_define" href="../../d7/d4e/_type_info_8h.html#a0f2deaf2ee9db163d859f22abfd8a8fe">BP_CLASS_TYPE</a>(B, A);</div>
+<div class="ttc" id="a_type_info_8h_html_a0f2deaf2ee9db163d859f22abfd8a8fe"><div class="ttname"><a href="../../d7/d4e/_type_info_8h.html#a0f2deaf2ee9db163d859f22abfd8a8fe">BP_CLASS_TYPE</a></div><div class="ttdeci">#define BP_CLASS_TYPE(CLASS, PARENT_CLASS)</div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d4e/_type_info_8h_source.html#l00133">TypeInfo.h:133</a></div></div>
+</div><!-- fragment --> 
+<p class="definition"> <a class="el" href="../../d7/d4e/_type_info_8h_source.html">TypeInfo.h</a> の <a class="el" href="../../d7/d4e/_type_info_8h_source.html#l00133">133</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<h2 class="groupheader">関数詳解</h2>
+<a id="a120da460d3041c0c47f7ef7296feedfb" name="a120da460d3041c0c47f7ef7296feedfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a120da460d3041c0c47f7ef7296feedfb">&#9670;&#160;</a></span>CreateInstanceFromName() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T * CreateInstanceFromName </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>class_name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>名前を指定して指定基底クラス型でnewする (テンプレートヘルパー) </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">class_name</td><td>クラス名 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>テンプレート引数</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">[in]</td><td>T 基底クラスの型 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>newされたクラスオブジェクト(失敗の場合はnullptr) </dd></dl>
+
+<p class="definition"> <a class="el" href="../../d7/d4e/_type_info_8h_source.html">TypeInfo.h</a> の <a class="el" href="../../d7/d4e/_type_info_8h_source.html#l00189">189</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d3/ddf/_type_info_8cpp_source.html#l00107">CreateInstanceFromName()</a>.</p>
+
+</div>
+</div>
+<a id="a684d99a63b75caab69ed8d3c59aa77a4" name="a684d99a63b75caab69ed8d3c59aa77a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a684d99a63b75caab69ed8d3c59aa77a4">&#9670;&#160;</a></span>CreateInstanceFromName() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void * CreateInstanceFromName </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>class_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d8/df6/class_type.html">Type</a> &amp;&#160;</td>
+          <td class="paramname"><em>base_type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>名前を指定して指定基底クラス型でnewする </p>
+<p>名前を指定して指定基底クラス型でnewする </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">class_name</td><td>クラス名 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">base_type</td><td>基底クラスの型情報 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>newされたクラスオブジェクト(失敗の場合はnullptr) </dd></dl>
+
+<p class="definition"> <a class="el" href="../../d3/ddf/_type_info_8cpp_source.html">TypeInfo.cpp</a> の <a class="el" href="../../d3/ddf/_type_info_8cpp_source.html#l00107">107</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d8/df6/class_type.html#a75ba01b39cd4c94289e979170c2f8811">Type::child()</a>, <a class="el" href="../../d8/df6/class_type.html#a7db93c16a2c1b3dea76092dd04a39346">Type::className()</a>, <a class="el" href="../../d8/df6/class_type.html#a253d1351ee2a160ed03841f77afd3303">Type::createInstance()</a>, <a class="el" href="../../d8/df6/class_type.html#a05cc75ea5926613f558bca1a79b727af">Type::parent()</a>, <a class="el" href="../../d8/df6/class_type.html#af254f0541f2afddf997e1db6079c1620">Type::siblings()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d7/d4e/_type_info_8h_source.html#l00189">CreateInstanceFromName()</a>.</p>
+
+</div>
+</div>
+<a id="ae1d341408d1e8466dc6666a295c34c08" name="ae1d341408d1e8466dc6666a295c34c08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1d341408d1e8466dc6666a295c34c08">&#9670;&#160;</a></span>GetRootTypeInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d8/df6/class_type.html">Type</a> * GetRootTypeInfo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ルートの型情報を取得する </p>
+<p>基底クラスはルート型情報の子になっています </p>
+
+<p class="definition"> <a class="el" href="../../d3/ddf/_type_info_8cpp_source.html">TypeInfo.cpp</a> の <a class="el" href="../../d3/ddf/_type_info_8cpp_source.html#l00146">146</a> 行目に定義があります。</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>

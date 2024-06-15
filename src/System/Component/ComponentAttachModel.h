@@ -1,8 +1,6 @@
 ﻿#pragma once
 
 #include <System/Component/Component.h>
-#include <System/Component/ComponentTransform.h>
-#include <System/Utils/HelperLib.h>
 #include <System/Cereal.h>
 
 USING_PTR(ComponentAttachModel);
@@ -11,7 +9,7 @@ class ComponentAttachModel: public Component {
     friend class Object;
 
    public:
-    BP_COMPONENT_TYPE(ComponentAttachModel, Component);
+    BP_COMPONENT_DECL(ComponentAttachModel, u8"AttachModel機能クラス");
     ComponentAttachModel() {}
 
     virtual void Init() override;          //!< 初期化
@@ -79,9 +77,8 @@ class ComponentAttachModel: public Component {
     // @param arc アーカイバ
     // @param ver バージョン
     CEREAL_SAVELOAD(arc, ver) {
-        arc(cereal::make_nvp("owner", owner_));    //< オーナー
-        arc(cereal::make_nvp("attach_model_status",
-                             attach_model_status_.get()));    //< カメラステート
+        arc(cereal::make_nvp("owner", owner_));                                      //< オーナー
+        arc(cereal::make_nvp("attach_model_status", attach_model_status_.get()));    //< カメラステート
         arc(CEREAL_NVP(attach_model_rotate_));
         arc(CEREAL_NVP(attach_model_offset_));
         arc(CEREAL_NVP(object_name_));

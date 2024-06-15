@@ -1,0 +1,1709 @@
+\hypertarget{class_sequence_object}{}\doxysection{Sequence\+Object クラス}
+\label{class_sequence_object}\index{SequenceObject@{SequenceObject}}
+
+
+{\ttfamily \#include $<$Component\+Sequencer.\+h$>$}
+
+
+
+Sequence\+Object の継承関係図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{d0/db2/class_sequence_object__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Sequence\+Object 連携図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{d3/dd6/class_sequence_object__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classmatrix}{matrix}} \& \mbox{\hyperlink{class_sequence_object_aa4f6a47f160860e2b5c2f60197f56aa4}{Matrix}} ()
+\begin{DoxyCompactList}\small\item\em Transformの\+Matrix情報を取得します \end{DoxyCompactList}\item 
+virtual const \mbox{\hyperlink{classmatrix}{matrix}} \& \mbox{\hyperlink{class_sequence_object_a2abc35ac9acc15479c7e569aaadc5fed}{Get\+Matrix}} () const
+\begin{DoxyCompactList}\small\item\em Transformの\+Matrix情報を取得します \end{DoxyCompactList}\item 
+virtual std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}} $>$ \mbox{\hyperlink{class_sequence_object_a5b0cf2310bda33b905f42cd6aabbcfd4}{Shared\+This}} ()
+\item 
+virtual const \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{class_sequence_object_a04ab554a7028abd74a31e1ac1a491c28}{Get\+World\+Matrix}} () const
+\begin{DoxyCompactList}\small\item\em ワールド\+Matrixの取得 \end{DoxyCompactList}\item 
+virtual const \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{class_sequence_object_ad11bf9ffba5f90770f13d1c9e10dfa58}{Get\+Old\+World\+Matrix}} () const
+\begin{DoxyCompactList}\small\item\em 1フレーム前のワールド\+Matrixの取得 \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_sequence_object_a80995113b36e23eaddbe89006edb3d30}{Get\+Name}} ()
+\item 
+std\+::string \mbox{\hyperlink{class_sequence_object_a97f3c83ac7a26bd517d3a5596fb7fa67}{Get\+Name\+Label}} ()
+\item 
+bool \mbox{\hyperlink{class_sequence_object_a15ccd9b96f5f1fd48bee7f1e6a0889f3}{Is\+Open}} ()
+\item 
+void \mbox{\hyperlink{class_sequence_object_a7ffa6a5df0c9f86b4171963a4c0ce35f}{Set\+Animation\+From\+Frame}} (int frame)
+\begin{DoxyCompactList}\small\item\em フレーム情報からアニメーションを取得 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sequence_object_a56a0a30f1dd31e78a1187c77f5c9634a}{Set\+Effect\+From\+Frame}} (int frame)
+\begin{DoxyCompactList}\small\item\em フレーム情報からエフェクトを取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{class_sequence_object_ab94d1ae5f3b563d6e21f2c668b359cbd}{Get\+Transform\+From\+Frame}} (int frame)
+\begin{DoxyCompactList}\small\item\em フレーム情報から姿勢(位置・回転・スケール)を取得 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sequence_object_ad00af77d10583f4cdc9dde5c4bfc2800}{Show\+Guizmo}} ()
+\begin{DoxyCompactList}\small\item\em 三軸ギズモを表示する \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sequence_object_a74a0bcf64e7801dc9cdc6f4930b9bf96}{Sort}} ()
+\begin{DoxyCompactList}\small\item\em データを並び替えます \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sequence_object_a4ece6d2ef1671f7680890819201ef324}{Update}} (bool playing, float frame)
+\begin{DoxyCompactList}\small\item\em シーケンサ内部オブジェクトの更新 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_sequence_object_a8799ef05e74459b8a020a625f45d42c0}{GUI}} (uint32\+\_\+t start, uint32\+\_\+t end)
+\begin{DoxyCompactList}\small\item\em GUI表示 \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a76fdee0594b93555b078e7182923e17e}{Set\+Matrix}} (const \mbox{\hyperlink{classmatrix}{matrix}} \&mat)
+\item 
+float $\ast$ \mbox{\hyperlink{class_i_matrix_a32adebd780e1df07b4a504913e7342fc}{Get\+Matrix\+Float}} ()
+\begin{DoxyCompactList}\small\item\em Transformの\+Matrix情報を取得します \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a714ba34bafae6ad18adc512a12bfd88c}{Set\+Translate}} (float3 translate)
+\begin{DoxyCompactList}\small\item\em 位置をセットします \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a8ae94cdc16a0661a7d1464e1d7764ec1}{Add\+Translate}} (float3 translate, bool local=false)
+\begin{DoxyCompactList}\small\item\em 現在の位置から移動させます \end{DoxyCompactList}\item 
+const float3 \mbox{\hyperlink{class_i_matrix_ab67ba5ffdc38b759a3cb4a4d37dbd69e}{Get\+Translate}} () const
+\begin{DoxyCompactList}\small\item\em 現在の位置を取得 \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{class_i_matrix_a9964f98393c131d9aeaca9a2394dc2a0}{Translate}} ()
+\begin{DoxyCompactList}\small\item\em 現在の位置を取得 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_i_matrix_aefa89e636dcd4f4c2f128fbd690829ed}{Get\+Vector\+AxisX}} ()
+\begin{DoxyCompactList}\small\item\em X軸を取得する \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_i_matrix_ac940f73d639aab045fef9c7ab9b0c001}{Get\+Vector\+AxisY}} ()
+\begin{DoxyCompactList}\small\item\em Y軸を取得する \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_i_matrix_a521c543b440fd67361317096d075d230}{Get\+Vector\+AxisZ}} ()
+\begin{DoxyCompactList}\small\item\em Z軸を取得する \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{class_i_matrix_a781040f918546a43c53fe908f78749ab}{Vector\+AxisX}} ()
+\begin{DoxyCompactList}\small\item\em X軸を取得する \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{class_i_matrix_a85f8892147948781655c3cdfef6b56a4}{Vector\+AxisY}} ()
+\begin{DoxyCompactList}\small\item\em Y軸を取得する \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{class_i_matrix_a13ca80b18abe18006c5963d182837ef4}{Vector\+AxisZ}} ()
+\begin{DoxyCompactList}\small\item\em Z軸を取得する \end{DoxyCompactList}\item 
+float $\ast$ \mbox{\hyperlink{class_i_matrix_ad3c834a912db364ad3da23ddfa865156}{Translate\+Float}} ()
+\begin{DoxyCompactList}\small\item\em 位置を取得する \end{DoxyCompactList}\item 
+float $\ast$ \mbox{\hyperlink{class_i_matrix_a634a043c1cbcdf122104ec3a5677b2a5}{Vector\+Axis\+XFloat}} ()
+\begin{DoxyCompactList}\small\item\em X軸を取得する \end{DoxyCompactList}\item 
+float $\ast$ \mbox{\hyperlink{class_i_matrix_a310e16cb1bcea89de3f5792c9a1256e4}{Vector\+Axis\+YFloat}} ()
+\begin{DoxyCompactList}\small\item\em Y軸を取得する \end{DoxyCompactList}\item 
+float $\ast$ \mbox{\hyperlink{class_i_matrix_ac85c3df7009e77d500be39547f08fc59}{Vector\+Axis\+ZFloat}} ()
+\begin{DoxyCompactList}\small\item\em Z軸を取得する \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a714521197cdaf88b10263628c5d6b6e1}{Set\+Vector\+AxisX}} (float3 vec)
+\begin{DoxyCompactList}\small\item\em X軸を設定する \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_affd008e5bc3f162771f65f6ccd0f4212}{Set\+Vector\+AxisY}} (float3 vec)
+\begin{DoxyCompactList}\small\item\em Y軸を設定する \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a650a67e0bd69073dbf2540566436a6a8}{Set\+Vector\+AxisZ}} (float3 vec)
+\begin{DoxyCompactList}\small\item\em Z軸を設定する \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_aabebf94bb7ad5c922f06a5718af1c3b7}{Set\+Rotation\+To\+Position}} (float3 position, float3 up=\{0, 1, 0\}, bool up\+\_\+change=false)
+\begin{DoxyCompactList}\small\item\em ポジションの方向へ向ける \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a626db18f4ef2eef12a3d94e7467e5d47}{Set\+Rotation\+To\+Vector}} (float3 vec, float3 up=\{0, 1, 0\}, bool up\+\_\+change=false)
+\begin{DoxyCompactList}\small\item\em ベクトルの方向へ向ける \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a1c2365a4d13bae038007b507d987a019}{Set\+Rotation\+To\+Vector\+On\+Parent}} (float3 vec, float3 up=\{0, 1, 0\}, bool up\+\_\+change=false)
+\begin{DoxyCompactList}\small\item\em ベクトルの方向へ向ける \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a64d76c423bcaf1509cdd0d59853db9a2}{Set\+Rotation\+To\+Position\+With\+Limit}} (float3 position, float limit, float3 up=\{0, 1, 0\}, bool up\+\_\+change=false)
+\begin{DoxyCompactList}\small\item\em ポジションの方向へ向ける \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a4033fc43ac7e0f5c3d2e2cc584fcc1d3}{Set\+Rotation\+To\+Vector\+With\+Limit}} (float3 vec, float limit, float3 up=\{0, 1, 0\}, bool up\+\_\+change=false)
+\begin{DoxyCompactList}\small\item\em ベクトルの方向へ向ける \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_ab69f027e3f44e4a62fc51fd45372b766}{Set\+Rotation\+To\+Vector\+On\+Parent\+With\+Limit}} (float3 vec, float limit, float3 up=\{0, 1, 0\}, bool up\+\_\+change=false)
+\begin{DoxyCompactList}\small\item\em ベクトルの方向へ向ける \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a79080df693fc6ca32a4d0cf00d277bf1}{Set\+Rotation\+Axis\+XYZ}} (float3 xyz)
+\begin{DoxyCompactList}\small\item\em 軸回転量を設定する \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a00baa4ac15c3a377d63b11a4ac694736}{Add\+Rotation\+Axis\+XYZ}} (float3 xyz)
+\begin{DoxyCompactList}\small\item\em 軸回転量を現在の状態から追加する \end{DoxyCompactList}\item 
+const float3 \mbox{\hyperlink{class_i_matrix_a33669a9c95add8d80d310fc7ef9a0bf7}{Get\+Rotation\+Axis\+XYZ}} (bool local=true)
+\begin{DoxyCompactList}\small\item\em 軸回転量を取得する \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_a1bf7f616a7fe4c9dfc975cf0a2748304}{Set\+Scale\+Axis\+XYZ}} (float3 scale)
+\begin{DoxyCompactList}\small\item\em スケールの設定 \end{DoxyCompactList}\item 
+auto \mbox{\hyperlink{class_i_matrix_aa710c9aafe9fcfed378d3242329c45b3}{Mul\+Scale\+Axis\+XYZ}} (float3 scale)
+\begin{DoxyCompactList}\small\item\em 現在のスケールから掛け合わせ倍率スケール \end{DoxyCompactList}\item 
+const float3 \mbox{\hyperlink{class_i_matrix_a9d823777983c3ca5e917c8ca8b879054}{Get\+Scale\+Axis\+XYZ}} (bool local=true)
+\begin{DoxyCompactList}\small\item\em スケールの取得 \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_i_matrix_a34cd0c9a971a79694ff25330ed3431d3}{Get\+Degree\+To\+Position}} (float3 target\+\_\+position)
+\begin{DoxyCompactList}\small\item\em 向いている角度をもとめます \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_i_matrix_a938bf6fa6d01cc0945c0e7899aa03fc8}{Get\+Degree\+To\+Vector}} (float3 target\+\_\+vector)
+\begin{DoxyCompactList}\small\item\em 向いている角度をもとめます \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{非公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_sequence_object_a4df954a888514999ee1327b99532cd1e}{CEREAL\+\_\+\+SAVELOAD}} (arc, ver)
+\begin{DoxyCompactList}\small\item\em ロードセーブ情報 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{非公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_sequence_object_aaf34da5ddfb1061dd06bdad1456f0c98}{open\+\_\+}} = true
+\item 
+bool \mbox{\hyperlink{class_sequence_object_a9aac19fa7080d9d63c05a07fa10982e9}{show\+\_\+guizmo\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em ギズモの表示 \end{DoxyCompactList}\item 
+Im\+Guizmo\+::\+OPERATION \mbox{\hyperlink{class_sequence_object_a0fda2b585a734ba577881741283a4758}{guizmo\+\_\+operation\+\_\+}} = Im\+Guizmo\+::\+OPERATION\+::\+TRANSLATE
+\begin{DoxyCompactList}\small\item\em ギズモのオペレーション \end{DoxyCompactList}\item 
+Im\+Guizmo\+::\+MODE \mbox{\hyperlink{class_sequence_object_add3498385dff64f23144a00be8a8e749}{guizmo\+\_\+mode\+\_\+}} = Im\+Guizmo\+::\+MODE\+::\+WORLD
+\begin{DoxyCompactList}\small\item\em ギズモのモード \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_sequence_object_aebaada41d0072cbdaf71e13e8093a0e3}{guizmo\+\_\+index\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em ギズモ番号 \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_sequence_object_a5e3f2fd669f746a372c9a9eb4b11d9db}{name\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em オブジェクトの名前 \end{DoxyCompactList}\item 
+std\+::vector$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{class_sequence_object_a18b7afb047aed710e7d0cc319091d32f}{position\+\_\+keys\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em ポジションキー \end{DoxyCompactList}\item 
+std\+::vector$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{class_sequence_object_a6173662c8759ab64aca41f2fae68f2f1}{rotation\+\_\+keys\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em ローテーションキー \end{DoxyCompactList}\item 
+std\+::vector$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{class_sequence_object_a526b0d4e8e1cbd090aaa5c55bbb51720}{scale\+\_\+keys\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em スケールキー \end{DoxyCompactList}\item 
+std\+::vector$<$ float3 $>$ \mbox{\hyperlink{class_sequence_object_a4f45891d5addc4b63e558a0634bbb9ad}{position\+\_\+values\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em ポジション値 \end{DoxyCompactList}\item 
+std\+::vector$<$ float3 $>$ \mbox{\hyperlink{class_sequence_object_a615da167e660f27edae0851f09d81609}{rotation\+\_\+values\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em ローテーション値 \end{DoxyCompactList}\item 
+std\+::vector$<$ float3 $>$ \mbox{\hyperlink{class_sequence_object_a51e52dbc6b8d5d8b1f6c41f8857701fa}{scale\+\_\+values\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em スケール値 \end{DoxyCompactList}\item 
+std\+::vector$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{class_sequence_object_a5bb8e7b00281dcee237c1805464294dd}{animation\+\_\+keys\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em アニメーションキー \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_anim_object}{Anim\+Object}} $>$ \mbox{\hyperlink{class_sequence_object_a8f8bb0071bec2ec980bd9945b8f5b11c}{animation\+\_\+values\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em アニメーション値 \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_sequence_object_a46bf3d853dbf812cfa76509c1aaf1b4a}{animation\+\_\+name\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em アニメーション名 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_sequence_object_ab4a2af00d477091e1ba50e37a0f3b605}{animation\+\_\+frame\+\_\+old\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em 前のフレーム \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_sequence_object_aada94701b03c68b8c15b43a2de1faab9}{animation\+\_\+frame\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em 現在のフレーム \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_sequence_object_a556f1eedd865fb56098733e03bc04895}{animation\+\_\+loop\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em ループするかの設定 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_sequence_object_aae5801c69d7e21be05fe924147815774}{animation\+\_\+change\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em アニメーションが変わったか \end{DoxyCompactList}\item 
+std\+::vector$<$ uint32\+\_\+t $>$ \mbox{\hyperlink{class_sequence_object_ad903315ca5d33b52d07bb95531b7362c}{effect\+\_\+keys\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em エフェクトキー \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_anim_object}{Anim\+Object}} $>$ \mbox{\hyperlink{class_sequence_object_a07bd5b91178717390c908700d3edcefc}{effect\+\_\+values\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em エフェクト値 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_sequence_object_a72b307bfd6dcb3bfdde6b9c3b6ae8325}{effect\+\_\+number\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em エフェクト番号 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_sequence_object_aa66e5ae40631852840643959e66c7b05}{effect\+\_\+frame\+\_\+old\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em 前のフレーム \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_sequence_object_a11903da3ed56f0a592b2e92be437b9a9}{effect\+\_\+frame\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em 現在のフレーム \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_sequence_object_a44a4bb874334e53074f648d5843fd571}{effect\+\_\+loop\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em ループするかの設定 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_sequence_object_a03468dc3f24635e050cea182556afdac}{effect\+\_\+change\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em エフェクトが変わったか \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{class_sequence_object_ad3f698ca496c2a43082ede34008c0785}{object\+\_\+matrix\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00022}{22}} 行目に定義があります。
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_i_matrix_a00baa4ac15c3a377d63b11a4ac694736}\label{class_i_matrix_a00baa4ac15c3a377d63b11a4ac694736}} 
+\index{SequenceObject@{SequenceObject}!AddRotationAxisXYZ@{AddRotationAxisXYZ}}
+\index{AddRotationAxisXYZ@{AddRotationAxisXYZ}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{AddRotationAxisXYZ()}{AddRotationAxisXYZ()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Add\+Rotation\+Axis\+XYZ (\begin{DoxyParamCaption}\item[{float3}]{xyz }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+軸回転量を現在の状態から追加する 
+
+
+\begin{DoxyParams}{引数}
+{\em xyz} & 軸に合わせた回転量 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00359}{359}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a8ae94cdc16a0661a7d1464e1d7764ec1}\label{class_i_matrix_a8ae94cdc16a0661a7d1464e1d7764ec1}} 
+\index{SequenceObject@{SequenceObject}!AddTranslate@{AddTranslate}}
+\index{AddTranslate@{AddTranslate}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{AddTranslate()}{AddTranslate()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Add\+Translate (\begin{DoxyParamCaption}\item[{float3}]{translate,  }\item[{bool}]{local = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+現在の位置から移動させます 
+
+
+\begin{DoxyParams}{引数}
+{\em translate} & 移動させる量 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00090}{90}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_sequence_object_a4df954a888514999ee1327b99532cd1e}\label{class_sequence_object_a4df954a888514999ee1327b99532cd1e}} 
+\index{SequenceObject@{SequenceObject}!CEREAL\_SAVELOAD@{CEREAL\_SAVELOAD}}
+\index{CEREAL\_SAVELOAD@{CEREAL\_SAVELOAD}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_SAVELOAD()}{CEREAL\_SAVELOAD()}}
+{\footnotesize\ttfamily Sequence\+Object\+::\+CEREAL\+\_\+\+SAVELOAD (\begin{DoxyParamCaption}\item[{arc}]{,  }\item[{ver}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+ロードセーブ情報 
+
+
+\begin{DoxyParams}{引数}
+{\em arc} & アーカイバ \\
+\hline
+{\em var} & バージョン \\
+\hline
+\end{DoxyParams}
+ロードセーブする変数
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{142}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00121}{animation\+\_\+change\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00119}{animation\+\_\+frame\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00118}{animation\+\_\+frame\+\_\+old\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00114}{animation\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00120}{animation\+\_\+loop\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00117}{animation\+\_\+name\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00115}{animation\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00130}{effect\+\_\+change\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00128}{effect\+\_\+frame\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00127}{effect\+\_\+frame\+\_\+old\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00129}{effect\+\_\+loop\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00126}{effect\+\_\+number\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00105}{name\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00132}{object\+\_\+matrix\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00091}{open\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00106}{position\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00110}{position\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00107}{rotation\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00111}{rotation\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00108}{scale\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00112}{scale\+\_\+values\+\_\+}} (計21項目).
+
+\mbox{\Hypertarget{class_i_matrix_a34cd0c9a971a79694ff25330ed3431d3}\label{class_i_matrix_a34cd0c9a971a79694ff25330ed3431d3}} 
+\index{SequenceObject@{SequenceObject}!GetDegreeToPosition@{GetDegreeToPosition}}
+\index{GetDegreeToPosition@{GetDegreeToPosition}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetDegreeToPosition()}{GetDegreeToPosition()}}
+{\footnotesize\ttfamily float \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Get\+Degree\+To\+Position (\begin{DoxyParamCaption}\item[{float3}]{target\+\_\+position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+向いている角度をもとめます 
+
+
+\begin{DoxyParams}{引数}
+{\em target\+\_\+position} & ターゲットのポジション \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+前方向との角度 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00433}{433}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a938bf6fa6d01cc0945c0e7899aa03fc8}\label{class_i_matrix_a938bf6fa6d01cc0945c0e7899aa03fc8}} 
+\index{SequenceObject@{SequenceObject}!GetDegreeToVector@{GetDegreeToVector}}
+\index{GetDegreeToVector@{GetDegreeToVector}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetDegreeToVector()}{GetDegreeToVector()}}
+{\footnotesize\ttfamily float \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Get\+Degree\+To\+Vector (\begin{DoxyParamCaption}\item[{float3}]{target\+\_\+vector }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+向いている角度をもとめます 
+
+
+\begin{DoxyParams}{引数}
+{\em target\+\_\+vector} & ターゲットの方向 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+前方向との角度 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00441}{441}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_sequence_object_a2abc35ac9acc15479c7e569aaadc5fed}\label{class_sequence_object_a2abc35ac9acc15479c7e569aaadc5fed}} 
+\index{SequenceObject@{SequenceObject}!GetMatrix@{GetMatrix}}
+\index{GetMatrix@{GetMatrix}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetMatrix()}{GetMatrix()}}
+{\footnotesize\ttfamily virtual const \mbox{\hyperlink{classmatrix}{matrix}} \& Sequence\+Object\+::\+Get\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Transformの\+Matrix情報を取得します 
+
+\begin{DoxyReturn}{戻り値}
+Transform の Matrix 
+\end{DoxyReturn}
+
+
+\mbox{\hyperlink{class_i_matrix_af9bc3565e1a379fb4fdecf22d31d753e}{IMatrix$<$ Sequence\+Object $>$}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00030}{30}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00132}{object\+\_\+matrix\+\_\+}}.
+
+\mbox{\Hypertarget{class_i_matrix_a32adebd780e1df07b4a504913e7342fc}\label{class_i_matrix_a32adebd780e1df07b4a504913e7342fc}} 
+\index{SequenceObject@{SequenceObject}!GetMatrixFloat@{GetMatrixFloat}}
+\index{GetMatrixFloat@{GetMatrixFloat}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetMatrixFloat()}{GetMatrixFloat()}}
+{\footnotesize\ttfamily float $\ast$ \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Get\+Matrix\+Float (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Transformの\+Matrix情報を取得します 
+
+\begin{DoxyReturn}{戻り値}
+Transform の Matrix 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00067}{67}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_sequence_object_a80995113b36e23eaddbe89006edb3d30}\label{class_sequence_object_a80995113b36e23eaddbe89006edb3d30}} 
+\index{SequenceObject@{SequenceObject}!GetName@{GetName}}
+\index{GetName@{GetName}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetName()}{GetName()}}
+{\footnotesize\ttfamily std\+::string Sequence\+Object\+::\+Get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00049}{49}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00105}{name\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a97f3c83ac7a26bd517d3a5596fb7fa67}\label{class_sequence_object_a97f3c83ac7a26bd517d3a5596fb7fa67}} 
+\index{SequenceObject@{SequenceObject}!GetNameLabel@{GetNameLabel}}
+\index{GetNameLabel@{GetNameLabel}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetNameLabel()}{GetNameLabel()}}
+{\footnotesize\ttfamily std\+::string Sequence\+Object\+::\+Get\+Name\+Label (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00054}{54}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}.
+
+\mbox{\Hypertarget{class_sequence_object_ad11bf9ffba5f90770f13d1c9e10dfa58}\label{class_sequence_object_ad11bf9ffba5f90770f13d1c9e10dfa58}} 
+\index{SequenceObject@{SequenceObject}!GetOldWorldMatrix@{GetOldWorldMatrix}}
+\index{GetOldWorldMatrix@{GetOldWorldMatrix}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetOldWorldMatrix()}{GetOldWorldMatrix()}}
+{\footnotesize\ttfamily virtual const \mbox{\hyperlink{classmatrix}{matrix}} Sequence\+Object\+::\+Get\+Old\+World\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+1フレーム前のワールド\+Matrixの取得 
+
+\begin{DoxyReturn}{戻り値}
+他のコンポーネントも含めた位置 
+\end{DoxyReturn}
+
+
+\mbox{\hyperlink{class_i_matrix_aba0d23d8c1c3cb1b5963e9ca06d56236}{IMatrix$<$ Sequence\+Object $>$}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00044}{44}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00132}{object\+\_\+matrix\+\_\+}}.
+
+\mbox{\Hypertarget{class_i_matrix_a33669a9c95add8d80d310fc7ef9a0bf7}\label{class_i_matrix_a33669a9c95add8d80d310fc7ef9a0bf7}} 
+\index{SequenceObject@{SequenceObject}!GetRotationAxisXYZ@{GetRotationAxisXYZ}}
+\index{GetRotationAxisXYZ@{GetRotationAxisXYZ}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetRotationAxisXYZ()}{GetRotationAxisXYZ()}}
+{\footnotesize\ttfamily const float3 \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Get\+Rotation\+Axis\+XYZ (\begin{DoxyParamCaption}\item[{bool}]{local = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+軸回転量を取得する 
+
+変数としては存在しないため代入は不可 \begin{DoxyReturn}{戻り値}
+xyzローテート量 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00375}{375}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a9d823777983c3ca5e917c8ca8b879054}\label{class_i_matrix_a9d823777983c3ca5e917c8ca8b879054}} 
+\index{SequenceObject@{SequenceObject}!GetScaleAxisXYZ@{GetScaleAxisXYZ}}
+\index{GetScaleAxisXYZ@{GetScaleAxisXYZ}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetScaleAxisXYZ()}{GetScaleAxisXYZ()}}
+{\footnotesize\ttfamily const float3 \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Get\+Scale\+Axis\+XYZ (\begin{DoxyParamCaption}\item[{bool}]{local = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+スケールの取得 
+
+変数としては存在しないため代入は不可 \begin{DoxyReturn}{戻り値}
+スケール値 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00419}{419}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_sequence_object_ab94d1ae5f3b563d6e21f2c668b359cbd}\label{class_sequence_object_ab94d1ae5f3b563d6e21f2c668b359cbd}} 
+\index{SequenceObject@{SequenceObject}!GetTransformFromFrame@{GetTransformFromFrame}}
+\index{GetTransformFromFrame@{GetTransformFromFrame}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetTransformFromFrame()}{GetTransformFromFrame()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} Sequence\+Object\+::\+Get\+Transform\+From\+Frame (\begin{DoxyParamCaption}\item[{int}]{frame }\end{DoxyParamCaption})}
+
+
+
+フレーム情報から姿勢(位置・回転・スケール)を取得 
+
+
+\begin{DoxyParams}{引数}
+{\em frame} & フレーム \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_sequencer_8cpp_source}{Component\+Sequencer.\+cpp}} の \mbox{\hyperlink{_component_sequencer_8cpp_source_l00073}{73}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00106}{position\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00110}{position\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_transform_8cpp_source_l00089}{Recompose\+Matrix\+From\+Components()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00107}{rotation\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00111}{rotation\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00108}{scale\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00112}{scale\+\_\+values\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_i_matrix_ab67ba5ffdc38b759a3cb4a4d37dbd69e}\label{class_i_matrix_ab67ba5ffdc38b759a3cb4a4d37dbd69e}} 
+\index{SequenceObject@{SequenceObject}!GetTranslate@{GetTranslate}}
+\index{GetTranslate@{GetTranslate}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetTranslate()}{GetTranslate()}}
+{\footnotesize\ttfamily const float3 \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Get\+Translate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+現在の位置を取得 
+
+\begin{DoxyReturn}{戻り値}
+Transformの位置 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00104}{104}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_aefa89e636dcd4f4c2f128fbd690829ed}\label{class_i_matrix_aefa89e636dcd4f4c2f128fbd690829ed}} 
+\index{SequenceObject@{SequenceObject}!GetVectorAxisX@{GetVectorAxisX}}
+\index{GetVectorAxisX@{GetVectorAxisX}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetVectorAxisX()}{GetVectorAxisX()}}
+{\footnotesize\ttfamily float3 \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Get\+Vector\+AxisX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+X軸を取得する 
+
+\begin{DoxyReturn}{戻り値}
+Transformの\+X軸 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00116}{116}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_ac940f73d639aab045fef9c7ab9b0c001}\label{class_i_matrix_ac940f73d639aab045fef9c7ab9b0c001}} 
+\index{SequenceObject@{SequenceObject}!GetVectorAxisY@{GetVectorAxisY}}
+\index{GetVectorAxisY@{GetVectorAxisY}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetVectorAxisY()}{GetVectorAxisY()}}
+{\footnotesize\ttfamily float3 \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Get\+Vector\+AxisY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Y軸を取得する 
+
+\begin{DoxyReturn}{戻り値}
+Transformの\+Y軸 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00122}{122}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a521c543b440fd67361317096d075d230}\label{class_i_matrix_a521c543b440fd67361317096d075d230}} 
+\index{SequenceObject@{SequenceObject}!GetVectorAxisZ@{GetVectorAxisZ}}
+\index{GetVectorAxisZ@{GetVectorAxisZ}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetVectorAxisZ()}{GetVectorAxisZ()}}
+{\footnotesize\ttfamily float3 \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Get\+Vector\+AxisZ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Z軸を取得する 
+
+\begin{DoxyReturn}{戻り値}
+Transformの\+Z軸 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00128}{128}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_sequence_object_a04ab554a7028abd74a31e1ac1a491c28}\label{class_sequence_object_a04ab554a7028abd74a31e1ac1a491c28}} 
+\index{SequenceObject@{SequenceObject}!GetWorldMatrix@{GetWorldMatrix}}
+\index{GetWorldMatrix@{GetWorldMatrix}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GetWorldMatrix()}{GetWorldMatrix()}}
+{\footnotesize\ttfamily virtual const \mbox{\hyperlink{classmatrix}{matrix}} Sequence\+Object\+::\+Get\+World\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+ワールド\+Matrixの取得 
+
+\begin{DoxyReturn}{戻り値}
+自分にかかわる他のコンポーネントも含めた位置 
+\end{DoxyReturn}
+
+
+\mbox{\hyperlink{class_i_matrix_a0bf7a3dbad8c83935e587d781d448407}{IMatrix$<$ Sequence\+Object $>$}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00038}{38}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00132}{object\+\_\+matrix\+\_\+}}.
+
+\mbox{\Hypertarget{class_sequence_object_a8799ef05e74459b8a020a625f45d42c0}\label{class_sequence_object_a8799ef05e74459b8a020a625f45d42c0}} 
+\index{SequenceObject@{SequenceObject}!GUI@{GUI}}
+\index{GUI@{GUI}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{GUI()}{GUI()}}
+{\footnotesize\ttfamily void Sequence\+Object\+::\+GUI (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{start,  }\item[{uint32\+\_\+t}]{end }\end{DoxyParamCaption})}
+
+
+
+GUI表示 
+
+
+\begin{DoxyParams}{引数}
+{\em start} & スタートフレーム \\
+\hline
+{\em end} & 終了フレーム \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_sequencer_8cpp_source}{Component\+Sequencer.\+cpp}} の \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{219}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00114}{animation\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00115}{animation\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00123}{effect\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00124}{effect\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00049}{Get\+Name()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00054}{Get\+Name\+Label()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00073}{Get\+Transform\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00103}{guizmo\+\_\+index\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00100}{guizmo\+\_\+mode\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00097}{guizmo\+\_\+operation\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00105}{name\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00132}{object\+\_\+matrix\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00091}{open\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00106}{position\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00110}{position\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00107}{rotation\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00111}{rotation\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00108}{scale\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00112}{scale\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_transform_8h_source_l00344}{IMatrix$<$ Sequence\+Object $>$\+::\+Set\+Rotation\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_transform_8h_source_l00389}{IMatrix$<$ Sequence\+Object $>$\+::\+Set\+Scale\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_transform_8h_source_l00081}{IMatrix$<$ Sequence\+Object $>$\+::\+Set\+Translate()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00094}{show\+\_\+guizmo\+\_\+}} (計23項目).
+
+\mbox{\Hypertarget{class_sequence_object_a15ccd9b96f5f1fd48bee7f1e6a0889f3}\label{class_sequence_object_a15ccd9b96f5f1fd48bee7f1e6a0889f3}} 
+\index{SequenceObject@{SequenceObject}!IsOpen@{IsOpen}}
+\index{IsOpen@{IsOpen}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{IsOpen()}{IsOpen()}}
+{\footnotesize\ttfamily bool Sequence\+Object\+::\+Is\+Open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00058}{58}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00091}{open\+\_\+}}.
+
+\mbox{\Hypertarget{class_sequence_object_aa4f6a47f160860e2b5c2f60197f56aa4}\label{class_sequence_object_aa4f6a47f160860e2b5c2f60197f56aa4}} 
+\index{SequenceObject@{SequenceObject}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{Matrix()}{Matrix()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classmatrix}{matrix}} \& Sequence\+Object\+::\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Transformの\+Matrix情報を取得します 
+
+\begin{DoxyReturn}{戻り値}
+Transform の Matrix 
+\end{DoxyReturn}
+
+
+\mbox{\hyperlink{class_i_matrix_a4b43c433dbe642466637c3cd21ed811c}{IMatrix$<$ Sequence\+Object $>$}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00024}{24}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00132}{object\+\_\+matrix\+\_\+}}.
+
+\mbox{\Hypertarget{class_i_matrix_aa710c9aafe9fcfed378d3242329c45b3}\label{class_i_matrix_aa710c9aafe9fcfed378d3242329c45b3}} 
+\index{SequenceObject@{SequenceObject}!MulScaleAxisXYZ@{MulScaleAxisXYZ}}
+\index{MulScaleAxisXYZ@{MulScaleAxisXYZ}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{MulScaleAxisXYZ()}{MulScaleAxisXYZ()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Mul\+Scale\+Axis\+XYZ (\begin{DoxyParamCaption}\item[{float3}]{scale }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+現在のスケールから掛け合わせ倍率スケール 
+
+
+\begin{DoxyParams}{引数}
+{\em xyz} & スケール \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00404}{404}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_sequence_object_a7ffa6a5df0c9f86b4171963a4c0ce35f}\label{class_sequence_object_a7ffa6a5df0c9f86b4171963a4c0ce35f}} 
+\index{SequenceObject@{SequenceObject}!SetAnimationFromFrame@{SetAnimationFromFrame}}
+\index{SetAnimationFromFrame@{SetAnimationFromFrame}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetAnimationFromFrame()}{SetAnimationFromFrame()}}
+{\footnotesize\ttfamily void Sequence\+Object\+::\+Set\+Animation\+From\+Frame (\begin{DoxyParamCaption}\item[{int}]{frame }\end{DoxyParamCaption})}
+
+
+
+フレーム情報からアニメーションを取得 
+
+
+\begin{DoxyParams}{引数}
+{\em frame} & フレーム \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_sequencer_8cpp_source}{Component\+Sequencer.\+cpp}} の \mbox{\hyperlink{_component_sequencer_8cpp_source_l00017}{17}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00121}{animation\+\_\+change\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00119}{animation\+\_\+frame\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00114}{animation\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00120}{animation\+\_\+loop\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00117}{animation\+\_\+name\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00115}{animation\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00105}{name\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a56a0a30f1dd31e78a1187c77f5c9634a}\label{class_sequence_object_a56a0a30f1dd31e78a1187c77f5c9634a}} 
+\index{SequenceObject@{SequenceObject}!SetEffectFromFrame@{SetEffectFromFrame}}
+\index{SetEffectFromFrame@{SetEffectFromFrame}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetEffectFromFrame()}{SetEffectFromFrame()}}
+{\footnotesize\ttfamily void Sequence\+Object\+::\+Set\+Effect\+From\+Frame (\begin{DoxyParamCaption}\item[{int}]{frame }\end{DoxyParamCaption})}
+
+
+
+フレーム情報からエフェクトを取得 
+
+
+\begin{DoxyParams}{引数}
+{\em frame} & フレーム \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_sequencer_8cpp_source}{Component\+Sequencer.\+cpp}} の \mbox{\hyperlink{_component_sequencer_8cpp_source_l00044}{44}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00130}{effect\+\_\+change\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00128}{effect\+\_\+frame\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00123}{effect\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00129}{effect\+\_\+loop\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00126}{effect\+\_\+number\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00124}{effect\+\_\+values\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_i_matrix_a76fdee0594b93555b078e7182923e17e}\label{class_i_matrix_a76fdee0594b93555b078e7182923e17e}} 
+\index{SequenceObject@{SequenceObject}!SetMatrix@{SetMatrix}}
+\index{SetMatrix@{SetMatrix}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetMatrix()}{SetMatrix()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Matrix (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classmatrix}{matrix}} \&}]{mat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00060}{60}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a79080df693fc6ca32a4d0cf00d277bf1}\label{class_i_matrix_a79080df693fc6ca32a4d0cf00d277bf1}} 
+\index{SequenceObject@{SequenceObject}!SetRotationAxisXYZ@{SetRotationAxisXYZ}}
+\index{SetRotationAxisXYZ@{SetRotationAxisXYZ}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetRotationAxisXYZ()}{SetRotationAxisXYZ()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Rotation\+Axis\+XYZ (\begin{DoxyParamCaption}\item[{float3}]{xyz }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+軸回転量を設定する 
+
+
+\begin{DoxyParams}{引数}
+{\em xyz} & 軸に合わせた回転量 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00344}{344}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_aabebf94bb7ad5c922f06a5718af1c3b7}\label{class_i_matrix_aabebf94bb7ad5c922f06a5718af1c3b7}} 
+\index{SequenceObject@{SequenceObject}!SetRotationToPosition@{SetRotationToPosition}}
+\index{SetRotationToPosition@{SetRotationToPosition}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetRotationToPosition()}{SetRotationToPosition()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Rotation\+To\+Position (\begin{DoxyParamCaption}\item[{float3}]{position,  }\item[{float3}]{up = {\ttfamily \{0,~1,~0\}},  }\item[{bool}]{up\+\_\+change = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+ポジションの方向へ向ける 
+
+
+\begin{DoxyParams}{引数}
+{\em position} & 向きたいポジション \\
+\hline
+{\em up\+\_\+change} & Y軸も変更するか? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00202}{202}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a64d76c423bcaf1509cdd0d59853db9a2}\label{class_i_matrix_a64d76c423bcaf1509cdd0d59853db9a2}} 
+\index{SequenceObject@{SequenceObject}!SetRotationToPositionWithLimit@{SetRotationToPositionWithLimit}}
+\index{SetRotationToPositionWithLimit@{SetRotationToPositionWithLimit}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetRotationToPositionWithLimit()}{SetRotationToPositionWithLimit()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Rotation\+To\+Position\+With\+Limit (\begin{DoxyParamCaption}\item[{float3}]{position,  }\item[{float}]{limit,  }\item[{float3}]{up = {\ttfamily \{0,~1,~0\}},  }\item[{bool}]{up\+\_\+change = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+ポジションの方向へ向ける 
+
+
+\begin{DoxyParams}{引数}
+{\em position} & 向きたいポジション \\
+\hline
+{\em up\+\_\+change} & Y軸も変更するか? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00251}{251}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a626db18f4ef2eef12a3d94e7467e5d47}\label{class_i_matrix_a626db18f4ef2eef12a3d94e7467e5d47}} 
+\index{SequenceObject@{SequenceObject}!SetRotationToVector@{SetRotationToVector}}
+\index{SetRotationToVector@{SetRotationToVector}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetRotationToVector()}{SetRotationToVector()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Rotation\+To\+Vector (\begin{DoxyParamCaption}\item[{float3}]{vec,  }\item[{float3}]{up = {\ttfamily \{0,~1,~0\}},  }\item[{bool}]{up\+\_\+change = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+ベクトルの方向へ向ける 
+
+
+\begin{DoxyParams}{引数}
+{\em position} & 向きたいベクトル \\
+\hline
+{\em up\+\_\+change} & Y軸も変更するか? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00214}{214}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a1c2365a4d13bae038007b507d987a019}\label{class_i_matrix_a1c2365a4d13bae038007b507d987a019}} 
+\index{SequenceObject@{SequenceObject}!SetRotationToVectorOnParent@{SetRotationToVectorOnParent}}
+\index{SetRotationToVectorOnParent@{SetRotationToVectorOnParent}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetRotationToVectorOnParent()}{SetRotationToVectorOnParent()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Rotation\+To\+Vector\+On\+Parent (\begin{DoxyParamCaption}\item[{float3}]{vec,  }\item[{float3}]{up = {\ttfamily \{0,~1,~0\}},  }\item[{bool}]{up\+\_\+change = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+ベクトルの方向へ向ける 
+
+
+\begin{DoxyParams}{引数}
+{\em position} & 向きたいベクトル \\
+\hline
+{\em up\+\_\+change} & Y軸も変更するか? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00232}{232}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_ab69f027e3f44e4a62fc51fd45372b766}\label{class_i_matrix_ab69f027e3f44e4a62fc51fd45372b766}} 
+\index{SequenceObject@{SequenceObject}!SetRotationToVectorOnParentWithLimit@{SetRotationToVectorOnParentWithLimit}}
+\index{SetRotationToVectorOnParentWithLimit@{SetRotationToVectorOnParentWithLimit}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetRotationToVectorOnParentWithLimit()}{SetRotationToVectorOnParentWithLimit()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Rotation\+To\+Vector\+On\+Parent\+With\+Limit (\begin{DoxyParamCaption}\item[{float3}]{vec,  }\item[{float}]{limit,  }\item[{float3}]{up = {\ttfamily \{0,~1,~0\}},  }\item[{bool}]{up\+\_\+change = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+ベクトルの方向へ向ける 
+
+
+\begin{DoxyParams}{引数}
+{\em vec} & 向きたいベクトル \\
+\hline
+{\em limit} & 向ける限界角度 \\
+\hline
+{\em up\+\_\+change} & Y軸も変更するか? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00326}{326}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a4033fc43ac7e0f5c3d2e2cc584fcc1d3}\label{class_i_matrix_a4033fc43ac7e0f5c3d2e2cc584fcc1d3}} 
+\index{SequenceObject@{SequenceObject}!SetRotationToVectorWithLimit@{SetRotationToVectorWithLimit}}
+\index{SetRotationToVectorWithLimit@{SetRotationToVectorWithLimit}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetRotationToVectorWithLimit()}{SetRotationToVectorWithLimit()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Rotation\+To\+Vector\+With\+Limit (\begin{DoxyParamCaption}\item[{float3}]{vec,  }\item[{float}]{limit,  }\item[{float3}]{up = {\ttfamily \{0,~1,~0\}},  }\item[{bool}]{up\+\_\+change = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+ベクトルの方向へ向ける 
+
+
+\begin{DoxyParams}{引数}
+{\em vec} & 向きたいベクトル \\
+\hline
+{\em limit} & 向ける限界角度 \\
+\hline
+{\em up\+\_\+change} & Y軸も変更するか? \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00264}{264}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a1bf7f616a7fe4c9dfc975cf0a2748304}\label{class_i_matrix_a1bf7f616a7fe4c9dfc975cf0a2748304}} 
+\index{SequenceObject@{SequenceObject}!SetScaleAxisXYZ@{SetScaleAxisXYZ}}
+\index{SetScaleAxisXYZ@{SetScaleAxisXYZ}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetScaleAxisXYZ()}{SetScaleAxisXYZ()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Scale\+Axis\+XYZ (\begin{DoxyParamCaption}\item[{float3}]{scale }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+スケールの設定 
+
+
+\begin{DoxyParams}{引数}
+{\em xyz} & スケール \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00389}{389}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a714ba34bafae6ad18adc512a12bfd88c}\label{class_i_matrix_a714ba34bafae6ad18adc512a12bfd88c}} 
+\index{SequenceObject@{SequenceObject}!SetTranslate@{SetTranslate}}
+\index{SetTranslate@{SetTranslate}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetTranslate()}{SetTranslate()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Translate (\begin{DoxyParamCaption}\item[{float3}]{translate }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+位置をセットします 
+
+
+\begin{DoxyParams}{引数}
+{\em translate} & 位置 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00081}{81}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a714521197cdaf88b10263628c5d6b6e1}\label{class_i_matrix_a714521197cdaf88b10263628c5d6b6e1}} 
+\index{SequenceObject@{SequenceObject}!SetVectorAxisX@{SetVectorAxisX}}
+\index{SetVectorAxisX@{SetVectorAxisX}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetVectorAxisX()}{SetVectorAxisX()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Vector\+AxisX (\begin{DoxyParamCaption}\item[{float3}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+X軸を設定する 
+
+
+\begin{DoxyParams}{引数}
+{\em vec} & ベクトル \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00177}{177}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_affd008e5bc3f162771f65f6ccd0f4212}\label{class_i_matrix_affd008e5bc3f162771f65f6ccd0f4212}} 
+\index{SequenceObject@{SequenceObject}!SetVectorAxisY@{SetVectorAxisY}}
+\index{SetVectorAxisY@{SetVectorAxisY}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetVectorAxisY()}{SetVectorAxisY()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Vector\+AxisY (\begin{DoxyParamCaption}\item[{float3}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Y軸を設定する 
+
+
+\begin{DoxyParams}{引数}
+{\em vec} & ベクトル \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00185}{185}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a650a67e0bd69073dbf2540566436a6a8}\label{class_i_matrix_a650a67e0bd69073dbf2540566436a6a8}} 
+\index{SequenceObject@{SequenceObject}!SetVectorAxisZ@{SetVectorAxisZ}}
+\index{SetVectorAxisZ@{SetVectorAxisZ}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SetVectorAxisZ()}{SetVectorAxisZ()}}
+{\footnotesize\ttfamily auto \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Set\+Vector\+AxisZ (\begin{DoxyParamCaption}\item[{float3}]{vec }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Z軸を設定する 
+
+
+\begin{DoxyParams}{引数}
+{\em vec} & ベクトル \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+自分の\+Shared\+Ptr 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00193}{193}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_sequence_object_a5b0cf2310bda33b905f42cd6aabbcfd4}\label{class_sequence_object_a5b0cf2310bda33b905f42cd6aabbcfd4}} 
+\index{SequenceObject@{SequenceObject}!SharedThis@{SharedThis}}
+\index{SharedThis@{SharedThis}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{SharedThis()}{SharedThis()}}
+{\footnotesize\ttfamily virtual std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}} $>$ Sequence\+Object\+::\+Shared\+This (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_i_matrix_a34eaf3f561f25cfa64c1b1ef25782a1f}{IMatrix$<$ Sequence\+Object $>$}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00034}{34}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_sequence_object_ad00af77d10583f4cdc9dde5c4bfc2800}\label{class_sequence_object_ad00af77d10583f4cdc9dde5c4bfc2800}} 
+\index{SequenceObject@{SequenceObject}!ShowGuizmo@{ShowGuizmo}}
+\index{ShowGuizmo@{ShowGuizmo}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{ShowGuizmo()}{ShowGuizmo()}}
+{\footnotesize\ttfamily void Sequence\+Object\+::\+Show\+Guizmo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+三軸ギズモを表示する 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8cpp_source}{Component\+Sequencer.\+cpp}} の \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{109}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_transform_8cpp_source_l00061}{Decompose\+Matrix\+To\+Components()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00103}{guizmo\+\_\+index\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00100}{guizmo\+\_\+mode\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00097}{guizmo\+\_\+operation\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00132}{object\+\_\+matrix\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00110}{position\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00111}{rotation\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00112}{scale\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00094}{show\+\_\+guizmo\+\_\+}}, \mbox{\hyperlink{_component_transform_8cpp_source_l00021}{Show\+Gizmo()}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a74a0bcf64e7801dc9cdc6f4930b9bf96}\label{class_sequence_object_a74a0bcf64e7801dc9cdc6f4930b9bf96}} 
+\index{SequenceObject@{SequenceObject}!Sort@{Sort}}
+\index{Sort@{Sort}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{Sort()}{Sort()}}
+{\footnotesize\ttfamily void Sequence\+Object\+::\+Sort (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+データを並び替えます 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8cpp_source}{Component\+Sequencer.\+cpp}} の \mbox{\hyperlink{_component_sequencer_8cpp_source_l00158}{158}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00106}{position\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00110}{position\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00107}{rotation\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00111}{rotation\+\_\+values\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00108}{scale\+\_\+keys\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00112}{scale\+\_\+values\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_i_matrix_a9964f98393c131d9aeaca9a2394dc2a0}\label{class_i_matrix_a9964f98393c131d9aeaca9a2394dc2a0}} 
+\index{SequenceObject@{SequenceObject}!Translate@{Translate}}
+\index{Translate@{Translate}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{Translate()}{Translate()}}
+{\footnotesize\ttfamily auto \& \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Translate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+現在の位置を取得 
+
+\begin{DoxyReturn}{戻り値}
+Transformの位置 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00110}{110}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_ad3c834a912db364ad3da23ddfa865156}\label{class_i_matrix_ad3c834a912db364ad3da23ddfa865156}} 
+\index{SequenceObject@{SequenceObject}!TranslateFloat@{TranslateFloat}}
+\index{TranslateFloat@{TranslateFloat}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{TranslateFloat()}{TranslateFloat()}}
+{\footnotesize\ttfamily float $\ast$ \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Translate\+Float (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+位置を取得する 
+
+\begin{DoxyReturn}{戻り値}
+Transformの位置 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00152}{152}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_sequence_object_a4ece6d2ef1671f7680890819201ef324}\label{class_sequence_object_a4ece6d2ef1671f7680890819201ef324}} 
+\index{SequenceObject@{SequenceObject}!Update@{Update}}
+\index{Update@{Update}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Sequence\+Object\+::\+Update (\begin{DoxyParamCaption}\item[{bool}]{playing,  }\item[{float}]{frame }\end{DoxyParamCaption})}
+
+
+
+シーケンサ内部オブジェクトの更新 
+
+
+\begin{DoxyParams}{引数}
+{\em playing} & 実行中か \\
+\hline
+{\em frame} & フレーム数 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_sequencer_8cpp_source}{Component\+Sequencer.\+cpp}} の \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{168}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_sequencer_8h_source_l00118}{animation\+\_\+frame\+\_\+old\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00120}{animation\+\_\+loop\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00117}{animation\+\_\+name\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00130}{effect\+\_\+change\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00127}{effect\+\_\+frame\+\_\+old\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00129}{effect\+\_\+loop\+\_\+}}, \mbox{\hyperlink{_system_main_8cpp_source_l00099}{Get\+Delta\+Time()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00073}{Get\+Transform\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00105}{name\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00132}{object\+\_\+matrix\+\_\+}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00017}{Set\+Animation\+From\+Frame()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00116}{Set\+Delta\+Time()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00044}{Set\+Effect\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{Show\+Guizmo()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00158}{Sort()}} (計15項目).
+
+\mbox{\Hypertarget{class_i_matrix_a781040f918546a43c53fe908f78749ab}\label{class_i_matrix_a781040f918546a43c53fe908f78749ab}} 
+\index{SequenceObject@{SequenceObject}!VectorAxisX@{VectorAxisX}}
+\index{VectorAxisX@{VectorAxisX}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{VectorAxisX()}{VectorAxisX()}}
+{\footnotesize\ttfamily auto \& \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Vector\+AxisX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+X軸を取得する 
+
+\begin{DoxyReturn}{戻り値}
+Transformの\+X軸 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00134}{134}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a634a043c1cbcdf122104ec3a5677b2a5}\label{class_i_matrix_a634a043c1cbcdf122104ec3a5677b2a5}} 
+\index{SequenceObject@{SequenceObject}!VectorAxisXFloat@{VectorAxisXFloat}}
+\index{VectorAxisXFloat@{VectorAxisXFloat}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{VectorAxisXFloat()}{VectorAxisXFloat()}}
+{\footnotesize\ttfamily float $\ast$ \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Vector\+Axis\+XFloat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+X軸を取得する 
+
+\begin{DoxyReturn}{戻り値}
+Component\+Transformの\+X軸 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00158}{158}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a85f8892147948781655c3cdfef6b56a4}\label{class_i_matrix_a85f8892147948781655c3cdfef6b56a4}} 
+\index{SequenceObject@{SequenceObject}!VectorAxisY@{VectorAxisY}}
+\index{VectorAxisY@{VectorAxisY}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{VectorAxisY()}{VectorAxisY()}}
+{\footnotesize\ttfamily auto \& \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Vector\+AxisY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Y軸を取得する 
+
+\begin{DoxyReturn}{戻り値}
+Transformの\+Y軸 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00140}{140}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a310e16cb1bcea89de3f5792c9a1256e4}\label{class_i_matrix_a310e16cb1bcea89de3f5792c9a1256e4}} 
+\index{SequenceObject@{SequenceObject}!VectorAxisYFloat@{VectorAxisYFloat}}
+\index{VectorAxisYFloat@{VectorAxisYFloat}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{VectorAxisYFloat()}{VectorAxisYFloat()}}
+{\footnotesize\ttfamily float $\ast$ \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Vector\+Axis\+YFloat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Y軸を取得する 
+
+\begin{DoxyReturn}{戻り値}
+Component\+Transformの\+Y軸 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00164}{164}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_a13ca80b18abe18006c5963d182837ef4}\label{class_i_matrix_a13ca80b18abe18006c5963d182837ef4}} 
+\index{SequenceObject@{SequenceObject}!VectorAxisZ@{VectorAxisZ}}
+\index{VectorAxisZ@{VectorAxisZ}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{VectorAxisZ()}{VectorAxisZ()}}
+{\footnotesize\ttfamily auto \& \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Vector\+AxisZ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Z軸を取得する 
+
+\begin{DoxyReturn}{戻り値}
+Transformの\+Z軸 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00146}{146}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_i_matrix_ac85c3df7009e77d500be39547f08fc59}\label{class_i_matrix_ac85c3df7009e77d500be39547f08fc59}} 
+\index{SequenceObject@{SequenceObject}!VectorAxisZFloat@{VectorAxisZFloat}}
+\index{VectorAxisZFloat@{VectorAxisZFloat}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{VectorAxisZFloat()}{VectorAxisZFloat()}}
+{\footnotesize\ttfamily float $\ast$ \mbox{\hyperlink{class_i_matrix}{IMatrix}}$<$ \mbox{\hyperlink{class_sequence_object}{Sequence\+Object}}  $>$\+::\+Vector\+Axis\+ZFloat (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+Z軸を取得する 
+
+\begin{DoxyReturn}{戻り値}
+Component\+Transformの\+Z軸 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} の \mbox{\hyperlink{_component_transform_8h_source_l00170}{170}} 行目に定義があります。
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{class_sequence_object_aae5801c69d7e21be05fe924147815774}\label{class_sequence_object_aae5801c69d7e21be05fe924147815774}} 
+\index{SequenceObject@{SequenceObject}!animation\_change\_@{animation\_change\_}}
+\index{animation\_change\_@{animation\_change\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{animation\_change\_}{animation\_change\_}}
+{\footnotesize\ttfamily bool Sequence\+Object\+::animation\+\_\+change\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+アニメーションが変わったか 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00121}{121}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00017}{Set\+Animation\+From\+Frame()}}.
+
+\mbox{\Hypertarget{class_sequence_object_aada94701b03c68b8c15b43a2de1faab9}\label{class_sequence_object_aada94701b03c68b8c15b43a2de1faab9}} 
+\index{SequenceObject@{SequenceObject}!animation\_frame\_@{animation\_frame\_}}
+\index{animation\_frame\_@{animation\_frame\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{animation\_frame\_}{animation\_frame\_}}
+{\footnotesize\ttfamily int Sequence\+Object\+::animation\+\_\+frame\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+現在のフレーム 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00119}{119}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00017}{Set\+Animation\+From\+Frame()}}.
+
+\mbox{\Hypertarget{class_sequence_object_ab4a2af00d477091e1ba50e37a0f3b605}\label{class_sequence_object_ab4a2af00d477091e1ba50e37a0f3b605}} 
+\index{SequenceObject@{SequenceObject}!animation\_frame\_old\_@{animation\_frame\_old\_}}
+\index{animation\_frame\_old\_@{animation\_frame\_old\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{animation\_frame\_old\_}{animation\_frame\_old\_}}
+{\footnotesize\ttfamily int Sequence\+Object\+::animation\+\_\+frame\+\_\+old\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+前のフレーム 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00118}{118}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a5bb8e7b00281dcee237c1805464294dd}\label{class_sequence_object_a5bb8e7b00281dcee237c1805464294dd}} 
+\index{SequenceObject@{SequenceObject}!animation\_keys\_@{animation\_keys\_}}
+\index{animation\_keys\_@{animation\_keys\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{animation\_keys\_}{animation\_keys\_}}
+{\footnotesize\ttfamily std\+::vector$<$uint32\+\_\+t$>$ Sequence\+Object\+::animation\+\_\+keys\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+アニメーションキー 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00114}{114}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00017}{Set\+Animation\+From\+Frame()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a556f1eedd865fb56098733e03bc04895}\label{class_sequence_object_a556f1eedd865fb56098733e03bc04895}} 
+\index{SequenceObject@{SequenceObject}!animation\_loop\_@{animation\_loop\_}}
+\index{animation\_loop\_@{animation\_loop\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{animation\_loop\_}{animation\_loop\_}}
+{\footnotesize\ttfamily bool Sequence\+Object\+::animation\+\_\+loop\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ループするかの設定 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00120}{120}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00017}{Set\+Animation\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a46bf3d853dbf812cfa76509c1aaf1b4a}\label{class_sequence_object_a46bf3d853dbf812cfa76509c1aaf1b4a}} 
+\index{SequenceObject@{SequenceObject}!animation\_name\_@{animation\_name\_}}
+\index{animation\_name\_@{animation\_name\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{animation\_name\_}{animation\_name\_}}
+{\footnotesize\ttfamily std\+::string Sequence\+Object\+::animation\+\_\+name\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+アニメーション名 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00117}{117}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00017}{Set\+Animation\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a8f8bb0071bec2ec980bd9945b8f5b11c}\label{class_sequence_object_a8f8bb0071bec2ec980bd9945b8f5b11c}} 
+\index{SequenceObject@{SequenceObject}!animation\_values\_@{animation\_values\_}}
+\index{animation\_values\_@{animation\_values\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{animation\_values\_}{animation\_values\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_anim_object}{Anim\+Object}}$>$ Sequence\+Object\+::animation\+\_\+values\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+アニメーション値 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00115}{115}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00017}{Set\+Animation\+From\+Frame()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a03468dc3f24635e050cea182556afdac}\label{class_sequence_object_a03468dc3f24635e050cea182556afdac}} 
+\index{SequenceObject@{SequenceObject}!effect\_change\_@{effect\_change\_}}
+\index{effect\_change\_@{effect\_change\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{effect\_change\_}{effect\_change\_}}
+{\footnotesize\ttfamily bool Sequence\+Object\+::effect\+\_\+change\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+エフェクトが変わったか 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00130}{130}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00044}{Set\+Effect\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a11903da3ed56f0a592b2e92be437b9a9}\label{class_sequence_object_a11903da3ed56f0a592b2e92be437b9a9}} 
+\index{SequenceObject@{SequenceObject}!effect\_frame\_@{effect\_frame\_}}
+\index{effect\_frame\_@{effect\_frame\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{effect\_frame\_}{effect\_frame\_}}
+{\footnotesize\ttfamily int Sequence\+Object\+::effect\+\_\+frame\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+現在のフレーム 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00128}{128}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00044}{Set\+Effect\+From\+Frame()}}.
+
+\mbox{\Hypertarget{class_sequence_object_aa66e5ae40631852840643959e66c7b05}\label{class_sequence_object_aa66e5ae40631852840643959e66c7b05}} 
+\index{SequenceObject@{SequenceObject}!effect\_frame\_old\_@{effect\_frame\_old\_}}
+\index{effect\_frame\_old\_@{effect\_frame\_old\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{effect\_frame\_old\_}{effect\_frame\_old\_}}
+{\footnotesize\ttfamily int Sequence\+Object\+::effect\+\_\+frame\+\_\+old\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+前のフレーム 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00127}{127}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_sequence_object_ad903315ca5d33b52d07bb95531b7362c}\label{class_sequence_object_ad903315ca5d33b52d07bb95531b7362c}} 
+\index{SequenceObject@{SequenceObject}!effect\_keys\_@{effect\_keys\_}}
+\index{effect\_keys\_@{effect\_keys\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{effect\_keys\_}{effect\_keys\_}}
+{\footnotesize\ttfamily std\+::vector$<$uint32\+\_\+t$>$ Sequence\+Object\+::effect\+\_\+keys\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+エフェクトキー 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00123}{123}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00044}{Set\+Effect\+From\+Frame()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a44a4bb874334e53074f648d5843fd571}\label{class_sequence_object_a44a4bb874334e53074f648d5843fd571}} 
+\index{SequenceObject@{SequenceObject}!effect\_loop\_@{effect\_loop\_}}
+\index{effect\_loop\_@{effect\_loop\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{effect\_loop\_}{effect\_loop\_}}
+{\footnotesize\ttfamily bool Sequence\+Object\+::effect\+\_\+loop\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ループするかの設定 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00129}{129}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00044}{Set\+Effect\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a72b307bfd6dcb3bfdde6b9c3b6ae8325}\label{class_sequence_object_a72b307bfd6dcb3bfdde6b9c3b6ae8325}} 
+\index{SequenceObject@{SequenceObject}!effect\_number\_@{effect\_number\_}}
+\index{effect\_number\_@{effect\_number\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{effect\_number\_}{effect\_number\_}}
+{\footnotesize\ttfamily int Sequence\+Object\+::effect\+\_\+number\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+エフェクト番号 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00126}{126}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00044}{Set\+Effect\+From\+Frame()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a07bd5b91178717390c908700d3edcefc}\label{class_sequence_object_a07bd5b91178717390c908700d3edcefc}} 
+\index{SequenceObject@{SequenceObject}!effect\_values\_@{effect\_values\_}}
+\index{effect\_values\_@{effect\_values\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{effect\_values\_}{effect\_values\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_anim_object}{Anim\+Object}}$>$ Sequence\+Object\+::effect\+\_\+values\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+エフェクト値 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00124}{124}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00044}{Set\+Effect\+From\+Frame()}}.
+
+\mbox{\Hypertarget{class_sequence_object_aebaada41d0072cbdaf71e13e8093a0e3}\label{class_sequence_object_aebaada41d0072cbdaf71e13e8093a0e3}} 
+\index{SequenceObject@{SequenceObject}!guizmo\_index\_@{guizmo\_index\_}}
+\index{guizmo\_index\_@{guizmo\_index\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{guizmo\_index\_}{guizmo\_index\_}}
+{\footnotesize\ttfamily int Sequence\+Object\+::guizmo\+\_\+index\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ギズモ番号 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00103}{103}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{Show\+Guizmo()}}.
+
+\mbox{\Hypertarget{class_sequence_object_add3498385dff64f23144a00be8a8e749}\label{class_sequence_object_add3498385dff64f23144a00be8a8e749}} 
+\index{SequenceObject@{SequenceObject}!guizmo\_mode\_@{guizmo\_mode\_}}
+\index{guizmo\_mode\_@{guizmo\_mode\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{guizmo\_mode\_}{guizmo\_mode\_}}
+{\footnotesize\ttfamily Im\+Guizmo\+::\+MODE Sequence\+Object\+::guizmo\+\_\+mode\+\_\+ = Im\+Guizmo\+::\+MODE\+::\+WORLD\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ギズモのモード 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00100}{100}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{Show\+Guizmo()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a0fda2b585a734ba577881741283a4758}\label{class_sequence_object_a0fda2b585a734ba577881741283a4758}} 
+\index{SequenceObject@{SequenceObject}!guizmo\_operation\_@{guizmo\_operation\_}}
+\index{guizmo\_operation\_@{guizmo\_operation\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{guizmo\_operation\_}{guizmo\_operation\_}}
+{\footnotesize\ttfamily Im\+Guizmo\+::\+OPERATION Sequence\+Object\+::guizmo\+\_\+operation\+\_\+ = Im\+Guizmo\+::\+OPERATION\+::\+TRANSLATE\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ギズモのオペレーション 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00097}{97}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{Show\+Guizmo()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a5e3f2fd669f746a372c9a9eb4b11d9db}\label{class_sequence_object_a5e3f2fd669f746a372c9a9eb4b11d9db}} 
+\index{SequenceObject@{SequenceObject}!name\_@{name\_}}
+\index{name\_@{name\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{name\_}{name\_}}
+{\footnotesize\ttfamily std\+::string Sequence\+Object\+::name\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+オブジェクトの名前 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00105}{105}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00049}{Get\+Name()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00017}{Set\+Animation\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_sequence_object_ad3f698ca496c2a43082ede34008c0785}\label{class_sequence_object_ad3f698ca496c2a43082ede34008c0785}} 
+\index{SequenceObject@{SequenceObject}!object\_matrix\_@{object\_matrix\_}}
+\index{object\_matrix\_@{object\_matrix\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{object\_matrix\_}{object\_matrix\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} Sequence\+Object\+::object\+\_\+matrix\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+{\bfseries 初期値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ float4\{1,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ float4\{0,\ 1,\ 0,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ float4\{0,\ 0,\ 1,\ 0\},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ float4\{0,\ 0,\ 0,\ 1\},}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00132}{132}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00030}{Get\+Matrix()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00044}{Get\+Old\+World\+Matrix()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00038}{Get\+World\+Matrix()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00024}{Matrix()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{Show\+Guizmo()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Update()}}.
+
+\mbox{\Hypertarget{class_sequence_object_aaf34da5ddfb1061dd06bdad1456f0c98}\label{class_sequence_object_aaf34da5ddfb1061dd06bdad1456f0c98}} 
+\index{SequenceObject@{SequenceObject}!open\_@{open\_}}
+\index{open\_@{open\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{open\_}{open\_}}
+{\footnotesize\ttfamily bool Sequence\+Object\+::open\+\_\+ = true\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00091}{91}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8h_source_l00058}{Is\+Open()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a18b7afb047aed710e7d0cc319091d32f}\label{class_sequence_object_a18b7afb047aed710e7d0cc319091d32f}} 
+\index{SequenceObject@{SequenceObject}!position\_keys\_@{position\_keys\_}}
+\index{position\_keys\_@{position\_keys\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{position\_keys\_}{position\_keys\_}}
+{\footnotesize\ttfamily std\+::vector$<$uint32\+\_\+t$>$ Sequence\+Object\+::position\+\_\+keys\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ポジションキー 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00106}{106}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00073}{Get\+Transform\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00158}{Sort()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a4f45891d5addc4b63e558a0634bbb9ad}\label{class_sequence_object_a4f45891d5addc4b63e558a0634bbb9ad}} 
+\index{SequenceObject@{SequenceObject}!position\_values\_@{position\_values\_}}
+\index{position\_values\_@{position\_values\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{position\_values\_}{position\_values\_}}
+{\footnotesize\ttfamily std\+::vector$<$float3$>$ Sequence\+Object\+::position\+\_\+values\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ポジション値 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00110}{110}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00073}{Get\+Transform\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{Show\+Guizmo()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00158}{Sort()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a6173662c8759ab64aca41f2fae68f2f1}\label{class_sequence_object_a6173662c8759ab64aca41f2fae68f2f1}} 
+\index{SequenceObject@{SequenceObject}!rotation\_keys\_@{rotation\_keys\_}}
+\index{rotation\_keys\_@{rotation\_keys\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{rotation\_keys\_}{rotation\_keys\_}}
+{\footnotesize\ttfamily std\+::vector$<$uint32\+\_\+t$>$ Sequence\+Object\+::rotation\+\_\+keys\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ローテーションキー 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00107}{107}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00073}{Get\+Transform\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00158}{Sort()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a615da167e660f27edae0851f09d81609}\label{class_sequence_object_a615da167e660f27edae0851f09d81609}} 
+\index{SequenceObject@{SequenceObject}!rotation\_values\_@{rotation\_values\_}}
+\index{rotation\_values\_@{rotation\_values\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{rotation\_values\_}{rotation\_values\_}}
+{\footnotesize\ttfamily std\+::vector$<$float3$>$ Sequence\+Object\+::rotation\+\_\+values\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ローテーション値 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00111}{111}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00073}{Get\+Transform\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{Show\+Guizmo()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00158}{Sort()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a526b0d4e8e1cbd090aaa5c55bbb51720}\label{class_sequence_object_a526b0d4e8e1cbd090aaa5c55bbb51720}} 
+\index{SequenceObject@{SequenceObject}!scale\_keys\_@{scale\_keys\_}}
+\index{scale\_keys\_@{scale\_keys\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{scale\_keys\_}{scale\_keys\_}}
+{\footnotesize\ttfamily std\+::vector$<$uint32\+\_\+t$>$ Sequence\+Object\+::scale\+\_\+keys\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+スケールキー 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00108}{108}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00073}{Get\+Transform\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00158}{Sort()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a51e52dbc6b8d5d8b1f6c41f8857701fa}\label{class_sequence_object_a51e52dbc6b8d5d8b1f6c41f8857701fa}} 
+\index{SequenceObject@{SequenceObject}!scale\_values\_@{scale\_values\_}}
+\index{scale\_values\_@{scale\_values\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{scale\_values\_}{scale\_values\_}}
+{\footnotesize\ttfamily std\+::vector$<$float3$>$ Sequence\+Object\+::scale\+\_\+values\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+スケール値 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00112}{112}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8h_source_l00142}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00073}{Get\+Transform\+From\+Frame()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{Show\+Guizmo()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00158}{Sort()}}.
+
+\mbox{\Hypertarget{class_sequence_object_a9aac19fa7080d9d63c05a07fa10982e9}\label{class_sequence_object_a9aac19fa7080d9d63c05a07fa10982e9}} 
+\index{SequenceObject@{SequenceObject}!show\_guizmo\_@{show\_guizmo\_}}
+\index{show\_guizmo\_@{show\_guizmo\_}!SequenceObject@{SequenceObject}}
+\doxysubsubsection{\texorpdfstring{show\_guizmo\_}{show\_guizmo\_}}
+{\footnotesize\ttfamily bool Sequence\+Object\+::show\+\_\+guizmo\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ギズモの表示 
+
+
+
+ \mbox{\hyperlink{_component_sequencer_8h_source}{Component\+Sequencer.\+h}} の \mbox{\hyperlink{_component_sequencer_8h_source_l00094}{94}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00219}{GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{Show\+Guizmo()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_component_sequencer_8h}{Component\+Sequencer.\+h}}\item 
+\mbox{\hyperlink{_component_sequencer_8cpp}{Component\+Sequencer.\+cpp}}\end{DoxyCompactItemize}

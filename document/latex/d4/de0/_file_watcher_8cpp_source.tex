@@ -1,0 +1,186 @@
+\hypertarget{_file_watcher_8cpp_source}{}\doxysection{File\+Watcher.\+cpp}
+\label{_file_watcher_8cpp_source}\index{FileWatcher.cpp@{FileWatcher.cpp}}
+\mbox{\hyperlink{_file_watcher_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ FileWatcher.cpp}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ ファイル変更監視}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_file_watcher_8h}{FileWatcher.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <locale>}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00008}00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00009}00009\ \textcolor{comment}{//!\ 初期化}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00010}00010\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00011}\mbox{\hyperlink{class_file_watcher_a7db0265065f45b87e930ca0acc4070fc}{00011}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_file_watcher_a7db0265065f45b87e930ca0acc4070fc}{FileWatcher::initialize}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ path,\ std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*)>\ callback)\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00012}00012\ \ \ \ \ \mbox{\hyperlink{class_file_watcher_a7c2c5e3bc21247b7add11fa6e8096b36}{callback\_}}\ =\ callback;}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{comment}{//\ フルパスに変換}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00015}00015\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ size\ =\ GetFullPathNameW(path,\ 0,\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_file_watcher_a1ba7642346a4c2af43cdf8d3262c4083}{full\_path\_}}.resize(size);}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00018}00018\ \ \ \ \ \ \ \ \ GetFullPathNameW(path,\ size,\ \mbox{\hyperlink{class_file_watcher_a1ba7642346a4c2af43cdf8d3262c4083}{full\_path\_}}.data(),\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00019}00019\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{comment}{//\ コンソール出力を日本語可能に}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00021}00021\ \ \ \ \ setlocale(LC\_ALL,\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{comment}{//\ 対象のディレクトリを監視用にオープンする。}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00024}00024\ \ \ \ \ \textcolor{comment}{//\ 共有ディレクトリ使用可、対象フォルダを削除可}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{comment}{//\ 非同期I/O使用}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00026}00026\ \ \ \ \ \mbox{\hyperlink{class_file_watcher_a8827a8a00b2a1b7558a46ab5d6c120f3}{handle\_directory\_}}\ =\ CreateFileW(\mbox{\hyperlink{class_file_watcher_a1ba7642346a4c2af43cdf8d3262c4083}{full\_path\_}}.c\_str(),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ 監視先パス}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FILE\_LIST\_DIRECTORY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ 要求アクセス}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FILE\_SHARE\_READ\ |\ FILE\_SHARE\_WRITE\ |\ FILE\_SHARE\_DELETE,\ \ \ \ \textcolor{comment}{//\ [in]\ 共有モード}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ セキュリティ属性}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OPEN\_EXISTING,\ \ \ \ \textcolor{comment}{//\ [in]\ フォルダが存在する場合にのみ成功}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FILE\_FLAG\_BACKUP\_SEMANTICS\ |\ FILE\_FLAG\_OVERLAPPED,\ \ \ \ \textcolor{comment}{//\ [in]\ ReadDirectoryChangesW用}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_file_watcher_a8827a8a00b2a1b7558a46ab5d6c120f3}{handle\_directory\_}}\ ==\ INVALID\_HANDLE\_VALUE)\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00035}00035\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00037}00037\ \ \ \ \ \textcolor{comment}{//\ 変更されたファイルのリストを記録するためのバッファ}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00038}00038\ \ \ \ \ \textcolor{comment}{//\ 最初のReadDirectoryChangesWの通知から次のReadDirectoryChangesWまでの}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00039}00039\ \ \ \ \ \textcolor{comment}{//\ 間に変更されたファイルの情報を格納できるだけのサイズが必要}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00040}00040\ \ \ \ \ \textcolor{comment}{//\ バッファオーバーとしてもファイルに変更が発生したことは感知できるが、}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00041}00041\ \ \ \ \ \textcolor{comment}{//\ なにが変更されたかは通知できない。}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00042}00042\ \ \ \ \ \mbox{\hyperlink{class_file_watcher_a933b07b27cba6732d69b863553ff0f40}{buffer\_}}.resize(64\ *\ 1024);}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00044}00044\ \ \ \ \ \textcolor{comment}{//\ 非同期I/Oの完了待機用\ (手動リセットモード)}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{comment}{//\ 変更通知のイベント発行とキャンセル完了のイベント発行の}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00046}00046\ \ \ \ \ \textcolor{comment}{//\ 2つのイベントソースがあるためイベントの流れが予想できず}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00047}00047\ \ \ \ \ \textcolor{comment}{//\ 自動リセットイベントにするのは危険。}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{class_file_watcher_a6fd652f4ee18618d9ed9872890cee55e}{finish\_event\_}}\ =\ CreateEvent(\textcolor{keyword}{nullptr},\ \textcolor{keyword}{true},\ \textcolor{keyword}{false},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_file_watcher_a6fd652f4ee18618d9ed9872890cee55e}{finish\_event\_}}\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{comment}{//\ イベントの手動リセット}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00054}00054\ \ \ \ \ ResetEvent(\mbox{\hyperlink{class_file_watcher_a6fd652f4ee18618d9ed9872890cee55e}{finish\_event\_}});}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00056}00056\ \ \ \ \ \textcolor{comment}{//\ 非同期I/O}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{class_file_watcher_aec64232fd9f71e4fc0eb5771ba0d8ea4}{overlapped\_}}.hEvent\ =\ \mbox{\hyperlink{class_file_watcher_a6fd652f4ee18618d9ed9872890cee55e}{finish\_event\_}};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{comment}{//\ 監視を開始}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00060}00060\ \ \ \ \ \mbox{\hyperlink{class_file_watcher_a79bcb82abf1670ea2d67c771a7d319c3}{start}}();}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00062}00062\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00063}00063\ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00065}00065\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00066}00066\ \textcolor{comment}{//!\ 更新}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00067}00067\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00068}\mbox{\hyperlink{class_file_watcher_af2a7434835ea10f3e5c2fae51de973e4}{00068}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_file_watcher_af2a7434835ea10f3e5c2fae51de973e4}{FileWatcher::update}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00069}00069\ \ \ \ \ \textcolor{comment}{//\ 変更通知チェック}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00070}00070\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ result\ =\ WaitForSingleObject(\mbox{\hyperlink{class_file_watcher_a6fd652f4ee18618d9ed9872890cee55e}{finish\_event\_}},\ 0);}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{if}(result\ ==\ WAIT\_TIMEOUT)\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00073}00073\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00075}00075\ \ \ \ \ \textcolor{comment}{//\ 非同期I/Oの結果を取得する}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00076}00076\ \ \ \ \ DWORD\ size\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00077}00077\ \ \ \ \ \textcolor{keywordflow}{if}(!GetOverlappedResult(\mbox{\hyperlink{class_file_watcher_a8827a8a00b2a1b7558a46ab5d6c120f3}{handle\_directory\_}},\ \&\mbox{\hyperlink{class_file_watcher_aec64232fd9f71e4fc0eb5771ba0d8ea4}{overlapped\_}},\ \&size,\ FALSE))\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 結果取得に失敗した場合}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00080}00080\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{if}(size\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 返却サイズが0ならばバッファオーバーを示す}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ assert(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//\ 最初のエントリに位置付ける}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{keyword}{auto}\ data\ =\ \textcolor{keyword}{reinterpret\_cast<}FILE\_NOTIFY\_INFORMATION*\textcolor{keyword}{>}(\mbox{\hyperlink{class_file_watcher_a933b07b27cba6732d69b863553ff0f40}{buffer\_}}.data());}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00090}00090\ \ \ \ \ \textcolor{comment}{//\ エントリの末尾まで繰り返す}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00091}00091\ \ \ \ \ \textcolor{keywordflow}{for}(;;)\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ アクションタイプによって処理。現時点では特殊な処理は無し。}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(data-\/>Action)\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FILE\_ACTION\_ADDED:}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FILE\_ACTION\_REMOVED:}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FILE\_ACTION\_MODIFIED:}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FILE\_ACTION\_RENAMED\_OLD\_NAME:}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ FILE\_ACTION\_RENAMED\_NEW\_NAME:}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ファイル名はnull終端されていないため長さから終端を付与}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \ \ \ \ \ \ \ \ \ byte\_size\ =\ data-\/>FileNameLength;\ \ \ \ \textcolor{comment}{//\ 文字数ではなくバイト数}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ std::wstring\ file\_name;}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ file\_name.resize(byte\_size\ /\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{wchar\_t}));}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ memcpy(file\_name.data(),\ data-\/>FileName,\ byte\_size);}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ バックスラッシュをスラッシュに変換}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ c:\ file\_name)\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ L\textcolor{charliteral}{'\(\backslash\)\(\backslash\)'})\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ c\ =\ L\textcolor{charliteral}{'/'};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ アクションと対象ファイルを処理}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_file_watcher_a7c2c5e3bc21247b7add11fa6e8096b36}{callback\_}}(file\_name.data());}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(data-\/>NextEntryOffset\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_file_watcher_a79bcb82abf1670ea2d67c771a7d319c3}{start}}();\ \ \ \ \textcolor{comment}{//\ 監視を再開}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00129}00129\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 次のエントリの位置まで移動する\ (現在アドレスからの相対バイト数)}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ data\ =\ \textcolor{keyword}{reinterpret\_cast<}FILE\_NOTIFY\_INFORMATION*\textcolor{keyword}{>}(\textcolor{keyword}{reinterpret\_cast<}std::intptr\_t\textcolor{keyword}{>}(data)\ +\ data-\/>NextEntryOffset);}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00132}00132\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00133}00133\ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00135}00135\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00136}00136\ \textcolor{comment}{//!\ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00137}00137\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00138}\mbox{\hyperlink{class_file_watcher_a461b5b2c3564c78e76ed3f7a3d6792a1}{00138}}\ \mbox{\hyperlink{class_file_watcher_a461b5b2c3564c78e76ed3f7a3d6792a1}{FileWatcher::\string~FileWatcher}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00139}00139\ \ \ \ \ \textcolor{comment}{//\ 途中終了するなら非同期I/Oも中止}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00140}00140\ \ \ \ \ \textcolor{comment}{//\ Overlapped構造体をシステムが使わなくなるまで待機する必要がある}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00141}00141\ \ \ \ \ CancelIo(\mbox{\hyperlink{class_file_watcher_a8827a8a00b2a1b7558a46ab5d6c120f3}{handle\_directory\_}});}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00142}00142\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_file_watcher_a6fd652f4ee18618d9ed9872890cee55e}{finish\_event\_}}\ !=\ INVALID\_HANDLE\_VALUE)\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ WaitForSingleObject(\mbox{\hyperlink{class_file_watcher_a6fd652f4ee18618d9ed9872890cee55e}{finish\_event\_}},\ INFINITE);}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00144}00144\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00146}00146\ \ \ \ \ \textcolor{comment}{//\ ハンドルの解放}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00147}00147\ \ \ \ \ CloseHandle(\mbox{\hyperlink{class_file_watcher_a6fd652f4ee18618d9ed9872890cee55e}{finish\_event\_}});}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00148}00148\ \ \ \ \ CloseHandle(\mbox{\hyperlink{class_file_watcher_a8827a8a00b2a1b7558a46ab5d6c120f3}{handle\_directory\_}});}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00149}00149\ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00151}00151\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00152}00152\ \textcolor{comment}{//!\ ファイル監視を開始}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00153}00153\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00154}\mbox{\hyperlink{class_file_watcher_a79bcb82abf1670ea2d67c771a7d319c3}{00154}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_file_watcher_a79bcb82abf1670ea2d67c771a7d319c3}{FileWatcher::start}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00155}00155\ \ \ \ \ \textcolor{comment}{//\ 監視条件\ (FindFirstChangeNotificationと同じ)}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00156}00156\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ filter\ =\ FILE\_NOTIFY\_CHANGE\_FILE\_NAME\ |\ \ \ \ \ \textcolor{comment}{//\ ファイル名の変更}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FILE\_NOTIFY\_CHANGE\_DIR\_NAME\ |\ \ \ \ \ \ \textcolor{comment}{//\ ディレクトリ名の変更}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FILE\_NOTIFY\_CHANGE\_ATTRIBUTES\ |\ \ \ \ \textcolor{comment}{//\ 属性の変更}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FILE\_NOTIFY\_CHANGE\_SIZE\ |\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ サイズの変更}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FILE\_NOTIFY\_CHANGE\_LAST\_WRITE;\ \ \ \ \ \textcolor{comment}{//\ 最終書き込み日時の変更}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00162}00162\ \ \ \ \ \textcolor{comment}{//\ 変更を監視する}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00163}00163\ \ \ \ \ \textcolor{comment}{//\ 初回呼び出し時にシステムが指定サイズでバッファを確保し、そこに変更を記録する}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00164}00164\ \ \ \ \ \textcolor{comment}{//\ 完了通知後もシステムは変更を追跡しており、後続のReadDirectoryChangeWの}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00165}00165\ \ \ \ \ \textcolor{comment}{//\ 呼び出しで、前回通知後からの変更をまとめて受け取ることができる}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00166}00166\ \ \ \ \ \textcolor{comment}{//\ バッファがあふれた場合はサイズ0で応答が返される}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00167}00167\ \ \ \ \ \textcolor{keywordflow}{if}(!ReadDirectoryChangesW(\mbox{\hyperlink{class_file_watcher_a8827a8a00b2a1b7558a46ab5d6c120f3}{handle\_directory\_}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 対象ディレクトリ}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_file_watcher_a933b07b27cba6732d69b863553ff0f40}{buffer\_}}.data(),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 通知を格納するバッファ}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}DWORD\textcolor{keyword}{>}(\mbox{\hyperlink{class_file_watcher_a933b07b27cba6732d69b863553ff0f40}{buffer\_}}.size()),\ \ \ \ \textcolor{comment}{//\ バッファサイズ}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{true},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ サブディレクトリを対象にするかどうか}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ filter,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 変更通知を受け取るフィルタ}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (結果サイズ,\ 非同期なので未使用)}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&\mbox{\hyperlink{class_file_watcher_aec64232fd9f71e4fc0eb5771ba0d8ea4}{overlapped\_}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 非同期I/Oバッファ}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (完了ルーチン,\ 未使用)}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ))\ \{}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 開始できなかった場合のエラー}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00178}00178\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00179}00179\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_file_watcher_8cpp_source_l00180}00180\ \}}
+
+\end{DoxyCode}

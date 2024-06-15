@@ -8,7 +8,7 @@ USING_PTR(Mutant);
 
 class Mutant: public Enemy {
    public:
-    BP_OBJECT_TYPE(Mutant, Enemy);
+    BP_OBJECT_DECL(Mutant, "LittleQuest/Mutant");
     static MutantPtr Create(const float3& pos, bool isPatrol = true);
 
     bool Init() override;

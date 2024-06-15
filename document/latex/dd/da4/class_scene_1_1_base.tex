@@ -1,0 +1,1202 @@
+\hypertarget{class_scene_1_1_base}{}\doxysection{Scene\+::Base クラス}
+\label{class_scene_1_1_base}\index{Scene::Base@{Scene::Base}}
+
+
+シーンベース  
+
+
+
+
+{\ttfamily \#include $<$Scene.\+h$>$}
+
+
+
+Scene\+::Base の継承関係図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{d2/d9c/class_scene_1_1_base__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Scene\+::Base 連携図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{d4/de6/class_scene_1_1_base__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_scene_1_1_base_aefd0ba17f969958a8e6f0e184bd12bf1}{BP\+\_\+\+BASE\+\_\+\+TYPE}} (\mbox{\hyperlink{class_scene_1_1_base}{Scene\+::\+Base}})
+\item 
+\mbox{\hyperlink{class_scene_1_1_base_a7ffb3d5096023907866330208fa59c4f}{Base}} ()
+\begin{DoxyCompactList}\small\item\em 初期化処理 \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_scene_1_1_base_ab3d810e9c6c8edc4be485c28085a9067}{$\sim$\+Base}} ()
+\begin{DoxyCompactList}\small\item\em 終了処理 \end{DoxyCompactList}\item 
+const std\+::string\+\_\+view \mbox{\hyperlink{class_scene_1_1_base_a7ad7e103705898eb569b38c5bb243b73}{Get\+Name}} () const
+\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ ユーザー処理}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \mbox{\hyperlink{class_scene_1_1_base_a0b3e5ef57d5a7142c71060555e2f511e}{Init}} ()
+\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_a436767ffb4cae760e2d7f4515c875efe}{Update}} ()
+\begin{DoxyCompactList}\small\item\em 初期化 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_a23b645fe0ed8548384fc6ca9e322a01f}{Draw}} ()
+\begin{DoxyCompactList}\small\item\em 更新 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_aea546aec5c374052aae6d7d9ac307ddf}{Exit}} ()
+\begin{DoxyCompactList}\small\item\em 描画 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_a604e0945cde121e2daafd9083f5969a1}{GUI}} ()
+\begin{DoxyCompactList}\small\item\em 終了 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_a6d8010766657dfd7e55e1a4672197e06}{Pre\+Update}} ()
+\begin{DoxyCompactList}\small\item\em GUI表示 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_a5a6ab848cb67c7d0b644c7cbc950ba2c}{Late\+Update}} ()
+\begin{DoxyCompactList}\small\item\em 更新前処理 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_aea08d827487f7057b65609b7b9f499bf}{Pre\+Physics}} ()
+\begin{DoxyCompactList}\small\item\em 通常更新の後更新処理 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_a3d6fe564240f437764147bd750834998}{Post\+Update}} ()
+\begin{DoxyCompactList}\small\item\em 物理前(アクション後)処理 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_adfd06e5a59252146b30f3c215e4bdc08}{Pre\+Draw}} ()
+\begin{DoxyCompactList}\small\item\em 更新後(物理後)処理 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_a5e3ff265be3b00b502013944eda6f002}{Late\+Draw}} ()
+\begin{DoxyCompactList}\small\item\em 描画前処理 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_a77bbd7234621baaba04625a6ede8aa61}{Post\+Draw}} ()
+\begin{DoxyCompactList}\small\item\em 遅い描画の処理 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_scene_1_1_base_a1b94b077a74eea2faa328bdfa8a10c2d}{Init\+Serialize}} ()
+\begin{DoxyCompactList}\small\item\em 描画後の処理 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ オブジェクト登録/削除 処理}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_scene_1_1_base_affc37a140a581c2a5ae69b24af3b2e32}{Pre\+Register}} (Object\+Ptr obj, \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}} update=Priority\+::\+NORMAL, \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}} draw=Priority\+::\+NORMAL)
+\begin{DoxyCompactList}\small\item\em オブジェクト仮登録 \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\void \mbox{\hyperlink{class_scene_1_1_base_a0c2b29160d43c4909d17e79951850117}{Pre\+Register}} (T $\ast$obj, \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}} update, \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}} draw)
+\item 
+void \mbox{\hyperlink{class_scene_1_1_base_a433c5f0669e121bc9861a3a235e62730}{Register}} (Object\+Ptr obj, \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}} update=Priority\+::\+NORMAL, \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}} draw=Priority\+::\+NORMAL)
+\item 
+void \mbox{\hyperlink{class_scene_1_1_base_a7f115046d1adb9dbc8cdaa08ba27d8e5}{Register\+For\+Load}} (Object\+Ptr obj)
+\item 
+void \mbox{\hyperlink{class_scene_1_1_base_a764484e5f0e4028cd82cc83b6f0c236b}{Unregister}} (Object\+Ptr obj)
+\item 
+void \mbox{\hyperlink{class_scene_1_1_base_abc950a64ecfc1249b8c83a91362873e0}{Unregister\+All}} ()
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 処理優先変更 処理}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_scene_1_1_base_aa8ab84711532c119c55e0da898a553f5}{Set\+Priority}} (Object\+Ptr obj, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}} timing, \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}} priority)
+\begin{DoxyCompactList}\small\item\em 優先を設定変更します \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_1_1_base_ab8885718a49e2534711a5d26f9ea68fc}{Set\+Priority}} (Component\+Ptr commponent, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}} timing, \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}} priority)
+\begin{DoxyCompactList}\small\item\em 優先を設定変更します \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ オブジェクト作成/取得 処理}\par
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{class_scene_1_1_base_a5b7a48e79f4476c0e4cf498d8c4fb172}{Get\+Object\+Ptr}} (const std\+::string\+\_\+view name=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em オブジェクト取得 \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\std\+::vector$<$ std\+::shared\+\_\+ptr$<$ T $>$ $>$ \mbox{\hyperlink{class_scene_1_1_base_a6d21955ec981f4d1c98139de14d64998}{Get\+Objects\+Ptr}} (const std\+::string\+\_\+view name=\char`\"{}\char`\"{})
+\item 
+{\footnotesize template$<$class T $>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{class_scene_1_1_base_adb24758af25a28a58080ec2fd7e159b1}{Get\+Object\+Ptr\+With\+Create}} (const std\+::string\+\_\+view name=\char`\"{}\char`\"{})
+\item 
+const Object\+Ptr\+Vec \mbox{\hyperlink{class_scene_1_1_base_ad1b487f83c4ec95a1fe99899dae8f98b}{Get\+Object\+Ptr\+Vec}} ()
+\begin{DoxyCompactList}\small\item\em 複数オブジェクト配列の取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ シグナル}\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}} \& \mbox{\hyperlink{class_scene_1_1_base_a7494b8cfe7bf03f8424d20aad884e529}{Get\+Signals}} (\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}} timing)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ ユーザーシグナル}\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}} \& \mbox{\hyperlink{class_scene_1_1_base_a968d8f4ead2adfb84499b5cc4d4fc554}{Get\+Signals\+Shadow}} ()
+\begin{DoxyCompactList}\small\item\em Shadowタイミングシグナル取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}} \& \mbox{\hyperlink{class_scene_1_1_base_a53b7e2cea3f86d1ffb0263bc6c2178f2}{Get\+Signals\+Gbuffer}} ()
+\begin{DoxyCompactList}\small\item\em Gbufferタイミングシグナル取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}} \& \mbox{\hyperlink{class_scene_1_1_base_aba38130124598c6a0c03646885ed5e02}{Get\+Signals\+Light}} ()
+\begin{DoxyCompactList}\small\item\em Lightタイミングシグナル取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}} \& \mbox{\hyperlink{class_scene_1_1_base_a9527ad705e8ca9d3d8c1830495ad1521}{Get\+Signals\+HDR}} ()
+\begin{DoxyCompactList}\small\item\em Lightタイミングシグナル取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{静的公開メンバ関数}
+\begin{Indent}\textbf{ シーン取得or作成/ 解放 処理}\par
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\static std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{class_scene_1_1_base_aaeaacf7aeb3810c06d2da0fc026aec86}{Get\+Scene}} ()
+\item 
+{\footnotesize template$<$class T $>$ }\\static void \mbox{\hyperlink{class_scene_1_1_base_aadff70f4849a243e4d4856b43106b1db}{Release\+Scene}} ()
+\item 
+static bool \mbox{\hyperlink{class_scene_1_1_base_a1aa89291f6e4e02b8d0a5ef1a8adcc6f}{Is\+Scene\+Exist}} (const \mbox{\hyperlink{class_scene_a34512f125a00582d9fb48b407cefa839}{Base\+Ptr}} \&scene)
+\begin{DoxyCompactList}\small\item\em 確保しているものに同じシーンタイプがいないかチェックする \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_scene_1_1_base_a7960f386b2e25d893762cbb5a1cc40fa}{Set\+Scene}} (const \mbox{\hyperlink{class_scene_a34512f125a00582d9fb48b407cefa839}{Base\+Ptr}} \&scene)
+\begin{DoxyCompactList}\small\item\em シーン確保 (Get\+Sceneを使ってない場合の対処) \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_scene_1_1_base_a80cc3b6c18c058185ce08186c76b8f98}{Release\+Scene}} (const \mbox{\hyperlink{class_scene_a34512f125a00582d9fb48b407cefa839}{Base\+Ptr}} \&scene)
+\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{フレンド}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_scene_1_1_base_a032858ae1fe02d2d1170981c2af2d67c}{Scene}}
+\end{DoxyCompactItemize}
+\doxysubsection*{シーン状態にかかわる 処理}
+\begin{DoxyCompactItemize}
+\item 
+enum struct \mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7}{Status\+Bit}} \+: u64 \{ \mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7a59d87a4758a9d35fbaf6b204341bb399}{Initialized}}
+, \mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7a2b59321169346822ab33b2c61dbb9975}{Serialized}}
+, \mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7ac41b2d048b5d1542df09f2674fdf4649}{Alive\+In\+Another\+Scene}}
+ \}
+\item 
+void \mbox{\hyperlink{class_scene_1_1_base_abb5a3e9b0c3b80cc4d32eda6f88bddef}{Set\+Status}} (\mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7}{Status\+Bit}} b, bool on)
+\item 
+bool \mbox{\hyperlink{class_scene_1_1_base_ad52ae3989b7b4014e561f83c9cd648b5}{Get\+Status}} (\mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7}{Status\+Bit}} b)
+\item 
+void \mbox{\hyperlink{class_scene_1_1_base_a4cc6bd3dc123e148708ea335e50a612b}{Alive\+In\+Another\+Scene}} (bool alive=true)
+\begin{DoxyCompactList}\small\item\em 別のシーンで生存するように設定する \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_scene_1_1_base_a32e04165973fa71845f4d1a4a1903523}{Is\+Alive\+In\+Another\+Scene}} ()
+\begin{DoxyCompactList}\small\item\em 別のシーンで生存するように設定されているか? \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Cereal セーブロード}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_scene_a390db78d3a8e0fa83e861074e8690e87}{Scene\+State}} \mbox{\hyperlink{class_scene_1_1_base_a710fa33310e84c6955d0c6e47e69fa86}{scene\+\_\+state}} = \mbox{\hyperlink{class_scene_a390db78d3a8e0fa83e861074e8690e87aeab3b0d019df7c848dbb6da23c6510f7}{Scene\+State\+::\+GAME}}
+\item 
+Object\+Ptr\+Vec \mbox{\hyperlink{class_scene_1_1_base_a69776698f457aa1b983a12e18e70a993}{pre\+\_\+objects\+\_\+}}
+\begin{DoxyCompactList}\small\item\em シーンに存在させるオブジェクト(仮登録) \end{DoxyCompactList}\item 
+Object\+Ptr\+Vec \mbox{\hyperlink{class_scene_1_1_base_a3313ce8134bbca71d03ff3b796746ff6}{objects\+\_\+}}
+\begin{DoxyCompactList}\small\item\em シーンに存在するオブジェクト \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_status}{Status}}$<$ \mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7}{Status\+Bit}} $>$ \mbox{\hyperlink{class_scene_1_1_base_a03d602b98eeab6e470233bcacf591e4d}{status\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 状態 \end{DoxyCompactList}\item 
+std\+::array$<$ \mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}}, static\+\_\+cast$<$ int $>$(Proc\+Timing\+::\+NUM)$>$ \mbox{\hyperlink{class_scene_1_1_base_a64d68aa719bcd18cdff9d743c0f01cd0}{signals\+\_\+}}
+\item 
+virtual bool \mbox{\hyperlink{class_scene_1_1_base_ad6c7a6c67aa1fca8ccbdd32b49e454a1}{Save}} (std\+::string\+\_\+view filename=\char`\"{}\char`\"{})
+\item 
+virtual bool \mbox{\hyperlink{class_scene_1_1_base_aa3bd0403a620adc23216ab5001ec1755}{Load}} (std\+::string\+\_\+view filename=\char`\"{}\char`\"{})
+\item 
+void \mbox{\hyperlink{class_scene_1_1_base_a2ee49d52122b60dfc7b524525478792f}{set\+Proc}} (Object\+Ptr obj, \mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \&slot)
+\begin{DoxyCompactList}\small\item\em オブジェクトの指定処理を指定優先で処理するように登録する \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_1_1_base_aaaa7a345abc69cfdbeef677076fa4a23}{reset\+Proc}} (Object\+Ptr obj, \mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \&slot)
+\begin{DoxyCompactList}\small\item\em オブジェクトの指定処理を削除する \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_1_1_base_aa0f7187433f34d0f7827a308c8628f7e}{set\+Proc}} (Component\+Ptr component, \mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \&slot)
+\begin{DoxyCompactList}\small\item\em コンポーネントの指定処理を指定優先で処理するように登録する \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_scene_1_1_base_ab45c53d960afc712835bc19c70b64e9c}{reset\+Proc}} (Component\+Ptr component, \mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \&slot)
+\begin{DoxyCompactList}\small\item\em コンポーネントの指定処理を削除する \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+シーンベース 
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00060}{60}} 行目に定義があります。
+
+
+
+\doxysubsection{列挙型メンバ詳解}
+\mbox{\Hypertarget{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7}\label{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7}} 
+\index{Scene::Base@{Scene::Base}!StatusBit@{StatusBit}}
+\index{StatusBit@{StatusBit}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{StatusBit}{StatusBit}}
+{\footnotesize\ttfamily enum struct \mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7}{Scene\+::\+Base\+::\+Status\+Bit}} \+: \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Initialized@{Initialized}!Scene::Base@{Scene::Base}}\index{Scene::Base@{Scene::Base}!Initialized@{Initialized}}}\mbox{\Hypertarget{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7a59d87a4758a9d35fbaf6b204341bb399}\label{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7a59d87a4758a9d35fbaf6b204341bb399}} 
+Initialized&初期化済み \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Serialized@{Serialized}!Scene::Base@{Scene::Base}}\index{Scene::Base@{Scene::Base}!Serialized@{Serialized}}}\mbox{\Hypertarget{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7a2b59321169346822ab33b2c61dbb9975}\label{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7a2b59321169346822ab33b2c61dbb9975}} 
+Serialized&シリアライズ済み. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AliveInAnotherScene@{AliveInAnotherScene}!Scene::Base@{Scene::Base}}\index{Scene::Base@{Scene::Base}!AliveInAnotherScene@{AliveInAnotherScene}}}\mbox{\Hypertarget{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7ac41b2d048b5d1542df09f2674fdf4649}\label{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7ac41b2d048b5d1542df09f2674fdf4649}} 
+Alive\+In\+Another\+Scene&別シーン移行でも終了しない \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00183}{183}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{class_scene_1_1_base_a7ffb3d5096023907866330208fa59c4f}\label{class_scene_1_1_base_a7ffb3d5096023907866330208fa59c4f}} 
+\index{Scene::Base@{Scene::Base}!Base@{Base}}
+\index{Base@{Base}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{Base()}{Base()}}
+{\footnotesize\ttfamily Scene\+::\+Base\+::\+Base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+初期化処理 
+
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00213}{213}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_ab3d810e9c6c8edc4be485c28085a9067}\label{class_scene_1_1_base_ab3d810e9c6c8edc4be485c28085a9067}} 
+\index{Scene::Base@{Scene::Base}!````~Base@{$\sim$Base}}
+\index{````~Base@{$\sim$Base}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{$\sim$Base()}{~Base()}}
+{\footnotesize\ttfamily Scene\+::\+Base\+::$\sim$\+Base (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+終了処理 
+
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00216}{216}} 行目に定義があります。
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_scene_1_1_base_a4cc6bd3dc123e148708ea335e50a612b}\label{class_scene_1_1_base_a4cc6bd3dc123e148708ea335e50a612b}} 
+\index{Scene::Base@{Scene::Base}!AliveInAnotherScene@{AliveInAnotherScene}}
+\index{AliveInAnotherScene@{AliveInAnotherScene}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{AliveInAnotherScene()}{AliveInAnotherScene()}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::\+Alive\+In\+Another\+Scene (\begin{DoxyParamCaption}\item[{bool}]{alive = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+別のシーンで生存するように設定する 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00197}{197}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7ac41b2d048b5d1542df09f2674fdf4649}{Alive\+In\+Another\+Scene}}, \mbox{\hyperlink{_scene_8h_source_l00189}{Set\+Status()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_aefd0ba17f969958a8e6f0e184bd12bf1}\label{class_scene_1_1_base_aefd0ba17f969958a8e6f0e184bd12bf1}} 
+\index{Scene::Base@{Scene::Base}!BP\_BASE\_TYPE@{BP\_BASE\_TYPE}}
+\index{BP\_BASE\_TYPE@{BP\_BASE\_TYPE}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{BP\_BASE\_TYPE()}{BP\_BASE\_TYPE()}}
+{\footnotesize\ttfamily Scene\+::\+Base\+::\+BP\+\_\+\+BASE\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene_1_1_base}{Scene\+::\+Base}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_scene_1_1_base_a23b645fe0ed8548384fc6ca9e322a01f}\label{class_scene_1_1_base_a23b645fe0ed8548384fc6ca9e322a01f}} 
+\index{Scene::Base@{Scene::Base}!Draw@{Draw}}
+\index{Draw@{Draw}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+更新 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_game_over_scene_af0cf85b1e556792f5da6e8d6922b620b}{Little\+Quest\+::\+Game\+Over\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_game_win_scene_a60aa2eb3f10a7b879a98e46c7bca37f7}{Little\+Quest\+::\+Game\+Win\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_stage01_a8693e6404ea46aac236e824b52bf8236}{Little\+Quest\+::\+Stage01}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00082}{82}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_aea546aec5c374052aae6d7d9ac307ddf}\label{class_scene_1_1_base_aea546aec5c374052aae6d7d9ac307ddf}} 
+\index{Scene::Base@{Scene::Base}!Exit@{Exit}}
+\index{Exit@{Exit}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+Exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+描画 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_game_over_scene_ab9c172345778cd3e5abbfe2f65efcb64}{Little\+Quest\+::\+Game\+Over\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_game_title_scene_a46f3e78e0cdcb283b7bc0db0dedaa4c8}{Little\+Quest\+::\+Game\+Title\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_game_win_scene_a1bd1e60079755e46ea495a687ca81dfc}{Little\+Quest\+::\+Game\+Win\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_stage01_ab42af172c0fef3cf431835af59c3dd34}{Little\+Quest\+::\+Stage01}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00083}{83}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_system_main_8cpp_source_l00337}{System\+Update()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a7ad7e103705898eb569b38c5bb243b73}\label{class_scene_1_1_base_a7ad7e103705898eb569b38c5bb243b73}} 
+\index{Scene::Base@{Scene::Base}!GetName@{GetName}}
+\index{GetName@{GetName}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetName()}{GetName()}}
+{\footnotesize\ttfamily const std\+::string\+\_\+view Scene\+::\+Base\+::\+Get\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00069}{69}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_a5b7a48e79f4476c0e4cf498d8c4fb172}\label{class_scene_1_1_base_a5b7a48e79f4476c0e4cf498d8c4fb172}} 
+\index{Scene::Base@{Scene::Base}!GetObjectPtr@{GetObjectPtr}}
+\index{GetObjectPtr@{GetObjectPtr}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetObjectPtr()}{GetObjectPtr()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+std\+::shared\+\_\+ptr$<$ T $>$ Scene\+::\+Base\+::\+Get\+Object\+Ptr (\begin{DoxyParamCaption}\item[{const std\+::string\+\_\+view}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+オブジェクト取得 
+
+存在するオブジェクトの取得 
+\begin{DoxyTemplParams}{テンプレート引数}
+{\em \mbox{[}in\mbox{]}} & class T 取得するオブジェクトタイプ\\
+\hline
+{\em T} & 取得したいオブジェクトクラス \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{戻り値}
+取得オブジェクト 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00650}{650}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}, \mbox{\hyperlink{_scene_8h_source_l00265}{objects\+\_\+}}, \mbox{\hyperlink{_scene_8h_source_l00264}{pre\+\_\+objects\+\_\+}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_ad1b487f83c4ec95a1fe99899dae8f98b}\label{class_scene_1_1_base_ad1b487f83c4ec95a1fe99899dae8f98b}} 
+\index{Scene::Base@{Scene::Base}!GetObjectPtrVec@{GetObjectPtrVec}}
+\index{GetObjectPtrVec@{GetObjectPtrVec}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetObjectPtrVec()}{GetObjectPtrVec()}}
+{\footnotesize\ttfamily const Object\+Ptr\+Vec Scene\+::\+Base\+::\+Get\+Object\+Ptr\+Vec (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+複数オブジェクト配列の取得 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00174}{174}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8h_source_l00265}{objects\+\_\+}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_adb24758af25a28a58080ec2fd7e159b1}\label{class_scene_1_1_base_adb24758af25a28a58080ec2fd7e159b1}} 
+\index{Scene::Base@{Scene::Base}!GetObjectPtrWithCreate@{GetObjectPtrWithCreate}}
+\index{GetObjectPtrWithCreate@{GetObjectPtrWithCreate}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetObjectPtrWithCreate()}{GetObjectPtrWithCreate()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+std\+::shared\+\_\+ptr$<$ T $>$ Scene\+::\+Base\+::\+Get\+Object\+Ptr\+With\+Create (\begin{DoxyParamCaption}\item[{const std\+::string\+\_\+view}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00724}{724}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8cpp_source_l00794}{Scene\+::\+Get\+Current\+Scene()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a6d21955ec981f4d1c98139de14d64998}\label{class_scene_1_1_base_a6d21955ec981f4d1c98139de14d64998}} 
+\index{Scene::Base@{Scene::Base}!GetObjectsPtr@{GetObjectsPtr}}
+\index{GetObjectsPtr@{GetObjectsPtr}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetObjectsPtr()}{GetObjectsPtr()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ T $>$ $>$ Scene\+::\+Base\+::\+Get\+Objects\+Ptr (\begin{DoxyParamCaption}\item[{const std\+::string\+\_\+view}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+存在する複数オブジェクトの取得 
+\begin{DoxyTemplParams}{テンプレート引数}
+{\em \mbox{[}in\mbox{]}} & class T 取得するオブジェクトタイプ\\
+\hline
+\end{DoxyTemplParams}
+複数オブジェクトの取得 
+\begin{DoxyParams}{引数}
+{\em $<$class} & T\texorpdfstring{$>$}{>} 取得したいオブジェクトクラス \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+複数の指定オブジェクト 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00702}{702}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_aaeaacf7aeb3810c06d2da0fc026aec86}\label{class_scene_1_1_base_aaeaacf7aeb3810c06d2da0fc026aec86}} 
+\index{Scene::Base@{Scene::Base}!GetScene@{GetScene}}
+\index{GetScene@{GetScene}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetScene()}{GetScene()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+static std\+::shared\+\_\+ptr$<$ T $>$ Scene\+::\+Base\+::\+Get\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+シーンを作成または取得します 
+\begin{DoxyParams}{引数}
+{\em T} & 取得するシーンクラス \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+シーン 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_scene_1_1_base_a7494b8cfe7bf03f8424d20aad884e529}\label{class_scene_1_1_base_a7494b8cfe7bf03f8424d20aad884e529}} 
+\index{Scene::Base@{Scene::Base}!GetSignals@{GetSignals}}
+\index{GetSignals@{GetSignals}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetSignals()}{GetSignals()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}} \& Scene\+::\+Base\+::\+Get\+Signals (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}}}]{timing }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00212}{212}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8h_source_l00269}{signals\+\_\+}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a53b7e2cea3f86d1ffb0263bc6c2178f2}\label{class_scene_1_1_base_a53b7e2cea3f86d1ffb0263bc6c2178f2}} 
+\index{Scene::Base@{Scene::Base}!GetSignalsGbuffer@{GetSignalsGbuffer}}
+\index{GetSignalsGbuffer@{GetSignalsGbuffer}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetSignalsGbuffer()}{GetSignalsGbuffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}} \& Scene\+::\+Base\+::\+Get\+Signals\+Gbuffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Gbufferタイミングシグナル取得 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00225}{225}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8h_source_l00269}{signals\+\_\+}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a9527ad705e8ca9d3d8c1830495ad1521}\label{class_scene_1_1_base_a9527ad705e8ca9d3d8c1830495ad1521}} 
+\index{Scene::Base@{Scene::Base}!GetSignalsHDR@{GetSignalsHDR}}
+\index{GetSignalsHDR@{GetSignalsHDR}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetSignalsHDR()}{GetSignalsHDR()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}} \& Scene\+::\+Base\+::\+Get\+Signals\+HDR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Lightタイミングシグナル取得 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00233}{233}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8h_source_l00269}{signals\+\_\+}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_aba38130124598c6a0c03646885ed5e02}\label{class_scene_1_1_base_aba38130124598c6a0c03646885ed5e02}} 
+\index{Scene::Base@{Scene::Base}!GetSignalsLight@{GetSignalsLight}}
+\index{GetSignalsLight@{GetSignalsLight}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetSignalsLight()}{GetSignalsLight()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}} \& Scene\+::\+Base\+::\+Get\+Signals\+Light (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Lightタイミングシグナル取得 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00229}{229}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8h_source_l00269}{signals\+\_\+}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a968d8f4ead2adfb84499b5cc4d4fc554}\label{class_scene_1_1_base_a968d8f4ead2adfb84499b5cc4d4fc554}} 
+\index{Scene::Base@{Scene::Base}!GetSignalsShadow@{GetSignalsShadow}}
+\index{GetSignalsShadow@{GetSignalsShadow}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetSignalsShadow()}{GetSignalsShadow()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}} \& Scene\+::\+Base\+::\+Get\+Signals\+Shadow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Shadowタイミングシグナル取得 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00221}{221}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8h_source_l00269}{signals\+\_\+}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_ad52ae3989b7b4014e561f83c9cd648b5}\label{class_scene_1_1_base_ad52ae3989b7b4014e561f83c9cd648b5}} 
+\index{Scene::Base@{Scene::Base}!GetStatus@{GetStatus}}
+\index{GetStatus@{GetStatus}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GetStatus()}{GetStatus()}}
+{\footnotesize\ttfamily bool Scene\+::\+Base\+::\+Get\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7}{Status\+Bit}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00192}{192}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_status_8h_source_l00034}{Status$<$ T, V $>$\+::is()}}, \mbox{\hyperlink{_scene_8h_source_l00266}{status\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_scene_8h_source_l00202}{Is\+Alive\+In\+Another\+Scene()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a604e0945cde121e2daafd9083f5969a1}\label{class_scene_1_1_base_a604e0945cde121e2daafd9083f5969a1}} 
+\index{Scene::Base@{Scene::Base}!GUI@{GUI}}
+\index{GUI@{GUI}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{GUI()}{GUI()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+GUI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+終了 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_game_over_scene_aae13ac7c7d412c9a24bb0c46d05813c8}{Little\+Quest\+::\+Game\+Over\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_game_title_scene_a48cfc995df1ce40363ec6b2361b0d444}{Little\+Quest\+::\+Game\+Title\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_game_win_scene_a1ece14977c87396eaa7174448b0c00b8}{Little\+Quest\+::\+Game\+Win\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_stage01_a27843aff74cc99a82293a4981b5f6e2c}{Little\+Quest\+::\+Stage01}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00084}{84}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_a0b3e5ef57d5a7142c71060555e2f511e}\label{class_scene_1_1_base_a0b3e5ef57d5a7142c71060555e2f511e}} 
+\index{Scene::Base@{Scene::Base}!Init@{Init}}
+\index{Init@{Init}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily virtual bool Scene\+::\+Base\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_game_over_scene_aeda27f9f7ce569aae4426e7692da50c0}{Little\+Quest\+::\+Game\+Over\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_game_title_scene_ac567845ff8c6bd9fc13bd250dc349770}{Little\+Quest\+::\+Game\+Title\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_game_win_scene_a7cbef6deef22eb4d621c430d6cc45ef3}{Little\+Quest\+::\+Game\+Win\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_stage01_a45d2b8369577343e44e1b6a52c008688}{Little\+Quest\+::\+Stage01}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00078}{78}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_a1b94b077a74eea2faa328bdfa8a10c2d}\label{class_scene_1_1_base_a1b94b077a74eea2faa328bdfa8a10c2d}} 
+\index{Scene::Base@{Scene::Base}!InitSerialize@{InitSerialize}}
+\index{InitSerialize@{InitSerialize}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{InitSerialize()}{InitSerialize()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+Init\+Serialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+描画後の処理 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00095}{95}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_a32e04165973fa71845f4d1a4a1903523}\label{class_scene_1_1_base_a32e04165973fa71845f4d1a4a1903523}} 
+\index{Scene::Base@{Scene::Base}!IsAliveInAnotherScene@{IsAliveInAnotherScene}}
+\index{IsAliveInAnotherScene@{IsAliveInAnotherScene}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{IsAliveInAnotherScene()}{IsAliveInAnotherScene()}}
+{\footnotesize\ttfamily bool Scene\+::\+Base\+::\+Is\+Alive\+In\+Another\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+別のシーンで生存するように設定されているか? 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00202}{202}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7ac41b2d048b5d1542df09f2674fdf4649}{Alive\+In\+Another\+Scene}}, \mbox{\hyperlink{_scene_8h_source_l00192}{Get\+Status()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a1aa89291f6e4e02b8d0a5ef1a8adcc6f}\label{class_scene_1_1_base_a1aa89291f6e4e02b8d0a5ef1a8adcc6f}} 
+\index{Scene::Base@{Scene::Base}!IsSceneExist@{IsSceneExist}}
+\index{IsSceneExist@{IsSceneExist}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{IsSceneExist()}{IsSceneExist()}}
+{\footnotesize\ttfamily bool Scene\+::\+Base\+::\+Is\+Scene\+Exist (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_scene_a34512f125a00582d9fb48b407cefa839}{Base\+Ptr}} \&}]{scene }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+確保しているものに同じシーンタイプがいないかチェックする 
+
+同じシーンタイプがいないかチェックする 
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00416}{416}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8h_source_l00643}{Scene\+::scenes\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_scene_8cpp_source_l00819}{Scene\+::\+Change()}}, \mbox{\hyperlink{_scene_8cpp_source_l00677}{Scene\+::\+Set\+Next\+Scene()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a5e3ff265be3b00b502013944eda6f002}\label{class_scene_1_1_base_a5e3ff265be3b00b502013944eda6f002}} 
+\index{Scene::Base@{Scene::Base}!LateDraw@{LateDraw}}
+\index{LateDraw@{LateDraw}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{LateDraw()}{LateDraw()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+Late\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+描画前処理 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_game_title_scene_a288feba44d45700b0e2e23fc59881211}{Little\+Quest\+::\+Game\+Title\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_stage01_ad1524d84f2bc77c4bf8e89a55df31710}{Little\+Quest\+::\+Stage01}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00092}{92}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_a5a6ab848cb67c7d0b644c7cbc950ba2c}\label{class_scene_1_1_base_a5a6ab848cb67c7d0b644c7cbc950ba2c}} 
+\index{Scene::Base@{Scene::Base}!LateUpdate@{LateUpdate}}
+\index{LateUpdate@{LateUpdate}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{LateUpdate()}{LateUpdate()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+Late\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+更新前処理 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00087}{87}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_aa3bd0403a620adc23216ab5001ec1755}\label{class_scene_1_1_base_aa3bd0403a620adc23216ab5001ec1755}} 
+\index{Scene::Base@{Scene::Base}!Load@{Load}}
+\index{Load@{Load}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily bool Scene\+::\+Base\+::\+Load (\begin{DoxyParamCaption}\item[{std\+::string\+\_\+view}]{filename = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00529}{529}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8cpp_source_l00699}{Scene\+::\+Check\+Leak()}}, \mbox{\hyperlink{class_scene_a23db1990f134751749e6d9c09ad7bd26a2b59321169346822ab33b2c61dbb9975}{Scene\+::\+Serialized}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a77bbd7234621baaba04625a6ede8aa61}\label{class_scene_1_1_base_a77bbd7234621baaba04625a6ede8aa61}} 
+\index{Scene::Base@{Scene::Base}!PostDraw@{PostDraw}}
+\index{PostDraw@{PostDraw}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{PostDraw()}{PostDraw()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+Post\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+遅い描画の処理 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00093}{93}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_a3d6fe564240f437764147bd750834998}\label{class_scene_1_1_base_a3d6fe564240f437764147bd750834998}} 
+\index{Scene::Base@{Scene::Base}!PostUpdate@{PostUpdate}}
+\index{PostUpdate@{PostUpdate}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{PostUpdate()}{PostUpdate()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+Post\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+物理前(アクション後)処理 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00089}{89}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_adfd06e5a59252146b30f3c215e4bdc08}\label{class_scene_1_1_base_adfd06e5a59252146b30f3c215e4bdc08}} 
+\index{Scene::Base@{Scene::Base}!PreDraw@{PreDraw}}
+\index{PreDraw@{PreDraw}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{PreDraw()}{PreDraw()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+Pre\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+更新後(物理後)処理 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00091}{91}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_aea08d827487f7057b65609b7b9f499bf}\label{class_scene_1_1_base_aea08d827487f7057b65609b7b9f499bf}} 
+\index{Scene::Base@{Scene::Base}!PrePhysics@{PrePhysics}}
+\index{PrePhysics@{PrePhysics}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{PrePhysics()}{PrePhysics()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+Pre\+Physics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+通常更新の後更新処理 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00088}{88}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_affc37a140a581c2a5ae69b24af3b2e32}\label{class_scene_1_1_base_affc37a140a581c2a5ae69b24af3b2e32}} 
+\index{Scene::Base@{Scene::Base}!PreRegister@{PreRegister}}
+\index{PreRegister@{PreRegister}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{PreRegister()}{PreRegister()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::\+Pre\+Register (\begin{DoxyParamCaption}\item[{Object\+Ptr}]{obj,  }\item[{\mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}}]{update = {\ttfamily Priority\+:\+:NORMAL},  }\item[{\mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}}]{draw = {\ttfamily Priority\+:\+:NORMAL} }\end{DoxyParamCaption})}
+
+
+
+オブジェクト仮登録 
+
+
+\begin{DoxyParams}{引数}
+{\em obj} & オブジェクト \\
+\hline
+{\em update} & 更新プライオリティ \\
+\hline
+{\em draw} & 描画プライオリティ \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00251}{251}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_proc_timing_8cpp_source_l00009}{Get\+Proc\+Timing\+Name()}}.
+
+
+
+参照元 \mbox{\hyperlink{_object_8cpp_source_l00297}{Object\+::\+Register\+Current\+Scene()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a0c2b29160d43c4909d17e79951850117}\label{class_scene_1_1_base_a0c2b29160d43c4909d17e79951850117}} 
+\index{Scene::Base@{Scene::Base}!PreRegister@{PreRegister}}
+\index{PreRegister@{PreRegister}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{PreRegister()}{PreRegister()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void Scene\+::\+Base\+::\+Pre\+Register (\begin{DoxyParamCaption}\item[{T $\ast$}]{obj,  }\item[{\mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}}]{update,  }\item[{\mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}}]{draw }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l01201}{1201}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_a6d8010766657dfd7e55e1a4672197e06}\label{class_scene_1_1_base_a6d8010766657dfd7e55e1a4672197e06}} 
+\index{Scene::Base@{Scene::Base}!PreUpdate@{PreUpdate}}
+\index{PreUpdate@{PreUpdate}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{PreUpdate()}{PreUpdate()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+Pre\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+GUI表示 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00086}{86}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_a433c5f0669e121bc9861a3a235e62730}\label{class_scene_1_1_base_a433c5f0669e121bc9861a3a235e62730}} 
+\index{Scene::Base@{Scene::Base}!Register@{Register}}
+\index{Register@{Register}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{Register()}{Register()}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::\+Register (\begin{DoxyParamCaption}\item[{Object\+Ptr}]{obj,  }\item[{\mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}}]{update = {\ttfamily Priority\+:\+:NORMAL},  }\item[{\mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}}]{draw = {\ttfamily Priority\+:\+:NORMAL} }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00274}{274}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_proc_timing_8cpp_source_l00009}{Get\+Proc\+Timing\+Name()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a7f115046d1adb9dbc8cdaa08ba27d8e5}\label{class_scene_1_1_base_a7f115046d1adb9dbc8cdaa08ba27d8e5}} 
+\index{Scene::Base@{Scene::Base}!RegisterForLoad@{RegisterForLoad}}
+\index{RegisterForLoad@{RegisterForLoad}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{RegisterForLoad()}{RegisterForLoad()}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::\+Register\+For\+Load (\begin{DoxyParamCaption}\item[{Object\+Ptr}]{obj }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00348}{348}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_proc_timing_8cpp_source_l00009}{Get\+Proc\+Timing\+Name()}}.
+
+
+
+参照元 \mbox{\hyperlink{_object_8cpp_source_l00478}{Object\+::\+Load()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_aadff70f4849a243e4d4856b43106b1db}\label{class_scene_1_1_base_aadff70f4849a243e4d4856b43106b1db}} 
+\index{Scene::Base@{Scene::Base}!ReleaseScene@{ReleaseScene}}
+\index{ReleaseScene@{ReleaseScene}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{ReleaseScene()}{ReleaseScene()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+static void Scene\+::\+Base\+::\+Release\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+シーンを消去します 
+\begin{DoxyParams}{引数}
+{\em name} & シーン名 \\
+\hline
+\end{DoxyParams}
+
+
+参照元 \mbox{\hyperlink{_scene_8cpp_source_l00649}{Scene\+::check\+Next\+Alive()}}, \mbox{\hyperlink{_scene_8h_source_l00304}{Scene\+::\+Release\+Scene()}}, \mbox{\hyperlink{_scene_8cpp_source_l00677}{Scene\+::\+Set\+Next\+Scene()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a80cc3b6c18c058185ce08186c76b8f98}\label{class_scene_1_1_base_a80cc3b6c18c058185ce08186c76b8f98}} 
+\index{Scene::Base@{Scene::Base}!ReleaseScene@{ReleaseScene}}
+\index{ReleaseScene@{ReleaseScene}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{ReleaseScene()}{ReleaseScene()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::\+Release\+Scene (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_scene_a34512f125a00582d9fb48b407cefa839}{Base\+Ptr}} \&}]{scene }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00437}{437}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8h_source_l00643}{Scene\+::scenes\+\_\+}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_ab45c53d960afc712835bc19c70b64e9c}\label{class_scene_1_1_base_ab45c53d960afc712835bc19c70b64e9c}} 
+\index{Scene::Base@{Scene::Base}!resetProc@{resetProc}}
+\index{resetProc@{resetProc}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{resetProc()}{resetProc()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::reset\+Proc (\begin{DoxyParamCaption}\item[{Component\+Ptr}]{component,  }\item[{\mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \&}]{slot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+コンポーネントの指定処理を削除する 
+
+
+\begin{DoxyParams}{引数}
+{\em component} & 削除するオブジェクト \\
+\hline
+{\em timing} & 指定処理 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00493}{493}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_proc_timing_8h_source_l00158}{Slot\+Proc\+::connect\+\_\+}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_aaaa7a345abc69cfdbeef677076fa4a23}\label{class_scene_1_1_base_aaaa7a345abc69cfdbeef677076fa4a23}} 
+\index{Scene::Base@{Scene::Base}!resetProc@{resetProc}}
+\index{resetProc@{resetProc}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{resetProc()}{resetProc()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::reset\+Proc (\begin{DoxyParamCaption}\item[{Object\+Ptr}]{obj,  }\item[{\mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \&}]{slot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+オブジェクトの指定処理を削除する 
+
+
+\begin{DoxyParams}{引数}
+{\em obj} & 削除するオブジェクト \\
+\hline
+{\em timing} & 指定処理 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00468}{468}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_proc_timing_8h_source_l00158}{Slot\+Proc\+::connect\+\_\+}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_ad6c7a6c67aa1fca8ccbdd32b49e454a1}\label{class_scene_1_1_base_ad6c7a6c67aa1fca8ccbdd32b49e454a1}} 
+\index{Scene::Base@{Scene::Base}!Save@{Save}}
+\index{Save@{Save}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{Save()}{Save()}}
+{\footnotesize\ttfamily bool Scene\+::\+Base\+::\+Save (\begin{DoxyParamCaption}\item[{std\+::string\+\_\+view}]{filename = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00504}{504}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_helper_lib_8cpp_source_l00091}{Helper\+Lib\+::\+File\+::\+Create\+Folder()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_ab8885718a49e2534711a5d26f9ea68fc}\label{class_scene_1_1_base_ab8885718a49e2534711a5d26f9ea68fc}} 
+\index{Scene::Base@{Scene::Base}!SetPriority@{SetPriority}}
+\index{SetPriority@{SetPriority}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{SetPriority()}{SetPriority()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::\+Set\+Priority (\begin{DoxyParamCaption}\item[{Component\+Ptr}]{component,  }\item[{\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}}}]{timing,  }\item[{\mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}}]{priority }\end{DoxyParamCaption})}
+
+
+
+優先を設定変更します 
+
+
+\begin{DoxyParams}{引数}
+{\em component} & 優先を変更したいコンポーネント \\
+\hline
+{\em timing} & 固定処理 \\
+\hline
+{\em priority} & 設定する優先 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00239}{239}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_proc_timing_8cpp_source_l00009}{Get\+Proc\+Timing\+Name()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_aa8ab84711532c119c55e0da898a553f5}\label{class_scene_1_1_base_aa8ab84711532c119c55e0da898a553f5}} 
+\index{Scene::Base@{Scene::Base}!SetPriority@{SetPriority}}
+\index{SetPriority@{SetPriority}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{SetPriority()}{SetPriority()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::\+Set\+Priority (\begin{DoxyParamCaption}\item[{Object\+Ptr}]{obj,  }\item[{\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}}}]{timing,  }\item[{\mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}}]{priority }\end{DoxyParamCaption})}
+
+
+
+優先を設定変更します 
+
+
+\begin{DoxyParams}{引数}
+{\em obj} & 優先を変更したいオブジェクト \\
+\hline
+{\em timing} & 固定処理 \\
+\hline
+{\em priority} & 設定する優先 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00224}{224}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_proc_timing_8cpp_source_l00009}{Get\+Proc\+Timing\+Name()}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_attach_model_8cpp_source_l00013}{Component\+Attach\+Model\+::\+Init()}}, \mbox{\hyperlink{_component_effect_8cpp_source_l00056}{Component\+Effect\+::\+Init()}}, \mbox{\hyperlink{_component_spring_arm_8cpp_source_l00012}{Component\+Spring\+Arm\+::\+Init()}}, \mbox{\hyperlink{_component_transform_8cpp_source_l00110}{Component\+Transform\+::\+Init()}}, \mbox{\hyperlink{_component_8cpp_source_l00110}{Component\+::\+Set\+Priority()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_aa0f7187433f34d0f7827a308c8628f7e}\label{class_scene_1_1_base_aa0f7187433f34d0f7827a308c8628f7e}} 
+\index{Scene::Base@{Scene::Base}!setProc@{setProc}}
+\index{setProc@{setProc}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{setProc()}{setProc()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::set\+Proc (\begin{DoxyParamCaption}\item[{Component\+Ptr}]{component,  }\item[{\mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \&}]{slot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+コンポーネントの指定処理を指定優先で処理するように登録する 
+
+
+\begin{DoxyParams}{引数}
+{\em component} & コンポーネント \\
+\hline
+{\em timing} & 指定処理 \\
+\hline
+{\em priority} & 指定優先 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00478}{478}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8h_source_l00639}{Scene\+::current\+\_\+scene\+\_\+}}, \mbox{\hyperlink{_proc_timing_8h_source_l00114}{Slot\+Proc\+::\+Get\+Name()}}, \mbox{\hyperlink{_proc_timing_8h_source_l00106}{Slot\+Proc\+::\+Get\+Priority()}}, \mbox{\hyperlink{_proc_timing_8h_source_l00140}{Slot\+Proc\+::\+Get\+Proc()}}, \mbox{\hyperlink{_proc_timing_8h_source_l00102}{Slot\+Proc\+::\+Get\+Timing()}}, \mbox{\hyperlink{_proc_timing_8h_source_l00132}{Slot\+Proc\+::\+Set\+Proc()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a2ee49d52122b60dfc7b524525478792f}\label{class_scene_1_1_base_a2ee49d52122b60dfc7b524525478792f}} 
+\index{Scene::Base@{Scene::Base}!setProc@{setProc}}
+\index{setProc@{setProc}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{setProc()}{setProc()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::set\+Proc (\begin{DoxyParamCaption}\item[{Object\+Ptr}]{obj,  }\item[{\mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \&}]{slot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+オブジェクトの指定処理を指定優先で処理するように登録する 
+
+
+\begin{DoxyParams}{引数}
+{\em obj} & オブジェクト \\
+\hline
+{\em timing} & 指定処理 \\
+\hline
+{\em priority} & 指定優先 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00450}{450}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8h_source_l00639}{Scene\+::current\+\_\+scene\+\_\+}}, \mbox{\hyperlink{class_callable_a23ddda5ee112e39f8807ea483a6335e9}{Callable\+::\+Exec()}}, \mbox{\hyperlink{_proc_timing_8h_source_l00161}{Slot\+Proc\+::func\+\_\+}}, \mbox{\hyperlink{_proc_timing_8h_source_l00110}{Slot\+Proc\+::\+Get\+Add\+Proc()}}, \mbox{\hyperlink{_proc_timing_8h_source_l00114}{Slot\+Proc\+::\+Get\+Name()}}, \mbox{\hyperlink{_proc_timing_8h_source_l00106}{Slot\+Proc\+::\+Get\+Priority()}}, \mbox{\hyperlink{_proc_timing_8h_source_l00140}{Slot\+Proc\+::\+Get\+Proc()}}, \mbox{\hyperlink{_proc_timing_8h_source_l00102}{Slot\+Proc\+::\+Get\+Timing()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a7960f386b2e25d893762cbb5a1cc40fa}\label{class_scene_1_1_base_a7960f386b2e25d893762cbb5a1cc40fa}} 
+\index{Scene::Base@{Scene::Base}!SetScene@{SetScene}}
+\index{SetScene@{SetScene}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{SetScene()}{SetScene()}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::\+Set\+Scene (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_scene_a34512f125a00582d9fb48b407cefa839}{Base\+Ptr}} \&}]{scene }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+シーン確保 (Get\+Sceneを使ってない場合の対処) 
+
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00428}{428}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8h_source_l00643}{Scene\+::scenes\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_scene_8cpp_source_l00649}{Scene\+::check\+Next\+Alive()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_abb5a3e9b0c3b80cc4d32eda6f88bddef}\label{class_scene_1_1_base_abb5a3e9b0c3b80cc4d32eda6f88bddef}} 
+\index{Scene::Base@{Scene::Base}!SetStatus@{SetStatus}}
+\index{SetStatus@{SetStatus}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{SetStatus()}{SetStatus()}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::\+Set\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7}{Status\+Bit}}}]{b,  }\item[{bool}]{on }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00189}{189}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_status_8h_source_l00027}{Status$<$ T, V $>$\+::off()}}, \mbox{\hyperlink{_status_8h_source_l00023}{Status$<$ T, V $>$\+::on()}}, \mbox{\hyperlink{_scene_8h_source_l00266}{status\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_scene_8h_source_l00197}{Alive\+In\+Another\+Scene()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a764484e5f0e4028cd82cc83b6f0c236b}\label{class_scene_1_1_base_a764484e5f0e4028cd82cc83b6f0c236b}} 
+\index{Scene::Base@{Scene::Base}!Unregister@{Unregister}}
+\index{Unregister@{Unregister}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{Unregister()}{Unregister()}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::\+Unregister (\begin{DoxyParamCaption}\item[{Object\+Ptr}]{obj }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00386}{386}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_abc950a64ecfc1249b8c83a91362873e0}\label{class_scene_1_1_base_abc950a64ecfc1249b8c83a91362873e0}} 
+\index{Scene::Base@{Scene::Base}!UnregisterAll@{UnregisterAll}}
+\index{UnregisterAll@{UnregisterAll}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{UnregisterAll()}{UnregisterAll()}}
+{\footnotesize\ttfamily void Scene\+::\+Base\+::\+Unregister\+All (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_scene_8cpp_source}{Scene.\+cpp}} の \mbox{\hyperlink{_scene_8cpp_source_l00397}{397}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_scene_1_1_base_a436767ffb4cae760e2d7f4515c875efe}\label{class_scene_1_1_base_a436767ffb4cae760e2d7f4515c875efe}} 
+\index{Scene::Base@{Scene::Base}!Update@{Update}}
+\index{Update@{Update}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily virtual void Scene\+::\+Base\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+初期化 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_game_over_scene_add6712393d901c5c10efacb8eac590f8}{Little\+Quest\+::\+Game\+Over\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_game_title_scene_a9389ae8c93b2462597b61ab6f8f26cb3}{Little\+Quest\+::\+Game\+Title\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_game_win_scene_ac96d1518820bc44556eb8b96d7a8dc22}{Little\+Quest\+::\+Game\+Win\+Scene}}, \mbox{\hyperlink{class_little_quest_1_1_stage01_a14cddf954f1e5f33ce46c175ab9e8777}{Little\+Quest\+::\+Stage01}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00081}{81}} 行目に定義があります。
+
+
+
+\doxysubsection{フレンドと関連関数の詳解}
+\mbox{\Hypertarget{class_scene_1_1_base_a032858ae1fe02d2d1170981c2af2d67c}\label{class_scene_1_1_base_a032858ae1fe02d2d1170981c2af2d67c}} 
+\index{Scene::Base@{Scene::Base}!Scene@{Scene}}
+\index{Scene@{Scene}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{Scene}{Scene}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{class_scene}{Scene}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00061}{61}} 行目に定義があります。
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{class_scene_1_1_base_a3313ce8134bbca71d03ff3b796746ff6}\label{class_scene_1_1_base_a3313ce8134bbca71d03ff3b796746ff6}} 
+\index{Scene::Base@{Scene::Base}!objects\_@{objects\_}}
+\index{objects\_@{objects\_}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{objects\_}{objects\_}}
+{\footnotesize\ttfamily Object\+Ptr\+Vec Scene\+::\+Base\+::objects\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+シーンに存在するオブジェクト 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00265}{265}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_scene_8h_source_l00650}{Get\+Object\+Ptr()}}, \mbox{\hyperlink{_scene_8h_source_l00174}{Get\+Object\+Ptr\+Vec()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a69776698f457aa1b983a12e18e70a993}\label{class_scene_1_1_base_a69776698f457aa1b983a12e18e70a993}} 
+\index{Scene::Base@{Scene::Base}!pre\_objects\_@{pre\_objects\_}}
+\index{pre\_objects\_@{pre\_objects\_}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{pre\_objects\_}{pre\_objects\_}}
+{\footnotesize\ttfamily Object\+Ptr\+Vec Scene\+::\+Base\+::pre\+\_\+objects\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+シーンに存在させるオブジェクト(仮登録) 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00264}{264}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_scene_8h_source_l00650}{Get\+Object\+Ptr()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a710fa33310e84c6955d0c6e47e69fa86}\label{class_scene_1_1_base_a710fa33310e84c6955d0c6e47e69fa86}} 
+\index{Scene::Base@{Scene::Base}!scene\_state@{scene\_state}}
+\index{scene\_state@{scene\_state}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{scene\_state}{scene\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_scene_a390db78d3a8e0fa83e861074e8690e87}{Scene\+State}} Scene\+::\+Base\+::scene\+\_\+state = \mbox{\hyperlink{class_scene_a390db78d3a8e0fa83e861074e8690e87aeab3b0d019df7c848dbb6da23c6510f7}{Scene\+State\+::\+GAME}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00248}{248}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_game_title_scene_8cpp_source_l00106}{Little\+Quest\+::\+Game\+Title\+Scene\+::\+Late\+Draw()}}, \mbox{\hyperlink{_stage01_8cpp_source_l00328}{Little\+Quest\+::\+Stage01\+::\+Late\+Draw()}}, \mbox{\hyperlink{_game_title_scene_8cpp_source_l00059}{Little\+Quest\+::\+Game\+Title\+Scene\+::\+Update()}}, \mbox{\hyperlink{_stage01_8cpp_source_l00238}{Little\+Quest\+::\+Stage01\+::\+Update()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a64d68aa719bcd18cdff9d743c0f01cd0}\label{class_scene_1_1_base_a64d68aa719bcd18cdff9d743c0f01cd0}} 
+\index{Scene::Base@{Scene::Base}!signals\_@{signals\_}}
+\index{signals\_@{signals\_}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{signals\_}{signals\_}}
+{\footnotesize\ttfamily std\+::array$<$\mbox{\hyperlink{class_scene_a731012816f97fd5e79f562f2024b93e0}{Signals\+Default}}, static\+\_\+cast$<$int$>$(Proc\+Timing\+::\+NUM)$>$ Scene\+::\+Base\+::signals\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00269}{269}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_scene_8h_source_l00212}{Get\+Signals()}}, \mbox{\hyperlink{_scene_8h_source_l00225}{Get\+Signals\+Gbuffer()}}, \mbox{\hyperlink{_scene_8h_source_l00233}{Get\+Signals\+HDR()}}, \mbox{\hyperlink{_scene_8h_source_l00229}{Get\+Signals\+Light()}}, \mbox{\hyperlink{_scene_8h_source_l00221}{Get\+Signals\+Shadow()}}.
+
+\mbox{\Hypertarget{class_scene_1_1_base_a03d602b98eeab6e470233bcacf591e4d}\label{class_scene_1_1_base_a03d602b98eeab6e470233bcacf591e4d}} 
+\index{Scene::Base@{Scene::Base}!status\_@{status\_}}
+\index{status\_@{status\_}!Scene::Base@{Scene::Base}}
+\doxysubsubsection{\texorpdfstring{status\_}{status\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_status}{Status}}$<$\mbox{\hyperlink{class_scene_1_1_base_a2ac5650dcabca5c8617be8d1bfd4ebf7}{Status\+Bit}}$>$ Scene\+::\+Base\+::status\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+状態 
+
+
+
+ \mbox{\hyperlink{_scene_8h_source}{Scene.\+h}} の \mbox{\hyperlink{_scene_8h_source_l00266}{266}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_scene_8h_source_l00192}{Get\+Status()}}, \mbox{\hyperlink{_scene_8h_source_l00189}{Set\+Status()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_scene_8h}{Scene.\+h}}\item 
+\mbox{\hyperlink{_scene_8cpp}{Scene.\+cpp}}\end{DoxyCompactItemize}

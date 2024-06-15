@@ -1,0 +1,257 @@
+\hypertarget{_component_model_8h_source}{}\doxysection{Component\+Model.\+h}
+\label{_component_model_8h_source}\index{ComponentModel.h@{ComponentModel.h}}
+\mbox{\hyperlink{_component_model_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ ComponentModel.h}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ モデルコンポーネント}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00005}00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_8h}{System/Component/Component.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_transform_8h}{System/Component/ComponentTransform.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_animation_8h}{System/Graphics/Animation.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_object_8h}{System/Object.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <ImGuizmo/ImGuizmo.h>}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <DxLib.h>}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00015}\mbox{\hyperlink{_component_model_8h_a269c713c1baeaa711e90c307551ce8ce}{00015}}\ \mbox{\hyperlink{_typedef_8h_ae1b2d029be4658cd85fd1bc379e76178}{USING\_PTR}}(\mbox{\hyperlink{class_component_model}{ComponentModel}});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00016}00016\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00017}00017\ \textcolor{comment}{//!\ @brief\ モデルコンポーネントクラス}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00018}\mbox{\hyperlink{class_component_model}{00018}}\ \textcolor{comment}{}\textcolor{keyword}{class\ }\mbox{\hyperlink{class_component_model}{ComponentModel}}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00019}00019\ \ \ \ \ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00020}00020\ \ \ \ \ ,\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_i_matrix}{IMatrix}}<ComponentModel>\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00021}00021\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00022}\mbox{\hyperlink{class_component_model_a40d29e026986a2ce0759bfeadfd81eec}{00022}}\ \ \ \ \ \mbox{\hyperlink{class_component_model_a40d29e026986a2ce0759bfeadfd81eec}{BP\_COMPONENT\_TYPE}}(\mbox{\hyperlink{class_component_model}{ComponentModel}},\ \mbox{\hyperlink{class_component}{Component}});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00023}\mbox{\hyperlink{class_component_model_a8df1c9db45b776c8447300b6ff1845ac}{00023}}\ \ \ \ \ \mbox{\hyperlink{class_component_model_a8df1c9db45b776c8447300b6ff1845ac}{ComponentModel}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダー利用を標準とします}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a7da0b7b2268f04bb932425a35b3e0b42}{model\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_model_aba44fbea838d7896b88a0acaee2d3370a61f9ae7b6c79883bd678bc44907b7ea7}{ModelBit::UseShader}});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a323a11ebdbcd16521d03ddb5fbbb22f6}{model\_}}\ =\ std::make\_shared<Model>();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00028}00028\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00030}\mbox{\hyperlink{class_component_model_a75e965608f37818a11040dc8cd2a7caf}{00030}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_model_a75e965608f37818a11040dc8cd2a7caf}{Construct}}(ObjectPtr\ owner)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00031}00031\ \ \ \ \ \ \ \ \ \_\_super::Construct(owner);}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00034}\mbox{\hyperlink{class_component_model_a2309a500a0d4fc5fc21c71774cb366ad}{00034}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_model_a2309a500a0d4fc5fc21c71774cb366ad}{Construct}}(ObjectPtr\ owner,\ std::string\_view\ path)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00035}00035\ \ \ \ \ \ \ \ \ \_\_super::Construct(owner);}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダー利用を標準とします}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a7da0b7b2268f04bb932425a35b3e0b42}{model\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_model_aba44fbea838d7896b88a0acaee2d3370a61f9ae7b6c79883bd678bc44907b7ea7}{ModelBit::UseShader}});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a323a11ebdbcd16521d03ddb5fbbb22f6}{model\_}}\ =\ std::make\_shared<Model>();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00041}00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a2ac0f7ab91019ae1c69166fc22224aee}{Load}}(path);}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00042}00042\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00043}00043\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00044}00044\ \textcolor{comment}{\ \ \ \ //!\ @brief\ モデルロード}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00045}00045\ \textcolor{comment}{\ \ \ \ //!\ @param\ path\ モデル名}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00046}00046\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_model_a2ac0f7ab91019ae1c69166fc22224aee}{Load}}(std::string\_view\ path);}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00048}00048\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_model_a256fc30f93e2abca2f91d6ed22c200c4}{Update}}()\ \textcolor{keyword}{override};\ \ \ \ \textcolor{comment}{//!<\ 更新}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00049}00049\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_model_a8bcc045d97c7a4d45f64b805dd60976f}{Draw}}()\ \textcolor{keyword}{override};\ \ \ \ \ \ \textcolor{comment}{//!<\ 描画}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00050}00050\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_model_abb48cb07d4172df57782ca69816c355e}{Exit}}()\ \textcolor{keyword}{override};\ \ \ \ \ \ \textcolor{comment}{//!<\ 終了}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00051}00051\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_model_a7fa0ab1364aab6f84de7522b555ff6d1}{GUI}}()\ \textcolor{keyword}{override};\ \ \ \ \ \ \ \textcolor{comment}{//!<\ GUI}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00053}00053\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00054}00054\ \ \ \ \ \textcolor{comment}{//\ @name\ アニメーション}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00056}00056\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00057}00057\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00058}00058\ \textcolor{comment}{\ \ \ \ //!\ @brief\ アニメーションデータ}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00059}00059\ \textcolor{comment}{\ \ \ \ //!\ @param\ anims\ アニメーション構造リスト}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00060}00060\ \textcolor{comment}{}\ \ \ \ ComponentModelPtr\ \mbox{\hyperlink{class_component_model_aa4e0f3218a7d1100638196e5adc3d40a}{SetAnimation}}(\textcolor{keyword}{const}\ std::vector<Animation::Desc>\ anims);}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00061}00061\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00062}00062\ \textcolor{comment}{\ \ \ \ //!\ @brief\ アニメーション再生(同じなら再再生しない)}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00063}00063\ \textcolor{comment}{\ \ \ \ //!\ @param\ name\ 再生するアニメーション名}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00064}00064\ \textcolor{comment}{\ \ \ \ //!\ @param\ loop\ ループするかどうか(デフォルト:しない)}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00065}00065\ \textcolor{comment}{\ \ \ \ //!\ @param\ speed\ 補完秒数(デフォルト:0.2秒)}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00066}00066\ \textcolor{comment}{\ \ \ \ //!\ @param\ start\_time\ スタートする位置(デフォルト:0.0)}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00067}00067\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_model_a5bf3fcbab8ae34d6208f5eb8181b6b47}{PlayAnimationNoSame}}(std::string\_view\ name,\ \textcolor{keywordtype}{bool}\ loop\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{float}\ blend\_time\ =\ 0.2f,\ \textcolor{keywordtype}{float}\ start\_time\ =\ 0.0f);}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00068}00068\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00069}00069\ \textcolor{comment}{\ \ \ \ //!\ @brief\ アニメーション再生}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00070}00070\ \textcolor{comment}{\ \ \ \ //!\ @param\ name\ 再生するアニメーション名}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00071}00071\ \textcolor{comment}{\ \ \ \ //!\ @param\ loop\ ループするかどうか(デフォルト:しない)}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00072}00072\ \textcolor{comment}{\ \ \ \ //!\ @param\ speed\ 補完秒数(デフォルト:0.2秒)}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00073}00073\ \textcolor{comment}{\ \ \ \ //!\ @param\ start\_time\ スタートする位置(デフォルト:0.0)}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00074}00074\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_model_a576b5df123d22e91881bbc46a47ec1b3}{PlayAnimation}}(std::string\_view\ name,\ \textcolor{keywordtype}{bool}\ loop\ =\ \textcolor{keyword}{false},\ \textcolor{keywordtype}{float}\ blend\_time\ =\ 0.2f,\ \textcolor{keywordtype}{float}\ start\_time\ =\ 0.0f);}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00075}00075\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00076}00076\ \textcolor{comment}{\ \ \ \ //!\ @brief\ アニメーション中かどうか}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00077}00077\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ :\ アニメーション中}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00078}00078\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_model_a96c829c34d3bb6d385dfa76399e04189}{IsPlaying}}();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00079}00079\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00080}00080\ \textcolor{comment}{\ \ \ \ //!\ @brief\ ポーズ処理と解除処理}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00081}00081\ \textcolor{comment}{\ \ \ \ //!\ @param\ active\ ポーズするかどうか}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00082}00082\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_model_acdc26807f2a400212782ee9bb02505f1}{PlayPause}}(\textcolor{keywordtype}{bool}\ active\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00083}00083\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00084}00084\ \textcolor{comment}{\ \ \ \ //!\ @brief\ ポーズ中かどうか}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00085}00085\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ :\ ポーズ中}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00086}00086\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_model_a87ec1ef5c756f7cfe04ba12a1f5f92e9}{IsPaused}}();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00087}00087\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00088}00088\ \textcolor{comment}{\ \ \ \ //!\ @brief\ 利用可能かどうか}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00089}00089\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ :\ 利用可能}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00090}00090\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_model_a0f0495106c4e520487726a43388b3186}{IsAnimationValid}}();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00091}00091\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00092}00092\ \textcolor{comment}{\ \ \ \ //!\ @brief\ 再生アニメーション名}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00093}00093\ \textcolor{comment}{\ \ \ \ //!\ @return\ アニメーション名}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00094}00094\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{const}\ std::string\_view\ \mbox{\hyperlink{class_component_model_a04b14c91e2361bad777f310391ec5db1}{GetPlayAnimationName}}();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00095}00095\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00096}00096\ \textcolor{comment}{\ \ \ \ //!\ @brief\ 前回再生したアニメーション名}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00097}00097\ \textcolor{comment}{\ \ \ \ //!\ @return\ アニメーション名}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00098}00098\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{const}\ std::string\_view\ \mbox{\hyperlink{class_component_model_ac1ca0d2e7d69a16258c350fcb215982a}{GetOldPlayAnimationName}}();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00099}00099\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00100}00100\ \textcolor{comment}{\ \ \ \ //!\ @brief\ 再生経過時間の取得}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00101}00101\ \textcolor{comment}{\ \ \ \ //!\ @return\ 再生経過時間}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00102}00102\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_component_model_ace5c0e549af296cbc6cd3d5935f3c644}{GetAnimationTime}}();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00104}00104\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_component_model_a518427344f68e5bc9ea166fd68268b09}{GetAnimationPlayTime}}();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00105}00105\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00106}00106\ \textcolor{comment}{\ \ \ \ //!\ @brief\ アニメーションの総時間の取得}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00107}00107\ \textcolor{comment}{\ \ \ \ //!\ @return\ アニメーションの総時間}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00108}00108\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_component_model_adbb85945a29c5a1fcdf09049ea43ed80}{GetAnimationTotalTime}}();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00110}00110\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_component_model_aaa21baac1538a49b904ed5c0874c57ee}{GetAnimationSpeed}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00111}00111\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \mbox{\hyperlink{class_component_model_a7e2d68f1134cd3904f0e1f07a804d2bb}{SetAnimationSpeed}}(\textcolor{keywordtype}{float}\ speed);}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00112}00112\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00113}00113\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00114}00114\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00115}00115\ \textcolor{comment}{\ \ \ \ //!\ @brief\ モデル取得}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00116}00116\ \textcolor{comment}{\ \ \ \ //!\ @return\ モデル}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00117}\mbox{\hyperlink{class_component_model_a5814523a31ef717ff5d9ee7b354aaa4c}{00117}}\ \textcolor{comment}{}\ \ \ \ std::shared\_ptr<Model>\ \mbox{\hyperlink{class_component_model_a5814523a31ef717ff5d9ee7b354aaa4c}{GetModelClass}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_model_a323a11ebdbcd16521d03ddb5fbbb22f6}{model\_}};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00119}00119\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00120}00120\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00121}00121\ \textcolor{comment}{\ \ \ \ //!\ @brief\ モデル取得}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00122}00122\ \textcolor{comment}{\ \ \ \ //!\ @return\ モデル(DxLib)}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00123}\mbox{\hyperlink{class_component_model_a53166c4557f86caf83e30bfdea29b6b8}{00123}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_component_model_a53166c4557f86caf83e30bfdea29b6b8}{GetModel}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ *(\mbox{\hyperlink{class_component_model_a323a11ebdbcd16521d03ddb5fbbb22f6}{model\_}}.get());}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00125}00125\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00127}00127\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00128}00128\ \textcolor{comment}{\ \ \ \ //!\ @name\ ノード関係}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00129}00129\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00130}00130\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00131}00131\ \textcolor{comment}{}\ \ \ \ std::vector<std::string\_view>\ \mbox{\hyperlink{class_component_model_ad2d146a94654517301e7b068018e5eb9}{GetNodesName}}();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00132}00132\ \ \ \ \ std::vector<const\ char*>\ \ \ \ \ \ \mbox{\hyperlink{class_component_model_ab7261e57e4edf7448cb47bd124fcb260}{GetNodesNamePChar}}();}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00133}00133\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_ae26fd689663739b9f0b7819c8cc45cb7}{GetNodeIndex}}(std::string\_view\ name);}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00135}00135\ \ \ \ \ float3\ \mbox{\hyperlink{class_component_model_a60e1b3cfeeb07c7f59f9b362e2bc7848}{GetNodePosition}}(std::string\_view\ name,\ \textcolor{keywordtype}{bool}\ local\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00136}00136\ \ \ \ \ float3\ \mbox{\hyperlink{class_component_model_a60e1b3cfeeb07c7f59f9b362e2bc7848}{GetNodePosition}}(\textcolor{keywordtype}{int}\ no,\ \textcolor{keywordtype}{bool}\ local\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00138}00138\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_model_a0835c5e34df1f469b388f5561776e396}{GetNodeMatrix}}(std::string\_view\ name,\ \textcolor{keywordtype}{bool}\ local\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00139}00139\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_model_a0835c5e34df1f469b388f5561776e396}{GetNodeMatrix}}(\textcolor{keywordtype}{int}\ no,\ \textcolor{keywordtype}{bool}\ local\ =\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00140}00140\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00141}00141\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00142}00142\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00143}00143\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00144}00144\ \textcolor{comment}{\ \ \ \ //!\ モデルステータス}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00145}00145\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00146}\mbox{\hyperlink{class_component_model_aba44fbea838d7896b88a0acaee2d3370}{00146}}\ \ \ \ \ \textcolor{keyword}{enum\ struct}\ \mbox{\hyperlink{class_component_model_aba44fbea838d7896b88a0acaee2d3370}{ModelBit}}\ :\ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00147}00147\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_aba44fbea838d7896b88a0acaee2d3370a716dd2a7e9cc903951de87a7b74ce282}{SetFileAlready}},\ \ \ \ \ \ \ \textcolor{comment}{//!<\ ファイル設定済み}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00148}00148\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_aba44fbea838d7896b88a0acaee2d3370a59d87a4758a9d35fbaf6b204341bb399}{Initialized}},\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 初期化済み}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00149}00149\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_aba44fbea838d7896b88a0acaee2d3370abe78aa55f62b5e1e6bd8a62ddedefcc9}{ErrorFileNotFound}},\ \ \ \ \textcolor{comment}{//!<\ ファイル読み込みエラー}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00150}00150\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a9acc5174fe3b7db75337f914cc2af7fa}{UseShader}},\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ シェーダーを使用する}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00151}00151\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00153}\mbox{\hyperlink{class_component_model_a3ccbb8ae288fffac647e0fd014c8fd96}{00153}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_model_a3ccbb8ae288fffac647e0fd014c8fd96}{IsValid}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00154}00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_model_a7da0b7b2268f04bb932425a35b3e0b42}{model\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(\mbox{\hyperlink{class_component_model_aba44fbea838d7896b88a0acaee2d3370a59d87a4758a9d35fbaf6b204341bb399}{ModelBit::Initialized}});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00155}00155\ \ \ \ \ \}\ \ \ \ \textcolor{comment}{//!<\ モデルが読み込まれているか?}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00156}\mbox{\hyperlink{class_component_model_a9acc5174fe3b7db75337f914cc2af7fa}{00156}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_model_a9acc5174fe3b7db75337f914cc2af7fa}{UseShader}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{comment}{//return\ false;}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00158}00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_model_a7da0b7b2268f04bb932425a35b3e0b42}{model\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(\mbox{\hyperlink{class_component_model_aba44fbea838d7896b88a0acaee2d3370a61f9ae7b6c79883bd678bc44907b7ea7}{ModelBit::UseShader}});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00159}00159\ \ \ \ \ \}\ \ \ \ \textcolor{comment}{//!<\ シェーダーを利用するか?}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00161}\mbox{\hyperlink{class_component_model_a47779e5b5e2bfe2cbdb106dfda524d49}{00161}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_model_a47779e5b5e2bfe2cbdb106dfda524d49}{UseShader}}(\textcolor{keywordtype}{bool}\ use)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00162}00162\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a7da0b7b2268f04bb932425a35b3e0b42}{model\_status\_}}.\mbox{\hyperlink{struct_status_ad9dc31e328652e8e835aa12d89195811}{set}}(\mbox{\hyperlink{class_component_model_aba44fbea838d7896b88a0acaee2d3370a61f9ae7b6c79883bd678bc44907b7ea7}{ModelBit::UseShader}},\ use);}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00163}00163\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00164}00164\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00165}00165\ \textcolor{comment}{\ \ \ \ //!\ @name\ IMatrixインターフェースの利用するための定義}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00166}00166\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00167}00167\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00168}00168\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00169}\mbox{\hyperlink{class_component_model_a180c3e9700bed237f8ec50ee9789cc5f}{00169}}\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\&\ \mbox{\hyperlink{class_component_model_a180c3e9700bed237f8ec50ee9789cc5f}{Matrix}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_model_a0c7ccd916bffd2072bba82f895606162}{model\_transform\_}};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00171}00171\ \ \ \ \ \}\ \ \ \ \textcolor{comment}{//!<\ マトリクス取得}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00173}\mbox{\hyperlink{class_component_model_afbda1d71032f27815259fbe83fa447fb}{00173}}\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\&\ \mbox{\hyperlink{class_component_model_afbda1d71032f27815259fbe83fa447fb}{GetMatrix}}()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_model_a0c7ccd916bffd2072bba82f895606162}{model\_transform\_}};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00175}00175\ \ \ \ \ \}\ \ \ \ \textcolor{comment}{//!<\ マトリクス取得}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00177}\mbox{\hyperlink{class_component_model_ae693c618b826e403bebfd5ca2460d73d}{00177}}\ \ \ \ \ ComponentModelPtr\ \mbox{\hyperlink{class_component_model_ae693c618b826e403bebfd5ca2460d73d}{SharedThis}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::dynamic\_pointer\_cast<ComponentModel>(shared\_from\_this());}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00179}00179\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00180}00180\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00181}00181\ \textcolor{comment}{\ \ \ \ //!\ @brief\ ワールドMatrixの取得}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00182}00182\ \textcolor{comment}{\ \ \ \ //!\ @return\ 他のコンポーネントも含めた位置}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00183}00183\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_model_a2d81d6d6069d89e842d2bb287de0444d}{GetWorldMatrix}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00184}00184\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00185}00185\ \textcolor{comment}{\ \ \ \ //!\ @brief\ 1フレーム前のワールドMatrixの取得}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00186}00186\ \textcolor{comment}{\ \ \ \ //!\ @return\ 他のコンポーネントも含めた位置}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00187}00187\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_model_aaa9d2557d42c3ef159e738450f319f04}{GetOldWorldMatrix}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00188}00188\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00189}00189\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00190}00190\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00191}00191\ \ \ \ \textcolor{keyword}{private}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00192}00192\ \textcolor{comment}{\ \ \ \ //!\ モデル用のトランスフォーム}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00193}\mbox{\hyperlink{class_component_model_a0c7ccd916bffd2072bba82f895606162}{00193}}\ \textcolor{comment}{}\ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_model_a0c7ccd916bffd2072bba82f895606162}{model\_transform\_}}\ =\ \mbox{\hyperlink{classmatrix_a08d1d7a26f6b91ee3f9ad0190506b032}{matrix::scale}}(0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00195}\mbox{\hyperlink{class_component_model_a7da0b7b2268f04bb932425a35b3e0b42}{00195}}\ \ \ \ \ \mbox{\hyperlink{struct_status}{Status<ModelBit>}}\ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a7da0b7b2268f04bb932425a35b3e0b42}{model\_status\_}};\ \ \ \ \ \ \ \textcolor{comment}{//!<\ 状態}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00196}\mbox{\hyperlink{class_component_model_a44b18bfd362b6561168b49c511a0d65e}{00196}}\ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a44b18bfd362b6561168b49c511a0d65e}{path\_}}\{\};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 読み込みモデル名}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00197}\mbox{\hyperlink{class_component_model_a323a11ebdbcd16521d03ddb5fbbb22f6}{00197}}\ \ \ \ \ std::shared\_ptr<Model>\ \mbox{\hyperlink{class_component_model_a323a11ebdbcd16521d03ddb5fbbb22f6}{model\_}}\ =\ \textcolor{keyword}{nullptr};\ \ \ \ \textcolor{comment}{//!<\ モデルクラス}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00199}\mbox{\hyperlink{class_component_model_ac9d9e3b356a18326d01e14b1cbea8a02}{00199}}\ \ \ \ \ ImGuizmo::OPERATION\ \mbox{\hyperlink{class_component_model_ac9d9e3b356a18326d01e14b1cbea8a02}{gizmo\_operation\_}}\ =\ ImGuizmo::TRANSLATE;}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00200}\mbox{\hyperlink{class_component_model_ae217f2853df0503e693c8f5f8c215ada}{00200}}\ \ \ \ \ ImGuizmo::MODE\ \ \ \ \ \ \mbox{\hyperlink{class_component_model_ae217f2853df0503e693c8f5f8c215ada}{gizmo\_mode\_}}\ \ \ \ \ \ =\ ImGuizmo::LOCAL;}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00202}\mbox{\hyperlink{class_component_model_a1c85f50ce0eec7d34f720e64a9a5794b}{00202}}\ \ \ \ \ std::vector<std::string\_view>\ \mbox{\hyperlink{class_component_model_a1c85f50ce0eec7d34f720e64a9a5794b}{nodes\_name\_}};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00203}\mbox{\hyperlink{class_component_model_af1fbea827020c620bbcec1c9af20444e}{00203}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_af1fbea827020c620bbcec1c9af20444e}{select\_node\_index\_}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00204}\mbox{\hyperlink{class_component_model_ad9725bd22259c20e2c23dd2dbe396030}{00204}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_ad9725bd22259c20e2c23dd2dbe396030}{node\_manipulate\_}}\ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00205}00205\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00206}00206\ \textcolor{comment}{\ \ \ \ //!\ @brief\ アニメーション}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00207}\mbox{\hyperlink{class_component_model_ab6fa0e6989793e6d9e15e3c37fccff62}{00207}}\ \textcolor{comment}{}\ \ \ \ std::shared\_ptr<Animation>\ \mbox{\hyperlink{class_component_model_ab6fa0e6989793e6d9e15e3c37fccff62}{animation\_}};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00208}\mbox{\hyperlink{class_component_model_a8383195c63a48b4d4635c79d505ced5c}{00208}}\ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a8383195c63a48b4d4635c79d505ced5c}{current\_animation\_name\_}};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00209}\mbox{\hyperlink{class_component_model_a0e1730c2ad1faf45c7d032d0cb0f92b3}{00209}}\ \ \ \ \ std::string\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a0e1730c2ad1faf45c7d032d0cb0f92b3}{old\_animation\_name\_}};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00211}\mbox{\hyperlink{class_component_model_a06a2153c9eb4dae688cc19db370477b9}{00211}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_component_model_a06a2153c9eb4dae688cc19db370477b9}{animation\_time\_}}\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00212}\mbox{\hyperlink{class_component_model_ae9bd5dd41fe0db730e69f1c83fc6c6a7}{00212}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \mbox{\hyperlink{class_component_model_ae9bd5dd41fe0db730e69f1c83fc6c6a7}{anim\_loop\_}}\ \ \ \ \ \ =\ \textcolor{keyword}{false};\ \ \ \ \textcolor{comment}{//!<\ アニメーションループ設定}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00214}\mbox{\hyperlink{class_component_model_a3fa970f3fd18814708f9ccee5df39b92}{00214}}\ \ \ \ \ std::vector<Animation::Desc>\ \mbox{\hyperlink{class_component_model_a3fa970f3fd18814708f9ccee5df39b92}{animations\_desc\_}};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00216}00216\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00217}00217\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00218}00218\ \textcolor{comment}{\ \ \ \ //!\ @name\ Cereal処理}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00219}00219\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00220}00220\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00221}\mbox{\hyperlink{class_component_model_a13cf367b69afa55a4ee997e4d876b838}{00221}}\ \textcolor{comment}{}\ \ \ \ \mbox{\hyperlink{class_component_model_a13cf367b69afa55a4ee997e4d876b838}{CEREAL\_SAVELOAD}}(arc,\ ver)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00222}00222\ \ \ \ \ \ \ \ \ arc(cereal::make\_nvp(\textcolor{stringliteral}{"{}owner"{}},\ \mbox{\hyperlink{class_component_aaf224b0e73780a9c3cbad323a0ec59f5}{owner\_}}),\ cereal::make\_nvp(\textcolor{stringliteral}{"{}model\_transform"{}},\ \mbox{\hyperlink{class_component_model_a0c7ccd916bffd2072bba82f895606162}{model\_transform\_}}),}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ cereal::make\_nvp(\textcolor{stringliteral}{"{}path"{}},\ \mbox{\hyperlink{class_component_model_a44b18bfd362b6561168b49c511a0d65e}{path\_}}),\ cereal::make\_nvp(\textcolor{stringliteral}{"{}desc"{}},\ \mbox{\hyperlink{class_component_model_a3fa970f3fd18814708f9ccee5df39b92}{animations\_desc\_}}),}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ cereal::make\_nvp(\textcolor{stringliteral}{"{}model\_status"{}},\ \mbox{\hyperlink{class_component_model_a7da0b7b2268f04bb932425a35b3e0b42}{model\_status\_}}.\mbox{\hyperlink{struct_status_a5ab7163f7b7a66a3194abef65187eddc}{get}}()),}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ cereal::make\_nvp(\textcolor{stringliteral}{"{}current\_animation"{}},\ \mbox{\hyperlink{class_component_model_a8383195c63a48b4d4635c79d505ced5c}{current\_animation\_name\_}}),\ cereal::make\_nvp(\textcolor{stringliteral}{"{}animation\_time"{}},\ \mbox{\hyperlink{class_component_model_a06a2153c9eb4dae688cc19db370477b9}{animation\_time\_}}),}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ cereal::make\_nvp(\textcolor{stringliteral}{"{}anim\_loop"{}},\ \mbox{\hyperlink{class_component_model_ae9bd5dd41fe0db730e69f1c83fc6c6a7}{anim\_loop\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00228}00228\ \ \ \ \ \ \ \ \ arc(cereal::make\_nvp(\textcolor{stringliteral}{"{}Component"{}},\ cereal::base\_class<Component>(\textcolor{keyword}{this})));}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00230}00230\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_component_model_a44b18bfd362b6561168b49c511a0d65e}{path\_}}.empty())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_a2ac0f7ab91019ae1c69166fc22224aee}{Load}}(\mbox{\hyperlink{class_component_model_a44b18bfd362b6561168b49c511a0d65e}{path\_}});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_component_model_a3fa970f3fd18814708f9ccee5df39b92}{animations\_desc\_}}.empty())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_model_aa4e0f3218a7d1100638196e5adc3d40a}{SetAnimation}}(\mbox{\hyperlink{class_component_model_a3fa970f3fd18814708f9ccee5df39b92}{animations\_desc\_}});}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00235}00235\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00236}00236\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00237}00237\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00238}00238\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00239}00239\ \textcolor{comment}{}\};}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00240}00240\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00241}00241\ \textcolor{comment}{//!\ @brief\ 外部Animation::Descのセーブロード}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00242}\mbox{\hyperlink{_component_model_8h_a5b2d65fb9bfe3c33c28b555d96abc56d}{00242}}\ \textcolor{comment}{}\mbox{\hyperlink{_cereal_8h_a76188fcf3b00899cfe85a847f49dc1d6}{CEREAL\_SAVELOAD\_OTHER}}(\mbox{\hyperlink{struct_animation_1_1_desc}{Animation::Desc}},\ arc,\ other)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00243}00243\ \ \ \ \ arc(CEREAL\_NVP(other.name\_),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ アニメーション名(任意)}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00244}00244\ \ \ \ \ \ \ \ \ CEREAL\_NVP(other.file\_path\_),\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ ファイルパス}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00245}00245\ \ \ \ \ \ \ \ \ CEREAL\_NVP(other.animation\_index\_),\ \ \ \ \textcolor{comment}{//!<\ ファイル内のアニメーション番号}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00246}00246\ \ \ \ \ \ \ \ \ CEREAL\_NVP(other.animation\_speed\_)\ \ \ \ \ \textcolor{comment}{//!<\ アニメーションの再生速度(default:1.0f)}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00247}00247\ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00248}00248\ \}}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00250}00250\ CEREAL\_REGISTER\_TYPE(\mbox{\hyperlink{class_component_model}{ComponentModel}})}
+\DoxyCodeLine{\Hypertarget{_component_model_8h_source_l00251}00251\ CEREAL\_REGISTER\_POLYMORPHIC\_RELATION(\mbox{\hyperlink{class_component}{Component}},\ \mbox{\hyperlink{class_component_model}{ComponentModel}})}
+
+\end{DoxyCode}

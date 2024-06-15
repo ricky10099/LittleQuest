@@ -4,56 +4,50 @@
 //---------------------------------------------------------------------------
 #pragma once
 
+#include <tuple>
+
 //===========================================================================
 //! シェーダー基底
 //===========================================================================
-class ShaderBase {
+class Shader
+    : noncopyable
+    , nonmovable {
    public:
-    // コンストラクタ
-    ShaderBase();
-
     // デストラクタ
-    virtual ~ShaderBase();
+    virtual ~Shader();
 
     // 作成
-    //! @param [in] path            ファイルパス
-    //! @param [in] type シェーダーの種類(DX_SHADERTYPE_VERTEXなど)
-    //! @param [in] variant_count    シェーダーバリエーション数(default:0)
-    ShaderBase(std::string_view path, u32 type, u32 variant_count = 0);
+    //! @param [in] path                ファイルパス
+    //! @param [in] dxlib_shader_type   [DxLib] シェーダーの種類(DX_SHADERTYPE_VERTEXなど)
+    //! @param [in] variant_count       シェーダーバリエーション数(default:0)
+    Shader(std::string_view path, u32 dxlib_shader_type, u32 variant_count = 0);
 
-    // コンパイル実行
-    bool compile();
+    // [DxLib] シェーダーハンドルを取得
+    operator int() const;
 
-    //! [DxLib] シェーダーハンドルを取得
-    operator int() const {
-        return 0 < handles_.size() ? handles_[0] : -1;
-    }
+    // [DxLib] シェーダーハンドルを取得 (バリエーション指定)
+    int variant(u32 variant_index) const;
 
-    //! [DxLib] シェーダーハンドルを取得(バリエーション指定)
-    int variant(u32 index) const {
-        return index < handles_.size() ? handles_[index] : -1;
-    }
+    // [DxLib] シェーダーバイトコードを取得 (バリエーション指定)
+    std::tuple<const void*, size_t> shader_bytecode(u32 variant_index = 0) const;
 
     //! ファイルパスを取得
-    const std::wstring& path() const {
-        return path_;
-    }
+    const std::wstring& path() const;
 
     // ファイル監視を更新
     static void updateFileWatcher();
 
    private:
-    std::wstring     path_;         //!< ファイルパス
-    std::vector<int> handles_;      //!< [DxLib] シェーダーハンドル
-    int              type_ = -1;    //!< [DxLib] シェーダーの種類(DX_SHADERTYPE_VERTEXなど)
+    struct Impl;
+    std::shared_ptr<Impl> impl_;
 };
 
 //===========================================================================
 //! 頂点シェーダー
 //===========================================================================
-class ShaderVs final: public ShaderBase {
+class ShaderVs final: public Shader {
    public:
-    ShaderVs(std::string_view path, u32 variant_count = 0): ShaderBase(path, DX_SHADERTYPE_VERTEX, variant_count) {}
+    ShaderVs(std::string_view path, u32 variant_count = 0): Shader(path, DX_SHADERTYPE_VERTEX, variant_count) {}
 
    private:
 };
@@ -61,15 +55,15 @@ class ShaderVs final: public ShaderBase {
 //===========================================================================
 //! ピクセルシェーダー
 //===========================================================================
-class ShaderPs final: public ShaderBase {
+class ShaderPs final: public Shader {
    public:
-    ShaderPs(std::string_view path, u32 variant_count = 0): ShaderBase(path, DX_SHADERTYPE_PIXEL, variant_count) {}
+    ShaderPs(std::string_view path, u32 variant_count = 0): Shader(path, DX_SHADERTYPE_PIXEL, variant_count) {}
 };
 
 //===========================================================================
 //! ジオメトリシェーダー
 //===========================================================================
-class ShaderGs final: public ShaderBase {
+class ShaderGs final: public Shader {
    public:
-    ShaderGs(std::string_view path, u32 variant_count = 0): ShaderBase(path, DX_SHADERTYPE_GEOMETRY, variant_count) {}
+    ShaderGs(std::string_view path, u32 variant_count = 0): Shader(path, DX_SHADERTYPE_GEOMETRY, variant_count) {}
 };

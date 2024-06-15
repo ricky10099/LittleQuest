@@ -14,9 +14,6 @@
 #include <System/Component/ComponentTargetTracking.h>
 
 namespace LittleQuest {
-
-BP_OBJECT_IMPL(Boss, "LittleQuest/Boss");
-
 BossPtr Boss::Create(const float3& pos) {
     auto pBoss = Scene::CreateObjectDelayInitialize<Boss>();
     pBoss->SetName("Boss");
@@ -719,10 +716,10 @@ void Boss::ChangeState(BossState state) {
     this->m_state = state;
 }
 
-//void Boss::SetSceneState(Scene::SceneState state) {
-//    m_sceneState = state;
-//    ChangeState(IDLE);
-//}
+void Boss::SetSceneState(Scene::SceneState state) {
+    m_sceneState = state;
+    ChangeState(IDLE);
+}
 
 void Boss::Exit() {
     delete[] m_pEffectList;

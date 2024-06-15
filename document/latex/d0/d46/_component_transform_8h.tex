@@ -1,0 +1,172 @@
+\hypertarget{_component_transform_8h}{}\doxysection{Component\+Transform.\+h ファイル}
+\label{_component_transform_8h}\index{ComponentTransform.h@{ComponentTransform.h}}
+
+
+トランスフォームコンポーネント(座標と姿勢と大きさ)  
+
+
+{\ttfamily \#include $<$System/\+Component/\+Component.\+h$>$}\newline
+{\ttfamily \#include $<$System/\+Cereal.\+h$>$}\newline
+{\ttfamily \#include $<$System/\+Vector\+Math.\+h$>$}\newline
+{\ttfamily \#include $<$Im\+Guizmo/\+Im\+Guizmo.\+h$>$}\newline
+{\ttfamily \#include $<$System/\+Utils/\+Helper\+Lib.\+h$>$}\newline
+{\ttfamily \#include $<$Dx\+Lib.\+h$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+Component\+Transform.\+h の依存先関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d1e/_component_transform_8h__incl}
+\end{center}
+\end{figure}
+被依存関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/d1a/_component_transform_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_i_matrix}{IMatrix$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{class_component_transform}{Component\+Transform}}
+\begin{DoxyCompactList}\small\item\em トランスフォーム \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{関数}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_component_transform_8h_a53fe27048e7a64375d563b2644c95763}{Show\+Gizmo}} (float $\ast$\mbox{\hyperlink{classmatrix}{matrix}}, Im\+Guizmo\+::\+OPERATION ope, Im\+Guizmo\+::\+MODE mode, uint64\+\_\+t id=0)
+\begin{DoxyCompactList}\small\item\em 三軸ギズモの表示 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_component_transform_8h_a6d9d86eb5b39827e671616046aef46d8}{Decompose\+Matrix\+To\+Components}} (const float $\ast$matx, float $\ast$translation, float $\ast$rotation, float $\ast$scale)
+\begin{DoxyCompactList}\small\item\em Matrixから位置・回転・スケールに変換(ZXYで変換) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_component_transform_8h_abe00c8be42f2761185a0ccfca2ded81a}{Recompose\+Matrix\+From\+Components}} (const float $\ast$translation, const float $\ast$rotation, const float $\ast$scale, float $\ast$matx)
+\begin{DoxyCompactList}\small\item\em 位置・回転・スケールから\+Matrixに変換(ZXYで変換) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_component_transform_8h_ab74110f7c150b57487eb1688210c7144}{USING\+\_\+\+PTR}} (\mbox{\hyperlink{class_component_transform}{Component\+Transform}})
+\item 
+\mbox{\hyperlink{_component_transform_8h_a327e58de29d7202eecdc99999d0fd10f}{CEREAL\+\_\+\+CLASS\+\_\+\+VERSION}} (\mbox{\hyperlink{class_component_transform}{Component\+Transform}}, 1)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+トランスフォームコンポーネント(座標と姿勢と大きさ) 
+
+
+
+ \mbox{\hyperlink{_component_transform_8h_source}{Component\+Transform.\+h}} に定義があります。
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{_component_transform_8h_a327e58de29d7202eecdc99999d0fd10f}\label{_component_transform_8h_a327e58de29d7202eecdc99999d0fd10f}} 
+\index{ComponentTransform.h@{ComponentTransform.h}!CEREAL\_CLASS\_VERSION@{CEREAL\_CLASS\_VERSION}}
+\index{CEREAL\_CLASS\_VERSION@{CEREAL\_CLASS\_VERSION}!ComponentTransform.h@{ComponentTransform.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_CLASS\_VERSION()}{CEREAL\_CLASS\_VERSION()}}
+{\footnotesize\ttfamily CEREAL\+\_\+\+CLASS\+\_\+\+VERSION (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component_transform}{Component\+Transform}}}]{,  }\item[{1}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_component_transform_8h_a6d9d86eb5b39827e671616046aef46d8}\label{_component_transform_8h_a6d9d86eb5b39827e671616046aef46d8}} 
+\index{ComponentTransform.h@{ComponentTransform.h}!DecomposeMatrixToComponents@{DecomposeMatrixToComponents}}
+\index{DecomposeMatrixToComponents@{DecomposeMatrixToComponents}!ComponentTransform.h@{ComponentTransform.h}}
+\doxysubsubsection{\texorpdfstring{DecomposeMatrixToComponents()}{DecomposeMatrixToComponents()}}
+{\footnotesize\ttfamily void Decompose\+Matrix\+To\+Components (\begin{DoxyParamCaption}\item[{const float $\ast$}]{matx,  }\item[{float $\ast$}]{translation,  }\item[{float $\ast$}]{rotation,  }\item[{float $\ast$}]{scale }\end{DoxyParamCaption})}
+
+
+
+Matrixから位置・回転・スケールに変換(ZXYで変換) 
+
+
+\begin{DoxyParams}{引数}
+{\em matx} & 入力\+Matrix \\
+\hline
+{\em translation} & 位置 \\
+\hline
+{\em rotation} & 回転 \\
+\hline
+{\em scale} & スケール \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_transform_8cpp_source}{Component\+Transform.\+cpp}} の \mbox{\hyperlink{_component_transform_8cpp_source_l00061}{61}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8cpp_source_l00212}{matrix\+::axis\+X()}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00219}{matrix\+::axis\+Y()}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00226}{matrix\+::axis\+Z()}}, \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00023}{matrix\+::translate()}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_transform_8h_source_l00359}{IMatrix$<$ T $>$\+::\+Add\+Rotation\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_transform_8h_source_l00375}{IMatrix$<$ T $>$\+::\+Get\+Rotation\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_transform_8h_source_l00419}{IMatrix$<$ T $>$\+::\+Get\+Scale\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00186}{Component\+Collision\+Capsule\+::\+GUI()}}, \mbox{\hyperlink{_component_collision_model_8cpp_source_l00078}{Component\+Collision\+Model\+::\+GUI()}}, \mbox{\hyperlink{_component_collision_sphere_8cpp_source_l00058}{Component\+Collision\+Sphere\+::\+GUI()}}, \mbox{\hyperlink{_component_effect_8cpp_source_l00124}{Component\+Effect\+::\+GUI()}}, \mbox{\hyperlink{_component_model_8cpp_source_l00104}{Component\+Model\+::\+GUI()}}, \mbox{\hyperlink{_component_transform_8cpp_source_l00125}{Component\+Transform\+::\+GUI()}}, \mbox{\hyperlink{_component_transform_8h_source_l00404}{IMatrix$<$ T $>$\+::\+Mul\+Scale\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_effect_8cpp_source_l00065}{Component\+Effect\+::\+Post\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Component\+Target\+Tracking\+::\+Post\+Update()}}, \mbox{\hyperlink{_component_transform_8h_source_l00344}{IMatrix$<$ T $>$\+::\+Set\+Rotation\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_transform_8h_source_l00389}{IMatrix$<$ T $>$\+::\+Set\+Scale\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_spring_arm_8h_source_l00058}{Component\+Spring\+Arm\+::\+Set\+Spring\+Arm\+Vector()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{Sequence\+Object\+::\+Show\+Guizmo()}} (計16項目).
+
+\mbox{\Hypertarget{_component_transform_8h_abe00c8be42f2761185a0ccfca2ded81a}\label{_component_transform_8h_abe00c8be42f2761185a0ccfca2ded81a}} 
+\index{ComponentTransform.h@{ComponentTransform.h}!RecomposeMatrixFromComponents@{RecomposeMatrixFromComponents}}
+\index{RecomposeMatrixFromComponents@{RecomposeMatrixFromComponents}!ComponentTransform.h@{ComponentTransform.h}}
+\doxysubsubsection{\texorpdfstring{RecomposeMatrixFromComponents()}{RecomposeMatrixFromComponents()}}
+{\footnotesize\ttfamily void Recompose\+Matrix\+From\+Components (\begin{DoxyParamCaption}\item[{const float $\ast$}]{translation,  }\item[{const float $\ast$}]{rotation,  }\item[{const float $\ast$}]{scale,  }\item[{float $\ast$}]{matx }\end{DoxyParamCaption})}
+
+
+
+位置・回転・スケールから\+Matrixに変換(ZXYで変換) 
+
+
+\begin{DoxyParams}{引数}
+{\em translation} & 位置 \\
+\hline
+{\em rotation} & 回転 \\
+\hline
+{\em scale} & スケール \\
+\hline
+{\em matx} & マトリクス \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_transform_8cpp_source}{Component\+Transform.\+cpp}} の \mbox{\hyperlink{_component_transform_8cpp_source_l00089}{89}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_transform_8h_source_l00359}{IMatrix$<$ T $>$\+::\+Add\+Rotation\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_attach_model_8cpp_source_l00056}{Component\+Attach\+Model\+::\+Get\+Put\+On\+Matrix()}}, \mbox{\hyperlink{_component_spring_arm_8cpp_source_l00059}{Component\+Spring\+Arm\+::\+Get\+Put\+On\+Matrix()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00073}{Sequence\+Object\+::\+Get\+Transform\+From\+Frame()}}, \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00186}{Component\+Collision\+Capsule\+::\+GUI()}}, \mbox{\hyperlink{_component_collision_model_8cpp_source_l00078}{Component\+Collision\+Model\+::\+GUI()}}, \mbox{\hyperlink{_component_collision_sphere_8cpp_source_l00058}{Component\+Collision\+Sphere\+::\+GUI()}}, \mbox{\hyperlink{_component_effect_8cpp_source_l00124}{Component\+Effect\+::\+GUI()}}, \mbox{\hyperlink{_component_model_8cpp_source_l00104}{Component\+Model\+::\+GUI()}}, \mbox{\hyperlink{_component_transform_8cpp_source_l00125}{Component\+Transform\+::\+GUI()}}, \mbox{\hyperlink{_component_transform_8h_source_l00404}{IMatrix$<$ T $>$\+::\+Mul\+Scale\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Component\+Target\+Tracking\+::\+Post\+Update()}}, \mbox{\hyperlink{_component_transform_8h_source_l00344}{IMatrix$<$ T $>$\+::\+Set\+Rotation\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_transform_8h_source_l00389}{IMatrix$<$ T $>$\+::\+Set\+Scale\+Axis\+XYZ()}}.
+
+\mbox{\Hypertarget{_component_transform_8h_a53fe27048e7a64375d563b2644c95763}\label{_component_transform_8h_a53fe27048e7a64375d563b2644c95763}} 
+\index{ComponentTransform.h@{ComponentTransform.h}!ShowGizmo@{ShowGizmo}}
+\index{ShowGizmo@{ShowGizmo}!ComponentTransform.h@{ComponentTransform.h}}
+\doxysubsubsection{\texorpdfstring{ShowGizmo()}{ShowGizmo()}}
+{\footnotesize\ttfamily bool Show\+Gizmo (\begin{DoxyParamCaption}\item[{float $\ast$}]{matrix,  }\item[{Im\+Guizmo\+::\+OPERATION}]{ope,  }\item[{Im\+Guizmo\+::\+MODE}]{mode,  }\item[{uint64\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+三軸ギズモの表示 
+
+
+\begin{DoxyParams}{引数}
+{\em matrix} & マトリクス(位置・回転・スケール) \\
+\hline
+{\em ope} & オペレーション \\
+\hline
+{\em mode} & モード \\
+\hline
+{\em id} & 個別\+ID \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+表示できたか 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_transform_8cpp_source}{Component\+Transform.\+cpp}} の \mbox{\hyperlink{_component_transform_8cpp_source_l00021}{21}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_attach_model_8cpp_source_l00099}{Component\+Attach\+Model\+::\+Draw()}}, \mbox{\hyperlink{_component_transform_8cpp_source_l00125}{Component\+Transform\+::\+GUI()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00109}{Sequence\+Object\+::\+Show\+Guizmo()}}.
+
+\mbox{\Hypertarget{_component_transform_8h_ab74110f7c150b57487eb1688210c7144}\label{_component_transform_8h_ab74110f7c150b57487eb1688210c7144}} 
+\index{ComponentTransform.h@{ComponentTransform.h}!USING\_PTR@{USING\_PTR}}
+\index{USING\_PTR@{USING\_PTR}!ComponentTransform.h@{ComponentTransform.h}}
+\doxysubsubsection{\texorpdfstring{USING\_PTR()}{USING\_PTR()}}
+{\footnotesize\ttfamily USING\+\_\+\+PTR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component_transform}{Component\+Transform}}}]{ }\end{DoxyParamCaption})}
+

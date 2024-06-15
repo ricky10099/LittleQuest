@@ -1,0 +1,594 @@
+\hypertarget{_system_main_8cpp_source}{}\doxysection{System\+Main.\+cpp}
+\label{_system_main_8cpp_source}\index{SystemMain.cpp@{SystemMain.cpp}}
+\mbox{\hyperlink{_system_main_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ SystemMain.cpp}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ システムメイン}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_debug_camera_8h}{System/Debug/DebugCamera.h}}>}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_physics_engine_8h}{System/Physics/PhysicsEngine.h}}>}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00008}00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00009}00009\ \textcolor{comment}{//\ シーンオブジェクト}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00010}00010\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_game_title_scene_8h}{LittleQuest/Scenes/GameTitleScene.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_scene_8h}{System/Scene.h}}>}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_ini_file_lib_8h}{System/Utils/IniFileLib.h}}>}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_light_manager_8h}{LightManager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_system_main_8h}{SystemMain.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00017}00017\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00018}00018\ \textcolor{preprocessor}{\#ifdef\ \_DEBUG}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00019}00019\ \textcolor{keywordtype}{bool}\ show\_gui\ \ \ \ \ =\ \textcolor{keyword}{true};\ \ \ \ \ \textcolor{comment}{//!<\ GUIの表示}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00020}00020\ \textcolor{keywordtype}{bool}\ show\_grid\ \ \ \ =\ \textcolor{keyword}{true};\ \ \ \ \ \textcolor{comment}{//!<\ グリッドの表示}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00021}00021\ \textcolor{keywordtype}{bool}\ show\_fps\ \ \ \ \ =\ \textcolor{keyword}{true};\ \ \ \ \ \textcolor{comment}{//!<\ FPSの表示}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00022}00022\ \textcolor{keywordtype}{bool}\ debug\_camera\ =\ \textcolor{keyword}{false};\ \ \ \ \textcolor{comment}{//!<\ デバッグカメラ}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00023}00023\ \textcolor{keywordtype}{bool}\ show\_debug\ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00024}00024\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00025}00025\ \textcolor{keywordtype}{bool}\ show\_gui\ \ \ \ \ =\ \textcolor{keyword}{false};\ \ \ \ \textcolor{comment}{//!<\ GUIの表示}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00026}00026\ \textcolor{keywordtype}{bool}\ show\_grid\ \ \ \ =\ \textcolor{keyword}{false};\ \ \ \ \textcolor{comment}{//!<\ グリッドの表示}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00027}00027\ \textcolor{keywordtype}{bool}\ show\_fps\ \ \ \ \ =\ \textcolor{keyword}{false};\ \ \ \ \textcolor{comment}{//!<\ FPSの表示}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00028}00028\ \textcolor{keywordtype}{bool}\ debug\_camera\ =\ \textcolor{keyword}{false};\ \ \ \ \textcolor{comment}{//!<\ デバッグカメラ}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00029}00029\ \textcolor{keywordtype}{bool}\ show\_debug\ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00030}00030\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00032}00032\ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ current\_time\_\ =\ 0;\ \ \ \ \ \ \ \textcolor{comment}{//!<\ 現在の時間\ (単位:μsec)}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00033}00033\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ delta\_time\_\ \ \ =\ 0.0f;\ \ \ \ \textcolor{comment}{//!<\ 1フレームの経過時間（CPUとGPU,}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00034}00034\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //!<\ ScreenFlip()更新待ちすべて含む）}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00035}00035\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00036}00036\ \textcolor{keywordtype}{bool}\ menu\_active\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00037}00037\ \textcolor{keywordtype}{bool}\ menu\_select\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00039}00039\ \textcolor{keywordtype}{bool}\ hide\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00040}00040\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00041}00041\ \textcolor{comment}{//!\ @name\ \ \ CPU負荷計測}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00042}00042\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00043}00043\ \textcolor{comment}{//@\{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00044}00044\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00045}00045\ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ cpu\_start\_counter\_\ \ \ \ =\ 0;\ \ \ \ \textcolor{comment}{//!<\ 1フレームの開始タイミングカウンター}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00046}00046\ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ cpu\_profile\_duration\_\ =\ 0;\ \ \ \ \textcolor{comment}{//!<\ 1フレームのCPU処理時間(単位:μsec)}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00047}00047\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00048}00048\ \textcolor{comment}{//@\}}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00049}00049\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00050}00050\ \textcolor{comment}{//!\ 物理シミュレーションの実体}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00051}00051\ \textcolor{comment}{}std::unique\_ptr<physics::Engine>\ physics\_engine\_;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00052}00052\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00053}00053\ \textcolor{comment}{//!\ デバッグカメラの移動方法}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00054}00054\ \textcolor{comment}{}\mbox{\hyperlink{namespace_debug_camera_a11b4a552c87ef1cc5965c18fcd66053c}{DebugCamera::Control}}\ control\ =\ \mbox{\hyperlink{namespace_debug_camera_a11b4a552c87ef1cc5965c18fcd66053cac5ce776a1b0109bac07c0ff7b47e08d3}{DebugCamera::UnrealEngine}};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00055}00055\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00056}00056\ \textcolor{comment}{//!\ 光源管理}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00057}00057\ \textcolor{comment}{}\mbox{\hyperlink{class_light_manager}{LightManager}}\ light\_manager\_;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00059}00059\ std::shared\_ptr<Texture>\ texture\_hdr\_;\ \ \ \ \textcolor{comment}{//!<\ HDRバッファ}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00061}00061\ std::shared\_ptr<ShaderPs>\ shader\_ps\_tonemapping\_;\ \ \ \ \textcolor{comment}{//\ ピクセルシェーダー}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00063}00063\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00065}00065\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00066}00066\ \textcolor{comment}{//!\ 1フレームのCPU処理時間を取得(単位:μsec)}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00067}00067\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00068}\mbox{\hyperlink{_system_main_8cpp_a697d7339840b171be81e3669978c1c3b}{00068}}\ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ \mbox{\hyperlink{_system_main_8cpp_a697d7339840b171be81e3669978c1c3b}{GetCpuProfile}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00069}00069\ \ \ \ \ \textcolor{keywordflow}{return}\ cpu\_profile\_duration\_;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00070}00070\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00072}00072\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00073}00073\ \textcolor{comment}{//!\ パフォーマンスカウンターを取得\ (単位:μsec)}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00074}00074\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00075}\mbox{\hyperlink{_system_main_8cpp_ad8954d9816002bb9ee851007b67cb855}{00075}}\ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ \mbox{\hyperlink{_system_main_8cpp_ad8954d9816002bb9ee851007b67cb855}{GetPerformanceCounterMicroSec}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00076}00076\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ counter\ =\ GetNowSysPerformanceCount();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00077}00077\ \ \ \ \ \textcolor{keywordflow}{return}\ ConvSysPerformanceCountToMicroSeconds(counter);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00078}00078\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00080}00080\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00081}00081\ \textcolor{comment}{//!\ 経過時間計測をリセット}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00082}00082\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00083}\mbox{\hyperlink{_system_main_8cpp_af988b01c4fb7bb0626602497ead94103}{00083}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_system_main_8cpp_af988b01c4fb7bb0626602497ead94103}{ResetDeltaTime}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00084}00084\ \ \ \ \ current\_time\_\ =\ \mbox{\hyperlink{_system_main_8cpp_ad8954d9816002bb9ee851007b67cb855}{GetPerformanceCounterMicroSec}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00085}00085\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00087}00087\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00088}00088\ \textcolor{comment}{//!\ 1フレームの間に経過した時間を計算}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00089}00089\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00090}\mbox{\hyperlink{_system_main_8cpp_a150f12b48e13e1c14a4e7646137c74a4}{00090}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_system_main_8cpp_a150f12b48e13e1c14a4e7646137c74a4}{UpdateDeltaTime}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00091}00091\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ last\_time\ =\ current\_time\_;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00092}00092\ \ \ \ \ current\_time\_\ =\ \mbox{\hyperlink{_system_main_8cpp_ad8954d9816002bb9ee851007b67cb855}{GetPerformanceCounterMicroSec}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00093}00093\ \ \ \ \ delta\_time\_\ \ \ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\textcolor{keyword}{>}(current\_time\_\ -\/\ last\_time)\ *\ (1.0f\ /\ 1000.0f\ /\ 1000.0f);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00094}00094\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00096}00096\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00097}00097\ \textcolor{comment}{//!\ 1フレームの間に経過した時間を取得}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00098}00098\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00099}\mbox{\hyperlink{_system_main_8cpp_a452fbbb7d3c2ce1a51dbcfbb8274c617}{00099}}\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \mbox{\hyperlink{_system_main_8cpp_a452fbbb7d3c2ce1a51dbcfbb8274c617}{GetDeltaTime}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{return}\ delta\_time\_;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00101}00101\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00103}00103\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00104}00104\ \textcolor{comment}{//\ これを掛けると60FPSのときと基本的に同じ速さになる}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00105}00105\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00106}\mbox{\hyperlink{_system_main_8cpp_afde233dd3c2802b2dbf618c7fee95799}{00106}}\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \mbox{\hyperlink{_system_main_8cpp_afde233dd3c2802b2dbf618c7fee95799}{GetDeltaTime60}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00107}00107\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ ps\ =\ delta\_time\_\ *\ 60.0f;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00108}00108\ \ \ \ \ \textcolor{keywordflow}{if}(ps\ >\ 3.0f)}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ ps\ =\ 1.0f;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00110}00110\ \ \ \ \ \textcolor{keywordflow}{return}\ ps;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00111}00111\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00113}00113\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00114}00114\ \textcolor{comment}{//\ ツールなどで使用する際強制的にFPSを変更する}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00115}00115\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00116}\mbox{\hyperlink{_system_main_8cpp_ad50fd4069fafde421c84c6627d405eb0}{00116}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_system_main_8cpp_ad50fd4069fafde421c84c6627d405eb0}{SetDeltaTime}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ fps)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00117}00117\ \ \ \ \ delta\_time\_\ =\ fps;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00118}00118\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00120}00120\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00121}00121\ \textcolor{comment}{//!\ グリッドの表示をON/OFFします}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00122}00122\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00123}\mbox{\hyperlink{_system_main_8cpp_abacdb1869fa1d49d870768a351e9ce51}{00123}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_system_main_8cpp_abacdb1869fa1d49d870768a351e9ce51}{ShowGrid}}(\textcolor{keywordtype}{bool}\ active)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00124}00124\ \ \ \ \ show\_grid\ =\ active;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00125}00125\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00127}00127\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00128}00128\ \textcolor{comment}{//\ 数値スクロール表示用のリングバッファ}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00129}00129\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00130}\mbox{\hyperlink{struct_scrolling_buffer}{00130}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_scrolling_buffer}{ScrollingBuffer}}\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00131}\mbox{\hyperlink{struct_scrolling_buffer_a38a2eba64ba6c055e5340bc744ae5dd9}{00131}}\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_scrolling_buffer_a38a2eba64ba6c055e5340bc744ae5dd9}{offset\_}}\ =\ 0;\ \ \ \ \textcolor{comment}{//!<\ データー先頭の位置}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00132}\mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{00132}}\ \ \ \ \ std::vector<ImVec2>\ \mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ プロットデーター配列}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00134}\mbox{\hyperlink{struct_scrolling_buffer_aa25fe0236f670b657539cad1cb3dc742}{00134}}\ \ \ \ \ \mbox{\hyperlink{struct_scrolling_buffer_aa25fe0236f670b657539cad1cb3dc742}{ScrollingBuffer}}(\textcolor{keywordtype}{size\_t}\ max\_size\ =\ 4096)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}.reserve(max\_size);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00136}00136\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00137}\mbox{\hyperlink{struct_scrolling_buffer_a80499299ec8b431e42e7f1d7128b7c81}{00137}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_scrolling_buffer_a80499299ec8b431e42e7f1d7128b7c81}{AddPoint}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ t,\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ value)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ プロットする値}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ x\ =\ ImVec2(t,\ value);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}.size()\ <\ \mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}.capacity())\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 新規追加}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}.emplace\_back(std::move(x));}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ リングバッファとして再利用}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}[\mbox{\hyperlink{struct_scrolling_buffer_a38a2eba64ba6c055e5340bc744ae5dd9}{offset\_}}]\ =\ x;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_scrolling_buffer_a38a2eba64ba6c055e5340bc744ae5dd9}{offset\_}}\ \ \ \ \ \ \ \ =\ (\mbox{\hyperlink{struct_scrolling_buffer_a38a2eba64ba6c055e5340bc744ae5dd9}{offset\_}}\ +\ 1)\ \%\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\textcolor{keyword}{>}(\mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}.capacity());}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00149}00149\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00150}\mbox{\hyperlink{struct_scrolling_buffer_a66a24c9688699a52b6a664d65428f996}{00150}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{struct_scrolling_buffer_a66a24c9688699a52b6a664d65428f996}{clear}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}.clear();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_scrolling_buffer_a38a2eba64ba6c055e5340bc744ae5dd9}{offset\_}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00153}00153\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00154}00154\ \};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00156}00156\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00157}00157\ \textcolor{comment}{//!\ FPSを表示します}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00158}00158\ \textcolor{comment}{//!\ @param\ \ [in]\ \ \ \ delta\ \ \ 1フレームの経過時間(単位:秒)}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00159}00159\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00160}\mbox{\hyperlink{_system_main_8cpp_a9751578cbcea9d8e9120310c3adfec11}{00160}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_system_main_8cpp_a9751578cbcea9d8e9120310c3adfec11}{ShowFps}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ delta)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00161}00161\ \ \ \ \ ImGuiWindowFlags\ window\_flags\ =\ ImGuiWindowFlags\_NoDecoration\ |\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ タイトルバー/スクロールバーなし}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiWindowFlags\_NoDocking\ |\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ドッキングなし}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiWindowFlags\_AlwaysAutoResize\ |\ \ \ \ \ \ \textcolor{comment}{//\ 自動リサイズなし}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiWindowFlags\_NoSavedSettings\ |\ \ \ \ \ \ \ \textcolor{comment}{//\ 保存しない}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiWindowFlags\_NoFocusOnAppearing\ |\ \ \ \ \textcolor{comment}{//\ フォーカスしない}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiWindowFlags\_NoNav\ |\ \ \ \ \textcolor{comment}{//\ キーやゲームパッドで操作対象にしない}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiWindowFlags\_NoMove;\ \ \ \ \textcolor{comment}{//\ 移動させない}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00169}00169\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00170}00170\ \ \ \ \ \textcolor{comment}{//\ 表示位置設定}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00171}00171\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00172}00172\ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ corner\ =\ 2;\ \ \ \ \textcolor{comment}{//\ 0:左上\ 1:右上\ 2:左下\ 3:\ 右下}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00173}00173\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \ \ \ \ \ \ \ PADDING\ \ =\ 10.0f;\ \ \ \ \textcolor{comment}{//\ 余白部分}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ImGuiViewport*\ viewport\ =\ ImGui::GetMainViewport();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ ImVec2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ work\_pos\ =\ viewport-\/>WorkPos;\ \ \ \ \textcolor{comment}{//\ WorkPosを使用するとメニューバーなどの位置を考慮した位置が取得できる}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ ImVec2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ work\_size\ =\ viewport-\/>WorkSize;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ ImVec2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ window\_pos,\ window\_pos\_pivot;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00179}00179\ \ \ \ \ \ \ \ \ window\_pos.x\ \ \ \ \ \ \ =\ (corner\ \&\ 1)\ ?\ (work\_pos.x\ +\ work\_size.x\ -\/\ PADDING)\ :\ (work\_pos.x\ +\ PADDING);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00180}00180\ \ \ \ \ \ \ \ \ window\_pos.y\ \ \ \ \ \ \ =\ (corner\ \&\ 2)\ ?\ (work\_pos.y\ +\ work\_size.y\ -\/\ PADDING)\ :\ (work\_pos.y\ +\ PADDING);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00181}00181\ \ \ \ \ \ \ \ \ window\_pos\_pivot.x\ =\ (corner\ \&\ 1)\ ?\ 1.0f\ :\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ window\_pos\_pivot.y\ =\ (corner\ \&\ 2)\ ?\ 1.0f\ :\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ ImGui::SetNextWindowPos(window\_pos,\ ImGuiCond\_Always,\ window\_pos\_pivot);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ ImGui::SetNextWindowViewport(viewport-\/>ID);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00185}00185\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00187}00187\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00188}00188\ \ \ \ \ \textcolor{comment}{//\ 半透明の背景}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00189}00189\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00190}00190\ \ \ \ \ ImGui::SetNextWindowBgAlpha(0.35f);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00192}00192\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00193}00193\ \ \ \ \ \textcolor{comment}{//\ オーバーレイウィンドウを表示}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00194}00194\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00196}00196\ \ \ \ \ \textcolor{comment}{//\ モニターのリフレッシュレートを取得\ (Hz)}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00197}00197\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}}\ refresh\_rate\ =\ 60;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00198}00198\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00199}00199\ \ \ \ \ \ \ \ \ HDC\ hdc\ \ \ \ \ \ =\ GetDC(GetMainWindowHandle());\ \ \ \ \textcolor{comment}{//\ デバイスコンテキストの取得}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00200}00200\ \ \ \ \ \ \ \ \ refresh\_rate\ =\ GetDeviceCaps(hdc,\ VREFRESH);\ \ \ \ \textcolor{comment}{//\ リフレッシュレートの取得}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ ReleaseDC(GetMainWindowHandle(),\ hdc);\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ デバイスコンテキストの解放}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00202}00202\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00204}00204\ \ \ \ \ \textcolor{comment}{//\ 現在のフレームレート}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00205}00205\ \ \ \ \ \textcolor{keyword}{auto}\ frame\_rate\ =\ ImGui::GetIO().Framerate;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00206}00206\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\textcolor{keyword}{>}(refresh\_rate)\ <\ ImGui::GetIO().Framerate)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ frame\_rate\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\textcolor{keyword}{>}(refresh\_rate);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00209}00209\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00211}00211\ \ \ \ \ \textcolor{comment}{//\ CPU負荷(μsec)}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00212}00212\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ cpu\_profile\_time\ =\ \mbox{\hyperlink{_system_main_8cpp_a697d7339840b171be81e3669978c1c3b}{GetCpuProfile}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00214}00214\ \ \ \ \ \textcolor{comment}{//\ 角を丸める}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00215}00215\ \ \ \ \ ImGui::PushStyleVar(ImGuiStyleVar\_WindowRounding,\ 8.0f);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00217}00217\ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Begin(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}FPS計測"{}},\ \textcolor{keyword}{nullptr},\ window\_flags))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ フレームレートグラフを表示}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00221}00221\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_scrolling_buffer}{ScrollingBuffer}}\ cpu\_data,\ fps\_data;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 経過時間}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ t\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ t\ +=\ delta;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 数値を0.0f～1.0fの範囲で設定する}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \ cpu\_micro\_sec\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\textcolor{keyword}{>}(cpu\_profile\_time);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ratio\ \ \ \ \ \ \ \ \ =\ cpu\_micro\_sec\ /\ (1000.0f\ *\ 1000.0f\ /\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\textcolor{keyword}{>}(refresh\_rate));}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ cpu\_data.\mbox{\hyperlink{struct_scrolling_buffer_a80499299ec8b431e42e7f1d7128b7c81}{AddPoint}}(t,\ ratio);\ \ \ \ \textcolor{comment}{//\ CPU負荷}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ fps\_data.\mbox{\hyperlink{struct_scrolling_buffer_a80499299ec8b431e42e7f1d7128b7c81}{AddPoint}}(t,}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ frame\_rate\ /\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\textcolor{keyword}{>}(refresh\_rate));\ \ \ \ \textcolor{comment}{//\ フレームレート}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ history\ =\ 10.0f;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ ImPlotFlags\ flags\ =\ ImPlotFlags\_NoInputs\ |\ ImPlotFlags\_NoFrame;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImPlot::BeginPlot(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}フレームレート\ \&\ CPU負荷"{}},\ ImVec2(-\/1.0f,\ 96.0f),\ flags))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ ImPlotAxisFlags\ axis\_flags\ =\ ImPlotAxisFlags\_NoTickLabels\ |\ ImPlotAxisFlags\_Lock;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ ImPlot::SetupAxes(NULL,\ NULL,\ flags,\ axis\_flags);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ ImPlot::SetupAxisLimits(ImAxis\_X1,\ t\ -\/\ history,\ t,}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiCond\_Always);\ \ \ \ \textcolor{comment}{//\ 表示範囲}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ ImPlot::SetupAxisLimits(ImAxis\_Y1,\ 0.0f,}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1.01f);\ \ \ \ \textcolor{comment}{//\ 上下数値の範囲(最大値目盛りを出すため1.01f)}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ ImPlot::SetNextFillStyle(IMPLOT\_AUTO\_COL,\ 0.5f);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ ImPlot::PlotShaded(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}CPU負荷"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 名前}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&cpu\_data.\mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}[0].x,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 時間軸t}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&cpu\_data.\mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}[0].y,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 値}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}}\textcolor{keyword}{>}(cpu\_data.\mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}.size()),\ \ \ \ \textcolor{comment}{//\ 配列数}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/INFINITY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 塗りつぶし範囲}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImPlotShadedFlags\_None,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ImPlotShadedFlags}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cpu\_data.\mbox{\hyperlink{struct_scrolling_buffer_a38a2eba64ba6c055e5340bc744ae5dd9}{offset\_}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 先頭オフセット}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(ImVec2));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 構造体あたりのサイズ}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ ImPlot::PlotLine(\textcolor{stringliteral}{"{}fps"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 名前}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&fps\_data.\mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}[0].x,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 時間軸t}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&fps\_data.\mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}[0].y,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 値}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}}\textcolor{keyword}{>}(fps\_data.\mbox{\hyperlink{struct_scrolling_buffer_a908c0d5032f276a7dc3bfd8c5fa70f48}{data\_}}.size()),\ \ \ \ \textcolor{comment}{//\ 配列数}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImPlotShadedFlags\_None,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ImPlotShadedFlags}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fps\_data.\mbox{\hyperlink{struct_scrolling_buffer_a38a2eba64ba6c055e5340bc744ae5dd9}{offset\_}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 先頭オフセット}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{sizeof}(ImVec2));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 構造体あたりのサイズ}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ ImPlot::EndPlot();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00266}00266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00267}00267\ \ \ \ \ \ \ \ \ ImGui::SliderFloat(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}履歴範囲"{}},\ \&history,\ 1,\ 30,\ \textcolor{stringliteral}{"{}\%.1f\ s"{}});}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00268}00268\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00269}00269\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00270}00270\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00271}00271\ \ \ \ \ \textcolor{comment}{//\ 現在の数値を表示}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00272}00272\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00273}00273\ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00274}00274\ \ \ \ \ ImGui::Text(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}FPS\ \ \ \ :\ \%3.2f\ fps\ (max:\%3d\ fps)"{}},\ frame\_rate,\ refresh\_rate);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00275}00275\ \ \ \ \ ImGui::Text(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}CPU負荷\ :\ \%3.2f\ ms"{}},\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\textcolor{keyword}{>}(cpu\_profile\_time)\ /\ 1000.0f);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00276}00276\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00277}00277\ \ \ \ \ \textcolor{comment}{//\ オーバーレイウィンドウ終了}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00278}00278\ \ \ \ \ ImGui::End();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00279}00279\ \ \ \ \ ImGui::PopStyleVar();\ \ \ \ \textcolor{comment}{//\ 角を丸める設定を元に戻す}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00280}00280\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00281}00281\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00282}00282\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00283}00283\ \textcolor{comment}{//!\ 初期化}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00284}00284\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00285}\mbox{\hyperlink{_system_main_8cpp_abd5a104987528829c883e7498602008f}{00285}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_system_main_8cpp_abd5a104987528829c883e7498602008f}{SystemInit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00286}00286\ \ \ \ \ \textcolor{comment}{//\ 光源管理を初期化}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00287}00287\ \ \ \ \ light\_manager\_.initialize();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00288}00288\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00289}00289\ \ \ \ \ \textcolor{comment}{//\ Editor.iniから読み取り}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00290}00290\ \ \ \ \ \mbox{\hyperlink{class_scene_ac98fef2d3ecafce4448adcc11b26e14b}{Scene::LoadEditor}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00291}00291\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00292}00292\ \ \ \ \ \textcolor{comment}{//\ Game.iniから読み込む}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00293}00293\ \ \ \ \ \mbox{\hyperlink{class_ini_file_lib}{IniFileLib}}\ ini(\textcolor{stringliteral}{"{}Game.ini"{}});}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00294}00294\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00295}00295\ \ \ \ \ \textcolor{keyword}{auto}\ \ scene\_name\ =\ ini.\mbox{\hyperlink{class_ini_file_lib_ae280acc58c304c9e26549d8ff562ce98}{GetString}}(\textcolor{stringliteral}{"{}Scene"{}},\ \textcolor{stringliteral}{"{}Start"{}});}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00296}00296\ \ \ \ \ \textcolor{comment}{//\ 作成}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00297}00297\ \ \ \ \ \textcolor{keyword}{auto}*\ scene\ \ \ \ \ \ =\ CreateInstanceFromName<Scene::Base>(scene\_name);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00298}00298\ \ \ \ \ \textcolor{keywordflow}{if}(scene)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00299}00299\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_a00308ed75b7a8835f0cb091f96e747d3}{Scene::Change}}(std::shared\_ptr<Scene::Base>(scene));}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00300}00300\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00301}00301\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ iniファイルの設定のクラスが見つからない場合はサンプルシーンを起動}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00302}00302\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_a00308ed75b7a8835f0cb091f96e747d3}{Scene::Change}}(std::make\_shared<class\ LittleQuest::GameTitleScene>());}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00303}00303\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00305}00305\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ editor\ =\ ini.\mbox{\hyperlink{class_ini_file_lib_ab80caf6b43491fc4caee6db725774f98}{GetBool}}(\textcolor{stringliteral}{"{}System"{}},\ \textcolor{stringliteral}{"{}GUIEditor"{}});}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00306}00306\ \ \ \ \ \mbox{\hyperlink{class_scene_a7f252ddaf029f309bee87c0926331368}{Scene::SetEdit}}(editor);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00308}00308\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00309}00309\ \ \ \ \ \textcolor{comment}{//\ 物理シミュレーションを初期化}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00310}00310\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00311}00311\ \ \ \ \ physics\_engine\_\ =\ \mbox{\hyperlink{namespacephysics_ab56dd186fdba2f715f4f076a4e71486f}{physics::createPhysics}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00313}00313\ \ \ \ \ \textcolor{comment}{//\ 現在の時間を初期化}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00314}00314\ \ \ \ \ \mbox{\hyperlink{_system_main_8cpp_af988b01c4fb7bb0626602497ead94103}{ResetDeltaTime}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00315}00315\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00316}00316\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00317}00317\ \ \ \ \ \textcolor{comment}{//\ 描画先テクスチャを作成}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00318}00318\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00319}00319\ \ \ \ \ texture\_hdr\_\ =\ std::make\_shared<Texture>(\mbox{\hyperlink{_win_main_8cpp_ac78343b652d0b3d9a31151e3e9b8b099}{WINDOW\_W}},\ \mbox{\hyperlink{_win_main_8cpp_a3a609d6fe30ef0043ca04a806c67f602}{WINDOW\_H}},\ DXGI\_FORMAT\_R16G16B16A16\_FLOAT);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00320}00320\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00321}00321\ \ \ \ \ \textcolor{comment}{//\ シェーダー読込}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00322}00322\ \ \ \ \ shader\_ps\_tonemapping\_\ =\ std::make\_shared<ShaderPs>(\textcolor{stringliteral}{"{}data/Shader/ps\_tonemapping"{}});}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00324}00324\ \ \ \ \ \textcolor{keywordflow}{if}(AddFontResourceEx(\textcolor{stringliteral}{"{}data/LittleQuest/Fonts/MPLUSCodeLatin-\/Regular.ttf"{}},\ FR\_PRIVATE,\ NULL)\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00325}00325\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00326}00326\ \ \ \ \ \ \ \ \ MessageBox(NULL,\ \textcolor{stringliteral}{"{}フォント読込失敗"{}},\ \textcolor{stringliteral}{"{}"{}},\ MB\_OK);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00327}00327\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00328}00328\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00329}00329\ \textcolor{preprocessor}{\#ifndef\ \_DEBUG}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00330}00330\ \ \ \ \ SetSysCommandOffFlag(TRUE);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00331}00331\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00332}00332\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00334}00334\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00335}00335\ \textcolor{comment}{//!\ 更新}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00336}00336\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00337}\mbox{\hyperlink{_system_main_8cpp_ac207065b1fb62c07f89a12f7b4192a20}{00337}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_system_main_8cpp_ac207065b1fb62c07f89a12f7b4192a20}{SystemUpdate}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00338}00338\ \ \ \ \ \textcolor{comment}{//\ 1フレームの間に経過した時間を計算\ ⊿t}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00339}00339\ \ \ \ \ \mbox{\hyperlink{_system_main_8cpp_a150f12b48e13e1c14a4e7646137c74a4}{UpdateDeltaTime}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00340}00340\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00341}00341\ \textcolor{preprocessor}{\#if\ defined\ \_DEBUG}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00342}00342\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00343}00343\ \ \ \ \ \textcolor{comment}{//\ メインメニューバー}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00344}00344\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00345}00345\ \ \ \ \ \textcolor{keywordflow}{if}(show\_gui)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00346}00346\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsKeyOn(KEY\_INPUT\_LALT)\ ||\ IsKeyOn(KEY\_INPUT\_RALT))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \ menu\_active\ =\ !menu\_active;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00348}00348\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00349}00349\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00350}00350\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ F5キーでデバッグ表示変更}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00351}00351\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsKeyOn(KEY\_INPUT\_F5))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ show\_debug\ =\ !show\_debug;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_a7f252ddaf029f309bee87c0926331368}{Scene::SetEdit}}(show\_debug);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00354}00354\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00355}00355\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ F4キーでカメラ変更}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00356}00356\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsKeyOn(KEY\_INPUT\_F4))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ debug\_camera\ =\ !debug\_camera;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_debug_camera_a21055478ad38cd3f18b68d9e4af62aa9}{DebugCamera::Use}}(debug\_camera);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00359}00359\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00360}00360\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00361}00361\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsKeyOn(KEY\_INPUT\_F6))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ hide\ =\ !hide;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_input_mouse_8cpp_a0ff6e5ec9961a932a9b07738048a6386}{HideMouse}}(hide);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00364}00364\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00365}00365\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00366}00366\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00367}00367\ \ \ \ \ menu\_select\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00368}00368\ \ \ \ \ \textcolor{keywordflow}{if}(menu\_active)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00369}00369\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginMainMenuBar())\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00370}00370\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginMenu(\textcolor{stringliteral}{"{}File"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndMenu();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00373}00373\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginMenu(\textcolor{stringliteral}{"{}Edit"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndMenu();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00376}00376\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00377}00377\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginMenu(\textcolor{stringliteral}{"{}Scene"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ menu\_select\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginMenu(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}シーン選択"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00382}00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 登録されているシーンを列挙する}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00383}00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ scene\_base\ =\ Scene::Base::TypeInfo;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}*\ p\ =\ scene\_base.child();\ p;\ p\ =\ p-\/>siblings())\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 表示文字列}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ scene\_name\ =\ std::string(p-\/>className())\ +\ \textcolor{stringliteral}{"{}\ -\/\ "{}}\ +\ p-\/>descName();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00388}00388\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 現在のシーンなら選択状態にする}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ selected\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}*\ current\_scene\ =\ \mbox{\hyperlink{class_scene_a8ef78e083da6e5e0ff7a78a8453ec2c1}{Scene::GetCurrentScene}}())\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ selected\ =\ (current\_scene-\/>typeInfo()\ ==\ p);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00393}00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00394}00394\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00395}00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::MenuItem(scene\_name.c\_str(),\ \textcolor{keyword}{nullptr},\ selected))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!selected)\ \{\ \ \ \ \textcolor{comment}{//\ 現在のシーン以外が新たに選択された場合}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ scene\ =\ \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{class_scene_1_1_base}{Scene::Base}}*\textcolor{keyword}{>}(p-\/>createInstance());}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シーンジャンプ}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(scene)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ デバッグカメラはOFFにしてからシーン切り替えを行います}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ debug\_camera\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_debug_camera_a21055478ad38cd3f18b68d9e4af62aa9}{DebugCamera::Use}}(debug\_camera);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_a00308ed75b7a8835f0cb091f96e747d3}{Scene::Change}}(std::shared\_ptr<Scene::Base>(scene));}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00408}00408\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00409}00409\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndMenu();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}シーンリセット"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ inst\ =\ \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{class_scene_1_1_base}{Scene::Base}}*\textcolor{keyword}{>}(\mbox{\hyperlink{class_scene_a8ef78e083da6e5e0ff7a78a8453ec2c1}{Scene::GetCurrentScene}}()-\/>typeInfo()-\/>createInstance());}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00414}00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_a8ef78e083da6e5e0ff7a78a8453ec2c1}{Scene::GetCurrentScene}}()-\/>\mbox{\hyperlink{class_scene_1_1_base_aea546aec5c374052aae6d7d9ac307ddf}{Exit}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_a00308ed75b7a8835f0cb091f96e747d3}{Scene::Change}}(std::shared\_ptr<Scene::Base>(inst));}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00417}00417\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndMenu();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00420}00420\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginMenu(\textcolor{stringliteral}{"{}Debug"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00422}00422\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ menu\_select\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00423}00423\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Checkbox(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}グリッド表示"{}},\ \&show\_grid);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00424}00424\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Checkbox(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}FPS表示"{}},\ \&show\_fps);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00425}00425\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00426}00426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Checkbox(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}デバッグ表示(F5)"{}},\ \&show\_debug);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00427}00427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00428}00428\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Checkbox(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}デバッグカメラ(F4)"{}},\ \&debug\_camera);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(debug\_camera)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginMenu(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}移動方式"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::RadioButton(\textcolor{stringliteral}{"{}Unity"{}},\ (\textcolor{keywordtype}{int}*)(\&control),\ \mbox{\hyperlink{namespace_debug_camera_a11b4a552c87ef1cc5965c18fcd66053ca7edb683734ac72461a15e4cbce633380}{DebugCamera::Unity}});}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::RadioButton(\textcolor{stringliteral}{"{}UnrealEngine"{}},\ (\textcolor{keywordtype}{int}*)(\&control),\ \mbox{\hyperlink{namespace_debug_camera_a11b4a552c87ef1cc5965c18fcd66053cac5ce776a1b0109bac07c0ff7b47e08d3}{DebugCamera::UnrealEngine}});}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::RadioButton(\textcolor{stringliteral}{"{}Maya"{}},\ (\textcolor{keywordtype}{int}*)(\&control),\ \mbox{\hyperlink{namespace_debug_camera_a11b4a552c87ef1cc5965c18fcd66053ca192da82d8b26a9cbc4c2ace023d2b2bd}{DebugCamera::Maya}});}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00434}00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndMenu();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00435}00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00436}00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00437}00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_debug_camera_a21055478ad38cd3f18b68d9e4af62aa9}{DebugCamera::Use}}(debug\_camera);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00438}00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_debug_camera_a2dcf41ebd69a18b4003d3ba0d3bea6d5}{DebugCamera::SetControl}}(control);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00439}00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00440}00440\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_a7f252ddaf029f309bee87c0926331368}{Scene::SetEdit}}(show\_debug);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00441}00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}エディター配置"{}},\ (\textcolor{keywordtype}{int}*)\&\mbox{\hyperlink{class_scene_a3177f5365d677bcb663d5f717d79e9a2}{Scene::SceneStatus}}(),}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00443}00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1\ <<\ (\textcolor{keywordtype}{int})\mbox{\hyperlink{class_scene_ac92ebe1c4749abec88d8b490e8738a97aea7fa9ca65341dfa8d39c8a1c9f780f1}{Scene::EditorStatusBit::EditorPlacement}});}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00444}00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_scene_a115d6e7de8c7fce285b54ead8caa35ee}{Scene::GetEditorStatus}}(\mbox{\hyperlink{class_scene_ac92ebe1c4749abec88d8b490e8738a97aea7fa9ca65341dfa8d39c8a1c9f780f1}{Scene::EditorStatusBit::EditorPlacement}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00445}00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Always"{}},\ (\textcolor{keywordtype}{int}*)\&\mbox{\hyperlink{class_scene_a3177f5365d677bcb663d5f717d79e9a2}{Scene::SceneStatus}}(),}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00446}00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 1\ <<\ (\textcolor{keywordtype}{int})\mbox{\hyperlink{class_scene_ac92ebe1c4749abec88d8b490e8738a97afd13d77f767e36a38f72ab370a3f056f}{Scene::EditorStatusBit::EditorPlacement\_Always}});}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00447}00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00448}00448\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00449}00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndMenu();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00450}00450\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00451}00451\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndMainMenuBar();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00452}00452\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00453}00453\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00454}00454\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00455}00455\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00456}00456\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00457}00457\ \ \ \ \ \textcolor{comment}{//\ 光源情報を更新}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00458}00458\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00459}00459\ \ \ \ \ light\_manager\_.update();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00460}00460\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00461}00461\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00462}00462\ \ \ \ \ \textcolor{comment}{//\ シーンの更新前処理}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00463}00463\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00464}00464\ \ \ \ \ \mbox{\hyperlink{class_scene_affc44a9f5891e8bb84f8d625958b5258}{Scene::PreUpdate}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00465}00465\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00466}00466\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00467}00467\ \ \ \ \ \textcolor{comment}{//\ シーンの更新}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00468}00468\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00469}00469\ \ \ \ \ \mbox{\hyperlink{class_scene_a71a71b4f7752b853ff8032b0941a9d8d}{Scene::Update}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00470}00470\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00471}00471\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00472}00472\ \ \ \ \ \textcolor{comment}{//\ GUI処理\&描画}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00473}00473\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00474}00474\ \ \ \ \ \textcolor{keywordflow}{if}(show\_gui)}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00475}00475\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_a9f2546535c63e31cb4d1777834678771}{Scene::GUI}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00476}00476\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00477}00477\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00478}00478\ \ \ \ \ \textcolor{comment}{//\ 物理シミュレーション前の処理}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00479}00479\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00480}00480\ \ \ \ \ \mbox{\hyperlink{class_scene_a50c79680b27e65345f7b5c2a715ac36f}{Scene::PrePhysics}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00481}00481\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00482}00482\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00483}00483\ \ \ \ \ \textcolor{comment}{//\ 物理シミュレーションを更新}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00484}00484\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00485}00485\ \ \ \ \ physics\_engine\_-\/>update(delta\_time\_);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00486}00486\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00487}00487\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00488}00488\ \ \ \ \ \textcolor{comment}{//\ シーンの更新後処理}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00489}00489\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00490}00490\ \ \ \ \ \mbox{\hyperlink{class_scene_af55d2d43e6f6f5c0e858777581b002f4}{Scene::PostUpdate}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00491}00491\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00492}00492\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00493}00493\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00494}00494\ \textcolor{comment}{//!\ 描画}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00495}00495\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00496}\mbox{\hyperlink{_system_main_8cpp_a30cb1097de07754f11b978bf806c626c}{00496}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_system_main_8cpp_a30cb1097de07754f11b978bf806c626c}{SystemDraw}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00497}00497\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00498}00498\ \ \ \ \ \textcolor{comment}{//\ HDRの描画先を指定}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00499}00499\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00500}00500\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a510ef5c7299810ce44233328a48be555}{SetRenderTarget}}(texture\_hdr\_.get(),\ \mbox{\hyperlink{_render_8cpp_abbb529e1fb437600e34fc58aa8ab8bcb}{GetDepthStencil}}());}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00501}00501\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_acff1ef100ab5993b21a9fe6054b034f6}{ClearColor}}(texture\_hdr\_.get(),\ float4(0.5,\ 0.5f,\ 0.5f,\ 0.0f));}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00502}00502\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00503}00503\ \textcolor{preprocessor}{\#if\ defined\ \_DEBUG}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00504}00504\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00505}00505\ \ \ \ \ \textcolor{comment}{//\ グリッドを描画}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00506}00506\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00507}00507\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_scene_afdbdfec1e74b6e150c53a0328ed69d86}{Scene::IsEdit}}())\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00508}00508\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(show\_grid)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00509}00509\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ size\ =\ 64.0f;\ \ \ \ \textcolor{comment}{//\ グリッドの範囲}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00510}00510\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00511}00511\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ x\ =\ -\/size;\ x\ <=\ size;\ x\ +=\ 1.0f)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00512}00512\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLine3D(VGet(x,\ 0.0f,\ -\/size),\ VGet(x,\ 0.0f,\ +size),\ GetColor(224,\ 224,\ 224));}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00513}00513\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00514}00514\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ z\ =\ -\/size;\ z\ <=\ size;\ z\ +=\ 1.0f)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00515}00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLine3D(VGet(-\/size,\ 0.0f,\ z),\ VGet(+size,\ 0.0f,\ z),\ GetColor(224,\ 224,\ 224));}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00516}00516\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00517}00517\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00518}00518\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ X軸}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00519}00519\ \ \ \ \ \ \ \ \ \ \ \ \ DrawLine3D(VGet(-\/size,\ 0.0f,\ 0.0f),\ VGet(+size,\ 0.0f,\ 0.0f),\ GetColor(255,\ 64,\ 64));}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00520}00520\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Y軸}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00521}00521\ \ \ \ \ \ \ \ \ \ \ \ \ DrawLine3D(VGet(0.0f,\ -\/size,\ 0.0f),\ VGet(0.0f,\ +size,\ 0.0f),\ GetColor(64,\ 255,\ 64));}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00522}00522\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Z軸}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00523}00523\ \ \ \ \ \ \ \ \ \ \ \ \ DrawLine3D(VGet(0.0f,\ 0.0f,\ -\/size),\ VGet(0.0f,\ 0.0f,\ +size),\ GetColor(64,\ 64,\ 255));}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00524}00524\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00525}00525\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00526}00526\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00527}00527\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00528}00528\ \ \ \ \ \textcolor{comment}{//\ シーンの描画}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00529}00529\ \ \ \ \ \mbox{\hyperlink{class_scene_a4813338ee7c6c995f5bb6f10e3673804}{Scene::Draw}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00530}00530\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00531}00531\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00532}00532\ \ \ \ \ \textcolor{comment}{//\ トーンマッピング}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00533}00533\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00534}00534\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00535}00535\ \ \ \ \ \textcolor{comment}{//\ 元の描画先に戻す}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00536}00536\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_a510ef5c7299810ce44233328a48be555}{SetRenderTarget}}(\mbox{\hyperlink{_render_8cpp_a8561269468a8e445ad1b992a8e0b8142}{GetBackBuffer}}(),\ \mbox{\hyperlink{_render_8cpp_abbb529e1fb437600e34fc58aa8ab8bcb}{GetDepthStencil}}());}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00537}00537\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00538}00538\ \ \ \ \ \textcolor{comment}{//\ トーンマッピング適用}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00539}00539\ \ \ \ \ \mbox{\hyperlink{_render_8cpp_ae3fd154fc45bb61f3c0f6829ced1380c}{CopyToRenderTarget}}(\mbox{\hyperlink{_render_8cpp_a8561269468a8e445ad1b992a8e0b8142}{GetBackBuffer}}(),\ texture\_hdr\_.get(),\ *shader\_ps\_tonemapping\_);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00540}00540\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00541}00541\ \ \ \ \ \textcolor{comment}{//\ FPSの表示}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00542}00542\ \ \ \ \ \textcolor{keywordflow}{if}(show\_fps)\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00543}00543\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_system_main_8cpp_a9751578cbcea9d8e9120310c3adfec11}{ShowFps}}(delta\_time\_);}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00544}00544\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00545}00545\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00546}00546\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00547}00547\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00548}00548\ \textcolor{comment}{//!\ 終了}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00549}00549\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00550}\mbox{\hyperlink{_system_main_8cpp_adf3d97f9a63eb458fc1406df1a256971}{00550}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_system_main_8cpp_adf3d97f9a63eb458fc1406df1a256971}{SystemExit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00551}00551\ \ \ \ \ \mbox{\hyperlink{class_scene_aa774d1d109c599d9c466e34b19fcb3bc}{Scene::SaveEditor}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00552}00552\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00553}00553\ \ \ \ \ \mbox{\hyperlink{class_scene_a525ea7a44329102b3436bb1514f353cc}{Scene::Exit}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00554}00554\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00555}00555\ \ \ \ \ \textcolor{comment}{//\ HDRバッファの解放}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00556}00556\ \ \ \ \ texture\_hdr\_.reset();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00557}00557\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00558}00558\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00559}00559\ \ \ \ \ \textcolor{comment}{//\ 物理シミュレーションを解放}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00560}00560\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00561}00561\ \ \ \ \ physics\_engine\_.reset();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00562}00562\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00563}00563\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00564}00564\ \ \ \ \ \textcolor{comment}{//\ 光源管理を解放}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00565}00565\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00566}00566\ \ \ \ \ light\_manager\_.finalize();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00567}00567\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00568}00568\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00569}00569\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00570}00570\ \textcolor{comment}{//\ \ フレームの開始}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00571}00571\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00572}\mbox{\hyperlink{_system_main_8cpp_a2edee7b81baab0b01f3f4ef07607abd5}{00572}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_system_main_8cpp_a2edee7b81baab0b01f3f4ef07607abd5}{SystemBeginFrame}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00573}00573\ \ \ \ \ \textcolor{comment}{//\ CPU計測開始}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00574}00574\ \ \ \ \ cpu\_start\_counter\_\ =\ \mbox{\hyperlink{_system_main_8cpp_ad8954d9816002bb9ee851007b67cb855}{GetPerformanceCounterMicroSec}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00575}00575\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00576}00576\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00577}00577\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00578}00578\ \textcolor{comment}{//\ \ フレームの終了}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00579}00579\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00580}\mbox{\hyperlink{_system_main_8cpp_a9c591c101b020bc9081bfc5c77c393c9}{00580}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_system_main_8cpp_a9c591c101b020bc9081bfc5c77c393c9}{SystemEndFrame}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00581}00581\ \ \ \ \ \textcolor{comment}{//\ CPU計測終了}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00582}00582\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ cpu\_end\_counter\ \ \ =\ \mbox{\hyperlink{_system_main_8cpp_ad8954d9816002bb9ee851007b67cb855}{GetPerformanceCounterMicroSec}}();}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00583}00583\ \ \ \ \ cpu\_profile\_duration\_\ =\ cpu\_end\_counter\ -\/\ cpu\_start\_counter\_;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00584}00584\ \}}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00585}00585\ }
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00586}\mbox{\hyperlink{_system_main_8cpp_a1fa0f7a5b88018c7712103b0fd083698}{00586}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_system_main_8cpp_a1fa0f7a5b88018c7712103b0fd083698}{IsShowMenu}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00587}00587\ \ \ \ \ \textcolor{keywordflow}{return}\ menu\_active\ \&\&\ menu\_select;}
+\DoxyCodeLine{\Hypertarget{_system_main_8cpp_source_l00588}00588\ \}}
+
+\end{DoxyCode}

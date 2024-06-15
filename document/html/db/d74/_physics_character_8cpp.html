@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: PhysicsCharacter.cpp ファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_ef68f1e1f5148ff8ef7fb1c955106c3c.html">System</a></li><li class="navelem"><a class="el" href="../../dir_d03dc9e14809aca1458b1cae58a8e37f.html">Physics</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">クラス</a> &#124;
+<a href="#namespaces">名前空間</a>  </div>
+  <div class="headertitle"><div class="title">PhysicsCharacter.cpp ファイル</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>キャラクターコントローラー  
+<a href="#details">[詳解]</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="../../d2/d9f/_physics_engine_8h_source.html">System/Physics/PhysicsEngine.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../dd/dc7/_physics_layer_8h_source.html">System/Physics/PhysicsLayer.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d1/da6/_physics_character_8h_source.html">System/Physics/PhysicsCharacter.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../df/d1f/_rigid_body_8h_source.html">System/Physics/RigidBody.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../da/d05/_shape_8h_source.html">System/Physics/Shape.h</a>&gt;</code><br />
+<code>#include &lt;Jolt/Jolt.h&gt;</code><br />
+<code>#include &lt;Jolt/RegisterTypes.h&gt;</code><br />
+<code>#include &lt;Jolt/Core/Factory.h&gt;</code><br />
+<code>#include &lt;Jolt/Core/TempAllocator.h&gt;</code><br />
+<code>#include &lt;Jolt/Core/JobSystemThreadPool.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/PhysicsSettings.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/PhysicsSystem.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/HeightFieldShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/MeshShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/SphereShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/BoxShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/ConvexHullShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/CapsuleShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/TaperedCapsuleShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/CylinderShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/TriangleShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/StaticCompoundShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/MutableCompoundShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/RotatedTranslatedShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/ScaledShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Body/BodyCreationSettings.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Body/BodyActivationListener.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Character/CharacterVirtual.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+PhysicsCharacter.cpp の依存先関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d2/d5e/_physics_character_8cpp__incl.png" border="0" usemap="#a_physics_character_8cpp" alt=""/></div>
+<map name="a_physics_character_8cpp" id="a_physics_character_8cpp">
+<area shape="rect" title="キャラクターコントローラー" alt="" coords="2721,5,2872,31"/>
+<area shape="rect" href="../../d2/d9f/_physics_engine_8h.html" title="物理シミュレーション" alt="" coords="5,86,225,111"/>
+<area shape="rect" href="../../dd/dc7/_physics_layer_8h.html" title="物理シミュレーション レイヤー管理" alt="" coords="249,86,461,111"/>
+<area shape="rect" href="../../d1/da6/_physics_character_8h.html" title="キャラクターコントローラー" alt="" coords="485,86,721,111"/>
+<area shape="rect" href="../../df/d1f/_rigid_body_8h.html" title="剛体" alt="" coords="746,86,938,111"/>
+<area shape="rect" href="../../da/d05/_shape_8h.html" title="形状" alt="" coords="962,86,1133,111"/>
+<area shape="rect" title=" " alt="" coords="1157,86,1234,111"/>
+<area shape="rect" title=" " alt="" coords="1259,86,1399,111"/>
+<area shape="rect" title=" " alt="" coords="1423,86,1555,111"/>
+<area shape="rect" title=" " alt="" coords="1579,86,1750,111"/>
+<area shape="rect" title=" " alt="" coords="1774,79,1955,119"/>
+<area shape="rect" title=" " alt="" coords="1979,86,2182,111"/>
+<area shape="rect" title=" " alt="" coords="2206,86,2406,111"/>
+<area shape="rect" title=" " alt="" coords="2431,79,2611,119"/>
+<area shape="rect" title=" " alt="" coords="2635,79,2782,119"/>
+<area shape="rect" title=" " alt="" coords="2807,79,2963,119"/>
+<area shape="rect" title=" " alt="" coords="2987,79,3134,119"/>
+<area shape="rect" title=" " alt="" coords="3158,79,3337,119"/>
+<area shape="rect" title=" " alt="" coords="3361,79,3523,119"/>
+<area shape="rect" title=" " alt="" coords="3547,79,3755,119"/>
+<area shape="rect" title=" " alt="" coords="3779,79,3942,119"/>
+<area shape="rect" title=" " alt="" coords="3966,79,4126,119"/>
+<area shape="rect" title=" " alt="" coords="4150,79,4361,119"/>
+<area shape="rect" title=" " alt="" coords="4385,79,4608,119"/>
+<area shape="rect" title=" " alt="" coords="4632,79,4852,119"/>
+<area shape="rect" title=" " alt="" coords="4877,79,5031,119"/>
+<area shape="rect" title=" " alt="" coords="5056,79,5265,119"/>
+<area shape="rect" title=" " alt="" coords="5289,79,5507,119"/>
+<area shape="rect" title=" " alt="" coords="5531,79,5684,119"/>
+</map>
+</div>
+</div>
+<p><a href="../../db/d74/_physics_character_8cpp_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+クラス</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d6e/classphysics_1_1_character_impl.html">physics::CharacterImpl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">キャラクターコントローラー (実装部)  <a href="../../d1/d6e/classphysics_1_1_character_impl.html#details">[詳解]</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+名前空間</h2></td></tr>
+<tr class="memitem:d5/dd0/namespacephysics"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd0/namespacephysics.html">physics</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+関数</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">生成</div></td></tr>
+<tr class="memitem:a826efe90e97d11b9e77fdc5f86109f15"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d0/ddc/classphysics_1_1_character.html">physics::Character</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd0/namespacephysics.html#a826efe90e97d11b9e77fdc5f86109f15">physics::createCharacter</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a> layer)</td></tr>
+<tr class="separator:a826efe90e97d11b9e77fdc5f86109f15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>キャラクターコントローラー </p>
+
+<p class="definition"> <a class="el" href="../../db/d74/_physics_character_8cpp_source.html">PhysicsCharacter.cpp</a> に定義があります。</p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>

@@ -1,0 +1,236 @@
+\hypertarget{_typedef_8h}{}\doxysection{Typedef.\+h ファイル}
+\label{_typedef_8h}\index{Typedef.h@{Typedef.h}}
+
+
+型定義  
+
+
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+Typedef.\+h の依存先関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{dc/d1c/_typedef_8h__incl}
+\end{center}
+\end{figure}
+被依存関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=164pt]{d0/dfb/_typedef_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{マクロ定義}
+\begin{Indent}\textbf{ ポインタ定義}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_typedef_8h_ae1b2d029be4658cd85fd1bc379e76178}{USING\+\_\+\+PTR}}(obj)
+\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{型定義}
+\begin{Indent}\textbf{ 数値型定義}\par
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{_typedef_8h_a6107abbafe492024afa341df26a61709}{s8}} = int8\+\_\+t
+\begin{DoxyCompactList}\small\item\em 8bit 符号あり整数 \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{_typedef_8h_a38965495c67998cf330d16c6ae30ced5}{s16}} = int16\+\_\+t
+\begin{DoxyCompactList}\small\item\em 16bit 符号あり整数 \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}} = int32\+\_\+t
+\begin{DoxyCompactList}\small\item\em 32bit 符号あり整数 \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{_typedef_8h_aaab2ef2ca1576408739fdb8e9f52ae0f}{s64}} = int64\+\_\+t
+\begin{DoxyCompactList}\small\item\em 64bit 符号あり整数 \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}} = uint8\+\_\+t
+\begin{DoxyCompactList}\small\item\em 8bit 符号なし整数 \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} = uint16\+\_\+t
+\begin{DoxyCompactList}\small\item\em 16bit 符号なし整数 \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} = uint32\+\_\+t
+\begin{DoxyCompactList}\small\item\em 32bit 符号なし整数 \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} = uint64\+\_\+t
+\begin{DoxyCompactList}\small\item\em 64bit 符号なし整数 \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} = float
+\begin{DoxyCompactList}\small\item\em 単精度浮動小数点数 \end{DoxyCompactList}\item 
+using \mbox{\hyperlink{_typedef_8h_abc2f107791bd7c1d49ecf0f168c085a3}{f64}} = double
+\begin{DoxyCompactList}\small\item\em 倍精度浮動小数点数 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{詳解}
+型定義 
+
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} に定義があります。
+
+
+
+\doxysubsection{マクロ定義詳解}
+\mbox{\Hypertarget{_typedef_8h_ae1b2d029be4658cd85fd1bc379e76178}\label{_typedef_8h_ae1b2d029be4658cd85fd1bc379e76178}} 
+\index{Typedef.h@{Typedef.h}!USING\_PTR@{USING\_PTR}}
+\index{USING\_PTR@{USING\_PTR}!Typedef.h@{Typedef.h}}
+\doxysubsubsection{\texorpdfstring{USING\_PTR}{USING\_PTR}}
+{\footnotesize\ttfamily \#define USING\+\_\+\+PTR(\begin{DoxyParamCaption}\item[{}]{obj }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }obj;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }obj\#\#Ptr\ \ \ \ \ \ \ \ \ \ =\ std::shared\_ptr<obj>;\ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }obj\#\#WeakPtr\ \ \ \ \ \ =\ std::weak\_ptr<obj>;\ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }obj\#\#UniquePtr\ \ \ \ =\ std::unique\_ptr<obj>;\ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }obj\#\#PtrVec\ \ \ \ \ \ \ =\ std::vector<obj\#\#Ptr>;\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }obj\#\#WeakPtrVec\ \ \ =\ std::vector<obj\#\#WeakPtr>;\ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }obj\#\#UniquePtrVec\ =\ std::vector<obj\#\#UniquePtr>;\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }obj\#\#Vec\ \ \ \ \ \ \ \ \ \ =\ std::vector<obj*>;\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }obj\#\#PtrMap\ \ \ \ \ \ \ =\ std::unordered\_map<std::string,\ obj\#\#Ptr>}
+
+\end{DoxyCode}
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} の \mbox{\hyperlink{_typedef_8h_source_l00034}{34}} 行目に定義があります。
+
+
+
+\doxysubsection{型定義詳解}
+\mbox{\Hypertarget{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}\label{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}} 
+\index{Typedef.h@{Typedef.h}!f32@{f32}}
+\index{f32@{f32}!Typedef.h@{Typedef.h}}
+\doxysubsubsection{\texorpdfstring{f32}{f32}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} =  float}
+
+
+
+単精度浮動小数点数 
+
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} の \mbox{\hyperlink{_typedef_8h_source_l00025}{25}} 行目に定義があります。
+
+\mbox{\Hypertarget{_typedef_8h_abc2f107791bd7c1d49ecf0f168c085a3}\label{_typedef_8h_abc2f107791bd7c1d49ecf0f168c085a3}} 
+\index{Typedef.h@{Typedef.h}!f64@{f64}}
+\index{f64@{f64}!Typedef.h@{Typedef.h}}
+\doxysubsubsection{\texorpdfstring{f64}{f64}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_typedef_8h_abc2f107791bd7c1d49ecf0f168c085a3}{f64}} =  double}
+
+
+
+倍精度浮動小数点数 
+
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} の \mbox{\hyperlink{_typedef_8h_source_l00026}{26}} 行目に定義があります。
+
+\mbox{\Hypertarget{_typedef_8h_a38965495c67998cf330d16c6ae30ced5}\label{_typedef_8h_a38965495c67998cf330d16c6ae30ced5}} 
+\index{Typedef.h@{Typedef.h}!s16@{s16}}
+\index{s16@{s16}!Typedef.h@{Typedef.h}}
+\doxysubsubsection{\texorpdfstring{s16}{s16}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_typedef_8h_a38965495c67998cf330d16c6ae30ced5}{s16}} =  int16\+\_\+t}
+
+
+
+16bit 符号あり整数 
+
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} の \mbox{\hyperlink{_typedef_8h_source_l00018}{18}} 行目に定義があります。
+
+\mbox{\Hypertarget{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}\label{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}} 
+\index{Typedef.h@{Typedef.h}!s32@{s32}}
+\index{s32@{s32}!Typedef.h@{Typedef.h}}
+\doxysubsubsection{\texorpdfstring{s32}{s32}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}} =  int32\+\_\+t}
+
+
+
+32bit 符号あり整数 
+
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} の \mbox{\hyperlink{_typedef_8h_source_l00019}{19}} 行目に定義があります。
+
+\mbox{\Hypertarget{_typedef_8h_aaab2ef2ca1576408739fdb8e9f52ae0f}\label{_typedef_8h_aaab2ef2ca1576408739fdb8e9f52ae0f}} 
+\index{Typedef.h@{Typedef.h}!s64@{s64}}
+\index{s64@{s64}!Typedef.h@{Typedef.h}}
+\doxysubsubsection{\texorpdfstring{s64}{s64}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_typedef_8h_aaab2ef2ca1576408739fdb8e9f52ae0f}{s64}} =  int64\+\_\+t}
+
+
+
+64bit 符号あり整数 
+
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} の \mbox{\hyperlink{_typedef_8h_source_l00020}{20}} 行目に定義があります。
+
+\mbox{\Hypertarget{_typedef_8h_a6107abbafe492024afa341df26a61709}\label{_typedef_8h_a6107abbafe492024afa341df26a61709}} 
+\index{Typedef.h@{Typedef.h}!s8@{s8}}
+\index{s8@{s8}!Typedef.h@{Typedef.h}}
+\doxysubsubsection{\texorpdfstring{s8}{s8}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_typedef_8h_a6107abbafe492024afa341df26a61709}{s8}} =  int8\+\_\+t}
+
+
+
+8bit 符号あり整数 
+
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} の \mbox{\hyperlink{_typedef_8h_source_l00017}{17}} 行目に定義があります。
+
+\mbox{\Hypertarget{_typedef_8h_a6dbf9516e516c901604625282c174aa4}\label{_typedef_8h_a6dbf9516e516c901604625282c174aa4}} 
+\index{Typedef.h@{Typedef.h}!u16@{u16}}
+\index{u16@{u16}!Typedef.h@{Typedef.h}}
+\doxysubsubsection{\texorpdfstring{u16}{u16}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} =  uint16\+\_\+t}
+
+
+
+16bit 符号なし整数 
+
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} の \mbox{\hyperlink{_typedef_8h_source_l00022}{22}} 行目に定義があります。
+
+\mbox{\Hypertarget{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}\label{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}} 
+\index{Typedef.h@{Typedef.h}!u32@{u32}}
+\index{u32@{u32}!Typedef.h@{Typedef.h}}
+\doxysubsubsection{\texorpdfstring{u32}{u32}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} =  uint32\+\_\+t}
+
+
+
+32bit 符号なし整数 
+
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} の \mbox{\hyperlink{_typedef_8h_source_l00023}{23}} 行目に定義があります。
+
+\mbox{\Hypertarget{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}\label{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}} 
+\index{Typedef.h@{Typedef.h}!u64@{u64}}
+\index{u64@{u64}!Typedef.h@{Typedef.h}}
+\doxysubsubsection{\texorpdfstring{u64}{u64}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} =  uint64\+\_\+t}
+
+
+
+64bit 符号なし整数 
+
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} の \mbox{\hyperlink{_typedef_8h_source_l00024}{24}} 行目に定義があります。
+
+\mbox{\Hypertarget{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}\label{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}} 
+\index{Typedef.h@{Typedef.h}!u8@{u8}}
+\index{u8@{u8}!Typedef.h@{Typedef.h}}
+\doxysubsubsection{\texorpdfstring{u8}{u8}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}} =  uint8\+\_\+t}
+
+
+
+8bit 符号なし整数 
+
+
+
+ \mbox{\hyperlink{_typedef_8h_source}{Typedef.\+h}} の \mbox{\hyperlink{_typedef_8h_source_l00021}{21}} 行目に定義があります。
+

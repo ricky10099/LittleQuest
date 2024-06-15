@@ -1,0 +1,464 @@
+\hypertarget{_input_pad_8h}{}\doxysection{Input\+Pad.\+h ファイル}
+\label{_input_pad_8h}\index{InputPad.h@{InputPad.h}}
+
+
+パッド入力管理  
+
+
+被依存関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{d2/d2c/_input_pad_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{列挙型}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}} \+: u32 \{ \newline
+\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO1}} = 0
+, \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285a723d7472af4cd4162756bd6b1ea45414}{PAD\+\_\+\+NO2}}
+, \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285a33a9e20f3a40a9fd5843f29de1af7d28}{PAD\+\_\+\+NO3}}
+, \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ab646e61b3a811da228ac229f694c319f}{PAD\+\_\+\+NO4}}
+, \newline
+\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285a8d885f7a7f9dd698ada3548501c49201}{PAD\+\_\+\+NO\+\_\+\+MAX}}
+ \}
+\begin{DoxyCompactList}\small\item\em パッド種別 \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}} \+: u32 \{ \newline
+\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddabdd23e757c2f4fe9e6e231c6a9074bce}{PAD\+\_\+\+UP}} = 0
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda0634239a328057c4cf72e09bef7c056b}{PAD\+\_\+\+DOWN}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda383c253a0c1fb4693a76a140e27c32fb}{PAD\+\_\+\+LEFT}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda8086e04686895d3e8396649873703c58}{PAD\+\_\+\+RIGHT}}
+, \newline
+\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda394e6d71cad6b0ffcaa045e1212e0ab7}{PAD\+\_\+1}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda89de9e9ff0c67619e54b9309aaad0fd1}{PAD\+\_\+2}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda61925e1d0ef7cffbace334cdcc5a21b2}{PAD\+\_\+3}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddae0178556778fd1e01a201ebf5a703371}{PAD\+\_\+4}}
+, \newline
+\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddac48cd23849616207427c76d245e1f362}{PAD\+\_\+5}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda213346f6b540c31f6ac26b06de0e580f}{PAD\+\_\+6}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda0571fe21bdafb29fc30df9d7e4f1ffd8}{PAD\+\_\+7}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda739f27b7e04ecc52ba1758b15be459f2}{PAD\+\_\+8}}
+, \newline
+\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda30904b5251cfbb337d4054568ad8f129}{PAD\+\_\+9}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddaaf680a7c44b520390db8f80e41e59ea9}{PAD\+\_\+10}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda1713f62a9987fdecc00524c24d2e2c35}{PAD\+\_\+11}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddac5c92af8fc9bb0921995262e58c8d0bb}{PAD\+\_\+12}}
+, \newline
+\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddac65fd523bc9dec29fb2d085b87e8c9e5}{PAD\+\_\+13}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda997594646655b47a04d5cfed1aba1d0a}{PAD\+\_\+14}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda5c1cc2529ebc82cee34a9db90964eb6b}{PAD\+\_\+15}}
+, \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda43d8fc7242bb6555d2100cf2293ea80c}{PAD\+\_\+16}}
+, \newline
+\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddace5efe6eab7ec7526582f000b75cd78a}{PAD\+\_\+\+ID\+\_\+\+MAX}}
+ \}
+\begin{DoxyCompactList}\small\item\em ボタン種別 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{関数}
+\begin{Indent}\textbf{ システム関数}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_input_pad_8h_a8df9a55c398e46803d151180a326b91a}{Input\+Pad\+Init}} ()
+\begin{DoxyCompactList}\small\item\em 初期化 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_input_pad_8h_a0e1498a05f33c8c4e386385e377248a8}{Input\+Pad\+Update}} ()
+\begin{DoxyCompactList}\small\item\em 更新 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_input_pad_8h_af1b030bc6d8103403f0bac065f674ed1}{Input\+Pad\+Exit}} ()
+\begin{DoxyCompactList}\small\item\em 終了 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 入力関連関数}\par
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_input_pad_8h_a07e218329398ee10883e6bc4492177ae}{Is\+Pad\+On}} (\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}} pad\+ID, int pad\+Type=0, \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}} pad\+No=\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}})
+\item 
+bool \mbox{\hyperlink{_input_pad_8h_aa110e7fac2ac3814c2da30ff9cb07ad5}{Is\+Pad\+Release}} (\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}} pad\+ID, int pad\+Type=0, \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}} pad\+No=\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}})
+\item 
+bool \mbox{\hyperlink{_input_pad_8h_a8c958e6e854c4f0ab703bfbfda8bd1b2}{Is\+Pad\+Repeat}} (\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}} pad\+ID, int pad\+Type=0, \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}} pad\+No=\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}}, \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} frame=2)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 入力関連関数(Windowsポンプ命名)}\par
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_input_pad_8h_a031ebd692bab0ee16ada4fd74b9bdbff}{Is\+Pad\+Down}} (\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}} pad\+ID, int pad\+Type=0, \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}} pad\+No=\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}})
+\item 
+bool \mbox{\hyperlink{_input_pad_8h_a5ce54ff8d1b31329c971fb19c4572fed}{Is\+Pad\+Up}} (\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}} pad\+ID, int pad\+Type=0, \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}} pad\+No=\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}})
+\item 
+bool \mbox{\hyperlink{_input_pad_8h_a0694cd2f2ed50f7bbc21f4624385818a}{Is\+Pad}} (\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}} pad\+ID, int pad\+Type=0, \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}} pad\+No=\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}})
+\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{詳解}
+パッド入力管理 
+
+
+
+ \mbox{\hyperlink{_input_pad_8h_source}{Input\+Pad.\+h}} に定義があります。
+
+
+
+\doxysubsection{列挙型詳解}
+\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}} 
+\index{InputPad.h@{InputPad.h}!PAD\_ID@{PAD\_ID}}
+\index{PAD\_ID@{PAD\_ID}!InputPad.h@{InputPad.h}}
+\doxysubsubsection{\texorpdfstring{PAD\_ID}{PAD\_ID}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}} \+: \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+ボタン種別 
+
+\begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_UP@{PAD\_UP}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_UP@{PAD\_UP}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddabdd23e757c2f4fe9e6e231c6a9074bce}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddabdd23e757c2f4fe9e6e231c6a9074bce}} 
+PAD\+\_\+\+UP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_DOWN@{PAD\_DOWN}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_DOWN@{PAD\_DOWN}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda0634239a328057c4cf72e09bef7c056b}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda0634239a328057c4cf72e09bef7c056b}} 
+PAD\+\_\+\+DOWN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_LEFT@{PAD\_LEFT}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_LEFT@{PAD\_LEFT}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda383c253a0c1fb4693a76a140e27c32fb}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda383c253a0c1fb4693a76a140e27c32fb}} 
+PAD\+\_\+\+LEFT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_RIGHT@{PAD\_RIGHT}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_RIGHT@{PAD\_RIGHT}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda8086e04686895d3e8396649873703c58}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda8086e04686895d3e8396649873703c58}} 
+PAD\+\_\+\+RIGHT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_1@{PAD\_1}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_1@{PAD\_1}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda394e6d71cad6b0ffcaa045e1212e0ab7}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda394e6d71cad6b0ffcaa045e1212e0ab7}} 
+PAD\+\_\+1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_2@{PAD\_2}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_2@{PAD\_2}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda89de9e9ff0c67619e54b9309aaad0fd1}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda89de9e9ff0c67619e54b9309aaad0fd1}} 
+PAD\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_3@{PAD\_3}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_3@{PAD\_3}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda61925e1d0ef7cffbace334cdcc5a21b2}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda61925e1d0ef7cffbace334cdcc5a21b2}} 
+PAD\+\_\+3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_4@{PAD\_4}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_4@{PAD\_4}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddae0178556778fd1e01a201ebf5a703371}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddae0178556778fd1e01a201ebf5a703371}} 
+PAD\+\_\+4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_5@{PAD\_5}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_5@{PAD\_5}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddac48cd23849616207427c76d245e1f362}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddac48cd23849616207427c76d245e1f362}} 
+PAD\+\_\+5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_6@{PAD\_6}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_6@{PAD\_6}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda213346f6b540c31f6ac26b06de0e580f}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda213346f6b540c31f6ac26b06de0e580f}} 
+PAD\+\_\+6&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_7@{PAD\_7}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_7@{PAD\_7}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda0571fe21bdafb29fc30df9d7e4f1ffd8}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda0571fe21bdafb29fc30df9d7e4f1ffd8}} 
+PAD\+\_\+7&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_8@{PAD\_8}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_8@{PAD\_8}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda739f27b7e04ecc52ba1758b15be459f2}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda739f27b7e04ecc52ba1758b15be459f2}} 
+PAD\+\_\+8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_9@{PAD\_9}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_9@{PAD\_9}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda30904b5251cfbb337d4054568ad8f129}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda30904b5251cfbb337d4054568ad8f129}} 
+PAD\+\_\+9&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_10@{PAD\_10}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_10@{PAD\_10}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddaaf680a7c44b520390db8f80e41e59ea9}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddaaf680a7c44b520390db8f80e41e59ea9}} 
+PAD\+\_\+10&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_11@{PAD\_11}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_11@{PAD\_11}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda1713f62a9987fdecc00524c24d2e2c35}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda1713f62a9987fdecc00524c24d2e2c35}} 
+PAD\+\_\+11&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_12@{PAD\_12}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_12@{PAD\_12}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddac5c92af8fc9bb0921995262e58c8d0bb}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddac5c92af8fc9bb0921995262e58c8d0bb}} 
+PAD\+\_\+12&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_13@{PAD\_13}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_13@{PAD\_13}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddac65fd523bc9dec29fb2d085b87e8c9e5}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddac65fd523bc9dec29fb2d085b87e8c9e5}} 
+PAD\+\_\+13&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_14@{PAD\_14}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_14@{PAD\_14}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda997594646655b47a04d5cfed1aba1d0a}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda997594646655b47a04d5cfed1aba1d0a}} 
+PAD\+\_\+14&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_15@{PAD\_15}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_15@{PAD\_15}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda5c1cc2529ebc82cee34a9db90964eb6b}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda5c1cc2529ebc82cee34a9db90964eb6b}} 
+PAD\+\_\+15&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_16@{PAD\_16}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_16@{PAD\_16}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda43d8fc7242bb6555d2100cf2293ea80c}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edda43d8fc7242bb6555d2100cf2293ea80c}} 
+PAD\+\_\+16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_ID\_MAX@{PAD\_ID\_MAX}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_ID\_MAX@{PAD\_ID\_MAX}}}\mbox{\Hypertarget{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddace5efe6eab7ec7526582f000b75cd78a}\label{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddace5efe6eab7ec7526582f000b75cd78a}} 
+PAD\+\_\+\+ID\+\_\+\+MAX&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+ \mbox{\hyperlink{_input_pad_8h_source}{Input\+Pad.\+h}} の \mbox{\hyperlink{_input_pad_8h_source_l00026}{26}} 行目に定義があります。
+
+\mbox{\Hypertarget{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}\label{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}} 
+\index{InputPad.h@{InputPad.h}!PAD\_NO@{PAD\_NO}}
+\index{PAD\_NO@{PAD\_NO}!InputPad.h@{InputPad.h}}
+\doxysubsubsection{\texorpdfstring{PAD\_NO}{PAD\_NO}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}} \+: \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+パッド種別 
+
+\begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_NO1@{PAD\_NO1}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_NO1@{PAD\_NO1}}}\mbox{\Hypertarget{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}\label{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}} 
+PAD\+\_\+\+NO1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_NO2@{PAD\_NO2}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_NO2@{PAD\_NO2}}}\mbox{\Hypertarget{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285a723d7472af4cd4162756bd6b1ea45414}\label{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285a723d7472af4cd4162756bd6b1ea45414}} 
+PAD\+\_\+\+NO2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_NO3@{PAD\_NO3}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_NO3@{PAD\_NO3}}}\mbox{\Hypertarget{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285a33a9e20f3a40a9fd5843f29de1af7d28}\label{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285a33a9e20f3a40a9fd5843f29de1af7d28}} 
+PAD\+\_\+\+NO3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_NO4@{PAD\_NO4}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_NO4@{PAD\_NO4}}}\mbox{\Hypertarget{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ab646e61b3a811da228ac229f694c319f}\label{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ab646e61b3a811da228ac229f694c319f}} 
+PAD\+\_\+\+NO4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PAD\_NO\_MAX@{PAD\_NO\_MAX}!InputPad.h@{InputPad.h}}\index{InputPad.h@{InputPad.h}!PAD\_NO\_MAX@{PAD\_NO\_MAX}}}\mbox{\Hypertarget{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285a8d885f7a7f9dd698ada3548501c49201}\label{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285a8d885f7a7f9dd698ada3548501c49201}} 
+PAD\+\_\+\+NO\+\_\+\+MAX&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+ \mbox{\hyperlink{_input_pad_8h_source}{Input\+Pad.\+h}} の \mbox{\hyperlink{_input_pad_8h_source_l00012}{12}} 行目に定義があります。
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{_input_pad_8h_af1b030bc6d8103403f0bac065f674ed1}\label{_input_pad_8h_af1b030bc6d8103403f0bac065f674ed1}} 
+\index{InputPad.h@{InputPad.h}!InputPadExit@{InputPadExit}}
+\index{InputPadExit@{InputPadExit}!InputPad.h@{InputPad.h}}
+\doxysubsubsection{\texorpdfstring{InputPadExit()}{InputPadExit()}}
+{\footnotesize\ttfamily void Input\+Pad\+Exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+終了 
+
+
+
+ \mbox{\hyperlink{_input_pad_8cpp_source}{Input\+Pad.\+cpp}} の \mbox{\hyperlink{_input_pad_8cpp_source_l00053}{53}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_input_pad_8h_a8df9a55c398e46803d151180a326b91a}\label{_input_pad_8h_a8df9a55c398e46803d151180a326b91a}} 
+\index{InputPad.h@{InputPad.h}!InputPadInit@{InputPadInit}}
+\index{InputPadInit@{InputPadInit}!InputPad.h@{InputPad.h}}
+\doxysubsubsection{\texorpdfstring{InputPadInit()}{InputPadInit()}}
+{\footnotesize\ttfamily void Input\+Pad\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+初期化 
+
+
+
+ \mbox{\hyperlink{_input_pad_8cpp_source}{Input\+Pad.\+cpp}} の \mbox{\hyperlink{_input_pad_8cpp_source_l00023}{23}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_input_pad_8h_a0e1498a05f33c8c4e386385e377248a8}\label{_input_pad_8h_a0e1498a05f33c8c4e386385e377248a8}} 
+\index{InputPad.h@{InputPad.h}!InputPadUpdate@{InputPadUpdate}}
+\index{InputPadUpdate@{InputPadUpdate}!InputPad.h@{InputPad.h}}
+\doxysubsubsection{\texorpdfstring{InputPadUpdate()}{InputPadUpdate()}}
+{\footnotesize\ttfamily void Input\+Pad\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+更新 
+
+
+
+ \mbox{\hyperlink{_input_pad_8cpp_source}{Input\+Pad.\+cpp}} の \mbox{\hyperlink{_input_pad_8cpp_source_l00034}{34}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_input_pad_8h_a0694cd2f2ed50f7bbc21f4624385818a}\label{_input_pad_8h_a0694cd2f2ed50f7bbc21f4624385818a}} 
+\index{InputPad.h@{InputPad.h}!IsPad@{IsPad}}
+\index{IsPad@{IsPad}!InputPad.h@{InputPad.h}}
+\doxysubsubsection{\texorpdfstring{IsPad()}{IsPad()}}
+{\footnotesize\ttfamily bool Is\+Pad (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}}}]{pad\+ID,  }\item[{int}]{pad\+Type = {\ttfamily 0},  }\item[{\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}}}]{pad\+No = {\ttfamily \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}}} }\end{DoxyParamCaption})}
+
+指定パッドのボタンの押下検証 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em pad\+ID} & パッドのボタン種別 \\
+\hline
+\mbox{\texttt{ in}}  & {\em pad\+No} & パッドの種別(指定がなければ\+PAD\+\_\+\+NO1) \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 引数に指定されたパッドのボタンが押されている \\
+\hline
+{\em false} & 引数に指定されたパッドのボタンが押されていない \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_input_pad_8cpp_source}{Input\+Pad.\+cpp}} の \mbox{\hyperlink{_input_pad_8cpp_source_l00087}{87}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_input_pad_8cpp_source_l00074}{Is\+Pad\+Repeat()}}.
+
+\mbox{\Hypertarget{_input_pad_8h_a031ebd692bab0ee16ada4fd74b9bdbff}\label{_input_pad_8h_a031ebd692bab0ee16ada4fd74b9bdbff}} 
+\index{InputPad.h@{InputPad.h}!IsPadDown@{IsPadDown}}
+\index{IsPadDown@{IsPadDown}!InputPad.h@{InputPad.h}}
+\doxysubsubsection{\texorpdfstring{IsPadDown()}{IsPadDown()}}
+{\footnotesize\ttfamily bool Is\+Pad\+Down (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}}}]{pad\+ID,  }\item[{int}]{pad\+Type = {\ttfamily 0},  }\item[{\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}}}]{pad\+No = {\ttfamily \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}}} }\end{DoxyParamCaption})}
+
+指定パッドのボタンの1回だけ押下検証 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em pad\+ID} & パッドのボタン種別 \\
+\hline
+\mbox{\texttt{ in}}  & {\em pad\+No} & パッドの種別(指定がなければ\+PAD\+\_\+\+NO1) \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 引数に指定されたパッドのボタンが押された \\
+\hline
+{\em false} & 引数に指定されたパッドのボタンが押されていない \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_input_pad_8cpp_source}{Input\+Pad.\+cpp}} の \mbox{\hyperlink{_input_pad_8cpp_source_l00079}{79}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_input_pad_8cpp_source_l00060}{Is\+Pad\+On()}}.
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00267}{Little\+Quest\+::\+Player\+::\+Input\+Handle()}}, \mbox{\hyperlink{_stage01_8cpp_source_l00328}{Little\+Quest\+::\+Stage01\+::\+Late\+Draw()}}, \mbox{\hyperlink{_scene_8cpp_source_l01428}{Scene\+::\+Set\+BGMVolume()}}, \mbox{\hyperlink{_scene_8cpp_source_l01439}{Scene\+::\+Set\+SEVolume()}}, \mbox{\hyperlink{_scene_8cpp_source_l00992}{Scene\+::\+Update()}}, \mbox{\hyperlink{_game_title_scene_8cpp_source_l00059}{Little\+Quest\+::\+Game\+Title\+Scene\+::\+Update()}}, \mbox{\hyperlink{_stage01_8cpp_source_l00238}{Little\+Quest\+::\+Stage01\+::\+Update()}}.
+
+\mbox{\Hypertarget{_input_pad_8h_a07e218329398ee10883e6bc4492177ae}\label{_input_pad_8h_a07e218329398ee10883e6bc4492177ae}} 
+\index{InputPad.h@{InputPad.h}!IsPadOn@{IsPadOn}}
+\index{IsPadOn@{IsPadOn}!InputPad.h@{InputPad.h}}
+\doxysubsubsection{\texorpdfstring{IsPadOn()}{IsPadOn()}}
+{\footnotesize\ttfamily bool Is\+Pad\+On (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}}}]{pad\+ID,  }\item[{int}]{pad\+Type = {\ttfamily 0},  }\item[{\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}}}]{pad\+No = {\ttfamily \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}}} }\end{DoxyParamCaption})}
+
+指定パッドのボタンの1回だけ押下検証 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em pad\+ID} & パッドのボタン種別 \\
+\hline
+\mbox{\texttt{ in}}  & {\em pad\+No} & パッドの種別(指定がなければ\+PAD\+\_\+\+NO1) \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 引数に指定されたパッドのボタンが押された \\
+\hline
+{\em false} & 引数に指定されたパッドのボタンが押されていない \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_input_pad_8cpp_source}{Input\+Pad.\+cpp}} の \mbox{\hyperlink{_input_pad_8cpp_source_l00060}{60}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_input_pad_8cpp_source_l00079}{Is\+Pad\+Down()}}.
+
+\mbox{\Hypertarget{_input_pad_8h_aa110e7fac2ac3814c2da30ff9cb07ad5}\label{_input_pad_8h_aa110e7fac2ac3814c2da30ff9cb07ad5}} 
+\index{InputPad.h@{InputPad.h}!IsPadRelease@{IsPadRelease}}
+\index{IsPadRelease@{IsPadRelease}!InputPad.h@{InputPad.h}}
+\doxysubsubsection{\texorpdfstring{IsPadRelease()}{IsPadRelease()}}
+{\footnotesize\ttfamily bool Is\+Pad\+Release (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}}}]{pad\+ID,  }\item[{int}]{pad\+Type = {\ttfamily 0},  }\item[{\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}}}]{pad\+No = {\ttfamily \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}}} }\end{DoxyParamCaption})}
+
+指定パッドのボタンの1回だけ押下検証 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em pad\+ID} & パッドのボタン種別 \\
+\hline
+\mbox{\texttt{ in}}  & {\em pad\+No} & パッドの種別(指定がなければ\+PAD\+\_\+\+NO1) \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 引数に指定されたパッドのボタンが離されている \\
+\hline
+{\em false} & 引数に指定されたパッドのボタンが押されている \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_input_pad_8cpp_source}{Input\+Pad.\+cpp}} の \mbox{\hyperlink{_input_pad_8cpp_source_l00067}{67}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_input_pad_8cpp_source_l00083}{Is\+Pad\+Up()}}.
+
+\mbox{\Hypertarget{_input_pad_8h_a8c958e6e854c4f0ab703bfbfda8bd1b2}\label{_input_pad_8h_a8c958e6e854c4f0ab703bfbfda8bd1b2}} 
+\index{InputPad.h@{InputPad.h}!IsPadRepeat@{IsPadRepeat}}
+\index{IsPadRepeat@{IsPadRepeat}!InputPad.h@{InputPad.h}}
+\doxysubsubsection{\texorpdfstring{IsPadRepeat()}{IsPadRepeat()}}
+{\footnotesize\ttfamily bool Is\+Pad\+Repeat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}}}]{pad\+ID,  }\item[{int}]{pad\+Type = {\ttfamily 0},  }\item[{\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}}}]{pad\+No = {\ttfamily \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}}},  }\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{frame = {\ttfamily 2} }\end{DoxyParamCaption})}
+
+指定パッドのボタンの長押し押下検証 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em pad\+ID} & パッドのボタン種別 \\
+\hline
+\mbox{\texttt{ in}}  & {\em pad\+No} & パッドの種別(指定がなければ\+PAD\+\_\+\+NO1) \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 引数に指定されたパッドのボタンが長押し（2フレーム以上）されている \\
+\hline
+{\em false} & 引数に指定されたパッドのボタンが押されていない（押されているフレーム数が1以下） \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_input_pad_8cpp_source}{Input\+Pad.\+cpp}} の \mbox{\hyperlink{_input_pad_8cpp_source_l00074}{74}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00267}{Little\+Quest\+::\+Player\+::\+Input\+Handle()}}, \mbox{\hyperlink{_input_pad_8cpp_source_l00087}{Is\+Pad()}}.
+
+\mbox{\Hypertarget{_input_pad_8h_a5ce54ff8d1b31329c971fb19c4572fed}\label{_input_pad_8h_a5ce54ff8d1b31329c971fb19c4572fed}} 
+\index{InputPad.h@{InputPad.h}!IsPadUp@{IsPadUp}}
+\index{IsPadUp@{IsPadUp}!InputPad.h@{InputPad.h}}
+\doxysubsubsection{\texorpdfstring{IsPadUp()}{IsPadUp()}}
+{\footnotesize\ttfamily bool Is\+Pad\+Up (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\+\_\+\+ID}}}]{pad\+ID,  }\item[{int}]{pad\+Type = {\ttfamily 0},  }\item[{\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\+\_\+\+NO}}}]{pad\+No = {\ttfamily \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285ad5de35bc32ba3da78392068a891a6138}{PAD\+\_\+\+NO\+::\+PAD\+\_\+\+NO1}}} }\end{DoxyParamCaption})}
+
+指定パッドのボタンの1回だけ押下検証 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em pad\+ID} & パッドのボタン種別 \\
+\hline
+\mbox{\texttt{ in}}  & {\em pad\+No} & パッドの種別(指定がなければ\+PAD\+\_\+\+NO1) \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 引数に指定されたパッドのボタンが離されている \\
+\hline
+{\em false} & 引数に指定されたパッドのボタンが押されている \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_input_pad_8cpp_source}{Input\+Pad.\+cpp}} の \mbox{\hyperlink{_input_pad_8cpp_source_l00083}{83}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_input_pad_8cpp_source_l00067}{Is\+Pad\+Release()}}.
+

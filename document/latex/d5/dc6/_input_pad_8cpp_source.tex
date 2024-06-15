@@ -1,0 +1,95 @@
+\hypertarget{_input_pad_8cpp_source}{}\doxysection{Input\+Pad.\+cpp}
+\label{_input_pad_8cpp_source}\index{InputPad.cpp@{InputPad.cpp}}
+\mbox{\hyperlink{_input_pad_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ InputPad.cpp}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ パッド入力管理}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_input_pad_8h}{InputPad.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00007}00007\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00008}00008\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ MAX\_PAD\_NUM\ \ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\textcolor{keyword}{>}(\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4eddace5efe6eab7ec7526582f000b75cd78a}{PAD\_ID::PAD\_ID\_MAX}});\ \ \ \ \textcolor{comment}{//<!\ 上下左右/A\ B\ C\ X\ Y\ Z\ L\ R\ START\ Mボタン}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00009}00009\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ MAX\_PAD\_TYPE\ =\ \textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\textcolor{keyword}{>}(\mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285a8d885f7a7f9dd698ada3548501c49201}{PAD\_NO::PAD\_NO\_MAX}});\ \ \ \ \textcolor{comment}{//<!\ PAD接続最大数}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00010}00010\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ PAD\_BUTTONS[MAX\_PAD\_NUM]\ =\ \{PAD\_INPUT\_UP,\ PAD\_INPUT\_DOWN,\ PAD\_INPUT\_LEFT,\ PAD\_INPUT\_RIGHT,}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00012}00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PAD\_INPUT\_1,\ \ PAD\_INPUT\_2,\ \ \ \ PAD\_INPUT\_3,\ \ \ \ PAD\_INPUT\_4,\ \ \ \ \ PAD\_INPUT\_5,}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PAD\_INPUT\_6,\ \ PAD\_INPUT\_7,\ \ \ \ PAD\_INPUT\_8,\ \ \ \ PAD\_INPUT\_9,\ \ \ \ \ PAD\_INPUT\_10,}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PAD\_INPUT\_11,\ PAD\_INPUT\_12,\ \ \ PAD\_INPUT\_13,\ \ \ PAD\_INPUT\_14,\ \ \ \ PAD\_INPUT\_15\};}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00015}00015\ \textcolor{keyword}{constexpr}\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ PAD\_TYPES[MAX\_PAD\_TYPE]\ \ =\ \{DX\_INPUT\_PAD1,\ DX\_INPUT\_PAD2,\ DX\_INPUT\_PAD3,\ DX\_INPUT\_PAD4\};}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00017}00017\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ pads\_[MAX\_PAD\_TYPE][MAX\_PAD\_NUM];}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00018}00018\ \};\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00020}00020\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00021}00021\ \textcolor{comment}{//\ 初期化}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00022}00022\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00023}\mbox{\hyperlink{_input_pad_8cpp_a8df9a55c398e46803d151180a326b91a}{00023}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_input_pad_8cpp_a8df9a55c398e46803d151180a326b91a}{InputPadInit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ MAX\_PAD\_TYPE;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ MAX\_PAD\_NUM;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ pads\_[j][i]\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00028}00028\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00029}00029\ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00031}00031\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00032}00032\ \textcolor{comment}{//\ 更新}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00033}00033\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00034}\mbox{\hyperlink{_input_pad_8cpp_a0e1498a05f33c8c4e386385e377248a8}{00034}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_input_pad_8cpp_a0e1498a05f33c8c4e386385e377248a8}{InputPadUpdate}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00035}00035\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ MAX\_PAD\_TYPE;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ tmp\_pad\ =\ GetJoypadInputState(PAD\_TYPES[j]);}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ MAX\_PAD\_NUM;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(tmp\_pad\ \&\ PAD\_BUTTONS[i])\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ++pads\_[j][i];}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pads\_[j][i]\ >\ UINT\_MAX)}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pads\_[j][i]\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ pads\_[j][i]\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00047}00047\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00048}00048\ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00050}00050\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00051}00051\ \textcolor{comment}{//\ 終了}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00052}00052\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00053}\mbox{\hyperlink{_input_pad_8cpp_af1b030bc6d8103403f0bac065f674ed1}{00053}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_input_pad_8cpp_af1b030bc6d8103403f0bac065f674ed1}{InputPadExit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00054}00054\ \ \ \ \ ;}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00055}00055\ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00057}00057\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00058}00058\ \textcolor{comment}{//\ 特定パッドボタンの1回だけ押下検証}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00059}00059\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00060}\mbox{\hyperlink{_input_pad_8cpp_a395872f650c68171d0c2ddb44e4f6ebc}{00060}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_input_pad_8cpp_a395872f650c68171d0c2ddb44e4f6ebc}{IsPadOn}}(\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\_ID}}\ padID,\ \textcolor{keywordtype}{int}\ padType,\ \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\_NO}}\ pad\_no)\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{return}\ (pads\_[\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\textcolor{keyword}{>}(pad\_no)][\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\textcolor{keyword}{>}(padID)]\ ==\ 1)\ \&\&\ (padType\ ==\ GetJoypadType((\textcolor{keywordtype}{int})pad\_no\ +\ 1));}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00062}00062\ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00064}00064\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00065}00065\ \textcolor{comment}{//\ 特定パッドボタンの解放検証}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00066}00066\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00067}\mbox{\hyperlink{_input_pad_8cpp_a5662d03201f0fd01eacb6f10419c90eb}{00067}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_input_pad_8cpp_a5662d03201f0fd01eacb6f10419c90eb}{IsPadRelease}}(\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\_ID}}\ padID,\ \textcolor{keywordtype}{int}\ padType,\ \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\_NO}}\ pad\_no)\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00068}00068\ \ \ \ \ \textcolor{keywordflow}{return}\ (pads\_[\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\textcolor{keyword}{>}(pad\_no)][\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\textcolor{keyword}{>}(padID)]\ ==\ 0)\ \&\&\ (padType\ ==\ GetJoypadType((\textcolor{keywordtype}{int})pad\_no\ +\ 1));}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00069}00069\ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00071}00071\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00072}00072\ \textcolor{comment}{//\ 特定パッドボタンの長押し検証}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00073}00073\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00074}\mbox{\hyperlink{_input_pad_8cpp_ad9bcf5beec958438f34d15a98799fa2b}{00074}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_input_pad_8cpp_ad9bcf5beec958438f34d15a98799fa2b}{IsPadRepeat}}(\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\_ID}}\ padID,\ \textcolor{keywordtype}{int}\ padType,\ \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\_NO}}\ pad\_no,\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ frame)\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00075}00075\ \ \ \ \ \textcolor{keywordflow}{return}\ (pads\_[\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\textcolor{keyword}{>}(pad\_no)][\textcolor{keyword}{static\_cast<}\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\textcolor{keyword}{>}(padID)]\ >=\ frame)\ \&\&\ (padType\ ==\ GetJoypadType((\textcolor{keywordtype}{int})pad\_no\ +\ 1));}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00076}00076\ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00078}00078\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00079}\mbox{\hyperlink{_input_pad_8cpp_a29f107f99b9eddcf03f8d21d11ce8e9f}{00079}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_input_pad_8cpp_a29f107f99b9eddcf03f8d21d11ce8e9f}{IsPadDown}}(\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\_ID}}\ padID,\ \textcolor{keywordtype}{int}\ padType,\ \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\_NO}}\ pad\_no)\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_input_pad_8cpp_a395872f650c68171d0c2ddb44e4f6ebc}{IsPadOn}}(padID,\ padType,\ pad\_no);}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00081}00081\ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00083}\mbox{\hyperlink{_input_pad_8cpp_a6de6215ee26282a13797a699de0accf5}{00083}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_input_pad_8cpp_a6de6215ee26282a13797a699de0accf5}{IsPadUp}}(\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\_ID}}\ padID,\ \textcolor{keywordtype}{int}\ padType,\ \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\_NO}}\ pad\_no)\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00084}00084\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_input_pad_8cpp_a5662d03201f0fd01eacb6f10419c90eb}{IsPadRelease}}(padID,\ padType,\ pad\_no);}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00085}00085\ \}}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00087}\mbox{\hyperlink{_input_pad_8cpp_add244994351588fd2cfdb15754897780}{00087}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_input_pad_8cpp_add244994351588fd2cfdb15754897780}{IsPad}}(\mbox{\hyperlink{_input_pad_8h_a5595d3d6116280df5ba965dc8aea4edd}{PAD\_ID}}\ padID,\ \textcolor{keywordtype}{int}\ padType,\ \mbox{\hyperlink{_input_pad_8h_a8d35e725dc3bf6447b51790b26173285}{PAD\_NO}}\ pad\_no)\ \{}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_input_pad_8cpp_ad9bcf5beec958438f34d15a98799fa2b}{IsPadRepeat}}(padID,\ padType,\ pad\_no,\ 1);}
+\DoxyCodeLine{\Hypertarget{_input_pad_8cpp_source_l00089}00089\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,181 @@
+\hypertarget{_component_8h}{}\doxysection{Component.\+h ファイル}
+\label{_component_8h}\index{Component.h@{Component.h}}
+
+
+コンポーネント ベースクラス  
+
+
+{\ttfamily \#include $<$System/\+Priority.\+h$>$}\newline
+{\ttfamily \#include $<$System/\+Proc\+Timing.\+h$>$}\newline
+{\ttfamily \#include $<$System/\+Status.\+h$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+{\ttfamily \#include $<$sigslot/include/sigslot/signal.\+hpp$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$cassert$>$}\newline
+{\ttfamily \#include $<$cereal/cereal.\+hpp$>$}\newline
+{\ttfamily \#include $<$cereal/types/polymorphic.\+hpp$>$}\newline
+{\ttfamily \#include $<$xtr1common$>$}\newline
+Component.\+h の依存先関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/dcf/_component_8h__incl}
+\end{center}
+\end{figure}
+被依存関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/dc3/_component_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_class_component_type}{Class\+Component\+Type$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em クラス用型情報 Class\+Component\+Type$<$\+T$>$ \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_component}{Component}}
+\begin{DoxyCompactList}\small\item\em コンポーネント \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{マクロ定義}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_component_8h_a14d986d5dcf46e290a0c32a137878be6}{BP\+\_\+\+COMPONENT\+\_\+\+BASE\+\_\+\+TYPE}}(CLASS)
+\item 
+\#define \mbox{\hyperlink{_component_8h_ae5e9b7470814a3a37d802d342aeb16f6}{BP\+\_\+\+COMPONENT\+\_\+\+TYPE}}(CLASS,  PARENT\+\_\+\+CLASS)
+\item 
+\#define \mbox{\hyperlink{_component_8h_a89e3e9116b153cce4732a2b9e14528f9}{BP\+\_\+\+COMPONENT\+\_\+\+BASE\+\_\+\+IMPL}}(CLASS,  DESC\+\_\+\+NAME)
+\item 
+\#define \mbox{\hyperlink{_component_8h_acb5da28bae949d7ba8d6a74c97e1e394}{BP\+\_\+\+COMPONENT\+\_\+\+IMPL}}(CLASS,  DESC\+\_\+\+NAME)
+\end{DoxyCompactItemize}
+\doxysubsection*{関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_component_8h_acf719dccd2f400d5bef112558e3ab522}{USING\+\_\+\+PTR}} (\mbox{\hyperlink{class_component}{Component}})
+\item 
+\mbox{\hyperlink{_component_8h_a2deff0220e6921920b821b718ebc8b94}{USING\+\_\+\+PTR}} (\mbox{\hyperlink{class_object}{Object}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+コンポーネント ベースクラス 
+
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} に定義があります。
+
+
+
+\doxysubsection{マクロ定義詳解}
+\mbox{\Hypertarget{_component_8h_a89e3e9116b153cce4732a2b9e14528f9}\label{_component_8h_a89e3e9116b153cce4732a2b9e14528f9}} 
+\index{Component.h@{Component.h}!BP\_COMPONENT\_BASE\_IMPL@{BP\_COMPONENT\_BASE\_IMPL}}
+\index{BP\_COMPONENT\_BASE\_IMPL@{BP\_COMPONENT\_BASE\_IMPL}!Component.h@{Component.h}}
+\doxysubsubsection{\texorpdfstring{BP\_COMPONENT\_BASE\_IMPL}{BP\_COMPONENT\_BASE\_IMPL}}
+{\footnotesize\ttfamily \#define BP\+\_\+\+COMPONENT\+\_\+\+BASE\+\_\+\+IMPL(\begin{DoxyParamCaption}\item[{}]{CLASS,  }\item[{}]{DESC\+\_\+\+NAME }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ /*!\ 型情報の実体\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{class_class_component_type}{ClassComponentType<CLASS>}}\ CLASS::TypeInfo(\#CLASS,\ \textcolor{keyword}{sizeof}(CLASS),\ DESC\_NAME,\ \textcolor{keyword}{nullptr});}
+
+\end{DoxyCode}
+クラス内cpp宣言 グローバル変数で BP\+\_\+\+OBJECT\+\_\+\+IMPL(クラス名, u8任意の名前文字列) で宣言します 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{_object_8h_a6caf9ecb0124fd798d18543e581ded05}{BP\_OBJECT\_IMPL}}(B,\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}クラスB"{}})}
+
+\end{DoxyCode}
+ 
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00091}{91}} 行目に定義があります。
+
+\mbox{\Hypertarget{_component_8h_a14d986d5dcf46e290a0c32a137878be6}\label{_component_8h_a14d986d5dcf46e290a0c32a137878be6}} 
+\index{Component.h@{Component.h}!BP\_COMPONENT\_BASE\_TYPE@{BP\_COMPONENT\_BASE\_TYPE}}
+\index{BP\_COMPONENT\_BASE\_TYPE@{BP\_COMPONENT\_BASE\_TYPE}!Component.h@{Component.h}}
+\doxysubsubsection{\texorpdfstring{BP\_COMPONENT\_BASE\_TYPE}{BP\_COMPONENT\_BASE\_TYPE}}
+{\footnotesize\ttfamily \#define BP\+\_\+\+COMPONENT\+\_\+\+BASE\+\_\+\+TYPE(\begin{DoxyParamCaption}\item[{}]{CLASS }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }MyClass\ =\ CLASS;\ \textcolor{comment}{/*!\ 自クラスの型\ */}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\textcolor{comment}{}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ /*!\ 型情報\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_class_component_type}{ClassComponentType<CLASS>}}\ TypeInfo;\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\textcolor{comment}{}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ /*!\ 型情報を取得\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_type}{Type}}*\ typeInfo()\textcolor{keyword}{\ const\ }\{\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&TypeInfo;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+Componentクラス内ヘッダー宣言 基底クラス用 publicで BP\+\_\+\+COMPONENT\+\_\+\+BASE\+\_\+\+TYPE(クラス名) で宣言します
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }A}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{_component_8h_a14d986d5dcf46e290a0c32a137878be6}{BP\_COMPONENT\_BASE\_TYPE}}(A)}
+
+\end{DoxyCode}
+ 
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00058}{58}} 行目に定義があります。
+
+\mbox{\Hypertarget{_component_8h_acb5da28bae949d7ba8d6a74c97e1e394}\label{_component_8h_acb5da28bae949d7ba8d6a74c97e1e394}} 
+\index{Component.h@{Component.h}!BP\_COMPONENT\_IMPL@{BP\_COMPONENT\_IMPL}}
+\index{BP\_COMPONENT\_IMPL@{BP\_COMPONENT\_IMPL}!Component.h@{Component.h}}
+\doxysubsubsection{\texorpdfstring{BP\_COMPONENT\_IMPL}{BP\_COMPONENT\_IMPL}}
+{\footnotesize\ttfamily \#define BP\+\_\+\+COMPONENT\+\_\+\+IMPL(\begin{DoxyParamCaption}\item[{}]{CLASS,  }\item[{}]{DESC\+\_\+\+NAME }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ /*!\ 型情報の実体\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{class_class_component_type}{ClassComponentType<CLASS>}}\ CLASS::TypeInfo(\#CLASS,\ \textcolor{keyword}{sizeof}(CLASS),\ DESC\_NAME,\ \&Super::TypeInfo);}
+
+\end{DoxyCode}
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00095}{95}} 行目に定義があります。
+
+\mbox{\Hypertarget{_component_8h_ae5e9b7470814a3a37d802d342aeb16f6}\label{_component_8h_ae5e9b7470814a3a37d802d342aeb16f6}} 
+\index{Component.h@{Component.h}!BP\_COMPONENT\_TYPE@{BP\_COMPONENT\_TYPE}}
+\index{BP\_COMPONENT\_TYPE@{BP\_COMPONENT\_TYPE}!Component.h@{Component.h}}
+\doxysubsubsection{\texorpdfstring{BP\_COMPONENT\_TYPE}{BP\_COMPONENT\_TYPE}}
+{\footnotesize\ttfamily \#define BP\+\_\+\+COMPONENT\+\_\+\+TYPE(\begin{DoxyParamCaption}\item[{}]{CLASS,  }\item[{}]{PARENT\+\_\+\+CLASS }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }Super\ =\ PARENT\_CLASS;\ \textcolor{comment}{/*\ 親クラスの型\ */}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ BP\_COMPONENT\_BASE\_TYPE(CLASS);}
+
+\end{DoxyCode}
+クラス内ヘッダー宣言 publicで BP\+\_\+\+COMPONENT\+\_\+\+TYPE(クラス名, 親クラス名) で宣言します
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }B\ :\ \textcolor{keyword}{public}\ A}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{_component_8h_ae5e9b7470814a3a37d802d342aeb16f6}{BP\_COMPONENT\_TYPE}}(B,\ A);}
+
+\end{DoxyCode}
+ 
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00080}{80}} 行目に定義があります。
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{_component_8h_acf719dccd2f400d5bef112558e3ab522}\label{_component_8h_acf719dccd2f400d5bef112558e3ab522}} 
+\index{Component.h@{Component.h}!USING\_PTR@{USING\_PTR}}
+\index{USING\_PTR@{USING\_PTR}!Component.h@{Component.h}}
+\doxysubsubsection{\texorpdfstring{USING\_PTR()}{USING\_PTR()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily USING\+\_\+\+PTR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component}{Component}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_component_8h_a2deff0220e6921920b821b718ebc8b94}\label{_component_8h_a2deff0220e6921920b821b718ebc8b94}} 
+\index{Component.h@{Component.h}!USING\_PTR@{USING\_PTR}}
+\index{USING\_PTR@{USING\_PTR}!Component.h@{Component.h}}
+\doxysubsubsection{\texorpdfstring{USING\_PTR()}{USING\_PTR()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily USING\+\_\+\+PTR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_object}{Object}}}]{ }\end{DoxyParamCaption})}
+

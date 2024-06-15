@@ -11,7 +11,7 @@ USING_PTR(Enemy);
 class ComponentHP;
 class Enemy: public Object {
    public:
-    BP_OBJECT_TYPE(Enemy, Object);
+    BP_OBJECT_DECL(Enemy, "LittleQuest/Enemy");
     static EnemyPtr Create(const float3& pos, bool isPatrol = true, bool isBoss = false);
 
     bool Init() override;

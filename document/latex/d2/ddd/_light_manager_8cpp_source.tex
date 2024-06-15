@@ -1,0 +1,69 @@
+\hypertarget{_light_manager_8cpp_source}{}\doxysection{Light\+Manager.\+cpp}
+\label{_light_manager_8cpp_source}\index{LightManager.cpp@{LightManager.cpp}}
+\mbox{\hyperlink{_light_manager_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ LightManager.cpp}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ 光源管理}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_light_manager_8h}{LightManager.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00007}00007\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00008}00008\ \textcolor{comment}{//!\ 初期化}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00009}00009\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00010}\mbox{\hyperlink{class_light_manager_a662bb44330a903cea1625faa8c366bfe}{00010}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_light_manager_a662bb44330a903cea1625faa8c366bfe}{LightManager::initialize}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00011}00011\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{comment}{//\ 定数バッファを作成}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00014}00014\ \ \ \ \ \mbox{\hyperlink{class_light_manager_af0c943d842a1690ca578a3f64d30daf0}{cb\_handle\_}}\ =\ CreateShaderConstantBuffer(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_light_manager_a4a362bbb4876c5a911665b86d05c2de9}{info\_}}));}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{comment}{//\ [TEST]\ ライトパラメーター設定}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00017}00017\ \ \ \ \ \mbox{\hyperlink{class_light_manager_a4a362bbb4876c5a911665b86d05c2de9}{info\_}}.\mbox{\hyperlink{struct_light_manager_1_1_light_info_af4a7684de2efbd42cc9a787c4d69f3d5}{light\_count\_directional\_}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00019}00019\ \ \ \ \ \mbox{\hyperlink{class_light_manager_a4a362bbb4876c5a911665b86d05c2de9}{info\_}}.\mbox{\hyperlink{struct_light_manager_1_1_light_info_adba82a2442e17d582871b81bc21debdb}{light\_directional\_}}[0].\mbox{\hyperlink{struct_light_manager_1_1_light_directional_a2c28c52500a13d6a2e83101764deaeba}{light\_dir\_}}\ =\ float3(0.0f,\ 1.0f,\ 0.0f);}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00020}00020\ \ \ \ \ \mbox{\hyperlink{class_light_manager_a4a362bbb4876c5a911665b86d05c2de9}{info\_}}.\mbox{\hyperlink{struct_light_manager_1_1_light_info_adba82a2442e17d582871b81bc21debdb}{light\_directional\_}}[0].\mbox{\hyperlink{struct_light_manager_1_1_light_directional_ae02e2216d19ffc648c59699939433f87}{color\_}}\ \ \ \ \ =\ float3(0.5f,\ 0.8f,\ 1.0f);}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00022}00022\ \ \ \ \ \mbox{\hyperlink{class_light_manager_a4a362bbb4876c5a911665b86d05c2de9}{info\_}}.\mbox{\hyperlink{struct_light_manager_1_1_light_info_adba82a2442e17d582871b81bc21debdb}{light\_directional\_}}[1].\mbox{\hyperlink{struct_light_manager_1_1_light_directional_a2c28c52500a13d6a2e83101764deaeba}{light\_dir\_}}\ =\ float3(0.0f,\ -\/1.0f,\ 0.0f);}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00023}00023\ \ \ \ \ \mbox{\hyperlink{class_light_manager_a4a362bbb4876c5a911665b86d05c2de9}{info\_}}.\mbox{\hyperlink{struct_light_manager_1_1_light_info_adba82a2442e17d582871b81bc21debdb}{light\_directional\_}}[1].\mbox{\hyperlink{struct_light_manager_1_1_light_directional_ae02e2216d19ffc648c59699939433f87}{color\_}}\ \ \ \ \ =\ float3(0.5f,\ 0.3f,\ 0.0f);}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{comment}{//\ [TEST]\ 点光源}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00026}00026\ \ \ \ \ \mbox{\hyperlink{class_light_manager_a4a362bbb4876c5a911665b86d05c2de9}{info\_}}.\mbox{\hyperlink{struct_light_manager_1_1_light_info_a13ef0654e7416ee69852f1755f5f330e}{light\_count\_point\_}}\ \ \ \ \ \ \ \ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{class_light_manager_a4a362bbb4876c5a911665b86d05c2de9}{info\_}}.\mbox{\hyperlink{struct_light_manager_1_1_light_info_ae0ec93796543733487141db2ea6cbc4c}{light\_point\_}}[0].\mbox{\hyperlink{struct_light_manager_1_1_light_point_aba3dc777552936e78332f46765c742e3}{color\_}}\ \ \ \ =\ float3(1.0f,\ 1.0f,\ 1.0f)\ *\ 500;}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00028}00028\ \ \ \ \ \mbox{\hyperlink{class_light_manager_a4a362bbb4876c5a911665b86d05c2de9}{info\_}}.\mbox{\hyperlink{struct_light_manager_1_1_light_info_ae0ec93796543733487141db2ea6cbc4c}{light\_point\_}}[0].\mbox{\hyperlink{struct_light_manager_1_1_light_point_a242b0942f272474c97e695c6cad5ec4b}{position\_}}\ =\ float3(10.0f,\ 10.0f,\ 0.0f);}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00029}00029\ \ \ \ \ \mbox{\hyperlink{class_light_manager_a4a362bbb4876c5a911665b86d05c2de9}{info\_}}.\mbox{\hyperlink{struct_light_manager_1_1_light_info_ae0ec93796543733487141db2ea6cbc4c}{light\_point\_}}[0].\mbox{\hyperlink{struct_light_manager_1_1_light_point_a2e3bea3b350c756f2000bc1179cac1fd}{radius\_}}\ \ \ =\ 5.0f;}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00032}00032\ \}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00034}00034\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00035}00035\ \textcolor{comment}{//!\ 更新}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00036}00036\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00037}\mbox{\hyperlink{class_light_manager_a03c8e2489cae1fa2be557df1667bf0b9}{00037}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_light_manager_a03c8e2489cae1fa2be557df1667bf0b9}{LightManager::update}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00038}00038\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00039}00039\ \ \ \ \ \textcolor{comment}{//\ 定数バッファを更新}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00040}00040\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{void}*\ p\ =\ GetBufferShaderConstantBuffer(\mbox{\hyperlink{class_light_manager_af0c943d842a1690ca578a3f64d30daf0}{cb\_handle\_}});}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00042}00042\ \ \ \ \ memcpy(p,\ \&\mbox{\hyperlink{class_light_manager_a4a362bbb4876c5a911665b86d05c2de9}{info\_}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_light_manager_1_1_light_info}{LightInfo}}));}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00044}00044\ \ \ \ \ \textcolor{comment}{//\ メモリをGPU側へ転送}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00045}00045\ \ \ \ \ UpdateShaderConstantBuffer(\mbox{\hyperlink{class_light_manager_af0c943d842a1690ca578a3f64d30daf0}{cb\_handle\_}});}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00047}00047\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ 定数バッファを設定}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00050}00050\ \ \ \ \ \textcolor{comment}{//\ b11\ =\ LightInfo}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00051}00051\ \ \ \ \ SetShaderConstantBuffer(\mbox{\hyperlink{class_light_manager_af0c943d842a1690ca578a3f64d30daf0}{cb\_handle\_}},\ DX\_SHADERTYPE\_PIXEL,\ 11);}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00052}00052\ \}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00054}00054\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00055}00055\ \textcolor{comment}{//!\ 解放}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00056}00056\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00057}\mbox{\hyperlink{class_light_manager_ad403c77e25929b0778cafa0c32a224e5}{00057}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_light_manager_ad403c77e25929b0778cafa0c32a224e5}{LightManager::finalize}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00058}00058\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{comment}{//\ 定数バッファを解放}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00060}00060\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00061}00061\ \ \ \ \ DeleteShaderConstantBuffer(\mbox{\hyperlink{class_light_manager_af0c943d842a1690ca578a3f64d30daf0}{cb\_handle\_}});}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00062}00062\ \ \ \ \ \mbox{\hyperlink{class_light_manager_af0c943d842a1690ca578a3f64d30daf0}{cb\_handle\_}}\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_light_manager_8cpp_source_l00063}00063\ \}}
+
+\end{DoxyCode}

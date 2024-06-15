@@ -1,0 +1,758 @@
+\hypertarget{class_animation}{}\doxysection{Animation クラス}
+\label{class_animation}\index{Animation@{Animation}}
+
+
+アニメーションクラス  
+
+
+
+
+{\ttfamily \#include $<$Animation.\+h$>$}
+
+
+
+Animation 連携図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{d1/d8a/class_animation__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_animation_1_1_context}{Context}}
+\begin{DoxyCompactList}\small\item\em 再生中の情報構造体 \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_animation_1_1_desc}{Desc}}
+\begin{DoxyCompactList}\small\item\em アニメーション定義オプション \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{公開メンバ関数}
+\begin{Indent}\textbf{ 初期化}\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_animation_a4c294d8ee848291f5da25a7d6360601f}{Animation}} ()=default
+\begin{DoxyCompactList}\small\item\em デフォルトコンストラクタ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_animation_aec50f923a7aeed8d0ea9773c4790642d}{Animation}} (const \mbox{\hyperlink{struct_animation_1_1_desc}{Animation\+::\+Desc}} $\ast$desc, size\+\_\+t desc\+\_\+count)
+\begin{DoxyCompactList}\small\item\em コントラクタ \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_animation_a401b68793d4fbf48d481c030ee4b2a16}{$\sim$\+Animation}} ()
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_animation_aad81a38c683c60841bbdd1d05eac7720}{load}} (const \mbox{\hyperlink{struct_animation_1_1_desc}{Animation\+::\+Desc}} $\ast$desc, size\+\_\+t desc\+\_\+count)
+\begin{DoxyCompactList}\small\item\em 作成 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 更新}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_animation_aebce1593fc3fcdef36eaf9360d9d4e7e}{update}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} dt)
+\begin{DoxyCompactList}\small\item\em 更新 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 設定}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_animation_a496bc3c8cd47b3154e02d3bcd56284b3}{bind\+Model}} (\mbox{\hyperlink{class_model}{Model}} $\ast$model)
+\begin{DoxyCompactList}\small\item\em アニメーション再生するモデルを設定する \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_animation_a5feebcd58369d4601270b7070f87856f}{play}} (std\+::string\+\_\+view name, bool is\+\_\+loop=false, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} blend\+\_\+time=1.\+0f, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} start\+\_\+time=0.\+0f)
+\begin{DoxyCompactList}\small\item\em アニメーションを再生する \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_animation_a78c13e95acbf5fcaa1c8a9b209dd1ad1}{pause}} (bool active=true)
+\begin{DoxyCompactList}\small\item\em アニメーションを停止する \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 取得}\par
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_animation_aaae3356caf1bda3d0b5457e02f1475d1}{is\+Playing}} () const
+\begin{DoxyCompactList}\small\item\em 再生中かどうかを取得 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_animation_a337cdf4e123b03fdb23d7a82f460637e}{is\+Paused}} () const
+\begin{DoxyCompactList}\small\item\em 一時停止中かどうかを取得 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_animation_ae091a5871009cb2481bf2fa07f99effe}{is\+Valid}} () const
+\begin{DoxyCompactList}\small\item\em 初期化が正しく成功しているかどうかを取得 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_animation_a02e3cc6b3a52627093ab052227575d78}{is\+Active}} () const
+\begin{DoxyCompactList}\small\item\em 利用可能な状態かどうか取得 \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_animation_ad2ec91ff62634ae98be70c310bcaa860}{Get\+Animation\+Play\+Time}} () const
+\begin{DoxyCompactList}\small\item\em アニメーションの再生フレームを取得 \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_animation_a8f3a6765366667a875f8e52b9f2241c4}{Get\+Animation\+Total\+Time}} () const
+\begin{DoxyCompactList}\small\item\em アニメーションの総フレームを取得 \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_animation_a54eead4c5bfaf3071ec0f684ca666021}{Get\+Animation\+Speed}} () const
+\item 
+void \mbox{\hyperlink{class_animation_a3327ff4d79a569f98fa8b038667318d3}{Set\+Animation\+Speed}} (float speed)
+\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{非公開変数類}
+\begin{Indent}\textbf{ 再生中の情報}\par
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_animation_abc57c4b50a03e6bf258c86ae3f6fc95e}{is\+\_\+paused\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em ポーズ中かどうか \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_animation_1_1_context}{Context}} \mbox{\hyperlink{class_animation_a89a53bf0c4a31ab8acf8651a3c872598}{contexts\+\_\+}} \mbox{[}2\mbox{]}
+\begin{DoxyCompactList}\small\item\em 構造体はアニメーションブレンドのため2系統を持つ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{class_animation_ad688648037a3a8fb20f9f70d1b0b3612}{blend\+\_\+ratio\+\_\+}} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em ブレンド比(0.\+0f～1.0f) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{class_animation_a9bc8001d0835e86549f10562524c86ae}{blend\+\_\+time\+\_\+}} = 1.\+0f
+\begin{DoxyCompactList}\small\item\em ブレンドの補間時間 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{copy/move禁止}
+\begin{DoxyCompactItemize}
+\item 
+std\+::wstring \mbox{\hyperlink{class_animation_a6caac246a8fcd173a2dcb1bd6d96cea6}{path\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ファイルパス \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_animation_ada2cec8d05666b25a72fc88738c233a6}{is\+\_\+valid\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em 初期化が正しく成功しているかどうか \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_model}{Model}} $\ast$ \mbox{\hyperlink{class_animation_a84bab9f31a933e8f8cc92f5f0d029b44}{model\+\_\+}} = nullptr
+\begin{DoxyCompactList}\small\item\em 関連付けられているモデル \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_animation_a8161d014228565637ac29f4a7828ccac}{model\+\_\+handle\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} 関連付けられているモデルのハンドル \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{struct_animation_1_1_desc}{Animation\+::\+Desc}} $>$ \mbox{\hyperlink{class_animation_a510be874d77f4276ae731301133656f7}{descs\+\_\+}}
+\begin{DoxyCompactList}\small\item\em アニメーション定義情報 \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{class_animation_a0ba1507f5f267d2ee85c0daa0b4efa21}{mv1\+\_\+handles\+\_\+}}
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} アニメーション\+MV1ハンドル \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} $>$ \mbox{\hyperlink{class_animation_ade7e5341bc087605698019e1c6e1587b}{name\+\_\+table\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 名前逆引きテーブル (名前からアニメーション番号を取得) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_animation_a9eda75883c9e3c29d12fd225d8c0073d}{Animation}} (const \mbox{\hyperlink{class_animation}{Animation}} \&)=delete
+\item 
+\mbox{\hyperlink{class_animation_a47af6c2b7cbbc24c410d57aba2672406}{Animation}} (\mbox{\hyperlink{class_animation}{Animation}} \&\&)=delete
+\item 
+void \mbox{\hyperlink{class_animation_a3f96bbe2b8ad13664e5a9b5a637a2870}{operator=}} (const \mbox{\hyperlink{class_animation}{Animation}} \&)=delete
+\item 
+void \mbox{\hyperlink{class_animation_a65b9b72ccde17d1e0675e38da4ac6554}{operator=}} (\mbox{\hyperlink{class_animation}{Animation}} \&\&)=delete
+\item 
+bool \mbox{\hyperlink{class_animation_a64652e054eea81c051c0dac020ab579e}{attach\+Animation}} (\mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}} context\+\_\+index)
+\begin{DoxyCompactList}\small\item\em アニメーションを割り当て \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_animation_ae8c7aad5ce667edff188eee629992144}{detach\+Animation}} (\mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}} context\+\_\+index)
+\begin{DoxyCompactList}\small\item\em アニメーション割り当てを解除 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+アニメーションクラス 
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00012}{12}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{class_animation_a4c294d8ee848291f5da25a7d6360601f}\label{class_animation_a4c294d8ee848291f5da25a7d6360601f}} 
+\index{Animation@{Animation}!Animation@{Animation}}
+\index{Animation@{Animation}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{Animation()}{Animation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Animation\+::\+Animation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+デフォルトコンストラクタ 
+
+\mbox{\Hypertarget{class_animation_aec50f923a7aeed8d0ea9773c4790642d}\label{class_animation_aec50f923a7aeed8d0ea9773c4790642d}} 
+\index{Animation@{Animation}!Animation@{Animation}}
+\index{Animation@{Animation}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{Animation()}{Animation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Animation\+::\+Animation (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_animation_1_1_desc}{Animation\+::\+Desc}} $\ast$}]{desc,  }\item[{size\+\_\+t}]{desc\+\_\+count }\end{DoxyParamCaption})}
+
+
+
+コントラクタ 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em desc} & 定義オプション配列の先頭アドレス \\
+\hline
+\mbox{\texttt{ in}}  & {\em desc\+\_\+count} & 定義オプション配列の個数 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00018}{18}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8cpp_source_l00044}{load()}}.
+
+\mbox{\Hypertarget{class_animation_a401b68793d4fbf48d481c030ee4b2a16}\label{class_animation_a401b68793d4fbf48d481c030ee4b2a16}} 
+\index{Animation@{Animation}!````~Animation@{$\sim$Animation}}
+\index{````~Animation@{$\sim$Animation}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{$\sim$Animation()}{~Animation()}}
+{\footnotesize\ttfamily Animation\+::$\sim$\+Animation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+デストラクタ 
+
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00025}{25}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8cpp_source_l00270}{Model\+::bind\+Animation()}}, \mbox{\hyperlink{_animation_8h_source_l00133}{model\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00137}{mv1\+\_\+handles\+\_\+}}.
+
+\mbox{\Hypertarget{class_animation_a9eda75883c9e3c29d12fd225d8c0073d}\label{class_animation_a9eda75883c9e3c29d12fd225d8c0073d}} 
+\index{Animation@{Animation}!Animation@{Animation}}
+\index{Animation@{Animation}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{Animation()}{Animation()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Animation\+::\+Animation (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_animation}{Animation}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_animation_a47af6c2b7cbbc24c410d57aba2672406}\label{class_animation_a47af6c2b7cbbc24c410d57aba2672406}} 
+\index{Animation@{Animation}!Animation@{Animation}}
+\index{Animation@{Animation}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{Animation()}{Animation()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Animation\+::\+Animation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_animation}{Animation}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_animation_a64652e054eea81c051c0dac020ab579e}\label{class_animation_a64652e054eea81c051c0dac020ab579e}} 
+\index{Animation@{Animation}!attachAnimation@{attachAnimation}}
+\index{attachAnimation@{attachAnimation}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{attachAnimation()}{attachAnimation()}}
+{\footnotesize\ttfamily bool Animation\+::attach\+Animation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}}}]{context\+\_\+index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+アニメーションを割り当て 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em context\+\_\+index} & コンテキスト番号 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00303}{303}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00159}{contexts\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00136}{descs\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00134}{model\+\_\+handle\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00137}{mv1\+\_\+handles\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00180}{play()}}.
+
+\mbox{\Hypertarget{class_animation_a496bc3c8cd47b3154e02d3bcd56284b3}\label{class_animation_a496bc3c8cd47b3154e02d3bcd56284b3}} 
+\index{Animation@{Animation}!bindModel@{bindModel}}
+\index{bindModel@{bindModel}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{bindModel()}{bindModel()}}
+{\footnotesize\ttfamily void Animation\+::bind\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_model}{Model}} $\ast$}]{model }\end{DoxyParamCaption})}
+
+
+
+アニメーション再生するモデルを設定する 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em model} & 3Dモデル(nullptrで解除) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00152}{152}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_8cpp_source_l00270}{Model\+::bind\+Animation()}}, \mbox{\hyperlink{_animation_8cpp_source_l00329}{detach\+Animation()}}, \mbox{\hyperlink{_animation_8h_source_l00133}{model\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00134}{model\+\_\+handle\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00270}{Model\+::bind\+Animation()}}, \mbox{\hyperlink{_model_8cpp_source_l00023}{Model\+::load()}}, \mbox{\hyperlink{_model_8cpp_source_l00236}{Model\+::$\sim$\+Model()}}.
+
+\mbox{\Hypertarget{class_animation_ae8c7aad5ce667edff188eee629992144}\label{class_animation_ae8c7aad5ce667edff188eee629992144}} 
+\index{Animation@{Animation}!detachAnimation@{detachAnimation}}
+\index{detachAnimation@{detachAnimation}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{detachAnimation()}{detachAnimation()}}
+{\footnotesize\ttfamily void Animation\+::detach\+Animation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}}}]{context\+\_\+index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+アニメーション割り当てを解除 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em context\+\_\+index} & コンテキスト番号 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00329}{329}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00154}{Animation\+::\+Context\+::animation\+\_\+attach\+\_\+index\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00159}{contexts\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00134}{model\+\_\+handle\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00152}{bind\+Model()}}, \mbox{\hyperlink{_animation_8cpp_source_l00180}{play()}}, \mbox{\hyperlink{_animation_8cpp_source_l00082}{update()}}.
+
+\mbox{\Hypertarget{class_animation_ad2ec91ff62634ae98be70c310bcaa860}\label{class_animation_ad2ec91ff62634ae98be70c310bcaa860}} 
+\index{Animation@{Animation}!GetAnimationPlayTime@{GetAnimationPlayTime}}
+\index{GetAnimationPlayTime@{GetAnimationPlayTime}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{GetAnimationPlayTime()}{GetAnimationPlayTime()}}
+{\footnotesize\ttfamily float Animation\+::\+Get\+Animation\+Play\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+アニメーションの再生フレームを取得 
+
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00274}{274}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00159}{contexts\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00156}{Animation\+::\+Context\+::play\+\_\+time\+\_\+}}.
+
+\mbox{\Hypertarget{class_animation_a54eead4c5bfaf3071ec0f684ca666021}\label{class_animation_a54eead4c5bfaf3071ec0f684ca666021}} 
+\index{Animation@{Animation}!GetAnimationSpeed@{GetAnimationSpeed}}
+\index{GetAnimationSpeed@{GetAnimationSpeed}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{GetAnimationSpeed()}{GetAnimationSpeed()}}
+{\footnotesize\ttfamily float Animation\+::\+Get\+Animation\+Speed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00285}{285}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00153}{Animation\+::\+Context\+::animation\+\_\+index\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00159}{contexts\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00136}{descs\+\_\+}}.
+
+\mbox{\Hypertarget{class_animation_a8f3a6765366667a875f8e52b9f2241c4}\label{class_animation_a8f3a6765366667a875f8e52b9f2241c4}} 
+\index{Animation@{Animation}!GetAnimationTotalTime@{GetAnimationTotalTime}}
+\index{GetAnimationTotalTime@{GetAnimationTotalTime}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{GetAnimationTotalTime()}{GetAnimationTotalTime()}}
+{\footnotesize\ttfamily float Animation\+::\+Get\+Animation\+Total\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+アニメーションの総フレームを取得 
+
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00281}{281}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00155}{Animation\+::\+Context\+::animation\+\_\+total\+\_\+time\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00159}{contexts\+\_\+}}.
+
+\mbox{\Hypertarget{class_animation_a02e3cc6b3a52627093ab052227575d78}\label{class_animation_a02e3cc6b3a52627093ab052227575d78}} 
+\index{Animation@{Animation}!isActive@{isActive}}
+\index{isActive@{isActive}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{isActive()}{isActive()}}
+{\footnotesize\ttfamily bool Animation\+::is\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+利用可能な状態かどうか取得 
+
+\begin{DoxyNote}{覚え書き}
+利用可能になっていない状態で\+Dx\+Libアニメーション関数を呼ぶと非同期ロードがブロッキングされます 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00267}{267}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8cpp_source_l00260}{is\+Valid()}}.
+
+\mbox{\Hypertarget{class_animation_a337cdf4e123b03fdb23d7a82f460637e}\label{class_animation_a337cdf4e123b03fdb23d7a82f460637e}} 
+\index{Animation@{Animation}!isPaused@{isPaused}}
+\index{isPaused@{isPaused}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{isPaused()}{isPaused()}}
+{\footnotesize\ttfamily bool Animation\+::is\+Paused (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+一時停止中かどうかを取得 
+
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00253}{253}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00147}{is\+\_\+paused\+\_\+}}.
+
+\mbox{\Hypertarget{class_animation_aaae3356caf1bda3d0b5457e02f1475d1}\label{class_animation_aaae3356caf1bda3d0b5457e02f1475d1}} 
+\index{Animation@{Animation}!isPlaying@{isPlaying}}
+\index{isPlaying@{isPlaying}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{isPlaying()}{isPlaying()}}
+{\footnotesize\ttfamily bool Animation\+::is\+Playing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+再生中かどうかを取得 
+
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00246}{246}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00159}{contexts\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00151}{Animation\+::\+Context\+::is\+\_\+playing\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00082}{update()}}.
+
+\mbox{\Hypertarget{class_animation_ae091a5871009cb2481bf2fa07f99effe}\label{class_animation_ae091a5871009cb2481bf2fa07f99effe}} 
+\index{Animation@{Animation}!isValid@{isValid}}
+\index{isValid@{isValid}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{isValid()}{isValid()}}
+{\footnotesize\ttfamily bool Animation\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+初期化が正しく成功しているかどうかを取得 
+
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00260}{260}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00132}{is\+\_\+valid\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00267}{is\+Active()}}.
+
+\mbox{\Hypertarget{class_animation_aad81a38c683c60841bbdd1d05eac7720}\label{class_animation_aad81a38c683c60841bbdd1d05eac7720}} 
+\index{Animation@{Animation}!load@{load}}
+\index{load@{load}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily bool Animation\+::load (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_animation_1_1_desc}{Animation\+::\+Desc}} $\ast$}]{desc,  }\item[{size\+\_\+t}]{desc\+\_\+count }\end{DoxyParamCaption})}
+
+
+
+作成 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em desc} & 定義オプション配列の先頭アドレス \\
+\hline
+\mbox{\texttt{ in}}  & {\em desc\+\_\+count} & 定義オプション配列の個数 \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 成功(正常終了) \\
+\hline
+{\em false} & 失敗(エラー終了) \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00044}{44}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00136}{descs\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00017}{Animation\+::\+Desc\+::file\+\_\+path\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00132}{is\+\_\+valid\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00137}{mv1\+\_\+handles\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00016}{Animation\+::\+Desc\+::name\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00140}{name\+\_\+table\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00018}{Animation()}}.
+
+\mbox{\Hypertarget{class_animation_a65b9b72ccde17d1e0675e38da4ac6554}\label{class_animation_a65b9b72ccde17d1e0675e38da4ac6554}} 
+\index{Animation@{Animation}!operator=@{operator=}}
+\index{operator=@{operator=}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Animation\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_animation}{Animation}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_animation_a3f96bbe2b8ad13664e5a9b5a637a2870}\label{class_animation_a3f96bbe2b8ad13664e5a9b5a637a2870}} 
+\index{Animation@{Animation}!operator=@{operator=}}
+\index{operator=@{operator=}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Animation\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_animation}{Animation}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_animation_a78c13e95acbf5fcaa1c8a9b209dd1ad1}\label{class_animation_a78c13e95acbf5fcaa1c8a9b209dd1ad1}} 
+\index{Animation@{Animation}!pause@{pause}}
+\index{pause@{pause}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{pause()}{pause()}}
+{\footnotesize\ttfamily void Animation\+::pause (\begin{DoxyParamCaption}\item[{bool}]{active = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+アニメーションを停止する 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em active} & 停止フラグ(true\+:停止 false\+:再開) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00239}{239}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00147}{is\+\_\+paused\+\_\+}}.
+
+\mbox{\Hypertarget{class_animation_a5feebcd58369d4601270b7070f87856f}\label{class_animation_a5feebcd58369d4601270b7070f87856f}} 
+\index{Animation@{Animation}!play@{play}}
+\index{play@{play}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{play()}{play()}}
+{\footnotesize\ttfamily bool Animation\+::play (\begin{DoxyParamCaption}\item[{std\+::string\+\_\+view}]{name,  }\item[{bool}]{is\+\_\+loop = {\ttfamily false},  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{blend\+\_\+time = {\ttfamily 1.0f},  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{start\+\_\+time = {\ttfamily 0.0f} }\end{DoxyParamCaption})}
+
+
+
+アニメーションを再生する 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em name} & アニメーション名 \\
+\hline
+\mbox{\texttt{ in}}  & {\em is\+\_\+loop} & ループ再生するかどうか(default\+:false) \\
+\hline
+\mbox{\texttt{ in}}  & {\em blend\+\_\+time} & ブレンドする時間 (default\+:1.\+0秒) \\
+\hline
+\mbox{\texttt{ in}}  & {\em start\+\_\+time} & 再生開始時間(default\+:0.\+0f) \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 成功(正常終了) \\
+\hline
+{\em false} & 失敗(nameで指定した名前が見つからなかった場合) \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00180}{180}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00153}{Animation\+::\+Context\+::animation\+\_\+index\+\_\+}}, \mbox{\hyperlink{_animation_8cpp_source_l00303}{attach\+Animation()}}, \mbox{\hyperlink{_animation_8h_source_l00160}{blend\+\_\+ratio\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00161}{blend\+\_\+time\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00159}{contexts\+\_\+}}, \mbox{\hyperlink{_animation_8cpp_source_l00329}{detach\+Animation()}}, \mbox{\hyperlink{_animation_8h_source_l00147}{is\+\_\+paused\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00140}{name\+\_\+table\+\_\+}}.
+
+\mbox{\Hypertarget{class_animation_a3327ff4d79a569f98fa8b038667318d3}\label{class_animation_a3327ff4d79a569f98fa8b038667318d3}} 
+\index{Animation@{Animation}!SetAnimationSpeed@{SetAnimationSpeed}}
+\index{SetAnimationSpeed@{SetAnimationSpeed}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{SetAnimationSpeed()}{SetAnimationSpeed()}}
+{\footnotesize\ttfamily void Animation\+::\+Set\+Animation\+Speed (\begin{DoxyParamCaption}\item[{float}]{speed }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00293}{293}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00153}{Animation\+::\+Context\+::animation\+\_\+index\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00159}{contexts\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00136}{descs\+\_\+}}.
+
+\mbox{\Hypertarget{class_animation_aebce1593fc3fcdef36eaf9360d9d4e7e}\label{class_animation_aebce1593fc3fcdef36eaf9360d9d4e7e}} 
+\index{Animation@{Animation}!update@{update}}
+\index{update@{update}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Animation\+::update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{dt }\end{DoxyParamCaption})}
+
+
+
+更新 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em dt} & 経過時間(単位\+:秒) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_animation_8cpp_source}{Animation.\+cpp}} の \mbox{\hyperlink{_animation_8cpp_source_l00082}{82}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_animation_8h_source_l00160}{blend\+\_\+ratio\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00161}{blend\+\_\+time\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00159}{contexts\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00136}{descs\+\_\+}}, \mbox{\hyperlink{_animation_8cpp_source_l00329}{detach\+Animation()}}, \mbox{\hyperlink{_ease_curve_8cpp_source_l00223}{Get\+Ease\+Function()}}, \mbox{\hyperlink{_animation_8h_source_l00147}{is\+\_\+paused\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00151}{Animation\+::\+Context\+::is\+\_\+playing\+\_\+}}, \mbox{\hyperlink{_animation_8cpp_source_l00246}{is\+Playing()}}, \mbox{\hyperlink{_animation_8h_source_l00133}{model\+\_\+}}, \mbox{\hyperlink{_animation_8h_source_l00134}{model\+\_\+handle\+\_\+}}.
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{class_animation_ad688648037a3a8fb20f9f70d1b0b3612}\label{class_animation_ad688648037a3a8fb20f9f70d1b0b3612}} 
+\index{Animation@{Animation}!blend\_ratio\_@{blend\_ratio\_}}
+\index{blend\_ratio\_@{blend\_ratio\_}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{blend\_ratio\_}{blend\_ratio\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Animation\+::blend\+\_\+ratio\+\_\+ = 0.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ブレンド比(0.\+0f～1.0f) 
+
+
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00160}{160}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00180}{play()}}, \mbox{\hyperlink{_animation_8cpp_source_l00082}{update()}}.
+
+\mbox{\Hypertarget{class_animation_a9bc8001d0835e86549f10562524c86ae}\label{class_animation_a9bc8001d0835e86549f10562524c86ae}} 
+\index{Animation@{Animation}!blend\_time\_@{blend\_time\_}}
+\index{blend\_time\_@{blend\_time\_}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{blend\_time\_}{blend\_time\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Animation\+::blend\+\_\+time\+\_\+ = 1.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ブレンドの補間時間 
+
+
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00161}{161}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00180}{play()}}, \mbox{\hyperlink{_animation_8cpp_source_l00082}{update()}}.
+
+\mbox{\Hypertarget{class_animation_a89a53bf0c4a31ab8acf8651a3c872598}\label{class_animation_a89a53bf0c4a31ab8acf8651a3c872598}} 
+\index{Animation@{Animation}!contexts\_@{contexts\_}}
+\index{contexts\_@{contexts\_}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{contexts\_}{contexts\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_animation_1_1_context}{Context}} Animation\+::contexts\+\_\+\mbox{[}2\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+構造体はアニメーションブレンドのため2系統を持つ 
+
+
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00159}{159}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00303}{attach\+Animation()}}, \mbox{\hyperlink{_animation_8cpp_source_l00329}{detach\+Animation()}}, \mbox{\hyperlink{_animation_8cpp_source_l00274}{Get\+Animation\+Play\+Time()}}, \mbox{\hyperlink{_animation_8cpp_source_l00285}{Get\+Animation\+Speed()}}, \mbox{\hyperlink{_animation_8cpp_source_l00281}{Get\+Animation\+Total\+Time()}}, \mbox{\hyperlink{_animation_8cpp_source_l00246}{is\+Playing()}}, \mbox{\hyperlink{_animation_8cpp_source_l00180}{play()}}, \mbox{\hyperlink{_animation_8cpp_source_l00293}{Set\+Animation\+Speed()}}, \mbox{\hyperlink{_animation_8cpp_source_l00082}{update()}}.
+
+\mbox{\Hypertarget{class_animation_a510be874d77f4276ae731301133656f7}\label{class_animation_a510be874d77f4276ae731301133656f7}} 
+\index{Animation@{Animation}!descs\_@{descs\_}}
+\index{descs\_@{descs\_}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{descs\_}{descs\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{struct_animation_1_1_desc}{Animation\+::\+Desc}}$>$ Animation\+::descs\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+アニメーション定義情報 
+
+
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00136}{136}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00303}{attach\+Animation()}}, \mbox{\hyperlink{_animation_8cpp_source_l00285}{Get\+Animation\+Speed()}}, \mbox{\hyperlink{_animation_8cpp_source_l00044}{load()}}, \mbox{\hyperlink{_animation_8cpp_source_l00293}{Set\+Animation\+Speed()}}, \mbox{\hyperlink{_animation_8cpp_source_l00082}{update()}}.
+
+\mbox{\Hypertarget{class_animation_abc57c4b50a03e6bf258c86ae3f6fc95e}\label{class_animation_abc57c4b50a03e6bf258c86ae3f6fc95e}} 
+\index{Animation@{Animation}!is\_paused\_@{is\_paused\_}}
+\index{is\_paused\_@{is\_paused\_}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{is\_paused\_}{is\_paused\_}}
+{\footnotesize\ttfamily bool Animation\+::is\+\_\+paused\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ポーズ中かどうか 
+
+
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00147}{147}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00253}{is\+Paused()}}, \mbox{\hyperlink{_animation_8cpp_source_l00239}{pause()}}, \mbox{\hyperlink{_animation_8cpp_source_l00180}{play()}}, \mbox{\hyperlink{_animation_8cpp_source_l00082}{update()}}.
+
+\mbox{\Hypertarget{class_animation_ada2cec8d05666b25a72fc88738c233a6}\label{class_animation_ada2cec8d05666b25a72fc88738c233a6}} 
+\index{Animation@{Animation}!is\_valid\_@{is\_valid\_}}
+\index{is\_valid\_@{is\_valid\_}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{is\_valid\_}{is\_valid\_}}
+{\footnotesize\ttfamily bool Animation\+::is\+\_\+valid\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+初期化が正しく成功しているかどうか 
+
+
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00132}{132}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00260}{is\+Valid()}}, \mbox{\hyperlink{_animation_8cpp_source_l00044}{load()}}.
+
+\mbox{\Hypertarget{class_animation_a84bab9f31a933e8f8cc92f5f0d029b44}\label{class_animation_a84bab9f31a933e8f8cc92f5f0d029b44}} 
+\index{Animation@{Animation}!model\_@{model\_}}
+\index{model\_@{model\_}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{model\_}{model\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_model}{Model}}$\ast$ Animation\+::model\+\_\+ = nullptr\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+関連付けられているモデル 
+
+
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00133}{133}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00152}{bind\+Model()}}, \mbox{\hyperlink{_animation_8cpp_source_l00082}{update()}}, \mbox{\hyperlink{_animation_8cpp_source_l00025}{$\sim$\+Animation()}}.
+
+\mbox{\Hypertarget{class_animation_a8161d014228565637ac29f4a7828ccac}\label{class_animation_a8161d014228565637ac29f4a7828ccac}} 
+\index{Animation@{Animation}!model\_handle\_@{model\_handle\_}}
+\index{model\_handle\_@{model\_handle\_}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{model\_handle\_}{model\_handle\_}}
+{\footnotesize\ttfamily int Animation\+::model\+\_\+handle\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} 関連付けられているモデルのハンドル 
+
+
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00134}{134}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00303}{attach\+Animation()}}, \mbox{\hyperlink{_animation_8cpp_source_l00152}{bind\+Model()}}, \mbox{\hyperlink{_animation_8cpp_source_l00329}{detach\+Animation()}}, \mbox{\hyperlink{_animation_8cpp_source_l00082}{update()}}.
+
+\mbox{\Hypertarget{class_animation_a0ba1507f5f267d2ee85c0daa0b4efa21}\label{class_animation_a0ba1507f5f267d2ee85c0daa0b4efa21}} 
+\index{Animation@{Animation}!mv1\_handles\_@{mv1\_handles\_}}
+\index{mv1\_handles\_@{mv1\_handles\_}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{mv1\_handles\_}{mv1\_handles\_}}
+{\footnotesize\ttfamily std\+::vector$<$int$>$ Animation\+::mv1\+\_\+handles\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} アニメーション\+MV1ハンドル 
+
+
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00137}{137}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00303}{attach\+Animation()}}, \mbox{\hyperlink{_animation_8cpp_source_l00044}{load()}}, \mbox{\hyperlink{_animation_8cpp_source_l00025}{$\sim$\+Animation()}}.
+
+\mbox{\Hypertarget{class_animation_ade7e5341bc087605698019e1c6e1587b}\label{class_animation_ade7e5341bc087605698019e1c6e1587b}} 
+\index{Animation@{Animation}!name\_table\_@{name\_table\_}}
+\index{name\_table\_@{name\_table\_}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{name\_table\_}{name\_table\_}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}$>$ Animation\+::name\+\_\+table\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+名前逆引きテーブル (名前からアニメーション番号を取得) 
+
+
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00140}{140}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_animation_8cpp_source_l00044}{load()}}, \mbox{\hyperlink{_animation_8cpp_source_l00180}{play()}}.
+
+\mbox{\Hypertarget{class_animation_a6caac246a8fcd173a2dcb1bd6d96cea6}\label{class_animation_a6caac246a8fcd173a2dcb1bd6d96cea6}} 
+\index{Animation@{Animation}!path\_@{path\_}}
+\index{path\_@{path\_}!Animation@{Animation}}
+\doxysubsubsection{\texorpdfstring{path\_}{path\_}}
+{\footnotesize\ttfamily std\+::wstring Animation\+::path\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ファイルパス 
+
+
+
+ \mbox{\hyperlink{_animation_8h_source}{Animation.\+h}} の \mbox{\hyperlink{_animation_8h_source_l00131}{131}} 行目に定義があります。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_animation_8h}{Animation.\+h}}\item 
+\mbox{\hyperlink{_animation_8cpp}{Animation.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,625 @@
+\hypertarget{classmatrix}{}\doxysection{matrix クラス}
+\label{classmatrix}\index{matrix@{matrix}}
+
+
+4x4行列  
+
+
+
+
+{\ttfamily \#include $<$Vector\+Math.\+h$>$}
+
+
+
+matrix の継承関係図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=130pt]{d8/d3c/classmatrix__inherit__graph}
+\end{center}
+\end{figure}
+
+
+matrix 連携図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=130pt]{d1/d78/classmatrix__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmatrix_a73ef15efc56465db46f2f36986da629d}{matrix}} (const float4x4 \&m)
+\begin{DoxyCompactList}\small\item\em コンストラクタ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ 要素ベクトル参照}\par
+{\em 各要素へのアクセスはこのアクセサを利用します。 float4で列ベクトルfloat4で直接操作を必要とする場合は 下記メンバーを利用してください
+\begin{DoxyItemize}
+\item \+\_\+11\+\_\+12\+\_\+13\+\_\+14
+\item \+\_\+21\+\_\+22\+\_\+23\+\_\+24
+\item \+\_\+31\+\_\+32\+\_\+33\+\_\+34
+\item \+\_\+41\+\_\+42\+\_\+43\+\_\+44 
+\end{DoxyItemize}}\begin{DoxyCompactItemize}
+\item 
+float3 \mbox{\hyperlink{classmatrix_acbc751a8985a8f5d962f3256acea59df}{axisX}} () const
+\begin{DoxyCompactList}\small\item\em X軸ベクトルを取得 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{classmatrix_a8cacc60f5c84e6354664ffe9349b1257}{axisY}} () const
+\begin{DoxyCompactList}\small\item\em Y軸ベクトルを取得 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{classmatrix_ab76eb4b005f28f1db5e3dfb3b8a4ad15}{axisZ}} () const
+\begin{DoxyCompactList}\small\item\em Z軸ベクトルを取得 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{classmatrix_aea54cccd84b3b11f01cb54d5e448b41a}{translate}} () const
+\begin{DoxyCompactList}\small\item\em 平行移動を取得 \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{classmatrix_a93e7596281903043e248c52ffedf7c9c}{axis\+VectorX}} ()
+\begin{DoxyCompactList}\small\item\em X軸ベクトル参照を取得 \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{classmatrix_af26e34a9858c79655c828a0e82ca6f60}{axis\+VectorY}} ()
+\begin{DoxyCompactList}\small\item\em Y軸ベクトル参照を取得 \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{classmatrix_a1aae7438793b15d6403e98fd27c1d324}{axis\+VectorZ}} ()
+\begin{DoxyCompactList}\small\item\em Z軸ベクトル参照を取得 \end{DoxyCompactList}\item 
+auto \& \mbox{\hyperlink{classmatrix_a61209a50a3cca44a15434beaf2db6b5b}{translate\+Vector}} ()
+\begin{DoxyCompactList}\small\item\em 平行移動ベクトル参照を取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Dx\+Lib関連}\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classmatrix_ad98201f67dd7c577ca05c84880d4698a}{matrix}} (const Dx\+Lib\+::\+MATRIX \&\mbox{\hyperlink{classmatrix}{matrix}})
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} Dx\+Lib\+::\+MATRIXから初期化 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmatrix_a2567c4cb61b2b1f05b4cd0ae655be83e}{operator Dx\+Lib\+::\+MATRIX const}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} Dx\+Lib\+::\+MATRIXへキャスト \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{静的公開メンバ関数}
+\begin{Indent}\textbf{ 行列作成}\par
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{identity}} ()
+\begin{DoxyCompactList}\small\item\em 単位行列 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_af2b5677c2f4ae2e615b4bab101e2c358}{translate}} (const float3 \&v)
+\begin{DoxyCompactList}\small\item\em 平行移動行列 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_a40fa573d5f967d090d227861112872dd}{translate}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} x, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} y, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} z)
+\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_a08d1d7a26f6b91ee3f9ad0190506b032}{scale}} (const float3 \&s)
+\begin{DoxyCompactList}\small\item\em スケール行列 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_a0878b2eb944909fbfd87effdc898e90f}{scale}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} sx, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} sy, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} sz)
+\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_ad1e15d6ff28acc7578a82a51f76a6861}{scale}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} s)
+\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_a58e09fb8ab743c1df7b463152cb7a7ca}{rotateX}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} radian)
+\begin{DoxyCompactList}\small\item\em X軸中心の回転行列 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_a345b415c27cd30fe0f1b92d28cd8c8ea}{rotateY}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} radian)
+\begin{DoxyCompactList}\small\item\em Y軸中心の回転行列 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_ad64f1477499726d3d97b25ddef3ef9ac}{rotateZ}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} radian)
+\begin{DoxyCompactList}\small\item\em Z軸中心の回転行列 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_a261342323c8242cae787a5699044b965}{rotate\+Axis}} (const float3 \&axis, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} radian)
+\begin{DoxyCompactList}\small\item\em 任意軸中心の回転行列 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_a56c05b9fe6bcc4c817b583b476db6675}{look\+At\+LH}} (const float3 \&eye, const float3 \&look\+\_\+at, const float3 \&world\+\_\+up=float3(0.\+0f, 1.\+0f, 0.\+0f))
+\begin{DoxyCompactList}\small\item\em \mbox{[}左手座標系\mbox{]} ビュー行列 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_ae492e6473134551b31e1c8f826dc2ee5}{perspective\+Fov\+LH}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} fovy, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} aspect\+\_\+ratio, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} near\+\_\+z, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} far\+\_\+z)
+\begin{DoxyCompactList}\small\item\em \mbox{[}左手座標系\mbox{]} 投影行列 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_abd1ff830a6a9fe8315d1c87acdf6f335}{perspective\+Fov\+Infinite\+Far\+Plane\+LH}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} fovy, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} aspect\+\_\+ratio, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} near\+\_\+z)
+\begin{DoxyCompactList}\small\item\em \mbox{[}左手座標系\mbox{]} 無限遠投影行列 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classmatrix_aae0732713669f946baaee70b63a31245}{orthographic\+Off\+Center\+LH}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} left, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} right, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} bottom, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} top, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} near\+\_\+z, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} far\+\_\+z)
+\begin{DoxyCompactList}\small\item\em \mbox{[}左手座標系\mbox{]} 平行投影行列 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{詳解}
+4x4行列 
+
+ \mbox{\hyperlink{_vector_math_8h_source}{Vector\+Math.\+h}} の \mbox{\hyperlink{_vector_math_8h_source_l00081}{81}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{classmatrix_a73ef15efc56465db46f2f36986da629d}\label{classmatrix_a73ef15efc56465db46f2f36986da629d}} 
+\index{matrix@{matrix}!matrix@{matrix}}
+\index{matrix@{matrix}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{matrix()}{matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily matrix\+::matrix (\begin{DoxyParamCaption}\item[{const float4x4 \&}]{m }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+コンストラクタ 
+
+
+
+ \mbox{\hyperlink{_vector_math_8h_source}{Vector\+Math.\+h}} の \mbox{\hyperlink{_vector_math_8h_source_l00087}{87}} 行目に定義があります。
+
+\mbox{\Hypertarget{classmatrix_ad98201f67dd7c577ca05c84880d4698a}\label{classmatrix_ad98201f67dd7c577ca05c84880d4698a}} 
+\index{matrix@{matrix}!matrix@{matrix}}
+\index{matrix@{matrix}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{matrix()}{matrix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily matrix\+::matrix (\begin{DoxyParamCaption}\item[{const Dx\+Lib\+::\+MATRIX \&}]{matrix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} Dx\+Lib\+::\+MATRIXから初期化 
+
+
+
+ \mbox{\hyperlink{_vector_math_8h_source}{Vector\+Math.\+h}} の \mbox{\hyperlink{_vector_math_8h_source_l00218}{218}} 行目に定義があります。
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{classmatrix_a93e7596281903043e248c52ffedf7c9c}\label{classmatrix_a93e7596281903043e248c52ffedf7c9c}} 
+\index{matrix@{matrix}!axisVectorX@{axisVectorX}}
+\index{axisVectorX@{axisVectorX}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{axisVectorX()}{axisVectorX()}}
+{\footnotesize\ttfamily auto \& matrix\+::axis\+VectorX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+X軸ベクトル参照を取得 
+
+
+
+ \mbox{\hyperlink{_vector_math_8h_source}{Vector\+Math.\+h}} の \mbox{\hyperlink{_vector_math_8h_source_l00192}{192}} 行目に定義があります。
+
+\mbox{\Hypertarget{classmatrix_af26e34a9858c79655c828a0e82ca6f60}\label{classmatrix_af26e34a9858c79655c828a0e82ca6f60}} 
+\index{matrix@{matrix}!axisVectorY@{axisVectorY}}
+\index{axisVectorY@{axisVectorY}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{axisVectorY()}{axisVectorY()}}
+{\footnotesize\ttfamily auto \& matrix\+::axis\+VectorY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Y軸ベクトル参照を取得 
+
+
+
+ \mbox{\hyperlink{_vector_math_8h_source}{Vector\+Math.\+h}} の \mbox{\hyperlink{_vector_math_8h_source_l00197}{197}} 行目に定義があります。
+
+\mbox{\Hypertarget{classmatrix_a1aae7438793b15d6403e98fd27c1d324}\label{classmatrix_a1aae7438793b15d6403e98fd27c1d324}} 
+\index{matrix@{matrix}!axisVectorZ@{axisVectorZ}}
+\index{axisVectorZ@{axisVectorZ}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{axisVectorZ()}{axisVectorZ()}}
+{\footnotesize\ttfamily auto \& matrix\+::axis\+VectorZ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Z軸ベクトル参照を取得 
+
+
+
+ \mbox{\hyperlink{_vector_math_8h_source}{Vector\+Math.\+h}} の \mbox{\hyperlink{_vector_math_8h_source_l00202}{202}} 行目に定義があります。
+
+\mbox{\Hypertarget{classmatrix_acbc751a8985a8f5d962f3256acea59df}\label{classmatrix_acbc751a8985a8f5d962f3256acea59df}} 
+\index{matrix@{matrix}!axisX@{axisX}}
+\index{axisX@{axisX}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{axisX()}{axisX()}}
+{\footnotesize\ttfamily float3 matrix\+::axisX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+X軸ベクトルを取得 
+
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00212}{212}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_transform_8cpp_source_l00061}{Decompose\+Matrix\+To\+Components()}}, \mbox{\hyperlink{_component_transform_8h_source_l00116}{IMatrix$<$ T $>$\+::\+Get\+Vector\+Axis\+X()}}, \mbox{\hyperlink{_component_transform_8h_source_l00128}{IMatrix$<$ T $>$\+::\+Get\+Vector\+Axis\+Z()}}, \mbox{\hyperlink{_player_8cpp_source_l00267}{Little\+Quest\+::\+Player\+::\+Input\+Handle()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00303}{Frustum\+::ray\+From\+Screen\+Position()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00061}{Frustum\+::render\+Debug()}}.
+
+\mbox{\Hypertarget{classmatrix_a8cacc60f5c84e6354664ffe9349b1257}\label{classmatrix_a8cacc60f5c84e6354664ffe9349b1257}} 
+\index{matrix@{matrix}!axisY@{axisY}}
+\index{axisY@{axisY}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{axisY()}{axisY()}}
+{\footnotesize\ttfamily float3 matrix\+::axisY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Y軸ベクトルを取得 
+
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00219}{219}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_transform_8cpp_source_l00061}{Decompose\+Matrix\+To\+Components()}}, \mbox{\hyperlink{_component_transform_8h_source_l00122}{IMatrix$<$ T $>$\+::\+Get\+Vector\+Axis\+Y()}}, \mbox{\hyperlink{_component_collision_8cpp_source_l01004}{Component\+Collision\+::is\+Hit()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00303}{Frustum\+::ray\+From\+Screen\+Position()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00061}{Frustum\+::render\+Debug()}}.
+
+\mbox{\Hypertarget{classmatrix_ab76eb4b005f28f1db5e3dfb3b8a4ad15}\label{classmatrix_ab76eb4b005f28f1db5e3dfb3b8a4ad15}} 
+\index{matrix@{matrix}!axisZ@{axisZ}}
+\index{axisZ@{axisZ}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{axisZ()}{axisZ()}}
+{\footnotesize\ttfamily float3 matrix\+::axisZ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Z軸ベクトルを取得 
+
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00226}{226}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_boss_8cpp_source_l00494}{Little\+Quest\+::\+Boss\+::\+Backflip\+Punch()}}, \mbox{\hyperlink{_camera_8cpp_source_l00052}{Little\+Quest\+::\+Camera\+::\+Camera\+Forward()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Little\+Quest\+::\+Boss\+::\+Charge\+Punch()}}, \mbox{\hyperlink{_component_transform_8cpp_source_l00061}{Decompose\+Matrix\+To\+Components()}}, \mbox{\hyperlink{_component_collision_line_8cpp_source_l00130}{Component\+Collision\+Line\+::\+Get\+Line()}}, \mbox{\hyperlink{_debug_camera_8cpp_source_l00020}{Debug\+Camera\+::\+Debug\+Camera\+::\+Init()}}, \mbox{\hyperlink{_player_8cpp_source_l00267}{Little\+Quest\+::\+Player\+::\+Input\+Handle()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00303}{Frustum\+::ray\+From\+Screen\+Position()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00061}{Frustum\+::render\+Debug()}}, \mbox{\hyperlink{_boss_8cpp_source_l00260}{Little\+Quest\+::\+Boss\+::\+Select\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00329}{Little\+Quest\+::\+Boss\+::\+Select\+Angry\+Action()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00170}{Frustum\+::set\+Look\+At()}}.
+
+\mbox{\Hypertarget{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}\label{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}} 
+\index{matrix@{matrix}!identity@{identity}}
+\index{identity@{identity}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{identity()}{identity()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::identity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+単位行列 
+
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00010}{10}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_transform_8cpp_source_l00106}{Component\+Transform\+::\+Component\+Transform()}}, \mbox{\hyperlink{_component_model_8cpp_source_l00502}{Component\+Model\+::\+Get\+Node\+Matrix()}}, \mbox{\hyperlink{_component_camera_8cpp_source_l00133}{Component\+Camera\+::\+Get\+Position()}}, \mbox{\hyperlink{_component_attach_model_8cpp_source_l00056}{Component\+Attach\+Model\+::\+Get\+Put\+On\+Matrix()}}, \mbox{\hyperlink{_component_spring_arm_8cpp_source_l00059}{Component\+Spring\+Arm\+::\+Get\+Put\+On\+Matrix()}}, \mbox{\hyperlink{_component_collision_model_8cpp_source_l00181}{Component\+Collision\+Model\+::\+Get\+World\+Matrix()}}, \mbox{\hyperlink{_component_collision_8cpp_source_l00224}{Component\+Collision\+::gui\+Collision\+Data\+Attach()}}, \mbox{\hyperlink{_component_collision_8cpp_source_l00104}{Component\+Collision\+::\+Late\+Update()}}.
+
+\mbox{\Hypertarget{classmatrix_a56c05b9fe6bcc4c817b583b476db6675}\label{classmatrix_a56c05b9fe6bcc4c817b583b476db6675}} 
+\index{matrix@{matrix}!lookAtLH@{lookAtLH}}
+\index{lookAtLH@{lookAtLH}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{lookAtLH()}{lookAtLH()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::look\+At\+LH (\begin{DoxyParamCaption}\item[{const float3 \&}]{eye,  }\item[{const float3 \&}]{look\+\_\+at,  }\item[{const float3 \&}]{world\+\_\+up = {\ttfamily float3(0.0f,~1.0f,~0.0f)} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\mbox{[}左手座標系\mbox{]} ビュー行列 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em eye} & 視点座標 \\
+\hline
+\mbox{\texttt{ in}}  & {\em look\+\_\+at} & 注視点 \\
+\hline
+\mbox{\texttt{ in}}  & {\em world\+\_\+up} & 世界の上方向のベクトル(default\+:(0.\+0f, 1.\+0f, 0.\+0f)) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00131}{131}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_debug_camera_8cpp_source_l00037}{Debug\+Camera\+::\+Debug\+Camera\+::\+Pre\+Draw()}}, \mbox{\hyperlink{_component_camera_8cpp_source_l00083}{Component\+Camera\+::\+Set\+Camera\+Transform()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{Frustum\+::update()}}.
+
+\mbox{\Hypertarget{classmatrix_a2567c4cb61b2b1f05b4cd0ae655be83e}\label{classmatrix_a2567c4cb61b2b1f05b4cd0ae655be83e}} 
+\index{matrix@{matrix}!operator DxLib::MATRIX const@{operator DxLib::MATRIX const}}
+\index{operator DxLib::MATRIX const@{operator DxLib::MATRIX const}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{operator DxLib::MATRIX const()}{operator DxLib::MATRIX const()}}
+{\footnotesize\ttfamily matrix\+::operator Dx\+Lib\+::\+MATRIX const (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} Dx\+Lib\+::\+MATRIXへキャスト 
+
+
+
+ \mbox{\hyperlink{_vector_math_8h_source}{Vector\+Math.\+h}} の \mbox{\hyperlink{_vector_math_8h_source_l00223}{223}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}.
+
+\mbox{\Hypertarget{classmatrix_aae0732713669f946baaee70b63a31245}\label{classmatrix_aae0732713669f946baaee70b63a31245}} 
+\index{matrix@{matrix}!orthographicOffCenterLH@{orthographicOffCenterLH}}
+\index{orthographicOffCenterLH@{orthographicOffCenterLH}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{orthographicOffCenterLH()}{orthographicOffCenterLH()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::orthographic\+Off\+Center\+LH (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{left,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{right,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{bottom,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{top,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{near\+\_\+z,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{far\+\_\+z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\mbox{[}左手座標系\mbox{]} 平行投影行列 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em left} & 左側の幅 \\
+\hline
+\mbox{\texttt{ in}}  & {\em right} & 右側の幅 \\
+\hline
+\mbox{\texttt{ in}}  & {\em bottom} & 下側の幅 \\
+\hline
+\mbox{\texttt{ in}}  & {\em top} & 上側の幅 \\
+\hline
+\mbox{\texttt{ in}}  & {\em near\+\_\+z} & 近クリップ\+Z値 \\
+\hline
+\mbox{\texttt{ in}}  & {\em far\+\_\+z} & 遠クリップ\+Z値 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{覚え書き}
+Inverse\+Zにしたい場合はnear\+Zの値とfar\+Zの値を交換して指定。 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00191}{191}} 行目に定義があります。
+
+\mbox{\Hypertarget{classmatrix_abd1ff830a6a9fe8315d1c87acdf6f335}\label{classmatrix_abd1ff830a6a9fe8315d1c87acdf6f335}} 
+\index{matrix@{matrix}!perspectiveFovInfiniteFarPlaneLH@{perspectiveFovInfiniteFarPlaneLH}}
+\index{perspectiveFovInfiniteFarPlaneLH@{perspectiveFovInfiniteFarPlaneLH}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{perspectiveFovInfiniteFarPlaneLH()}{perspectiveFovInfiniteFarPlaneLH()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::perspective\+Fov\+Infinite\+Far\+Plane\+LH (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{fovy,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{aspect\+\_\+ratio,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{near\+\_\+z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\mbox{[}左手座標系\mbox{]} 無限遠投影行列 
+
+遠クリップ面を廃止して無限遠まで描画可能にする行列。 浮動小数点の丸め誤差を低減。Z=0.\+0fで描画すると無限遠。
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em fovy} & 画角(単位\+:radian) \\
+\hline
+\mbox{\texttt{ in}}  & {\em aspect\+\_\+ratio} & アスペクト比 \\
+\hline
+\mbox{\texttt{ in}}  & {\em near\+\_\+z} & 近クリップ\+Z値\\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{参照}
+GDC\textquotesingle{}07 「\+Projection Matrix Tricks」 
+\end{DoxySeeAlso}
+\begin{DoxyAttention}{注意}
+Inverse\+Z前提の投影にになるため注意。 
+\end{DoxyAttention}
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00172}{172}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00029}{Frustum\+::update()}}.
+
+\mbox{\Hypertarget{classmatrix_ae492e6473134551b31e1c8f826dc2ee5}\label{classmatrix_ae492e6473134551b31e1c8f826dc2ee5}} 
+\index{matrix@{matrix}!perspectiveFovLH@{perspectiveFovLH}}
+\index{perspectiveFovLH@{perspectiveFovLH}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{perspectiveFovLH()}{perspectiveFovLH()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::perspective\+Fov\+LH (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{fovy,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{aspect\+\_\+ratio,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{near\+\_\+z,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{far\+\_\+z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\mbox{[}左手座標系\mbox{]} 投影行列 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em fovy} & 画角(単位\+:radian) \\
+\hline
+\mbox{\texttt{ in}}  & {\em aspect\+\_\+ratio} & アスペクト比 \\
+\hline
+\mbox{\texttt{ in}}  & {\em near\+\_\+z} & 近クリップ\+Z値 \\
+\hline
+\mbox{\texttt{ in}}  & {\em far\+\_\+z} & 遠クリップ\+Z値 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{覚え書き}
+Inverse\+Zにしたい場合はnear\+Zの値とfar\+Zの値を交換して指定。 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00152}{152}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_camera_8cpp_source_l00083}{Component\+Camera\+::\+Set\+Camera\+Transform()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{Frustum\+::update()}}.
+
+\mbox{\Hypertarget{classmatrix_a261342323c8242cae787a5699044b965}\label{classmatrix_a261342323c8242cae787a5699044b965}} 
+\index{matrix@{matrix}!rotateAxis@{rotateAxis}}
+\index{rotateAxis@{rotateAxis}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{rotateAxis()}{rotateAxis()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::rotate\+Axis (\begin{DoxyParamCaption}\item[{const float3 \&}]{axis,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{radian }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+任意軸中心の回転行列 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em axis} & 回転の中心軸 \\
+\hline
+\mbox{\texttt{ in}}  & {\em radian} & 回転角度 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00109}{109}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_debug_camera_8cpp_source_l00037}{Debug\+Camera\+::\+Debug\+Camera\+::\+Pre\+Draw()}}.
+
+\mbox{\Hypertarget{classmatrix_a58e09fb8ab743c1df7b463152cb7a7ca}\label{classmatrix_a58e09fb8ab743c1df7b463152cb7a7ca}} 
+\index{matrix@{matrix}!rotateX@{rotateX}}
+\index{rotateX@{rotateX}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{rotateX()}{rotateX()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::rotateX (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{radian }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+X軸中心の回転行列 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em radian} & 回転角度 \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{参照}
+\href{https://ja.wikipedia.org/wiki/\%E5\%9B\%9E\%E8\%BB\%A2\%E8\%A1\%8C\%E5\%88\%97}{\texttt{ https\+://ja.\+wikipedia.\+org/wiki/\%\+E5\%9\+B\%9\+E\%\+E8\%\+BB\%\+A2\%\+E8\%\+A1\%8\+C\%\+E5\%88\%97}} 
+\end{DoxySeeAlso}
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00061}{61}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00170}{Frustum\+::set\+Look\+At()}}.
+
+\mbox{\Hypertarget{classmatrix_a345b415c27cd30fe0f1b92d28cd8c8ea}\label{classmatrix_a345b415c27cd30fe0f1b92d28cd8c8ea}} 
+\index{matrix@{matrix}!rotateY@{rotateY}}
+\index{rotateY@{rotateY}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{rotateY()}{rotateY()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::rotateY (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{radian }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Y軸中心の回転行列 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em radian} & 回転角度 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00077}{77}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_debug_camera_8cpp_source_l00037}{Debug\+Camera\+::\+Debug\+Camera\+::\+Pre\+Draw()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00170}{Frustum\+::set\+Look\+At()}}.
+
+\mbox{\Hypertarget{classmatrix_ad64f1477499726d3d97b25ddef3ef9ac}\label{classmatrix_ad64f1477499726d3d97b25ddef3ef9ac}} 
+\index{matrix@{matrix}!rotateZ@{rotateZ}}
+\index{rotateZ@{rotateZ}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{rotateZ()}{rotateZ()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::rotateZ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{radian }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Z軸中心の回転行列 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em radian} & 回転角度 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00093}{93}} 行目に定義があります。
+
+\mbox{\Hypertarget{classmatrix_a08d1d7a26f6b91ee3f9ad0190506b032}\label{classmatrix_a08d1d7a26f6b91ee3f9ad0190506b032}} 
+\index{matrix@{matrix}!scale@{scale}}
+\index{scale@{scale}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{scale()}{scale()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::scale (\begin{DoxyParamCaption}\item[{const float3 \&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+スケール行列 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em s} & スケール値 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00040}{40}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_vector_math_8cpp_source_l00050}{scale()}}.
+
+\mbox{\Hypertarget{classmatrix_ad1e15d6ff28acc7578a82a51f76a6861}\label{classmatrix_ad1e15d6ff28acc7578a82a51f76a6861}} 
+\index{matrix@{matrix}!scale@{scale}}
+\index{scale@{scale}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{scale()}{scale()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::scale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00054}{54}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8cpp_source_l00040}{scale()}}.
+
+\mbox{\Hypertarget{classmatrix_a0878b2eb944909fbfd87effdc898e90f}\label{classmatrix_a0878b2eb944909fbfd87effdc898e90f}} 
+\index{matrix@{matrix}!scale@{scale}}
+\index{scale@{scale}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{scale()}{scale()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::scale (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{sx,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{sy,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{sz }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00050}{50}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8cpp_source_l00040}{scale()}}.
+
+\mbox{\Hypertarget{classmatrix_aea54cccd84b3b11f01cb54d5e448b41a}\label{classmatrix_aea54cccd84b3b11f01cb54d5e448b41a}} 
+\index{matrix@{matrix}!translate@{translate}}
+\index{translate@{translate}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{translate()}{translate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily float3 matrix\+::translate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+平行移動を取得 
+
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00233}{233}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00121}{Component\+Collision\+Capsule\+::\+Draw()}}, \mbox{\hyperlink{_component_spring_arm_8cpp_source_l00059}{Component\+Spring\+Arm\+::\+Get\+Put\+On\+Matrix()}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00033}{translate()}}.
+
+\mbox{\Hypertarget{classmatrix_af2b5677c2f4ae2e615b4bab101e2c358}\label{classmatrix_af2b5677c2f4ae2e615b4bab101e2c358}} 
+\index{matrix@{matrix}!translate@{translate}}
+\index{translate@{translate}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{translate()}{translate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::translate (\begin{DoxyParamCaption}\item[{const float3 \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+平行移動行列 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em v} & 移動ベクトル \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00023}{23}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_transform_8cpp_source_l00061}{Decompose\+Matrix\+To\+Components()}}, \mbox{\hyperlink{_component_transform_8h_source_l00433}{IMatrix$<$ T $>$\+::\+Get\+Degree\+To\+Position()}}, \mbox{\hyperlink{_component_transform_8h_source_l00104}{IMatrix$<$ T $>$\+::\+Get\+Translate()}}, \mbox{\hyperlink{_debug_camera_8cpp_source_l00020}{Debug\+Camera\+::\+Debug\+Camera\+::\+Init()}}, \mbox{\hyperlink{_component_collision_8cpp_source_l00728}{Component\+Collision\+::is\+Hit()}}, \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00043}{Component\+Collision\+Capsule\+::\+Pre\+Physics()}}.
+
+\mbox{\Hypertarget{classmatrix_a40fa573d5f967d090d227861112872dd}\label{classmatrix_a40fa573d5f967d090d227861112872dd}} 
+\index{matrix@{matrix}!translate@{translate}}
+\index{translate@{translate}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{translate()}{translate()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} matrix\+::translate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{x,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{y,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+ \mbox{\hyperlink{_vector_math_8cpp_source}{Vector\+Math.\+cpp}} の \mbox{\hyperlink{_vector_math_8cpp_source_l00033}{33}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8cpp_source_l00233}{translate()}}.
+
+\mbox{\Hypertarget{classmatrix_a61209a50a3cca44a15434beaf2db6b5b}\label{classmatrix_a61209a50a3cca44a15434beaf2db6b5b}} 
+\index{matrix@{matrix}!translateVector@{translateVector}}
+\index{translateVector@{translateVector}!matrix@{matrix}}
+\doxysubsubsection{\texorpdfstring{translateVector()}{translateVector()}}
+{\footnotesize\ttfamily auto \& matrix\+::translate\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+平行移動ベクトル参照を取得 
+
+
+
+ \mbox{\hyperlink{_vector_math_8h_source}{Vector\+Math.\+h}} の \mbox{\hyperlink{_vector_math_8h_source_l00207}{207}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_transform_8h_source_l00081}{IMatrix$<$ T $>$\+::\+Set\+Translate()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_vector_math_8h}{Vector\+Math.\+h}}\item 
+\mbox{\hyperlink{_vector_math_8cpp}{Vector\+Math.\+cpp}}\end{DoxyCompactItemize}

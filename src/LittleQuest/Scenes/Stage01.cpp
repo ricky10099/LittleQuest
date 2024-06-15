@@ -10,8 +10,6 @@
 #include <LittleQuest/Objects/DestroyedHouse.h>
 #include <LittleQuest/Objects/Rock1.h>
 #include <LittleQuest/Objects/Fence.h>
-#include <LittleQuest/Scenes/GameOverScene.h>
-#include <LittleQuest/Scenes/GameWinScene.h>
 #include <LittleQuest/Scenes/GameTitleScene.h>
 #include <LittleQuest/Components/ComponentTexture.h>
 
@@ -22,9 +20,6 @@
 extern int bgm_volume;
 
 namespace LittleQuest {
-
-BP_CLASS_IMPL(Stage01, u8"LittleQuest/Stage01")
-
 //===========================================================================
 //  Stage01シーン
 //===========================================================================
@@ -270,8 +265,8 @@ void Stage01::Update() {
             m_pBoss.lock()->SetSceneState(scene_state);
         }
 
-        if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
-           /*IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) || */ IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)) {
+        if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE)    //||
+           /*IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) || */ /*IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)*/) {
             m_fadeTimer     = 0;
             m_alpha         = 0;
             m_cutSceneTimer = 0;
@@ -350,14 +345,15 @@ void Stage01::LateDraw() {
                 DrawStringToHandle((int)((screen_width * 0.5f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.8),
                                    "Press any key back to Title", 0xffee42, m_fontHandle, 0xffaf3f);
                 if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
-                   IsKeyDown(KEY_INPUT_ESCAPE) || IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) ||
-                   IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE) || m_endingTimer <= 0) {
+                   IsKeyDown(KEY_INPUT_ESCAPE) /* || IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) ||
+                   IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE) */
+                   || m_endingTimer <= 0) {
                     Scene::Change(Scene::GetScene<GameTitleScene>());
                 }
             } else {
                 if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
-                   IsKeyDown(KEY_INPUT_ESCAPE) || IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) ||
-                   IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)) {
+                   IsKeyDown(KEY_INPUT_ESCAPE) /*|| IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) ||
+                   IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)*/) {
                     m_shrinkTimer = SHRINK_TIME;
                 }
             }

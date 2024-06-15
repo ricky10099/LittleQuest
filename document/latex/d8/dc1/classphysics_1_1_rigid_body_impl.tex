@@ -1,0 +1,1006 @@
+\hypertarget{classphysics_1_1_rigid_body_impl}{}\doxysection{physics\+::Rigid\+Body\+Impl クラス}
+\label{classphysics_1_1_rigid_body_impl}\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+
+
+剛体クラス  
+
+
+
+
+physics\+::Rigid\+Body\+Impl の継承関係図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{d7/d19/classphysics_1_1_rigid_body_impl__inherit__graph}
+\end{center}
+\end{figure}
+
+
+physics\+::Rigid\+Body\+Impl 連携図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{de/d83/classphysics_1_1_rigid_body_impl__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a9accc230f45fba04a4a960c0aa5dacbc}{Rigid\+Body\+Impl}} (const JPH\+::\+Shape\+RefC \&shape, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a7c8134edfc221841bed40b92dc2ac4d5}{layer}}, \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}} motion\+\_\+type)
+\item 
+virtual \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a6739d2141726cecc97d74ae584322ed8}{$\sim$\+Rigid\+Body\+Impl}} ()
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ オブジェクトレイヤー（フィルター）}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a436ff388f1e91b4afbefa5b5c08310c3}{set\+Layer}} (\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a7c8134edfc221841bed40b92dc2ac4d5}{layer}}) override
+\item 
+virtual \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a7c8134edfc221841bed40b92dc2ac4d5}{layer}} () const override
+\begin{DoxyCompactList}\small\item\em オブジェクトレイヤーを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 位置と回転姿勢}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_ab75bd58c85aadf52aec1a6bf85724606}{set\+Position}} (const float3 \&\mbox{\hyperlink{classphysics_1_1_rigid_body_impl_af583eb4a9b3a974000da8855e2580eab}{position}}, bool is\+\_\+activate=true) override
+\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_af583eb4a9b3a974000da8855e2580eab}{position}} () const override
+\begin{DoxyCompactList}\small\item\em 位置を取得 \end{DoxyCompactList}\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a2aebd211cac4fa91bcd3b359ac09b741}{center\+Of\+Mass\+Position}} () const override
+\begin{DoxyCompactList}\small\item\em 重心位置を取得 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_aa82d8f9bec0071d59af33f86d710c96a}{set\+Rotation}} (const quaternion \&rot, bool is\+\_\+activate=true) override
+\item 
+virtual quaternion \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a631656992c2ac7d7a475c56f0908862f}{rotation}} () const override
+\begin{DoxyCompactList}\small\item\em 回転姿勢を設定 \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a28f98e21cf9527f130ff7e1811c65347}{world\+Matrix}} () const override
+\begin{DoxyCompactList}\small\item\em ワールド行列を取得 \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a490314772ae4ca2e4d0eba7f135c5edf}{center\+Of\+Mass\+Transform}} () const override
+\begin{DoxyCompactList}\small\item\em 重心の変換行列を取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 速度と角速度}\par
+{\em Linear\+Velocityは重心の速度であり、物体の位置と一致しない場合がありますので補正してください。 }\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_abf5271b85ed269de96eb8ba2cc6b2bd4}{move\+Kinematic}} (const float3 \&target\+\_\+position, const quaternion \&target\+\_\+rotation, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} delta\+\_\+time) override
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a05421f18ecd62dbfa803854b04e1b54e}{set\+Linear\+Velocity}} (const float3 \&v) override
+\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a38cc279dfb0ed976883dc1ae81f62ed5}{linear\+Velocity}} () const override
+\begin{DoxyCompactList}\small\item\em 速度を取得 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_ab1b9aab71714856ded97028a9224b14e}{add\+Linear\+Velocity}} (const float3 \&v) override
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a0d7c1632034e4ac7684f498eee4269e0}{set\+Angular\+Velocity}} (const float3 \&vrot) override
+\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a0d5d6a4921e469847f9162bca0d89afe}{angular\+Velocity}} () const override
+\begin{DoxyCompactList}\small\item\em 角速度を取得 \end{DoxyCompactList}\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a470193ca4b227f37707f43ba6fb22022}{point\+Velocity}} (const float3 \&point) const override
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 力を与える}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_af5fef435fcf6f9d15abb2643a19bb893}{add\+Force}} (const float3 \&force) override
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a55cf250e9330e212251779290e1facc8}{add\+Force}} (const float3 \&force, const float3 \&point) override
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_afaa3f9ba44bf3a6d9f06d2d47926e006}{add\+Torque}} (const float3 \&torque) override
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 撃力を与える}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_ac9042f4b06c0e59aaf1bfc2c2fad19b8}{add\+Impulse}} (const float3 \&impulse) override
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_acc31b20b078bfcd90ec27da59deb621e}{add\+Impulse}} (const float3 \&impulse, const float3 \&point) override
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a5a2c1a77f793b3673595e0e762f1b975}{add\+Angular\+Impulse}} (const float3 \&impulse) override
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 跳ね返り係数}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a0b96b571c32a3d0b693b8b6858291117}{set\+Restitution}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} coeff) override
+\item 
+virtual \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a26cfe4dcebc11c86ca8af26445153a99}{restitution}} () const override
+\begin{DoxyCompactList}\small\item\em 跳ね返り係数を取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 摩擦係数}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a5f56da99a6f374834964a0915c0f8efd}{set\+Friction}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} coeff) override
+\item 
+virtual \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_ab18ffcff8e578c4318113e8b8f60eff0}{friction}} () const override
+\begin{DoxyCompactList}\small\item\em 摩擦係数を取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{重力係数}
+\begin{DoxyCompactItemize}
+\item 
+JPH\+::\+Body\+ID \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a299b136bb3625eb16ac3e42718d8702d}{body\+\_\+id\+\_\+}}
+\begin{DoxyCompactList}\small\item\em \mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} ボディ\+ID \end{DoxyCompactList}\item 
+JPH\+::\+Body $\ast$ \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a157aea383bbbb85ea4cab4f33dd5b00b}{jph\+\_\+body\+\_\+}} = nullptr
+\begin{DoxyCompactList}\small\item\em \mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} ボディ \end{DoxyCompactList}\item 
+std\+::intptr\+\_\+t \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a01ebe081f3695dd776a0892773951c24}{data\+\_\+}} = 0
+\begin{DoxyCompactList}\small\item\em 任意のデーター \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_ac5a7bdedc8667f64744c0d4be796b72e}{set\+Gravity\+Factor}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} coeff) override
+\item 
+virtual \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a3a7410693e02e34f18bd9c50b913f9ca}{gravity\+Factor}} () const override
+\begin{DoxyCompactList}\small\item\em 重力係数を取得 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a516a0d2be52fa2063e43f6ad7c604048}{set\+Motion\+Type}} (\mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}} motion\+\_\+type, bool is\+\_\+activate=true) override
+\item 
+virtual \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a164a629d688ff333cf080c30497b3867}{inverse\+Inertia}} () const override
+\begin{DoxyCompactList}\small\item\em ワールド空間の逆慣性テンソルを取得する \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a9fa4438034ff5c9193de3effcc42865a}{set\+Data}} (std\+::intptr\+\_\+t s) override
+\item 
+virtual std\+::intptr\+\_\+t \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a9277a6818976e6dab2f06415b6b5cd40}{data}} () const override
+\begin{DoxyCompactList}\small\item\em ユーザーデーターを取得 \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} \mbox{\hyperlink{classphysics_1_1_rigid_body_impl_a541d30b8319d8de2b5cfd0530ebe0118}{body\+ID}} () const override
+\begin{DoxyCompactList}\small\item\em ボディ\+IDを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+剛体クラス 
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00046}{46}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a9accc230f45fba04a4a960c0aa5dacbc}\label{classphysics_1_1_rigid_body_impl_a9accc230f45fba04a4a960c0aa5dacbc}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!RigidBodyImpl@{RigidBodyImpl}}
+\index{RigidBodyImpl@{RigidBodyImpl}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{RigidBodyImpl()}{RigidBodyImpl()}}
+{\footnotesize\ttfamily physics\+::\+Rigid\+Body\+Impl\+::\+Rigid\+Body\+Impl (\begin{DoxyParamCaption}\item[{const JPH\+::\+Shape\+RefC \&}]{shape,  }\item[{\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}}]{layer,  }\item[{\mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}}}]{motion\+\_\+type }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00048}{48}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_precompile_8cpp_source_l00008}{convert\+To()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00345}{jph\+\_\+body\+\_\+}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00101}{layer()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00121}{position()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00143}{rotation()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a6739d2141726cecc97d74ae584322ed8}\label{classphysics_1_1_rigid_body_impl_a6739d2141726cecc97d74ae584322ed8}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!````~RigidBodyImpl@{$\sim$RigidBodyImpl}}
+\index{````~RigidBodyImpl@{$\sim$RigidBodyImpl}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{$\sim$RigidBodyImpl()}{~RigidBodyImpl()}}
+{\footnotesize\ttfamily virtual physics\+::\+Rigid\+Body\+Impl\+::$\sim$\+Rigid\+Body\+Impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+デストラクタ 
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00081}{81}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}.
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a5a2c1a77f793b3673595e0e762f1b975}\label{classphysics_1_1_rigid_body_impl_a5a2c1a77f793b3673595e0e762f1b975}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!addAngularImpulse@{addAngularImpulse}}
+\index{addAngularImpulse@{addAngularImpulse}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{addAngularImpulse()}{addAngularImpulse()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::add\+Angular\+Impulse (\begin{DoxyParamCaption}\item[{const float3 \&}]{impulse }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+角力積を与える 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em impulse} & 与える角力積 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a4424738f3f08bfa0e3f6adf9698a04a4}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00256}{256}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_af5fef435fcf6f9d15abb2643a19bb893}\label{classphysics_1_1_rigid_body_impl_af5fef435fcf6f9d15abb2643a19bb893}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!addForce@{addForce}}
+\index{addForce@{addForce}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{addForce()}{addForce()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::add\+Force (\begin{DoxyParamCaption}\item[{const float3 \&}]{force }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+力を与える 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em force} & 与える力 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_af6c8404e91d54e8783ddb3ebb364f98b}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00218}{218}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a55cf250e9330e212251779290e1facc8}\label{classphysics_1_1_rigid_body_impl_a55cf250e9330e212251779290e1facc8}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!addForce@{addForce}}
+\index{addForce@{addForce}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{addForce()}{addForce()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::add\+Force (\begin{DoxyParamCaption}\item[{const float3 \&}]{force,  }\item[{const float3 \&}]{point }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+指定位置に力を与える 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em force} & 与える力 \\
+\hline
+\mbox{\texttt{ in}}  & {\em point} & 位置 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a95f0919a27bf81b0f244382734232eb7}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00225}{225}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_ac9042f4b06c0e59aaf1bfc2c2fad19b8}\label{classphysics_1_1_rigid_body_impl_ac9042f4b06c0e59aaf1bfc2c2fad19b8}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!addImpulse@{addImpulse}}
+\index{addImpulse@{addImpulse}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{addImpulse()}{addImpulse()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::add\+Impulse (\begin{DoxyParamCaption}\item[{const float3 \&}]{impulse }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+撃力を与える 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em impulse} & 与える撃力 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a81b0c1a3b94735b1377f13bddb758156}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00243}{243}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_acc31b20b078bfcd90ec27da59deb621e}\label{classphysics_1_1_rigid_body_impl_acc31b20b078bfcd90ec27da59deb621e}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!addImpulse@{addImpulse}}
+\index{addImpulse@{addImpulse}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{addImpulse()}{addImpulse()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::add\+Impulse (\begin{DoxyParamCaption}\item[{const float3 \&}]{impulse,  }\item[{const float3 \&}]{point }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+指定位置に撃力を与える 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em impulse} & 与える撃力 \\
+\hline
+\mbox{\texttt{ in}}  & {\em point} & 位置 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a5b626de3448224a249ced873c05e2c3e}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00250}{250}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_ab1b9aab71714856ded97028a9224b14e}\label{classphysics_1_1_rigid_body_impl_ab1b9aab71714856ded97028a9224b14e}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!addLinearVelocity@{addLinearVelocity}}
+\index{addLinearVelocity@{addLinearVelocity}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{addLinearVelocity()}{addLinearVelocity()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::add\+Linear\+Velocity (\begin{DoxyParamCaption}\item[{const float3 \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+現在の速度に速度を加算 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em v} & 加算する速度 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a2060d916e6bb2a292387fd90951e767b}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00189}{189}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_afaa3f9ba44bf3a6d9f06d2d47926e006}\label{classphysics_1_1_rigid_body_impl_afaa3f9ba44bf3a6d9f06d2d47926e006}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!addTorque@{addTorque}}
+\index{addTorque@{addTorque}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{addTorque()}{addTorque()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::add\+Torque (\begin{DoxyParamCaption}\item[{const float3 \&}]{torque }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+トルクを与える 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em force} & 与える力 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_aedfe68f1035bd0a879340d548b92a10f}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00231}{231}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a0d5d6a4921e469847f9162bca0d89afe}\label{classphysics_1_1_rigid_body_impl_a0d5d6a4921e469847f9162bca0d89afe}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!angularVelocity@{angularVelocity}}
+\index{angularVelocity@{angularVelocity}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{angularVelocity()}{angularVelocity()}}
+{\footnotesize\ttfamily virtual float3 physics\+::\+Rigid\+Body\+Impl\+::angular\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+角速度を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_aca09f2b18ac78d022623059e1dc6a2d5}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00200}{200}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a541d30b8319d8de2b5cfd0530ebe0118}\label{classphysics_1_1_rigid_body_impl_a541d30b8319d8de2b5cfd0530ebe0118}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!bodyID@{bodyID}}
+\index{bodyID@{bodyID}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{bodyID()}{bodyID()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} physics\+::\+Rigid\+Body\+Impl\+::body\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+ボディ\+IDを取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_aa3aedac15bd41b6d2623fde9a7b35e8e}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00339}{339}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a2aebd211cac4fa91bcd3b359ac09b741}\label{classphysics_1_1_rigid_body_impl_a2aebd211cac4fa91bcd3b359ac09b741}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!centerOfMassPosition@{centerOfMassPosition}}
+\index{centerOfMassPosition@{centerOfMassPosition}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{centerOfMassPosition()}{centerOfMassPosition()}}
+{\footnotesize\ttfamily virtual float3 physics\+::\+Rigid\+Body\+Impl\+::center\+Of\+Mass\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+重心位置を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a670ba2bf210384276c1c4fe305d2605a}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00127}{127}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a490314772ae4ca2e4d0eba7f135c5edf}\label{classphysics_1_1_rigid_body_impl_a490314772ae4ca2e4d0eba7f135c5edf}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!centerOfMassTransform@{centerOfMassTransform}}
+\index{centerOfMassTransform@{centerOfMassTransform}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{centerOfMassTransform()}{centerOfMassTransform()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classmatrix}{matrix}} physics\+::\+Rigid\+Body\+Impl\+::center\+Of\+Mass\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+重心の変換行列を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a065d328b0a961382a8911805168282eb}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00154}{154}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a9277a6818976e6dab2f06415b6b5cd40}\label{classphysics_1_1_rigid_body_impl_a9277a6818976e6dab2f06415b6b5cd40}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!data@{data}}
+\index{data@{data}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}}
+{\footnotesize\ttfamily virtual std\+::intptr\+\_\+t physics\+::\+Rigid\+Body\+Impl\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+ユーザーデーターを取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_aa06209408a89f72e2b9c37d0dbbc3369}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00334}{334}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00346}{data\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_ab18ffcff8e578c4318113e8b8f60eff0}\label{classphysics_1_1_rigid_body_impl_ab18ffcff8e578c4318113e8b8f60eff0}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!friction@{friction}}
+\index{friction@{friction}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{friction()}{friction()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} physics\+::\+Rigid\+Body\+Impl\+::friction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+摩擦係数を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_aa4acbfa32015dedfcbd04fc59e9893e6}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00290}{290}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a3a7410693e02e34f18bd9c50b913f9ca}\label{classphysics_1_1_rigid_body_impl_a3a7410693e02e34f18bd9c50b913f9ca}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!gravityFactor@{gravityFactor}}
+\index{gravityFactor@{gravityFactor}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{gravityFactor()}{gravityFactor()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} physics\+::\+Rigid\+Body\+Impl\+::gravity\+Factor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+重力係数を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_aaa35fb380e89eaf36505627c723a90d0}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00307}{307}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a164a629d688ff333cf080c30497b3867}\label{classphysics_1_1_rigid_body_impl_a164a629d688ff333cf080c30497b3867}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!inverseInertia@{inverseInertia}}
+\index{inverseInertia@{inverseInertia}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{inverseInertia()}{inverseInertia()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classmatrix}{matrix}} physics\+::\+Rigid\+Body\+Impl\+::inverse\+Inertia (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+ワールド空間の逆慣性テンソルを取得する 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a4ddd6c758d9f7a53ef5d6d20e36502b5}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00323}{323}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a7c8134edfc221841bed40b92dc2ac4d5}\label{classphysics_1_1_rigid_body_impl_a7c8134edfc221841bed40b92dc2ac4d5}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!layer@{layer}}
+\index{layer@{layer}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{layer()}{layer()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} physics\+::\+Rigid\+Body\+Impl\+::layer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+オブジェクトレイヤーを取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_aff03acd91146bc9a20f2a491f93d1932}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00101}{101}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}.
+
+
+
+参照元 \mbox{\hyperlink{_rigid_body_8cpp_source_l00048}{Rigid\+Body\+Impl()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00096}{set\+Layer()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a38cc279dfb0ed976883dc1ae81f62ed5}\label{classphysics_1_1_rigid_body_impl_a38cc279dfb0ed976883dc1ae81f62ed5}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!linearVelocity@{linearVelocity}}
+\index{linearVelocity@{linearVelocity}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{linearVelocity()}{linearVelocity()}}
+{\footnotesize\ttfamily virtual float3 physics\+::\+Rigid\+Body\+Impl\+::linear\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+速度を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a795c95e408ea76d6acdcec99e3bb98e4}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00183}{183}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_abf5271b85ed269de96eb8ba2cc6b2bd4}\label{classphysics_1_1_rigid_body_impl_abf5271b85ed269de96eb8ba2cc6b2bd4}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!moveKinematic@{moveKinematic}}
+\index{moveKinematic@{moveKinematic}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{moveKinematic()}{moveKinematic()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::move\+Kinematic (\begin{DoxyParamCaption}\item[{const float3 \&}]{target\+\_\+position,  }\item[{const quaternion \&}]{target\+\_\+rotation,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{delta\+\_\+time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+速度と角速度を逆算して設定 target\+\_\+position/target\+\_\+rotation に delta\+\_\+time 秒で位置するようにボディの速度を設定する。 必要に応じてボディをアクティブにします。 
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a7be837e25dd2f8cded86f47fa2d1d2b4}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00170}{170}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a470193ca4b227f37707f43ba6fb22022}\label{classphysics_1_1_rigid_body_impl_a470193ca4b227f37707f43ba6fb22022}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!pointVelocity@{pointVelocity}}
+\index{pointVelocity@{pointVelocity}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{pointVelocity()}{pointVelocity()}}
+{\footnotesize\ttfamily virtual float3 physics\+::\+Rigid\+Body\+Impl\+::point\+Velocity (\begin{DoxyParamCaption}\item[{const float3 \&}]{point }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+指定座標のワールド空間での速度を取得 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em point} & 座標 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a0a0c9e6a7c5df94035190acf80b5fd28}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00206}{206}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_af583eb4a9b3a974000da8855e2580eab}\label{classphysics_1_1_rigid_body_impl_af583eb4a9b3a974000da8855e2580eab}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!position@{position}}
+\index{position@{position}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{position()}{position()}}
+{\footnotesize\ttfamily virtual float3 physics\+::\+Rigid\+Body\+Impl\+::position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+位置を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a43919be018e0b51e9b4b9c568962181e}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00121}{121}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+
+
+参照元 \mbox{\hyperlink{_rigid_body_8cpp_source_l00048}{Rigid\+Body\+Impl()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00115}{set\+Position()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a26cfe4dcebc11c86ca8af26445153a99}\label{classphysics_1_1_rigid_body_impl_a26cfe4dcebc11c86ca8af26445153a99}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!restitution@{restitution}}
+\index{restitution@{restitution}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{restitution()}{restitution()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} physics\+::\+Rigid\+Body\+Impl\+::restitution (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+跳ね返り係数を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a633447c5e3021f47842e0e21e790e938}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00273}{273}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a631656992c2ac7d7a475c56f0908862f}\label{classphysics_1_1_rigid_body_impl_a631656992c2ac7d7a475c56f0908862f}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!rotation@{rotation}}
+\index{rotation@{rotation}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{rotation()}{rotation()}}
+{\footnotesize\ttfamily virtual quaternion physics\+::\+Rigid\+Body\+Impl\+::rotation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+回転姿勢を設定 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a191e138030612de47568431c8b6e727a}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00143}{143}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+
+
+参照元 \mbox{\hyperlink{_rigid_body_8cpp_source_l00048}{Rigid\+Body\+Impl()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a0d7c1632034e4ac7684f498eee4269e0}\label{classphysics_1_1_rigid_body_impl_a0d7c1632034e4ac7684f498eee4269e0}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!setAngularVelocity@{setAngularVelocity}}
+\index{setAngularVelocity@{setAngularVelocity}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{setAngularVelocity()}{setAngularVelocity()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::set\+Angular\+Velocity (\begin{DoxyParamCaption}\item[{const float3 \&}]{vrot }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+角速度を設定 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em vrot} & 角速度 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_ab09d70d5181788b5893755a1e1621b7f}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00195}{195}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a9fa4438034ff5c9193de3effcc42865a}\label{classphysics_1_1_rigid_body_impl_a9fa4438034ff5c9193de3effcc42865a}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!setData@{setData}}
+\index{setData@{setData}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::set\+Data (\begin{DoxyParamCaption}\item[{std\+::intptr\+\_\+t}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+ユーザーデーターを設定 
+\begin{DoxyParams}{引数}
+{\em \mbox{[}s\mbox{]}} & ユーザーデーター(識別用に任意に設定可能です) \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a0eaf71f1f1d32abdf4f4095581061a2a}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00329}{329}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00346}{data\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a5f56da99a6f374834964a0915c0f8efd}\label{classphysics_1_1_rigid_body_impl_a5f56da99a6f374834964a0915c0f8efd}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!setFriction@{setFriction}}
+\index{setFriction@{setFriction}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{setFriction()}{setFriction()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::set\+Friction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{coeff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+摩擦係数を設定 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em coeff} & 摩擦係数(0.\+0f$\sim$) \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a3176341b3cd9b22e1dd62122e3e3d6b4}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00285}{285}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_ac5a7bdedc8667f64744c0d4be796b72e}\label{classphysics_1_1_rigid_body_impl_ac5a7bdedc8667f64744c0d4be796b72e}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!setGravityFactor@{setGravityFactor}}
+\index{setGravityFactor@{setGravityFactor}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{setGravityFactor()}{setGravityFactor()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::set\+Gravity\+Factor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{coeff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+重力係数を設定 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em coeff} & 摩擦係数(0.\+0f$\sim$) \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a40753495537fbb8104fb953ed876fd77}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00302}{302}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a436ff388f1e91b4afbefa5b5c08310c3}\label{classphysics_1_1_rigid_body_impl_a436ff388f1e91b4afbefa5b5c08310c3}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!setLayer@{setLayer}}
+\index{setLayer@{setLayer}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{setLayer()}{setLayer()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::set\+Layer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}}]{layer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+オブジェクトレイヤーを設定 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em layer} & オブジェクトレイヤー \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a4db561e203a7a6238b7e6dabfefacbd6}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00096}{96}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00101}{layer()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a05421f18ecd62dbfa803854b04e1b54e}\label{classphysics_1_1_rigid_body_impl_a05421f18ecd62dbfa803854b04e1b54e}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!setLinearVelocity@{setLinearVelocity}}
+\index{setLinearVelocity@{setLinearVelocity}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{setLinearVelocity()}{setLinearVelocity()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::set\+Linear\+Velocity (\begin{DoxyParamCaption}\item[{const float3 \&}]{v }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+速度を設定 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em v} & 速度 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_abea074b8e238039bf3dda46a19ab0179}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00178}{178}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a516a0d2be52fa2063e43f6ad7c604048}\label{classphysics_1_1_rigid_body_impl_a516a0d2be52fa2063e43f6ad7c604048}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!setMotionType@{setMotionType}}
+\index{setMotionType@{setMotionType}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{setMotionType()}{setMotionType()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::set\+Motion\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}}}]{motion\+\_\+type,  }\item[{bool}]{is\+\_\+activate = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+動的/静的/キネマティックを切り替え 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em motion\+\_\+type} & 動作タイプ \\
+\hline
+\mbox{\texttt{ in}}  & {\em is\+\_\+activate} & アクティブ化するかどうか true\+:アクティブにする false\+:アクティブにしない \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_ab4fd511bac9774e5061a2a57b40e16d3}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00317}{317}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_precompile_8cpp_source_l00008}{convert\+To()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_ab75bd58c85aadf52aec1a6bf85724606}\label{classphysics_1_1_rigid_body_impl_ab75bd58c85aadf52aec1a6bf85724606}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::set\+Position (\begin{DoxyParamCaption}\item[{const float3 \&}]{position,  }\item[{bool}]{is\+\_\+activate = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+位置を設定 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em position} & 設定座標 \\
+\hline
+\mbox{\texttt{ in}}  & {\em is\+\_\+activate} & アクティブ化するかどうか true\+:アクティブにする false\+:アクティブにしない \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a5a6e6230056bbc74b6af14ecb85fbd58}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00115}{115}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00121}{position()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a0b96b571c32a3d0b693b8b6858291117}\label{classphysics_1_1_rigid_body_impl_a0b96b571c32a3d0b693b8b6858291117}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!setRestitution@{setRestitution}}
+\index{setRestitution@{setRestitution}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{setRestitution()}{setRestitution()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::set\+Restitution (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{coeff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+跳ね返り係数を設定 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em coeff} & 跳ね返り係数(0.\+0f-\/1.\+0f) \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_ae5b08588113928e34e44d2a5bb04473a}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00268}{268}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_aa82d8f9bec0071d59af33f86d710c96a}\label{classphysics_1_1_rigid_body_impl_aa82d8f9bec0071d59af33f86d710c96a}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!setRotation@{setRotation}}
+\index{setRotation@{setRotation}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{setRotation()}{setRotation()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Rigid\+Body\+Impl\+::set\+Rotation (\begin{DoxyParamCaption}\item[{const quaternion \&}]{rot,  }\item[{bool}]{is\+\_\+activate = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+回転姿勢を設定 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em rot} & 設定角度 \\
+\hline
+\mbox{\texttt{ in}}  & {\em is\+\_\+activate} & アクティブ化するかどうか true\+:アクティブにする false\+:アクティブにしない \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_a9deeb6a45f111d31082587d6782fa8c5}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00136}{136}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a28f98e21cf9527f130ff7e1811c65347}\label{classphysics_1_1_rigid_body_impl_a28f98e21cf9527f130ff7e1811c65347}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!worldMatrix@{worldMatrix}}
+\index{worldMatrix@{worldMatrix}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{worldMatrix()}{worldMatrix()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classmatrix}{matrix}} physics\+::\+Rigid\+Body\+Impl\+::world\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+ワールド行列を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_rigid_body_aa66ae217f95717046cc57b312e2e77a2}{physics\+::\+Rigid\+Body}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00149}{149}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}.
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a299b136bb3625eb16ac3e42718d8702d}\label{classphysics_1_1_rigid_body_impl_a299b136bb3625eb16ac3e42718d8702d}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!body\_id\_@{body\_id\_}}
+\index{body\_id\_@{body\_id\_}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{body\_id\_}{body\_id\_}}
+{\footnotesize\ttfamily JPH\+::\+Body\+ID physics\+::\+Rigid\+Body\+Impl\+::body\+\_\+id\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} ボディ\+ID 
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00344}{344}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_rigid_body_8cpp_source_l00256}{add\+Angular\+Impulse()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00218}{add\+Force()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00243}{add\+Impulse()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00189}{add\+Linear\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00231}{add\+Torque()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00200}{angular\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00339}{body\+ID()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00127}{center\+Of\+Mass\+Position()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00154}{center\+Of\+Mass\+Transform()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00290}{friction()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00307}{gravity\+Factor()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00323}{inverse\+Inertia()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00101}{layer()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00183}{linear\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00170}{move\+Kinematic()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00206}{point\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00121}{position()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00273}{restitution()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00048}{Rigid\+Body\+Impl()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00143}{rotation()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00195}{set\+Angular\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00285}{set\+Friction()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00302}{set\+Gravity\+Factor()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00096}{set\+Layer()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00178}{set\+Linear\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00317}{set\+Motion\+Type()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00115}{set\+Position()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00268}{set\+Restitution()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00136}{set\+Rotation()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00149}{world\+Matrix()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00081}{$\sim$\+Rigid\+Body\+Impl()}} (計31項目).
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a01ebe081f3695dd776a0892773951c24}\label{classphysics_1_1_rigid_body_impl_a01ebe081f3695dd776a0892773951c24}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!data\_@{data\_}}
+\index{data\_@{data\_}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{data\_}{data\_}}
+{\footnotesize\ttfamily std\+::intptr\+\_\+t physics\+::\+Rigid\+Body\+Impl\+::data\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+任意のデーター 
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00346}{346}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_rigid_body_8cpp_source_l00334}{data()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00329}{set\+Data()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_rigid_body_impl_a157aea383bbbb85ea4cab4f33dd5b00b}\label{classphysics_1_1_rigid_body_impl_a157aea383bbbb85ea4cab4f33dd5b00b}} 
+\index{physics::RigidBodyImpl@{physics::RigidBodyImpl}!jph\_body\_@{jph\_body\_}}
+\index{jph\_body\_@{jph\_body\_}!physics::RigidBodyImpl@{physics::RigidBodyImpl}}
+\doxysubsubsection{\texorpdfstring{jph\_body\_}{jph\_body\_}}
+{\footnotesize\ttfamily JPH\+::\+Body$\ast$ physics\+::\+Rigid\+Body\+Impl\+::jph\+\_\+body\+\_\+ = nullptr\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} ボディ 
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00345}{345}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_rigid_body_8cpp_source_l00048}{Rigid\+Body\+Impl()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_rigid_body_8cpp}{Rigid\+Body.\+cpp}}\end{DoxyCompactItemize}

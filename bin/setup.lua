@@ -52,7 +52,7 @@ function config_project(name, kind_type)
 	entrypoint "WinMainCRTStartup"
 
 	-- 各種オプション設定
-	cppdialect        "C++17"		-- C++17準拠
+	cppdialect        "C++latest"	-- C++最新準拠
 	rtti              "On"			-- ランタイム方情報を有効にする	
 	exceptionhandling "On"			-- 例外を有効にする
 	warnings          "Extra"		-- 最大警告レベル
@@ -99,6 +99,7 @@ function config_project(name, kind_type)
 	disablewarnings {
 		"4324",		-- warning C4324: アラインメント指定子のために構造体がパッドされました
 		"4201",		-- warning C4201: 非標準の拡張機能が使用されています: 無名の構造体または共用体です。
+		"5054",		-- warning C5054: 演算子 '|': 異なる型の列挙間では非推奨です (Cerealで使用されています)
 	}
 
 	--============================================================================
@@ -119,6 +120,7 @@ function config_project(name, kind_type)
 
 		buildoptions {
 			"/Zo",	-- 最適化されたデバッグ機能の強化
+			"/Zc:char8_t-", -- char8_tは使用しない
 		}
 		
 	--============================================================================
@@ -144,6 +146,7 @@ function config_project(name, kind_type)
 		}
 		buildoptions {
 			"/Zo",	-- 最適化されたデバッグ機能の強化
+			"/Zc:char8_t-", -- char8_tは使用しない
 		}
 
 	-- ReleaseLTCG
@@ -155,6 +158,9 @@ function config_project(name, kind_type)
 
 	    defines {
 			"LTCG",
+		}
+		buildoptions {
+			"/Zc:char8_t-", -- char8_tは使用しない
 		}
 		flags {
 			"LinkTimeOptimization",

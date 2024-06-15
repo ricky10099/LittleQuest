@@ -1,0 +1,110 @@
+\hypertarget{_resource_model_8cpp_source}{}\doxysection{Resource\+Model.\+cpp}
+\label{_resource_model_8cpp_source}\index{ResourceModel.cpp@{ResourceModel.cpp}}
+\mbox{\hyperlink{_resource_model_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ ResourceModel.cpp}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ 3Dモデルリソース}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_resource_model_8h}{ResourceModel.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_model_cache_8h}{ModelCache.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00008}00008\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00009}00009\ \textcolor{comment}{//!\ コンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00010}00010\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00011}\mbox{\hyperlink{class_resource_model_a29021d711333456640fee1acca141056}{00011}}\ \mbox{\hyperlink{class_resource_model_a29021d711333456640fee1acca141056}{ResourceModel::ResourceModel}}(std::string\_view\ path)\ \{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{comment}{//\ MV1モデルの読み込み}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00015}00015\ \ \ \ \ \textcolor{keyword}{auto}\ model\_path\ =\ std::string(\mbox{\hyperlink{class_resource_model_a383726782fb0b333714a2eb92435d2a0}{path}});}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{comment}{//\ パスの保存}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00017}00017\ \ \ \ \ \mbox{\hyperlink{class_resource_model_acb0870c2fae0b76f218b457db612f093}{path\_}}\ \ \ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{_precompile_8cpp_a519b42bb9e2e54f0a92b1a75678dea07}{convertTo}}(model\_path);}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{comment}{//\ ハンドルの非同期読み込み処理が完了したら呼ばれる関数}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{auto}\ finish\_callback\ =\ [](\textcolor{keywordtype}{int}\ mv1\_handle,\ \textcolor{keywordtype}{void}*\ data)\ \{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ resource\ =\ \textcolor{keyword}{reinterpret\_cast<}\mbox{\hyperlink{class_resource_model}{ResourceModel}}*\textcolor{keyword}{>}(data);}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ジオメトリのキャッシュファイルが無かったら作成する}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ model\_cache\ =\ resource-\/>\mbox{\hyperlink{class_resource_model_a3fb8b407b2b3fb8545282c253b73c57b}{model\_cache\_}}.get();}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!model\_cache-\/>isExist())\ \{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ model\_cache-\/>save(mv1\_handle);}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 読み込みなおす}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ model\_cache-\/>load();}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ アクティブフラグを設定}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ resource-\/>active\_\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00034}00034\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00036}00036\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00037}00037\ \ \ \ \ \textcolor{comment}{//\ キャッシュファイルの読み込み}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00038}00038\ \ \ \ \ \textcolor{comment}{//\ キャッシュにはリダクションされたワイヤーフレーム表示用の頂点データーが入っています}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00039}00039\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00040}00040\ \ \ \ \ \mbox{\hyperlink{class_resource_model_a3fb8b407b2b3fb8545282c253b73c57b}{model\_cache\_}}\ \ \ \ \ \ =\ std::make\_unique<ModelCache>(model\_path);}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{bool}\ cache\_result\ =\ \mbox{\hyperlink{class_resource_model_a3fb8b407b2b3fb8545282c253b73c57b}{model\_cache\_}}-\/>load();}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00043}00043\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00044}00044\ \ \ \ \ \textcolor{comment}{//\ 非同期読み込み}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00046}00046\ \ \ \ \ SetUseASyncLoadFlag(cache\_result);\ \ \ \ \textcolor{comment}{//\ キャッシュファイルが無かった場合はブロッキングロードにする}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00047}00047\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モデルの読み込み}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_model_a0c1603447901a1d79f7940702840300b}{mv1\_handle\_}}\ =\ MV1LoadModel(model\_path.c\_str());}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ SetASyncLoadFinishCallback(\mbox{\hyperlink{class_resource_model_a0c1603447901a1d79f7940702840300b}{mv1\_handle\_}},\ (\textcolor{keywordtype}{void}\ (*)(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{void}*))finish\_callback,\ \textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00052}00052\ \ \ \ \ SetUseASyncLoadFlag(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00053}00053\ \};}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00055}00055\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00056}00056\ \textcolor{comment}{//!\ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00057}00057\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00058}\mbox{\hyperlink{class_resource_model_a9dcab25673fe61a8af298759a6fd8a66}{00058}}\ \mbox{\hyperlink{class_resource_model_a9dcab25673fe61a8af298759a6fd8a66}{ResourceModel::\string~ResourceModel}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00059}00059\ \ \ \ \ MV1DeleteModel(\mbox{\hyperlink{class_resource_model_a0c1603447901a1d79f7940702840300b}{mv1\_handle\_}});}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00060}00060\ \}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00062}00062\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00063}00063\ \textcolor{comment}{//!\ 読み込み完了まで待つ}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00064}00064\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00065}\mbox{\hyperlink{class_resource_model_aee6ed712939e91a12b1b9573e062a80b}{00065}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_model_aee6ed712939e91a12b1b9573e062a80b}{ResourceModel::waitForReadFinish}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_resource_model_a900591cd261afc07adc60304dd005bff}{isActive}}()\ ==\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ WaitHandleASyncLoad(\mbox{\hyperlink{class_resource_model_a0c1603447901a1d79f7940702840300b}{mv1\_handle\_}});}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00068}00068\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00069}00069\ \}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00071}00071\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00072}00072\ \textcolor{comment}{//!\ [DxLib]\ MV1ハンドルを取得}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00073}00073\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00074}\mbox{\hyperlink{class_resource_model_aa79e1b35ddbd2374a65e9ef718ad5dd3}{00074}}\ ResourceModel::operator\ int()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00075}00075\ \ \ \ \ \textcolor{keywordflow}{return}\ mv1\_handle\_;}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00076}00076\ \}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00078}00078\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00079}00079\ \textcolor{comment}{//!\ モデルキャッシュを取得}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00080}00080\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00081}\mbox{\hyperlink{class_resource_model_ad917d1ee8b36e5c6cd548558d642941d}{00081}}\ \mbox{\hyperlink{class_model_cache}{ModelCache}}*\ \mbox{\hyperlink{class_resource_model_ad917d1ee8b36e5c6cd548558d642941d}{ResourceModel::modelCache}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00082}00082\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_resource_model_a3fb8b407b2b3fb8545282c253b73c57b}{model\_cache\_}}.get();}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00083}00083\ \}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00085}00085\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00086}00086\ \textcolor{comment}{//!\ ファイルパスを取得}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00087}00087\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00088}\mbox{\hyperlink{class_resource_model_a383726782fb0b333714a2eb92435d2a0}{00088}}\ \textcolor{keyword}{const}\ std::wstring\&\ \mbox{\hyperlink{class_resource_model_a383726782fb0b333714a2eb92435d2a0}{ResourceModel::path}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_resource_model_acb0870c2fae0b76f218b457db612f093}{path\_}};}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00090}00090\ \}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00092}00092\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00093}00093\ \textcolor{comment}{//!\ 初期化が正しく成功しているかどうか}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00094}00094\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00095}\mbox{\hyperlink{class_resource_model_afecbe97bcd2da8ea0b2d3416ea58246a}{00095}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_resource_model_afecbe97bcd2da8ea0b2d3416ea58246a}{ResourceModel::isValid}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00096}00096\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_resource_model_a0c1603447901a1d79f7940702840300b}{mv1\_handle\_}}\ !=\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00097}00097\ \}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00099}00099\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00100}00100\ \textcolor{comment}{//!\ 描画可能な状態かどうか取得}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00101}00101\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00102}\mbox{\hyperlink{class_resource_model_a900591cd261afc07adc60304dd005bff}{00102}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_resource_model_a900591cd261afc07adc60304dd005bff}{ResourceModel::isActive}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00103}00103\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_resource_model_a82bae36cdbc51e733eb4a983acad4bd4}{active\_}};}
+\DoxyCodeLine{\Hypertarget{_resource_model_8cpp_source_l00104}00104\ \}}
+
+\end{DoxyCode}

@@ -12,9 +12,6 @@
 #include "Camera.h"
 
 namespace LittleQuest {
-
-BP_OBJECT_IMPL(Zombie, "LittleQuest/Zombie");
-
 ZombiePtr Zombie::Create(const float3& pos, const float3& front) {
     // 箱の作成
     auto enemy = Scene::CreateObjectPtr<Zombie>();

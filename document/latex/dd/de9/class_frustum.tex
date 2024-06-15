@@ -1,0 +1,961 @@
+\hypertarget{class_frustum}{}\doxysection{Frustum クラス}
+\label{class_frustum}\index{Frustum@{Frustum}}
+
+
+カメラ  
+
+
+
+
+{\ttfamily \#include $<$Frustum.\+h$>$}
+
+
+
+Frustum 連携図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{d4/d4a/class_frustum__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{公開型}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}{Depth\+Mode}} \+: s32 \{ \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67}{Default}}
+, \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda67f115c1fddc4ce1aeb1c754001585bc}{Reverse}}
+, \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda859477cd2af414695fa54772f08fbcc9}{Reverse\+Infinite}}
+ \}
+\begin{DoxyCompactList}\small\item\em デプス動作モード \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{公開メンバ関数}
+\begin{Indent}\textbf{ 初期化}\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_frustum_ab225c6aa54200beee8ec378f2314e413}{Frustum}} ()=default
+\begin{DoxyCompactList}\small\item\em デフォルトコンストラクタ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_frustum_aca6ea17e0260764080b7698fba755730}{Frustum}} (const \mbox{\hyperlink{classmatrix}{matrix}} \&mat\+\_\+view, const \mbox{\hyperlink{classmatrix}{matrix}} \&mat\+\_\+proj, \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}{Frustum\+::\+Depth\+Mode}} depth\+\_\+mode=\mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67}{Frustum\+::\+Depth\+Mode\+::\+Default}})
+\begin{DoxyCompactList}\small\item\em コンストラクタ (行列を指定して初期化) \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_frustum_abf37ae7096fb44609b6e4b04a63cbe08}{$\sim$\+Frustum}} ()=default
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 更新}\par
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_frustum_a17a6dc854202e76bb81dc52924f91a16}{update}} ()
+\begin{DoxyCompactList}\small\item\em 更新 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_frustum_a71f2b123d97b8322331b9accaeaf2ee1}{render\+Debug}} ()
+\begin{DoxyCompactList}\small\item\em デバッグ描画 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 設定}\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_frustum}{Frustum}} \& \mbox{\hyperlink{class_frustum_a310ff517b74da17453bc5062da434876}{set\+Position}} (const float3 \&\mbox{\hyperlink{class_frustum_a42ac8538f373ef9732739e62f3b764d7}{position}})
+\begin{DoxyCompactList}\small\item\em 位置を設定 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_frustum}{Frustum}} \& \mbox{\hyperlink{class_frustum_ae2a1fc953e0a117c91f93c87850586cc}{set\+Look\+At}} (const float3 \&look\+\_\+at)
+\begin{DoxyCompactList}\small\item\em 注視点を設定 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_frustum}{Frustum}} \& \mbox{\hyperlink{class_frustum_aedc31b8c2d0b2370016ef13a6ec8344d}{set\+World\+Up}} (const float3 \&world\+\_\+up)
+\begin{DoxyCompactList}\small\item\em 世界の上方向のベクトルを設定 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_frustum}{Frustum}} \& \mbox{\hyperlink{class_frustum_ad9aeaa231f512ff9e89aa28c0d1a4660}{set\+Look\+At}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} horizontal\+\_\+angle, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} vertical\+\_\+angle)
+\begin{DoxyCompactList}\small\item\em 上下左右の角度から注視点を設定 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_frustum}{Frustum}} \& \mbox{\hyperlink{class_frustum_a10e71748212059e09101fb721ceb3fd0}{set\+Fov}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} fovy)
+\begin{DoxyCompactList}\small\item\em 画角を設定 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_frustum}{Frustum}} \& \mbox{\hyperlink{class_frustum_ac9d56b6a1648a76345728f6560abb6b3}{set\+Aspect\+Ratio}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} aspect\+\_\+ratio)
+\begin{DoxyCompactList}\small\item\em アスペクト比を設定 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_frustum}{Frustum}} \& \mbox{\hyperlink{class_frustum_ac693ebcad0cf3be7c28160f62f5b16ac}{set\+NearZ}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} z\+\_\+near)
+\begin{DoxyCompactList}\small\item\em 近クリップ距離を設定 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_frustum}{Frustum}} \& \mbox{\hyperlink{class_frustum_a0e9e2ea8a3db13c13f625fe876c58cdf}{set\+FarZ}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} z\+\_\+far)
+\begin{DoxyCompactList}\small\item\em 遠クリップ距離を設定 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_frustum}{Frustum}} \& \mbox{\hyperlink{class_frustum_aef58e5a9c01ba23dd23fcb2bff3f21ed}{set\+Depth\+Mode}} (\mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}{Frustum\+::\+Depth\+Mode}} mode)
+\begin{DoxyCompactList}\small\item\em デプス動作モードを設定 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{参照}
+\begin{DoxyCompactItemize}
+\item 
+float3 \mbox{\hyperlink{class_frustum_a3f9069dcbe7325bd6300b2487b24397d}{position\+\_\+}} = float3(0.\+0f, 5.\+0f, -\/15.\+0f)
+\begin{DoxyCompactList}\small\item\em 位置 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_frustum_ac440fc035e7d8f15bf77d65e36f8b114}{look\+\_\+at\+\_\+}} = float3(0.\+0f, 0.\+0f, 0.\+0f)
+\begin{DoxyCompactList}\small\item\em 注視点 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_frustum_a4fbfc4af027ad7a1696e7d8ec81ff319}{world\+\_\+up\+\_\+}} = float3(0.\+0f, 1.\+0f, 0.\+0f)
+\begin{DoxyCompactList}\small\item\em 世界の上方向のベクトル \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{class_frustum_a08ed3a7a2b74931d90fb1dbe569925b1}{fovy\+\_\+}} = 60.\+0f $\ast$ \mbox{\hyperlink{_precompile_8h_ade905dfddad8309f77814b8a19bfd1f8}{Deg\+To\+Rad}}
+\begin{DoxyCompactList}\small\item\em 画角(単位\+:radian) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{class_frustum_a4a46f57b7c357095c45475a5d122c95c}{aspect\+\_\+ratio\+\_\+}} = 16.\+0f / 9.\+0f
+\begin{DoxyCompactList}\small\item\em アスペクト比 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{class_frustum_ad34681bb3cb7891365bf04676aeb8569}{z\+\_\+near\+\_\+}} = 0.\+01f
+\begin{DoxyCompactList}\small\item\em 近クリップ面までの距離 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{class_frustum_ab537ea9619f8fe467d87dd11d505d70b}{z\+\_\+far\+\_\+}} = 1000.\+0f
+\begin{DoxyCompactList}\small\item\em 遠クリップ面までの距離 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}{Frustum\+::\+Depth\+Mode}} \mbox{\hyperlink{class_frustum_aa5486af07e79dc9a23a7816f44ebd0ff}{depth\+\_\+mode\+\_\+}} = \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67}{Frustum\+::\+Depth\+Mode\+::\+Default}}
+\begin{DoxyCompactList}\small\item\em デプス動作モード \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{class_frustum_a5a9c012f78e9b69aaf1d003b16982c38}{mat\+\_\+camera\+\_\+world\+\_\+}} = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()
+\begin{DoxyCompactList}\small\item\em カメラのワールド行列 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{class_frustum_ae0a0115b3571926973cb1ed27b4a0c0a}{mat\+\_\+view\+\_\+}} = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()
+\begin{DoxyCompactList}\small\item\em ビュー行列 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{class_frustum_a7730df5ab4f8f3c684750815a7029ef0}{mat\+\_\+proj\+\_\+}} = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()
+\begin{DoxyCompactList}\small\item\em 投影行列 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{class_frustum_acc413e1ba12b64514ea7c2c8ef92c091}{mat\+\_\+view\+\_\+proj\+\_\+}} = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()
+\begin{DoxyCompactList}\small\item\em ビュー ✕ 投影行列 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_frustum_a42ac8538f373ef9732739e62f3b764d7}{position}} () const
+\begin{DoxyCompactList}\small\item\em 位置を取得 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_frustum_a955661f580aad4c45dd465ba64047895}{look\+At}} () const
+\begin{DoxyCompactList}\small\item\em 注視点を取得 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_frustum_a64eea3a062449447a7e2630c19a5bf5f}{world\+Up}} () const
+\begin{DoxyCompactList}\small\item\em 世界の上方向のベクトルを取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{class_frustum_a287657bfb71c2286c37114ecdfee8d01}{fov}} () const
+\begin{DoxyCompactList}\small\item\em 画角を取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{class_frustum_aa2bcbe4d597781fa74a16aa029f1d655}{aspect\+Ratio}} () const
+\begin{DoxyCompactList}\small\item\em アスペクト比を取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{class_frustum_a2b2a3223e53813e1e289c12664b96911}{nearZ}} () const
+\begin{DoxyCompactList}\small\item\em 近クリップ距離を取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{class_frustum_a408d5d23226b9e3b27243182d0724afe}{farZ}} () const
+\begin{DoxyCompactList}\small\item\em 遠クリップ距離を取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{class_frustum_abb0ebfbbcb843f9d17667fdc66227b6e}{screen\+Distance}} (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} resolution\+\_\+height) const
+\begin{DoxyCompactList}\small\item\em スクリーンまでの距離を取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}{Frustum\+::\+Depth\+Mode}} \mbox{\hyperlink{class_frustum_a234f5c84a0076cafb9ed3451cc973fe4}{depth\+Mode}} () const
+\begin{DoxyCompactList}\small\item\em デプス動作モードを取得 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_frustum_acb47fe1f963e577883b75a3aaa73e922}{use\+Reverse\+Depth}} () const
+\begin{DoxyCompactList}\small\item\em 反転\+Zを利用するかどうかを取得 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_frustum_a93cfb3b15eba1eac9b79a25b8daedcfd}{ray\+From\+Screen\+Position}} (float2 screen\+\_\+position)
+\begin{DoxyCompactList}\small\item\em スクリーン座標からレイを取得 \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classmatrix}{matrix}} \& \mbox{\hyperlink{class_frustum_aa1fe52ce1a07e18b3fc51aa32557ea42}{mat\+Camera\+World}} () const
+\begin{DoxyCompactList}\small\item\em カメラのワールド行列を取得 \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classmatrix}{matrix}} \& \mbox{\hyperlink{class_frustum_a4de757581be6d1dbea98ce5b9a2d7466}{mat\+View}} () const
+\begin{DoxyCompactList}\small\item\em ビュー行列を取得 \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classmatrix}{matrix}} \& \mbox{\hyperlink{class_frustum_ac0d350c0fb1dec468688ce7d9a0f6f61}{mat\+Proj}} () const
+\begin{DoxyCompactList}\small\item\em 投影行列を取得 \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{classmatrix}{matrix}} \& \mbox{\hyperlink{class_frustum_af56f0be15163bf3a4d85f0c355810249}{mat\+View\+Proj}} () const
+\begin{DoxyCompactList}\small\item\em ビュー ✕ 投影行列を取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+カメラ 
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00010}{10}} 行目に定義があります。
+
+
+
+\doxysubsection{列挙型メンバ詳解}
+\mbox{\Hypertarget{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}\label{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}} 
+\index{Frustum@{Frustum}!DepthMode@{DepthMode}}
+\index{DepthMode@{DepthMode}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{DepthMode}{DepthMode}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}{Frustum\+::\+Depth\+Mode}} \+: \mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+デプス動作モード 
+
+\begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Default@{Default}!Frustum@{Frustum}}\index{Frustum@{Frustum}!Default@{Default}}}\mbox{\Hypertarget{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67}\label{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67}} 
+Default&通常 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Reverse@{Reverse}!Frustum@{Frustum}}\index{Frustum@{Frustum}!Reverse@{Reverse}}}\mbox{\Hypertarget{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda67f115c1fddc4ce1aeb1c754001585bc}\label{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda67f115c1fddc4ce1aeb1c754001585bc}} 
+Reverse&反転Z \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ReverseInfinite@{ReverseInfinite}!Frustum@{Frustum}}\index{Frustum@{Frustum}!ReverseInfinite@{ReverseInfinite}}}\mbox{\Hypertarget{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda859477cd2af414695fa54772f08fbcc9}\label{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda859477cd2af414695fa54772f08fbcc9}} 
+Reverse\+Infinite&反転Z (無限遠) \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00013}{13}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{class_frustum_ab225c6aa54200beee8ec378f2314e413}\label{class_frustum_ab225c6aa54200beee8ec378f2314e413}} 
+\index{Frustum@{Frustum}!Frustum@{Frustum}}
+\index{Frustum@{Frustum}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{Frustum()}{Frustum()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Frustum\+::\+Frustum (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+デフォルトコンストラクタ 
+
+\mbox{\Hypertarget{class_frustum_aca6ea17e0260764080b7698fba755730}\label{class_frustum_aca6ea17e0260764080b7698fba755730}} 
+\index{Frustum@{Frustum}!Frustum@{Frustum}}
+\index{Frustum@{Frustum}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{Frustum()}{Frustum()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Frustum\+::\+Frustum (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classmatrix}{matrix}} \&}]{mat\+\_\+view,  }\item[{const \mbox{\hyperlink{classmatrix}{matrix}} \&}]{mat\+\_\+proj,  }\item[{\mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}{Frustum\+::\+Depth\+Mode}}}]{depth\+\_\+mode = {\ttfamily \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67}{Frustum\+::\+Depth\+Mode\+::\+Default}}} }\end{DoxyParamCaption})}
+
+
+
+コンストラクタ (行列を指定して初期化) 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00010}{10}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_frustum_abf37ae7096fb44609b6e4b04a63cbe08}\label{class_frustum_abf37ae7096fb44609b6e4b04a63cbe08}} 
+\index{Frustum@{Frustum}!````~Frustum@{$\sim$Frustum}}
+\index{````~Frustum@{$\sim$Frustum}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{$\sim$Frustum()}{~Frustum()}}
+{\footnotesize\ttfamily virtual Frustum\+::$\sim$\+Frustum (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+デストラクタ 
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_frustum_aa2bcbe4d597781fa74a16aa029f1d655}\label{class_frustum_aa2bcbe4d597781fa74a16aa029f1d655}} 
+\index{Frustum@{Frustum}!aspectRatio@{aspectRatio}}
+\index{aspectRatio@{aspectRatio}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{aspectRatio()}{aspectRatio()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Frustum\+::aspect\+Ratio (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+アスペクト比を取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00250}{250}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00143}{aspect\+\_\+ratio\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_a234f5c84a0076cafb9ed3451cc973fe4}\label{class_frustum_a234f5c84a0076cafb9ed3451cc973fe4}} 
+\index{Frustum@{Frustum}!depthMode@{depthMode}}
+\index{depthMode@{depthMode}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{depthMode()}{depthMode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}{Frustum\+::\+Depth\+Mode}} Frustum\+::depth\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+デプス動作モードを取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00289}{289}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00146}{depth\+\_\+mode\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_a408d5d23226b9e3b27243182d0724afe}\label{class_frustum_a408d5d23226b9e3b27243182d0724afe}} 
+\index{Frustum@{Frustum}!farZ@{farZ}}
+\index{farZ@{farZ}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{farZ()}{farZ()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Frustum\+::farZ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+遠クリップ距離を取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00264}{264}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00145}{z\+\_\+far\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_a287657bfb71c2286c37114ecdfee8d01}\label{class_frustum_a287657bfb71c2286c37114ecdfee8d01}} 
+\index{Frustum@{Frustum}!fov@{fov}}
+\index{fov@{fov}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{fov()}{fov()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Frustum\+::fov (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+画角を取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00243}{243}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00142}{fovy\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_a955661f580aad4c45dd465ba64047895}\label{class_frustum_a955661f580aad4c45dd465ba64047895}} 
+\index{Frustum@{Frustum}!lookAt@{lookAt}}
+\index{lookAt@{lookAt}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{lookAt()}{lookAt()}}
+{\footnotesize\ttfamily float3 Frustum\+::look\+At (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+注視点を取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00229}{229}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00140}{look\+\_\+at\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_aa1fe52ce1a07e18b3fc51aa32557ea42}\label{class_frustum_aa1fe52ce1a07e18b3fc51aa32557ea42}} 
+\index{Frustum@{Frustum}!matCameraWorld@{matCameraWorld}}
+\index{matCameraWorld@{matCameraWorld}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{matCameraWorld()}{matCameraWorld()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classmatrix}{matrix}} \& Frustum\+::mat\+Camera\+World (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+カメラのワールド行列を取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00315}{315}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00147}{mat\+\_\+camera\+\_\+world\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_ac0d350c0fb1dec468688ce7d9a0f6f61}\label{class_frustum_ac0d350c0fb1dec468688ce7d9a0f6f61}} 
+\index{Frustum@{Frustum}!matProj@{matProj}}
+\index{matProj@{matProj}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{matProj()}{matProj()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classmatrix}{matrix}} \& Frustum\+::mat\+Proj (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+投影行列を取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00329}{329}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00149}{mat\+\_\+proj\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_a4de757581be6d1dbea98ce5b9a2d7466}\label{class_frustum_a4de757581be6d1dbea98ce5b9a2d7466}} 
+\index{Frustum@{Frustum}!matView@{matView}}
+\index{matView@{matView}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{matView()}{matView()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classmatrix}{matrix}} \& Frustum\+::mat\+View (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+ビュー行列を取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00322}{322}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00148}{mat\+\_\+view\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_af56f0be15163bf3a4d85f0c355810249}\label{class_frustum_af56f0be15163bf3a4d85f0c355810249}} 
+\index{Frustum@{Frustum}!matViewProj@{matViewProj}}
+\index{matViewProj@{matViewProj}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{matViewProj()}{matViewProj()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classmatrix}{matrix}} \& Frustum\+::mat\+View\+Proj (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+ビュー ✕ 投影行列を取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00336}{336}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00150}{mat\+\_\+view\+\_\+proj\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_a2b2a3223e53813e1e289c12664b96911}\label{class_frustum_a2b2a3223e53813e1e289c12664b96911}} 
+\index{Frustum@{Frustum}!nearZ@{nearZ}}
+\index{nearZ@{nearZ}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{nearZ()}{nearZ()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Frustum\+::nearZ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+近クリップ距離を取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00257}{257}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00144}{z\+\_\+near\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_a42ac8538f373ef9732739e62f3b764d7}\label{class_frustum_a42ac8538f373ef9732739e62f3b764d7}} 
+\index{Frustum@{Frustum}!position@{position}}
+\index{position@{position}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{position()}{position()}}
+{\footnotesize\ttfamily float3 Frustum\+::position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+位置を取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00222}{222}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00139}{position\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00146}{set\+Position()}}.
+
+\mbox{\Hypertarget{class_frustum_a93cfb3b15eba1eac9b79a25b8daedcfd}\label{class_frustum_a93cfb3b15eba1eac9b79a25b8daedcfd}} 
+\index{Frustum@{Frustum}!rayFromScreenPosition@{rayFromScreenPosition}}
+\index{rayFromScreenPosition@{rayFromScreenPosition}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{rayFromScreenPosition()}{rayFromScreenPosition()}}
+{\footnotesize\ttfamily float3 Frustum\+::ray\+From\+Screen\+Position (\begin{DoxyParamCaption}\item[{float2}]{screen\+\_\+position }\end{DoxyParamCaption})}
+
+
+
+スクリーン座標からレイを取得 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em screen\+\_\+position} & スクリーン座標の\+XY値 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+カメラ位置からのレイベクトル 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00303}{303}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00143}{aspect\+\_\+ratio\+\_\+}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00212}{matrix\+::axis\+X()}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00219}{matrix\+::axis\+Y()}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00226}{matrix\+::axis\+Z()}}, \mbox{\hyperlink{_frustum_8h_source_l00147}{mat\+\_\+camera\+\_\+world\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_a71f2b123d97b8322331b9accaeaf2ee1}\label{class_frustum_a71f2b123d97b8322331b9accaeaf2ee1}} 
+\index{Frustum@{Frustum}!renderDebug@{renderDebug}}
+\index{renderDebug@{renderDebug}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{renderDebug()}{renderDebug()}}
+{\footnotesize\ttfamily void Frustum\+::render\+Debug (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+デバッグ描画 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00061}{61}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00143}{aspect\+\_\+ratio\+\_\+}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00212}{matrix\+::axis\+X()}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00219}{matrix\+::axis\+Y()}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00226}{matrix\+::axis\+Z()}}, \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}, \mbox{\hyperlink{_frustum_8h_source_l00142}{fovy\+\_\+}}, \mbox{\hyperlink{_frustum_8h_source_l00147}{mat\+\_\+camera\+\_\+world\+\_\+}}, \mbox{\hyperlink{_frustum_8h_source_l00139}{position\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_camera_8cpp_source_l00176}{Component\+Camera\+::\+Draw()}}.
+
+\mbox{\Hypertarget{class_frustum_abb0ebfbbcb843f9d17667fdc66227b6e}\label{class_frustum_abb0ebfbbcb843f9d17667fdc66227b6e}} 
+\index{Frustum@{Frustum}!screenDistance@{screenDistance}}
+\index{screenDistance@{screenDistance}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{screenDistance()}{screenDistance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Frustum\+::screen\+Distance (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{resolution\+\_\+height }\end{DoxyParamCaption}) const}
+
+
+
+スクリーンまでの距離を取得 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em resolution\+\_\+height} & 画面解像度の高さ \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00271}{271}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00142}{fovy\+\_\+}}.
+
+\mbox{\Hypertarget{class_frustum_ac9d56b6a1648a76345728f6560abb6b3}\label{class_frustum_ac9d56b6a1648a76345728f6560abb6b3}} 
+\index{Frustum@{Frustum}!setAspectRatio@{setAspectRatio}}
+\index{setAspectRatio@{setAspectRatio}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{setAspectRatio()}{setAspectRatio()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frustum}{Frustum}} \& Frustum\+::set\+Aspect\+Ratio (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{aspect\+\_\+ratio }\end{DoxyParamCaption})}
+
+
+
+アスペクト比を設定 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00189}{189}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00143}{aspect\+\_\+ratio\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_camera_8cpp_source_l00083}{Component\+Camera\+::\+Set\+Camera\+Transform()}}.
+
+\mbox{\Hypertarget{class_frustum_aef58e5a9c01ba23dd23fcb2bff3f21ed}\label{class_frustum_aef58e5a9c01ba23dd23fcb2bff3f21ed}} 
+\index{Frustum@{Frustum}!setDepthMode@{setDepthMode}}
+\index{setDepthMode@{setDepthMode}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{setDepthMode()}{setDepthMode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frustum}{Frustum}} \& Frustum\+::set\+Depth\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}{Frustum\+::\+Depth\+Mode}}}]{mode }\end{DoxyParamCaption})}
+
+
+
+デプス動作モードを設定 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00213}{213}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00146}{depth\+\_\+mode\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_camera_8cpp_source_l00083}{Component\+Camera\+::\+Set\+Camera\+Transform()}}.
+
+\mbox{\Hypertarget{class_frustum_a0e9e2ea8a3db13c13f625fe876c58cdf}\label{class_frustum_a0e9e2ea8a3db13c13f625fe876c58cdf}} 
+\index{Frustum@{Frustum}!setFarZ@{setFarZ}}
+\index{setFarZ@{setFarZ}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{setFarZ()}{setFarZ()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frustum}{Frustum}} \& Frustum\+::set\+FarZ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{z\+\_\+far }\end{DoxyParamCaption})}
+
+
+
+遠クリップ距離を設定 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00205}{205}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_camera_8cpp_source_l00083}{Component\+Camera\+::\+Set\+Camera\+Transform()}}.
+
+\mbox{\Hypertarget{class_frustum_a10e71748212059e09101fb721ceb3fd0}\label{class_frustum_a10e71748212059e09101fb721ceb3fd0}} 
+\index{Frustum@{Frustum}!setFov@{setFov}}
+\index{setFov@{setFov}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{setFov()}{setFov()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frustum}{Frustum}} \& Frustum\+::set\+Fov (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{fovy }\end{DoxyParamCaption})}
+
+
+
+画角を設定 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00181}{181}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00142}{fovy\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_camera_8cpp_source_l00083}{Component\+Camera\+::\+Set\+Camera\+Transform()}}.
+
+\mbox{\Hypertarget{class_frustum_ae2a1fc953e0a117c91f93c87850586cc}\label{class_frustum_ae2a1fc953e0a117c91f93c87850586cc}} 
+\index{Frustum@{Frustum}!setLookAt@{setLookAt}}
+\index{setLookAt@{setLookAt}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{setLookAt()}{setLookAt()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frustum}{Frustum}} \& Frustum\+::set\+Look\+At (\begin{DoxyParamCaption}\item[{const float3 \&}]{look\+\_\+at }\end{DoxyParamCaption})}
+
+
+
+注視点を設定 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00154}{154}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00140}{look\+\_\+at\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_camera_8cpp_source_l00083}{Component\+Camera\+::\+Set\+Camera\+Transform()}}.
+
+\mbox{\Hypertarget{class_frustum_ad9aeaa231f512ff9e89aa28c0d1a4660}\label{class_frustum_ad9aeaa231f512ff9e89aa28c0d1a4660}} 
+\index{Frustum@{Frustum}!setLookAt@{setLookAt}}
+\index{setLookAt@{setLookAt}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{setLookAt()}{setLookAt()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frustum}{Frustum}} \& Frustum\+::set\+Look\+At (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{horizontal\+\_\+angle,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{vertical\+\_\+angle }\end{DoxyParamCaption})}
+
+
+
+上下左右の角度から注視点を設定 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em horizontal\+\_\+angle} & 左右方向の水平回転角度 \\
+\hline
+\mbox{\texttt{ in}}  & {\em vertical\+\_\+angle} & 上下方向の垂直回転角度 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAttention}{注意}
+位置からの相対方向から設定するため \mbox{\hyperlink{class_frustum_a310ff517b74da17453bc5062da434876}{set\+Position()}} の後に設定してください。 
+\end{DoxyAttention}
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00170}{170}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8cpp_source_l00226}{matrix\+::axis\+Z()}}, \mbox{\hyperlink{_frustum_8h_source_l00140}{look\+\_\+at\+\_\+}}, \mbox{\hyperlink{_vector_math_8h_source_l00073}{mul()}}, \mbox{\hyperlink{_frustum_8h_source_l00139}{position\+\_\+}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00061}{matrix\+::rotate\+X()}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00077}{matrix\+::rotate\+Y()}}.
+
+\mbox{\Hypertarget{class_frustum_ac693ebcad0cf3be7c28160f62f5b16ac}\label{class_frustum_ac693ebcad0cf3be7c28160f62f5b16ac}} 
+\index{Frustum@{Frustum}!setNearZ@{setNearZ}}
+\index{setNearZ@{setNearZ}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{setNearZ()}{setNearZ()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frustum}{Frustum}} \& Frustum\+::set\+NearZ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{z\+\_\+near }\end{DoxyParamCaption})}
+
+
+
+近クリップ距離を設定 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00197}{197}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00144}{z\+\_\+near\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_camera_8cpp_source_l00083}{Component\+Camera\+::\+Set\+Camera\+Transform()}}.
+
+\mbox{\Hypertarget{class_frustum_a310ff517b74da17453bc5062da434876}\label{class_frustum_a310ff517b74da17453bc5062da434876}} 
+\index{Frustum@{Frustum}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frustum}{Frustum}} \& Frustum\+::set\+Position (\begin{DoxyParamCaption}\item[{const float3 \&}]{position }\end{DoxyParamCaption})}
+
+
+
+位置を設定 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00146}{146}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8cpp_source_l00222}{position()}}, \mbox{\hyperlink{_frustum_8h_source_l00139}{position\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_camera_8cpp_source_l00083}{Component\+Camera\+::\+Set\+Camera\+Transform()}}.
+
+\mbox{\Hypertarget{class_frustum_aedc31b8c2d0b2370016ef13a6ec8344d}\label{class_frustum_aedc31b8c2d0b2370016ef13a6ec8344d}} 
+\index{Frustum@{Frustum}!setWorldUp@{setWorldUp}}
+\index{setWorldUp@{setWorldUp}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{setWorldUp()}{setWorldUp()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frustum}{Frustum}} \& Frustum\+::set\+World\+Up (\begin{DoxyParamCaption}\item[{const float3 \&}]{world\+\_\+up }\end{DoxyParamCaption})}
+
+
+
+世界の上方向のベクトルを設定 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00162}{162}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00141}{world\+\_\+up\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_camera_8cpp_source_l00083}{Component\+Camera\+::\+Set\+Camera\+Transform()}}.
+
+\mbox{\Hypertarget{class_frustum_a17a6dc854202e76bb81dc52924f91a16}\label{class_frustum_a17a6dc854202e76bb81dc52924f91a16}} 
+\index{Frustum@{Frustum}!update@{update}}
+\index{update@{update}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Frustum\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+更新 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00029}{29}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00143}{aspect\+\_\+ratio\+\_\+}}, \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67}{Default}}, \mbox{\hyperlink{_frustum_8h_source_l00146}{depth\+\_\+mode\+\_\+}}, \mbox{\hyperlink{_frustum_8h_source_l00142}{fovy\+\_\+}}, \mbox{\hyperlink{_frustum_8h_source_l00140}{look\+\_\+at\+\_\+}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00131}{matrix\+::look\+At\+LH()}}, \mbox{\hyperlink{_frustum_8h_source_l00147}{mat\+\_\+camera\+\_\+world\+\_\+}}, \mbox{\hyperlink{_frustum_8h_source_l00149}{mat\+\_\+proj\+\_\+}}, \mbox{\hyperlink{_frustum_8h_source_l00148}{mat\+\_\+view\+\_\+}}, \mbox{\hyperlink{_frustum_8h_source_l00150}{mat\+\_\+view\+\_\+proj\+\_\+}}, \mbox{\hyperlink{_vector_math_8h_source_l00073}{mul()}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00172}{matrix\+::perspective\+Fov\+Infinite\+Far\+Plane\+LH()}}, \mbox{\hyperlink{_vector_math_8cpp_source_l00152}{matrix\+::perspective\+Fov\+LH()}}, \mbox{\hyperlink{_frustum_8h_source_l00139}{position\+\_\+}}, \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda67f115c1fddc4ce1aeb1c754001585bc}{Reverse}}, \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda859477cd2af414695fa54772f08fbcc9}{Reverse\+Infinite}}, \mbox{\hyperlink{_frustum_8h_source_l00141}{world\+\_\+up\+\_\+}}, \mbox{\hyperlink{_frustum_8h_source_l00145}{z\+\_\+far\+\_\+}}, \mbox{\hyperlink{_frustum_8h_source_l00144}{z\+\_\+near\+\_\+}} (計19項目).
+
+
+
+参照元 \mbox{\hyperlink{_component_camera_8cpp_source_l00083}{Component\+Camera\+::\+Set\+Camera\+Transform()}}.
+
+\mbox{\Hypertarget{class_frustum_acb47fe1f963e577883b75a3aaa73e922}\label{class_frustum_acb47fe1f963e577883b75a3aaa73e922}} 
+\index{Frustum@{Frustum}!useReverseDepth@{useReverseDepth}}
+\index{useReverseDepth@{useReverseDepth}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{useReverseDepth()}{useReverseDepth()}}
+{\footnotesize\ttfamily bool Frustum\+::use\+Reverse\+Depth (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+反転\+Zを利用するかどうかを取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00296}{296}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00146}{depth\+\_\+mode\+\_\+}}, \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda67f115c1fddc4ce1aeb1c754001585bc}{Reverse}}, \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda859477cd2af414695fa54772f08fbcc9}{Reverse\+Infinite}}.
+
+\mbox{\Hypertarget{class_frustum_a64eea3a062449447a7e2630c19a5bf5f}\label{class_frustum_a64eea3a062449447a7e2630c19a5bf5f}} 
+\index{Frustum@{Frustum}!worldUp@{worldUp}}
+\index{worldUp@{worldUp}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{worldUp()}{worldUp()}}
+{\footnotesize\ttfamily float3 Frustum\+::world\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+世界の上方向のベクトルを取得 
+
+
+
+ \mbox{\hyperlink{_frustum_8cpp_source}{Frustum.\+cpp}} の \mbox{\hyperlink{_frustum_8cpp_source_l00236}{236}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_frustum_8h_source_l00141}{world\+\_\+up\+\_\+}}.
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{class_frustum_a4a46f57b7c357095c45475a5d122c95c}\label{class_frustum_a4a46f57b7c357095c45475a5d122c95c}} 
+\index{Frustum@{Frustum}!aspect\_ratio\_@{aspect\_ratio\_}}
+\index{aspect\_ratio\_@{aspect\_ratio\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{aspect\_ratio\_}{aspect\_ratio\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Frustum\+::aspect\+\_\+ratio\+\_\+ = 16.\+0f / 9.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+アスペクト比 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00143}{143}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00250}{aspect\+Ratio()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00303}{ray\+From\+Screen\+Position()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00061}{render\+Debug()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00189}{set\+Aspect\+Ratio()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}.
+
+\mbox{\Hypertarget{class_frustum_aa5486af07e79dc9a23a7816f44ebd0ff}\label{class_frustum_aa5486af07e79dc9a23a7816f44ebd0ff}} 
+\index{Frustum@{Frustum}!depth\_mode\_@{depth\_mode\_}}
+\index{depth\_mode\_@{depth\_mode\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{depth\_mode\_}{depth\_mode\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdd}{Frustum\+::\+Depth\+Mode}} Frustum\+::depth\+\_\+mode\+\_\+ = \mbox{\hyperlink{class_frustum_a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67}{Frustum\+::\+Depth\+Mode\+::\+Default}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+デプス動作モード 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00146}{146}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00289}{depth\+Mode()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00213}{set\+Depth\+Mode()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00296}{use\+Reverse\+Depth()}}.
+
+\mbox{\Hypertarget{class_frustum_a08ed3a7a2b74931d90fb1dbe569925b1}\label{class_frustum_a08ed3a7a2b74931d90fb1dbe569925b1}} 
+\index{Frustum@{Frustum}!fovy\_@{fovy\_}}
+\index{fovy\_@{fovy\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{fovy\_}{fovy\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Frustum\+::fovy\+\_\+ = 60.\+0f $\ast$ \mbox{\hyperlink{_precompile_8h_ade905dfddad8309f77814b8a19bfd1f8}{Deg\+To\+Rad}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+画角(単位\+:radian) 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00142}{142}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00243}{fov()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00061}{render\+Debug()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00271}{screen\+Distance()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00181}{set\+Fov()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}.
+
+\mbox{\Hypertarget{class_frustum_ac440fc035e7d8f15bf77d65e36f8b114}\label{class_frustum_ac440fc035e7d8f15bf77d65e36f8b114}} 
+\index{Frustum@{Frustum}!look\_at\_@{look\_at\_}}
+\index{look\_at\_@{look\_at\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{look\_at\_}{look\_at\_}}
+{\footnotesize\ttfamily float3 Frustum\+::look\+\_\+at\+\_\+ = float3(0.\+0f, 0.\+0f, 0.\+0f)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+注視点 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00140}{140}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00229}{look\+At()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00154}{set\+Look\+At()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}.
+
+\mbox{\Hypertarget{class_frustum_a5a9c012f78e9b69aaf1d003b16982c38}\label{class_frustum_a5a9c012f78e9b69aaf1d003b16982c38}} 
+\index{Frustum@{Frustum}!mat\_camera\_world\_@{mat\_camera\_world\_}}
+\index{mat\_camera\_world\_@{mat\_camera\_world\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{mat\_camera\_world\_}{mat\_camera\_world\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} Frustum\+::mat\+\_\+camera\+\_\+world\+\_\+ = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+カメラのワールド行列 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00147}{147}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00315}{mat\+Camera\+World()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00303}{ray\+From\+Screen\+Position()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00061}{render\+Debug()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}.
+
+\mbox{\Hypertarget{class_frustum_a7730df5ab4f8f3c684750815a7029ef0}\label{class_frustum_a7730df5ab4f8f3c684750815a7029ef0}} 
+\index{Frustum@{Frustum}!mat\_proj\_@{mat\_proj\_}}
+\index{mat\_proj\_@{mat\_proj\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{mat\_proj\_}{mat\_proj\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} Frustum\+::mat\+\_\+proj\+\_\+ = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+投影行列 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00149}{149}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00329}{mat\+Proj()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}.
+
+\mbox{\Hypertarget{class_frustum_ae0a0115b3571926973cb1ed27b4a0c0a}\label{class_frustum_ae0a0115b3571926973cb1ed27b4a0c0a}} 
+\index{Frustum@{Frustum}!mat\_view\_@{mat\_view\_}}
+\index{mat\_view\_@{mat\_view\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{mat\_view\_}{mat\_view\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} Frustum\+::mat\+\_\+view\+\_\+ = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ビュー行列 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00148}{148}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00322}{mat\+View()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}.
+
+\mbox{\Hypertarget{class_frustum_acc413e1ba12b64514ea7c2c8ef92c091}\label{class_frustum_acc413e1ba12b64514ea7c2c8ef92c091}} 
+\index{Frustum@{Frustum}!mat\_view\_proj\_@{mat\_view\_proj\_}}
+\index{mat\_view\_proj\_@{mat\_view\_proj\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{mat\_view\_proj\_}{mat\_view\_proj\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} Frustum\+::mat\+\_\+view\+\_\+proj\+\_\+ = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ビュー ✕ 投影行列 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00150}{150}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00336}{mat\+View\+Proj()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}.
+
+\mbox{\Hypertarget{class_frustum_a3f9069dcbe7325bd6300b2487b24397d}\label{class_frustum_a3f9069dcbe7325bd6300b2487b24397d}} 
+\index{Frustum@{Frustum}!position\_@{position\_}}
+\index{position\_@{position\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{position\_}{position\_}}
+{\footnotesize\ttfamily float3 Frustum\+::position\+\_\+ = float3(0.\+0f, 5.\+0f, -\/15.\+0f)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+位置 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00139}{139}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00222}{position()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00061}{render\+Debug()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00170}{set\+Look\+At()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00146}{set\+Position()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}.
+
+\mbox{\Hypertarget{class_frustum_a4fbfc4af027ad7a1696e7d8ec81ff319}\label{class_frustum_a4fbfc4af027ad7a1696e7d8ec81ff319}} 
+\index{Frustum@{Frustum}!world\_up\_@{world\_up\_}}
+\index{world\_up\_@{world\_up\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{world\_up\_}{world\_up\_}}
+{\footnotesize\ttfamily float3 Frustum\+::world\+\_\+up\+\_\+ = float3(0.\+0f, 1.\+0f, 0.\+0f)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+世界の上方向のベクトル 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00141}{141}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00162}{set\+World\+Up()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00236}{world\+Up()}}.
+
+\mbox{\Hypertarget{class_frustum_ab537ea9619f8fe467d87dd11d505d70b}\label{class_frustum_ab537ea9619f8fe467d87dd11d505d70b}} 
+\index{Frustum@{Frustum}!z\_far\_@{z\_far\_}}
+\index{z\_far\_@{z\_far\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{z\_far\_}{z\_far\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Frustum\+::z\+\_\+far\+\_\+ = 1000.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+遠クリップ面までの距離 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00145}{145}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00264}{far\+Z()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}.
+
+\mbox{\Hypertarget{class_frustum_ad34681bb3cb7891365bf04676aeb8569}\label{class_frustum_ad34681bb3cb7891365bf04676aeb8569}} 
+\index{Frustum@{Frustum}!z\_near\_@{z\_near\_}}
+\index{z\_near\_@{z\_near\_}!Frustum@{Frustum}}
+\doxysubsubsection{\texorpdfstring{z\_near\_}{z\_near\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Frustum\+::z\+\_\+near\+\_\+ = 0.\+01f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+近クリップ面までの距離 
+
+
+
+ \mbox{\hyperlink{_frustum_8h_source}{Frustum.\+h}} の \mbox{\hyperlink{_frustum_8h_source_l00144}{144}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_frustum_8cpp_source_l00257}{near\+Z()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00197}{set\+Near\+Z()}}, \mbox{\hyperlink{_frustum_8cpp_source_l00029}{update()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_frustum_8h}{Frustum.\+h}}\item 
+\mbox{\hyperlink{_frustum_8cpp}{Frustum.\+cpp}}\end{DoxyCompactItemize}

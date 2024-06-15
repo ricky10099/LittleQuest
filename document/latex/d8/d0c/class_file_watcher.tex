@@ -1,0 +1,264 @@
+\hypertarget{class_file_watcher}{}\doxysection{File\+Watcher クラス}
+\label{class_file_watcher}\index{FileWatcher@{FileWatcher}}
+
+
+ファイル変更監視  
+
+
+
+
+{\ttfamily \#include $<$File\+Watcher.\+h$>$}
+
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_file_watcher_a7db0265065f45b87e930ca0acc4070fc}{initialize}} (const wchar\+\_\+t $\ast$path, std\+::function$<$ void(const wchar\+\_\+t $\ast$)$>$ callback)
+\begin{DoxyCompactList}\small\item\em 初期化 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_file_watcher_af2a7434835ea10f3e5c2fae51de973e4}{update}} ()
+\begin{DoxyCompactList}\small\item\em 更新 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_file_watcher_aca46b12ad08d4c103aeef4c0a607d56c}{File\+Watcher}} ()=default
+\item 
+virtual \mbox{\hyperlink{class_file_watcher_a461b5b2c3564c78e76ed3f7a3d6792a1}{$\sim$\+File\+Watcher}} ()
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{非公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_file_watcher_a79bcb82abf1670ea2d67c771a7d319c3}{start}} ()
+\begin{DoxyCompactList}\small\item\em ファイル監視を開始 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{非公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+HANDLE \mbox{\hyperlink{class_file_watcher_a6fd652f4ee18618d9ed9872890cee55e}{finish\+\_\+event\+\_\+}} = INVALID\+\_\+\+HANDLE\+\_\+\+VALUE
+\begin{DoxyCompactList}\small\item\em 非同期\+IO完了通知イベント \end{DoxyCompactList}\item 
+HANDLE \mbox{\hyperlink{class_file_watcher_a8827a8a00b2a1b7558a46ab5d6c120f3}{handle\+\_\+directory\+\_\+}} = INVALID\+\_\+\+HANDLE\+\_\+\+VALUE
+\begin{DoxyCompactList}\small\item\em 監視先ディレクトリハンドル \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}} $>$ \mbox{\hyperlink{class_file_watcher_a933b07b27cba6732d69b863553ff0f40}{buffer\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ファイルリスト受信用バッファ \end{DoxyCompactList}\item 
+OVERLAPPED \mbox{\hyperlink{class_file_watcher_aec64232fd9f71e4fc0eb5771ba0d8ea4}{overlapped\+\_\+}} = \{\}
+\begin{DoxyCompactList}\small\item\em 非同期\+IO \end{DoxyCompactList}\item 
+std\+::function$<$ void(const wchar\+\_\+t $\ast$)$>$ \mbox{\hyperlink{class_file_watcher_a7c2c5e3bc21247b7add11fa6e8096b36}{callback\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ファイル変更時のコールバック関数 \end{DoxyCompactList}\item 
+std\+::wstring \mbox{\hyperlink{class_file_watcher_a1ba7642346a4c2af43cdf8d3262c4083}{full\+\_\+path\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 監視中のフルパス \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+ファイル変更監視 
+
+ \mbox{\hyperlink{_file_watcher_8h_source}{File\+Watcher.\+h}} の \mbox{\hyperlink{_file_watcher_8h_source_l00010}{10}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{class_file_watcher_aca46b12ad08d4c103aeef4c0a607d56c}\label{class_file_watcher_aca46b12ad08d4c103aeef4c0a607d56c}} 
+\index{FileWatcher@{FileWatcher}!FileWatcher@{FileWatcher}}
+\index{FileWatcher@{FileWatcher}!FileWatcher@{FileWatcher}}
+\doxysubsubsection{\texorpdfstring{FileWatcher()}{FileWatcher()}}
+{\footnotesize\ttfamily File\+Watcher\+::\+File\+Watcher (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{class_file_watcher_a461b5b2c3564c78e76ed3f7a3d6792a1}\label{class_file_watcher_a461b5b2c3564c78e76ed3f7a3d6792a1}} 
+\index{FileWatcher@{FileWatcher}!````~FileWatcher@{$\sim$FileWatcher}}
+\index{````~FileWatcher@{$\sim$FileWatcher}!FileWatcher@{FileWatcher}}
+\doxysubsubsection{\texorpdfstring{$\sim$FileWatcher()}{~FileWatcher()}}
+{\footnotesize\ttfamily File\+Watcher\+::$\sim$\+File\+Watcher (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+デストラクタ 
+
+
+
+ \mbox{\hyperlink{_file_watcher_8cpp_source}{File\+Watcher.\+cpp}} の \mbox{\hyperlink{_file_watcher_8cpp_source_l00138}{138}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_file_watcher_8h_source_l00032}{finish\+\_\+event\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00033}{handle\+\_\+directory\+\_\+}}.
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_file_watcher_a7db0265065f45b87e930ca0acc4070fc}\label{class_file_watcher_a7db0265065f45b87e930ca0acc4070fc}} 
+\index{FileWatcher@{FileWatcher}!initialize@{initialize}}
+\index{initialize@{initialize}!FileWatcher@{FileWatcher}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily bool File\+Watcher\+::initialize (\begin{DoxyParamCaption}\item[{const wchar\+\_\+t $\ast$}]{path,  }\item[{std\+::function$<$ void(const wchar\+\_\+t $\ast$)$>$}]{callback }\end{DoxyParamCaption})}
+
+
+
+初期化 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em path} & 監視対象のディレクトリパス \\
+\hline
+\mbox{\texttt{ in}}  & {\em callback} & ファイル変更通知のコールバック関数 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_file_watcher_8cpp_source}{File\+Watcher.\+cpp}} の \mbox{\hyperlink{_file_watcher_8cpp_source_l00011}{11}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_file_watcher_8h_source_l00034}{buffer\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00036}{callback\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00032}{finish\+\_\+event\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00037}{full\+\_\+path\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00033}{handle\+\_\+directory\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00035}{overlapped\+\_\+}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00154}{start()}}.
+
+\mbox{\Hypertarget{class_file_watcher_a79bcb82abf1670ea2d67c771a7d319c3}\label{class_file_watcher_a79bcb82abf1670ea2d67c771a7d319c3}} 
+\index{FileWatcher@{FileWatcher}!start@{start}}
+\index{start@{start}!FileWatcher@{FileWatcher}}
+\doxysubsubsection{\texorpdfstring{start()}{start()}}
+{\footnotesize\ttfamily bool File\+Watcher\+::start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ファイル監視を開始 
+
+
+
+ \mbox{\hyperlink{_file_watcher_8cpp_source}{File\+Watcher.\+cpp}} の \mbox{\hyperlink{_file_watcher_8cpp_source_l00154}{154}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_file_watcher_8h_source_l00034}{buffer\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00033}{handle\+\_\+directory\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00035}{overlapped\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_file_watcher_8cpp_source_l00011}{initialize()}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00068}{update()}}.
+
+\mbox{\Hypertarget{class_file_watcher_af2a7434835ea10f3e5c2fae51de973e4}\label{class_file_watcher_af2a7434835ea10f3e5c2fae51de973e4}} 
+\index{FileWatcher@{FileWatcher}!update@{update}}
+\index{update@{update}!FileWatcher@{FileWatcher}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void File\+Watcher\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+更新 
+
+\begin{DoxyNote}{覚え書き}
+メインループで呼ぶ必要がある 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_file_watcher_8cpp_source}{File\+Watcher.\+cpp}} の \mbox{\hyperlink{_file_watcher_8cpp_source_l00068}{68}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_file_watcher_8h_source_l00034}{buffer\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00036}{callback\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00032}{finish\+\_\+event\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00033}{handle\+\_\+directory\+\_\+}}, \mbox{\hyperlink{_file_watcher_8h_source_l00035}{overlapped\+\_\+}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00154}{start()}}.
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{class_file_watcher_a933b07b27cba6732d69b863553ff0f40}\label{class_file_watcher_a933b07b27cba6732d69b863553ff0f40}} 
+\index{FileWatcher@{FileWatcher}!buffer\_@{buffer\_}}
+\index{buffer\_@{buffer\_}!FileWatcher@{FileWatcher}}
+\doxysubsubsection{\texorpdfstring{buffer\_}{buffer\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}$>$ File\+Watcher\+::buffer\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ファイルリスト受信用バッファ 
+
+
+
+ \mbox{\hyperlink{_file_watcher_8h_source}{File\+Watcher.\+h}} の \mbox{\hyperlink{_file_watcher_8h_source_l00034}{34}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_file_watcher_8cpp_source_l00011}{initialize()}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00154}{start()}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00068}{update()}}.
+
+\mbox{\Hypertarget{class_file_watcher_a7c2c5e3bc21247b7add11fa6e8096b36}\label{class_file_watcher_a7c2c5e3bc21247b7add11fa6e8096b36}} 
+\index{FileWatcher@{FileWatcher}!callback\_@{callback\_}}
+\index{callback\_@{callback\_}!FileWatcher@{FileWatcher}}
+\doxysubsubsection{\texorpdfstring{callback\_}{callback\_}}
+{\footnotesize\ttfamily std\+::function$<$void(const wchar\+\_\+t$\ast$)$>$ File\+Watcher\+::callback\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ファイル変更時のコールバック関数 
+
+
+
+ \mbox{\hyperlink{_file_watcher_8h_source}{File\+Watcher.\+h}} の \mbox{\hyperlink{_file_watcher_8h_source_l00036}{36}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_file_watcher_8cpp_source_l00011}{initialize()}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00068}{update()}}.
+
+\mbox{\Hypertarget{class_file_watcher_a6fd652f4ee18618d9ed9872890cee55e}\label{class_file_watcher_a6fd652f4ee18618d9ed9872890cee55e}} 
+\index{FileWatcher@{FileWatcher}!finish\_event\_@{finish\_event\_}}
+\index{finish\_event\_@{finish\_event\_}!FileWatcher@{FileWatcher}}
+\doxysubsubsection{\texorpdfstring{finish\_event\_}{finish\_event\_}}
+{\footnotesize\ttfamily HANDLE File\+Watcher\+::finish\+\_\+event\+\_\+ = INVALID\+\_\+\+HANDLE\+\_\+\+VALUE\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+非同期\+IO完了通知イベント 
+
+
+
+ \mbox{\hyperlink{_file_watcher_8h_source}{File\+Watcher.\+h}} の \mbox{\hyperlink{_file_watcher_8h_source_l00032}{32}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_file_watcher_8cpp_source_l00011}{initialize()}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00068}{update()}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00138}{$\sim$\+File\+Watcher()}}.
+
+\mbox{\Hypertarget{class_file_watcher_a1ba7642346a4c2af43cdf8d3262c4083}\label{class_file_watcher_a1ba7642346a4c2af43cdf8d3262c4083}} 
+\index{FileWatcher@{FileWatcher}!full\_path\_@{full\_path\_}}
+\index{full\_path\_@{full\_path\_}!FileWatcher@{FileWatcher}}
+\doxysubsubsection{\texorpdfstring{full\_path\_}{full\_path\_}}
+{\footnotesize\ttfamily std\+::wstring File\+Watcher\+::full\+\_\+path\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+監視中のフルパス 
+
+
+
+ \mbox{\hyperlink{_file_watcher_8h_source}{File\+Watcher.\+h}} の \mbox{\hyperlink{_file_watcher_8h_source_l00037}{37}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_file_watcher_8cpp_source_l00011}{initialize()}}.
+
+\mbox{\Hypertarget{class_file_watcher_a8827a8a00b2a1b7558a46ab5d6c120f3}\label{class_file_watcher_a8827a8a00b2a1b7558a46ab5d6c120f3}} 
+\index{FileWatcher@{FileWatcher}!handle\_directory\_@{handle\_directory\_}}
+\index{handle\_directory\_@{handle\_directory\_}!FileWatcher@{FileWatcher}}
+\doxysubsubsection{\texorpdfstring{handle\_directory\_}{handle\_directory\_}}
+{\footnotesize\ttfamily HANDLE File\+Watcher\+::handle\+\_\+directory\+\_\+ = INVALID\+\_\+\+HANDLE\+\_\+\+VALUE\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+監視先ディレクトリハンドル 
+
+
+
+ \mbox{\hyperlink{_file_watcher_8h_source}{File\+Watcher.\+h}} の \mbox{\hyperlink{_file_watcher_8h_source_l00033}{33}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_file_watcher_8cpp_source_l00011}{initialize()}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00154}{start()}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00068}{update()}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00138}{$\sim$\+File\+Watcher()}}.
+
+\mbox{\Hypertarget{class_file_watcher_aec64232fd9f71e4fc0eb5771ba0d8ea4}\label{class_file_watcher_aec64232fd9f71e4fc0eb5771ba0d8ea4}} 
+\index{FileWatcher@{FileWatcher}!overlapped\_@{overlapped\_}}
+\index{overlapped\_@{overlapped\_}!FileWatcher@{FileWatcher}}
+\doxysubsubsection{\texorpdfstring{overlapped\_}{overlapped\_}}
+{\footnotesize\ttfamily OVERLAPPED File\+Watcher\+::overlapped\+\_\+ = \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+非同期\+IO 
+
+
+
+ \mbox{\hyperlink{_file_watcher_8h_source}{File\+Watcher.\+h}} の \mbox{\hyperlink{_file_watcher_8h_source_l00035}{35}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_file_watcher_8cpp_source_l00011}{initialize()}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00154}{start()}}, \mbox{\hyperlink{_file_watcher_8cpp_source_l00068}{update()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_file_watcher_8h}{File\+Watcher.\+h}}\item 
+\mbox{\hyperlink{_file_watcher_8cpp}{File\+Watcher.\+cpp}}\end{DoxyCompactItemize}

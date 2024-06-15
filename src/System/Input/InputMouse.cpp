@@ -19,7 +19,7 @@ constexpr int MOUSE_BUTTONS[MAX_MOUSE_BUTTON] = {
     MOUSE_INPUT_2,    MOUSE_INPUT_3,     MOUSE_INPUT_4,      MOUSE_INPUT_5,
     // これ以降のマウスのボタンの押下状態を取得する場合は、
     // 事前にSetUseDirectInputFlagを実行する必要がある
-    // MOUSE_INPUT_6,    MOUSE_INPUT_7,     MOUSE_INPUT_8
+    //MOUSE_INPUT_6,    MOUSE_INPUT_7,     MOUSE_INPUT_8
 };
 
 int mouseX    = 0;
@@ -56,14 +56,14 @@ void InputMouseInit() {
     std::fill(mouseButtons.begin(), mouseButtons.end(), 0);
 
     // 以下同じ意味です
-    // std::fill_n( mouseButtons, MAX_MOUSE_BUTTON, 0 );
+    //std::fill_n( mouseButtons, MAX_MOUSE_BUTTON, 0 );
 
     /*
-        for( int i = 0; i < MAX_MOUSE_BUTTON; ++i )
-        {
-                mouseButtons[ i ] = 0;
-        }
-        */
+	for( int i = 0; i < MAX_MOUSE_BUTTON; ++i )
+	{
+		mouseButtons[ i ] = 0;
+	}
+	*/
 }
 
 //---------------------------------------------------------------------------

@@ -5,7 +5,6 @@
 #include <System/Component/ComponentModel.h>
 
 namespace LittleQuest {
-BP_OBJECT_IMPL(Fence, "LittleQuest/Fence");
 FencePtr Fence::Create(const float3& pos) {
     auto obj = Scene::CreateObjectPtr<Fence>();
     obj->SetName("Fence");

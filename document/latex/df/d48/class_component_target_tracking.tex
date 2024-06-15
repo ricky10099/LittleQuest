@@ -1,0 +1,1377 @@
+\hypertarget{class_component_target_tracking}{}\doxysection{Component\+Target\+Tracking クラス}
+\label{class_component_target_tracking}\index{ComponentTargetTracking@{ComponentTargetTracking}}
+
+
+{\ttfamily \#include $<$Component\+Target\+Tracking.\+h$>$}
+
+
+
+Component\+Target\+Tracking の継承関係図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{d9/d92/class_component_target_tracking__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Component\+Target\+Tracking 連携図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/d49/class_component_target_tracking__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{公開型}
+\begin{DoxyCompactItemize}
+\item 
+enum struct \mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2c}{Tracking\+Bit}} \+: u32 \{ \mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca59d87a4758a9d35fbaf6b204341bb399}{Initialized}}
+, \mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca0ad455c0d6af3a8d5547cf5dec6fbd0f}{Limit\+AxisY}}
+, \mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca0e75e4edd21b61adc096ff537f335a25}{Limit\+AxisX}}
+, \mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}{Object\+Tracking}}
+ \}
+\begin{DoxyCompactList}\small\item\em トラッキングステータス \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_component_target_tracking_a709311900113184fe144b52f10b0bb40}{BP\+\_\+\+COMPONENT\+\_\+\+TYPE}} (\mbox{\hyperlink{class_component_target_tracking}{Component\+Target\+Tracking}}, \mbox{\hyperlink{class_component}{Component}})
+\item 
+\mbox{\hyperlink{class_component_target_tracking_abfa568aa3bedcea890e380b70b5034db}{Component\+Target\+Tracking}} ()
+\item 
+virtual void \mbox{\hyperlink{class_component_target_tracking_ac054f0910aa806784323f2ecac25ecd3}{Init}} () override
+\begin{DoxyCompactList}\small\item\em 初期化 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_target_tracking_a2870883573b583981c30e1b800684273}{Pre\+Update}} () override
+\begin{DoxyCompactList}\small\item\em 向きの初期化 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_target_tracking_a24a6edfe0c2f88b10967addba4eb0913}{Post\+Update}} () override
+\begin{DoxyCompactList}\small\item\em 向きの更新 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_target_tracking_a9fd550732558f908a8d0961a632d9279}{Draw}} () override
+\begin{DoxyCompactList}\small\item\em 向きのマトリクス表示(デバッグ用) \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_target_tracking_a27a74be16ae1b3e87d7b347311c783f4}{Exit}} () override
+\begin{DoxyCompactList}\small\item\em 終了処理 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_target_tracking_a604635ae0c9a8c4ed47a09dd1e5ceeff}{GUI}} () override
+\begin{DoxyCompactList}\small\item\em GUI処理 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_target_tracking_aae6698280230239197a773e5cf538131}{Set\+Target\+Object\+Ptr}} (Object\+Weak\+Ptr obj)
+\begin{DoxyCompactList}\small\item\em 追跡オブジェクトの設定 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_target_tracking_addcbd3cd335d4db25ddff5ad5aab7e4e}{Set\+Target\+Object\+Ptr}} (const std\+::string\+\_\+view obj\+\_\+name)
+\begin{DoxyCompactList}\small\item\em 追跡オブジェクトの設定 \end{DoxyCompactList}\item 
+Object\+Ptr \mbox{\hyperlink{class_component_target_tracking_a59adf20bc856a293e1b741e0bfbb572c}{Get\+Target\+Object\+Ptr}} ()
+\begin{DoxyCompactList}\small\item\em 追跡オブジェクトの取得 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_target_tracking_ad81e038c85c83342a1a4100dc95219ec}{Set\+Target\+Point}} (float3 target)
+\begin{DoxyCompactList}\small\item\em 追跡ポイントの設定 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_target_tracking_a3e07b9e006288545cef57b9124cc87c5}{Set\+Tracking\+Node}} (const std\+::string \&name)
+\begin{DoxyCompactList}\small\item\em トラッキングを行うノード名 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_target_tracking_af639925b2c85f220c73d391ff6ec36dc}{Set\+Tracking\+Node}} (int tracking\+\_\+node\+\_\+index)
+\begin{DoxyCompactList}\small\item\em トラッキングを行うノード名 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_target_tracking_abb0d359cde66787cc48d8ca13ff320c6}{Set\+Tracking\+Limit\+Left\+Right}} (float2 left\+\_\+right)
+\begin{DoxyCompactList}\small\item\em 左右の角度制限 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_target_tracking_a4116f845b7e81bb1d90f20555a5dfeb3}{Set\+Tracking\+Limit\+Up\+Down}} (float2 up\+\_\+down)
+\begin{DoxyCompactList}\small\item\em 上下の角度制限 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_target_tracking_a5e624bf9c9d54da462d112cf699d3e2e}{Set\+Tracking\+Frame\+Limit}} (float limit)
+\begin{DoxyCompactList}\small\item\em フレーム単位の角度制限 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_target_tracking_aa008ef47e8a1fcec755b6d488da3adbb}{Set\+Front\+Vector}} (float3 vec)
+\begin{DoxyCompactList}\small\item\em 前ベクトルのセット \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_target_tracking_abd56687aa24ccc24bf4b043e07d9f683}{Set\+Tracking\+Status}} (\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2c}{Tracking\+Bit}} bit, bool on)
+\item 
+bool \mbox{\hyperlink{class_component_target_tracking_af6fd9f9df58a2f3ff80d5f177a115a55}{Get\+Tracking\+Status}} (\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2c}{Tracking\+Bit}} bit)
+\item 
+\mbox{\hyperlink{class_component_a5e24adbfdbc3cdb17cf526dc0c767949}{BP\+\_\+\+COMPONENT\+\_\+\+BASE\+\_\+\+TYPE}} (\mbox{\hyperlink{class_component}{Component}})
+\item 
+\mbox{\hyperlink{class_object}{Object}} $\ast$ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{Get\+Owner}} ()
+\begin{DoxyCompactList}\small\item\em オーナー(従属しているオブジェクト)の取得 \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_object}{Object}} $\ast$ \mbox{\hyperlink{class_component_a7f71642489149e36f3235c9404498fd9}{Get\+Owner}} () const
+\begin{DoxyCompactList}\small\item\em オーナー(従属しているオブジェクト)の取得 \end{DoxyCompactList}\item 
+Object\+Ptr \mbox{\hyperlink{class_component_a57cc071d7db3b45f07525ac25acccae0}{Get\+Owner\+Ptr}} ()
+\begin{DoxyCompactList}\small\item\em オーナー(従属しているオブジェクト)の取得(\+Shared\+Ptr) \end{DoxyCompactList}\item 
+const Object\+Ptr \mbox{\hyperlink{class_component_ac9aa8330e8fd2d9da6c4cdee2e410d42}{Get\+Owner\+Ptr}} () const
+\begin{DoxyCompactList}\small\item\em オーナー(従属しているオブジェクト)の取得(\+Shared\+Ptr) \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_a53ec66587fb3229c44cadac8a555001d}{Update}} ()
+\begin{DoxyCompactList}\small\item\em アップデート \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_a0df08e4d0156afa89c52738593d02795}{Late\+Update}} ()
+\begin{DoxyCompactList}\small\item\em 遅いアップデート \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_ae26740687c04eabec95568ec791de39e}{Late\+Draw}} ()
+\begin{DoxyCompactList}\small\item\em 遅い描画 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_a28fe66207070987c13a6eda8cf60f6aa}{Pre\+Draw}} ()
+\begin{DoxyCompactList}\small\item\em 描画前処理 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_a138fde5ce1eea769616bcde87bc19ed1}{Post\+Draw}} ()
+\begin{DoxyCompactList}\small\item\em 描画後処理 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_aeadda8a86ad2f39bcfa98ba77e59d128}{Pre\+Physics}} ()
+\begin{DoxyCompactList}\small\item\em Physics前処理 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_component_a5c4af4001028cc5447d9ee4b7fa1e300}{Init\+Serialize}} ()
+\begin{DoxyCompactList}\small\item\em シリアライズでもどらないユーザー処理関数などを設定 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_a71fb6f1583ca79defeb0ab702b2bd414}{Set\+Priority}} (\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}} timing, \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}} priority)
+\end{DoxyCompactItemize}
+\doxysubsection*{非公開メンバ関数}
+\begin{Indent}\textbf{ Cereal処理}\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_component_target_tracking_ad11372a89d7a3c0f5fd524ef322775b0}{CEREAL\+\_\+\+SAVELOAD}} (arc, ver)
+\begin{DoxyCompactList}\small\item\em セーブ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{非公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_status}{Status}}$<$ \mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2c}{Tracking\+Bit}} $>$ \mbox{\hyperlink{class_component_target_tracking_ae301eddd2d00ef453af05c17d634ab15}{tracking\+\_\+status\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 状態 \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_component_target_tracking_a04a85d5becf61d7fc344f01db82d3492}{tracked\+\_\+node\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 追跡させるノード名 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_component_target_tracking_a1d13e1f46d7b80edf8ded2474735058f}{tracked\+\_\+node\+\_\+index\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em ノードインデックス \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_component_target_tracking_a7cd61fd765a65876162bc39ce2671de7}{front\+\_\+vector\+\_\+}} = \{0, 0, -\/1\}
+\item 
+float3 \mbox{\hyperlink{class_component_target_tracking_a6126e81bfe187ce5d47d9f7bafd9315e}{look\+\_\+at\+\_\+}} = \{0, 0, 0\}
+\begin{DoxyCompactList}\small\item\em 注視点 \end{DoxyCompactList}\item 
+float2 \mbox{\hyperlink{class_component_target_tracking_af608621d78fca99c58eb4aeeb8b511a3}{limit\+\_\+lr\+\_\+}} = \{70, 70\}
+\item 
+float2 \mbox{\hyperlink{class_component_target_tracking_a155d85aa68f4ea5220ed38955cca4f69}{limit\+\_\+ud\+\_\+}} = \{50, 50\}
+\item 
+float \mbox{\hyperlink{class_component_target_tracking_a7513710ccf984b562b72a802fc34f3eb}{limit\+\_\+frame\+\_\+}} = 5.\+0
+\item 
+float2 \mbox{\hyperlink{class_component_target_tracking_a68d83bc6168ecaaf4bdb5b2d854d8e2d}{now\+\_\+rot\+\_\+}} = \{0, 0\}
+\item 
+\mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{class_component_target_tracking_a4eecd0279b127d161a7c039c0e47b8a2}{tracking\+\_\+matrix\+\_\+}} = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()
+\item 
+Object\+Weak\+Ptr \mbox{\hyperlink{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}{tracking\+\_\+object\+\_\+}} \{\}
+\begin{DoxyCompactList}\small\item\em 追跡オブジェクト \end{DoxyCompactList}\item 
+Component\+Model\+Weak\+Ptr \mbox{\hyperlink{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}{owner\+\_\+model\+\_\+}} \{\}
+\end{DoxyCompactItemize}
+\doxysubsection*{コンポーネントオブジェクト登録メソッド}
+\begin{DoxyCompactItemize}
+\item 
+enum struct \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0}{Status\+Bit}} \+: u64 \{ \newline
+\mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0abd9f7c5d6ab4201b138a3e51dab7056f}{Alive}} = 0
+, \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0ac5475a8fae2fa421403e56f7ae0de108}{Change\+Prio}}
+, \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a552f244367a4f2e2ef9e4e5ff2c52ea0}{Show\+GUI}}
+, \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a59d87a4758a9d35fbaf6b204341bb399}{Initialized}}
+, \newline
+\mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0af3413da9e97ed78dada82d1330fde5f1}{No\+Update}}
+, \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0add349546b418e50c23e2d88a3342a68f}{No\+Draw}}
+, \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0ad0b20a6cab952ae657cd06d2c956a7ea}{Disable\+Pause}}
+, \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a7c572e80f65d4b3a29bc954dd03225b6}{Is\+Pause}}
+, \newline
+\mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a6b554ca9a13e5407990948d4c68e8229}{Same\+Type}}
+, \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a268ce394e277db759f5d6ee76c59f0e7}{Exited}}
+, \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a2b59321169346822ab33b2c61dbb9975}{Serialized}}
+ \}
+\item 
+\mbox{\hyperlink{struct_status}{Status}}$<$ \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0}{Status\+Bit}} $>$ \mbox{\hyperlink{class_component_a0b1b64b178040a58771856b4a4711b58}{status\+\_\+}}
+\begin{DoxyCompactList}\small\item\em コンポーネント状態 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \& \mbox{\hyperlink{class_component_a5c741e9eb29b750ac145d42d69ab0393}{Get\+Proc}} (std\+::string proc\+\_\+name, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}} timing)
+\begin{DoxyCompactList}\small\item\em 処理を取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \& \mbox{\hyperlink{class_component_a5ef1f7a19f19498c790ef59fc36dc93c}{Set\+Proc}} (std\+::string proc\+\_\+name, \mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{Proc\+Timing\+Func}} func, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}} timing=Proc\+Timing\+::\+Update, \mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}} prio=Priority\+::\+NORMAL)
+\item 
+void \mbox{\hyperlink{class_component_a3b0f63d6d5732dd87e3ec6418018df68}{Reset\+Proc}} (std\+::string proc\+\_\+name)
+\item 
+void \mbox{\hyperlink{class_component_aac4e8d8c91f13222669b6066f50f6ab9}{Set\+Status}} (\mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0}{Status\+Bit}} b, bool on)
+\begin{DoxyCompactList}\small\item\em ステータスの設定 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_component_a5d0f46197b5848036645711f7b079cb5}{Get\+Status}} (\mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0}{Status\+Bit}} b)
+\begin{DoxyCompactList}\small\item\em ステータスの取得 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_component_aa34830b4165751ec8f9f36fceb4bf374}{Construct}} (Object\+Ptr owner)
+\item 
+Object\+Ptr \mbox{\hyperlink{class_component_aaf224b0e73780a9c3cbad323a0ec59f5}{owner\+\_\+}} = nullptr
+\begin{DoxyCompactList}\small\item\em オーナー \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_proc_timing_8h_ab05faf2a61120596baea980b99128c56}{Slot\+Procs}} \mbox{\hyperlink{class_component_aa075f1283763194b7b15660ceb626196}{proc\+\_\+timings\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 登録処理(update) \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_component_af89da12b7dd26576a4b896a785103e04}{update\+\_\+delta\+\_\+time\+\_\+}} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em update以外で使用できるように \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_component_adedc0f9843fe121b78b9de4bdbbad3a3}{Register\+To\+Object}} (Component\+Ptr cmp, Object\+Ptr obj)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00009}{9}} 行目に定義があります。
+
+
+
+\doxysubsection{列挙型メンバ詳解}
+\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!StatusBit@{StatusBit}}
+\index{StatusBit@{StatusBit}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{StatusBit}{StatusBit}}
+{\footnotesize\ttfamily enum struct \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0}{Component\+::\+Status\+Bit}} \+: \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\hspace{0.3cm}{\ttfamily [strong]}, {\ttfamily [inherited]}}
+
+\begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Alive@{Alive}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!Alive@{Alive}}}\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0abd9f7c5d6ab4201b138a3e51dab7056f}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0abd9f7c5d6ab4201b138a3e51dab7056f}} 
+Alive&生存状態 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ChangePrio@{ChangePrio}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!ChangePrio@{ChangePrio}}}\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0ac5475a8fae2fa421403e56f7ae0de108}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0ac5475a8fae2fa421403e56f7ae0de108}} 
+Change\+Prio&プライオリティの変更中 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ShowGUI@{ShowGUI}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!ShowGUI@{ShowGUI}}}\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a552f244367a4f2e2ef9e4e5ff2c52ea0}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a552f244367a4f2e2ef9e4e5ff2c52ea0}} 
+Show\+GUI&GUI表示中 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Initialized@{Initialized}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!Initialized@{Initialized}}}\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a59d87a4758a9d35fbaf6b204341bb399}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a59d87a4758a9d35fbaf6b204341bb399}} 
+Initialized&初期化終了 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NoUpdate@{NoUpdate}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!NoUpdate@{NoUpdate}}}\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0af3413da9e97ed78dada82d1330fde5f1}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0af3413da9e97ed78dada82d1330fde5f1}} 
+No\+Update&Updateしない \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NoDraw@{NoDraw}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!NoDraw@{NoDraw}}}\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0add349546b418e50c23e2d88a3342a68f}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0add349546b418e50c23e2d88a3342a68f}} 
+No\+Draw&Drawしない \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DisablePause@{DisablePause}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!DisablePause@{DisablePause}}}\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0ad0b20a6cab952ae657cd06d2c956a7ea}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0ad0b20a6cab952ae657cd06d2c956a7ea}} 
+Disable\+Pause&ポーズ不可 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IsPause@{IsPause}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!IsPause@{IsPause}}}\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a7c572e80f65d4b3a29bc954dd03225b6}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a7c572e80f65d4b3a29bc954dd03225b6}} 
+Is\+Pause&ポーズ中 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SameType@{SameType}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!SameType@{SameType}}}\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a6b554ca9a13e5407990948d4c68e8229}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a6b554ca9a13e5407990948d4c68e8229}} 
+Same\+Type&同じタイプのコンポーネント可能 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Exited@{Exited}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!Exited@{Exited}}}\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a268ce394e277db759f5d6ee76c59f0e7}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a268ce394e277db759f5d6ee76c59f0e7}} 
+Exited&正しく終了が呼ばれている \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Serialized@{Serialized}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!Serialized@{Serialized}}}\mbox{\Hypertarget{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a2b59321169346822ab33b2c61dbb9975}\label{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a2b59321169346822ab33b2c61dbb9975}} 
+Serialized&シリアライズ済み. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00181}{181}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2c}\label{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2c}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!TrackingBit@{TrackingBit}}
+\index{TrackingBit@{TrackingBit}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{TrackingBit}{TrackingBit}}
+{\footnotesize\ttfamily enum struct \mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2c}{Component\+Target\+Tracking\+::\+Tracking\+Bit}} \+: \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+トラッキングステータス 
+
+\begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Initialized@{Initialized}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!Initialized@{Initialized}}}\mbox{\Hypertarget{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca59d87a4758a9d35fbaf6b204341bb399}\label{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca59d87a4758a9d35fbaf6b204341bb399}} 
+Initialized&初期化済み \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LimitAxisY@{LimitAxisY}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!LimitAxisY@{LimitAxisY}}}\mbox{\Hypertarget{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca0ad455c0d6af3a8d5547cf5dec6fbd0f}\label{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca0ad455c0d6af3a8d5547cf5dec6fbd0f}} 
+Limit\+AxisY&Y軸制限を有効にする \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LimitAxisX@{LimitAxisX}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!LimitAxisX@{LimitAxisX}}}\mbox{\Hypertarget{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca0e75e4edd21b61adc096ff537f335a25}\label{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca0e75e4edd21b61adc096ff537f335a25}} 
+Limit\+AxisX&X軸制限を有効にする \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ObjectTracking@{ObjectTracking}!ComponentTargetTracking@{ComponentTargetTracking}}\index{ComponentTargetTracking@{ComponentTargetTracking}!ObjectTracking@{ObjectTracking}}}\mbox{\Hypertarget{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}\label{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}} 
+Object\+Tracking&オブジェクトをトラッキングする \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00064}{64}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{class_component_target_tracking_abfa568aa3bedcea890e380b70b5034db}\label{class_component_target_tracking_abfa568aa3bedcea890e380b70b5034db}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!ComponentTargetTracking@{ComponentTargetTracking}}
+\index{ComponentTargetTracking@{ComponentTargetTracking}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{ComponentTargetTracking()}{ComponentTargetTracking()}}
+{\footnotesize\ttfamily Component\+Target\+Tracking\+::\+Component\+Target\+Tracking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00012}{12}} 行目に定義があります。
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_component_a5e24adbfdbc3cdb17cf526dc0c767949}\label{class_component_a5e24adbfdbc3cdb17cf526dc0c767949}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!BP\_COMPONENT\_BASE\_TYPE@{BP\_COMPONENT\_BASE\_TYPE}}
+\index{BP\_COMPONENT\_BASE\_TYPE@{BP\_COMPONENT\_BASE\_TYPE}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{BP\_COMPONENT\_BASE\_TYPE()}{BP\_COMPONENT\_BASE\_TYPE()}}
+{\footnotesize\ttfamily Component\+::\+BP\+\_\+\+COMPONENT\+\_\+\+BASE\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component}{Component}}}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+\mbox{\Hypertarget{class_component_target_tracking_a709311900113184fe144b52f10b0bb40}\label{class_component_target_tracking_a709311900113184fe144b52f10b0bb40}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!BP\_COMPONENT\_TYPE@{BP\_COMPONENT\_TYPE}}
+\index{BP\_COMPONENT\_TYPE@{BP\_COMPONENT\_TYPE}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{BP\_COMPONENT\_TYPE()}{BP\_COMPONENT\_TYPE()}}
+{\footnotesize\ttfamily Component\+Target\+Tracking\+::\+BP\+\_\+\+COMPONENT\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component_target_tracking}{Component\+Target\+Tracking}}}]{,  }\item[{\mbox{\hyperlink{class_component}{Component}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_component_target_tracking_ad11372a89d7a3c0f5fd524ef322775b0}\label{class_component_target_tracking_ad11372a89d7a3c0f5fd524ef322775b0}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!CEREAL\_SAVELOAD@{CEREAL\_SAVELOAD}}
+\index{CEREAL\_SAVELOAD@{CEREAL\_SAVELOAD}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_SAVELOAD()}{CEREAL\_SAVELOAD()}}
+{\footnotesize\ttfamily Component\+Target\+Tracking\+::\+CEREAL\+\_\+\+SAVELOAD (\begin{DoxyParamCaption}\item[{arc}]{,  }\item[{ver}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+セーブ 
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{104}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_target_tracking_8h_source_l00082}{front\+\_\+vector\+\_\+}}, \mbox{\hyperlink{_status_8h_source_l00037}{Status$<$ T, V $>$\+::get()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00087}{limit\+\_\+frame\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00085}{limit\+\_\+lr\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00086}{limit\+\_\+ud\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00084}{look\+\_\+at\+\_\+}}, \mbox{\hyperlink{_component_8h_source_l00202}{Component\+::owner\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00272}{Set\+Tracking\+Node()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00080}{tracked\+\_\+node\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00081}{tracked\+\_\+node\+\_\+index\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00092}{tracking\+\_\+object\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00079}{tracking\+\_\+status\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_aa34830b4165751ec8f9f36fceb4bf374}\label{class_component_aa34830b4165751ec8f9f36fceb4bf374}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!Construct@{Construct}}
+\index{Construct@{Construct}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{Construct()}{Construct()}}
+{\footnotesize\ttfamily void Component\+::\+Construct (\begin{DoxyParamCaption}\item[{Object\+Ptr}]{owner }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00043}{43}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_8h_source_l00202}{Component\+::owner\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a9fd550732558f908a8d0961a632d9279}\label{class_component_target_tracking_a9fd550732558f908a8d0961a632d9279}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!Draw@{Draw}}
+\index{Draw@{Draw}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{Draw()}{Draw()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+向きのマトリクス表示(デバッグ用) 
+
+
+
+\mbox{\hyperlink{class_component_a2848822c5cbb6d82d2962389bfbf52df}{Component}}を再実装しています。
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00171}{171}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_component_target_tracking_a27a74be16ae1b3e87d7b347311c783f4}\label{class_component_target_tracking_a27a74be16ae1b3e87d7b347311c783f4}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!Exit@{Exit}}
+\index{Exit@{Exit}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+終了処理 
+
+カメラ終了処理 
+
+\mbox{\hyperlink{class_component_a8ea8a06b9c0eb1c412e7e246ddfa9a38}{Component}}を再実装しています。
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00176}{176}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}\label{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!GetOwner@{GetOwner}}
+\index{GetOwner@{GetOwner}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{GetOwner()}{GetOwner()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_object}{Object}} $\ast$ Component\+::\+Get\+Owner (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+オーナー(従属しているオブジェクト)の取得 
+
+オーナーの取得
+
+従属しているオブジェクトを取得します \begin{DoxyReturn}{戻り値}
+オーナーオブジェクト 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00014}{14}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_8h_source_l00202}{Component\+::owner\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_collision_model_8cpp_source_l00119}{Component\+Collision\+Model\+::\+Attach\+To\+Model()}}, \mbox{\hyperlink{_component_collision_8cpp_source_l00143}{Component\+Collision\+::\+Attach\+To\+Model()}}, \mbox{\hyperlink{_component_collision_model_8cpp_source_l00204}{Component\+Collision\+Model\+::check\+Movement()}}, \mbox{\hyperlink{_component_effect_8cpp_source_l00293}{Component\+Effect\+::\+Get\+Old\+World\+Matrix()}}, \mbox{\hyperlink{_component_model_8cpp_source_l00531}{Component\+Model\+::\+Get\+Old\+World\+Matrix()}}, \mbox{\hyperlink{_component_camera_8cpp_source_l00133}{Component\+Camera\+::\+Get\+Position()}}, \mbox{\hyperlink{_component_camera_8cpp_source_l00157}{Component\+Camera\+::\+Get\+Target()}}, \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00289}{Component\+Collision\+Capsule\+::\+Get\+World\+Matrix()}}, \mbox{\hyperlink{_component_collision_line_8cpp_source_l00185}{Component\+Collision\+Line\+::\+Get\+World\+Matrix()}}, \mbox{\hyperlink{_component_collision_model_8cpp_source_l00181}{Component\+Collision\+Model\+::\+Get\+World\+Matrix()}}, \mbox{\hyperlink{_component_collision_sphere_8cpp_source_l00141}{Component\+Collision\+Sphere\+::\+Get\+World\+Matrix()}}, \mbox{\hyperlink{_component_effect_8cpp_source_l00286}{Component\+Effect\+::\+Get\+World\+Matrix()}}, \mbox{\hyperlink{_component_model_8cpp_source_l00524}{Component\+Model\+::\+Get\+World\+Matrix()}}, \mbox{\hyperlink{_component_attach_model_8cpp_source_l00124}{Component\+Attach\+Model\+::\+GUI()}}, \mbox{\hyperlink{_component_camera_8cpp_source_l00196}{Component\+Camera\+::\+GUI()}}, \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00186}{Component\+Collision\+Capsule\+::\+GUI()}}, \mbox{\hyperlink{_component_collision_line_8cpp_source_l00071}{Component\+Collision\+Line\+::\+GUI()}}, \mbox{\hyperlink{_component_collision_model_8cpp_source_l00078}{Component\+Collision\+Model\+::\+GUI()}}, \mbox{\hyperlink{_component_collision_sphere_8cpp_source_l00058}{Component\+Collision\+Sphere\+::\+GUI()}}, \mbox{\hyperlink{_component_effect_8cpp_source_l00124}{Component\+Effect\+::\+GUI()}}, \mbox{\hyperlink{_component_filter_fade_8cpp_source_l00127}{Component\+Filter\+Fade\+::\+GUI()}}, \mbox{\hyperlink{_component_model_8cpp_source_l00104}{Component\+Model\+::\+GUI()}}, \mbox{\hyperlink{_component_object_controller_8cpp_source_l00168}{Component\+Object\+Controller\+::\+GUI()}}, \mbox{\hyperlink{_component_spring_arm_8cpp_source_l00119}{Component\+Spring\+Arm\+::\+GUI()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00183}{GUI()}}, \mbox{\hyperlink{_component_transform_8cpp_source_l00125}{Component\+Transform\+::\+GUI()}}, \mbox{\hyperlink{_component_collision_8cpp_source_l00224}{Component\+Collision\+::gui\+Collision\+Data\+Attach()}}, \mbox{\hyperlink{_component_collision_8cpp_source_l00104}{Component\+Collision\+::\+Late\+Update()}}, \mbox{\hyperlink{_component_collision_8cpp_source_l00061}{Component\+Collision\+::\+On\+Hit()}}, \mbox{\hyperlink{_component_attach_model_8cpp_source_l00032}{Component\+Attach\+Model\+::\+Post\+Update()}}, \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00101}{Component\+Collision\+Capsule\+::\+Post\+Update()}}, \mbox{\hyperlink{_component_effect_8cpp_source_l00065}{Component\+Effect\+::\+Post\+Update()}}, \mbox{\hyperlink{_component_spring_arm_8cpp_source_l00042}{Component\+Spring\+Arm\+::\+Post\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Post\+Update()}}, \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00043}{Component\+Collision\+Capsule\+::\+Pre\+Physics()}}, \mbox{\hyperlink{_component_attach_model_8cpp_source_l00081}{Component\+Attach\+Model\+::\+Set\+Attach\+Object()}}, \mbox{\hyperlink{_component_spring_arm_8cpp_source_l00080}{Component\+Spring\+Arm\+::\+Set\+Spring\+Arm\+Object()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00272}{Set\+Tracking\+Node()}}, \mbox{\hyperlink{_component_h_p_8cpp_source_l00007}{Little\+Quest\+::\+Component\+HP\+::\+Update()}}, \mbox{\hyperlink{_component_collision_model_8cpp_source_l00020}{Component\+Collision\+Model\+::\+Update()}}, \mbox{\hyperlink{_component_model_8cpp_source_l00043}{Component\+Model\+::\+Update()}}, \mbox{\hyperlink{_component_object_controller_8cpp_source_l00010}{Component\+Object\+Controller\+::\+Update()}}, \mbox{\hyperlink{_component_spring_arm_8cpp_source_l00026}{Component\+Spring\+Arm\+::\+Update()}} (計43項目).
+
+\mbox{\Hypertarget{class_component_a7f71642489149e36f3235c9404498fd9}\label{class_component_a7f71642489149e36f3235c9404498fd9}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!GetOwner@{GetOwner}}
+\index{GetOwner@{GetOwner}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{GetOwner()}{GetOwner()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{class_object}{Object}} $\ast$ Component\+::\+Get\+Owner (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+オーナー(従属しているオブジェクト)の取得 
+
+オーナーの取得
+
+従属しているオブジェクトを取得します \begin{DoxyReturn}{戻り値}
+オーナーオブジェクト 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00021}{21}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_8h_source_l00202}{Component\+::owner\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_a57cc071d7db3b45f07525ac25acccae0}\label{class_component_a57cc071d7db3b45f07525ac25acccae0}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!GetOwnerPtr@{GetOwnerPtr}}
+\index{GetOwnerPtr@{GetOwnerPtr}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{GetOwnerPtr()}{GetOwnerPtr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Object\+Ptr Component\+::\+Get\+Owner\+Ptr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+オーナー(従属しているオブジェクト)の取得(\+Shared\+Ptr) 
+
+オーナーの取得
+
+従属しているオブジェクトを取得します(shared\+\_\+ptr型) \begin{DoxyReturn}{戻り値}
+オーナーオブジェクト 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00028}{28}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_8h_source_l00202}{Component\+::owner\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_ac9aa8330e8fd2d9da6c4cdee2e410d42}\label{class_component_ac9aa8330e8fd2d9da6c4cdee2e410d42}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!GetOwnerPtr@{GetOwnerPtr}}
+\index{GetOwnerPtr@{GetOwnerPtr}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{GetOwnerPtr()}{GetOwnerPtr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const Object\+Ptr Component\+::\+Get\+Owner\+Ptr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+オーナー(従属しているオブジェクト)の取得(\+Shared\+Ptr) 
+
+オーナーの取得
+
+従属しているオブジェクトを取得します(shared\+\_\+ptr型) \begin{DoxyReturn}{戻り値}
+オーナーオブジェクト 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00035}{35}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_8h_source_l00202}{Component\+::owner\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_a5c741e9eb29b750ac145d42d69ab0393}\label{class_component_a5c741e9eb29b750ac145d42d69ab0393}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!GetProc@{GetProc}}
+\index{GetProc@{GetProc}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{GetProc()}{GetProc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \& Component\+::\+Get\+Proc (\begin{DoxyParamCaption}\item[{std\+::string}]{proc\+\_\+name,  }\item[{\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}}}]{timing }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+処理を取得 
+
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00152}{152}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_8h_source_l00203}{Component\+::proc\+\_\+timings\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_8h_source_l00163}{Component\+::\+Set\+Proc()}}.
+
+\mbox{\Hypertarget{class_component_a5d0f46197b5848036645711f7b079cb5}\label{class_component_a5d0f46197b5848036645711f7b079cb5}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!GetStatus@{GetStatus}}
+\index{GetStatus@{GetStatus}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{GetStatus()}{GetStatus()}}
+{\footnotesize\ttfamily bool Component\+::\+Get\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0}{Status\+Bit}}}]{b }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+ステータスの取得 
+
+
+\begin{DoxyParams}{引数}
+{\em b} & ステータスビット \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & \+: 有効 \\
+\hline
+{\em false} & 無効 \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00140}{140}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_status_8h_source_l00034}{Status$<$ T, V $>$\+::is()}}, \mbox{\hyperlink{_component_8h_source_l00208}{Component\+::status\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_model_8cpp_source_l00076}{Component\+Model\+::\+Draw()}}, \mbox{\hyperlink{_component_effect_8cpp_source_l00065}{Component\+Effect\+::\+Post\+Update()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a59adf20bc856a293e1b741e0bfbb572c}\label{class_component_target_tracking_a59adf20bc856a293e1b741e0bfbb572c}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!GetTargetObjectPtr@{GetTargetObjectPtr}}
+\index{GetTargetObjectPtr@{GetTargetObjectPtr}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{GetTargetObjectPtr()}{GetTargetObjectPtr()}}
+{\footnotesize\ttfamily Object\+Ptr Component\+Target\+Tracking\+::\+Get\+Target\+Object\+Ptr (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+追跡オブジェクトの取得 
+
+
+\begin{DoxyParams}{引数}
+{\em obj} & 追跡しているオブジェクト \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00258}{258}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_target_tracking_8h_source_l00092}{tracking\+\_\+object\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_af6fd9f9df58a2f3ff80d5f177a115a55}\label{class_component_target_tracking_af6fd9f9df58a2f3ff80d5f177a115a55}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!GetTrackingStatus@{GetTrackingStatus}}
+\index{GetTrackingStatus@{GetTrackingStatus}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{GetTrackingStatus()}{GetTrackingStatus()}}
+{\footnotesize\ttfamily bool Component\+Target\+Tracking\+::\+Get\+Tracking\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2c}{Tracking\+Bit}}}]{bit }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00074}{74}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_status_8h_source_l00034}{Status$<$ T, V $>$\+::is()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00079}{tracking\+\_\+status\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a604635ae0c9a8c4ed47a09dd1e5ceeff}\label{class_component_target_tracking_a604635ae0c9a8c4ed47a09dd1e5ceeff}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!GUI@{GUI}}
+\index{GUI@{GUI}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{GUI()}{GUI()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+GUI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+GUI処理 
+
+カメラ\+GUI処理 
+
+\mbox{\hyperlink{class_component_ad89ac27b269d1ded8cdee05384caa070}{Component}}を再実装しています。
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00183}{183}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_target_tracking_8h_source_l00082}{front\+\_\+vector\+\_\+}}, \mbox{\hyperlink{_scene_8cpp_source_l00794}{Scene\+::\+Get\+Current\+Scene()}}, \mbox{\hyperlink{_object_8cpp_source_l00324}{Object\+::\+Get\+Name()}}, \mbox{\hyperlink{_component_8cpp_source_l00014}{Component\+::\+Get\+Owner()}}, \mbox{\hyperlink{_status_8h_source_l00034}{Status$<$ T, V $>$\+::is()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00085}{limit\+\_\+lr\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00086}{limit\+\_\+ud\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00084}{look\+\_\+at\+\_\+}}, \mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}{Object\+Tracking}}, \mbox{\hyperlink{_status_8h_source_l00027}{Status$<$ T, V $>$\+::off()}}, \mbox{\hyperlink{_status_8h_source_l00023}{Status$<$ T, V $>$\+::on()}}, \mbox{\hyperlink{_object_8h_source_l00511}{Object\+::\+Remove\+Component()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00272}{Set\+Tracking\+Node()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00080}{tracked\+\_\+node\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00092}{tracking\+\_\+object\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00079}{tracking\+\_\+status\+\_\+}} (計16項目).
+
+\mbox{\Hypertarget{class_component_target_tracking_ac054f0910aa806784323f2ecac25ecd3}\label{class_component_target_tracking_ac054f0910aa806784323f2ecac25ecd3}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!Init@{Init}}
+\index{Init@{Init}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+初期化 
+
+カメラ初期化 
+
+\mbox{\hyperlink{class_component_ad3141017e589ef48d436bc743e15d122}{Component}}を再実装しています。
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00042}{42}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca59d87a4758a9d35fbaf6b204341bb399}{Initialized}}, \mbox{\hyperlink{_status_8h_source_l00023}{Status$<$ T, V $>$\+::on()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00079}{tracking\+\_\+status\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_a5c4af4001028cc5447d9ee4b7fa1e300}\label{class_component_a5c4af4001028cc5447d9ee4b7fa1e300}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!InitSerialize@{InitSerialize}}
+\index{InitSerialize@{InitSerialize}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{InitSerialize()}{InitSerialize()}}
+{\footnotesize\ttfamily void Component\+::\+Init\+Serialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+シリアライズでもどらないユーザー処理関数などを設定 
+
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00106}{106}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a2b59321169346822ab33b2c61dbb9975}{Component\+::\+Serialized}}, \mbox{\hyperlink{_component_8cpp_source_l00132}{Component\+::\+Set\+Status()}}.
+
+\mbox{\Hypertarget{class_component_ae26740687c04eabec95568ec791de39e}\label{class_component_ae26740687c04eabec95568ec791de39e}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!LateDraw@{LateDraw}}
+\index{LateDraw@{LateDraw}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{LateDraw()}{LateDraw()}}
+{\footnotesize\ttfamily void Component\+::\+Late\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+遅い描画 
+
+描画処理 
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00072}{72}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_component_a0df08e4d0156afa89c52738593d02795}\label{class_component_a0df08e4d0156afa89c52738593d02795}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!LateUpdate@{LateUpdate}}
+\index{LateUpdate@{LateUpdate}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{LateUpdate()}{LateUpdate()}}
+{\footnotesize\ttfamily void Component\+::\+Late\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+遅いアップデート 
+
+更新処理
+
+
+\begin{DoxyParams}{引数}
+{\em delta\+\_\+time} & 1フレームの時間 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{class_component_collision_a8928152ceb11e9abde8783b676ede74a}{Component\+Collision}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00063}{63}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_system_main_8cpp_source_l00099}{Get\+Delta\+Time()}}, \mbox{\hyperlink{_component_8h_source_l00205}{Component\+::update\+\_\+delta\+\_\+time\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_a138fde5ce1eea769616bcde87bc19ed1}\label{class_component_a138fde5ce1eea769616bcde87bc19ed1}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!PostDraw@{PostDraw}}
+\index{PostDraw@{PostDraw}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{PostDraw()}{PostDraw()}}
+{\footnotesize\ttfamily void Component\+::\+Post\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+描画後処理 
+
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00101}{101}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_component_target_tracking_a24a6edfe0c2f88b10967addba4eb0913}\label{class_component_target_tracking_a24a6edfe0c2f88b10967addba4eb0913}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!PostUpdate@{PostUpdate}}
+\index{PostUpdate@{PostUpdate}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{PostUpdate()}{PostUpdate()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Post\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+向きの更新 
+
+
+
+\mbox{\hyperlink{class_component_a4b9b9959595734f40003b725cdcd18b6}{Component}}を再実装しています。
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{57}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}, \mbox{\hyperlink{_helper_lib_8cpp_source_l00246}{Helper\+Lib\+::\+Math\+::\+Create\+Matrix\+By\+Front\+Vector()}}, \mbox{\hyperlink{_component_transform_8cpp_source_l00061}{Decompose\+Matrix\+To\+Components()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00082}{front\+\_\+vector\+\_\+}}, \mbox{\hyperlink{_object_8h_source_l00444}{Object\+::\+Get\+Component()}}, \mbox{\hyperlink{_component_8cpp_source_l00014}{Component\+::\+Get\+Owner()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00087}{limit\+\_\+frame\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00085}{limit\+\_\+lr\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00086}{limit\+\_\+ud\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00084}{look\+\_\+at\+\_\+}}, \mbox{\hyperlink{_vector_math_8h_source_l00073}{mul()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00088}{now\+\_\+rot\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00093}{owner\+\_\+model\+\_\+}}, \mbox{\hyperlink{_precompile_8h_source_l00089}{Rad\+To\+Deg}}, \mbox{\hyperlink{_component_transform_8cpp_source_l00089}{Recompose\+Matrix\+From\+Components()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00081}{tracked\+\_\+node\+\_\+index\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00090}{tracking\+\_\+matrix\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00092}{tracking\+\_\+object\+\_\+}} (計18項目).
+
+\mbox{\Hypertarget{class_component_a28fe66207070987c13a6eda8cf60f6aa}\label{class_component_a28fe66207070987c13a6eda8cf60f6aa}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!PreDraw@{PreDraw}}
+\index{PreDraw@{PreDraw}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{PreDraw()}{PreDraw()}}
+{\footnotesize\ttfamily void Component\+::\+Pre\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+描画前処理 
+
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00098}{98}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_component_aeadda8a86ad2f39bcfa98ba77e59d128}\label{class_component_aeadda8a86ad2f39bcfa98ba77e59d128}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!PrePhysics@{PrePhysics}}
+\index{PrePhysics@{PrePhysics}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{PrePhysics()}{PrePhysics()}}
+{\footnotesize\ttfamily void Component\+::\+Pre\+Physics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+Physics前処理 
+
+
+
+\mbox{\hyperlink{class_component_collision_capsule_a9be8ebaa32a99332bf74c11d91a3166f}{Component\+Collision\+Capsule}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00104}{104}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_component_target_tracking_a2870883573b583981c30e1b800684273}\label{class_component_target_tracking_a2870883573b583981c30e1b800684273}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!PreUpdate@{PreUpdate}}
+\index{PreUpdate@{PreUpdate}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{PreUpdate()}{PreUpdate()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Pre\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+向きの初期化 
+
+更新 
+
+\mbox{\hyperlink{class_component_a7866088cbcf6713821951955eadc85ce}{Component}}を再実装しています。
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00051}{51}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_target_tracking_8h_source_l00093}{owner\+\_\+model\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00081}{tracked\+\_\+node\+\_\+index\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_adedc0f9843fe121b78b9de4bdbbad3a3}\label{class_component_adedc0f9843fe121b78b9de4bdbbad3a3}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!RegisterToObject@{RegisterToObject}}
+\index{RegisterToObject@{RegisterToObject}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{RegisterToObject()}{RegisterToObject()}}
+{\footnotesize\ttfamily void Component\+::\+Register\+To\+Object (\begin{DoxyParamCaption}\item[{Component\+Ptr}]{cmp,  }\item[{Object\+Ptr}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00114}{114}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0a6b554ca9a13e5407990948d4c68e8229}{Component\+::\+Same\+Type}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_8h_source_l00034}{Class\+Component\+Type$<$ T $>$\+::create\+Component\+Ptr()}}.
+
+\mbox{\Hypertarget{class_component_a3b0f63d6d5732dd87e3ec6418018df68}\label{class_component_a3b0f63d6d5732dd87e3ec6418018df68}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!ResetProc@{ResetProc}}
+\index{ResetProc@{ResetProc}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{ResetProc()}{ResetProc()}}
+{\footnotesize\ttfamily void Component\+::\+Reset\+Proc (\begin{DoxyParamCaption}\item[{std\+::string}]{proc\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00170}{170}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_8h_source_l00203}{Component\+::proc\+\_\+timings\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_aa008ef47e8a1fcec755b6d488da3adbb}\label{class_component_target_tracking_aa008ef47e8a1fcec755b6d488da3adbb}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetFrontVector@{SetFrontVector}}
+\index{SetFrontVector@{SetFrontVector}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetFrontVector()}{SetFrontVector()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Set\+Front\+Vector (\begin{DoxyParamCaption}\item[{float3}]{vec }\end{DoxyParamCaption})}
+
+
+
+前ベクトルのセット 
+
+
+\begin{DoxyParams}{引数}
+{\em vec} & 前ベクトル \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00319}{319}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_target_tracking_8h_source_l00082}{front\+\_\+vector\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_a71fb6f1583ca79defeb0ab702b2bd414}\label{class_component_a71fb6f1583ca79defeb0ab702b2bd414}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetPriority@{SetPriority}}
+\index{SetPriority@{SetPriority}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetPriority()}{SetPriority()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Priority (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}}}]{timing,  }\item[{\mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}}]{priority }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00110}{110}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8cpp_source_l00794}{Scene\+::\+Get\+Current\+Scene()}}, \mbox{\hyperlink{_scene_8cpp_source_l00224}{Scene\+::\+Base\+::\+Set\+Priority()}}.
+
+\mbox{\Hypertarget{class_component_a5ef1f7a19f19498c790ef59fc36dc93c}\label{class_component_a5ef1f7a19f19498c790ef59fc36dc93c}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetProc@{SetProc}}
+\index{SetProc@{SetProc}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetProc()}{SetProc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} \& Component\+::\+Set\+Proc (\begin{DoxyParamCaption}\item[{std\+::string}]{proc\+\_\+name,  }\item[{\mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{Proc\+Timing\+Func}}}]{func,  }\item[{\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}}}]{timing = {\ttfamily ProcTiming\+:\+:Update},  }\item[{\mbox{\hyperlink{_priority_8h_a315655b1bb5848c063491adffde62b15}{Priority}}}]{prio = {\ttfamily Priority\+:\+:NORMAL} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00163}{163}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_8h_source_l00152}{Component\+::\+Get\+Proc()}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_filter_fade_8cpp_source_l00043}{Component\+Filter\+Fade\+::\+Init()}}.
+
+\mbox{\Hypertarget{class_component_aac4e8d8c91f13222669b6066f50f6ab9}\label{class_component_aac4e8d8c91f13222669b6066f50f6ab9}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetStatus@{SetStatus}}
+\index{SetStatus@{SetStatus}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetStatus()}{SetStatus()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0}{Status\+Bit}}}]{b,  }\item[{bool}]{on }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+ステータスの設定 
+
+
+\begin{DoxyParams}{引数}
+{\em b} & ステータスビット \\
+\hline
+{\em on} & 有効/無効 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00132}{132}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_status_8h_source_l00027}{Status$<$ T, V $>$\+::off()}}, \mbox{\hyperlink{_status_8h_source_l00023}{Status$<$ T, V $>$\+::on()}}, \mbox{\hyperlink{_component_8h_source_l00208}{Component\+::status\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_collision_8cpp_source_l00038}{Component\+Collision\+::\+Component\+Collision()}}, \mbox{\hyperlink{_component_8cpp_source_l00048}{Component\+::\+Init()}}, \mbox{\hyperlink{_component_8cpp_source_l00106}{Component\+::\+Init\+Serialize()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_addcbd3cd335d4db25ddff5ad5aab7e4e}\label{class_component_target_tracking_addcbd3cd335d4db25ddff5ad5aab7e4e}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetTargetObjectPtr@{SetTargetObjectPtr}}
+\index{SetTargetObjectPtr@{SetTargetObjectPtr}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetTargetObjectPtr()}{SetTargetObjectPtr()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Set\+Target\+Object\+Ptr (\begin{DoxyParamCaption}\item[{const std\+::string\+\_\+view}]{obj\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+追跡オブジェクトの設定 
+
+
+\begin{DoxyParams}{引数}
+{\em obj} & 追跡したいオブジェクトの名前 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00253}{253}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00245}{Set\+Target\+Object\+Ptr()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_aae6698280230239197a773e5cf538131}\label{class_component_target_tracking_aae6698280230239197a773e5cf538131}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetTargetObjectPtr@{SetTargetObjectPtr}}
+\index{SetTargetObjectPtr@{SetTargetObjectPtr}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetTargetObjectPtr()}{SetTargetObjectPtr()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Set\+Target\+Object\+Ptr (\begin{DoxyParamCaption}\item[{Object\+Weak\+Ptr}]{obj }\end{DoxyParamCaption})}
+
+
+
+追跡オブジェクトの設定 
+
+
+\begin{DoxyParams}{引数}
+{\em obj} & 追跡したいオブジェクト \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00245}{245}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}{Object\+Tracking}}, \mbox{\hyperlink{_status_8h_source_l00027}{Status$<$ T, V $>$\+::off()}}, \mbox{\hyperlink{_status_8h_source_l00023}{Status$<$ T, V $>$\+::on()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00092}{tracking\+\_\+object\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00079}{tracking\+\_\+status\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00253}{Set\+Target\+Object\+Ptr()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_ad81e038c85c83342a1a4100dc95219ec}\label{class_component_target_tracking_ad81e038c85c83342a1a4100dc95219ec}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetTargetPoint@{SetTargetPoint}}
+\index{SetTargetPoint@{SetTargetPoint}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetTargetPoint()}{SetTargetPoint()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Set\+Target\+Point (\begin{DoxyParamCaption}\item[{float3}]{target }\end{DoxyParamCaption})}
+
+
+
+追跡ポイントの設定 
+
+
+\begin{DoxyParams}{引数}
+{\em target} & 向きたいポイント \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00266}{266}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_target_tracking_8h_source_l00084}{look\+\_\+at\+\_\+}}, \mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}{Object\+Tracking}}, \mbox{\hyperlink{_status_8h_source_l00027}{Status$<$ T, V $>$\+::off()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00092}{tracking\+\_\+object\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00079}{tracking\+\_\+status\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a5e624bf9c9d54da462d112cf699d3e2e}\label{class_component_target_tracking_a5e624bf9c9d54da462d112cf699d3e2e}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetTrackingFrameLimit@{SetTrackingFrameLimit}}
+\index{SetTrackingFrameLimit@{SetTrackingFrameLimit}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetTrackingFrameLimit()}{SetTrackingFrameLimit()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Set\+Tracking\+Frame\+Limit (\begin{DoxyParamCaption}\item[{float}]{limit }\end{DoxyParamCaption})}
+
+
+
+フレーム単位の角度制限 
+
+
+\begin{DoxyParams}{引数}
+{\em 一度にこのフレーム以上動かないようにする角度} & \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00315}{315}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_target_tracking_8h_source_l00087}{limit\+\_\+frame\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_abb0d359cde66787cc48d8ca13ff320c6}\label{class_component_target_tracking_abb0d359cde66787cc48d8ca13ff320c6}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetTrackingLimitLeftRight@{SetTrackingLimitLeftRight}}
+\index{SetTrackingLimitLeftRight@{SetTrackingLimitLeftRight}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetTrackingLimitLeftRight()}{SetTrackingLimitLeftRight()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Set\+Tracking\+Limit\+Left\+Right (\begin{DoxyParamCaption}\item[{float2}]{left\+\_\+right }\end{DoxyParamCaption})}
+
+
+
+左右の角度制限 
+
+
+\begin{DoxyParams}{引数}
+{\em left\+\_\+right} & 左右の角度 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00298}{298}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_target_tracking_8h_source_l00085}{limit\+\_\+lr\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a4116f845b7e81bb1d90f20555a5dfeb3}\label{class_component_target_tracking_a4116f845b7e81bb1d90f20555a5dfeb3}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetTrackingLimitUpDown@{SetTrackingLimitUpDown}}
+\index{SetTrackingLimitUpDown@{SetTrackingLimitUpDown}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetTrackingLimitUpDown()}{SetTrackingLimitUpDown()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Set\+Tracking\+Limit\+Up\+Down (\begin{DoxyParamCaption}\item[{float2}]{up\+\_\+down }\end{DoxyParamCaption})}
+
+
+
+上下の角度制限 
+
+
+\begin{DoxyParams}{引数}
+{\em left\+\_\+right} & 上下の角度 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00302}{302}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_target_tracking_8h_source_l00086}{limit\+\_\+ud\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a3e07b9e006288545cef57b9124cc87c5}\label{class_component_target_tracking_a3e07b9e006288545cef57b9124cc87c5}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetTrackingNode@{SetTrackingNode}}
+\index{SetTrackingNode@{SetTrackingNode}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetTrackingNode()}{SetTrackingNode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Set\+Tracking\+Node (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption})}
+
+
+
+トラッキングを行うノード名 
+
+
+\begin{DoxyParams}{引数}
+{\em name} & ノード名 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00272}{272}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}, \mbox{\hyperlink{_object_8h_source_l00444}{Object\+::\+Get\+Component()}}, \mbox{\hyperlink{_component_8cpp_source_l00014}{Component\+::\+Get\+Owner()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00093}{owner\+\_\+model\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00080}{tracked\+\_\+node\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00081}{tracked\+\_\+node\+\_\+index\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00090}{tracking\+\_\+matrix\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00183}{GUI()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_af639925b2c85f220c73d391ff6ec36dc}\label{class_component_target_tracking_af639925b2c85f220c73d391ff6ec36dc}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetTrackingNode@{SetTrackingNode}}
+\index{SetTrackingNode@{SetTrackingNode}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetTrackingNode()}{SetTrackingNode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Set\+Tracking\+Node (\begin{DoxyParamCaption}\item[{int}]{tracking\+\_\+node\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+トラッキングを行うノード名 
+
+
+\begin{DoxyParams}{引数}
+{\em name} & ノード名 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_component_target_tracking_8cpp_source}{Component\+Target\+Tracking.\+cpp}} の \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00286}{286}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}, \mbox{\hyperlink{_object_8h_source_l00444}{Object\+::\+Get\+Component()}}, \mbox{\hyperlink{_component_8cpp_source_l00014}{Component\+::\+Get\+Owner()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00093}{owner\+\_\+model\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00081}{tracked\+\_\+node\+\_\+index\+\_\+}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00090}{tracking\+\_\+matrix\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_abd56687aa24ccc24bf4b043e07d9f683}\label{class_component_target_tracking_abd56687aa24ccc24bf4b043e07d9f683}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!SetTrackingStatus@{SetTrackingStatus}}
+\index{SetTrackingStatus@{SetTrackingStatus}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{SetTrackingStatus()}{SetTrackingStatus()}}
+{\footnotesize\ttfamily void Component\+Target\+Tracking\+::\+Set\+Tracking\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2c}{Tracking\+Bit}}}]{bit,  }\item[{bool}]{on }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00071}{71}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_status_8h_source_l00031}{Status$<$ T, V $>$\+::set()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00079}{tracking\+\_\+status\+\_\+}}.
+
+\mbox{\Hypertarget{class_component_a53ec66587fb3229c44cadac8a555001d}\label{class_component_a53ec66587fb3229c44cadac8a555001d}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!Update@{Update}}
+\index{Update@{Update}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Component\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+アップデート 
+
+更新処理
+
+
+\begin{DoxyParams}{引数}
+{\em delta\+\_\+time} & 1フレームの時間 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{class_little_quest_1_1_component_combo_a00e0deb1d7ecdd94cbe038af6849c231}{Little\+Quest\+::\+Component\+Combo}}, \mbox{\hyperlink{class_little_quest_1_1_component_h_p_afaf9b5405d311ce2d8303c2808f4c5da}{Little\+Quest\+::\+Component\+HP}}, \mbox{\hyperlink{class_component_attach_model_a76d8a9d598daf4bc6dc7b81c8363775e}{Component\+Attach\+Model}}, \mbox{\hyperlink{class_component_camera_ab380d0d6c5fdec8b5b988508a69faf78}{Component\+Camera}}, \mbox{\hyperlink{class_component_collision_capsule_a367c1415d18be752d9701ca328f340c0}{Component\+Collision\+Capsule}}, \mbox{\hyperlink{class_component_collision_line_a349197f6a185e3f7fca61e53cf323a31}{Component\+Collision\+Line}}, \mbox{\hyperlink{class_component_collision_model_a887ba66ac69aca8cbb8893ef97c621a1}{Component\+Collision\+Model}}, \mbox{\hyperlink{class_component_collision_sphere_af9074e0bfc8f8554a7e5df1caf39a74c}{Component\+Collision\+Sphere}}, \mbox{\hyperlink{class_component_filter_fade_a347cc1a58c8e157e24a0ad134ca0b039}{Component\+Filter\+Fade}}, \mbox{\hyperlink{class_component_model_a256fc30f93e2abca2f91d6ed22c200c4}{Component\+Model}}, \mbox{\hyperlink{class_component_object_controller_a9d7478597fe68d29f79f44bf088fda6c}{Component\+Object\+Controller}}, \mbox{\hyperlink{class_component_sequencer_aa588bbaf976326565de93e10845940df}{Component\+Sequencer}}, \mbox{\hyperlink{class_component_spring_arm_ab30df6d100ea6f90169cc9d3d00430b1}{Component\+Spring\+Arm}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00056}{56}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_system_main_8cpp_source_l00099}{Get\+Delta\+Time()}}, \mbox{\hyperlink{_component_8h_source_l00205}{Component\+::update\+\_\+delta\+\_\+time\+\_\+}}.
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{class_component_target_tracking_a7cd61fd765a65876162bc39ce2671de7}\label{class_component_target_tracking_a7cd61fd765a65876162bc39ce2671de7}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!front\_vector\_@{front\_vector\_}}
+\index{front\_vector\_@{front\_vector\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{front\_vector\_}{front\_vector\_}}
+{\footnotesize\ttfamily float3 Component\+Target\+Tracking\+::front\+\_\+vector\+\_\+ = \{0, 0, -\/1\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00082}{82}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00183}{GUI()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Post\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00319}{Set\+Front\+Vector()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a7513710ccf984b562b72a802fc34f3eb}\label{class_component_target_tracking_a7513710ccf984b562b72a802fc34f3eb}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!limit\_frame\_@{limit\_frame\_}}
+\index{limit\_frame\_@{limit\_frame\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{limit\_frame\_}{limit\_frame\_}}
+{\footnotesize\ttfamily float Component\+Target\+Tracking\+::limit\+\_\+frame\+\_\+ = 5.\+0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00087}{87}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Post\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00315}{Set\+Tracking\+Frame\+Limit()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_af608621d78fca99c58eb4aeeb8b511a3}\label{class_component_target_tracking_af608621d78fca99c58eb4aeeb8b511a3}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!limit\_lr\_@{limit\_lr\_}}
+\index{limit\_lr\_@{limit\_lr\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{limit\_lr\_}{limit\_lr\_}}
+{\footnotesize\ttfamily float2 Component\+Target\+Tracking\+::limit\+\_\+lr\+\_\+ = \{70, 70\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00085}{85}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00183}{GUI()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Post\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00298}{Set\+Tracking\+Limit\+Left\+Right()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a155d85aa68f4ea5220ed38955cca4f69}\label{class_component_target_tracking_a155d85aa68f4ea5220ed38955cca4f69}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!limit\_ud\_@{limit\_ud\_}}
+\index{limit\_ud\_@{limit\_ud\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{limit\_ud\_}{limit\_ud\_}}
+{\footnotesize\ttfamily float2 Component\+Target\+Tracking\+::limit\+\_\+ud\+\_\+ = \{50, 50\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00086}{86}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00183}{GUI()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Post\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00302}{Set\+Tracking\+Limit\+Up\+Down()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a6126e81bfe187ce5d47d9f7bafd9315e}\label{class_component_target_tracking_a6126e81bfe187ce5d47d9f7bafd9315e}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!look\_at\_@{look\_at\_}}
+\index{look\_at\_@{look\_at\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{look\_at\_}{look\_at\_}}
+{\footnotesize\ttfamily float3 Component\+Target\+Tracking\+::look\+\_\+at\+\_\+ = \{0, 0, 0\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+注視点 
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00084}{84}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00183}{GUI()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Post\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00266}{Set\+Target\+Point()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a68d83bc6168ecaaf4bdb5b2d854d8e2d}\label{class_component_target_tracking_a68d83bc6168ecaaf4bdb5b2d854d8e2d}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!now\_rot\_@{now\_rot\_}}
+\index{now\_rot\_@{now\_rot\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{now\_rot\_}{now\_rot\_}}
+{\footnotesize\ttfamily float2 Component\+Target\+Tracking\+::now\+\_\+rot\+\_\+ = \{0, 0\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00088}{88}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Post\+Update()}}.
+
+\mbox{\Hypertarget{class_component_aaf224b0e73780a9c3cbad323a0ec59f5}\label{class_component_aaf224b0e73780a9c3cbad323a0ec59f5}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!owner\_@{owner\_}}
+\index{owner\_@{owner\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{owner\_}{owner\_}}
+{\footnotesize\ttfamily Object\+Ptr Component\+::owner\+\_\+ = nullptr\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+オーナー 
+
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00202}{202}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_8h_source_l00219}{Component\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_attach_model_8h_source_l00081}{Component\+Attach\+Model\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_camera_8h_source_l00175}{Component\+Camera\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_collision_8h_source_l00492}{Component\+Collision\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_collision_capsule_8h_source_l00152}{Component\+Collision\+Capsule\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_collision_line_8h_source_l00113}{Component\+Collision\+Line\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_collision_model_8h_source_l00108}{Component\+Collision\+Model\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_collision_sphere_8h_source_l00105}{Component\+Collision\+Sphere\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_effect_8h_source_l00174}{Component\+Effect\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_filter_fade_8h_source_l00080}{Component\+Filter\+Fade\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_model_8h_source_l00221}{Component\+Model\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_spring_arm_8h_source_l00127}{Component\+Spring\+Arm\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_transform_8h_source_l00528}{Component\+Transform\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_8cpp_source_l00043}{Component\+::\+Construct()}}, \mbox{\hyperlink{_component_collision_8cpp_source_l00043}{Component\+Collision\+::\+Construct()}}, \mbox{\hyperlink{_component_8cpp_source_l00014}{Component\+::\+Get\+Owner()}}, \mbox{\hyperlink{_component_8cpp_source_l00028}{Component\+::\+Get\+Owner\+Ptr()}} (計18項目).
+
+\mbox{\Hypertarget{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}\label{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!owner\_model\_@{owner\_model\_}}
+\index{owner\_model\_@{owner\_model\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{owner\_model\_}{owner\_model\_}}
+{\footnotesize\ttfamily Component\+Model\+Weak\+Ptr Component\+Target\+Tracking\+::owner\+\_\+model\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00093}{93}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Post\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00051}{Pre\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00272}{Set\+Tracking\+Node()}}.
+
+\mbox{\Hypertarget{class_component_aa075f1283763194b7b15660ceb626196}\label{class_component_aa075f1283763194b7b15660ceb626196}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!proc\_timings\_@{proc\_timings\_}}
+\index{proc\_timings\_@{proc\_timings\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{proc\_timings\_}{proc\_timings\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_proc_timing_8h_ab05faf2a61120596baea980b99128c56}{Slot\+Procs}} Component\+::proc\+\_\+timings\+\_\+\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+登録処理(update) 
+
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00203}{203}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_8h_source_l00219}{Component\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_8cpp_source_l00075}{Component\+::\+Exit()}}, \mbox{\hyperlink{_component_8h_source_l00152}{Component\+::\+Get\+Proc()}}, \mbox{\hyperlink{_component_8h_source_l00170}{Component\+::\+Reset\+Proc()}}, \mbox{\hyperlink{_component_8h_source_l00111}{Component\+::$\sim$\+Component()}}.
+
+\mbox{\Hypertarget{class_component_a0b1b64b178040a58771856b4a4711b58}\label{class_component_a0b1b64b178040a58771856b4a4711b58}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!status\_@{status\_}}
+\index{status\_@{status\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{status\_}{status\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_status}{Status}}$<$\mbox{\hyperlink{class_component_a5db1ecd55985da494e7a2fb1cfb0e9e0}{Status\+Bit}}$>$ Component\+::status\+\_\+\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+コンポーネント状態 
+
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00208}{208}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_8h_source_l00219}{Component\+::\+CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_8cpp_source_l00075}{Component\+::\+Exit()}}, \mbox{\hyperlink{_component_8cpp_source_l00140}{Component\+::\+Get\+Status()}}, \mbox{\hyperlink{_component_8cpp_source_l00132}{Component\+::\+Set\+Status()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a04a85d5becf61d7fc344f01db82d3492}\label{class_component_target_tracking_a04a85d5becf61d7fc344f01db82d3492}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!tracked\_node\_@{tracked\_node\_}}
+\index{tracked\_node\_@{tracked\_node\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{tracked\_node\_}{tracked\_node\_}}
+{\footnotesize\ttfamily std\+::string Component\+Target\+Tracking\+::tracked\+\_\+node\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+追跡させるノード名 
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00080}{80}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00183}{GUI()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00272}{Set\+Tracking\+Node()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a1d13e1f46d7b80edf8ded2474735058f}\label{class_component_target_tracking_a1d13e1f46d7b80edf8ded2474735058f}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!tracked\_node\_index\_@{tracked\_node\_index\_}}
+\index{tracked\_node\_index\_@{tracked\_node\_index\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{tracked\_node\_index\_}{tracked\_node\_index\_}}
+{\footnotesize\ttfamily int Component\+Target\+Tracking\+::tracked\+\_\+node\+\_\+index\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ノードインデックス 
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00081}{81}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Post\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00051}{Pre\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00272}{Set\+Tracking\+Node()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a4eecd0279b127d161a7c039c0e47b8a2}\label{class_component_target_tracking_a4eecd0279b127d161a7c039c0e47b8a2}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!tracking\_matrix\_@{tracking\_matrix\_}}
+\index{tracking\_matrix\_@{tracking\_matrix\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{tracking\_matrix\_}{tracking\_matrix\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} Component\+Target\+Tracking\+::tracking\+\_\+matrix\+\_\+ = \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix\+::identity}}()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00090}{90}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Post\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00272}{Set\+Tracking\+Node()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}\label{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!tracking\_object\_@{tracking\_object\_}}
+\index{tracking\_object\_@{tracking\_object\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{tracking\_object\_}{tracking\_object\_}}
+{\footnotesize\ttfamily Object\+Weak\+Ptr Component\+Target\+Tracking\+::tracking\+\_\+object\+\_\+ \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+追跡オブジェクト 
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00092}{92}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00258}{Get\+Target\+Object\+Ptr()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00183}{GUI()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00057}{Post\+Update()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00245}{Set\+Target\+Object\+Ptr()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00266}{Set\+Target\+Point()}}.
+
+\mbox{\Hypertarget{class_component_target_tracking_ae301eddd2d00ef453af05c17d634ab15}\label{class_component_target_tracking_ae301eddd2d00ef453af05c17d634ab15}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!tracking\_status\_@{tracking\_status\_}}
+\index{tracking\_status\_@{tracking\_status\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{tracking\_status\_}{tracking\_status\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_status}{Status}}$<$\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2c}{Tracking\+Bit}}$>$ Component\+Target\+Tracking\+::tracking\+\_\+status\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+状態 
+
+
+
+ \mbox{\hyperlink{_component_target_tracking_8h_source}{Component\+Target\+Tracking.\+h}} の \mbox{\hyperlink{_component_target_tracking_8h_source_l00079}{79}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_target_tracking_8h_source_l00104}{CEREAL\+\_\+\+SAVELOAD()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00074}{Get\+Tracking\+Status()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00183}{GUI()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00042}{Init()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00245}{Set\+Target\+Object\+Ptr()}}, \mbox{\hyperlink{_component_target_tracking_8cpp_source_l00266}{Set\+Target\+Point()}}, \mbox{\hyperlink{_component_target_tracking_8h_source_l00071}{Set\+Tracking\+Status()}}.
+
+\mbox{\Hypertarget{class_component_af89da12b7dd26576a4b896a785103e04}\label{class_component_af89da12b7dd26576a4b896a785103e04}} 
+\index{ComponentTargetTracking@{ComponentTargetTracking}!update\_delta\_time\_@{update\_delta\_time\_}}
+\index{update\_delta\_time\_@{update\_delta\_time\_}!ComponentTargetTracking@{ComponentTargetTracking}}
+\doxysubsubsection{\texorpdfstring{update\_delta\_time\_}{update\_delta\_time\_}}
+{\footnotesize\ttfamily float Component\+::update\+\_\+delta\+\_\+time\+\_\+ = 0.\+0f\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+update以外で使用できるように 
+
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00205}{205}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_8cpp_source_l00063}{Component\+::\+Late\+Update()}}, \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00043}{Component\+Collision\+Capsule\+::\+Pre\+Physics()}}, \mbox{\hyperlink{_component_8cpp_source_l00056}{Component\+::\+Update()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_component_target_tracking_8h}{Component\+Target\+Tracking.\+h}}\item 
+\mbox{\hyperlink{_component_target_tracking_8cpp}{Component\+Target\+Tracking.\+cpp}}\end{DoxyCompactItemize}

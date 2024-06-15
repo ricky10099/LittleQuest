@@ -3,29 +3,65 @@
 //! @brief  優先設定
 //---------------------------------------------------------------------------
 #pragma once
-#include <System/Signals.h>
-#include <System/Cereal.h>
 
-//---------------------------------------------------------------------------
-//! プライオリティ(優先)
-//---------------------------------------------------------------------------
-enum class Priority {
-    NONE = -1,    //!< なし
+//===========================================================================
+//! 優先度
+//! 上位 priotiry 下位 sub_priority の値を一括して扱うソート可能な値です
+//!
+//! b63                              b0
+//! +----------------+----------------+
+//! |    priority    |  sub_priority  |
+//! +----------------+----------------+
+//! |<---          value_         --->|
+//!
+//===========================================================================
+struct Priority {
+    //! コンストラクタ
+    //! @param  [in]    priority    優先度
+    //! @param  [in]    sub_priority    サブ優先度(任意利用)
+    Priority(u32 priority = 0, u32 sub_priority = 0): priority_(priority), sub_priority_(sub_priority) {}
 
-    HIGHEST    = 100,      //!< 最優先
-    HIGH       = 1000,     //!< 優先高
-    NORMAL     = 10000,    //!< 通常
-    LOW        = 15000,    //!< 優先低
-    LOWEST     = 20000,    //!< 最低優先
-    IFPOSSIBLE = 50000,    //!< 処理時間が無ければ処理しない
+    //! コンストラクタ
+    Priority(const Priority& other) {
+        operator=(other);
+    }
 
-    NUM,
+    //! 代入
+    Priority& operator=(const Priority& other) {
+        value_ = other.value_;
+        return *this;
+    }
+
+    //! 比較
+    bool operator<(const Priority& other) const {
+        return value_ < other.value_;
+    }
+
+    //! 比較
+    bool operator>(const Priority& other) const {
+        return value_ > other.value_;
+    }
+
+    //! 比較
+    bool operator==(const Priority& other) const {
+        return value_ == other.value_;
+    }
+
+    //! 比較
+    bool operator!=(const Priority& other) const {
+        return value_ != other.value_;
+    }
+
+    //! キャスト
+    operator u64() const {
+        return value_;
+    }
+
+    union {
+        struct {
+            u32 sub_priority_;    //!< サブ優先度
+            u32 priority_;        //!< 優先度
+        };
+        u64 value_;
+    };
 };
-
-//! プライオリティ設定
-constexpr int PRIORITY(Priority p) {
-    return static_cast<int>(p);
-}
-
-//! プライオリティ設定(Macro)
-#define OBJ_PRIORITY(p) PRIORITY(Priority::##p)

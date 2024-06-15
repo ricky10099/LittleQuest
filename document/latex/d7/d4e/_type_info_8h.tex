@@ -1,0 +1,264 @@
+\hypertarget{_type_info_8h}{}\doxysection{Type\+Info.\+h ファイル}
+\label{_type_info_8h}\index{TypeInfo.h@{TypeInfo.h}}
+
+
+クラス型情報  
+
+
+被依存関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d79/_type_info_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_type}{Type}}
+\begin{DoxyCompactList}\small\item\em 型情報基底 \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_class_type}{Class\+Type$<$ T $>$}}
+\begin{DoxyCompactList}\small\item\em クラス用型情報 Class\+Type$<$\+T$>$ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{マクロ定義}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_type_info_8h_a6f6adb32f2a8dedfa1e5055a3d504528}{BP\+\_\+\+BASE\+\_\+\+TYPE}}(CLASS)
+\item 
+\#define \mbox{\hyperlink{_type_info_8h_a0f2deaf2ee9db163d859f22abfd8a8fe}{BP\+\_\+\+CLASS\+\_\+\+TYPE}}(CLASS,  PARENT\+\_\+\+CLASS)
+\item 
+\#define \mbox{\hyperlink{_type_info_8h_a9dacd60932c8cdc85cc7a4a156ddad15}{BP\+\_\+\+CLASS\+\_\+\+IMPL}}(CLASS,  DESC\+\_\+\+NAME)
+\item 
+\#define \mbox{\hyperlink{_type_info_8h_a4e99fe85be8cda3c0ae4182ab0dc088d}{BP\+\_\+\+BASE\+\_\+\+IMPL}}(CLASS,  DESC\+\_\+\+NAME)
+\item 
+\#define \mbox{\hyperlink{_type_info_8h_ab699f718334ecf83808eb6ffd03aeefb}{BP\+\_\+\+BASE\+\_\+\+IMPL\+\_\+\+ABSOLUTE}}(CLASS,  DESC\+\_\+\+NAME)
+\end{DoxyCompactItemize}
+\doxysubsection*{関数}
+\begin{Indent}\textbf{ ユーティリティー}\par
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{_type_info_8h_a684d99a63b75caab69ed8d3c59aa77a4}{Create\+Instance\+From\+Name}} (std\+::string\+\_\+view class\+\_\+name, \mbox{\hyperlink{class_type}{Type}} \&base\+\_\+type)
+\begin{DoxyCompactList}\small\item\em 名前を指定して指定基底クラス型でnewする \end{DoxyCompactList}\item 
+{\footnotesize template$<$class T $>$ }\\T $\ast$ \mbox{\hyperlink{_type_info_8h_a120da460d3041c0c47f7ef7296feedfb}{Create\+Instance\+From\+Name}} (std\+::string\+\_\+view class\+\_\+name)
+\item 
+\mbox{\hyperlink{class_type}{Type}} $\ast$ \mbox{\hyperlink{_type_info_8h_ae1d341408d1e8466dc6666a295c34c08}{Get\+Root\+Type\+Info}} ()
+\begin{DoxyCompactList}\small\item\em ルートの型情報を取得する \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{詳解}
+クラス型情報 
+
+
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} に定義があります。
+
+
+
+\doxysubsection{マクロ定義詳解}
+\mbox{\Hypertarget{_type_info_8h_a4e99fe85be8cda3c0ae4182ab0dc088d}\label{_type_info_8h_a4e99fe85be8cda3c0ae4182ab0dc088d}} 
+\index{TypeInfo.h@{TypeInfo.h}!BP\_BASE\_IMPL@{BP\_BASE\_IMPL}}
+\index{BP\_BASE\_IMPL@{BP\_BASE\_IMPL}!TypeInfo.h@{TypeInfo.h}}
+\doxysubsubsection{\texorpdfstring{BP\_BASE\_IMPL}{BP\_BASE\_IMPL}}
+{\footnotesize\ttfamily \#define BP\+\_\+\+BASE\+\_\+\+IMPL(\begin{DoxyParamCaption}\item[{}]{CLASS,  }\item[{}]{DESC\+\_\+\+NAME }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ /*!\ 型情報の実体\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{class_class_type}{ClassType<CLASS>}}\ CLASS::TypeInfo(\#CLASS,\ \textcolor{keyword}{sizeof}(CLASS),\ DESC\_NAME,\ \textcolor{keyword}{nullptr});\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ CLASS::createInstance()\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ CLASS();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+クラス内cpp宣言 基底クラス用 グローバル変数で BP\+\_\+\+BASE\+\_\+\+IMPL(クラス名, u8任意の名前文字列) で宣言します 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{_type_info_8h_a4e99fe85be8cda3c0ae4182ab0dc088d}{BP\_BASE\_IMPL}}(A,\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}基底クラス"{}})}
+
+\end{DoxyCode}
+ 
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00158}{158}} 行目に定義があります。
+
+\mbox{\Hypertarget{_type_info_8h_ab699f718334ecf83808eb6ffd03aeefb}\label{_type_info_8h_ab699f718334ecf83808eb6ffd03aeefb}} 
+\index{TypeInfo.h@{TypeInfo.h}!BP\_BASE\_IMPL\_ABSOLUTE@{BP\_BASE\_IMPL\_ABSOLUTE}}
+\index{BP\_BASE\_IMPL\_ABSOLUTE@{BP\_BASE\_IMPL\_ABSOLUTE}!TypeInfo.h@{TypeInfo.h}}
+\doxysubsubsection{\texorpdfstring{BP\_BASE\_IMPL\_ABSOLUTE}{BP\_BASE\_IMPL\_ABSOLUTE}}
+{\footnotesize\ttfamily \#define BP\+\_\+\+BASE\+\_\+\+IMPL\+\_\+\+ABSOLUTE(\begin{DoxyParamCaption}\item[{}]{CLASS,  }\item[{}]{DESC\+\_\+\+NAME }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ /*!\ 型情報の実体\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{class_class_type}{ClassType<CLASS>}}\ CLASS::TypeInfo(\#CLASS,\ \textcolor{keyword}{sizeof}(CLASS),\ DESC\_NAME,\ \textcolor{keyword}{nullptr});\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ CLASS::createInstance()\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00166}{166}} 行目に定義があります。
+
+\mbox{\Hypertarget{_type_info_8h_a6f6adb32f2a8dedfa1e5055a3d504528}\label{_type_info_8h_a6f6adb32f2a8dedfa1e5055a3d504528}} 
+\index{TypeInfo.h@{TypeInfo.h}!BP\_BASE\_TYPE@{BP\_BASE\_TYPE}}
+\index{BP\_BASE\_TYPE@{BP\_BASE\_TYPE}!TypeInfo.h@{TypeInfo.h}}
+\doxysubsubsection{\texorpdfstring{BP\_BASE\_TYPE}{BP\_BASE\_TYPE}}
+{\footnotesize\ttfamily \#define BP\+\_\+\+BASE\+\_\+\+TYPE(\begin{DoxyParamCaption}\item[{}]{CLASS }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }MyClass\ =\ CLASS;\ \textcolor{comment}{/*!\ 自クラスの型\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\textcolor{comment}{}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ /*!\ 型情報\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_class_type}{ClassType<CLASS>}}\ TypeInfo;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\textcolor{comment}{}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ /*!\ 型情報を取得\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_type}{Type}}*\ typeInfo()\textcolor{keyword}{\ const\ }\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \&TypeInfo;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)\textcolor{comment}{}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ /*!\ インスタンスを作成(クラスをnewしてポインタを返す)*/}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}*\ createInstance();}
+
+\end{DoxyCode}
+クラス内ヘッダー宣言 基底クラス用 publicで BP\+\_\+\+BASE\+\_\+\+TYPE(クラス名) で宣言します
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }A}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{_type_info_8h_a6f6adb32f2a8dedfa1e5055a3d504528}{BP\_BASE\_TYPE}}(A)}
+
+\end{DoxyCode}
+ 
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00108}{108}} 行目に定義があります。
+
+\mbox{\Hypertarget{_type_info_8h_a9dacd60932c8cdc85cc7a4a156ddad15}\label{_type_info_8h_a9dacd60932c8cdc85cc7a4a156ddad15}} 
+\index{TypeInfo.h@{TypeInfo.h}!BP\_CLASS\_IMPL@{BP\_CLASS\_IMPL}}
+\index{BP\_CLASS\_IMPL@{BP\_CLASS\_IMPL}!TypeInfo.h@{TypeInfo.h}}
+\doxysubsubsection{\texorpdfstring{BP\_CLASS\_IMPL}{BP\_CLASS\_IMPL}}
+{\footnotesize\ttfamily \#define BP\+\_\+\+CLASS\+\_\+\+IMPL(\begin{DoxyParamCaption}\item[{}]{CLASS,  }\item[{}]{DESC\+\_\+\+NAME }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ /*!\ 型情報の実体\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{class_class_type}{ClassType<CLASS>}}\ CLASS::TypeInfo(\#CLASS,\ \textcolor{keyword}{sizeof}(CLASS),\ DESC\_NAME,\ \&Super::TypeInfo);\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ CLASS::createInstance()\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ CLASS();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+クラス内cpp宣言 グローバル変数で BP\+\_\+\+CLASS\+\_\+\+IMPL(クラス名, u8任意の名前文字列) で宣言します 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{_type_info_8h_a9dacd60932c8cdc85cc7a4a156ddad15}{BP\_CLASS\_IMPL}}(B,\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}クラスB"{}})}
+
+\end{DoxyCode}
+ 
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00144}{144}} 行目に定義があります。
+
+\mbox{\Hypertarget{_type_info_8h_a0f2deaf2ee9db163d859f22abfd8a8fe}\label{_type_info_8h_a0f2deaf2ee9db163d859f22abfd8a8fe}} 
+\index{TypeInfo.h@{TypeInfo.h}!BP\_CLASS\_TYPE@{BP\_CLASS\_TYPE}}
+\index{BP\_CLASS\_TYPE@{BP\_CLASS\_TYPE}!TypeInfo.h@{TypeInfo.h}}
+\doxysubsubsection{\texorpdfstring{BP\_CLASS\_TYPE}{BP\_CLASS\_TYPE}}
+{\footnotesize\ttfamily \#define BP\+\_\+\+CLASS\+\_\+\+TYPE(\begin{DoxyParamCaption}\item[{}]{CLASS,  }\item[{}]{PARENT\+\_\+\+CLASS }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{using\ }Super\ =\ PARENT\_CLASS;\ \textcolor{comment}{/*\ 親クラスの型\ */}\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ BP\_BASE\_TYPE(CLASS);}
+
+\end{DoxyCode}
+クラス内ヘッダー宣言 publicで BP\+\_\+\+BASE\+\_\+\+TYPE(クラス名, 親クラス名) で宣言します
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{class\ }B\ :\ \textcolor{keyword}{public}\ A}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{_type_info_8h_a0f2deaf2ee9db163d859f22abfd8a8fe}{BP\_CLASS\_TYPE}}(B,\ A);}
+
+\end{DoxyCode}
+ 
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00133}{133}} 行目に定義があります。
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{_type_info_8h_a120da460d3041c0c47f7ef7296feedfb}\label{_type_info_8h_a120da460d3041c0c47f7ef7296feedfb}} 
+\index{TypeInfo.h@{TypeInfo.h}!CreateInstanceFromName@{CreateInstanceFromName}}
+\index{CreateInstanceFromName@{CreateInstanceFromName}!TypeInfo.h@{TypeInfo.h}}
+\doxysubsubsection{\texorpdfstring{CreateInstanceFromName()}{CreateInstanceFromName()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+T $\ast$ Create\+Instance\+From\+Name (\begin{DoxyParamCaption}\item[{std\+::string\+\_\+view}]{class\+\_\+name }\end{DoxyParamCaption})}
+
+名前を指定して指定基底クラス型でnewする (テンプレートヘルパー) 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em class\+\_\+name} & クラス名 \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyTemplParams}{テンプレート引数}
+{\em \mbox{[}in\mbox{]}} & T 基底クラスの型 \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{戻り値}
+newされたクラスオブジェクト(失敗の場合はnullptr) 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00189}{189}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_type_info_8cpp_source_l00107}{Create\+Instance\+From\+Name()}}.
+
+\mbox{\Hypertarget{_type_info_8h_a684d99a63b75caab69ed8d3c59aa77a4}\label{_type_info_8h_a684d99a63b75caab69ed8d3c59aa77a4}} 
+\index{TypeInfo.h@{TypeInfo.h}!CreateInstanceFromName@{CreateInstanceFromName}}
+\index{CreateInstanceFromName@{CreateInstanceFromName}!TypeInfo.h@{TypeInfo.h}}
+\doxysubsubsection{\texorpdfstring{CreateInstanceFromName()}{CreateInstanceFromName()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void $\ast$ Create\+Instance\+From\+Name (\begin{DoxyParamCaption}\item[{std\+::string\+\_\+view}]{class\+\_\+name,  }\item[{\mbox{\hyperlink{class_type}{Type}} \&}]{base\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+名前を指定して指定基底クラス型でnewする 
+
+名前を指定して指定基底クラス型でnewする 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em class\+\_\+name} & クラス名 \\
+\hline
+\mbox{\texttt{ in}}  & {\em base\+\_\+type} & 基底クラスの型情報 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+newされたクラスオブジェクト(失敗の場合はnullptr) 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_type_info_8cpp_source}{Type\+Info.\+cpp}} の \mbox{\hyperlink{_type_info_8cpp_source_l00107}{107}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{class_type_a75ba01b39cd4c94289e979170c2f8811}{Type\+::child()}}, \mbox{\hyperlink{class_type_a7db93c16a2c1b3dea76092dd04a39346}{Type\+::class\+Name()}}, \mbox{\hyperlink{class_type_a253d1351ee2a160ed03841f77afd3303}{Type\+::create\+Instance()}}, \mbox{\hyperlink{class_type_a05cc75ea5926613f558bca1a79b727af}{Type\+::parent()}}, \mbox{\hyperlink{class_type_af254f0541f2afddf997e1db6079c1620}{Type\+::siblings()}}.
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8h_source_l00189}{Create\+Instance\+From\+Name()}}.
+
+\mbox{\Hypertarget{_type_info_8h_ae1d341408d1e8466dc6666a295c34c08}\label{_type_info_8h_ae1d341408d1e8466dc6666a295c34c08}} 
+\index{TypeInfo.h@{TypeInfo.h}!GetRootTypeInfo@{GetRootTypeInfo}}
+\index{GetRootTypeInfo@{GetRootTypeInfo}!TypeInfo.h@{TypeInfo.h}}
+\doxysubsubsection{\texorpdfstring{GetRootTypeInfo()}{GetRootTypeInfo()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_type}{Type}} $\ast$ Get\+Root\+Type\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+ルートの型情報を取得する 
+
+基底クラスはルート型情報の子になっています 
+
+ \mbox{\hyperlink{_type_info_8cpp_source}{Type\+Info.\+cpp}} の \mbox{\hyperlink{_type_info_8cpp_source_l00146}{146}} 行目に定義があります。
+

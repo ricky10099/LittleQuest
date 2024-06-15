@@ -3,13 +3,6 @@
 //! @brief  オブジェクト ベースクラス
 //---------------------------------------------------------------------------
 #include "Object.h"
-#include <System/Component/ComponentCamera.h>
-#include <System/Component/ComponentCollisionCapsule.h>
-#include <System/Component/ComponentCollisionSphere.h>
-#include <System/Component/ComponentFilterFade.h>
-#include <System/Component/ComponentModel.h>
-#include <System/Component/ComponentSpringArm.h>
-#include <System/Component/ComponentTargetTracking.h>
 #include <System/Component/ComponentTransform.h>
 #include <System/Component/ComponentSequencer.h>
 #include <System/Scene.h>
@@ -18,67 +11,38 @@
 #include <string>
 
 namespace {
-std::unordered_map<std::string, u64> obj_names_id;       //!< 存在するオブジェクト名
-std::unordered_map<std::string, u64> obj_names_count;    //!< 存在するオブジェクト名
+using NamesID    = std::unordered_map<std::string, u64>;
+using NamesIDPtr = std::unique_ptr<std::unordered_map<std::string, u64>>;
+
+NamesIDPtr _obj_names_id         = nullptr;    //!< 存在するオブジェクト名
+NamesIDPtr _obj_names_count      = nullptr;    //!< 存在するオブジェクト名
+void*      _obj_names_count_adrs = nullptr;
 
 size_t obj_count = 0;
-
-std::vector<const char*> component_items = {
-    // 追加できるコンポーネントアイテムリスト
-    "Camera",               //< カメラ
-    "Collision Capsule",    //< カプセル(コリジョン)
-    "Collision Sphere",     //< スフィア(コリジョン)
-    "FilterFade",           //< フィルター
-    "Model",                //< モデル
-    "SpringArm",            //< スプリングアーム
-    "TargetTracking",       //< ターゲットトラッキング
-    "Transform",            //< トランスフォーム
-};
-int component_select_index = 0;
 
 constexpr const char* const cap_item = "Component";
 std::string                 sel_item = "";
 
-void CreateComponent(ObjectPtr obj) {
-    switch(component_select_index) {
-    case 0:
-        if(!obj->GetComponent<ComponentCamera>())
-            obj->AddComponent<ComponentCamera>();
-        break;
-    case 1:
-        obj->AddComponent<ComponentCollisionCapsule>();
-        break;
-    case 2:
-        obj->AddComponent<ComponentCollisionSphere>();
-        break;
-    case 3:
-        if(!obj->GetComponent<ComponentFilterFade>())
-            obj->AddComponent<ComponentFilterFade>();
-        break;
-    case 4:
-        if(!obj->GetComponent<ComponentModel>())
-            obj->AddComponent<ComponentModel>();
-        break;
-    case 5:
-        if(!obj->GetComponent<ComponentSpringArm>())
-            obj->AddComponent<ComponentSpringArm>();
-        break;
-    case 6:
-        if(!obj->GetComponent<ComponentTargetTracking>())
-            obj->AddComponent<ComponentTargetTracking>();
-        break;
-    case 7:
-        if(!obj->GetComponent<ComponentTransform>())
-            obj->AddComponent<ComponentTransform>();
-        break;
-    }
-}
 }    // namespace
+
+//! Componentルートの型情報
+ObjTypeInfo ObjTypeInfo::obj_root = ObjTypeInfo("obj_root", 0, nullptr);
+
+ObjTypeInfo::ObjTypeInfo(const char* class_name, size_t class_size, ObjTypeInfo* parent_type, const char* desc_name)
+    : TypeInfo(class_name, class_size, (TypeInfo*)parent_type, desc_name) {}
 
 //! @brief 名前から、ユニークな名前を設定します
 //! @param name つけたい名前
 //! @return 通常はそのまま返しますが、同じ名前がある場合は違う名前に変更されます
 std::string Object::setUniqueName(const std::string& name) {
+    if(!_obj_names_count || !_obj_names_id) {
+        _obj_names_count      = std::make_unique<NamesID>();
+        _obj_names_id         = std::make_unique<NamesID>();
+        _obj_names_count_adrs = &_obj_names_count;
+    }
+    NamesID& obj_names_count = *_obj_names_count;
+    NamesID& obj_names_id    = *_obj_names_id;
+
     // 今の名前のものがほかにいないか?
     auto xname = std::string(GetNameDefault());
     auto xitr  = obj_names_count.find(xname);
@@ -112,21 +76,42 @@ Object::Object() {
 }
 
 Object::~Object() {
-    obj_count--;
-
     std::string str = "~Object:" + std::string(GetName()) + "\n";
     OutputDebugString(str.c_str());
+
+#if 0
+	if( !_obj_names_count || !_obj_names_id )
+	{
+		_obj_names_count = std::make_unique<NamesID>();
+		_obj_names_id	 = std::make_unique<NamesID>();
+	}
+#endif
+    NamesID& obj_names_count = *_obj_names_count;
+    NamesID& obj_names_id    = *_obj_names_id;
+
+    //------------------------------------------------
+    // static object で解放順序による不具合解消
+    if(&_obj_names_count != _obj_names_count_adrs)
+        return;
+
+    if(obj_names_count.size() > UINT_MAX)
+        return;
+    //------------------------------------------------
+
+    obj_count--;
 
     // すでにシーンが終了している?
     if(obj_names_count.empty())
         return;
 
     // この名前のものがほかにいないか?
-    auto name  = std::string(GetNameDefault());
-    u64  count = --obj_names_count[name];
-    if(count == 0) {
-        obj_names_count.erase(name);
-        obj_names_id.erase(name);
+    auto name = std::string(GetNameDefault());
+    if(obj_names_count.find(name) != obj_names_count.end()) {
+        u64 count = --obj_names_count[name];
+        if(count == 0) {
+            obj_names_count.erase(name);
+            obj_names_id.erase(name);
+        }
     }
 }
 
@@ -188,7 +173,7 @@ void Object::GUI() {
         //------------------------------------------
         // 登録されているComponentを列挙する
         //------------------------------------------
-        auto&                                 component      = Component::TypeInfo;
+        auto&                                 component      = Component::Type;
         static ClassComponentType<Component>* component_type = nullptr;
 
         if(ImGui::BeginCombo(cap_item, sel_item.data())) {
@@ -213,14 +198,6 @@ void Object::GUI() {
         }
 #endif
 
-#if 0
-		ImGui::Combo( " ", &component_select_index, component_items.data(), static_cast<int>( component_items.size() ) );
-		ImGui::SameLine();
-		if( ImGui::Button( "AddComponent" ) )
-		{
-			CreateComponent( SharedThis() );
-		}
-#endif
         // 状態制御
         if(ImGui::TreeNode(u8"状態(Status)")) {
             // Updateしない
@@ -283,6 +260,9 @@ void Object::PrePhysics() {
     }
 #endif
 }
+
+//! @brief 物理シミュレーション後処理
+void Object::PostPhysics() {}
 
 //! シリアライズでもどらないユーザー処理関数などを設定
 void Object::InitSerialize() {
@@ -403,8 +383,11 @@ void Object::RemoveAllProcesses() {
 //! @brief   使用している名前リストを消去する
 //! @details ステージ移行などでオブジェクトが消去されたときに呼ぶ
 void Object::ClearObjectNames() {
-    obj_names_id.clear();
-    obj_names_count.clear();
+    if(_obj_names_id)
+        _obj_names_id->clear();
+
+    if(_obj_names_count)
+        _obj_names_count->clear();
 }
 
 //@}
@@ -523,14 +506,12 @@ bool Object::Load(std::string_view filename) {
 //! @code
 //! 　
 //!     auto obj = Scene::CreateObjectPtr<Object>();
-//!     auto item = Scene::CreateObjectPtr<Item>();    //<
-//!     ItemはObjectから継承したクラス
+//!     auto item = Scene::CreateObjectPtr<Item>();    //< ItemはObjectから継承したクラス
 //!
 //!     // 名前を変えることも可能です。(GUI上でも名前が変わります)
 //!     item->SetName("WhiteItem");
 //!
-//!     Scene::CreateObjectPtr<Player>()->SetName("RedPlayer"); //<
-//!     変数に捉えない場合。取得方法にて取得する。
+//!     Scene::CreateObjectPtr<Player>()->SetName("RedPlayer"); //< 変数に捉えない場合。取得方法にて取得する。
 //! 　
 //! @endcode
 //!
@@ -538,11 +519,9 @@ bool Object::Load(std::string_view filename) {
 //! @code
 //! 　
 //!     // 存在しているPlayerのオブジェクトを取得します
-//!     auto player = Scene::GetObjectPtr<Player>();   //<
-//!     Playerクラスが一つしかない場合はこれでOK
+//!     auto player = Scene::GetObjectPtr<Player>();   //< Playerクラスが一つしかない場合はこれでOK
 //!
-//!     auto red_player = Scene::GetObjectPtr<Player>("RedPlayer");   //<
-//!     複数の時は名前も指定しないと別のものが取れる可能性がある
+//!     auto red_player = Scene::GetObjectPtr<Player>("RedPlayer");   //< 複数の時は名前も指定しないと別のものが取れる可能性がある
 //! 　
 //! @endcode
 //!
@@ -551,8 +530,7 @@ bool Object::Load(std::string_view filename) {
 //! 　
 //!     // 存在しているオブジェクトを削除します
 //!
-//!     Scene::ReleaseObject<Player>();   //<
-//!     Playerクラスが一つしかない場合はこれでOK
+//!     Scene::ReleaseObject<Player>();   //< Playerクラスが一つしかない場合はこれでOK
 //! 　
 //!		Scene::ReleaseObject("RedPlayer"); //< 名前指定で削除する場合
 //!
@@ -566,15 +544,12 @@ bool Object::Load(std::string_view filename) {
 //! public:
 //!     bool Init() override
 //!     {
-//!         __super::Init();    //<
-//!         Object内でInitが必要なものを定義します※忘れるとASSERTが出ます
+//!         __super::Init();    //< Object内でInitが必要なものを定義します※忘れるとASSERTが出ます
 //!
 //!         // 処理化処理をかく
 //!
-//!         return true;        //< 初期化が終了したら trueで返してください
-//!         (※現状機能不完全)
-//!                             //
-//!                             falseの場合は、もう一度Init()が呼ばれます。(ロード完了で次へ進むなどの場合を想定しています)
+//!         return true;        //< 初期化が終了したら trueで返してください (※現状機能不完全)
+//!                             //  falseの場合は、もう一度Init()が呼ばれます。(ロード完了で次へ進むなどの場合を想定しています)
 //!     }
 //!
 //!     void Update() override
@@ -589,8 +564,7 @@ bool Object::Load(std::string_view filename) {
 //!
 //!     void Exit() override
 //!     {
-//!         __super::Exit();    //<
-//!         Object内でExitの終了も呼びます　※忘れるとASSERTが出ます
+//!         __super::Exit();    //< Object内でExitの終了も呼びます　※忘れるとASSERTが出ます
 //!         // 終了処理を行う
 //!     }
 //!
@@ -608,5 +582,3 @@ bool Object::Load(std::string_view filename) {
 //! };
 //! 　
 //! @endcode
-
-BP_OBJECT_BASE_IMPL(Object, u8"Objectクラス");

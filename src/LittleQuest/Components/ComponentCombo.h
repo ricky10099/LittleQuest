@@ -13,7 +13,7 @@ namespace LittleQuest {
 //////////////////////////////////////////////////////////////
 class ComponentCombo: public Component {
    public:
-    BP_COMPONENT_TYPE(ComponentCombo, Component);
+    BP_COMPONENT_DECL(ComponentCombo, u8"Comboコンポーネント");
     //------------------------------------------------------------
     //! @brief 更新処理を行います。
     //------------------------------------------------------------

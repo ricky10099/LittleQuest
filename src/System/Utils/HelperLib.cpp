@@ -3,13 +3,9 @@
 //! @brief	ヘルパーライブラリ
 //---------------------------------------------------------------------------
 #include "HelperLib.h"
-#include <VersionHelpers.h>
 
 #include <string>
-#include <sstream>    // std::stringstream
-#include <istream>    // std::getline
 #include <filesystem>
-#include <cassert>
 #include <memory>
 
 namespace HelperLib::File {
@@ -49,8 +45,7 @@ std::string GetOnlyFileNameWithoutExtension(std::string_view filepath) {
 
 //! @brief ディレクトリパスのファイルを列挙します
 //! @param dirname ディレクトリパス
-//! @param ext 列挙する拡張子(ディフォルトは無視) 例:".png" ".jpg/.png/.bmp"
-//! など
+//! @param ext 列挙する拡張子(ディフォルトは無視) 例:".png" ".jpg/.png/.bmp" など
 //! @return ディレクトリに存在するファイル
 Files_t GetFilesFromDirectory(std::string_view dirname, std::string_view ext) {
     Files_t                          vfiles;
@@ -92,7 +87,7 @@ bool CreateFolder(std::string_view path) {
     try {
         return fs::create_directories(path);
     } catch(std::filesystem::filesystem_error e) {
-        assert(!"ホルダアクセスできません");
+        assert(!"フォルダにアクセスできません");
         return false;
     }
 }

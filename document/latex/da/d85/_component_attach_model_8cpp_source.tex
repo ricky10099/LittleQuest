@@ -1,0 +1,184 @@
+\hypertarget{_component_attach_model_8cpp_source}{}\doxysection{Component\+Attach\+Model.\+cpp}
+\label{_component_attach_model_8cpp_source}\index{ComponentAttachModel.cpp@{ComponentAttachModel.cpp}}
+\mbox{\hyperlink{_component_attach_model_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_attach_model_8h}{System/Component/ComponentAttachModel.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_transform_8h}{System/Component/ComponentTransform.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_model_8h}{System/Component/ComponentModel.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_object_8h}{System/Object.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_scene_8h}{System/Scene.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_im_gui_8h}{System/ImGui.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00008}\mbox{\hyperlink{_component_attach_model_8cpp_a6e521493c45ff900d069cf46148ac8d7}{00008}}\ \mbox{\hyperlink{_component_8h_acb5da28bae949d7ba8d6a74c97e1e394}{BP\_COMPONENT\_IMPL}}(\mbox{\hyperlink{class_component_attach_model}{ComponentAttachModel}},\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}AttachModel機能クラス"{}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00010}00010\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00011}00011\ \textcolor{comment}{//!\ 初期化}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00012}00012\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00013}\mbox{\hyperlink{class_component_attach_model_a967ad600ec4a163e391fbcad3424889e}{00013}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_a967ad600ec4a163e391fbcad3424889e}{ComponentAttachModel::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00014}00014\ \ \ \ \ \_\_super::Init();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{comment}{//\ モデルの姿勢が完了した後実行したい}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00017}00017\ \ \ \ \ \mbox{\hyperlink{class_scene_a8ef78e083da6e5e0ff7a78a8453ec2c1}{Scene::GetCurrentScene}}()-\/>\mbox{\hyperlink{class_scene_1_1_base_aa8ab84711532c119c55e0da898a553f5}{SetPriority}}(shared\_from\_this(),\ ProcTiming::PostUpdate,\ Priority::LOWEST);}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00019}00019\ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a35a72144cb28d564c90689b7bf2e1d99}{SetAttachModelStatus}}(\mbox{\hyperlink{class_component_attach_model_a4751d9ce09323c804ea0e008d88d2ce4a59d87a4758a9d35fbaf6b204341bb399}{AttachModelBit::Initialized}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00020}00020\ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00022}00022\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00023}00023\ \textcolor{comment}{//!\ 更新}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00024}00024\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00025}\mbox{\hyperlink{class_component_attach_model_a76d8a9d598daf4bc6dc7b81c8363775e}{00025}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_a76d8a9d598daf4bc6dc7b81c8363775e}{ComponentAttachModel::Update}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00026}00026\ \ \ \ \ \textcolor{comment}{//\ ここでは何もしない}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00027}00027\ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00029}00029\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00030}00030\ \textcolor{comment}{//!\ 更新後の処理で処理を行う}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00031}00031\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00032}\mbox{\hyperlink{class_component_attach_model_a179e4f54bc1962c6575099a8ad683314}{00032}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_a179e4f54bc1962c6575099a8ad683314}{ComponentAttachModel::PostUpdate}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{auto}\ owner\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{keywordflow}{if}(owner)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ target\ =\ \mbox{\hyperlink{class_component_attach_model_a94fee436f293800d68ab1d17fea592a8}{object\_}}.lock();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(target\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{object\_name\_}}.empty())}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ へばりつく(\ object\_nameの\ node\_name場所に引っ付く\ )}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_adb518a51fc1e8a6b0a6741e86979eb24}{SetAttachObject}}(\mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{object\_name\_}},\ \mbox{\hyperlink{class_component_attach_model_a6b5033eaf899f81eb9150b6a249a1d19}{object\_node\_name\_}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ へばりつく位置を自分に設定}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ owner-\/>SetMatrix(\mbox{\hyperlink{class_component_attach_model_a5c145a7a89368f86e648fba0500f38d3}{GetPutOnMatrix}}());}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ もし配置がまだであればワープさせる\ (壁を通り越す必要がある)}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!owner-\/>GetStatus(\mbox{\hyperlink{class_object_aafc37500c8cc28e401e8e6bc07e8c0b5a1fac46cde964edef593810bf9e22e229}{Object::StatusBit::Located}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ owner-\/>UseWarp();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00052}00052\ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00053}00053\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00054}00054\ \textcolor{comment}{//!\ @brief\ スプリングアームの先からのマトリクス取得}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00055}00055\ \textcolor{comment}{//!\ @return\ マトリクス}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00056}\mbox{\hyperlink{class_component_attach_model_a5c145a7a89368f86e648fba0500f38d3}{00056}}\ \textcolor{comment}{}\mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_attach_model_a5c145a7a89368f86e648fba0500f38d3}{ComponentAttachModel::GetPutOnMatrix}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00057}00057\ \ \ \ \ \textcolor{keywordtype}{float}\ \ trans[3]\ =\ \{\mbox{\hyperlink{class_component_attach_model_ab22acca8a6119dce5333e8b628f6044e}{attach\_model\_offset\_}}.x,\ \mbox{\hyperlink{class_component_attach_model_ab22acca8a6119dce5333e8b628f6044e}{attach\_model\_offset\_}}.y,\ \mbox{\hyperlink{class_component_attach_model_ab22acca8a6119dce5333e8b628f6044e}{attach\_model\_offset\_}}.z\};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00058}00058\ \ \ \ \ \textcolor{keywordtype}{float}\ \ rot[3]\ \ \ =\ \{\mbox{\hyperlink{class_component_attach_model_a96e1a933962d10f018a1d079d2bbe01c}{attach\_model\_rotate\_}}.x,\ \mbox{\hyperlink{class_component_attach_model_a96e1a933962d10f018a1d079d2bbe01c}{attach\_model\_rotate\_}}.y,\ \mbox{\hyperlink{class_component_attach_model_a96e1a933962d10f018a1d079d2bbe01c}{attach\_model\_rotate\_}}.z\};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{keywordtype}{float}\ \ scale[3]\ =\ \{1.0f,\ 1.0f,\ 1.0f\};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00060}00060\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ rmat;}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00061}00061\ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_abe00c8be42f2761185a0ccfca2ded81a}{RecomposeMatrixFromComponents}}(trans,\ rot,\ scale,\ rmat.f32\_128\_0);}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00063}00063\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ mat\ =\ \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix::identity}}();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ \textcolor{keywordtype}{object}\ =\ \mbox{\hyperlink{class_component_attach_model_a94fee436f293800d68ab1d17fea592a8}{object\_}}.lock())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ mat\ =\ \textcolor{keywordtype}{object}-\/>GetMatrix();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ target\_model\ =\ object-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ model\_mat\ =\ target\_model-\/>GetMatrix();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ no\ \ \ \ \ \ \ \ =\ target\_model-\/>GetNodeIndex(\mbox{\hyperlink{class_component_attach_model_a6b5033eaf899f81eb9150b6a249a1d19}{object\_node\_name\_}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(no\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mat\ =\ target\_model-\/>GetNodeMatrix(no);}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00075}00075\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00076}00076\ \ \ \ \ mat\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(rmat,\ mat);}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00078}00078\ \ \ \ \ \textcolor{keywordflow}{return}\ mat;}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00079}00079\ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00081}\mbox{\hyperlink{class_component_attach_model_adb518a51fc1e8a6b0a6741e86979eb24}{00081}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_adb518a51fc1e8a6b0a6741e86979eb24}{ComponentAttachModel::SetAttachObject}}(ObjectPtr\ \textcolor{keywordtype}{object},\ std::string\_view\ node)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a94fee436f293800d68ab1d17fea592a8}{object\_}}\ \ \ \ \ \ \ \ \ \ \ =\ object;}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00083}00083\ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{object\_name\_}}\ \ \ \ \ \ =\ \textcolor{keywordtype}{object}-\/>GetName();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00084}00084\ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a6b5033eaf899f81eb9150b6a249a1d19}{object\_node\_name\_}}\ =\ node;}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ model\ =\ object-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_aff86b89906b31b84a5cc6e59a8861c9f}{object\_node\_index\_}}\ =\ model-\/>GetNodeIndex(node);}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00088}00088\ \ \ \ \ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a63616a5fa8e16aa41063d78038248385}{SetStatus}}(\mbox{\hyperlink{class_object_aafc37500c8cc28e401e8e6bc07e8c0b5a1fac46cde964edef593810bf9e22e229}{Object::StatusBit::Located}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00089}00089\ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00091}\mbox{\hyperlink{class_component_attach_model_abc0b120e2a669732b21d59f3b0b952c9}{00091}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_adb518a51fc1e8a6b0a6741e86979eb24}{ComponentAttachModel::SetAttachObject}}(std::string\_view\ name,\ std::string\_view\ node)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ obj\ =\ Scene::GetObjectPtr<Object>(name))}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_adb518a51fc1e8a6b0a6741e86979eb24}{SetAttachObject}}(obj,\ node);}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00094}00094\ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00096}00096\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00097}00097\ \textcolor{comment}{//!\ デバッグ表示}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00098}00098\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00099}\mbox{\hyperlink{class_component_attach_model_aa265cfaea036a378092e26a46f6f83df}{00099}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_aa265cfaea036a378092e26a46f6f83df}{ComponentAttachModel::Draw}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_attach_model_ab0071ceb77095df1488e649fb7d1b2ff}{node\_manipulate\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ \textcolor{keywordtype}{object}\ =\ \mbox{\hyperlink{class_component_attach_model_a94fee436f293800d68ab1d17fea592a8}{object\_}}.lock())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ target\_model\ =\ object-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ no\ =\ target\_model-\/>GetNodeIndex(\mbox{\hyperlink{class_component_attach_model_a6b5033eaf899f81eb9150b6a249a1d19}{object\_node\_name\_}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(no\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ mat\ =\ target\_model-\/>GetNodeMatrix(no);}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_afbbcfe2b9eaee4260761f03a50686852}{ShowGizmo}}((\textcolor{keywordtype}{float}*)mat.f32\_128\_0,\ ImGuizmo::OPERATION::TRANSLATE,\ ImGuizmo::LOCAL,}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keywordtype}{object}.get()));}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00111}00111\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00112}00112\ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00114}00114\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00115}00115\ \textcolor{comment}{//!\ カメラ終了処理}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00116}00116\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00117}\mbox{\hyperlink{class_component_attach_model_a139c7055e265403f097baaeaabd669b0}{00117}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_a139c7055e265403f097baaeaabd669b0}{ComponentAttachModel::Exit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00118}00118\ \ \ \ \ \_\_super::Exit();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00119}00119\ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00121}00121\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00122}00122\ \textcolor{comment}{//!\ GUI処理}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00123}00123\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00124}\mbox{\hyperlink{class_component_attach_model_aa8fc6cd255d6ae7e8a8dd1e665f33342}{00124}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_aa8fc6cd255d6ae7e8a8dd1e665f33342}{ComponentAttachModel::GUI}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00125}00125\ \ \ \ \ assert(\mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}());}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00126}00126\ \ \ \ \ \textcolor{keyword}{auto}\ obj\_name\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a1b62160fcfdc36e88ed94d99334d99c8}{GetName}}();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00128}00128\ \ \ \ \ ImGui::Begin(obj\_name.data());}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00129}00129\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_ab0071ceb77095df1488e649fb7d1b2ff}{node\_manipulate\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::TreeNode(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}AttachModel"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_ab0071ceb77095df1488e649fb7d1b2ff}{node\_manipulate\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}削除"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_ac38b3442d6f6e93af4cdb35a9be08dbc}{RemoveComponent}}(shared\_from\_this());}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*\ bit\ =\ \&\mbox{\hyperlink{class_component_attach_model_a58af47aad5bd781883bc59e4f148ad28}{attach\_model\_status\_}}.\mbox{\hyperlink{struct_status_a5ab7163f7b7a66a3194abef65187eddc}{get}}();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \ val\ =\ *bit;}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::CheckboxFlags(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}初期化済"{}},\ \&val,\ 1\ <<\ (\textcolor{keywordtype}{int})\mbox{\hyperlink{class_component_attach_model_a4751d9ce09323c804ea0e008d88d2ce4a59d87a4758a9d35fbaf6b204341bb399}{AttachModelBit::Initialized}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginCombo(\textcolor{stringliteral}{"{}AttachObject"{}},\ \mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{object\_name\_}}.data()))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ objs\ =\ Scene::GetObjectsPtr<Object>();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ objs.size();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ obj\ \ \ \ \ \ \ \ \ =\ objs[i];}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ object\_name\ =\ std::string(obj-\/>GetName());}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_selected\ =\ (\mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{object\_name\_}}\ ==\ object\_name);}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Selectable(object\_name.data(),\ is\_selected))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{object\_name\_}}\ =\ object\_name;}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_adb518a51fc1e8a6b0a6741e86979eb24}{SetAttachObject}}(\mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{object\_name\_}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndCombo();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{object\_name\_}}.empty())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ obj\ =\ Scene::GetObjectPtr<Object>(\mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{object\_name\_}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ model\ =\ obj-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ items\ =\ model-\/>GetNodesNamePChar();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Combo(\textcolor{stringliteral}{"{}Node"{}},\ \&\mbox{\hyperlink{class_component_attach_model_aff86b89906b31b84a5cc6e59a8861c9f}{object\_node\_index\_}},\ items.data(),\ (\textcolor{keywordtype}{int})items.size()))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 切り替えたとき}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a6b5033eaf899f81eb9150b6a249a1d19}{object\_node\_name\_}}\ =\ items[\mbox{\hyperlink{class_component_attach_model_aff86b89906b31b84a5cc6e59a8861c9f}{object\_node\_index\_}}];}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat3(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}AttachModel回転"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_component_attach_model_a96e1a933962d10f018a1d079d2bbe01c}{attach\_model\_rotate\_}},\ 0.1f,\ -\/10000.0f,\ 10000.0f,\ \textcolor{stringliteral}{"{}\%.1f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat3(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}AttachModelオフセット"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_component_attach_model_ab22acca8a6119dce5333e8b628f6044e}{attach\_model\_offset\_}},\ 0.1f,\ -\/10000.0f,\ 10000.0f,\ \textcolor{stringliteral}{"{}\%.1f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::TreePop();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00176}00176\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00177}00177\ \ \ \ \ ImGui::End();}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8cpp_source_l00178}00178\ \}}
+
+\end{DoxyCode}

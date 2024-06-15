@@ -16,6 +16,8 @@ class Cylinder;          //!< 円筒
 class Triangle;          //!< 三角形
 class StaticCompound;
 class MutableCompound;
+
+constexpr f32 default_density = 1000.0f;    //!< デフォルト質量
 }    // namespace shape
 
 namespace physics {
@@ -57,8 +59,7 @@ class RigidBody {
 
     //! 位置を設定
     //! @param  [in]    position    設定座標
-    //! @param  [in]    is_activate アクティブ化するかどうか
-    //! true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
     virtual void setPosition(const float3& position, bool is_activate = true) = 0;
 
     //! 位置を取得
@@ -69,8 +70,7 @@ class RigidBody {
 
     //! 回転姿勢を設定
     //! @param  [in]    rot         設定角度
-    //! @param  [in]    is_activate アクティブ化するかどうか
-    //! true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
     virtual void setRotation(const quaternion& rot, bool is_activate = true) = 0;
 
     //! 回転姿勢を設定
@@ -85,8 +85,7 @@ class RigidBody {
     //@}
     //-----------------------------------------------------------
     //! @name   速度と角速度
-    //! @details
-    //! LinearVelocityは重心の速度であり、物体の位置と一致しない場合がありますので補正してください。
+    //! @details LinearVelocityは重心の速度であり、物体の位置と一致しない場合がありますので補正してください。
     //-----------------------------------------------------------
     //@{
 
@@ -94,8 +93,7 @@ class RigidBody {
     //! @param  [in]    target_position 目標の位置
     //! @param  [in]    target_rotation 目標の回転姿勢
     //! @param  [in]    delta_time      所要時間
-    //! target_position/target_rotation に delta_time
-    //! 秒で位置するようにボディの速度を設定します。
+    //! target_position/target_rotation に delta_time 秒で位置するようにボディの速度を設定します。
     //! 必要に応じてボディをアクティブにします。
     virtual void moveKinematic(const float3& target_position, const quaternion& target_rotation, f32 delta_time) = 0;
 
@@ -202,8 +200,7 @@ class RigidBody {
 
     //! 動的/静的/キネマティックを切り替え
     //! @param  [in]    motion_type 動作タイプ
-    //! @param  [in]    is_activate アクティブ化するかどうか
-    //! true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
     virtual void setMotionType(physics::MotionType motion_type, bool is_activate = true) = 0;
 
     //! ワールド空間の逆慣性テンソルを取得する
@@ -228,22 +225,32 @@ class RigidBody {
 //  Sphere剛体を作成
 std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Sphere& o,        //
                                                     u16                  layer,    //
-                                                    physics::MotionType  motion_type = physics::MotionType::Dynamic);
+                                                    physics::MotionType  motion_type = physics::MotionType::Dynamic,
+                                                    f32                  density     = shape::default_density);
 
 //  Box剛体を作成
 std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Box&   o,        //
                                                     u16                 layer,    //
-                                                    physics::MotionType motion_type = physics::MotionType::Dynamic);
+                                                    physics::MotionType motion_type = physics::MotionType::Dynamic,
+                                                    f32                 density     = shape::default_density);
 
 //  Cylinder剛体を作成
 std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Cylinder& o,        //
                                                     u16                    layer,    //
-                                                    physics::MotionType    motion_type = physics::MotionType::Dynamic);
+                                                    physics::MotionType    motion_type = physics::MotionType::Dynamic,
+                                                    f32                    density     = shape::default_density);
+
+//  Capsule剛体を作成
+std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Capsule& o,        //
+                                                    u16                   layer,    //
+                                                    physics::MotionType   motion_type = physics::MotionType::Dynamic,
+                                                    f32                   density     = shape::default_density);
 
 //  ConvexHull剛体を作成
 std::shared_ptr<physics::RigidBody> createRigidBody(const shape::ConvexHull& o,        //
                                                     u16                      layer,    //
-                                                    physics::MotionType      motion_type = physics::MotionType::Dynamic);
+                                                    physics::MotionType      motion_type = physics::MotionType::Dynamic,
+                                                    f32                      density     = shape::default_density);
 
 //  Mesh剛体を作成
 //! @note   メッシュ剛体は常に静的で生成されます

@@ -1,0 +1,84 @@
+\hypertarget{_physics_engine_8cpp}{}\doxysection{Physics\+Engine.\+cpp ファイル}
+\label{_physics_engine_8cpp}\index{PhysicsEngine.cpp@{PhysicsEngine.cpp}}
+
+
+物理シミュレーション  
+
+
+{\ttfamily \#include \char`\"{}Physics\+Engine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Physics\+Layer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}System/\+Geometry.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Jolt/\+Jolt.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Register\+Types.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Core/\+Factory.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Core/\+Temp\+Allocator.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Core/\+Job\+System\+Thread\+Pool.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Physics\+Settings.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Physics\+System.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Height\+Field\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Mesh\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Sphere\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Box\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Convex\+Hull\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Capsule\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Tapered\+Capsule\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Cylinder\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Triangle\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Static\+Compound\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Mutable\+Compound\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Shape/\+Scaled\+Shape.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Body/\+Body\+Creation\+Settings.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Body/\+Body\+Activation\+Listener.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Ray\+Cast.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Cast\+Result.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Collision\+Collector\+Impl.\+h$>$}\newline
+{\ttfamily \#include $<$Jolt/\+Physics/\+Collision/\+Broad\+Phase/\+Broad\+Phase\+Query.\+h$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+Physics\+Engine.\+cpp の依存先関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d83/_physics_engine_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classphysics_1_1_engine_impl}{physics\+::\+Engine\+Impl}}
+\begin{DoxyCompactList}\small\item\em 物理シミュレーション(実装部) \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{名前空間}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespace_broad_phase_layers}{Broad\+Phase\+Layers}}
+\item 
+namespace \mbox{\hyperlink{namespacephysics}{physics}}
+\end{DoxyCompactItemize}
+\doxysubsection*{関数}
+\begin{Indent}\textbf{ 生成}\par
+\begin{DoxyCompactItemize}
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_engine}{physics\+::\+Engine}} $>$ \mbox{\hyperlink{namespacephysics_ab56dd186fdba2f715f4f076a4e71486f}{physics\+::create\+Physics}} ()
+\begin{DoxyCompactList}\small\item\em 物理シミュレーションクラスを作成 \end{DoxyCompactList}\item 
+JPH\+::\+Vec3 \mbox{\hyperlink{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}{physics\+::cast\+JPH}} (const float3 \&v)
+\begin{DoxyCompactList}\small\item\em float3 → JPH\+::\+Vec3 へキャスト \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{namespacephysics_ac54bad230e864c4807b2e96d69e9bca1}{physics\+::cast\+JPH}} (const JPH\+::\+Vec3 \&v)
+\begin{DoxyCompactList}\small\item\em JPH\+::\+Vec3 → float3 へキャスト \end{DoxyCompactList}\item 
+JPH\+::\+Quat \mbox{\hyperlink{namespacephysics_a8e71141ecb5eb31efdb06c5a9d82240a}{physics\+::cast\+JPH}} (const quaternion \&q)
+\begin{DoxyCompactList}\small\item\em quaternion → JPH\+::\+Quat へキャスト \end{DoxyCompactList}\item 
+quaternion \mbox{\hyperlink{namespacephysics_afa2dba9557c424fe00d0c87185fd88e1}{physics\+::cast\+JPH}} (const JPH\+::\+Quat \&v)
+\begin{DoxyCompactList}\small\item\em JPH\+::\+Quat → quaternion へキャスト \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{namespacephysics_a44b780f4639ede00d44cb37c9a039c22}{physics\+::cast\+JPH}} (const JPH\+::\+Mat44 \&mat44)
+\begin{DoxyCompactList}\small\item\em JPH\+::\+Mat44 → matrix へキャスト \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{詳解}
+物理シミュレーション 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} に定義があります。
+

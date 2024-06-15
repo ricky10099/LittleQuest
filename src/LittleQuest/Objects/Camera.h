@@ -7,7 +7,7 @@
 namespace LittleQuest {
 USING_PTR(Camera);
 class Camera: public Object {
-    BP_OBJECT_TYPE(Camera, Object);
+    BP_OBJECT_DECL(Camera, u8"LittleQuest/Camera");
 
    public:
     static CameraPtr Create(ObjectPtr obj);

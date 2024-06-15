@@ -2,38 +2,41 @@
 #include <System/Scene.h>
 #include <System/Component/Component.h>
 
+USING_PTR(ComponentObjectController);
+
 class ComponentObjectController: public Component {
    public:
-    BP_COMPONENT_TYPE(ComponentObjectController, Component);
+    BP_COMPONENT_DECL(ComponentObjectController, u8"移動コンポーネント");
 
     void Init() override;
 
     void Update() override;
 
-    void [[deprecated("SetSpeed()は古い形式です。SetMoveSpeed()"
-                      "を使用してください")]] SetSpeed(const float speed) {
+    ComponentObjectControllerPtr
+        [[deprecated("SetSpeed()は古い形式です。SetMoveSpeed()を使用してください")]] SetSpeed(const float speed) {
         return SetMoveSpeed(speed);
     }
-    void SetMoveSpeed(const float speed);
-    void SetRotateSpeed(const float speed);
+    ComponentObjectControllerPtr SetMoveSpeed(const float speed);
 
-    const float [[deprecated("GetSpeed()は古い形式です。GetMoveSpeed()"
-                             "を使用してください")]] GetSpeed() const {
+    ComponentObjectControllerPtr SetRotateSpeed(const float speed);
+
+    ComponentObjectControllerPtr SetKeys(int up, int down, int left, int right);
+
+    ComponentObjectControllerPtr SetCameraKeys(int up, int down, int left, int right);
+
+    ComponentObjectControllerPtr SetTarget(ObjectPtr target);
+
+    ComponentObjectControllerPtr SetCameraRotate(float3 rot);
+
+    ComponentObjectControllerPtr SetUseMouse(bool use = true);
+
+    const float [[deprecated("GetSpeed()は古い形式です。GetMoveSpeed()を使用してください")]] GetSpeed() const {
         return GetMoveSpeed();
     }
     const float GetMoveSpeed() const;
     const float GetRotateSpeed() const;
 
-    void SetKeys(int up, int down, int left, int right);
-
-    void SetCameraKeys(int up, int down, int left, int right);
-
-    void SetTarget(ObjectPtr target);
-
-    void SetCameraRotate(float3 rot);
-
-    void SetUseMouse(bool use = true);
-    bool IsUseMouse();
+    bool IsUseMouse() const;
 
     void GUI() override;
 

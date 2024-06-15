@@ -4,12 +4,8 @@
 //---------------------------------------------------------------------------
 #include "TypeInfo.h"
 
-namespace {
-
 //! ルートの型情報
-Type rootTypeInfo("root", 0, nullptr);
-
-}    // namespace
+TypeInfo TypeInfo::Root = TypeInfo("root", 0, nullptr);
 
 //---------------------------------------------------------------------------
 //! コンストラクタ
@@ -17,12 +13,11 @@ Type rootTypeInfo("root", 0, nullptr);
 // warning C26495: 変数 'Type::child_' が初期化されていません。
 // 警告を抑制。グローバル変数領域の初期値nullptrを利用した起動時処理のため意図的に初期化していません。
 // nullptrで初期化すると起動時初期化順序によっては上書きでツリー構造を破壊してしまいます。
-// WinMain()
-// 実行前に動作するためSTLコンテナなどアロケーションを必要とする実装も不可
+// WinMain() 実行前に動作するためSTLコンテナなどアロケーションを必要とする実装も不可
 #pragma warning(push)
 #pragma warning(disable: 26495)
 
-Type::Type(const char* class_name, size_t class_size, const char* desc_name, Type* parent_type) {
+TypeInfo::TypeInfo(const char* class_name, size_t class_size, TypeInfo* parent_type, const char* desc_name) {
     // パラメーターの保存
     class_name_ = class_name;
     desc_name_  = desc_name;
@@ -32,7 +27,7 @@ Type::Type(const char* class_name, size_t class_size, const char* desc_name, Typ
     // 継承ツリー構造の構築
     //----------------------------------------------------------
     if(parent_type == nullptr && strcmp(class_name, "root")) {    // "root"ではない
-        parent_type = &rootTypeInfo;                              // 基底クラスはルートに接続する
+        parent_type = &TypeInfo::Root;                            // 基底クラスはルートに接続する
     }
 
     parent_ = parent_type;
@@ -51,49 +46,49 @@ Type::Type(const char* class_name, size_t class_size, const char* desc_name, Typ
 //---------------------------------------------------------------------------
 //  インスタンスを作成(クラスをnewしてポインタを返す)
 //---------------------------------------------------------------------------
-void* Type::createInstance() const {
+void* TypeInfo::createInstance() const {
     return nullptr;
 }
 
 //---------------------------------------------------------------------------
 //! クラス名を取得
 //---------------------------------------------------------------------------
-const char* Type::className() const {
+const char* TypeInfo::className() const {
     return class_name_;
 }
 
 //---------------------------------------------------------------------------
 //! 説明文字列を取得
 //---------------------------------------------------------------------------
-const char* Type::descName() const {
+const char* TypeInfo::descName() const {
     return desc_name_;
 }
 
 //---------------------------------------------------------------------------
 //! クラスのサイズを取得
 //---------------------------------------------------------------------------
-size_t Type::classSize() const {
+size_t TypeInfo::classSize() const {
     return class_size_;
 }
 
 //---------------------------------------------------------------------------
 //! 親ノードを取得
 //---------------------------------------------------------------------------
-Type* Type::parent() const {
+const TypeInfo* TypeInfo::parent() const {
     return parent_;
 }
 
 //---------------------------------------------------------------------------
 //! 子ノードを取得
 //---------------------------------------------------------------------------
-Type* Type::child() const {
+const TypeInfo* TypeInfo::child() const {
     return child_;
 }
 
 //---------------------------------------------------------------------------
 //! 次の兄弟ノードを取得
 //---------------------------------------------------------------------------
-Type* Type::siblings() const {
+const TypeInfo* TypeInfo::siblings() const {
     return siblings_;
 }
 
@@ -104,10 +99,10 @@ Type* Type::siblings() const {
 //---------------------------------------------------------------------------
 //! 名前を指定して指定基底クラス型でnewする
 //---------------------------------------------------------------------------
-void* CreateInstanceFromName(std::string_view class_name, Type& base_type) {
-    Type* p                  = base_type.child();
-    bool  returnFromTraverse = false;
-    Type* next               = nullptr;
+void* CreateInstanceFromName(std::string_view class_name, const TypeInfo& base_type) {
+    const TypeInfo* p                  = base_type.child();
+    bool            returnFromTraverse = false;
+    const TypeInfo* next               = nullptr;
 
     //----------------------------------------------------------
     // 継承ツリー構造を探索
@@ -138,11 +133,4 @@ void* CreateInstanceFromName(std::string_view class_name, Type& base_type) {
     }
 
     return nullptr;
-}
-
-//---------------------------------------------------------------------------
-//! ルートの型情報を取得する
-//---------------------------------------------------------------------------
-Type* GetRootTypeInfo() {
-    return &rootTypeInfo;
 }

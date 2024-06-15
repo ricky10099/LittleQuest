@@ -15,7 +15,7 @@ class ComponentHP;
 class ComponentCombo;
 class Player: public Object {
    public:
-    BP_OBJECT_TYPE(Player, Object);
+    BP_OBJECT_DECL(Player, "LittleQuest/Player");
     static PlayerPtr Create(const float3& pos);
 
     bool Init() override;

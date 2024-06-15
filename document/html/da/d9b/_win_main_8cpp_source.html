@@ -1,0 +1,297 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: WinMain.cpp ソースファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">WinMain.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../da/d9b/_win_main_8cpp.html">[詳解]</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="../../d6/d2a/_win_main_8h.html">WinMain.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="../../d2/d70/_game_main_8h.html">Game/GameMain.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d56/_system_main_8h.html">System/SystemMain.h</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d98/_ini_file_lib_8h.html">System/Utils/IniFileLib.h</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="../../da/d9b/_win_main_8cpp.html#ac78343b652d0b3d9a31151e3e9b8b099">    6</a></span><a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#ae5300ed9eabeae78ee9d0c704a9c412a">s32</a> <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#ac78343b652d0b3d9a31151e3e9b8b099">WINDOW_W</a> = 1280;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="../../da/d9b/_win_main_8cpp.html#a3a609d6fe30ef0043ca04a806c67f602">    7</a></span><a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#ae5300ed9eabeae78ee9d0c704a9c412a">s32</a> <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#a3a609d6fe30ef0043ca04a806c67f602">WINDOW_H</a> = 720;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="../../d9/d44/_scene_8cpp.html#a7c0ef154c8430070ee49af1594c53c05">    9</a></span><span class="keywordtype">bool</span> <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#a7c0ef154c8430070ee49af1594c53c05">exit_app</a>   = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="../../d4/de0/_stage01_8cpp.html#a309e3556e3455e4944eeb375619255ba">   10</a></span><span class="keywordtype">int</span>  <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#a309e3556e3455e4944eeb375619255ba">bgm_volume</a> = 30;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="../../d9/d44/_scene_8cpp.html#aa7e56c7d11e442d4bd7e16641027812e">   11</a></span><span class="keywordtype">int</span>  <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#aa7e56c7d11e442d4bd7e16641027812e">se_volume</a>  = 75;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="../../d9/d44/_scene_8cpp.html#a475443325648adefc1e896947b58b3f6">   12</a></span><span class="keywordtype">int</span>  <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#a475443325648adefc1e896947b58b3f6">audio</a>[2]   = {<a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#a309e3556e3455e4944eeb375619255ba">bgm_volume</a>, <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#aa7e56c7d11e442d4bd7e16641027812e">se_volume</a>};</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">//---------------------------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//! アプリケーションエントリーポイント</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"></span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="../../da/d9b/_win_main_8cpp.html#af4ae346c491b4263342768849e661bd7">   17</a></span><span class="keywordtype">int</span> WINAPI  <a class="code hl_function" href="../../da/d9b/_win_main_8cpp.html#af4ae346c491b4263342768849e661bd7">WinMain</a>(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_unused]] HINSTANCE hPrevInstance,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>                    _In_ [[maybe_unused]] LPSTR lpCmdLine, _In_ [[maybe_unused]] <span class="keywordtype">int</span> nShowCmd) {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>     <span class="comment">// 高DPI対応</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    SetOutApplicationLogValidFlag(FALSE);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="comment">// Game.iniから読み込む</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_class" href="../../d4/de4/class_ini_file_lib.html">IniFileLib</a>   ini(<span class="stringliteral">&quot;Game.ini&quot;</span>);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">const</span> <span class="keywordtype">bool</span>   is_fullscreen = ini.<a class="code hl_function" href="../../d4/de4/class_ini_file_lib.html#ab80caf6b43491fc4caee6db725774f98">GetBool</a>(<span class="stringliteral">&quot;System&quot;</span>, <span class="stringliteral">&quot;FullScreen&quot;</span>);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">const</span> float2 screen_size   = ini.<a class="code hl_function" href="../../d4/de4/class_ini_file_lib.html#afdcbc7878c2dc5f8b9a227e3a6b0e571">GetFloat2</a>(<span class="stringliteral">&quot;System&quot;</span>, <span class="stringliteral">&quot;ScreenSize&quot;</span>, {<a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#ac78343b652d0b3d9a31151e3e9b8b099">WINDOW_W</a>, <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#a3a609d6fe30ef0043ca04a806c67f602">WINDOW_H</a>});</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keyword">const</span> <span class="keyword">auto</span>   title_name    = ini.<a class="code hl_function" href="../../d4/de4/class_ini_file_lib.html#ae280acc58c304c9e26549d8ff562ce98">GetString</a>(<span class="stringliteral">&quot;System&quot;</span>, <span class="stringliteral">&quot;Title&quot;</span>, <span class="stringliteral">&quot;BaseProject2022&quot;</span>);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#ac78343b652d0b3d9a31151e3e9b8b099">WINDOW_W</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(screen_size.x);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#a3a609d6fe30ef0043ca04a806c67f602">WINDOW_H</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(screen_size.y);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    SetGraphMode(<a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#ac78343b652d0b3d9a31151e3e9b8b099">WINDOW_W</a>, <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#a3a609d6fe30ef0043ca04a806c67f602">WINDOW_H</a>, 32);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="comment">// ウィンドウモード / フルスクリーンモード 切り替え</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    ChangeWindowMode(!is_fullscreen);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">if</span>(!is_fullscreen) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>         <span class="comment">// 高DPI対応のための自動リサイズを抑制するために手動でウィンドウサイズを指定。</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="comment">// 但し、フルスクリーンモードでこれを実行すると描画範囲が壊れるためウィンドウモード時のみ実行</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        SetWindowSize(<a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#ac78343b652d0b3d9a31151e3e9b8b099">WINDOW_W</a>, <a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#a3a609d6fe30ef0043ca04a806c67f602">WINDOW_H</a>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    }</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>     SetBackgroundColor(0, 0, 0);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    SetMainWindowText(title_name.c_str());</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    SetAlwaysRunFlag(<span class="keyword">true</span>);    <span class="comment">// ウィンドウメッセージを常に実行</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="comment">// DirectX11を使用するようにする(DxLib_Init関数前) - Effekseer対応</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    SetUseDirect3DVersion(DX_DIRECT3D_11);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="comment">// デプスバッファの精度向上</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    SetZBufferBitDepth(32);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// 非同期読み込み処理を行うスレッドの数を設定</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    SetASyncLoadThreadNum(4);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">if</span>(DxLib_Init() == -1) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>         <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    }</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="comment">// Effekseerの初期化</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">if</span>(Effekseer_Init(8000) == -1) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>         DxLib_End();</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>         <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    Effekseer_InitDistortion();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="comment">// Effekseer対応</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    SetChangeScreenModeGraphicsSystemResetFlag(FALSE);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    Effekseer_SetGraphicsDeviceLostCallbackFunctions();</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    SetDrawScreen(DX_SCREEN_BACK);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    SetTransColor(255, 0, 255);</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    srand(GetNowCount() % RAND_MAX);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    SRand(GetNowCount() % RAND_MAX);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    SetCameraNearFar(1.0f, 150.0f);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    SetupCamera_Perspective(<a class="code hl_function" href="../../d2/ddd/_precompile_8h.html#a22fd8663cd7514f60102079802c002e1">D2R</a>(45.0f));</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="comment">// 初期化処理</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    InputKeyInit();</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#a8df9a55c398e46803d151180a326b91a">InputPadInit</a>();</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <a class="code hl_function" href="../../d3/dff/_input_mouse_8cpp.html#ace48617ec6b17a74843e4228715354e6">InputMouseInit</a>();</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_function" href="../../d2/dc7/_render_8cpp.html#a05289d9a01a96e895fd86fddc0eca131">RenderInit</a>();    <span class="comment">// Render初期化</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <a class="code hl_function" href="../../d2/d77/_system_main_8cpp.html#abd5a104987528829c883e7498602008f">SystemInit</a>();</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_function" href="../../d4/de0/_game_main_8cpp.html#a1b643dd1b34debe1cd41d176ea14cd2a">GameInit</a>();</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <a class="code hl_function" href="../../dd/d50/_im_gui_8cpp.html#a165ef9c4a065d113ab06d2c04b7bfaef">ImGuiInit</a>();</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    SetUseZBuffer3D(TRUE);</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    SetWriteZBuffer3D(TRUE);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="comment">// メインループ</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor"> #if defined _DEBUG</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">while</span>(ProcessMessage() == 0 &amp;&amp; CheckHitKey(KEY_INPUT_ESCAPE) == 0 &amp;&amp; !<a class="code hl_function" href="../../dd/d50/_im_gui_8cpp.html#aeb8851a8d6e1b03cdc88b4f3659a04c1">IsProcEnd</a>()) {</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">while</span>(ProcessMessage() == 0 &amp;&amp; !<a class="code hl_function" href="../../dd/d50/_im_gui_8cpp.html#aeb8851a8d6e1b03cdc88b4f3659a04c1">IsProcEnd</a>()) {</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="comment">// 1フレームの開始</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <a class="code hl_function" href="../../d2/d77/_system_main_8cpp.html#a2edee7b81baab0b01f3f4ef07607abd5">SystemBeginFrame</a>();</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="comment">// 描画先の設定と画面クリア</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <a class="code hl_function" href="../../d2/dc7/_render_8cpp.html#a510ef5c7299810ce44233328a48be555">SetRenderTarget</a>(<a class="code hl_function" href="../../d2/dc7/_render_8cpp.html#a8561269468a8e445ad1b992a8e0b8142">GetBackBuffer</a>(), <a class="code hl_function" href="../../d2/dc7/_render_8cpp.html#abbb529e1fb437600e34fc58aa8ab8bcb">GetDepthStencil</a>());</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <a class="code hl_function" href="../../d2/dc7/_render_8cpp.html#acff1ef100ab5993b21a9fe6054b034f6">ClearColor</a>(<a class="code hl_function" href="../../d2/dc7/_render_8cpp.html#a8561269468a8e445ad1b992a8e0b8142">GetBackBuffer</a>(), float4(0.5, 0.5f, 0.5f, 0.0f));</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>        <a class="code hl_function" href="../../d2/dc7/_render_8cpp.html#a84c27947c851ca64ee91741333fd7460">ClearDepth</a>(<a class="code hl_function" href="../../d2/dc7/_render_8cpp.html#abbb529e1fb437600e34fc58aa8ab8bcb">GetDepthStencil</a>(), 1.0f);</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        clsDx();</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        InputKeyUpdate();</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#a0e1498a05f33c8c4e386385e377248a8">InputPadUpdate</a>();</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <a class="code hl_function" href="../../d3/dff/_input_mouse_8cpp.html#a8025d04f4a2b8192de14213af138547e">InputMouseUpdate</a>();</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        <a class="code hl_function" href="../../dd/d50/_im_gui_8cpp.html#a949b3a2597a032eed4ea4bdc910cd150">ImGuiUpdate</a>();</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <a class="code hl_function" href="../../dd/d3f/class_shader_base.html#acdb6390d6f38259727f2403bd04ec93e">ShaderBase::updateFileWatcher</a>();    <span class="comment">// ファイル監視を更新</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="comment">// ---------------</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="comment">// 更新処理</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="comment">// ---------------</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        Effekseer_Sync3DSetting();</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <a class="code hl_function" href="../../d4/de0/_game_main_8cpp.html#a4bf2f2595aacd621c1c4eb35ca56b259">GameUpdate</a>();</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        <a class="code hl_function" href="../../d2/d77/_system_main_8cpp.html#ac207065b1fb62c07f89a12f7b4192a20">SystemUpdate</a>();</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        UpdateEffekseer3D();</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../da/d9b/_win_main_8cpp.html#a7c0ef154c8430070ee49af1594c53c05">exit_app</a>) {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="comment">// ---------------</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="comment">// 描画処理</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="comment">// ---------------</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        <a class="code hl_function" href="../../d4/de0/_game_main_8cpp.html#ad0530de5614f1967ec6a56534219f394">GameDraw</a>();</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <a class="code hl_function" href="../../d2/d77/_system_main_8cpp.html#a30cb1097de07754f11b978bf806c626c">SystemDraw</a>();</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        DrawEffekseer3D();</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <a class="code hl_function" href="../../dd/d50/_im_gui_8cpp.html#afff4119c108e114d440e8dca32b12505">ImGuiDraw</a>();</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="comment">// 1フレームの終了</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <a class="code hl_function" href="../../d2/d77/_system_main_8cpp.html#a9c591c101b020bc9081bfc5c77c393c9">SystemEndFrame</a>();</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="comment">// ---------------</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="comment">// 画面更新</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="comment">// ---------------</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        ScreenFlip();</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    }</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="comment">// 終了処理</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    <a class="code hl_function" href="../../dd/d50/_im_gui_8cpp.html#ad92c3cfc29ee3e289b31334571c59b50">ImGuiExit</a>();</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    InputKeyExit();</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#af1b030bc6d8103403f0bac065f674ed1">InputPadExit</a>();</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <a class="code hl_function" href="../../d3/dff/_input_mouse_8cpp.html#a1bf33577ba700ff85965a4aa93649de3">InputMouseExit</a>();</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <a class="code hl_function" href="../../d4/de0/_game_main_8cpp.html#aa09b8be300e864d5f05b8eb645eee753">GameExit</a>();</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <a class="code hl_function" href="../../d2/d77/_system_main_8cpp.html#adf3d97f9a63eb458fc1406df1a256971">SystemExit</a>();</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <a class="code hl_function" href="../../d2/dc7/_render_8cpp.html#ab9d46ca95b48137614293b5bf24a8a42">RenderExit</a>();    <span class="comment">// Render終了</span></div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    Effkseer_End();</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    WaitHandleASyncLoadAll();    <span class="comment">// 非同期ロード中のハンドルを全て待つ</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    DxLib_End();</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>}</div>
+<div class="ttc" id="a_game_main_8cpp_html_a1b643dd1b34debe1cd41d176ea14cd2a"><div class="ttname"><a href="../../d4/de0/_game_main_8cpp.html#a1b643dd1b34debe1cd41d176ea14cd2a">GameInit</a></div><div class="ttdeci">bool GameInit()</div><div class="ttdoc">初期化</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/de0/_game_main_8cpp_source.html#l00010">GameMain.cpp:10</a></div></div>
+<div class="ttc" id="a_game_main_8cpp_html_a4bf2f2595aacd621c1c4eb35ca56b259"><div class="ttname"><a href="../../d4/de0/_game_main_8cpp.html#a4bf2f2595aacd621c1c4eb35ca56b259">GameUpdate</a></div><div class="ttdeci">void GameUpdate()</div><div class="ttdoc">更新</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/de0/_game_main_8cpp_source.html#l00017">GameMain.cpp:17</a></div></div>
+<div class="ttc" id="a_game_main_8cpp_html_aa09b8be300e864d5f05b8eb645eee753"><div class="ttname"><a href="../../d4/de0/_game_main_8cpp.html#aa09b8be300e864d5f05b8eb645eee753">GameExit</a></div><div class="ttdeci">void GameExit()</div><div class="ttdoc">終了</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/de0/_game_main_8cpp_source.html#l00027">GameMain.cpp:27</a></div></div>
+<div class="ttc" id="a_game_main_8cpp_html_ad0530de5614f1967ec6a56534219f394"><div class="ttname"><a href="../../d4/de0/_game_main_8cpp.html#ad0530de5614f1967ec6a56534219f394">GameDraw</a></div><div class="ttdeci">void GameDraw()</div><div class="ttdoc">描画</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/de0/_game_main_8cpp_source.html#l00022">GameMain.cpp:22</a></div></div>
+<div class="ttc" id="a_game_main_8h_html"><div class="ttname"><a href="../../d2/d70/_game_main_8h.html">GameMain.h</a></div><div class="ttdoc">ゲームメイン</div></div>
+<div class="ttc" id="a_im_gui_8cpp_html_a165ef9c4a065d113ab06d2c04b7bfaef"><div class="ttname"><a href="../../dd/d50/_im_gui_8cpp.html#a165ef9c4a065d113ab06d2c04b7bfaef">ImGuiInit</a></div><div class="ttdeci">void ImGuiInit()</div><div class="ttdoc">初期化</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d50/_im_gui_8cpp_source.html#l00108">ImGui.cpp:108</a></div></div>
+<div class="ttc" id="a_im_gui_8cpp_html_a949b3a2597a032eed4ea4bdc910cd150"><div class="ttname"><a href="../../dd/d50/_im_gui_8cpp.html#a949b3a2597a032eed4ea4bdc910cd150">ImGuiUpdate</a></div><div class="ttdeci">void ImGuiUpdate()</div><div class="ttdoc">更新</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d50/_im_gui_8cpp_source.html#l00227">ImGui.cpp:227</a></div></div>
+<div class="ttc" id="a_im_gui_8cpp_html_ad92c3cfc29ee3e289b31334571c59b50"><div class="ttname"><a href="../../dd/d50/_im_gui_8cpp.html#ad92c3cfc29ee3e289b31334571c59b50">ImGuiExit</a></div><div class="ttdeci">void ImGuiExit()</div><div class="ttdoc">終了</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d50/_im_gui_8cpp_source.html#l00278">ImGui.cpp:278</a></div></div>
+<div class="ttc" id="a_im_gui_8cpp_html_aeb8851a8d6e1b03cdc88b4f3659a04c1"><div class="ttname"><a href="../../dd/d50/_im_gui_8cpp.html#aeb8851a8d6e1b03cdc88b4f3659a04c1">IsProcEnd</a></div><div class="ttdeci">bool IsProcEnd()</div><div class="ttdoc">DestroyWindowから処理終了フラグ</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d50/_im_gui_8cpp_source.html#l00101">ImGui.cpp:101</a></div></div>
+<div class="ttc" id="a_im_gui_8cpp_html_afff4119c108e114d440e8dca32b12505"><div class="ttname"><a href="../../dd/d50/_im_gui_8cpp.html#afff4119c108e114d440e8dca32b12505">ImGuiDraw</a></div><div class="ttdeci">void ImGuiDraw()</div><div class="ttdoc">描画</div><div class="ttdef"><b>Definition:</b> <a href="../../dd/d50/_im_gui_8cpp_source.html#l00256">ImGui.cpp:256</a></div></div>
+<div class="ttc" id="a_ini_file_lib_8h_html"><div class="ttname"><a href="../../d1/d98/_ini_file_lib_8h.html">IniFileLib.h</a></div><div class="ttdoc">Iniファイルライブラリ</div></div>
+<div class="ttc" id="a_input_mouse_8cpp_html_a1bf33577ba700ff85965a4aa93649de3"><div class="ttname"><a href="../../d3/dff/_input_mouse_8cpp.html#a1bf33577ba700ff85965a4aa93649de3">InputMouseExit</a></div><div class="ttdeci">void InputMouseExit()</div><div class="ttdoc">終了</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/dff/_input_mouse_8cpp_source.html#l00106">InputMouse.cpp:106</a></div></div>
+<div class="ttc" id="a_input_mouse_8cpp_html_a8025d04f4a2b8192de14213af138547e"><div class="ttname"><a href="../../d3/dff/_input_mouse_8cpp.html#a8025d04f4a2b8192de14213af138547e">InputMouseUpdate</a></div><div class="ttdeci">void InputMouseUpdate()</div><div class="ttdoc">更新</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/dff/_input_mouse_8cpp_source.html#l00072">InputMouse.cpp:72</a></div></div>
+<div class="ttc" id="a_input_mouse_8cpp_html_ace48617ec6b17a74843e4228715354e6"><div class="ttname"><a href="../../d3/dff/_input_mouse_8cpp.html#ace48617ec6b17a74843e4228715354e6">InputMouseInit</a></div><div class="ttdeci">void InputMouseInit()</div><div class="ttdoc">初期化</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/dff/_input_mouse_8cpp_source.html#l00052">InputMouse.cpp:52</a></div></div>
+<div class="ttc" id="a_input_pad_8cpp_html_a0e1498a05f33c8c4e386385e377248a8"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#a0e1498a05f33c8c4e386385e377248a8">InputPadUpdate</a></div><div class="ttdeci">void InputPadUpdate()</div><div class="ttdoc">更新</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00034">InputPad.cpp:34</a></div></div>
+<div class="ttc" id="a_input_pad_8cpp_html_a8df9a55c398e46803d151180a326b91a"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#a8df9a55c398e46803d151180a326b91a">InputPadInit</a></div><div class="ttdeci">void InputPadInit()</div><div class="ttdoc">初期化</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00023">InputPad.cpp:23</a></div></div>
+<div class="ttc" id="a_input_pad_8cpp_html_af1b030bc6d8103403f0bac065f674ed1"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#af1b030bc6d8103403f0bac065f674ed1">InputPadExit</a></div><div class="ttdeci">void InputPadExit()</div><div class="ttdoc">終了</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00053">InputPad.cpp:53</a></div></div>
+<div class="ttc" id="a_precompile_8h_html_a22fd8663cd7514f60102079802c002e1"><div class="ttname"><a href="../../d2/ddd/_precompile_8h.html#a22fd8663cd7514f60102079802c002e1">D2R</a></div><div class="ttdeci">f32 D2R(f32 degree)</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/ddd/_precompile_8h_source.html#l00102">Precompile.h:102</a></div></div>
+<div class="ttc" id="a_render_8cpp_html_a05289d9a01a96e895fd86fddc0eca131"><div class="ttname"><a href="../../d2/dc7/_render_8cpp.html#a05289d9a01a96e895fd86fddc0eca131">RenderInit</a></div><div class="ttdeci">bool RenderInit()</div><div class="ttdoc">Render初期化</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dc7/_render_8cpp_source.html#l00022">Render.cpp:22</a></div></div>
+<div class="ttc" id="a_render_8cpp_html_a510ef5c7299810ce44233328a48be555"><div class="ttname"><a href="../../d2/dc7/_render_8cpp.html#a510ef5c7299810ce44233328a48be555">SetRenderTarget</a></div><div class="ttdeci">void SetRenderTarget(const TargetDesc &amp;desc)</div><div class="ttdoc">RenderTargetを一括設定 (TargetDesc指定)</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dc7/_render_8cpp_source.html#l00132">Render.cpp:132</a></div></div>
+<div class="ttc" id="a_render_8cpp_html_a84c27947c851ca64ee91741333fd7460"><div class="ttname"><a href="../../d2/dc7/_render_8cpp.html#a84c27947c851ca64ee91741333fd7460">ClearDepth</a></div><div class="ttdeci">void ClearDepth(f32 depth_value)</div><div class="ttdoc">現在のデプスバッファをクリア</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dc7/_render_8cpp_source.html#l00078">Render.cpp:78</a></div></div>
+<div class="ttc" id="a_render_8cpp_html_a8561269468a8e445ad1b992a8e0b8142"><div class="ttname"><a href="../../d2/dc7/_render_8cpp.html#a8561269468a8e445ad1b992a8e0b8142">GetBackBuffer</a></div><div class="ttdeci">Texture * GetBackBuffer()</div><div class="ttdoc">デフォルトのバックバッファを取得 (R8G8B8A8_UNORM)</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dc7/_render_8cpp_source.html#l00194">Render.cpp:194</a></div></div>
+<div class="ttc" id="a_render_8cpp_html_ab9d46ca95b48137614293b5bf24a8a42"><div class="ttname"><a href="../../d2/dc7/_render_8cpp.html#ab9d46ca95b48137614293b5bf24a8a42">RenderExit</a></div><div class="ttdeci">void RenderExit()</div><div class="ttdoc">Render終了</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dc7/_render_8cpp_source.html#l00043">Render.cpp:43</a></div></div>
+<div class="ttc" id="a_render_8cpp_html_abbb529e1fb437600e34fc58aa8ab8bcb"><div class="ttname"><a href="../../d2/dc7/_render_8cpp.html#abbb529e1fb437600e34fc58aa8ab8bcb">GetDepthStencil</a></div><div class="ttdeci">Texture * GetDepthStencil()</div><div class="ttdoc">デフォルトのデプスバッファを取得 (D32_FLOAT)</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dc7/_render_8cpp_source.html#l00201">Render.cpp:201</a></div></div>
+<div class="ttc" id="a_render_8cpp_html_acff1ef100ab5993b21a9fe6054b034f6"><div class="ttname"><a href="../../d2/dc7/_render_8cpp.html#acff1ef100ab5993b21a9fe6054b034f6">ClearColor</a></div><div class="ttdeci">void ClearColor(const float4 &amp;clear_color)</div><div class="ttdoc">現在のカラーバッファをクリア</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/dc7/_render_8cpp_source.html#l00066">Render.cpp:66</a></div></div>
+<div class="ttc" id="a_system_main_8cpp_html_a2edee7b81baab0b01f3f4ef07607abd5"><div class="ttname"><a href="../../d2/d77/_system_main_8cpp.html#a2edee7b81baab0b01f3f4ef07607abd5">SystemBeginFrame</a></div><div class="ttdeci">void SystemBeginFrame()</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d77/_system_main_8cpp_source.html#l00572">SystemMain.cpp:572</a></div></div>
+<div class="ttc" id="a_system_main_8cpp_html_a30cb1097de07754f11b978bf806c626c"><div class="ttname"><a href="../../d2/d77/_system_main_8cpp.html#a30cb1097de07754f11b978bf806c626c">SystemDraw</a></div><div class="ttdeci">void SystemDraw()</div><div class="ttdoc">描画</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d77/_system_main_8cpp_source.html#l00496">SystemMain.cpp:496</a></div></div>
+<div class="ttc" id="a_system_main_8cpp_html_a9c591c101b020bc9081bfc5c77c393c9"><div class="ttname"><a href="../../d2/d77/_system_main_8cpp.html#a9c591c101b020bc9081bfc5c77c393c9">SystemEndFrame</a></div><div class="ttdeci">void SystemEndFrame()</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d77/_system_main_8cpp_source.html#l00580">SystemMain.cpp:580</a></div></div>
+<div class="ttc" id="a_system_main_8cpp_html_abd5a104987528829c883e7498602008f"><div class="ttname"><a href="../../d2/d77/_system_main_8cpp.html#abd5a104987528829c883e7498602008f">SystemInit</a></div><div class="ttdeci">void SystemInit()</div><div class="ttdoc">初期化</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d77/_system_main_8cpp_source.html#l00285">SystemMain.cpp:285</a></div></div>
+<div class="ttc" id="a_system_main_8cpp_html_ac207065b1fb62c07f89a12f7b4192a20"><div class="ttname"><a href="../../d2/d77/_system_main_8cpp.html#ac207065b1fb62c07f89a12f7b4192a20">SystemUpdate</a></div><div class="ttdeci">void SystemUpdate()</div><div class="ttdoc">更新</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d77/_system_main_8cpp_source.html#l00337">SystemMain.cpp:337</a></div></div>
+<div class="ttc" id="a_system_main_8cpp_html_adf3d97f9a63eb458fc1406df1a256971"><div class="ttname"><a href="../../d2/d77/_system_main_8cpp.html#adf3d97f9a63eb458fc1406df1a256971">SystemExit</a></div><div class="ttdeci">void SystemExit()</div><div class="ttdoc">終了</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d77/_system_main_8cpp_source.html#l00550">SystemMain.cpp:550</a></div></div>
+<div class="ttc" id="a_system_main_8h_html"><div class="ttname"><a href="../../d1/d56/_system_main_8h.html">SystemMain.h</a></div><div class="ttdoc">システムメイン</div></div>
+<div class="ttc" id="a_typedef_8h_html_ae5300ed9eabeae78ee9d0c704a9c412a"><div class="ttname"><a href="../../d2/db9/_typedef_8h.html#ae5300ed9eabeae78ee9d0c704a9c412a">s32</a></div><div class="ttdeci">int32_t s32</div><div class="ttdoc">32bit 符号あり整数</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/db9/_typedef_8h_source.html#l00019">Typedef.h:19</a></div></div>
+<div class="ttc" id="a_win_main_8cpp_html_a309e3556e3455e4944eeb375619255ba"><div class="ttname"><a href="../../da/d9b/_win_main_8cpp.html#a309e3556e3455e4944eeb375619255ba">bgm_volume</a></div><div class="ttdeci">int bgm_volume</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d9b/_win_main_8cpp_source.html#l00010">WinMain.cpp:10</a></div></div>
+<div class="ttc" id="a_win_main_8cpp_html_a3a609d6fe30ef0043ca04a806c67f602"><div class="ttname"><a href="../../da/d9b/_win_main_8cpp.html#a3a609d6fe30ef0043ca04a806c67f602">WINDOW_H</a></div><div class="ttdeci">s32 WINDOW_H</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d9b/_win_main_8cpp_source.html#l00007">WinMain.cpp:7</a></div></div>
+<div class="ttc" id="a_win_main_8cpp_html_a475443325648adefc1e896947b58b3f6"><div class="ttname"><a href="../../da/d9b/_win_main_8cpp.html#a475443325648adefc1e896947b58b3f6">audio</a></div><div class="ttdeci">int audio[2]</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d9b/_win_main_8cpp_source.html#l00012">WinMain.cpp:12</a></div></div>
+<div class="ttc" id="a_win_main_8cpp_html_a7c0ef154c8430070ee49af1594c53c05"><div class="ttname"><a href="../../da/d9b/_win_main_8cpp.html#a7c0ef154c8430070ee49af1594c53c05">exit_app</a></div><div class="ttdeci">bool exit_app</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d9b/_win_main_8cpp_source.html#l00009">WinMain.cpp:9</a></div></div>
+<div class="ttc" id="a_win_main_8cpp_html_aa7e56c7d11e442d4bd7e16641027812e"><div class="ttname"><a href="../../da/d9b/_win_main_8cpp.html#aa7e56c7d11e442d4bd7e16641027812e">se_volume</a></div><div class="ttdeci">int se_volume</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d9b/_win_main_8cpp_source.html#l00011">WinMain.cpp:11</a></div></div>
+<div class="ttc" id="a_win_main_8cpp_html_ac78343b652d0b3d9a31151e3e9b8b099"><div class="ttname"><a href="../../da/d9b/_win_main_8cpp.html#ac78343b652d0b3d9a31151e3e9b8b099">WINDOW_W</a></div><div class="ttdeci">s32 WINDOW_W</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d9b/_win_main_8cpp_source.html#l00006">WinMain.cpp:6</a></div></div>
+<div class="ttc" id="a_win_main_8cpp_html_af4ae346c491b4263342768849e661bd7"><div class="ttname"><a href="../../da/d9b/_win_main_8cpp.html#af4ae346c491b4263342768849e661bd7">WinMain</a></div><div class="ttdeci">int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)</div><div class="ttdoc">アプリケーションエントリーポイント</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d9b/_win_main_8cpp_source.html#l00017">WinMain.cpp:17</a></div></div>
+<div class="ttc" id="a_win_main_8h_html"><div class="ttname"><a href="../../d6/d2a/_win_main_8h.html">WinMain.h</a></div></div>
+<div class="ttc" id="aclass_ini_file_lib_html"><div class="ttname"><a href="../../d4/de4/class_ini_file_lib.html">IniFileLib</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d98/_ini_file_lib_8h_source.html#l00010">IniFileLib.h:10</a></div></div>
+<div class="ttc" id="aclass_ini_file_lib_html_ab80caf6b43491fc4caee6db725774f98"><div class="ttname"><a href="../../d4/de4/class_ini_file_lib.html#ab80caf6b43491fc4caee6db725774f98">IniFileLib::GetBool</a></div><div class="ttdeci">bool GetBool(const std::string &amp;section, const std::string &amp;key, bool def=false)</div><div class="ttdoc">文字列の取得</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d98/_ini_file_lib_8h_source.html#l00165">IniFileLib.h:165</a></div></div>
+<div class="ttc" id="aclass_ini_file_lib_html_ae280acc58c304c9e26549d8ff562ce98"><div class="ttname"><a href="../../d4/de4/class_ini_file_lib.html#ae280acc58c304c9e26549d8ff562ce98">IniFileLib::GetString</a></div><div class="ttdeci">std::string GetString(const std::string &amp;section, const std::string &amp;key, std::string def=&quot;&quot;)</div><div class="ttdoc">文字列の取得</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d98/_ini_file_lib_8h_source.html#l00132">IniFileLib.h:132</a></div></div>
+<div class="ttc" id="aclass_ini_file_lib_html_afdcbc7878c2dc5f8b9a227e3a6b0e571"><div class="ttname"><a href="../../d4/de4/class_ini_file_lib.html#afdcbc7878c2dc5f8b9a227e3a6b0e571">IniFileLib::GetFloat2</a></div><div class="ttdeci">float2 GetFloat2(const std::string &amp;section, const std::string &amp;key, float2 def={0.0f, 0.0f})</div><div class="ttdoc">浮動小数点数取得(2要素)</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d98/_ini_file_lib_8h_source.html#l00078">IniFileLib.h:78</a></div></div>
+<div class="ttc" id="aclass_shader_base_html_acdb6390d6f38259727f2403bd04ec93e"><div class="ttname"><a href="../../dd/d3f/class_shader_base.html#acdb6390d6f38259727f2403bd04ec93e">ShaderBase::updateFileWatcher</a></div><div class="ttdeci">static void updateFileWatcher()</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d16/_shader_8cpp_source.html#l00130">Shader.cpp:130</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>

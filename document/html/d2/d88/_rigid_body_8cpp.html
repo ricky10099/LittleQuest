@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: RigidBody.cpp ファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_ef68f1e1f5148ff8ef7fb1c955106c3c.html">System</a></li><li class="navelem"><a class="el" href="../../dir_d03dc9e14809aca1458b1cae58a8e37f.html">Physics</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">クラス</a> &#124;
+<a href="#namespaces">名前空間</a> &#124;
+<a href="#func-members">関数</a>  </div>
+  <div class="headertitle"><div class="title">RigidBody.cpp ファイル</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>剛体  
+<a href="#details">[詳解]</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d2/d9f/_physics_engine_8h_source.html">PhysicsEngine.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/dc7/_physics_layer_8h_source.html">PhysicsLayer.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../df/d1f/_rigid_body_8h_source.html">RigidBody.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../da/d05/_shape_8h_source.html">System/Physics/Shape.h</a>&quot;</code><br />
+<code>#include &lt;Jolt/Jolt.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/PhysicsSettings.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/PhysicsSystem.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/HeightFieldShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/MeshShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/SphereShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/BoxShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/ConvexHullShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/CapsuleShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/TaperedCapsuleShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/CylinderShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/TriangleShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/StaticCompoundShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/MutableCompoundShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/Shape/ScaledShape.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Body/BodyCreationSettings.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/PhysicsMaterialSimple.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+RigidBody.cpp の依存先関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d6/d81/_rigid_body_8cpp__incl.png" border="0" usemap="#a_rigid_body_8cpp" alt=""/></div>
+<map name="a_rigid_body_8cpp" id="a_rigid_body_8cpp">
+<area shape="rect" title="剛体" alt="" coords="1727,5,1833,31"/>
+<area shape="rect" href="../../d2/d9f/_physics_engine_8h.html" title="物理シミュレーション" alt="" coords="5,86,125,111"/>
+<area shape="rect" href="../../dd/dc7/_physics_layer_8h.html" title="物理シミュレーション レイヤー管理" alt="" coords="149,86,261,111"/>
+<area shape="rect" href="../../df/d1f/_rigid_body_8h.html" title="剛体" alt="" coords="286,86,378,111"/>
+<area shape="rect" href="../../da/d05/_shape_8h.html" title="形状" alt="" coords="403,86,573,111"/>
+<area shape="rect" title=" " alt="" coords="597,86,675,111"/>
+<area shape="rect" title=" " alt="" coords="699,86,901,111"/>
+<area shape="rect" title=" " alt="" coords="925,86,1125,111"/>
+<area shape="rect" title=" " alt="" coords="1150,79,1330,119"/>
+<area shape="rect" title=" " alt="" coords="1355,79,1501,119"/>
+<area shape="rect" title=" " alt="" coords="1526,79,1682,119"/>
+<area shape="rect" title=" " alt="" coords="1707,79,1853,119"/>
+<area shape="rect" title=" " alt="" coords="1877,79,2056,119"/>
+<area shape="rect" title=" " alt="" coords="2080,79,2243,119"/>
+<area shape="rect" title=" " alt="" coords="2267,79,2475,119"/>
+<area shape="rect" title=" " alt="" coords="2499,79,2661,119"/>
+<area shape="rect" title=" " alt="" coords="2685,79,2845,119"/>
+<area shape="rect" title=" " alt="" coords="2869,79,3080,119"/>
+<area shape="rect" title=" " alt="" coords="3105,79,3327,119"/>
+<area shape="rect" title=" " alt="" coords="3352,79,3507,119"/>
+<area shape="rect" title=" " alt="" coords="3531,79,3741,119"/>
+<area shape="rect" title=" " alt="" coords="3765,79,3936,119"/>
+</map>
+</div>
+</div>
+<p><a href="../../d2/d88/_rigid_body_8cpp_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+クラス</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html">physics::RigidBodyImpl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">剛体クラス  <a href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#details">[詳解]</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+名前空間</h2></td></tr>
+<tr class="memitem:d5/dd0/namespacephysics"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd0/namespacephysics.html">physics</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+関数</h2></td></tr>
+<tr class="memitem:ad706a7d5d1053210acb8cb311d7c1c70"><td class="memItemLeft" align="right" valign="top">JPH::EMotionType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d88/_rigid_body_8cpp.html#ad706a7d5d1053210acb8cb311d7c1c70">convertTo</a> (<a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3">physics::MotionType</a> type)</td></tr>
+<tr class="memdesc:ad706a7d5d1053210acb8cb311d7c1c70"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3" title="動作タイプ">physics::MotionType</a> → JPH::EMotionType へキャスト  <br /></td></tr>
+<tr class="separator:ad706a7d5d1053210acb8cb311d7c1c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">生成</div></td></tr>
+<tr class="memitem:ab2e98ec6c12aa9b5613b46bd3d3d0577"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html">physics::RigidBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd0/namespacephysics.html#ab2e98ec6c12aa9b5613b46bd3d3d0577">physics::createRigidBody</a> (const <a class="el" href="../../d6/d03/classshape_1_1_sphere.html">shape::Sphere</a> &amp;o, <a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a> layer, <a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3">physics::MotionType</a> motion_type)</td></tr>
+<tr class="memdesc:ab2e98ec6c12aa9b5613b46bd3d3d0577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sphere剛体を作成  <br /></td></tr>
+<tr class="separator:ab2e98ec6c12aa9b5613b46bd3d3d0577"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abefc69a0c70c16200898b95658d1cd56"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html">physics::RigidBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd0/namespacephysics.html#abefc69a0c70c16200898b95658d1cd56">physics::createRigidBody</a> (const <a class="el" href="../../d7/d5e/classshape_1_1_box.html">shape::Box</a> &amp;o, <a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a> layer, <a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3">physics::MotionType</a> motion_type)</td></tr>
+<tr class="memdesc:abefc69a0c70c16200898b95658d1cd56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Box剛体を作成  <br /></td></tr>
+<tr class="separator:abefc69a0c70c16200898b95658d1cd56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf6e8a9a2b4d868c8c494b647706abf8"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html">physics::RigidBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd0/namespacephysics.html#abf6e8a9a2b4d868c8c494b647706abf8">physics::createRigidBody</a> (const <a class="el" href="../../d2/dc2/classshape_1_1_cylinder.html">shape::Cylinder</a> &amp;o, <a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a> layer, <a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3">physics::MotionType</a> motion_type)</td></tr>
+<tr class="memdesc:abf6e8a9a2b4d868c8c494b647706abf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cylinder剛体を作成  <br /></td></tr>
+<tr class="separator:abf6e8a9a2b4d868c8c494b647706abf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad811345119774e07ae1c5ad253517a3a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html">physics::RigidBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd0/namespacephysics.html#ad811345119774e07ae1c5ad253517a3a">physics::createRigidBody</a> (const <a class="el" href="../../d3/d12/classshape_1_1_convex_hull.html">shape::ConvexHull</a> &amp;o, <a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a> layer, <a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3">physics::MotionType</a> motion_type)</td></tr>
+<tr class="memdesc:ad811345119774e07ae1c5ad253517a3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ConvexHull剛体を作成  <br /></td></tr>
+<tr class="separator:ad811345119774e07ae1c5ad253517a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a93d994134381d223627d3c0cc35b26"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html">physics::RigidBody</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/dd0/namespacephysics.html#a2a93d994134381d223627d3c0cc35b26">physics::createRigidBody</a> (const <a class="el" href="../../de/d0d/classshape_1_1_mesh.html">shape::Mesh</a> &amp;o, <a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a> layer)</td></tr>
+<tr class="memdesc:a2a93d994134381d223627d3c0cc35b26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mesh剛体を作成  <br /></td></tr>
+<tr class="separator:a2a93d994134381d223627d3c0cc35b26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>剛体 </p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> に定義があります。</p>
+</div><h2 class="groupheader">関数詳解</h2>
+<a id="ad706a7d5d1053210acb8cb311d7c1c70" name="ad706a7d5d1053210acb8cb311d7c1c70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad706a7d5d1053210acb8cb311d7c1c70">&#9670;&#160;</a></span>convertTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">JPH::EMotionType convertTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3">physics::MotionType</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3" title="動作タイプ">physics::MotionType</a> → JPH::EMotionType へキャスト </p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00032">32</a> 行目に定義があります。</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>

@@ -9,7 +9,7 @@ USING_PTR(AbandonHouse);
 //////////////////////////////////////////////////////////////
 class AbandonHouse: public Object {
    public:
-    BP_OBJECT_TYPE(AbandonHouse, Object);
+    BP_OBJECT_DECL(AbandonHouse, "LittleQuest/AbandonHouse");
     //------------------------------------------------------------
     //! @brief 放棄された家を生成します。
     //------------------------------------------------------------

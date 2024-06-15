@@ -9,7 +9,7 @@ USING_PTR(Rock1);
 //! @detail Draw()は存在しません。Object標準にて描画されます
 class Rock1: public Object {
    public:
-    BP_OBJECT_TYPE(Rock1, Object);
+    BP_OBJECT_DECL(Rock1, "LittleQuest/Rock1");
 
     //! @brief 生成関数
     static Rock1Ptr Create(const float3& pos = {0, 0, 0});

@@ -1,0 +1,333 @@
+\hypertarget{class_little_quest_1_1_component_combo}{}\doxysection{Little\+Quest\+::Component\+Combo Class Reference}
+\label{class_little_quest_1_1_component_combo}\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+
+
+コンボコンポーネントクラス  
+
+
+
+
+{\ttfamily \#include $<$Component\+Combo.\+h$>$}
+
+Inheritance diagram for Little\+Quest\+::Component\+Combo\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d7/def/class_little_quest_1_1_component_combo}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_component_combo_ae39f3e72ff20ef4c6b1669ed929be5c8}{BP\+\_\+\+COMPONENT\+\_\+\+TYPE}} (\mbox{\hyperlink{class_little_quest_1_1_component_combo}{Component\+Combo}}, Component)
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_component_combo_a00e0deb1d7ecdd94cbe038af6849c231}{Update}} () override
+\begin{DoxyCompactList}\small\item\em 更新処理を行います。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_component_combo_afdf2c10968dde0aa003629a14c7c5f22}{Add\+Combo}} (int combo)
+\begin{DoxyCompactList}\small\item\em コンボ数を増やします。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_component_combo_a609cb6c36f636043e891ed2ae97a4f60}{Draw\+Combo\+Bar}} ()
+\begin{DoxyCompactList}\small\item\em コンボゲージを描画します。 \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_little_quest_1_1_component_combo_a5156f7e10cf56a98f4919aef944308a9}{Combo\+Buff}} ()
+\begin{DoxyCompactList}\small\item\em コンボによる攻撃力バフ。 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_component_combo_a8d728557efc3b1c1466ed72b7e0cac72}{CEREAL\+\_\+\+SAVELOAD}} (arc, ver)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_component_combo_a3c4dcf87738c6c6464c18aa7eaeb60ae}{COMBO\+\_\+\+TIMER}} = 180
+\begin{DoxyCompactList}\small\item\em コンボ維持する時間 \end{DoxyCompactList}\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_component_combo_a7412f2e68e7f24f4dd91f910dec00a77}{MAX\+\_\+\+COMBO}} = 30
+\begin{DoxyCompactList}\small\item\em コンボゲージの上限 \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_component_combo_aa27404e2cf80c48fae6c9501931971b6}{COMBO\+\_\+\+BUFF\+\_\+0}} = Get\+Color(255, 255, 255)
+\begin{DoxyCompactList}\small\item\em コンボバフなしのゲージの色 \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_component_combo_a873f520ee8d547bc818f215bed166085}{COMBO\+\_\+\+BUFF\+\_\+1}} = Get\+Color(0, 230, 230)
+\begin{DoxyCompactList}\small\item\em コンボバフ1段のゲージの色 \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_component_combo_a8cb36f7c644fd0763c1536cc19c02fdc}{COMBO\+\_\+\+BUFF\+\_\+2}} = Get\+Color(0, 200, 255)
+\begin{DoxyCompactList}\small\item\em コンボバフ2段のゲージの色 \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_component_combo_a1b90c3d4491b5bfb33ec0f60b44158a3}{COMBO\+\_\+\+BUFF\+\_\+3}} = Get\+Color(0, 127, 255)
+\begin{DoxyCompactList}\small\item\em コンボバフ3段のゲージの色 \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_little_quest_1_1_component_combo_a6a2b76d5f81a1f5f0338266d03966de1}{m\+\_\+curr\+Combo}} = 0
+\begin{DoxyCompactList}\small\item\em 現在のコンボ数 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_little_quest_1_1_component_combo_ab2f7a030750686f6e180de8ff0109a70}{m\+\_\+combo\+Color}} = 0
+\begin{DoxyCompactList}\small\item\em 現在コンボゲージの色 \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_little_quest_1_1_component_combo_a25ceecce496073412ec4c9902553723d}{m\+\_\+combo\+Timer}} = 0
+\begin{DoxyCompactList}\small\item\em コンボ維持するタイマー \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+コンボコンポーネントクラス 
+
+Definition at line \mbox{\hyperlink{_component_combo_8h_source_l00014}{14}} of file \mbox{\hyperlink{_component_combo_8h_source}{Component\+Combo.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_afdf2c10968dde0aa003629a14c7c5f22}\label{class_little_quest_1_1_component_combo_afdf2c10968dde0aa003629a14c7c5f22}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!AddCombo@{AddCombo}}
+\index{AddCombo@{AddCombo}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{AddCombo()}{AddCombo()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Component\+Combo\+::\+Add\+Combo (\begin{DoxyParamCaption}\item[{int}]{combo }\end{DoxyParamCaption})}
+
+
+
+コンボ数を増やします。 
+
+
+\begin{DoxyParams}{Parameters}
+{\em combo} & コンボ数 \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8cpp_source_l00032}{32}} of file \mbox{\hyperlink{_component_combo_8cpp_source}{Component\+Combo.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_component_combo_8h_source_l00043}{COMBO\+\_\+\+TIMER}}, \mbox{\hyperlink{_component_combo_8h_source_l00060}{m\+\_\+combo\+Timer}}, \mbox{\hyperlink{_component_combo_8h_source_l00056}{m\+\_\+curr\+Combo}}, and \mbox{\hyperlink{_component_combo_8h_source_l00045}{MAX\+\_\+\+COMBO}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_ae39f3e72ff20ef4c6b1669ed929be5c8}\label{class_little_quest_1_1_component_combo_ae39f3e72ff20ef4c6b1669ed929be5c8}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!BP\_COMPONENT\_TYPE@{BP\_COMPONENT\_TYPE}}
+\index{BP\_COMPONENT\_TYPE@{BP\_COMPONENT\_TYPE}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{BP\_COMPONENT\_TYPE()}{BP\_COMPONENT\_TYPE()}}
+{\footnotesize\ttfamily Little\+Quest\+::\+Component\+Combo\+::\+BP\+\_\+\+COMPONENT\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_component_combo}{Component\+Combo}}}]{,  }\item[{Component}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_a8d728557efc3b1c1466ed72b7e0cac72}\label{class_little_quest_1_1_component_combo_a8d728557efc3b1c1466ed72b7e0cac72}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!CEREAL\_SAVELOAD@{CEREAL\_SAVELOAD}}
+\index{CEREAL\_SAVELOAD@{CEREAL\_SAVELOAD}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_SAVELOAD()}{CEREAL\_SAVELOAD()}}
+{\footnotesize\ttfamily Little\+Quest\+::\+Component\+Combo\+::\+CEREAL\+\_\+\+SAVELOAD (\begin{DoxyParamCaption}\item[{arc}]{,  }\item[{ver}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8h_source_l00062}{62}} of file \mbox{\hyperlink{_component_combo_8h_source}{Component\+Combo.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_a5156f7e10cf56a98f4919aef944308a9}\label{class_little_quest_1_1_component_combo_a5156f7e10cf56a98f4919aef944308a9}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!ComboBuff@{ComboBuff}}
+\index{ComboBuff@{ComboBuff}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{ComboBuff()}{ComboBuff()}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Component\+Combo\+::\+Combo\+Buff (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+コンボによる攻撃力バフ。 
+
+\begin{DoxyReturn}{Returns}
+バフ量。 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8cpp_source_l00060}{60}} of file \mbox{\hyperlink{_component_combo_8cpp_source}{Component\+Combo.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_component_combo_8h_source_l00056}{m\+\_\+curr\+Combo}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_a609cb6c36f636043e891ed2ae97a4f60}\label{class_little_quest_1_1_component_combo_a609cb6c36f636043e891ed2ae97a4f60}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!DrawComboBar@{DrawComboBar}}
+\index{DrawComboBar@{DrawComboBar}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{DrawComboBar()}{DrawComboBar()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Component\+Combo\+::\+Draw\+Combo\+Bar (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+コンボゲージを描画します。 
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8cpp_source_l00043}{43}} of file \mbox{\hyperlink{_component_combo_8cpp_source}{Component\+Combo.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_component_combo_8h_source_l00058}{m\+\_\+combo\+Color}}, \mbox{\hyperlink{_component_combo_8h_source_l00056}{m\+\_\+curr\+Combo}}, and \mbox{\hyperlink{_component_combo_8h_source_l00045}{MAX\+\_\+\+COMBO}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_a00e0deb1d7ecdd94cbe038af6849c231}\label{class_little_quest_1_1_component_combo_a00e0deb1d7ecdd94cbe038af6849c231}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!Update@{Update}}
+\index{Update@{Update}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Component\+Combo\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+更新処理を行います。 
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_component_combo_8cpp_source}{Component\+Combo.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_component_combo_8h_source_l00047}{COMBO\+\_\+\+BUFF\+\_\+0}}, \mbox{\hyperlink{_component_combo_8h_source_l00049}{COMBO\+\_\+\+BUFF\+\_\+1}}, \mbox{\hyperlink{_component_combo_8h_source_l00051}{COMBO\+\_\+\+BUFF\+\_\+2}}, \mbox{\hyperlink{_component_combo_8h_source_l00053}{COMBO\+\_\+\+BUFF\+\_\+3}}, \mbox{\hyperlink{_component_combo_8h_source_l00058}{m\+\_\+combo\+Color}}, \mbox{\hyperlink{_component_combo_8h_source_l00060}{m\+\_\+combo\+Timer}}, and \mbox{\hyperlink{_component_combo_8h_source_l00056}{m\+\_\+curr\+Combo}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_aa27404e2cf80c48fae6c9501931971b6}\label{class_little_quest_1_1_component_combo_aa27404e2cf80c48fae6c9501931971b6}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!COMBO\_BUFF\_0@{COMBO\_BUFF\_0}}
+\index{COMBO\_BUFF\_0@{COMBO\_BUFF\_0}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{COMBO\_BUFF\_0}{COMBO\_BUFF\_0}}
+{\footnotesize\ttfamily const int Little\+Quest\+::\+Component\+Combo\+::\+COMBO\+\_\+\+BUFF\+\_\+0 = Get\+Color(255, 255, 255)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+コンボバフなしのゲージの色 
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8h_source_l00047}{47}} of file \mbox{\hyperlink{_component_combo_8h_source}{Component\+Combo.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_combo_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_a873f520ee8d547bc818f215bed166085}\label{class_little_quest_1_1_component_combo_a873f520ee8d547bc818f215bed166085}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!COMBO\_BUFF\_1@{COMBO\_BUFF\_1}}
+\index{COMBO\_BUFF\_1@{COMBO\_BUFF\_1}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{COMBO\_BUFF\_1}{COMBO\_BUFF\_1}}
+{\footnotesize\ttfamily const int Little\+Quest\+::\+Component\+Combo\+::\+COMBO\+\_\+\+BUFF\+\_\+1 = Get\+Color(0, 230, 230)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+コンボバフ1段のゲージの色 
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8h_source_l00049}{49}} of file \mbox{\hyperlink{_component_combo_8h_source}{Component\+Combo.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_combo_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_a8cb36f7c644fd0763c1536cc19c02fdc}\label{class_little_quest_1_1_component_combo_a8cb36f7c644fd0763c1536cc19c02fdc}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!COMBO\_BUFF\_2@{COMBO\_BUFF\_2}}
+\index{COMBO\_BUFF\_2@{COMBO\_BUFF\_2}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{COMBO\_BUFF\_2}{COMBO\_BUFF\_2}}
+{\footnotesize\ttfamily const int Little\+Quest\+::\+Component\+Combo\+::\+COMBO\+\_\+\+BUFF\+\_\+2 = Get\+Color(0, 200, 255)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+コンボバフ2段のゲージの色 
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8h_source_l00051}{51}} of file \mbox{\hyperlink{_component_combo_8h_source}{Component\+Combo.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_combo_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_a1b90c3d4491b5bfb33ec0f60b44158a3}\label{class_little_quest_1_1_component_combo_a1b90c3d4491b5bfb33ec0f60b44158a3}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!COMBO\_BUFF\_3@{COMBO\_BUFF\_3}}
+\index{COMBO\_BUFF\_3@{COMBO\_BUFF\_3}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{COMBO\_BUFF\_3}{COMBO\_BUFF\_3}}
+{\footnotesize\ttfamily const int Little\+Quest\+::\+Component\+Combo\+::\+COMBO\+\_\+\+BUFF\+\_\+3 = Get\+Color(0, 127, 255)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+コンボバフ3段のゲージの色 
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8h_source_l00053}{53}} of file \mbox{\hyperlink{_component_combo_8h_source}{Component\+Combo.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_combo_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_a3c4dcf87738c6c6464c18aa7eaeb60ae}\label{class_little_quest_1_1_component_combo_a3c4dcf87738c6c6464c18aa7eaeb60ae}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!COMBO\_TIMER@{COMBO\_TIMER}}
+\index{COMBO\_TIMER@{COMBO\_TIMER}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{COMBO\_TIMER}{COMBO\_TIMER}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Component\+Combo\+::\+COMBO\+\_\+\+TIMER = 180\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+コンボ維持する時間 
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8h_source_l00043}{43}} of file \mbox{\hyperlink{_component_combo_8h_source}{Component\+Combo.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_combo_8cpp_source_l00032}{Add\+Combo()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_ab2f7a030750686f6e180de8ff0109a70}\label{class_little_quest_1_1_component_combo_ab2f7a030750686f6e180de8ff0109a70}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!m\_comboColor@{m\_comboColor}}
+\index{m\_comboColor@{m\_comboColor}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{m\_comboColor}{m\_comboColor}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Component\+Combo\+::m\+\_\+combo\+Color = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+現在コンボゲージの色 
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8h_source_l00058}{58}} of file \mbox{\hyperlink{_component_combo_8h_source}{Component\+Combo.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_combo_8cpp_source_l00043}{Draw\+Combo\+Bar()}}, and \mbox{\hyperlink{_component_combo_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_a25ceecce496073412ec4c9902553723d}\label{class_little_quest_1_1_component_combo_a25ceecce496073412ec4c9902553723d}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!m\_comboTimer@{m\_comboTimer}}
+\index{m\_comboTimer@{m\_comboTimer}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{m\_comboTimer}{m\_comboTimer}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Component\+Combo\+::m\+\_\+combo\+Timer = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+コンボ維持するタイマー 
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8h_source_l00060}{60}} of file \mbox{\hyperlink{_component_combo_8h_source}{Component\+Combo.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_combo_8cpp_source_l00032}{Add\+Combo()}}, and \mbox{\hyperlink{_component_combo_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_a6a2b76d5f81a1f5f0338266d03966de1}\label{class_little_quest_1_1_component_combo_a6a2b76d5f81a1f5f0338266d03966de1}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!m\_currCombo@{m\_currCombo}}
+\index{m\_currCombo@{m\_currCombo}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{m\_currCombo}{m\_currCombo}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Component\+Combo\+::m\+\_\+curr\+Combo = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+現在のコンボ数 
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8h_source_l00056}{56}} of file \mbox{\hyperlink{_component_combo_8h_source}{Component\+Combo.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_combo_8cpp_source_l00032}{Add\+Combo()}}, \mbox{\hyperlink{_component_combo_8cpp_source_l00060}{Combo\+Buff()}}, \mbox{\hyperlink{_component_combo_8cpp_source_l00043}{Draw\+Combo\+Bar()}}, and \mbox{\hyperlink{_component_combo_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_combo_a7412f2e68e7f24f4dd91f910dec00a77}\label{class_little_quest_1_1_component_combo_a7412f2e68e7f24f4dd91f910dec00a77}} 
+\index{LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}!MAX\_COMBO@{MAX\_COMBO}}
+\index{MAX\_COMBO@{MAX\_COMBO}!LittleQuest::ComponentCombo@{LittleQuest::ComponentCombo}}
+\doxysubsubsection{\texorpdfstring{MAX\_COMBO}{MAX\_COMBO}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Component\+Combo\+::\+MAX\+\_\+\+COMBO = 30\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+コンボゲージの上限 
+
+
+
+Definition at line \mbox{\hyperlink{_component_combo_8h_source_l00045}{45}} of file \mbox{\hyperlink{_component_combo_8h_source}{Component\+Combo.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_combo_8cpp_source_l00032}{Add\+Combo()}}, and \mbox{\hyperlink{_component_combo_8cpp_source_l00043}{Draw\+Combo\+Bar()}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_component_combo_8h}{Component\+Combo.\+h}}\item 
+\mbox{\hyperlink{_component_combo_8cpp}{Component\+Combo.\+cpp}}\end{DoxyCompactItemize}

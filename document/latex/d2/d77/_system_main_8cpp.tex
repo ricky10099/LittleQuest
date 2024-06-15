@@ -1,0 +1,380 @@
+\hypertarget{_system_main_8cpp}{}\doxysection{System\+Main.\+cpp ファイル}
+\label{_system_main_8cpp}\index{SystemMain.cpp@{SystemMain.cpp}}
+
+
+システムメイン  
+
+
+{\ttfamily \#include $<$System/\+Debug/\+Debug\+Camera.\+h$>$}\newline
+{\ttfamily \#include $<$System/\+Physics/\+Physics\+Engine.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Little\+Quest/\+Scenes/\+Game\+Title\+Scene.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$System/\+Scene.\+h$>$}\newline
+{\ttfamily \#include $<$System/\+Utils/\+Ini\+File\+Lib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Light\+Manager.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}System\+Main.\+h\char`\"{}}\newline
+System\+Main.\+cpp の依存先関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d48/_system_main_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_scrolling_buffer}{Scrolling\+Buffer}}
+\end{DoxyCompactItemize}
+\doxysubsection*{関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} \mbox{\hyperlink{_system_main_8cpp_a697d7339840b171be81e3669978c1c3b}{Get\+Cpu\+Profile}} ()
+\begin{DoxyCompactList}\small\item\em 1フレームの\+CPU処理時間を取得(単位\+:μsec) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} \mbox{\hyperlink{_system_main_8cpp_ad8954d9816002bb9ee851007b67cb855}{Get\+Performance\+Counter\+Micro\+Sec}} ()
+\begin{DoxyCompactList}\small\item\em パフォーマンスカウンターを取得 (単位\+:μsec) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_system_main_8cpp_af988b01c4fb7bb0626602497ead94103}{Reset\+Delta\+Time}} ()
+\begin{DoxyCompactList}\small\item\em 経過時間計測をリセット \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_system_main_8cpp_a150f12b48e13e1c14a4e7646137c74a4}{Update\+Delta\+Time}} ()
+\begin{DoxyCompactList}\small\item\em 1フレームの間に経過した時間を計算 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{_system_main_8cpp_a452fbbb7d3c2ce1a51dbcfbb8274c617}{Get\+Delta\+Time}} ()
+\begin{DoxyCompactList}\small\item\em 1フレームの間に経過した時間を取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{_system_main_8cpp_afde233dd3c2802b2dbf618c7fee95799}{Get\+Delta\+Time60}} ()
+\item 
+void \mbox{\hyperlink{_system_main_8cpp_ad50fd4069fafde421c84c6627d405eb0}{Set\+Delta\+Time}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} fps)
+\item 
+void \mbox{\hyperlink{_system_main_8cpp_abacdb1869fa1d49d870768a351e9ce51}{Show\+Grid}} (bool active)
+\begin{DoxyCompactList}\small\item\em グリッドの表示を\+ON/\+OFFします \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_system_main_8cpp_a9751578cbcea9d8e9120310c3adfec11}{Show\+Fps}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} delta)
+\item 
+void \mbox{\hyperlink{_system_main_8cpp_abd5a104987528829c883e7498602008f}{System\+Init}} ()
+\begin{DoxyCompactList}\small\item\em 初期化 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_system_main_8cpp_ac207065b1fb62c07f89a12f7b4192a20}{System\+Update}} ()
+\begin{DoxyCompactList}\small\item\em 更新 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_system_main_8cpp_a30cb1097de07754f11b978bf806c626c}{System\+Draw}} ()
+\begin{DoxyCompactList}\small\item\em 描画 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_system_main_8cpp_adf3d97f9a63eb458fc1406df1a256971}{System\+Exit}} ()
+\begin{DoxyCompactList}\small\item\em 終了 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_system_main_8cpp_a2edee7b81baab0b01f3f4ef07607abd5}{System\+Begin\+Frame}} ()
+\item 
+void \mbox{\hyperlink{_system_main_8cpp_a9c591c101b020bc9081bfc5c77c393c9}{System\+End\+Frame}} ()
+\item 
+bool \mbox{\hyperlink{_system_main_8cpp_a1fa0f7a5b88018c7712103b0fd083698}{Is\+Show\+Menu}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+システムメイン 
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} に定義があります。
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{_system_main_8cpp_a697d7339840b171be81e3669978c1c3b}\label{_system_main_8cpp_a697d7339840b171be81e3669978c1c3b}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!GetCpuProfile@{GetCpuProfile}}
+\index{GetCpuProfile@{GetCpuProfile}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{GetCpuProfile()}{GetCpuProfile()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} Get\+Cpu\+Profile (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+1フレームの\+CPU処理時間を取得(単位\+:μsec) 
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00068}{68}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_system_main_8cpp_source_l00160}{Show\+Fps()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_a452fbbb7d3c2ce1a51dbcfbb8274c617}\label{_system_main_8cpp_a452fbbb7d3c2ce1a51dbcfbb8274c617}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!GetDeltaTime@{GetDeltaTime}}
+\index{GetDeltaTime@{GetDeltaTime}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{GetDeltaTime()}{GetDeltaTime()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Get\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+1フレームの間に経過した時間を取得 
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00099}{99}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_8cpp_source_l00063}{Component\+::\+Late\+Update()}}, \mbox{\hyperlink{_component_collision_8cpp_source_l00104}{Component\+Collision\+::\+Late\+Update()}}, \mbox{\hyperlink{_component_effect_8cpp_source_l00065}{Component\+Effect\+::\+Post\+Update()}}, \mbox{\hyperlink{_component_8cpp_source_l00056}{Component\+::\+Update()}}, \mbox{\hyperlink{_scene_8cpp_source_l00992}{Scene\+::\+Update()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Little\+Quest\+::\+Enemy\+::\+Update()}}, \mbox{\hyperlink{_stage01_8cpp_source_l00238}{Little\+Quest\+::\+Stage01\+::\+Update()}}, \mbox{\hyperlink{_component_filter_fade_8cpp_source_l00097}{Component\+Filter\+Fade\+::\+Update()}}, \mbox{\hyperlink{_component_model_8cpp_source_l00043}{Component\+Model\+::\+Update()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00340}{Component\+Sequencer\+::\+Update()}}, \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Sequence\+Object\+::\+Update()}}, \mbox{\hyperlink{_player_8cpp_source_l00366}{Little\+Quest\+::\+Player\+::\+Walk()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_afde233dd3c2802b2dbf618c7fee95799}\label{_system_main_8cpp_afde233dd3c2802b2dbf618c7fee95799}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!GetDeltaTime60@{GetDeltaTime60}}
+\index{GetDeltaTime60@{GetDeltaTime60}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{GetDeltaTime60()}{GetDeltaTime60()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} Get\+Delta\+Time60 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00106}{106}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_transform_8h_source_l00359}{IMatrix$<$ T $>$\+::\+Add\+Rotation\+Axis\+XYZ()}}, \mbox{\hyperlink{_component_transform_8h_source_l00090}{IMatrix$<$ T $>$\+::\+Add\+Translate()}}, \mbox{\hyperlink{_boss_8cpp_source_l00494}{Little\+Quest\+::\+Boss\+::\+Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Little\+Quest\+::\+Boss\+::\+Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00242}{Little\+Quest\+::\+Boss\+::\+Chase\+Player()}}, \mbox{\hyperlink{_stage01_8cpp_source_l00393}{Little\+Quest\+::\+Stage01\+::\+Fade\+In()}}, \mbox{\hyperlink{_stage01_8cpp_source_l00402}{Little\+Quest\+::\+Stage01\+::\+Fade\+Out()}}, \mbox{\hyperlink{_boss_8cpp_source_l00126}{Little\+Quest\+::\+Boss\+::\+Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00120}{Little\+Quest\+::\+Player\+::\+Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00267}{Little\+Quest\+::\+Player\+::\+Input\+Handle()}}, \mbox{\hyperlink{_stage01_8cpp_source_l00411}{Little\+Quest\+::\+Stage01\+::\+Show\+Message()}}, \mbox{\hyperlink{_component_combo_8cpp_source_l00007}{Little\+Quest\+::\+Component\+Combo\+::\+Update()}}, \mbox{\hyperlink{_component_h_p_8cpp_source_l00007}{Little\+Quest\+::\+Component\+HP\+::\+Update()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Little\+Quest\+::\+Enemy\+::\+Update()}}, \mbox{\hyperlink{_game_title_scene_8cpp_source_l00059}{Little\+Quest\+::\+Game\+Title\+Scene\+::\+Update()}}, \mbox{\hyperlink{_stage01_8cpp_source_l00238}{Little\+Quest\+::\+Stage01\+::\+Update()}}, \mbox{\hyperlink{_component_object_controller_8cpp_source_l00010}{Component\+Object\+Controller\+::\+Update()}}, \mbox{\hyperlink{_boss_8cpp_source_l00231}{Little\+Quest\+::\+Boss\+::\+Wait()}} (計18項目).
+
+\mbox{\Hypertarget{_system_main_8cpp_ad8954d9816002bb9ee851007b67cb855}\label{_system_main_8cpp_ad8954d9816002bb9ee851007b67cb855}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!GetPerformanceCounterMicroSec@{GetPerformanceCounterMicroSec}}
+\index{GetPerformanceCounterMicroSec@{GetPerformanceCounterMicroSec}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{GetPerformanceCounterMicroSec()}{GetPerformanceCounterMicroSec()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} Get\+Performance\+Counter\+Micro\+Sec (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+パフォーマンスカウンターを取得 (単位\+:μsec) 
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00075}{75}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_system_main_8cpp_source_l00083}{Reset\+Delta\+Time()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00572}{System\+Begin\+Frame()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00580}{System\+End\+Frame()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00090}{Update\+Delta\+Time()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_a1fa0f7a5b88018c7712103b0fd083698}\label{_system_main_8cpp_a1fa0f7a5b88018c7712103b0fd083698}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!IsShowMenu@{IsShowMenu}}
+\index{IsShowMenu@{IsShowMenu}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{IsShowMenu()}{IsShowMenu()}}
+{\footnotesize\ttfamily bool Is\+Show\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00586}{586}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_scene_8cpp_source_l01206}{Scene\+::\+GUI()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_af988b01c4fb7bb0626602497ead94103}\label{_system_main_8cpp_af988b01c4fb7bb0626602497ead94103}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!ResetDeltaTime@{ResetDeltaTime}}
+\index{ResetDeltaTime@{ResetDeltaTime}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{ResetDeltaTime()}{ResetDeltaTime()}}
+{\footnotesize\ttfamily void Reset\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+経過時間計測をリセット 
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00083}{83}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_system_main_8cpp_source_l00075}{Get\+Performance\+Counter\+Micro\+Sec()}}.
+
+
+
+参照元 \mbox{\hyperlink{_scene_8cpp_source_l00830}{Scene\+::\+Pre\+Update()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00285}{System\+Init()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_ad50fd4069fafde421c84c6627d405eb0}\label{_system_main_8cpp_ad50fd4069fafde421c84c6627d405eb0}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!SetDeltaTime@{SetDeltaTime}}
+\index{SetDeltaTime@{SetDeltaTime}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{SetDeltaTime()}{SetDeltaTime()}}
+{\footnotesize\ttfamily void Set\+Delta\+Time (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{fps }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00116}{116}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_sequencer_8cpp_source_l00168}{Sequence\+Object\+::\+Update()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_a9751578cbcea9d8e9120310c3adfec11}\label{_system_main_8cpp_a9751578cbcea9d8e9120310c3adfec11}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!ShowFps@{ShowFps}}
+\index{ShowFps@{ShowFps}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{ShowFps()}{ShowFps()}}
+{\footnotesize\ttfamily void Show\+Fps (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{delta }\end{DoxyParamCaption})}
+
+FPSを表示します 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em delta} & 1フレームの経過時間(単位\+:秒) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00160}{160}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_system_main_8cpp_source_l00137}{Scrolling\+Buffer\+::\+Add\+Point()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00132}{Scrolling\+Buffer\+::data\+\_\+}}, \mbox{\hyperlink{_system_main_8cpp_source_l00068}{Get\+Cpu\+Profile()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00131}{Scrolling\+Buffer\+::offset\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_system_main_8cpp_source_l00496}{System\+Draw()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_abacdb1869fa1d49d870768a351e9ce51}\label{_system_main_8cpp_abacdb1869fa1d49d870768a351e9ce51}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!ShowGrid@{ShowGrid}}
+\index{ShowGrid@{ShowGrid}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{ShowGrid()}{ShowGrid()}}
+{\footnotesize\ttfamily void Show\+Grid (\begin{DoxyParamCaption}\item[{bool}]{active }\end{DoxyParamCaption})}
+
+
+
+グリッドの表示を\+ON/\+OFFします 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em active} & true\+:表示する false\+:非表示 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00123}{123}} 行目に定義があります。
+
+\mbox{\Hypertarget{_system_main_8cpp_a2edee7b81baab0b01f3f4ef07607abd5}\label{_system_main_8cpp_a2edee7b81baab0b01f3f4ef07607abd5}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!SystemBeginFrame@{SystemBeginFrame}}
+\index{SystemBeginFrame@{SystemBeginFrame}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{SystemBeginFrame()}{SystemBeginFrame()}}
+{\footnotesize\ttfamily void System\+Begin\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00572}{572}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_system_main_8cpp_source_l00075}{Get\+Performance\+Counter\+Micro\+Sec()}}.
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_a30cb1097de07754f11b978bf806c626c}\label{_system_main_8cpp_a30cb1097de07754f11b978bf806c626c}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!SystemDraw@{SystemDraw}}
+\index{SystemDraw@{SystemDraw}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{SystemDraw()}{SystemDraw()}}
+{\footnotesize\ttfamily void System\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+描画 
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00496}{496}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_render_8cpp_source_l00066}{Clear\+Color()}}, \mbox{\hyperlink{_render_8cpp_source_l00208}{Copy\+To\+Render\+Target()}}, \mbox{\hyperlink{_scene_8cpp_source_l01081}{Scene\+::\+Draw()}}, \mbox{\hyperlink{_render_8cpp_source_l00194}{Get\+Back\+Buffer()}}, \mbox{\hyperlink{_render_8cpp_source_l00201}{Get\+Depth\+Stencil()}}, \mbox{\hyperlink{_scene_8cpp_source_l01465}{Scene\+::\+Is\+Edit()}}, \mbox{\hyperlink{_render_8cpp_source_l00132}{Set\+Render\+Target()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00160}{Show\+Fps()}}.
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_a9c591c101b020bc9081bfc5c77c393c9}\label{_system_main_8cpp_a9c591c101b020bc9081bfc5c77c393c9}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!SystemEndFrame@{SystemEndFrame}}
+\index{SystemEndFrame@{SystemEndFrame}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{SystemEndFrame()}{SystemEndFrame()}}
+{\footnotesize\ttfamily void System\+End\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00580}{580}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_system_main_8cpp_source_l00075}{Get\+Performance\+Counter\+Micro\+Sec()}}.
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_adf3d97f9a63eb458fc1406df1a256971}\label{_system_main_8cpp_adf3d97f9a63eb458fc1406df1a256971}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!SystemExit@{SystemExit}}
+\index{SystemExit@{SystemExit}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{SystemExit()}{SystemExit()}}
+{\footnotesize\ttfamily void System\+Exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+終了 
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00550}{550}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8cpp_source_l01181}{Scene\+::\+Exit()}}, \mbox{\hyperlink{_scene_8cpp_source_l01658}{Scene\+::\+Save\+Editor()}}.
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_abd5a104987528829c883e7498602008f}\label{_system_main_8cpp_abd5a104987528829c883e7498602008f}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!SystemInit@{SystemInit}}
+\index{SystemInit@{SystemInit}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{SystemInit()}{SystemInit()}}
+{\footnotesize\ttfamily void System\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+初期化 
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00285}{285}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8cpp_source_l00819}{Scene\+::\+Change()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00697}{physics\+::create\+Physics()}}, \mbox{\hyperlink{_ini_file_lib_8h_source_l00165}{Ini\+File\+Lib\+::\+Get\+Bool()}}, \mbox{\hyperlink{_ini_file_lib_8h_source_l00132}{Ini\+File\+Lib\+::\+Get\+String()}}, \mbox{\hyperlink{_scene_8cpp_source_l01677}{Scene\+::\+Load\+Editor()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00083}{Reset\+Delta\+Time()}}, \mbox{\hyperlink{_scene_8cpp_source_l01461}{Scene\+::\+Set\+Edit()}}, \mbox{\hyperlink{_win_main_8cpp_source_l00007}{WINDOW\+\_\+H}}, \mbox{\hyperlink{_win_main_8cpp_source_l00006}{WINDOW\+\_\+W}}.
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_ac207065b1fb62c07f89a12f7b4192a20}\label{_system_main_8cpp_ac207065b1fb62c07f89a12f7b4192a20}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!SystemUpdate@{SystemUpdate}}
+\index{SystemUpdate@{SystemUpdate}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{SystemUpdate()}{SystemUpdate()}}
+{\footnotesize\ttfamily void System\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+更新 
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00337}{337}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_scene_8cpp_source_l00819}{Scene\+::\+Change()}}, \mbox{\hyperlink{class_scene_ac92ebe1c4749abec88d8b490e8738a97aea7fa9ca65341dfa8d39c8a1c9f780f1}{Scene\+::\+Editor\+Placement}}, \mbox{\hyperlink{class_scene_ac92ebe1c4749abec88d8b490e8738a97afd13d77f767e36a38f72ab370a3f056f}{Scene\+::\+Editor\+Placement\+\_\+\+Always}}, \mbox{\hyperlink{_scene_8h_source_l00083}{Scene\+::\+Base\+::\+Exit()}}, \mbox{\hyperlink{_scene_8cpp_source_l00794}{Scene\+::\+Get\+Current\+Scene()}}, \mbox{\hyperlink{_scene_8h_source_l00600}{Scene\+::\+Get\+Editor\+Status()}}, \mbox{\hyperlink{_scene_8cpp_source_l01206}{Scene\+::\+GUI()}}, \mbox{\hyperlink{_input_mouse_8cpp_source_l00200}{Hide\+Mouse()}}, \mbox{\hyperlink{_debug_camera_8h_source_l00013}{Debug\+Camera\+::\+Maya}}, \mbox{\hyperlink{_scene_8cpp_source_l01074}{Scene\+::\+Post\+Update()}}, \mbox{\hyperlink{_scene_8cpp_source_l01063}{Scene\+::\+Pre\+Physics()}}, \mbox{\hyperlink{_scene_8cpp_source_l00830}{Scene\+::\+Pre\+Update()}}, \mbox{\hyperlink{_scene_8h_source_l00603}{Scene\+::\+Scene\+Status()}}, \mbox{\hyperlink{_debug_camera_8cpp_source_l00187}{Debug\+Camera\+::\+Set\+Control()}}, \mbox{\hyperlink{_scene_8cpp_source_l01461}{Scene\+::\+Set\+Edit()}}, \mbox{\hyperlink{_debug_camera_8h_source_l00011}{Debug\+Camera\+::\+Unity}}, \mbox{\hyperlink{_debug_camera_8h_source_l00012}{Debug\+Camera\+::\+Unreal\+Engine}}, \mbox{\hyperlink{_scene_8cpp_source_l00992}{Scene\+::\+Update()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00090}{Update\+Delta\+Time()}}, \mbox{\hyperlink{_debug_camera_8cpp_source_l00162}{Debug\+Camera\+::\+Use()}} (計20項目).
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_system_main_8cpp_a150f12b48e13e1c14a4e7646137c74a4}\label{_system_main_8cpp_a150f12b48e13e1c14a4e7646137c74a4}} 
+\index{SystemMain.cpp@{SystemMain.cpp}!UpdateDeltaTime@{UpdateDeltaTime}}
+\index{UpdateDeltaTime@{UpdateDeltaTime}!SystemMain.cpp@{SystemMain.cpp}}
+\doxysubsubsection{\texorpdfstring{UpdateDeltaTime()}{UpdateDeltaTime()}}
+{\footnotesize\ttfamily void Update\+Delta\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+1フレームの間に経過した時間を計算 
+
+
+
+ \mbox{\hyperlink{_system_main_8cpp_source}{System\+Main.\+cpp}} の \mbox{\hyperlink{_system_main_8cpp_source_l00090}{90}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_system_main_8cpp_source_l00075}{Get\+Performance\+Counter\+Micro\+Sec()}}.
+
+
+
+参照元 \mbox{\hyperlink{_system_main_8cpp_source_l00337}{System\+Update()}}.
+

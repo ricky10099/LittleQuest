@@ -9,7 +9,7 @@ namespace LittleQuest {
 
 class GameTitleScene: public Scene::Base {
    public:
-    BP_CLASS_TYPE(GameTitleScene, Scene::Base);
+    BP_CLASS_DECL(GameTitleScene, u8"LittleQuest/GameTitleScene");
 
     std::string Name() {
         return "LittleQuest/GameTitleScene";

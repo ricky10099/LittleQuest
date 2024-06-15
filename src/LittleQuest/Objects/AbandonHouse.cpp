@@ -5,7 +5,6 @@
 #include <System/Component/ComponentModel.h>
 
 namespace LittleQuest {
-BP_OBJECT_IMPL(AbandonHouse, "LittleQuest/AbandonHouse");
 //------------------------------------------------------------
 // オブジェクトを生成します。
 //------------------------------------------------------------

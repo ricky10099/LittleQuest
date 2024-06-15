@@ -1,0 +1,1374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: Frustum クラス</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">公開型</a> &#124;
+<a href="../../de/d69/class_frustum-members.html">全メンバ一覧</a>  </div>
+  <div class="headertitle"><div class="title">Frustum クラス</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>カメラ  
+ <a href="../../dd/de9/class_frustum.html#details">[詳解]</a></p>
+
+<p><code>#include &lt;<a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a>&gt;</code></p>
+<div class="dynheader">
+Frustum 連携図</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d4a/class_frustum__coll__graph.png" border="0" usemap="#a_frustum_coll__map" alt="Collaboration graph"/></div>
+<map name="a_frustum_coll__map" id="a_frustum_coll__map">
+<area shape="rect" title="カメラ" alt="" coords="5,212,76,237"/>
+<area shape="rect" href="../../d1/d8d/classmatrix.html" title="4x4行列" alt="" coords="11,80,70,105"/>
+<area shape="rect" title=" " alt="" coords="7,5,74,31"/>
+</map>
+<center><span class="legend">[<a href="../../graph_legend.html">凡例</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+公開型</h2></td></tr>
+<tr class="memitem:a79888d6c79e6f327095ed004a5d7ebdd"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdd">DepthMode</a> : s32 { <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67">Default</a>
+, <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda67f115c1fddc4ce1aeb1c754001585bc">Reverse</a>
+, <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda859477cd2af414695fa54772f08fbcc9">ReverseInfinite</a>
+ }</td></tr>
+<tr class="memdesc:a79888d6c79e6f327095ed004a5d7ebdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">デプス動作モード  <a href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdd">[詳解]</a><br /></td></tr>
+<tr class="separator:a79888d6c79e6f327095ed004a5d7ebdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+公開メンバ関数</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">初期化</div></td></tr>
+<tr class="memitem:ab225c6aa54200beee8ec378f2314e413"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#ab225c6aa54200beee8ec378f2314e413">Frustum</a> ()=default</td></tr>
+<tr class="memdesc:ab225c6aa54200beee8ec378f2314e413"><td class="mdescLeft">&#160;</td><td class="mdescRight">デフォルトコンストラクタ  <br /></td></tr>
+<tr class="separator:ab225c6aa54200beee8ec378f2314e413"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca6ea17e0260764080b7698fba755730"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#aca6ea17e0260764080b7698fba755730">Frustum</a> (const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp;mat_view, const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp;mat_proj, <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdd">Frustum::DepthMode</a> depth_mode=<a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67">Frustum::DepthMode::Default</a>)</td></tr>
+<tr class="memdesc:aca6ea17e0260764080b7698fba755730"><td class="mdescLeft">&#160;</td><td class="mdescRight">コンストラクタ (行列を指定して初期化)  <br /></td></tr>
+<tr class="separator:aca6ea17e0260764080b7698fba755730"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf37ae7096fb44609b6e4b04a63cbe08"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#abf37ae7096fb44609b6e4b04a63cbe08">~Frustum</a> ()=default</td></tr>
+<tr class="memdesc:abf37ae7096fb44609b6e4b04a63cbe08"><td class="mdescLeft">&#160;</td><td class="mdescRight">デストラクタ  <br /></td></tr>
+<tr class="separator:abf37ae7096fb44609b6e4b04a63cbe08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">更新</div></td></tr>
+<tr class="memitem:a17a6dc854202e76bb81dc52924f91a16"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a17a6dc854202e76bb81dc52924f91a16">update</a> ()</td></tr>
+<tr class="memdesc:a17a6dc854202e76bb81dc52924f91a16"><td class="mdescLeft">&#160;</td><td class="mdescRight">更新  <br /></td></tr>
+<tr class="separator:a17a6dc854202e76bb81dc52924f91a16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71f2b123d97b8322331b9accaeaf2ee1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a71f2b123d97b8322331b9accaeaf2ee1">renderDebug</a> ()</td></tr>
+<tr class="memdesc:a71f2b123d97b8322331b9accaeaf2ee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">デバッグ描画  <br /></td></tr>
+<tr class="separator:a71f2b123d97b8322331b9accaeaf2ee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">設定</div></td></tr>
+<tr class="memitem:a310ff517b74da17453bc5062da434876"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a310ff517b74da17453bc5062da434876">setPosition</a> (const float3 &amp;<a class="el" href="../../dd/de9/class_frustum.html#a42ac8538f373ef9732739e62f3b764d7">position</a>)</td></tr>
+<tr class="memdesc:a310ff517b74da17453bc5062da434876"><td class="mdescLeft">&#160;</td><td class="mdescRight">位置を設定  <br /></td></tr>
+<tr class="separator:a310ff517b74da17453bc5062da434876"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2a1fc953e0a117c91f93c87850586cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#ae2a1fc953e0a117c91f93c87850586cc">setLookAt</a> (const float3 &amp;look_at)</td></tr>
+<tr class="memdesc:ae2a1fc953e0a117c91f93c87850586cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">注視点を設定  <br /></td></tr>
+<tr class="separator:ae2a1fc953e0a117c91f93c87850586cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedc31b8c2d0b2370016ef13a6ec8344d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#aedc31b8c2d0b2370016ef13a6ec8344d">setWorldUp</a> (const float3 &amp;world_up)</td></tr>
+<tr class="memdesc:aedc31b8c2d0b2370016ef13a6ec8344d"><td class="mdescLeft">&#160;</td><td class="mdescRight">世界の上方向のベクトルを設定  <br /></td></tr>
+<tr class="separator:aedc31b8c2d0b2370016ef13a6ec8344d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9aeaa231f512ff9e89aa28c0d1a4660"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#ad9aeaa231f512ff9e89aa28c0d1a4660">setLookAt</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> horizontal_angle, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> vertical_angle)</td></tr>
+<tr class="memdesc:ad9aeaa231f512ff9e89aa28c0d1a4660"><td class="mdescLeft">&#160;</td><td class="mdescRight">上下左右の角度から注視点を設定  <br /></td></tr>
+<tr class="separator:ad9aeaa231f512ff9e89aa28c0d1a4660"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10e71748212059e09101fb721ceb3fd0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a10e71748212059e09101fb721ceb3fd0">setFov</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> fovy)</td></tr>
+<tr class="memdesc:a10e71748212059e09101fb721ceb3fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">画角を設定  <br /></td></tr>
+<tr class="separator:a10e71748212059e09101fb721ceb3fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9d56b6a1648a76345728f6560abb6b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#ac9d56b6a1648a76345728f6560abb6b3">setAspectRatio</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> aspect_ratio)</td></tr>
+<tr class="memdesc:ac9d56b6a1648a76345728f6560abb6b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">アスペクト比を設定  <br /></td></tr>
+<tr class="separator:ac9d56b6a1648a76345728f6560abb6b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac693ebcad0cf3be7c28160f62f5b16ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#ac693ebcad0cf3be7c28160f62f5b16ac">setNearZ</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> z_near)</td></tr>
+<tr class="memdesc:ac693ebcad0cf3be7c28160f62f5b16ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">近クリップ距離を設定  <br /></td></tr>
+<tr class="separator:ac693ebcad0cf3be7c28160f62f5b16ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e9e2ea8a3db13c13f625fe876c58cdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a0e9e2ea8a3db13c13f625fe876c58cdf">setFarZ</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> z_far)</td></tr>
+<tr class="memdesc:a0e9e2ea8a3db13c13f625fe876c58cdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">遠クリップ距離を設定  <br /></td></tr>
+<tr class="separator:a0e9e2ea8a3db13c13f625fe876c58cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef58e5a9c01ba23dd23fcb2bff3f21ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#aef58e5a9c01ba23dd23fcb2bff3f21ed">setDepthMode</a> (<a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdd">Frustum::DepthMode</a> mode)</td></tr>
+<tr class="memdesc:aef58e5a9c01ba23dd23fcb2bff3f21ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">デプス動作モードを設定  <br /></td></tr>
+<tr class="separator:aef58e5a9c01ba23dd23fcb2bff3f21ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">参照</h2></td></tr>
+<tr class="memitem:a3f9069dcbe7325bd6300b2487b24397d"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a3f9069dcbe7325bd6300b2487b24397d">position_</a> = float3(0.0f, 5.0f, -15.0f)</td></tr>
+<tr class="memdesc:a3f9069dcbe7325bd6300b2487b24397d"><td class="mdescLeft">&#160;</td><td class="mdescRight">位置  <br /></td></tr>
+<tr class="separator:a3f9069dcbe7325bd6300b2487b24397d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac440fc035e7d8f15bf77d65e36f8b114"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#ac440fc035e7d8f15bf77d65e36f8b114">look_at_</a> = float3(0.0f, 0.0f, 0.0f)</td></tr>
+<tr class="memdesc:ac440fc035e7d8f15bf77d65e36f8b114"><td class="mdescLeft">&#160;</td><td class="mdescRight">注視点  <br /></td></tr>
+<tr class="separator:ac440fc035e7d8f15bf77d65e36f8b114"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fbfc4af027ad7a1696e7d8ec81ff319"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a4fbfc4af027ad7a1696e7d8ec81ff319">world_up_</a> = float3(0.0f, 1.0f, 0.0f)</td></tr>
+<tr class="memdesc:a4fbfc4af027ad7a1696e7d8ec81ff319"><td class="mdescLeft">&#160;</td><td class="mdescRight">世界の上方向のベクトル  <br /></td></tr>
+<tr class="separator:a4fbfc4af027ad7a1696e7d8ec81ff319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08ed3a7a2b74931d90fb1dbe569925b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a08ed3a7a2b74931d90fb1dbe569925b1">fovy_</a> = 60.0f * <a class="el" href="../../d2/ddd/_precompile_8h.html#ade905dfddad8309f77814b8a19bfd1f8">DegToRad</a></td></tr>
+<tr class="memdesc:a08ed3a7a2b74931d90fb1dbe569925b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">画角(単位:radian)  <br /></td></tr>
+<tr class="separator:a08ed3a7a2b74931d90fb1dbe569925b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a46f57b7c357095c45475a5d122c95c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a4a46f57b7c357095c45475a5d122c95c">aspect_ratio_</a> = 16.0f / 9.0f</td></tr>
+<tr class="memdesc:a4a46f57b7c357095c45475a5d122c95c"><td class="mdescLeft">&#160;</td><td class="mdescRight">アスペクト比  <br /></td></tr>
+<tr class="separator:a4a46f57b7c357095c45475a5d122c95c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad34681bb3cb7891365bf04676aeb8569"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#ad34681bb3cb7891365bf04676aeb8569">z_near_</a> = 0.01f</td></tr>
+<tr class="memdesc:ad34681bb3cb7891365bf04676aeb8569"><td class="mdescLeft">&#160;</td><td class="mdescRight">近クリップ面までの距離  <br /></td></tr>
+<tr class="separator:ad34681bb3cb7891365bf04676aeb8569"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab537ea9619f8fe467d87dd11d505d70b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#ab537ea9619f8fe467d87dd11d505d70b">z_far_</a> = 1000.0f</td></tr>
+<tr class="memdesc:ab537ea9619f8fe467d87dd11d505d70b"><td class="mdescLeft">&#160;</td><td class="mdescRight">遠クリップ面までの距離  <br /></td></tr>
+<tr class="separator:ab537ea9619f8fe467d87dd11d505d70b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5486af07e79dc9a23a7816f44ebd0ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdd">Frustum::DepthMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#aa5486af07e79dc9a23a7816f44ebd0ff">depth_mode_</a> = <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67">Frustum::DepthMode::Default</a></td></tr>
+<tr class="memdesc:aa5486af07e79dc9a23a7816f44ebd0ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">デプス動作モード  <br /></td></tr>
+<tr class="separator:aa5486af07e79dc9a23a7816f44ebd0ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a9c012f78e9b69aaf1d003b16982c38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a5a9c012f78e9b69aaf1d003b16982c38">mat_camera_world_</a> = <a class="el" href="../../d1/d8d/classmatrix.html#a7a798d3438d4e94705a520bb41bd85d9">matrix::identity</a>()</td></tr>
+<tr class="memdesc:a5a9c012f78e9b69aaf1d003b16982c38"><td class="mdescLeft">&#160;</td><td class="mdescRight">カメラのワールド行列  <br /></td></tr>
+<tr class="separator:a5a9c012f78e9b69aaf1d003b16982c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae0a0115b3571926973cb1ed27b4a0c0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#ae0a0115b3571926973cb1ed27b4a0c0a">mat_view_</a> = <a class="el" href="../../d1/d8d/classmatrix.html#a7a798d3438d4e94705a520bb41bd85d9">matrix::identity</a>()</td></tr>
+<tr class="memdesc:ae0a0115b3571926973cb1ed27b4a0c0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビュー行列  <br /></td></tr>
+<tr class="separator:ae0a0115b3571926973cb1ed27b4a0c0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7730df5ab4f8f3c684750815a7029ef0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a7730df5ab4f8f3c684750815a7029ef0">mat_proj_</a> = <a class="el" href="../../d1/d8d/classmatrix.html#a7a798d3438d4e94705a520bb41bd85d9">matrix::identity</a>()</td></tr>
+<tr class="memdesc:a7730df5ab4f8f3c684750815a7029ef0"><td class="mdescLeft">&#160;</td><td class="mdescRight">投影行列  <br /></td></tr>
+<tr class="separator:a7730df5ab4f8f3c684750815a7029ef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc413e1ba12b64514ea7c2c8ef92c091"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#acc413e1ba12b64514ea7c2c8ef92c091">mat_view_proj_</a> = <a class="el" href="../../d1/d8d/classmatrix.html#a7a798d3438d4e94705a520bb41bd85d9">matrix::identity</a>()</td></tr>
+<tr class="memdesc:acc413e1ba12b64514ea7c2c8ef92c091"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビュー ✕ 投影行列  <br /></td></tr>
+<tr class="separator:acc413e1ba12b64514ea7c2c8ef92c091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42ac8538f373ef9732739e62f3b764d7"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a42ac8538f373ef9732739e62f3b764d7">position</a> () const</td></tr>
+<tr class="memdesc:a42ac8538f373ef9732739e62f3b764d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">位置を取得  <br /></td></tr>
+<tr class="separator:a42ac8538f373ef9732739e62f3b764d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a955661f580aad4c45dd465ba64047895"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a955661f580aad4c45dd465ba64047895">lookAt</a> () const</td></tr>
+<tr class="memdesc:a955661f580aad4c45dd465ba64047895"><td class="mdescLeft">&#160;</td><td class="mdescRight">注視点を取得  <br /></td></tr>
+<tr class="separator:a955661f580aad4c45dd465ba64047895"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64eea3a062449447a7e2630c19a5bf5f"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a64eea3a062449447a7e2630c19a5bf5f">worldUp</a> () const</td></tr>
+<tr class="memdesc:a64eea3a062449447a7e2630c19a5bf5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">世界の上方向のベクトルを取得  <br /></td></tr>
+<tr class="separator:a64eea3a062449447a7e2630c19a5bf5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a287657bfb71c2286c37114ecdfee8d01"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a287657bfb71c2286c37114ecdfee8d01">fov</a> () const</td></tr>
+<tr class="memdesc:a287657bfb71c2286c37114ecdfee8d01"><td class="mdescLeft">&#160;</td><td class="mdescRight">画角を取得  <br /></td></tr>
+<tr class="separator:a287657bfb71c2286c37114ecdfee8d01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2bcbe4d597781fa74a16aa029f1d655"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#aa2bcbe4d597781fa74a16aa029f1d655">aspectRatio</a> () const</td></tr>
+<tr class="memdesc:aa2bcbe4d597781fa74a16aa029f1d655"><td class="mdescLeft">&#160;</td><td class="mdescRight">アスペクト比を取得  <br /></td></tr>
+<tr class="separator:aa2bcbe4d597781fa74a16aa029f1d655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b2a3223e53813e1e289c12664b96911"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a2b2a3223e53813e1e289c12664b96911">nearZ</a> () const</td></tr>
+<tr class="memdesc:a2b2a3223e53813e1e289c12664b96911"><td class="mdescLeft">&#160;</td><td class="mdescRight">近クリップ距離を取得  <br /></td></tr>
+<tr class="separator:a2b2a3223e53813e1e289c12664b96911"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a408d5d23226b9e3b27243182d0724afe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a408d5d23226b9e3b27243182d0724afe">farZ</a> () const</td></tr>
+<tr class="memdesc:a408d5d23226b9e3b27243182d0724afe"><td class="mdescLeft">&#160;</td><td class="mdescRight">遠クリップ距離を取得  <br /></td></tr>
+<tr class="separator:a408d5d23226b9e3b27243182d0724afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb0ebfbbcb843f9d17667fdc66227b6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#abb0ebfbbcb843f9d17667fdc66227b6e">screenDistance</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a> resolution_height) const</td></tr>
+<tr class="memdesc:abb0ebfbbcb843f9d17667fdc66227b6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">スクリーンまでの距離を取得  <br /></td></tr>
+<tr class="separator:abb0ebfbbcb843f9d17667fdc66227b6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a234f5c84a0076cafb9ed3451cc973fe4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdd">Frustum::DepthMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a234f5c84a0076cafb9ed3451cc973fe4">depthMode</a> () const</td></tr>
+<tr class="memdesc:a234f5c84a0076cafb9ed3451cc973fe4"><td class="mdescLeft">&#160;</td><td class="mdescRight">デプス動作モードを取得  <br /></td></tr>
+<tr class="separator:a234f5c84a0076cafb9ed3451cc973fe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb47fe1f963e577883b75a3aaa73e922"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#acb47fe1f963e577883b75a3aaa73e922">useReverseDepth</a> () const</td></tr>
+<tr class="memdesc:acb47fe1f963e577883b75a3aaa73e922"><td class="mdescLeft">&#160;</td><td class="mdescRight">反転Zを利用するかどうかを取得  <br /></td></tr>
+<tr class="separator:acb47fe1f963e577883b75a3aaa73e922"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93cfb3b15eba1eac9b79a25b8daedcfd"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a93cfb3b15eba1eac9b79a25b8daedcfd">rayFromScreenPosition</a> (float2 screen_position)</td></tr>
+<tr class="memdesc:a93cfb3b15eba1eac9b79a25b8daedcfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">スクリーン座標からレイを取得  <br /></td></tr>
+<tr class="separator:a93cfb3b15eba1eac9b79a25b8daedcfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1fe52ce1a07e18b3fc51aa32557ea42"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#aa1fe52ce1a07e18b3fc51aa32557ea42">matCameraWorld</a> () const</td></tr>
+<tr class="memdesc:aa1fe52ce1a07e18b3fc51aa32557ea42"><td class="mdescLeft">&#160;</td><td class="mdescRight">カメラのワールド行列を取得  <br /></td></tr>
+<tr class="separator:aa1fe52ce1a07e18b3fc51aa32557ea42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4de757581be6d1dbea98ce5b9a2d7466"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#a4de757581be6d1dbea98ce5b9a2d7466">matView</a> () const</td></tr>
+<tr class="memdesc:a4de757581be6d1dbea98ce5b9a2d7466"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビュー行列を取得  <br /></td></tr>
+<tr class="separator:a4de757581be6d1dbea98ce5b9a2d7466"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0d350c0fb1dec468688ce7d9a0f6f61"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#ac0d350c0fb1dec468688ce7d9a0f6f61">matProj</a> () const</td></tr>
+<tr class="memdesc:ac0d350c0fb1dec468688ce7d9a0f6f61"><td class="mdescLeft">&#160;</td><td class="mdescRight">投影行列を取得  <br /></td></tr>
+<tr class="separator:ac0d350c0fb1dec468688ce7d9a0f6f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af56f0be15163bf3a4d85f0c355810249"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/de9/class_frustum.html#af56f0be15163bf3a4d85f0c355810249">matViewProj</a> () const</td></tr>
+<tr class="memdesc:af56f0be15163bf3a4d85f0c355810249"><td class="mdescLeft">&#160;</td><td class="mdescRight">ビュー ✕ 投影行列を取得  <br /></td></tr>
+<tr class="separator:af56f0be15163bf3a4d85f0c355810249"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>カメラ </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00010">10</a> 行目に定義があります。</p>
+</div><h2 class="groupheader">列挙型メンバ詳解</h2>
+<a id="a79888d6c79e6f327095ed004a5d7ebdd" name="a79888d6c79e6f327095ed004a5d7ebdd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79888d6c79e6f327095ed004a5d7ebdd">&#9670;&#160;</a></span>DepthMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdd">Frustum::DepthMode</a> : <a class="el" href="../../d2/db9/_typedef_8h.html#ae5300ed9eabeae78ee9d0c704a9c412a">s32</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>デプス動作モード </p>
+<table class="fieldtable">
+<tr><th colspan="2">列挙値</th></tr><tr><td class="fieldname"><a id="a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67" name="a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67"></a>Default&#160;</td><td class="fielddoc"><p>通常 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a79888d6c79e6f327095ed004a5d7ebdda67f115c1fddc4ce1aeb1c754001585bc" name="a79888d6c79e6f327095ed004a5d7ebdda67f115c1fddc4ce1aeb1c754001585bc"></a>Reverse&#160;</td><td class="fielddoc"><p>反転Z </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a79888d6c79e6f327095ed004a5d7ebdda859477cd2af414695fa54772f08fbcc9" name="a79888d6c79e6f327095ed004a5d7ebdda859477cd2af414695fa54772f08fbcc9"></a>ReverseInfinite&#160;</td><td class="fielddoc"><p>反転Z (無限遠) </p>
+</td></tr>
+</table>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00013">13</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<h2 class="groupheader">構築子と解体子</h2>
+<a id="ab225c6aa54200beee8ec378f2314e413" name="ab225c6aa54200beee8ec378f2314e413"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab225c6aa54200beee8ec378f2314e413">&#9670;&#160;</a></span>Frustum() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Frustum::Frustum </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>デフォルトコンストラクタ </p>
+
+</div>
+</div>
+<a id="aca6ea17e0260764080b7698fba755730" name="aca6ea17e0260764080b7698fba755730"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca6ea17e0260764080b7698fba755730">&#9670;&#160;</a></span>Frustum() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Frustum::Frustum </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>mat_view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp;&#160;</td>
+          <td class="paramname"><em>mat_proj</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdd">Frustum::DepthMode</a>&#160;</td>
+          <td class="paramname"><em>depth_mode</em> = <code><a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67">Frustum::DepthMode::Default</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>コンストラクタ (行列を指定して初期化) </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00010">10</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="abf37ae7096fb44609b6e4b04a63cbe08" name="abf37ae7096fb44609b6e4b04a63cbe08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf37ae7096fb44609b6e4b04a63cbe08">&#9670;&#160;</a></span>~Frustum()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Frustum::~Frustum </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>デストラクタ </p>
+
+</div>
+</div>
+<h2 class="groupheader">関数詳解</h2>
+<a id="aa2bcbe4d597781fa74a16aa029f1d655" name="aa2bcbe4d597781fa74a16aa029f1d655"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2bcbe4d597781fa74a16aa029f1d655">&#9670;&#160;</a></span>aspectRatio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> Frustum::aspectRatio </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>アスペクト比を取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00250">250</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00143">aspect_ratio_</a>.</p>
+
+</div>
+</div>
+<a id="a234f5c84a0076cafb9ed3451cc973fe4" name="a234f5c84a0076cafb9ed3451cc973fe4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a234f5c84a0076cafb9ed3451cc973fe4">&#9670;&#160;</a></span>depthMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdd">Frustum::DepthMode</a> Frustum::depthMode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デプス動作モードを取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00289">289</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00146">depth_mode_</a>.</p>
+
+</div>
+</div>
+<a id="a408d5d23226b9e3b27243182d0724afe" name="a408d5d23226b9e3b27243182d0724afe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a408d5d23226b9e3b27243182d0724afe">&#9670;&#160;</a></span>farZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> Frustum::farZ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>遠クリップ距離を取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00264">264</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00145">z_far_</a>.</p>
+
+</div>
+</div>
+<a id="a287657bfb71c2286c37114ecdfee8d01" name="a287657bfb71c2286c37114ecdfee8d01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a287657bfb71c2286c37114ecdfee8d01">&#9670;&#160;</a></span>fov()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> Frustum::fov </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>画角を取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00243">243</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00142">fovy_</a>.</p>
+
+</div>
+</div>
+<a id="a955661f580aad4c45dd465ba64047895" name="a955661f580aad4c45dd465ba64047895"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a955661f580aad4c45dd465ba64047895">&#9670;&#160;</a></span>lookAt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float3 Frustum::lookAt </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>注視点を取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00229">229</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00140">look_at_</a>.</p>
+
+</div>
+</div>
+<a id="aa1fe52ce1a07e18b3fc51aa32557ea42" name="aa1fe52ce1a07e18b3fc51aa32557ea42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1fe52ce1a07e18b3fc51aa32557ea42">&#9670;&#160;</a></span>matCameraWorld()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp; Frustum::matCameraWorld </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>カメラのワールド行列を取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00315">315</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00147">mat_camera_world_</a>.</p>
+
+</div>
+</div>
+<a id="ac0d350c0fb1dec468688ce7d9a0f6f61" name="ac0d350c0fb1dec468688ce7d9a0f6f61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0d350c0fb1dec468688ce7d9a0f6f61">&#9670;&#160;</a></span>matProj()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp; Frustum::matProj </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>投影行列を取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00329">329</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00149">mat_proj_</a>.</p>
+
+</div>
+</div>
+<a id="a4de757581be6d1dbea98ce5b9a2d7466" name="a4de757581be6d1dbea98ce5b9a2d7466"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4de757581be6d1dbea98ce5b9a2d7466">&#9670;&#160;</a></span>matView()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp; Frustum::matView </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ビュー行列を取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00322">322</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00148">mat_view_</a>.</p>
+
+</div>
+</div>
+<a id="af56f0be15163bf3a4d85f0c355810249" name="af56f0be15163bf3a4d85f0c355810249"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af56f0be15163bf3a4d85f0c355810249">&#9670;&#160;</a></span>matViewProj()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> &amp; Frustum::matViewProj </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>ビュー ✕ 投影行列を取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00336">336</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00150">mat_view_proj_</a>.</p>
+
+</div>
+</div>
+<a id="a2b2a3223e53813e1e289c12664b96911" name="a2b2a3223e53813e1e289c12664b96911"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b2a3223e53813e1e289c12664b96911">&#9670;&#160;</a></span>nearZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> Frustum::nearZ </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>近クリップ距離を取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00257">257</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00144">z_near_</a>.</p>
+
+</div>
+</div>
+<a id="a42ac8538f373ef9732739e62f3b764d7" name="a42ac8538f373ef9732739e62f3b764d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42ac8538f373ef9732739e62f3b764d7">&#9670;&#160;</a></span>position()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float3 Frustum::position </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>位置を取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00222">222</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00139">position_</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00146">setPosition()</a>.</p>
+
+</div>
+</div>
+<a id="a93cfb3b15eba1eac9b79a25b8daedcfd" name="a93cfb3b15eba1eac9b79a25b8daedcfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93cfb3b15eba1eac9b79a25b8daedcfd">&#9670;&#160;</a></span>rayFromScreenPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float3 Frustum::rayFromScreenPosition </td>
+          <td>(</td>
+          <td class="paramtype">float2&#160;</td>
+          <td class="paramname"><em>screen_position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>スクリーン座標からレイを取得 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">screen_position</td><td>スクリーン座標のXY値 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>戻り値</dt><dd>カメラ位置からのレイベクトル </dd></dl>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00303">303</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00143">aspect_ratio_</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00212">matrix::axisX()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00219">matrix::axisY()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00226">matrix::axisZ()</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00147">mat_camera_world_</a>.</p>
+
+</div>
+</div>
+<a id="a71f2b123d97b8322331b9accaeaf2ee1" name="a71f2b123d97b8322331b9accaeaf2ee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71f2b123d97b8322331b9accaeaf2ee1">&#9670;&#160;</a></span>renderDebug()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Frustum::renderDebug </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デバッグ描画 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00061">61</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00143">aspect_ratio_</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00212">matrix::axisX()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00219">matrix::axisY()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00226">matrix::axisZ()</a>, <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00013">cast()</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00142">fovy_</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00147">mat_camera_world_</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00139">position_</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00176">ComponentCamera::Draw()</a>.</p>
+
+</div>
+</div>
+<a id="abb0ebfbbcb843f9d17667fdc66227b6e" name="abb0ebfbbcb843f9d17667fdc66227b6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb0ebfbbcb843f9d17667fdc66227b6e">&#9670;&#160;</a></span>screenDistance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> Frustum::screenDistance </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a>&#160;</td>
+          <td class="paramname"><em>resolution_height</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>スクリーンまでの距離を取得 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">resolution_height</td><td>画面解像度の高さ </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00271">271</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00142">fovy_</a>.</p>
+
+</div>
+</div>
+<a id="ac9d56b6a1648a76345728f6560abb6b3" name="ac9d56b6a1648a76345728f6560abb6b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9d56b6a1648a76345728f6560abb6b3">&#9670;&#160;</a></span>setAspectRatio()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp; Frustum::setAspectRatio </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
+          <td class="paramname"><em>aspect_ratio</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>アスペクト比を設定 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00189">189</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00143">aspect_ratio_</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00083">ComponentCamera::SetCameraTransform()</a>.</p>
+
+</div>
+</div>
+<a id="aef58e5a9c01ba23dd23fcb2bff3f21ed" name="aef58e5a9c01ba23dd23fcb2bff3f21ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef58e5a9c01ba23dd23fcb2bff3f21ed">&#9670;&#160;</a></span>setDepthMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp; Frustum::setDepthMode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdd">Frustum::DepthMode</a>&#160;</td>
+          <td class="paramname"><em>mode</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>デプス動作モードを設定 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00213">213</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00146">depth_mode_</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00083">ComponentCamera::SetCameraTransform()</a>.</p>
+
+</div>
+</div>
+<a id="a0e9e2ea8a3db13c13f625fe876c58cdf" name="a0e9e2ea8a3db13c13f625fe876c58cdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e9e2ea8a3db13c13f625fe876c58cdf">&#9670;&#160;</a></span>setFarZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp; Frustum::setFarZ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
+          <td class="paramname"><em>z_far</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>遠クリップ距離を設定 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00205">205</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00083">ComponentCamera::SetCameraTransform()</a>.</p>
+
+</div>
+</div>
+<a id="a10e71748212059e09101fb721ceb3fd0" name="a10e71748212059e09101fb721ceb3fd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10e71748212059e09101fb721ceb3fd0">&#9670;&#160;</a></span>setFov()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp; Frustum::setFov </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
+          <td class="paramname"><em>fovy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>画角を設定 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00181">181</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00142">fovy_</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00083">ComponentCamera::SetCameraTransform()</a>.</p>
+
+</div>
+</div>
+<a id="ae2a1fc953e0a117c91f93c87850586cc" name="ae2a1fc953e0a117c91f93c87850586cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2a1fc953e0a117c91f93c87850586cc">&#9670;&#160;</a></span>setLookAt() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp; Frustum::setLookAt </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>look_at</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>注視点を設定 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00154">154</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00140">look_at_</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00083">ComponentCamera::SetCameraTransform()</a>.</p>
+
+</div>
+</div>
+<a id="ad9aeaa231f512ff9e89aa28c0d1a4660" name="ad9aeaa231f512ff9e89aa28c0d1a4660"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9aeaa231f512ff9e89aa28c0d1a4660">&#9670;&#160;</a></span>setLookAt() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp; Frustum::setLookAt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
+          <td class="paramname"><em>horizontal_angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
+          <td class="paramname"><em>vertical_angle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>上下左右の角度から注視点を設定 </p>
+<dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">horizontal_angle</td><td>左右方向の水平回転角度 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">vertical_angle</td><td>上下方向の垂直回転角度 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section attention"><dt>注意</dt><dd>位置からの相対方向から設定するため <a class="el" href="../../dd/de9/class_frustum.html#a310ff517b74da17453bc5062da434876" title="位置を設定">setPosition()</a> の後に設定してください。 </dd></dl>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00170">170</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00226">matrix::axisZ()</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00140">look_at_</a>, <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00073">mul()</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00139">position_</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00061">matrix::rotateX()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00077">matrix::rotateY()</a>.</p>
+
+</div>
+</div>
+<a id="ac693ebcad0cf3be7c28160f62f5b16ac" name="ac693ebcad0cf3be7c28160f62f5b16ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac693ebcad0cf3be7c28160f62f5b16ac">&#9670;&#160;</a></span>setNearZ()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp; Frustum::setNearZ </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
+          <td class="paramname"><em>z_near</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>近クリップ距離を設定 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00197">197</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00144">z_near_</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00083">ComponentCamera::SetCameraTransform()</a>.</p>
+
+</div>
+</div>
+<a id="a310ff517b74da17453bc5062da434876" name="a310ff517b74da17453bc5062da434876"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a310ff517b74da17453bc5062da434876">&#9670;&#160;</a></span>setPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp; Frustum::setPosition </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>位置を設定 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00146">146</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00222">position()</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00139">position_</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00083">ComponentCamera::SetCameraTransform()</a>.</p>
+
+</div>
+</div>
+<a id="aedc31b8c2d0b2370016ef13a6ec8344d" name="aedc31b8c2d0b2370016ef13a6ec8344d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedc31b8c2d0b2370016ef13a6ec8344d">&#9670;&#160;</a></span>setWorldUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/de9/class_frustum.html">Frustum</a> &amp; Frustum::setWorldUp </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>world_up</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>世界の上方向のベクトルを設定 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00162">162</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00141">world_up_</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00083">ComponentCamera::SetCameraTransform()</a>.</p>
+
+</div>
+</div>
+<a id="a17a6dc854202e76bb81dc52924f91a16" name="a17a6dc854202e76bb81dc52924f91a16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17a6dc854202e76bb81dc52924f91a16">&#9670;&#160;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Frustum::update </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>更新 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">29</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00143">aspect_ratio_</a>, <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67">Default</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00146">depth_mode_</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00142">fovy_</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00140">look_at_</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00131">matrix::lookAtLH()</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00147">mat_camera_world_</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00149">mat_proj_</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00148">mat_view_</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00150">mat_view_proj_</a>, <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00073">mul()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00172">matrix::perspectiveFovInfiniteFarPlaneLH()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00152">matrix::perspectiveFovLH()</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00139">position_</a>, <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda67f115c1fddc4ce1aeb1c754001585bc">Reverse</a>, <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda859477cd2af414695fa54772f08fbcc9">ReverseInfinite</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00141">world_up_</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00145">z_far_</a>, <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00144">z_near_</a> (計19項目).</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00083">ComponentCamera::SetCameraTransform()</a>.</p>
+
+</div>
+</div>
+<a id="acb47fe1f963e577883b75a3aaa73e922" name="acb47fe1f963e577883b75a3aaa73e922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb47fe1f963e577883b75a3aaa73e922">&#9670;&#160;</a></span>useReverseDepth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Frustum::useReverseDepth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>反転Zを利用するかどうかを取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00296">296</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00146">depth_mode_</a>, <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda67f115c1fddc4ce1aeb1c754001585bc">Reverse</a>, <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda859477cd2af414695fa54772f08fbcc9">ReverseInfinite</a>.</p>
+
+</div>
+</div>
+<a id="a64eea3a062449447a7e2630c19a5bf5f" name="a64eea3a062449447a7e2630c19a5bf5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64eea3a062449447a7e2630c19a5bf5f">&#9670;&#160;</a></span>worldUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float3 Frustum::worldUp </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>世界の上方向のベクトルを取得 </p>
+
+<p class="definition"> <a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a> の <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00236">236</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00141">world_up_</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">メンバ詳解</h2>
+<a id="a4a46f57b7c357095c45475a5d122c95c" name="a4a46f57b7c357095c45475a5d122c95c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a46f57b7c357095c45475a5d122c95c">&#9670;&#160;</a></span>aspect_ratio_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> Frustum::aspect_ratio_ = 16.0f / 9.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>アスペクト比 </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00143">143</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00250">aspectRatio()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00303">rayFromScreenPosition()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00061">renderDebug()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00189">setAspectRatio()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>.</p>
+
+</div>
+</div>
+<a id="aa5486af07e79dc9a23a7816f44ebd0ff" name="aa5486af07e79dc9a23a7816f44ebd0ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5486af07e79dc9a23a7816f44ebd0ff">&#9670;&#160;</a></span>depth_mode_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdd">Frustum::DepthMode</a> Frustum::depth_mode_ = <a class="el" href="../../dd/de9/class_frustum.html#a79888d6c79e6f327095ed004a5d7ebdda7a1920d61156abc05a60135aefe8bc67">Frustum::DepthMode::Default</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>デプス動作モード </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00146">146</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00289">depthMode()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00213">setDepthMode()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00296">useReverseDepth()</a>.</p>
+
+</div>
+</div>
+<a id="a08ed3a7a2b74931d90fb1dbe569925b1" name="a08ed3a7a2b74931d90fb1dbe569925b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08ed3a7a2b74931d90fb1dbe569925b1">&#9670;&#160;</a></span>fovy_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> Frustum::fovy_ = 60.0f * <a class="el" href="../../d2/ddd/_precompile_8h.html#ade905dfddad8309f77814b8a19bfd1f8">DegToRad</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>画角(単位:radian) </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00142">142</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00243">fov()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00061">renderDebug()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00271">screenDistance()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00181">setFov()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>.</p>
+
+</div>
+</div>
+<a id="ac440fc035e7d8f15bf77d65e36f8b114" name="ac440fc035e7d8f15bf77d65e36f8b114"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac440fc035e7d8f15bf77d65e36f8b114">&#9670;&#160;</a></span>look_at_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float3 Frustum::look_at_ = float3(0.0f, 0.0f, 0.0f)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>注視点 </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00140">140</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00229">lookAt()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00154">setLookAt()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>.</p>
+
+</div>
+</div>
+<a id="a5a9c012f78e9b69aaf1d003b16982c38" name="a5a9c012f78e9b69aaf1d003b16982c38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a9c012f78e9b69aaf1d003b16982c38">&#9670;&#160;</a></span>mat_camera_world_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> Frustum::mat_camera_world_ = <a class="el" href="../../d1/d8d/classmatrix.html#a7a798d3438d4e94705a520bb41bd85d9">matrix::identity</a>()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>カメラのワールド行列 </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00147">147</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00315">matCameraWorld()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00303">rayFromScreenPosition()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00061">renderDebug()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>.</p>
+
+</div>
+</div>
+<a id="a7730df5ab4f8f3c684750815a7029ef0" name="a7730df5ab4f8f3c684750815a7029ef0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7730df5ab4f8f3c684750815a7029ef0">&#9670;&#160;</a></span>mat_proj_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> Frustum::mat_proj_ = <a class="el" href="../../d1/d8d/classmatrix.html#a7a798d3438d4e94705a520bb41bd85d9">matrix::identity</a>()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>投影行列 </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00149">149</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00329">matProj()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>.</p>
+
+</div>
+</div>
+<a id="ae0a0115b3571926973cb1ed27b4a0c0a" name="ae0a0115b3571926973cb1ed27b4a0c0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0a0115b3571926973cb1ed27b4a0c0a">&#9670;&#160;</a></span>mat_view_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> Frustum::mat_view_ = <a class="el" href="../../d1/d8d/classmatrix.html#a7a798d3438d4e94705a520bb41bd85d9">matrix::identity</a>()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ビュー行列 </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00148">148</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00322">matView()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>.</p>
+
+</div>
+</div>
+<a id="acc413e1ba12b64514ea7c2c8ef92c091" name="acc413e1ba12b64514ea7c2c8ef92c091"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc413e1ba12b64514ea7c2c8ef92c091">&#9670;&#160;</a></span>mat_view_proj_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> Frustum::mat_view_proj_ = <a class="el" href="../../d1/d8d/classmatrix.html#a7a798d3438d4e94705a520bb41bd85d9">matrix::identity</a>()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ビュー ✕ 投影行列 </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00150">150</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00336">matViewProj()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>.</p>
+
+</div>
+</div>
+<a id="a3f9069dcbe7325bd6300b2487b24397d" name="a3f9069dcbe7325bd6300b2487b24397d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f9069dcbe7325bd6300b2487b24397d">&#9670;&#160;</a></span>position_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float3 Frustum::position_ = float3(0.0f, 5.0f, -15.0f)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>位置 </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00139">139</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00222">position()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00061">renderDebug()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00170">setLookAt()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00146">setPosition()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>.</p>
+
+</div>
+</div>
+<a id="a4fbfc4af027ad7a1696e7d8ec81ff319" name="a4fbfc4af027ad7a1696e7d8ec81ff319"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fbfc4af027ad7a1696e7d8ec81ff319">&#9670;&#160;</a></span>world_up_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float3 Frustum::world_up_ = float3(0.0f, 1.0f, 0.0f)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>世界の上方向のベクトル </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00141">141</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00162">setWorldUp()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00236">worldUp()</a>.</p>
+
+</div>
+</div>
+<a id="ab537ea9619f8fe467d87dd11d505d70b" name="ab537ea9619f8fe467d87dd11d505d70b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab537ea9619f8fe467d87dd11d505d70b">&#9670;&#160;</a></span>z_far_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> Frustum::z_far_ = 1000.0f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>遠クリップ面までの距離 </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00145">145</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00264">farZ()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>.</p>
+
+</div>
+</div>
+<a id="ad34681bb3cb7891365bf04676aeb8569" name="ad34681bb3cb7891365bf04676aeb8569"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad34681bb3cb7891365bf04676aeb8569">&#9670;&#160;</a></span>z_near_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> Frustum::z_near_ = 0.01f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>近クリップ面までの距離 </p>
+
+<p class="definition"> <a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a> の <a class="el" href="../../d5/d69/_frustum_8h_source.html#l00144">144</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00257">nearZ()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00197">setNearZ()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">update()</a>.</p>
+
+</div>
+</div>
+<hr/>このクラス詳解は次のファイルから抽出されました:<ul>
+<li><a class="el" href="../../d5/d69/_frustum_8h_source.html">Frustum.h</a></li>
+<li><a class="el" href="../../d4/d10/_frustum_8cpp_source.html">Frustum.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>

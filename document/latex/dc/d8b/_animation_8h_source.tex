@@ -1,0 +1,215 @@
+\hypertarget{_animation_8h_source}{}\doxysection{Animation.\+h}
+\label{_animation_8h_source}\index{Animation.h@{Animation.h}}
+\mbox{\hyperlink{_animation_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ Animation.h}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ アニメーション}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00005}00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00007}00007\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_resource_animation}{ResourceAnimation}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00009}00009\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00010}00010\ \textcolor{comment}{//!\ アニメーションクラス}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00011}00011\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00012}\mbox{\hyperlink{class_animation}{00012}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_animation}{Animation}}\ final\ \{}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00013}00013\ \ \ \ \textcolor{keyword}{public}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00014}00014\ \textcolor{comment}{\ \ \ \ //!\ アニメーション定義オプション}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00015}\mbox{\hyperlink{struct_animation_1_1_desc}{00015}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_animation_1_1_desc}{Desc}}\ \{}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00016}\mbox{\hyperlink{struct_animation_1_1_desc_a1eb8e7ec5423d96ad38b5440004728cf}{00016}}\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{struct_animation_1_1_desc_a1eb8e7ec5423d96ad38b5440004728cf}{name\_}}\{\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ アニメーション名(任意)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00017}\mbox{\hyperlink{struct_animation_1_1_desc_a5cb33df7af978804a68ee183c90543fc}{00017}}\ \ \ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{struct_animation_1_1_desc_a5cb33df7af978804a68ee183c90543fc}{file\_path\_}}\{\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ ファイルパス}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00018}\mbox{\hyperlink{struct_animation_1_1_desc_a1b0b8b8d096e0eef6c3e6fc28326b470}{00018}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_animation_1_1_desc_a1b0b8b8d096e0eef6c3e6fc28326b470}{animation\_index\_}}\ =\ 0;\ \ \ \ \ \ \ \textcolor{comment}{//!<\ ファイル内のアニメーション番号}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00019}\mbox{\hyperlink{struct_animation_1_1_desc_a0daee15ff65259fb8798e2a03dee1ea5}{00019}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_animation_1_1_desc_a0daee15ff65259fb8798e2a03dee1ea5}{animation\_speed\_}}\ =\ 1.0f;\ \ \ \ \textcolor{comment}{//!<\ アニメーションの再生速度(default:1.0f)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00020}00020\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00022}00022\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00023}00023\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 初期化}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00024}00024\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00025}00025\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00026}00026\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00027}00027\ \textcolor{comment}{\ \ \ \ //!\ デフォルトコンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00028}\mbox{\hyperlink{class_animation_a4c294d8ee848291f5da25a7d6360601f}{00028}}\ \textcolor{comment}{}\ \ \ \ \mbox{\hyperlink{class_animation_a4c294d8ee848291f5da25a7d6360601f}{Animation}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00030}00030\ \ \ \ \ \textcolor{comment}{//\ コンストラクタ}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00031}00031\ \textcolor{comment}{\ \ \ \ //!\ @param\ [in]\ desc\ \ \ \ \ \ \ \ \ \ 定義オプション配列の先頭アドレス}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00032}00032\ \textcolor{comment}{\ \ \ \ //!\ @param\ [in]\ desc\_count\ \ 定義オプション配列の個数}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00033}00033\ \textcolor{comment}{}\ \ \ \ \mbox{\hyperlink{class_animation_a4c294d8ee848291f5da25a7d6360601f}{Animation}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_animation_1_1_desc}{Animation::Desc}}*\ desc,\ \textcolor{keywordtype}{size\_t}\ desc\_count);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00035}00035\ \ \ \ \ \textcolor{comment}{//\ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00036}00036\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_animation_a401b68793d4fbf48d481c030ee4b2a16}{\string~Animation}}();}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00038}00038\ \ \ \ \ \textcolor{comment}{//\ 作成}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00039}00039\ \textcolor{comment}{\ \ \ \ //!\ @param\ [in]\ desc\ \ \ \ \ \ \ \ \ \ 定義オプション配列の先頭アドレス}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00040}00040\ \textcolor{comment}{\ \ \ \ //!\ @param\ [in]\ desc\_count\ \ 定義オプション配列の個数}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00041}00041\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ \ \ \ 成功(正常終了)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00042}00042\ \textcolor{comment}{\ \ \ \ //!\ @retval\ false\ \ \ 失敗(エラー終了)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00043}00043\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_animation_aad81a38c683c60841bbdd1d05eac7720}{load}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_animation_1_1_desc}{Animation::Desc}}*\ desc,\ \textcolor{keywordtype}{size\_t}\ desc\_count);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00044}00044\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00045}00045\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00046}00046\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00047}00047\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 更新}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00048}00048\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00049}00049\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00050}00050\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00051}00051\ \ \ \ \ \textcolor{comment}{//\ \ 更新}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00052}00052\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ dt\ \ 経過時間(単位:秒)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00053}00053\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_animation_aebce1593fc3fcdef36eaf9360d9d4e7e}{update}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ dt);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00054}00054\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00055}00055\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00056}00056\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00057}00057\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 設定}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00058}00058\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00059}00059\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00060}00060\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00061}00061\ \ \ \ \ \textcolor{comment}{//\ \ アニメーション再生するモデルを設定する}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00062}00062\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ model\ \ \ 3Dモデル(nullptrで解除)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00063}00063\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_animation_a496bc3c8cd47b3154e02d3bcd56284b3}{bindModel}}(\mbox{\hyperlink{class_model}{Model}}*\ model);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00065}00065\ \ \ \ \ \textcolor{comment}{//\ \ アニメーションを再生する}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00066}00066\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ name\ \ \ \ \ \ \ \ アニメーション名}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00067}00067\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ is\_loop\ \ \ \ \ ループ再生するかどうか(default:false)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00068}00068\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ blend\_time\ \ ブレンドする時間\ (default:1.0秒)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00069}00069\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ start\_time\ \ 再生開始時間(default:0.0f)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00070}00070\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ \ \ \ 成功(正常終了)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00071}00071\ \textcolor{comment}{\ \ \ \ //!\ @retval\ false\ \ \ 失敗(nameで指定した名前が見つからなかった場合)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00072}00072\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_animation_a5feebcd58369d4601270b7070f87856f}{play}}(std::string\_view\ name,\ \textcolor{keywordtype}{bool}\ is\_loop\ =\ \textcolor{keyword}{false},\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ blend\_time\ =\ 1.0f,\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ start\_time\ =\ 0.0f);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00074}00074\ \ \ \ \ \textcolor{comment}{//\ アニメーションを一時停止する}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00075}00075\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ active\ \ 停止フラグ(true:停止\ false:再開)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00076}00076\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_animation_a78c13e95acbf5fcaa1c8a9b209dd1ad1}{pause}}(\textcolor{keywordtype}{bool}\ active\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00077}00077\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00078}00078\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00079}00079\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00080}00080\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 取得}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00081}00081\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00082}00082\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00083}00083\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00084}00084\ \ \ \ \ \textcolor{comment}{//\ \ 再生中かどうかを取得}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00085}00085\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_animation_aaae3356caf1bda3d0b5457e02f1475d1}{isPlaying}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//\ \ 一時停止中かどうかを取得}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00088}00088\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_animation_a337cdf4e123b03fdb23d7a82f460637e}{isPaused}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00090}00090\ \ \ \ \ \textcolor{comment}{//\ 初期化が正しく成功しているかどうかを取得}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00091}00091\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_animation_ae091a5871009cb2481bf2fa07f99effe}{isValid}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00093}00093\ \ \ \ \ \textcolor{comment}{//\ 利用可能な状態かどうか取得}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00094}00094\ \textcolor{comment}{\ \ \ \ //!\ @note}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00095}00095\ \textcolor{comment}{\ \ \ \ //!\ 利用可能になっていない状態でDxLibアニメーション関数を呼ぶと非同期ロードがブロッキングされます}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00096}00096\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_animation_a02e3cc6b3a52627093ab052227575d78}{isActive}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00098}00098\ \ \ \ \ \textcolor{comment}{//\ 再生フレームの取得}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00099}00099\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_animation_ad2ec91ff62634ae98be70c310bcaa860}{GetAnimationPlayTime}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00101}00101\ \ \ \ \ \textcolor{comment}{//\ アニメーションの総フレームを取得}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00102}00102\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_animation_a8f3a6765366667a875f8e52b9f2241c4}{GetAnimationTotalTime}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00104}00104\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{class_animation_a54eead4c5bfaf3071ec0f684ca666021}{GetAnimationSpeed}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00106}00106\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_animation_a3327ff4d79a569f98fa8b038667318d3}{SetAnimationSpeed}}(\textcolor{keywordtype}{float}\ speed);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00107}00107\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00108}00108\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00109}00109\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00110}00110\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ copy/move禁止}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00111}00111\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00112}00112\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00113}00113\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00114}00114\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00115}\mbox{\hyperlink{class_animation_a9eda75883c9e3c29d12fd225d8c0073d}{00115}}\ \ \ \ \ \mbox{\hyperlink{class_animation_a9eda75883c9e3c29d12fd225d8c0073d}{Animation}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_animation}{Animation}}\&)\ \ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00116}\mbox{\hyperlink{class_animation_a47af6c2b7cbbc24c410d57aba2672406}{00116}}\ \ \ \ \ \mbox{\hyperlink{class_animation_a47af6c2b7cbbc24c410d57aba2672406}{Animation}}(\mbox{\hyperlink{class_animation}{Animation}}\&\&)\ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00117}\mbox{\hyperlink{class_animation_a3f96bbe2b8ad13664e5a9b5a637a2870}{00117}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_animation_a3f96bbe2b8ad13664e5a9b5a637a2870}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_animation}{Animation}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00118}\mbox{\hyperlink{class_animation_a65b9b72ccde17d1e0675e38da4ac6554}{00118}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_animation_a65b9b72ccde17d1e0675e38da4ac6554}{operator=}}(\mbox{\hyperlink{class_animation}{Animation}}\&\&)\ \ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00119}00119\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00120}00120\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00121}00121\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00122}00122\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00123}00123\ \ \ \ \ \textcolor{comment}{//\ \ アニメーションを割り当て}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00124}00124\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ context\_index\ \ \ コンテキスト番号}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00125}00125\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_animation_a64652e054eea81c051c0dac020ab579e}{attachAnimation}}(\mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}}\ context\_index);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00127}00127\ \ \ \ \ \textcolor{comment}{//\ \ アニメーション割り当てを解除}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00128}00128\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ context\_index\ \ \ コンテキスト番号}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00129}00129\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_animation_ae8c7aad5ce667edff188eee629992144}{detachAnimation}}(\mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}}\ context\_index);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00131}\mbox{\hyperlink{class_animation_a6caac246a8fcd173a2dcb1bd6d96cea6}{00131}}\ \ \ \ \ std::wstring\ \mbox{\hyperlink{class_animation_a6caac246a8fcd173a2dcb1bd6d96cea6}{path\_}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ ファイルパス}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00132}\mbox{\hyperlink{class_animation_ada2cec8d05666b25a72fc88738c233a6}{00132}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_animation_ada2cec8d05666b25a72fc88738c233a6}{is\_valid\_}}\ \ \ \ \ =\ \textcolor{keyword}{false};\ \ \ \ \ \ \textcolor{comment}{//!<\ 初期化が正しく成功しているかどうか}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00133}\mbox{\hyperlink{class_animation_a84bab9f31a933e8f8cc92f5f0d029b44}{00133}}\ \ \ \ \ \mbox{\hyperlink{class_model}{Model}}*\ \ \ \ \ \ \ \mbox{\hyperlink{class_animation_a84bab9f31a933e8f8cc92f5f0d029b44}{model\_}}\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};\ \ \ \ \textcolor{comment}{//!<\ 関連付けられているモデル}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00134}\mbox{\hyperlink{class_animation_a8161d014228565637ac29f4a7828ccac}{00134}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_animation_a8161d014228565637ac29f4a7828ccac}{model\_handle\_}}\ =\ -\/1;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ [DxLib]\ 関連付けられているモデルのハンドル}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00136}\mbox{\hyperlink{class_animation_a510be874d77f4276ae731301133656f7}{00136}}\ \ \ \ \ std::vector<Animation::Desc>\ \mbox{\hyperlink{class_animation_a510be874d77f4276ae731301133656f7}{descs\_}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ アニメーション定義情報}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00137}\mbox{\hyperlink{class_animation_a0ba1507f5f267d2ee85c0daa0b4efa21}{00137}}\ \ \ \ \ std::vector<int>\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_animation_a0ba1507f5f267d2ee85c0daa0b4efa21}{mv1\_handles\_}};\ \ \ \ \textcolor{comment}{//!<\ [DxLib]\ アニメーションMV1ハンドル}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00138}00138\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00139}00139\ \textcolor{comment}{\ \ \ \ //!\ 名前逆引きテーブル\ (名前からアニメーション番号を取得)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00140}\mbox{\hyperlink{class_animation_ade7e5341bc087605698019e1c6e1587b}{00140}}\ \textcolor{comment}{}\ \ \ \ std::unordered\_map<std::string,\ u32>\ \mbox{\hyperlink{class_animation_ade7e5341bc087605698019e1c6e1587b}{name\_table\_}};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00142}00142\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00143}00143\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 再生中の情報}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00144}00144\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00145}00145\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00146}00146\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00147}\mbox{\hyperlink{class_animation_abc57c4b50a03e6bf258c86ae3f6fc95e}{00147}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_animation_abc57c4b50a03e6bf258c86ae3f6fc95e}{is\_paused\_}}\ =\ \textcolor{keyword}{false};\ \ \ \ \textcolor{comment}{//!<\ ポーズ中かどうか}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00148}00148\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00149}00149\ \textcolor{comment}{\ \ \ \ //!\ 再生中の情報構造体}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00150}\mbox{\hyperlink{struct_animation_1_1_context}{00150}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_animation_1_1_context}{Context}}\ \{}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00151}\mbox{\hyperlink{struct_animation_1_1_context_ab16305dbcbaebb394c7b8e56a8c5647d}{00151}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_animation_1_1_context_ab16305dbcbaebb394c7b8e56a8c5647d}{is\_playing\_}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};\ \ \ \ \textcolor{comment}{//!<\ 再生中かどうか}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00152}\mbox{\hyperlink{struct_animation_1_1_context_aa62b89fc379fe423eaa3f98e1b596225}{00152}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_animation_1_1_context_aa62b89fc379fe423eaa3f98e1b596225}{is\_loop\_}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};\ \ \ \ \textcolor{comment}{//!<\ ループ再生かどうか}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00153}\mbox{\hyperlink{struct_animation_1_1_context_aa9b8d745af793fe91e11fd2bbb9f41ee}{00153}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ae5300ed9eabeae78ee9d0c704a9c412a}{s32}}\ \ \mbox{\hyperlink{struct_animation_1_1_context_aa9b8d745af793fe91e11fd2bbb9f41ee}{animation\_index\_}}\ \ \ \ \ \ \ \ =\ -\/1;\ \ \ \ \ \ \ \textcolor{comment}{//!<\ 現在再生中の番号(Animation::Descのインデックス番号)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00154}\mbox{\hyperlink{struct_animation_1_1_context_aec353b40439860f112d7de0517e2b62c}{00154}}\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \mbox{\hyperlink{struct_animation_1_1_context_aec353b40439860f112d7de0517e2b62c}{animation\_attach\_index\_}}\ =\ -\/1;\ \ \ \ \ \ \ \textcolor{comment}{//!<\ [DxLib]\ アタッチされたスロット番号}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00155}\mbox{\hyperlink{struct_animation_1_1_context_ae4781a1a89b6fd1ec51ba6a16dbfdd59}{00155}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \ \mbox{\hyperlink{struct_animation_1_1_context_ae4781a1a89b6fd1ec51ba6a16dbfdd59}{animation\_total\_time\_}}\ \ \ =\ 0.0f;\ \ \ \ \ \textcolor{comment}{//!<\ 総再生時間}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00156}\mbox{\hyperlink{struct_animation_1_1_context_aa70ae1258298698d237e7ee0c83e94ff}{00156}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \ \mbox{\hyperlink{struct_animation_1_1_context_aa70ae1258298698d237e7ee0c83e94ff}{play\_time\_}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0.0f;\ \ \ \ \ \textcolor{comment}{//!<\ 現在再生中の時間}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00157}00157\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00159}\mbox{\hyperlink{class_animation_a89a53bf0c4a31ab8acf8651a3c872598}{00159}}\ \ \ \ \ \mbox{\hyperlink{struct_animation_1_1_context}{Context}}\ \mbox{\hyperlink{class_animation_a89a53bf0c4a31ab8acf8651a3c872598}{contexts\_}}[2];\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 構造体はアニメーションブレンドのため2系統を持つ}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00160}\mbox{\hyperlink{class_animation_ad688648037a3a8fb20f9f70d1b0b3612}{00160}}\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \ \ \ \ \mbox{\hyperlink{class_animation_ad688648037a3a8fb20f9f70d1b0b3612}{blend\_ratio\_}}\ =\ 0.0f;\ \ \ \ \textcolor{comment}{//!<\ ブレンド比(0.0f～1.0f)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00161}\mbox{\hyperlink{class_animation_a9bc8001d0835e86549f10562524c86ae}{00161}}\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \ \ \ \ \mbox{\hyperlink{class_animation_a9bc8001d0835e86549f10562524c86ae}{blend\_time\_}}\ \ =\ 1.0f;\ \ \ \ \textcolor{comment}{//!<\ ブレンドの補間時間}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00162}00162\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00163}00163\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00164}00164\ \textcolor{comment}{}\};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00166}00166\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00167}00167\ \textcolor{comment}{//!\ アニメーション情報}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00168}00168\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00169}\mbox{\hyperlink{class_resource_animation}{00169}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_resource_animation}{ResourceAnimation}}\ final\ \{}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00170}00170\ \ \ \ \textcolor{keyword}{public}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00171}00171\ \textcolor{comment}{\ \ \ \ //!\ デフォルトコンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00172}\mbox{\hyperlink{class_resource_animation_ac71fb94ea8f65f1d88baf88d45ab801e}{00172}}\ \textcolor{comment}{}\ \ \ \ \mbox{\hyperlink{class_resource_animation_ac71fb94ea8f65f1d88baf88d45ab801e}{ResourceAnimation}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00174}00174\ \ \ \ \ \textcolor{comment}{//\ \ コンストラクタ}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00175}00175\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ path\ \ \ \ ファイルパス}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00176}00176\ \textcolor{comment}{}\ \ \ \ \mbox{\hyperlink{class_resource_animation_ac71fb94ea8f65f1d88baf88d45ab801e}{ResourceAnimation}}(std::string\_view\ path);}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00178}00178\ \ \ \ \ \textcolor{comment}{//\ \ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00179}00179\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_resource_animation_aff59a10f300f15c219e2493cd1a971ee}{\string~ResourceAnimation}}();}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00181}00181\ \ \ \ \ \textcolor{comment}{//\ 初期化が正しく成功しているかどうかを取得}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00182}00182\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_resource_animation_a508a18d599fba908c5dd3e98cbfd86f9}{isValid}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00184}00184\ \ \ \ \ \textcolor{comment}{//\ 利用可能な状態かどうか取得}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00185}00185\ \textcolor{comment}{\ \ \ \ //!\ @note}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00186}00186\ \textcolor{comment}{\ \ \ \ //!\ 利用可能になっていない状態でDxLibアニメーション関数を呼ぶと非同期ロードがブロッキングされます}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00187}00187\ \textcolor{comment}{}\ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_resource_animation_af18a53a955907e27afb34b776a531034}{isActive}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00189}00189\ \ \ \ \ \textcolor{comment}{//\ [DxLib]\ MV1ハンドルを取得}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00190}00190\ \ \ \ \ \textcolor{keyword}{operator}\ int()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00192}00192\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00193}00193\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ copy/move禁止}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00194}00194\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00195}00195\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00196}00196\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00197}00197\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00198}\mbox{\hyperlink{class_resource_animation_aee5793f9abb842e4033593cb0d0e2cc3}{00198}}\ \ \ \ \ \mbox{\hyperlink{class_resource_animation_aee5793f9abb842e4033593cb0d0e2cc3}{ResourceAnimation}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_resource_animation}{ResourceAnimation}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00199}\mbox{\hyperlink{class_resource_animation_a6aed0e9db3d55bfa27ea3e24b28214be}{00199}}\ \ \ \ \ \mbox{\hyperlink{class_resource_animation_a6aed0e9db3d55bfa27ea3e24b28214be}{ResourceAnimation}}(\mbox{\hyperlink{class_resource_animation}{ResourceAnimation}}\&\&)\ \ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00200}\mbox{\hyperlink{class_resource_animation_a74a1800173b6e596a2d61161ee1665f9}{00200}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_animation_a74a1800173b6e596a2d61161ee1665f9}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_resource_animation}{ResourceAnimation}}\&)\ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00201}\mbox{\hyperlink{class_resource_animation_ac3f868ad311ca5d62203387d40ca4155}{00201}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_resource_animation_ac3f868ad311ca5d62203387d40ca4155}{operator=}}(\mbox{\hyperlink{class_resource_animation}{ResourceAnimation}}\&\&)\ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00202}00202\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00203}00203\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00204}00204\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00205}00205\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00206}\mbox{\hyperlink{class_resource_animation_a8187b2a4e3b3560d1f809559d644d07c}{00206}}\ \ \ \ \ std::wstring\ \ \ \ \ \ \mbox{\hyperlink{class_resource_animation_a8187b2a4e3b3560d1f809559d644d07c}{path\_}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ モデルファイルへのパス}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00207}\mbox{\hyperlink{class_resource_animation_af9056fe5060da90d4a6eafd455f777f3}{00207}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_resource_animation_af9056fe5060da90d4a6eafd455f777f3}{mv1\_handle\_}}\ =\ -\/1;\ \ \ \ \ \ \ \textcolor{comment}{//!<\ [DxLib]\ MV1モデルハンドル\ (アニメーション用途)}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00208}\mbox{\hyperlink{class_resource_animation_aef3536b46e0470831bb94126e1298b8c}{00208}}\ \ \ \ \ std::atomic<bool>\ \mbox{\hyperlink{class_resource_animation_aef3536b46e0470831bb94126e1298b8c}{active\_}}\ \ \ \ \ =\ \textcolor{keyword}{false};\ \ \ \ \textcolor{comment}{//!<\ アクティブ状態\ true:利用可能\ false:ロード未完了}}
+\DoxyCodeLine{\Hypertarget{_animation_8h_source_l00209}00209\ \};}
+
+\end{DoxyCode}
