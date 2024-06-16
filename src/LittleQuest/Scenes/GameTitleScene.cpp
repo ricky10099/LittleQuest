@@ -130,6 +130,4 @@ void GameTitleScene::LateDraw() {
 void GameTitleScene::Exit() {
     DeleteFontToHandle(m_fontHandle);
 }
-
-void GameTitleScene::GUI() {}
 }    // namespace LittleQuest

@@ -17,19 +17,6 @@ bool Rock2::Init() {
     AddComponent<ComponentCollisionModel>()->AttachToModel();
     return Super::Init();
 }
-
-void Rock2::Update() {}
-
-// 基本描画の後に処理します
-void Rock2::LateDraw() {}
-
-void Rock2::GUI() {
-    Super::GUI();
-}
-
-void Rock2::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
-    Super::OnHit(hitInfo);
-}
 }    // namespace LittleQuest
 
 CEREAL_REGISTER_TYPE(LittleQuest::Rock2)

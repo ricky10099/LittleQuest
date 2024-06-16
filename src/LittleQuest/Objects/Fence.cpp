@@ -19,26 +19,10 @@ FencePtr Fence::Create(const float3& pos) {
 
     return obj;
 }
-
-bool Fence::Init() {
-    return Super::Init();
-}
-
 void Fence::Update() {
     if(!m_pBox->GetStatus(StatusBit::NoDraw)) {
         m_pBox->SetStatus(StatusBit::NoDraw, true);
     }
-}
-
-void Fence::LateDraw() {}
-
-void Fence::GUI() {
-    Super::GUI();
-}
-
-void Fence::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo)    // override
-{
-    Super::OnHit(hitInfo);
 }
 }    // namespace LittleQuest
 

@@ -4,17 +4,20 @@
 
 namespace LittleQuest {
 USING_PTR(BrokenHouse);
+//////////////////////////////////////////////////////////////
+//! @brief 壊れた家クラス
+//////////////////////////////////////////////////////////////
 class BrokenHouse: public Object {
    public:
     BP_OBJECT_DECL(BrokenHouse, "LittleQuest/BrokenHouse");
     static BrokenHousePtr Create(std::string name = "BrokenHouse", const float3& pos = {0, 0, 0});
 
-    bool Init() override;
+    //------------------------------------------------------------
+    //! @brief 更新処理を行います。
+    //------------------------------------------------------------
     void Update() override;
-    void LateDraw() override;
-    void GUI() override;
-    void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
    private:
+    //! モデルコリジョンボックス
     ObjectPtr m_pBox;
 };
 }    // namespace LittleQuest

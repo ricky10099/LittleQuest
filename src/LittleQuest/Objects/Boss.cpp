@@ -203,10 +203,6 @@ void Boss::LateDraw() {
     }
 }
 
-void Boss::GUI() {
-    Super::GUI();
-}
-
 void Boss::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
     if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::ENEMY_WEAPON) {
         auto* owner = hitInfo.hit_collision_->GetOwner();
