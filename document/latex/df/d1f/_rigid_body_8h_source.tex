@@ -1,0 +1,260 @@
+\hypertarget{_rigid_body_8h_source}{}\doxysection{Rigid\+Body.\+h}
+\label{_rigid_body_8h_source}\index{RigidBody.h@{RigidBody.h}}
+\mbox{\hyperlink{_rigid_body_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ RigidBody.h}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ 剛体}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00005}00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00007}00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceshape}{shape}}\ \{}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00008}00008\ \textcolor{keyword}{class\ }\mbox{\hyperlink{namespaceshape_ae636a35f964aba505258a5702c159786ab7095f057db3fefa7325ad93a04e14fd}{Sphere}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 球}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00009}00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{namespaceshape_ae636a35f964aba505258a5702c159786a3cfce651e667ab85486dd42a8185f98a}{Box}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ ボックス}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00010}00010\ \textcolor{keyword}{class\ }HeightField;\ \ \ \ \ \ \ \textcolor{comment}{//!<\ 高さマップ}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00011}00011\ \textcolor{keyword}{class\ }\mbox{\hyperlink{namespaceshape_ae636a35f964aba505258a5702c159786a710fdb6adb881b408116ef95335e1961}{Mesh}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 静的メッシュ}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00012}00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{namespaceshape_ae636a35f964aba505258a5702c159786a3e1ee9920ed982b5da9becaf4b5463e5}{ConvexHull}};\ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 凸形状}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00013}00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{namespaceshape_ae636a35f964aba505258a5702c159786a4880c0f12c06dd6d142e7a40b041bf1a}{Capsule}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ カプセル}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00014}00014\ \textcolor{keyword}{class\ }TaperedCapsule;\ \ \ \ \textcolor{comment}{//!<\ 両端半径が異なるカプセル}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00015}00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{namespaceshape_ae636a35f964aba505258a5702c159786a2ec2c2961c7ce5a114d969c1f562a563}{Cylinder}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 円筒}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00016}00016\ \textcolor{keyword}{class\ }Triangle;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 三角形}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00017}00017\ \textcolor{keyword}{class\ }StaticCompound;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00018}00018\ \textcolor{keyword}{class\ }MutableCompound;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00019}00019\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ shape}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00021}00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacephysics}{physics}}\ \{}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00023}00023\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00024}00024\ \textcolor{comment}{//!\ 動作タイプ}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00025}00025\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00026}\mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{00026}}\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{MotionType}}\ \{}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a84a8921b25f505d0d2077aeb5db4bc16}{Static}},\ \ \ \ \ \ \ \textcolor{comment}{//!<\ 静的。動かない。}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00028}00028\ \ \ \ \ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a40c78b58b86002ee38fad2d3c9dd787e}{Kinematic}},\ \ \ \ \textcolor{comment}{//!<\ 速度のみで移動可能で、力には反応しない。}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00029}00029\ \ \ \ \ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}{Dynamic}},\ \ \ \ \ \ \textcolor{comment}{//!<\ 通常の物理オブジェクトとして力に応答する。}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00030}00030\ \};}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00032}00032\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00033}00033\ \textcolor{comment}{//!\ 剛体クラス}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00034}00034\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00035}\mbox{\hyperlink{classphysics_1_1_rigid_body}{00035}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classphysics_1_1_rigid_body}{RigidBody}}\ \{}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00036}00036\ \ \ \ \textcolor{keyword}{public}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00037}00037\ \textcolor{comment}{\ \ \ \ //!\ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00038}\mbox{\hyperlink{classphysics_1_1_rigid_body_aeaf58e0ff88940582079c3d6860f80a6}{00038}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_aeaf58e0ff88940582079c3d6860f80a6}{\string~RigidBody}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00040}00040\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00041}00041\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ オブジェクトレイヤー（フィルター）}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00042}00042\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00043}00043\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00044}00044\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00045}00045\ \textcolor{comment}{\ \ \ \ //!\ オブジェクトレイヤーを設定}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00046}00046\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ layer\ \ \ オブジェクトレイヤー}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00047}\mbox{\hyperlink{classphysics_1_1_rigid_body_a4db561e203a7a6238b7e6dabfefacbd6}{00047}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a4db561e203a7a6238b7e6dabfefacbd6}{setLayer}}(\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_aff03acd91146bc9a20f2a491f93d1932}{layer}})\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00048}00048\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00049}00049\ \textcolor{comment}{\ \ \ \ //!\ オブジェクトレイヤーを取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00050}\mbox{\hyperlink{classphysics_1_1_rigid_body_aff03acd91146bc9a20f2a491f93d1932}{00050}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_aff03acd91146bc9a20f2a491f93d1932}{layer}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00051}00051\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00052}00052\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00053}00053\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00054}00054\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 位置と回転姿勢}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00055}00055\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00056}00056\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00057}00057\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00058}00058\ \textcolor{comment}{\ \ \ \ //!\ 位置を設定}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00059}00059\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ position\ \ \ \ 設定座標}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00060}00060\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ is\_activate\ アクティブ化するかどうか}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00061}00061\ \textcolor{comment}{\ \ \ \ //!\ true:アクティブにする\ false:アクティブにしない}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00062}\mbox{\hyperlink{classphysics_1_1_rigid_body_a5a6e6230056bbc74b6af14ecb85fbd58}{00062}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a5a6e6230056bbc74b6af14ecb85fbd58}{setPosition}}(\textcolor{keyword}{const}\ float3\&\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a43919be018e0b51e9b4b9c568962181e}{position}},\ \textcolor{keywordtype}{bool}\ is\_activate\ =\ \textcolor{keyword}{true})\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00063}00063\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00064}00064\ \textcolor{comment}{\ \ \ \ //!\ 位置を取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00065}\mbox{\hyperlink{classphysics_1_1_rigid_body_a43919be018e0b51e9b4b9c568962181e}{00065}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a43919be018e0b51e9b4b9c568962181e}{position}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00066}00066\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00067}00067\ \textcolor{comment}{\ \ \ \ //!\ 重心位置を取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00068}\mbox{\hyperlink{classphysics_1_1_rigid_body_a670ba2bf210384276c1c4fe305d2605a}{00068}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a670ba2bf210384276c1c4fe305d2605a}{centerOfMassPosition}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00069}00069\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00070}00070\ \textcolor{comment}{\ \ \ \ //!\ 回転姿勢を設定}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00071}00071\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ rot\ \ \ \ \ \ \ \ \ 設定角度}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00072}00072\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ is\_activate\ アクティブ化するかどうか}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00073}00073\ \textcolor{comment}{\ \ \ \ //!\ true:アクティブにする\ false:アクティブにしない}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00074}\mbox{\hyperlink{classphysics_1_1_rigid_body_a9deeb6a45f111d31082587d6782fa8c5}{00074}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a9deeb6a45f111d31082587d6782fa8c5}{setRotation}}(\textcolor{keyword}{const}\ quaternion\&\ rot,\ \textcolor{keywordtype}{bool}\ is\_activate\ =\ \textcolor{keyword}{true})\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00075}00075\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00076}00076\ \textcolor{comment}{\ \ \ \ //!\ 回転姿勢を設定}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00077}\mbox{\hyperlink{classphysics_1_1_rigid_body_a191e138030612de47568431c8b6e727a}{00077}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ quaternion\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a191e138030612de47568431c8b6e727a}{rotation}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00078}00078\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00079}00079\ \textcolor{comment}{\ \ \ \ //!\ ワールド行列を取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00080}\mbox{\hyperlink{classphysics_1_1_rigid_body_aa66ae217f95717046cc57b312e2e77a2}{00080}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_aa66ae217f95717046cc57b312e2e77a2}{worldMatrix}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00081}00081\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00082}00082\ \textcolor{comment}{\ \ \ \ //!\ 重心の変換行列を取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00083}\mbox{\hyperlink{classphysics_1_1_rigid_body_a065d328b0a961382a8911805168282eb}{00083}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a065d328b0a961382a8911805168282eb}{centerOfMassTransform}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00084}00084\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00085}00085\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00086}00086\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00087}00087\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 速度と角速度}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00088}00088\ \textcolor{comment}{\ \ \ \ //!\ @details}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00089}00089\ \textcolor{comment}{\ \ \ \ //!\ LinearVelocityは重心の速度であり、物体の位置と一致しない場合がありますので補正してください。}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00090}00090\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00091}00091\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00092}00092\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00093}00093\ \textcolor{comment}{\ \ \ \ //!\ 速度と角速度を逆算して設定}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00094}00094\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ target\_position\ 目標の位置}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00095}00095\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ target\_rotation\ 目標の回転姿勢}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00096}00096\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ delta\_time\ \ \ \ \ \ 所要時間}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00097}00097\ \textcolor{comment}{\ \ \ \ //!\ target\_position/target\_rotation\ に\ delta\_time}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00098}00098\ \textcolor{comment}{\ \ \ \ //!\ 秒で位置するようにボディの速度を設定します。}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00099}00099\ \textcolor{comment}{\ \ \ \ //!\ 必要に応じてボディをアクティブにします。}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00100}\mbox{\hyperlink{classphysics_1_1_rigid_body_a7be837e25dd2f8cded86f47fa2d1d2b4}{00100}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a7be837e25dd2f8cded86f47fa2d1d2b4}{moveKinematic}}(\textcolor{keyword}{const}\ float3\&\ target\_position,\ \textcolor{keyword}{const}\ quaternion\&\ target\_rotation,\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ delta\_time)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00101}00101\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00102}00102\ \textcolor{comment}{\ \ \ \ //!\ 速度を設定}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00103}00103\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ v\ \ \ 速度}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00104}\mbox{\hyperlink{classphysics_1_1_rigid_body_abea074b8e238039bf3dda46a19ab0179}{00104}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_abea074b8e238039bf3dda46a19ab0179}{setLinearVelocity}}(\textcolor{keyword}{const}\ float3\&\ v)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00105}00105\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00106}00106\ \textcolor{comment}{\ \ \ \ //!\ 速度を取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00107}\mbox{\hyperlink{classphysics_1_1_rigid_body_a795c95e408ea76d6acdcec99e3bb98e4}{00107}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a795c95e408ea76d6acdcec99e3bb98e4}{linearVelocity}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00108}00108\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00109}00109\ \textcolor{comment}{\ \ \ \ //!\ 現在の速度に速度を加算}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00110}00110\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ v\ \ \ 加算する速度}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00111}\mbox{\hyperlink{classphysics_1_1_rigid_body_a2060d916e6bb2a292387fd90951e767b}{00111}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a2060d916e6bb2a292387fd90951e767b}{addLinearVelocity}}(\textcolor{keyword}{const}\ float3\&\ v)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00112}00112\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00113}00113\ \textcolor{comment}{\ \ \ \ //!\ 角速度を設定}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00114}00114\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ vrot\ \ \ 角速度}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00115}\mbox{\hyperlink{classphysics_1_1_rigid_body_ab09d70d5181788b5893755a1e1621b7f}{00115}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_ab09d70d5181788b5893755a1e1621b7f}{setAngularVelocity}}(\textcolor{keyword}{const}\ float3\&\ vrot)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00116}00116\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00117}00117\ \textcolor{comment}{\ \ \ \ //!\ 角速度を取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00118}\mbox{\hyperlink{classphysics_1_1_rigid_body_aca09f2b18ac78d022623059e1dc6a2d5}{00118}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_rigid_body_aca09f2b18ac78d022623059e1dc6a2d5}{angularVelocity}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00119}00119\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00120}00120\ \textcolor{comment}{\ \ \ \ //!\ 指定座標のワールド空間での速度を取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00121}00121\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ point\ \ \ 座標}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00122}\mbox{\hyperlink{classphysics_1_1_rigid_body_a0a0c9e6a7c5df94035190acf80b5fd28}{00122}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a0a0c9e6a7c5df94035190acf80b5fd28}{pointVelocity}}(\textcolor{keyword}{const}\ float3\&\ point)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00123}00123\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00124}00124\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00125}00125\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00126}00126\ \textcolor{comment}{\ \ \ \ //!\ @name\ 力を与える}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00127}00127\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00128}00128\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00129}00129\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00130}00130\ \textcolor{comment}{\ \ \ \ //!\ 力を与える}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00131}00131\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ force\ \ \ 与える力}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00132}\mbox{\hyperlink{classphysics_1_1_rigid_body_af6c8404e91d54e8783ddb3ebb364f98b}{00132}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_af6c8404e91d54e8783ddb3ebb364f98b}{addForce}}(\textcolor{keyword}{const}\ float3\&\ force)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00133}00133\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00134}00134\ \textcolor{comment}{\ \ \ \ //!\ 指定位置に力を与える}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00135}00135\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ force\ \ \ 与える力}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00136}00136\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ point\ \ \ 位置}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00137}\mbox{\hyperlink{classphysics_1_1_rigid_body_a95f0919a27bf81b0f244382734232eb7}{00137}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a95f0919a27bf81b0f244382734232eb7}{addForce}}(\textcolor{keyword}{const}\ float3\&\ force,\ \textcolor{keyword}{const}\ float3\&\ point)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00138}00138\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00139}00139\ \textcolor{comment}{\ \ \ \ //!\ トルクを与える}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00140}00140\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ force\ \ \ 与える力}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00141}\mbox{\hyperlink{classphysics_1_1_rigid_body_aedfe68f1035bd0a879340d548b92a10f}{00141}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_aedfe68f1035bd0a879340d548b92a10f}{addTorque}}(\textcolor{keyword}{const}\ float3\&\ torque)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00142}00142\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00143}00143\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00144}00144\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00145}00145\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 撃力を与える}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00146}00146\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00147}00147\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00148}00148\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00149}00149\ \textcolor{comment}{\ \ \ \ //!\ 撃力を与える}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00150}00150\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ impulse\ 与える撃力}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00151}\mbox{\hyperlink{classphysics_1_1_rigid_body_a81b0c1a3b94735b1377f13bddb758156}{00151}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a81b0c1a3b94735b1377f13bddb758156}{addImpulse}}(\textcolor{keyword}{const}\ float3\&\ impulse)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00152}00152\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00153}00153\ \textcolor{comment}{\ \ \ \ //!\ 指定位置に撃力を与える}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00154}00154\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ impulse\ 与える撃力}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00155}00155\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ point\ \ \ 位置}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00156}\mbox{\hyperlink{classphysics_1_1_rigid_body_a5b626de3448224a249ced873c05e2c3e}{00156}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a5b626de3448224a249ced873c05e2c3e}{addImpulse}}(\textcolor{keyword}{const}\ float3\&\ impulse,\ \textcolor{keyword}{const}\ float3\&\ point)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00157}00157\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00158}00158\ \textcolor{comment}{\ \ \ \ //!\ 角力積を与える}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00159}00159\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ angular\_impulse\ 与える角力積}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00160}\mbox{\hyperlink{classphysics_1_1_rigid_body_a4424738f3f08bfa0e3f6adf9698a04a4}{00160}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a4424738f3f08bfa0e3f6adf9698a04a4}{addAngularImpulse}}(\textcolor{keyword}{const}\ float3\&\ impulse)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00161}00161\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00162}00162\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00163}00163\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00164}00164\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 跳ね返り係数}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00165}00165\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00166}00166\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00167}00167\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00168}00168\ \textcolor{comment}{\ \ \ \ //!\ 跳ね返り係数を設定}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00169}00169\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ coeff\ \ \ 跳ね返り係数(0.0f-\/1.0f)}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00170}\mbox{\hyperlink{classphysics_1_1_rigid_body_ae5b08588113928e34e44d2a5bb04473a}{00170}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_ae5b08588113928e34e44d2a5bb04473a}{setRestitution}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ coeff)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00171}00171\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00172}00172\ \textcolor{comment}{\ \ \ \ //!\ 跳ね返り係数を取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00173}\mbox{\hyperlink{classphysics_1_1_rigid_body_a633447c5e3021f47842e0e21e790e938}{00173}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a633447c5e3021f47842e0e21e790e938}{restitution}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00174}00174\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00175}00175\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00176}00176\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00177}00177\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 摩擦係数}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00178}00178\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00179}00179\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00180}00180\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00181}00181\ \textcolor{comment}{\ \ \ \ //!\ 摩擦係数を設定}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00182}00182\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ coeff\ \ \ 摩擦係数(0.0f\string~)}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00183}\mbox{\hyperlink{classphysics_1_1_rigid_body_a3176341b3cd9b22e1dd62122e3e3d6b4}{00183}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a3176341b3cd9b22e1dd62122e3e3d6b4}{setFriction}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ coeff)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00184}00184\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00185}00185\ \textcolor{comment}{\ \ \ \ //!\ 摩擦係数を取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00186}\mbox{\hyperlink{classphysics_1_1_rigid_body_aa4acbfa32015dedfcbd04fc59e9893e6}{00186}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_aa4acbfa32015dedfcbd04fc59e9893e6}{friction}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00187}00187\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00188}00188\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00189}00189\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00190}00190\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ 重力係数}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00191}00191\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00192}00192\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00193}00193\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00194}00194\ \textcolor{comment}{\ \ \ \ //!\ 重力係数を設定}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00195}00195\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ coeff\ \ \ 摩擦係数(0.0f\string~)}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00196}\mbox{\hyperlink{classphysics_1_1_rigid_body_a40753495537fbb8104fb953ed876fd77}{00196}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a40753495537fbb8104fb953ed876fd77}{setGravityFactor}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ coeff)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00197}00197\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00198}00198\ \textcolor{comment}{\ \ \ \ //!\ 重力係数を取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00199}\mbox{\hyperlink{classphysics_1_1_rigid_body_aaa35fb380e89eaf36505627c723a90d0}{00199}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_aaa35fb380e89eaf36505627c723a90d0}{gravityFactor}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00200}00200\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00201}00201\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00202}00202\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00203}00203\ \textcolor{comment}{\ \ \ \ //!\ 動的/静的/キネマティックを切り替え}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00204}00204\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ motion\_type\ 動作タイプ}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00205}00205\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ is\_activate\ アクティブ化するかどうか}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00206}00206\ \textcolor{comment}{\ \ \ \ //!\ true:アクティブにする\ false:アクティブにしない}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00207}\mbox{\hyperlink{classphysics_1_1_rigid_body_ab4fd511bac9774e5061a2a57b40e16d3}{00207}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_ab4fd511bac9774e5061a2a57b40e16d3}{setMotionType}}(\mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics::MotionType}}\ motion\_type,\ \textcolor{keywordtype}{bool}\ is\_activate\ =\ \textcolor{keyword}{true})\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00208}00208\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00209}00209\ \textcolor{comment}{\ \ \ \ //!\ ワールド空間の逆慣性テンソルを取得する}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00210}\mbox{\hyperlink{classphysics_1_1_rigid_body_a4ddd6c758d9f7a53ef5d6d20e36502b5}{00210}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a4ddd6c758d9f7a53ef5d6d20e36502b5}{inverseInertia}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00211}00211\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00212}00212\ \textcolor{comment}{\ \ \ \ //!\ ユーザーデーターを設定}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00213}00213\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [s]\ ユーザーデーター(識別用に任意に設定可能です)}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00214}\mbox{\hyperlink{classphysics_1_1_rigid_body_a0eaf71f1f1d32abdf4f4095581061a2a}{00214}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_a0eaf71f1f1d32abdf4f4095581061a2a}{setData}}(std::intptr\_t\ s)\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00215}00215\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00216}00216\ \textcolor{comment}{\ \ \ \ //!\ ユーザーデーターを取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00217}\mbox{\hyperlink{classphysics_1_1_rigid_body_aa06209408a89f72e2b9c37d0dbbc3369}{00217}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ std::intptr\_t\ \mbox{\hyperlink{classphysics_1_1_rigid_body_aa06209408a89f72e2b9c37d0dbbc3369}{data}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00218}00218\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00219}00219\ \textcolor{comment}{\ \ \ \ //!\ ボディIDを取得}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00220}\mbox{\hyperlink{classphysics_1_1_rigid_body_aa3aedac15bd41b6d2623fde9a7b35e8e}{00220}}\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}}\ \mbox{\hyperlink{classphysics_1_1_rigid_body_aa3aedac15bd41b6d2623fde9a7b35e8e}{bodyID}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00221}00221\ \};}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00223}00223\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00224}00224\ \textcolor{comment}{//!\ @name\ \ \ 生成}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00225}00225\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00226}00226\ \textcolor{comment}{//@\{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00227}00227\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00228}00228\ \textcolor{comment}{//\ \ Sphere剛体を作成}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00229}00229\ std::shared\_ptr<physics::RigidBody>\ \mbox{\hyperlink{namespacephysics_ab2e98ec6c12aa9b5613b46bd3d3d0577}{createRigidBody}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classshape_1_1_sphere}{shape::Sphere}}\&\ o,\ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layer,\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics::MotionType}}\ \ motion\_type\ =\ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}{physics::MotionType::Dynamic}});}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00233}00233\ \textcolor{comment}{//\ \ Box剛体を作成}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00234}00234\ std::shared\_ptr<physics::RigidBody>\ \mbox{\hyperlink{namespacephysics_ab2e98ec6c12aa9b5613b46bd3d3d0577}{createRigidBody}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classshape_1_1_box}{shape::Box}}\&\ \ \ o,\ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layer,\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics::MotionType}}\ motion\_type\ =\ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}{physics::MotionType::Dynamic}});}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00238}00238\ \textcolor{comment}{//\ \ Cylinder剛体を作成}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00239}00239\ std::shared\_ptr<physics::RigidBody>\ \mbox{\hyperlink{namespacephysics_ab2e98ec6c12aa9b5613b46bd3d3d0577}{createRigidBody}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classshape_1_1_cylinder}{shape::Cylinder}}\&\ o,\ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layer,\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics::MotionType}}\ \ \ \ motion\_type\ =\ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}{physics::MotionType::Dynamic}});}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00242}00242\ }
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00243}00243\ \textcolor{comment}{//\ \ ConvexHull剛体を作成}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00244}00244\ std::shared\_ptr<physics::RigidBody>\ \mbox{\hyperlink{namespacephysics_ab2e98ec6c12aa9b5613b46bd3d3d0577}{createRigidBody}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classshape_1_1_convex_hull}{shape::ConvexHull}}\&\ o,\ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layer,\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics::MotionType}}\ \ \ \ \ \ motion\_type\ =\ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}{physics::MotionType::Dynamic}});}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00248}00248\ \textcolor{comment}{//\ \ Mesh剛体を作成}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00249}00249\ \textcolor{comment}{//!\ @note\ \ \ メッシュ剛体は常に静的で生成されます}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00250}00250\ \textcolor{comment}{}std::shared\_ptr<physics::RigidBody>\ \mbox{\hyperlink{namespacephysics_ab2e98ec6c12aa9b5613b46bd3d3d0577}{createRigidBody}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classshape_1_1_mesh}{shape::Mesh}}\&\ o,\ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ layer);}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00251}00251\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00252}00252\ \textcolor{comment}{//@\}}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00253}00253\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_rigid_body_8h_source_l00254}00254\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ physics}}
+
+\end{DoxyCode}

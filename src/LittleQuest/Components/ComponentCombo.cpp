@@ -68,6 +68,4 @@ float ComponentCombo::ComboBuff() {
 
     return 1.0f;
 }
-
-BP_COMPONENT_IMPL(ComponentCombo, u8"Comboコンポーネント");
 }    // namespace LittleQuest

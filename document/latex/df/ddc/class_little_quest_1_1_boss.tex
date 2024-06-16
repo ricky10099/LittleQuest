@@ -1,0 +1,1760 @@
+\hypertarget{class_little_quest_1_1_boss}{}\doxysection{Little\+Quest\+::Boss Class Reference}
+\label{class_little_quest_1_1_boss}\index{LittleQuest::Boss@{LittleQuest::Boss}}
+
+
+ボスクラス  
+
+
+
+
+{\ttfamily \#include $<$Boss.\+h$>$}
+
+Inheritance diagram for Little\+Quest\+::Boss\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{df/ddc/class_little_quest_1_1_boss}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_boss_a593a2b5bf35e892373b6b14f3158562a}{BP\+\_\+\+OBJECT\+\_\+\+TYPE}} (\mbox{\hyperlink{class_little_quest_1_1_boss}{Boss}}, Object)
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_boss_adf654e8eb7f62e5cb58c45ac16b7bf31}{Init}} () override
+\begin{DoxyCompactList}\small\item\em 初期化処理を行います。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a20675e076f998f2f892ddec20d1c9b96}{Update}} () override
+\begin{DoxyCompactList}\small\item\em 更新処理を行います。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a65986be77f3c031bda330b989d0097e7}{Late\+Draw}} () override
+\begin{DoxyCompactList}\small\item\em 遅い描画の処理を行います。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a3a8f1218990b0d47b78450f668b0ce78}{GUI}} () override
+\begin{DoxyCompactList}\small\item\em Im\+GUIの処理を行います。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a42abd568f02ceb5f99e6c0a5f2d2a5e2}{On\+Hit}} (const Component\+Collision\+::\+Hit\+Info \&hit\+Info) override
+\begin{DoxyCompactList}\small\item\em 当たりのコールバック \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_ae8b158c0dc3e118d88b735c8671446d8}{Exit}} () override
+\begin{DoxyCompactList}\small\item\em 終了処理を行います。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a582a981f4e258eaa8d68cf2e60930ae5}{Get\+Hit}} (int damage)
+\begin{DoxyCompactList}\small\item\em 攻撃される処理を行います。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_ad81a5ad887f888b8987c0446944ca35f}{Play\+Taunt}} ()
+\begin{DoxyCompactList}\small\item\em 挑発動画を再生します。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_ac0ffc08c5333e717b199642914d73373}{Play\+Dead}} ()
+\begin{DoxyCompactList}\small\item\em 死亡動画を再生します。 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_boss_a7466981672743eff50fdf180a3befa52}{Is\+Played\+Taunt}} ()
+\begin{DoxyCompactList}\small\item\em 挑発動画が再生したのか。 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_boss_a7bff8e5612765c6e07332cd99af45782}{Is\+Dead}} ()
+\begin{DoxyCompactList}\small\item\em ボスが倒されたのか。 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Boss\+Ptr \mbox{\hyperlink{class_little_quest_1_1_boss_a1176f3b8df2af3aa45271a3cce7d360f}{Create}} (const float3 \&pos)
+\begin{DoxyCompactList}\small\item\em ボスを生成します。 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193f}{Boss\+State}} \{ \newline
+\mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fabe627a3938e4a8bd0c088cd1665efae1}{IDLE}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa8717334d558d58bbb010a2784fae3555}{WAIT}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa60a8594d2c87f1e5e7e0f2dc77c22320}{CHASE}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa244822ef864130956c94779df2bf26e3}{ATTACK}}
+, \newline
+\mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa7405ca8a780fcc6165d8ace1c6e8f7a8}{TURN\+\_\+\+LEFT}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa916f9518e526f2db71506b74dc6967fa}{TURN\+\_\+\+RIGHT}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa2ddd34144ae0ef97f2a87c7a91234517}{GET\+\_\+\+HIT}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa179f3ce0442e0fc42accf422c0a4cdc9}{ANGRY}}
+, \newline
+\mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fafffeba8a788c493a349c64e54cf1224a}{TAUNT}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa7c1c98beb5550d4430476da8fc060fa8}{DEAD}}
+ \}
+\item 
+enum \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620a}{Boss\+Combo}} \{ \newline
+\mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa6075da8c57b1e2fe4802adf9b1dda803}{SWIP}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa86e2c132e1414011ba463bdca990c2fd}{COMBO5}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa650f351f111b2fb178e873aac77511d6}{FAST\+\_\+\+COMBO5}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa3a752eaa1ebb18aefb49f57d4dd5c2a0}{BACKFLIP\+\_\+\+PUNCH}}
+, \newline
+\mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa270c4d40e7d73699ae358a978b6c50d2}{BACKFLIP\+\_\+\+CHARGE\+\_\+\+PUNCH}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aab17a5d6a527b956e249794380d76f031}{CHARGE\+\_\+\+PUNCH}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa52bfed5d43fd47a5c9d07a0371352144}{ROAR\+\_\+\+ATTACK}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa30d41d32cc4879c22eb59f3bc14017ea}{NONE}}
+ \}
+\item 
+enum \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811}{Boss\+Anim}} \{ \newline
+\mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a254af8c8bbe7c777bce4970915ff5767}{SWIP\+\_\+\+ATTACK}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a8675560729a7c609bbf5cc65d004e56e}{QUICK\+\_\+\+SWIP}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811ab31015cb57005aa3bb580adbdf5e80d6}{PUNCH}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a588a2db7f0394bca62536b9779b3f960}{QUICK\+\_\+\+PUNCH}}
+, \newline
+\mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811ac6e9965724f58c7ccd1f9bdf0465ccd8}{JUMP\+\_\+\+ATTACK}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a224897840976e08dc30ec1b85e0aef5c}{BACKFLIP}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811aa216108e26ce024984b0560334367b52}{DOUBLE\+\_\+\+PUNCH}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811afa6cc2e8fb6e35947271f97b35d1d572}{CHARGE}}
+, \newline
+\mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a65eb6b7c8d1b9362d368d6934e446367}{ROAR}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a8c8a23244b0635c693dcdec621cfabce}{TAUNT\+\_\+\+ANIM}}
+, \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a41f8c3dd22f834771eb33419c4c8a273}{ANGRY\+\_\+\+AURA}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a476dfe97580679c1273ff8c64b860414}{Game\+Action}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a9bde9b8b52a028fd43ff1217828633ec}{Trans\+In\+Action}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a7888b7ab3d793ad51b17ad1737638322}{Trans\+Out\+Action}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a4858c4df2a4acc78f2baccc3bd589d0e}{Idle}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a9632359ba3e3708460dcfea0c9d2c4f4}{Wait}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a30be2af351bba70e2175f3b2c737912d}{Chase\+Player}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_acbaa8d0e0dde9ef27ab1aeffbdf85c95}{Select\+Action}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a42c119e0b451ece09ccf8c76b3105902}{Select\+Angry\+Action}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a3caae87b442fbf4d56f93b00f2b98cc2}{Attack}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_aeeb83a09b55281b35950b3c619ba2d6c}{Attack\+Animation}} (std\+::string anim\+Name, Anim\+Info \&anim\+Info, std\+::vector$<$ Component\+Collision\+Capsule\+Ptr $>$ atk\+Col=\{\}, bool play\+SE=true)
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_ad434017d9ca258c406fe6a131e971436}{Attack\+Animation}} (std\+::string anim\+Name, Anim\+Info \&anim\+Info, bool play\+SE)
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a95a1fdfa9f4df7d28c550fe270873bf5}{Combo5}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a1844382a5f9719cbf63619bd8598d9f3}{Backflip\+Punch}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_aba6e04c56b55a4c584366348f312ae79}{Charge\+Punch}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_ab833e7b11f2b941ac5345c3cd7392dfe}{Swip}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_ac87aeb4d6033cb4b53fbc1c6cda9eba4}{Power\+Up}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_aa956ac55140cd80ee73ef84cf87aacb6}{Taunt}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_a6b6d352597fad876f590b826d6ef3078}{Damaging}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_ac06faaac1f37a2a28fd8ffe3a4881bb8}{Die}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_aac02c67f6099d6947bd837f12a81ff80}{Change\+State}} (\mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193f}{Boss\+State}} state)
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_ab7fe9b9d64d3530169c09305ecb31fc3}{Set\+Anim\+List}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_boss_adb69caf312c26f3f55218d2dda17f22d}{Set\+Combo\+List}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_boss_a8765ea8e7b0a641def6c2262a476c33c}{WALK\+\_\+\+SPEED}} = 0.\+5f
+\begin{DoxyCompactList}\small\item\em 移動スピード \end{DoxyCompactList}\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_boss_a9ff65a7ebf6ac275148431d098566424}{NORMAL\+\_\+\+WAIT}} = 120.f
+\begin{DoxyCompactList}\small\item\em 怒っていない時の待機時間 \end{DoxyCompactList}\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_boss_a7de2896eeb946d9bd1a689e3c747c002}{ANGRY\+\_\+\+WAIT}} = 30.f
+\begin{DoxyCompactList}\small\item\em 怒っている時の待機時間 \end{DoxyCompactList}\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_boss_aea9165e33a65ba2c13022f9cfafdfc63}{TOO\+\_\+\+CLOSE\+\_\+\+DISTANCE}} = 15.\+0f
+\begin{DoxyCompactList}\small\item\em 超近距離 \end{DoxyCompactList}\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_boss_a0e40093dbd4fc71d34b87c140574c386}{CLOSE\+\_\+\+DISTANCE}} = 30.\+0f
+\begin{DoxyCompactList}\small\item\em 近距離 \end{DoxyCompactList}\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_boss_a4cb5fc9124b769cc368fd98a27d0936d}{MIDDLE\+\_\+\+DISTANCE}} = 60.\+0f
+\begin{DoxyCompactList}\small\item\em 中距離 \end{DoxyCompactList}\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_boss_a105f802b807f6a77daa34dbee0662e28}{FAR\+\_\+\+DISTANCE}} = 90.\+0
+\begin{DoxyCompactList}\small\item\em 遠距離 \end{DoxyCompactList}\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_boss_acf6dc2dc783eb7f455885357bb183f68}{FRONT\+\_\+\+ANGLE}} = 60.\+0f
+\begin{DoxyCompactList}\small\item\em 前の角度 \end{DoxyCompactList}\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_boss_a5a1566c5c9e9f5eab02216838b5bb7d9}{BACK\+\_\+\+ANGLE}} = 140.\+0f
+\begin{DoxyCompactList}\small\item\em 背後の角度 \end{DoxyCompactList}\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_boss_a49835f276c5214e011bb55f0691f43be}{DAMAGE\+\_\+\+TIME}} = 420.\+0f
+\begin{DoxyCompactList}\small\item\em ダメージ溜まる時間 \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_boss_aa03c1f81882d6da393056287b3e41b9f}{DAMAGE\+\_\+\+CAP}} = int(\mbox{\hyperlink{class_little_quest_1_1_boss_a0a2f8a7af46834a9b9c2bed9860562bf}{MAX\+\_\+\+HP}} $\ast$ 0.\+15f)
+\begin{DoxyCompactList}\small\item\em ダメージ溜まるキャップ \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_boss_a0a2f8a7af46834a9b9c2bed9860562bf}{MAX\+\_\+\+HP}} = 500
+\begin{DoxyCompactList}\small\item\em 最大\+HP \end{DoxyCompactList}\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_boss_afebf0213f0e006e6ef623ace8cea5835}{MAX\+\_\+\+VOLUME}} = 255
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193f}{Boss\+State}} \mbox{\hyperlink{class_little_quest_1_1_boss_af1e7ffdad13287c8e03a5c39be1c3f94}{m\+\_\+state}} = \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fabe627a3938e4a8bd0c088cd1665efae1}{Boss\+State\+::\+IDLE}}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620a}{Boss\+Combo}} \mbox{\hyperlink{class_little_quest_1_1_boss_a229320887dd80ed6d5487f414ea5f362}{m\+\_\+boss\+Combo}} = \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa30d41d32cc4879c22eb59f3bc14017ea}{Boss\+Combo\+::\+NONE}}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811}{Boss\+Anim}} \mbox{\hyperlink{class_little_quest_1_1_boss_adb85aa624825851e1dc8a7a122930677}{m\+\_\+anim}} = \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a8c8a23244b0635c693dcdec621cfabce}{Boss\+Anim\+::\+TAUNT\+\_\+\+ANIM}}
+\item 
+Object\+Weak\+Ptr \mbox{\hyperlink{class_little_quest_1_1_boss_a5dfee3911e8942228325dfb5cfe80b6a}{m\+\_\+p\+Player}}
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Model $>$ \mbox{\hyperlink{class_little_quest_1_1_boss_a4ed990848d2b70255df0aaa33eabe0b4}{m\+\_\+p\+Model}}
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}} $>$ \mbox{\hyperlink{class_little_quest_1_1_boss_a6bfd4fc9f2c7dba829df8cb8e99b86ba}{m\+\_\+p\+HP}}
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Collision\+Capsule $>$ \mbox{\hyperlink{class_little_quest_1_1_boss_a15212120adc9e5b58e7cb5ddde15aa1a}{m\+\_\+p\+Body\+Box}}
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Collision\+Capsule $>$ \mbox{\hyperlink{class_little_quest_1_1_boss_a12514f6a96f43d0e259234584395b122}{m\+\_\+p\+Left\+Hand\+Box}}
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Collision\+Capsule $>$ \mbox{\hyperlink{class_little_quest_1_1_boss_a592d43715a4d02f331d12111c7059344}{m\+\_\+p\+Right\+Hand\+Box}}
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Collision\+Sphere $>$ \mbox{\hyperlink{class_little_quest_1_1_boss_af7c354313f3efa24d2fe34d3d31422e1}{m\+\_\+p\+Angry\+Box}}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, Anim\+Info $>$ \mbox{\hyperlink{class_little_quest_1_1_boss_a2cc70ba4fa5f01973f38dd6f718f8bff}{m\+\_\+anim\+List}}
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620a}{Boss\+Combo}}, float $>$ \mbox{\hyperlink{class_little_quest_1_1_boss_a8c50817795951b514bbbe3616760bf93}{m\+\_\+combo\+List}}
+\item 
+Scene\+::\+Scene\+State \mbox{\hyperlink{class_little_quest_1_1_boss_af0b6ac43ce28f0bbf428c564d438708c}{m\+\_\+scene\+State}} = Scene\+::\+Scene\+State\+::\+GAME
+\item 
+float3 \mbox{\hyperlink{class_little_quest_1_1_boss_a108c12f2aa363df24488490dc3bc7297}{m\+\_\+move}} = \{0, 0, 0\}
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_boss_acd4e4e6d47ccf7ece4f1294f3e0e7a12}{m\+\_\+wait\+For}} = 0.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_boss_a664e6311b0ef014505fd429bf77e71f8}{m\+\_\+wait\+Time}} = \mbox{\hyperlink{class_little_quest_1_1_boss_a9ff65a7ebf6ac275148431d098566424}{NORMAL\+\_\+\+WAIT}}
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_boss_a95defa760fa7f7b82e5a34ffeab0b972}{m\+\_\+degree}} = 0.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_boss_a642df4b33639634b2ba1f06c5f054bd3}{m\+\_\+speed\+Factor}} = 1.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_boss_a473f78d421ecca26080a164e015fd7ab}{m\+\_\+destroy\+Timer}} = 5.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_boss_a49a350eca1f4fb8deb241b05e3eaf58d}{m\+\_\+curr\+Anim\+Time}} = 0.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_boss_adde7f1e3ff01a9de9b181be53f20b4d9}{m\+\_\+damage\+Timer}} = 0
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_boss_afdacd85bfcd8a8b8f23d4beb52759750}{m\+\_\+combo}} = 0
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_boss_a1b9469be7d7bef20bbaf20ec8c60519f}{m\+\_\+power\+Up\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_boss_a00d026320a7ce55357fef583ee136ea3}{m\+\_\+punch\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_boss_a01ac6faa099500cf5aafdbfce4338131}{m\+\_\+power\+Punch\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_boss_a4bed4e6e11909d804f63a02ec17ebc4e}{m\+\_\+double\+Punch\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_boss_ab2ffeadde4d5f0f5362c4f1b62adb6dd}{m\+\_\+power\+Double\+Punch\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_boss_a91f2bcd3f8ece9e7480869f1822b5c44}{m\+\_\+playing\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_boss_ad8c5b32d22e1e41c7db9ff1cf2242c04}{m\+\_\+attack\+SE}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_boss_a9ba042149a4e786d7c82850aedbba5ca}{m\+\_\+damage\+Count}} = 0
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_boss_aaec442b07dbf6d941bdb27dd18a8d989}{m\+\_\+attack\+Val}} = 10
+\item 
+int $\ast$ \mbox{\hyperlink{class_little_quest_1_1_boss_abb117c1faf9ff917bc5e8353d42e9ced}{m\+\_\+p\+Effect\+List}}
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_boss_a8a84e4e3bd4d8762eb33aec7c4965ab9}{m\+\_\+is\+Hit\+Player}} = false
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_boss_ab1bb759be43023e98087b1fa607c8d20}{m\+\_\+is\+Dead}} = false
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_boss_a85c93fcf047ef74035ef728cdd97acb7}{m\+\_\+is\+Angry}} = false
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_boss_ac70b7f16ebf5a5719250d3d9c1536d5b}{m\+\_\+played\+SE}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+ボスクラス 
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00016}{16}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!BossAnim@{BossAnim}}
+\index{BossAnim@{BossAnim}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{BossAnim}{BossAnim}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811}{Little\+Quest\+::\+Boss\+::\+Boss\+Anim}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SWIP\_ATTACK@{SWIP\_ATTACK}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!SWIP\_ATTACK@{SWIP\_ATTACK}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a254af8c8bbe7c777bce4970915ff5767}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a254af8c8bbe7c777bce4970915ff5767}} 
+SWIP\+\_\+\+ATTACK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{QUICK\_SWIP@{QUICK\_SWIP}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!QUICK\_SWIP@{QUICK\_SWIP}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a8675560729a7c609bbf5cc65d004e56e}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a8675560729a7c609bbf5cc65d004e56e}} 
+QUICK\+\_\+\+SWIP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PUNCH@{PUNCH}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!PUNCH@{PUNCH}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811ab31015cb57005aa3bb580adbdf5e80d6}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811ab31015cb57005aa3bb580adbdf5e80d6}} 
+PUNCH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{QUICK\_PUNCH@{QUICK\_PUNCH}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!QUICK\_PUNCH@{QUICK\_PUNCH}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a588a2db7f0394bca62536b9779b3f960}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a588a2db7f0394bca62536b9779b3f960}} 
+QUICK\+\_\+\+PUNCH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{JUMP\_ATTACK@{JUMP\_ATTACK}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!JUMP\_ATTACK@{JUMP\_ATTACK}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811ac6e9965724f58c7ccd1f9bdf0465ccd8}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811ac6e9965724f58c7ccd1f9bdf0465ccd8}} 
+JUMP\+\_\+\+ATTACK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BACKFLIP@{BACKFLIP}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!BACKFLIP@{BACKFLIP}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a224897840976e08dc30ec1b85e0aef5c}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a224897840976e08dc30ec1b85e0aef5c}} 
+BACKFLIP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DOUBLE\_PUNCH@{DOUBLE\_PUNCH}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!DOUBLE\_PUNCH@{DOUBLE\_PUNCH}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811aa216108e26ce024984b0560334367b52}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811aa216108e26ce024984b0560334367b52}} 
+DOUBLE\+\_\+\+PUNCH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHARGE@{CHARGE}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!CHARGE@{CHARGE}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811afa6cc2e8fb6e35947271f97b35d1d572}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811afa6cc2e8fb6e35947271f97b35d1d572}} 
+CHARGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ROAR@{ROAR}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!ROAR@{ROAR}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a65eb6b7c8d1b9362d368d6934e446367}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a65eb6b7c8d1b9362d368d6934e446367}} 
+ROAR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TAUNT\_ANIM@{TAUNT\_ANIM}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!TAUNT\_ANIM@{TAUNT\_ANIM}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a8c8a23244b0635c693dcdec621cfabce}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a8c8a23244b0635c693dcdec621cfabce}} 
+TAUNT\+\_\+\+ANIM&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ANGRY\_AURA@{ANGRY\_AURA}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!ANGRY\_AURA@{ANGRY\_AURA}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a41f8c3dd22f834771eb33419c4c8a273}\label{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a41f8c3dd22f834771eb33419c4c8a273}} 
+ANGRY\+\_\+\+AURA&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00140}{140}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620a}\label{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620a}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!BossCombo@{BossCombo}}
+\index{BossCombo@{BossCombo}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{BossCombo}{BossCombo}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620a}{Little\+Quest\+::\+Boss\+::\+Boss\+Combo}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SWIP@{SWIP}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!SWIP@{SWIP}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa6075da8c57b1e2fe4802adf9b1dda803}\label{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa6075da8c57b1e2fe4802adf9b1dda803}} 
+SWIP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{COMBO5@{COMBO5}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!COMBO5@{COMBO5}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa86e2c132e1414011ba463bdca990c2fd}\label{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa86e2c132e1414011ba463bdca990c2fd}} 
+COMBO5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAST\_COMBO5@{FAST\_COMBO5}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!FAST\_COMBO5@{FAST\_COMBO5}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa650f351f111b2fb178e873aac77511d6}\label{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa650f351f111b2fb178e873aac77511d6}} 
+FAST\+\_\+\+COMBO5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BACKFLIP\_PUNCH@{BACKFLIP\_PUNCH}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!BACKFLIP\_PUNCH@{BACKFLIP\_PUNCH}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa3a752eaa1ebb18aefb49f57d4dd5c2a0}\label{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa3a752eaa1ebb18aefb49f57d4dd5c2a0}} 
+BACKFLIP\+\_\+\+PUNCH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BACKFLIP\_CHARGE\_PUNCH@{BACKFLIP\_CHARGE\_PUNCH}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!BACKFLIP\_CHARGE\_PUNCH@{BACKFLIP\_CHARGE\_PUNCH}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa270c4d40e7d73699ae358a978b6c50d2}\label{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa270c4d40e7d73699ae358a978b6c50d2}} 
+BACKFLIP\+\_\+\+CHARGE\+\_\+\+PUNCH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHARGE\_PUNCH@{CHARGE\_PUNCH}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!CHARGE\_PUNCH@{CHARGE\_PUNCH}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aab17a5d6a527b956e249794380d76f031}\label{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aab17a5d6a527b956e249794380d76f031}} 
+CHARGE\+\_\+\+PUNCH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ROAR\_ATTACK@{ROAR\_ATTACK}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!ROAR\_ATTACK@{ROAR\_ATTACK}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa52bfed5d43fd47a5c9d07a0371352144}\label{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa52bfed5d43fd47a5c9d07a0371352144}} 
+ROAR\+\_\+\+ATTACK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NONE@{NONE}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!NONE@{NONE}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa30d41d32cc4879c22eb59f3bc14017ea}\label{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa30d41d32cc4879c22eb59f3bc14017ea}} 
+NONE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00127}{127}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193f}\label{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193f}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!BossState@{BossState}}
+\index{BossState@{BossState}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{BossState}{BossState}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193f}{Little\+Quest\+::\+Boss\+::\+Boss\+State}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IDLE@{IDLE}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!IDLE@{IDLE}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fabe627a3938e4a8bd0c088cd1665efae1}\label{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fabe627a3938e4a8bd0c088cd1665efae1}} 
+IDLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WAIT@{WAIT}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!WAIT@{WAIT}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa8717334d558d58bbb010a2784fae3555}\label{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa8717334d558d58bbb010a2784fae3555}} 
+WAIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHASE@{CHASE}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!CHASE@{CHASE}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa60a8594d2c87f1e5e7e0f2dc77c22320}\label{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa60a8594d2c87f1e5e7e0f2dc77c22320}} 
+CHASE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ATTACK@{ATTACK}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!ATTACK@{ATTACK}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa244822ef864130956c94779df2bf26e3}\label{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa244822ef864130956c94779df2bf26e3}} 
+ATTACK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TURN\_LEFT@{TURN\_LEFT}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!TURN\_LEFT@{TURN\_LEFT}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa7405ca8a780fcc6165d8ace1c6e8f7a8}\label{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa7405ca8a780fcc6165d8ace1c6e8f7a8}} 
+TURN\+\_\+\+LEFT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TURN\_RIGHT@{TURN\_RIGHT}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!TURN\_RIGHT@{TURN\_RIGHT}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa916f9518e526f2db71506b74dc6967fa}\label{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa916f9518e526f2db71506b74dc6967fa}} 
+TURN\+\_\+\+RIGHT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GET\_HIT@{GET\_HIT}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!GET\_HIT@{GET\_HIT}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa2ddd34144ae0ef97f2a87c7a91234517}\label{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa2ddd34144ae0ef97f2a87c7a91234517}} 
+GET\+\_\+\+HIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ANGRY@{ANGRY}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!ANGRY@{ANGRY}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa179f3ce0442e0fc42accf422c0a4cdc9}\label{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa179f3ce0442e0fc42accf422c0a4cdc9}} 
+ANGRY&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TAUNT@{TAUNT}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!TAUNT@{TAUNT}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fafffeba8a788c493a349c64e54cf1224a}\label{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fafffeba8a788c493a349c64e54cf1224a}} 
+TAUNT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DEAD@{DEAD}!LittleQuest::Boss@{LittleQuest::Boss}}\index{LittleQuest::Boss@{LittleQuest::Boss}!DEAD@{DEAD}}}\mbox{\Hypertarget{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa7c1c98beb5550d4430476da8fc060fa8}\label{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fa7c1c98beb5550d4430476da8fc060fa8}} 
+DEAD&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00113}{113}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a3caae87b442fbf4d56f93b00f2b98cc2}\label{class_little_quest_1_1_boss_a3caae87b442fbf4d56f93b00f2b98cc2}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Attack@{Attack}}
+\index{Attack@{Attack}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Attack()}{Attack()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00395}{395}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00131}{BACKFLIP\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8h_source_l00133}{CHARGE\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8h_source_l00129}{COMBO5}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8h_source_l00138}{m\+\_\+boss\+Combo}}, \mbox{\hyperlink{_boss_8h_source_l00128}{SWIP}}, and \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ad434017d9ca258c406fe6a131e971436}\label{class_little_quest_1_1_boss_ad434017d9ca258c406fe6a131e971436}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!AttackAnimation@{AttackAnimation}}
+\index{AttackAnimation@{AttackAnimation}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{AttackAnimation()}{AttackAnimation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Attack\+Animation (\begin{DoxyParamCaption}\item[{std\+::string}]{anim\+Name,  }\item[{Anim\+Info \&}]{anim\+Info,  }\item[{bool}]{play\+SE }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00443}{443}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_aeeb83a09b55281b35950b3c619ba2d6c}\label{class_little_quest_1_1_boss_aeeb83a09b55281b35950b3c619ba2d6c}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!AttackAnimation@{AttackAnimation}}
+\index{AttackAnimation@{AttackAnimation}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{AttackAnimation()}{AttackAnimation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Attack\+Animation (\begin{DoxyParamCaption}\item[{std\+::string}]{anim\+Name,  }\item[{Anim\+Info \&}]{anim\+Info,  }\item[{std\+::vector$<$ Component\+Collision\+Capsule\+Ptr $>$}]{atk\+Col = {\ttfamily \{\}},  }\item[{bool}]{play\+SE = {\ttfamily true} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00412}{412}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00182}{m\+\_\+attack\+SE}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_boss_8h_source_l00173}{m\+\_\+curr\+Anim\+Time}}, \mbox{\hyperlink{_boss_8h_source_l00186}{m\+\_\+is\+Hit\+Player}}, \mbox{\hyperlink{_boss_8h_source_l00189}{m\+\_\+played\+SE}}, \mbox{\hyperlink{_boss_8h_source_l00156}{m\+\_\+p\+Model}}, and \mbox{\hyperlink{_boss_8h_source_l00111}{MAX\+\_\+\+VOLUME}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00443}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00672}{Damaging()}}, \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00598}{Taunt()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a1844382a5f9719cbf63619bd8598d9f3}\label{class_little_quest_1_1_boss_a1844382a5f9719cbf63619bd8598d9f3}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!BackflipPunch@{BackflipPunch}}
+\index{BackflipPunch@{BackflipPunch}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{BackflipPunch()}{BackflipPunch()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Backflip\+Punch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00494}{494}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8h_source_l00146}{BACKFLIP}}, \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00147}{DOUBLE\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00162}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_boss_8h_source_l00173}{m\+\_\+curr\+Anim\+Time}}, \mbox{\hyperlink{_boss_8h_source_l00188}{m\+\_\+is\+Angry}}, \mbox{\hyperlink{_boss_8h_source_l00158}{m\+\_\+p\+Body\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00185}{m\+\_\+p\+Effect\+List}}, \mbox{\hyperlink{_boss_8h_source_l00181}{m\+\_\+playing\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00159}{m\+\_\+p\+Left\+Hand\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00155}{m\+\_\+p\+Player}}, \mbox{\hyperlink{_boss_8h_source_l00160}{m\+\_\+p\+Right\+Hand\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00168}{m\+\_\+wait\+For}}, \mbox{\hyperlink{_boss_8h_source_l00169}{m\+\_\+wait\+Time}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, and \mbox{\hyperlink{_boss_8h_source_l00115}{WAIT}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00395}{Attack()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a593a2b5bf35e892373b6b14f3158562a}\label{class_little_quest_1_1_boss_a593a2b5bf35e892373b6b14f3158562a}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!BP\_OBJECT\_TYPE@{BP\_OBJECT\_TYPE}}
+\index{BP\_OBJECT\_TYPE@{BP\_OBJECT\_TYPE}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{BP\_OBJECT\_TYPE()}{BP\_OBJECT\_TYPE()}}
+{\footnotesize\ttfamily Little\+Quest\+::\+Boss\+::\+BP\+\_\+\+OBJECT\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_boss}{Boss}}}]{,  }\item[{Object}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_aac02c67f6099d6947bd837f12a81ff80}\label{class_little_quest_1_1_boss_aac02c67f6099d6947bd837f12a81ff80}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!ChangeState@{ChangeState}}
+\index{ChangeState@{ChangeState}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{ChangeState()}{ChangeState()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Change\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193f}{Boss\+State}}}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00718}{718}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00125}{m\+\_\+state}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00242}{Chase\+Player()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00672}{Damaging()}}, \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00649}{Get\+Hit()}}, \mbox{\hyperlink{_boss_8cpp_source_l00706}{Is\+Played\+Taunt()}}, \mbox{\hyperlink{_boss_8cpp_source_l00702}{Play\+Dead()}}, \mbox{\hyperlink{_boss_8cpp_source_l00697}{Play\+Taunt()}}, \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}, \mbox{\hyperlink{_boss_8cpp_source_l00260}{Select\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00329}{Select\+Angry\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}, \mbox{\hyperlink{_boss_8cpp_source_l00598}{Taunt()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00231}{Wait()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_aba6e04c56b55a4c584366348f312ae79}\label{class_little_quest_1_1_boss_aba6e04c56b55a4c584366348f312ae79}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!ChargePunch@{ChargePunch}}
+\index{ChargePunch@{ChargePunch}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{ChargePunch()}{ChargePunch()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Charge\+Punch (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00532}{532}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00148}{CHARGE}}, \mbox{\hyperlink{_boss_8h_source_l00147}{DOUBLE\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00162}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_boss_8h_source_l00173}{m\+\_\+curr\+Anim\+Time}}, \mbox{\hyperlink{_boss_8h_source_l00188}{m\+\_\+is\+Angry}}, \mbox{\hyperlink{_boss_8h_source_l00185}{m\+\_\+p\+Effect\+List}}, \mbox{\hyperlink{_boss_8h_source_l00181}{m\+\_\+playing\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00159}{m\+\_\+p\+Left\+Hand\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00155}{m\+\_\+p\+Player}}, \mbox{\hyperlink{_boss_8h_source_l00160}{m\+\_\+p\+Right\+Hand\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00168}{m\+\_\+wait\+For}}, \mbox{\hyperlink{_boss_8h_source_l00169}{m\+\_\+wait\+Time}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, and \mbox{\hyperlink{_boss_8h_source_l00115}{WAIT}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00395}{Attack()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a30be2af351bba70e2175f3b2c737912d}\label{class_little_quest_1_1_boss_a30be2af351bba70e2175f3b2c737912d}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!ChasePlayer@{ChasePlayer}}
+\index{ChasePlayer@{ChasePlayer}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{ChasePlayer()}{ChasePlayer()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Chase\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00242}{242}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00096}{CLOSE\+\_\+\+DISTANCE}}, \mbox{\hyperlink{_boss_8h_source_l00114}{IDLE}}, \mbox{\hyperlink{_boss_8h_source_l00156}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_boss_8h_source_l00155}{m\+\_\+p\+Player}}, and \mbox{\hyperlink{_boss_8h_source_l00088}{WALK\+\_\+\+SPEED}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a95a1fdfa9f4df7d28c550fe270873bf5}\label{class_little_quest_1_1_boss_a95a1fdfa9f4df7d28c550fe270873bf5}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Combo5@{Combo5}}
+\index{Combo5@{Combo5}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Combo5()}{Combo5()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Combo5 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00447}{447}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00162}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_boss_8h_source_l00173}{m\+\_\+curr\+Anim\+Time}}, \mbox{\hyperlink{_boss_8h_source_l00188}{m\+\_\+is\+Angry}}, \mbox{\hyperlink{_boss_8h_source_l00185}{m\+\_\+p\+Effect\+List}}, \mbox{\hyperlink{_boss_8h_source_l00181}{m\+\_\+playing\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00159}{m\+\_\+p\+Left\+Hand\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00155}{m\+\_\+p\+Player}}, \mbox{\hyperlink{_boss_8h_source_l00160}{m\+\_\+p\+Right\+Hand\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00168}{m\+\_\+wait\+For}}, \mbox{\hyperlink{_boss_8h_source_l00169}{m\+\_\+wait\+Time}}, \mbox{\hyperlink{_boss_8h_source_l00143}{PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00144}{QUICK\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00142}{QUICK\+\_\+\+SWIP}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, \mbox{\hyperlink{_boss_8h_source_l00141}{SWIP\+\_\+\+ATTACK}}, and \mbox{\hyperlink{_boss_8h_source_l00115}{WAIT}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00395}{Attack()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a1176f3b8df2af3aa45271a3cce7d360f}\label{class_little_quest_1_1_boss_a1176f3b8df2af3aa45271a3cce7d360f}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Create@{Create}}
+\index{Create@{Create}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily Boss\+Ptr Little\+Quest\+::\+Boss\+::\+Create (\begin{DoxyParamCaption}\item[{const float3 \&}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+ボスを生成します。 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{_stage01_8cpp_source_l00035}{Little\+Quest\+::\+Stage01\+::\+Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a6b6d352597fad876f590b826d6ef3078}\label{class_little_quest_1_1_boss_a6b6d352597fad876f590b826d6ef3078}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Damaging@{Damaging}}
+\index{Damaging@{Damaging}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Damaging()}{Damaging()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Damaging (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00672}{672}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00120}{GET\+\_\+\+HIT}}, \mbox{\hyperlink{_boss_8h_source_l00162}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_boss_8h_source_l00168}{m\+\_\+wait\+For}}, \mbox{\hyperlink{_boss_8h_source_l00169}{m\+\_\+wait\+Time}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, and \mbox{\hyperlink{_boss_8h_source_l00115}{WAIT}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ac06faaac1f37a2a28fd8ffe3a4881bb8}\label{class_little_quest_1_1_boss_ac06faaac1f37a2a28fd8ffe3a4881bb8}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Die@{Die}}
+\index{Die@{Die}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Die()}{Die()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Die (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00684}{684}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00123}{DEAD}}, \mbox{\hyperlink{_boss_8h_source_l00161}{m\+\_\+p\+Angry\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00158}{m\+\_\+p\+Body\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00156}{m\+\_\+p\+Model}}, and \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00185}{Trans\+Out\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ae8b158c0dc3e118d88b735c8671446d8}\label{class_little_quest_1_1_boss_ae8b158c0dc3e118d88b735c8671446d8}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Exit@{Exit}}
+\index{Exit@{Exit}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+終了処理を行います。 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00727}{727}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00182}{m\+\_\+attack\+SE}}, \mbox{\hyperlink{_boss_8h_source_l00179}{m\+\_\+double\+Punch\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00185}{m\+\_\+p\+Effect\+List}}, \mbox{\hyperlink{_boss_8h_source_l00180}{m\+\_\+power\+Double\+Punch\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00178}{m\+\_\+power\+Punch\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00176}{m\+\_\+power\+Up\+Effect}}, and \mbox{\hyperlink{_boss_8h_source_l00177}{m\+\_\+punch\+Effect}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a476dfe97580679c1273ff8c64b860414}\label{class_little_quest_1_1_boss_a476dfe97580679c1273ff8c64b860414}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!GameAction@{GameAction}}
+\index{GameAction@{GameAction}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{GameAction()}{GameAction()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Game\+Action (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00126}{126}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00121}{ANGRY}}, \mbox{\hyperlink{_boss_8h_source_l00117}{ATTACK}}, \mbox{\hyperlink{_boss_8cpp_source_l00395}{Attack()}}, \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00116}{CHASE}}, \mbox{\hyperlink{_boss_8cpp_source_l00242}{Chase\+Player()}}, \mbox{\hyperlink{_boss_8cpp_source_l00672}{Damaging()}}, \mbox{\hyperlink{_boss_8h_source_l00123}{DEAD}}, \mbox{\hyperlink{_boss_8cpp_source_l00684}{Die()}}, \mbox{\hyperlink{_boss_8h_source_l00120}{GET\+\_\+\+HIT}}, \mbox{\hyperlink{_boss_8h_source_l00114}{IDLE}}, \mbox{\hyperlink{_boss_8cpp_source_l00227}{Idle()}}, \mbox{\hyperlink{_boss_8h_source_l00138}{m\+\_\+boss\+Combo}}, \mbox{\hyperlink{_boss_8h_source_l00183}{m\+\_\+damage\+Count}}, \mbox{\hyperlink{_boss_8h_source_l00174}{m\+\_\+damage\+Timer}}, \mbox{\hyperlink{_boss_8h_source_l00188}{m\+\_\+is\+Angry}}, \mbox{\hyperlink{_boss_8h_source_l00157}{m\+\_\+p\+HP}}, \mbox{\hyperlink{_boss_8h_source_l00156}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_boss_8h_source_l00155}{m\+\_\+p\+Player}}, \mbox{\hyperlink{_boss_8h_source_l00125}{m\+\_\+state}}, \mbox{\hyperlink{_boss_8h_source_l00136}{NONE}}, \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}, \mbox{\hyperlink{_boss_8cpp_source_l00260}{Select\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00329}{Select\+Angry\+Action()}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, \mbox{\hyperlink{_boss_8h_source_l00118}{TURN\+\_\+\+LEFT}}, \mbox{\hyperlink{_boss_8h_source_l00119}{TURN\+\_\+\+RIGHT}}, \mbox{\hyperlink{_boss_8h_source_l00115}{WAIT}}, and \mbox{\hyperlink{_boss_8cpp_source_l00231}{Wait()}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00101}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a582a981f4e258eaa8d68cf2e60930ae5}\label{class_little_quest_1_1_boss_a582a981f4e258eaa8d68cf2e60930ae5}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!GetHit@{GetHit}}
+\index{GetHit@{GetHit}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{GetHit()}{GetHit()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Get\+Hit (\begin{DoxyParamCaption}\item[{int}]{damage }\end{DoxyParamCaption})}
+
+
+
+攻撃される処理を行います。 
+
+
+\begin{DoxyParams}{Parameters}
+{\em damage} & 受けるダメージ \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00649}{649}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00121}{ANGRY}}, \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00108}{DAMAGE\+\_\+\+CAP}}, \mbox{\hyperlink{_boss_8h_source_l00106}{DAMAGE\+\_\+\+TIME}}, \mbox{\hyperlink{_boss_8h_source_l00123}{DEAD}}, \mbox{\hyperlink{_boss_8h_source_l00120}{GET\+\_\+\+HIT}}, \mbox{\hyperlink{_boss_8h_source_l00138}{m\+\_\+boss\+Combo}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_boss_8h_source_l00183}{m\+\_\+damage\+Count}}, \mbox{\hyperlink{_boss_8h_source_l00174}{m\+\_\+damage\+Timer}}, \mbox{\hyperlink{_boss_8h_source_l00157}{m\+\_\+p\+HP}}, \mbox{\hyperlink{_boss_8h_source_l00125}{m\+\_\+state}}, and \mbox{\hyperlink{_boss_8h_source_l00136}{NONE}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00215}{Little\+Quest\+::\+Player\+::\+On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a3a8f1218990b0d47b78450f668b0ce78}\label{class_little_quest_1_1_boss_a3a8f1218990b0d47b78450f668b0ce78}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!GUI@{GUI}}
+\index{GUI@{GUI}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{GUI()}{GUI()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+GUI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Im\+GUIの処理を行います。 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00209}{209}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a4858c4df2a4acc78f2baccc3bd589d0e}\label{class_little_quest_1_1_boss_a4858c4df2a4acc78f2baccc3bd589d0e}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Idle@{Idle}}
+\index{Idle@{Idle}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Idle()}{Idle()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Idle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00227}{227}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00114}{IDLE}}, \mbox{\hyperlink{_boss_8h_source_l00156}{m\+\_\+p\+Model}}, and \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00185}{Trans\+Out\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_adf654e8eb7f62e5cb58c45ac16b7bf31}\label{class_little_quest_1_1_boss_adf654e8eb7f62e5cb58c45ac16b7bf31}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Init@{Init}}
+\index{Init@{Init}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Boss\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+初期化処理を行います。 
+
+\begin{DoxyReturn}{Returns}
+初期化できたかどうか 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00029}{29}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00146}{BACKFLIP}}, \mbox{\hyperlink{_component_h_p_8h_source_l00020}{Little\+Quest\+::\+Component\+HP\+::\+BOSS}}, \mbox{\hyperlink{_boss_8h_source_l00148}{CHARGE}}, \mbox{\hyperlink{_boss_8h_source_l00123}{DEAD}}, \mbox{\hyperlink{_boss_8h_source_l00147}{DOUBLE\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00120}{GET\+\_\+\+HIT}}, \mbox{\hyperlink{_boss_8h_source_l00114}{IDLE}}, \mbox{\hyperlink{_boss_8h_source_l00145}{JUMP\+\_\+\+ATTACK}}, \mbox{\hyperlink{_boss_8h_source_l00182}{m\+\_\+attack\+SE}}, \mbox{\hyperlink{_boss_8h_source_l00138}{m\+\_\+boss\+Combo}}, \mbox{\hyperlink{_boss_8h_source_l00179}{m\+\_\+double\+Punch\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00158}{m\+\_\+p\+Body\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00185}{m\+\_\+p\+Effect\+List}}, \mbox{\hyperlink{_boss_8h_source_l00157}{m\+\_\+p\+HP}}, \mbox{\hyperlink{_boss_8h_source_l00159}{m\+\_\+p\+Left\+Hand\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00156}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_boss_8h_source_l00180}{m\+\_\+power\+Double\+Punch\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00178}{m\+\_\+power\+Punch\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00176}{m\+\_\+power\+Up\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00155}{m\+\_\+p\+Player}}, \mbox{\hyperlink{_boss_8h_source_l00160}{m\+\_\+p\+Right\+Hand\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00177}{m\+\_\+punch\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00125}{m\+\_\+state}}, \mbox{\hyperlink{_boss_8h_source_l00110}{MAX\+\_\+\+HP}}, \mbox{\hyperlink{_boss_8h_source_l00136}{NONE}}, \mbox{\hyperlink{_boss_8h_source_l00143}{PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00149}{ROAR}}, \mbox{\hyperlink{_boss_8cpp_source_l00738}{Set\+Anim\+List()}}, \mbox{\hyperlink{_boss_8cpp_source_l00823}{Set\+Combo\+List()}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, \mbox{\hyperlink{_boss_8h_source_l00141}{SWIP\+\_\+\+ATTACK}}, \mbox{\hyperlink{_boss_8h_source_l00150}{TAUNT\+\_\+\+ANIM}}, \mbox{\hyperlink{_boss_8h_source_l00118}{TURN\+\_\+\+LEFT}}, and \mbox{\hyperlink{_boss_8h_source_l00119}{TURN\+\_\+\+RIGHT}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a7bff8e5612765c6e07332cd99af45782}\label{class_little_quest_1_1_boss_a7bff8e5612765c6e07332cd99af45782}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!IsDead@{IsDead}}
+\index{IsDead@{IsDead}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{IsDead()}{IsDead()}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Boss\+::\+Is\+Dead (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+ボスが倒されたのか。 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & 倒された \\
+\hline
+{\em false} & 倒されていない \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00714}{714}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00157}{m\+\_\+p\+HP}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a7466981672743eff50fdf180a3befa52}\label{class_little_quest_1_1_boss_a7466981672743eff50fdf180a3befa52}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!IsPlayedTaunt@{IsPlayedTaunt}}
+\index{IsPlayedTaunt@{IsPlayedTaunt}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{IsPlayedTaunt()}{IsPlayedTaunt()}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Boss\+::\+Is\+Played\+Taunt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+挑発動画が再生したのか。 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & 再生した \\
+\hline
+{\em false} & 再生していない \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00706}{706}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00156}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, \mbox{\hyperlink{_boss_8h_source_l00150}{TAUNT\+\_\+\+ANIM}}, and \mbox{\hyperlink{_boss_8h_source_l00115}{WAIT}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a65986be77f3c031bda330b989d0097e7}\label{class_little_quest_1_1_boss_a65986be77f3c031bda330b989d0097e7}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!LateDraw@{LateDraw}}
+\index{LateDraw@{LateDraw}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{LateDraw()}{LateDraw()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Late\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+遅い描画の処理を行います。 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00196}{196}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00157}{m\+\_\+p\+HP}}, and \mbox{\hyperlink{_boss_8h_source_l00165}{m\+\_\+scene\+State}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a42abd568f02ceb5f99e6c0a5f2d2a5e2}\label{class_little_quest_1_1_boss_a42abd568f02ceb5f99e6c0a5f2d2a5e2}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!OnHit@{OnHit}}
+\index{OnHit@{OnHit}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{OnHit()}{OnHit()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+On\+Hit (\begin{DoxyParamCaption}\item[{const Component\+Collision\+::\+Hit\+Info \&}]{hit\+Info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+当たりのコールバック 
+
+
+\begin{DoxyParams}{Parameters}
+{\em hit\+Info　当たったコリジョンのヒット情報} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00213}{213}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00184}{m\+\_\+attack\+Val}}, \mbox{\hyperlink{_boss_8h_source_l00138}{m\+\_\+boss\+Combo}}, \mbox{\hyperlink{_boss_8h_source_l00163}{m\+\_\+combo\+List}}, \mbox{\hyperlink{_boss_8h_source_l00188}{m\+\_\+is\+Angry}}, and \mbox{\hyperlink{_boss_8h_source_l00186}{m\+\_\+is\+Hit\+Player}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ac0ffc08c5333e717b199642914d73373}\label{class_little_quest_1_1_boss_ac0ffc08c5333e717b199642914d73373}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!PlayDead@{PlayDead}}
+\index{PlayDead@{PlayDead}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{PlayDead()}{PlayDead()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Play\+Dead (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+死亡動画を再生します。 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00702}{702}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, and \mbox{\hyperlink{_boss_8h_source_l00123}{DEAD}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ad81a5ad887f888b8987c0446944ca35f}\label{class_little_quest_1_1_boss_ad81a5ad887f888b8987c0446944ca35f}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!PlayTaunt@{PlayTaunt}}
+\index{PlayTaunt@{PlayTaunt}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{PlayTaunt()}{PlayTaunt()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Play\+Taunt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+挑発動画を再生します。 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00697}{697}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, and \mbox{\hyperlink{_boss_8h_source_l00122}{TAUNT}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ac87aeb4d6033cb4b53fbc1c6cda9eba4}\label{class_little_quest_1_1_boss_ac87aeb4d6033cb4b53fbc1c6cda9eba4}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!PowerUp@{PowerUp}}
+\index{PowerUp@{PowerUp}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{PowerUp()}{PowerUp()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Power\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00609}{609}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00151}{ANGRY\+\_\+\+AURA}}, \mbox{\hyperlink{_boss_8h_source_l00092}{ANGRY\+\_\+\+WAIT}}, \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00148}{CHARGE}}, \mbox{\hyperlink{_boss_8h_source_l00162}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_boss_8h_source_l00173}{m\+\_\+curr\+Anim\+Time}}, \mbox{\hyperlink{_boss_8h_source_l00188}{m\+\_\+is\+Angry}}, \mbox{\hyperlink{_boss_8h_source_l00186}{m\+\_\+is\+Hit\+Player}}, \mbox{\hyperlink{_boss_8h_source_l00161}{m\+\_\+p\+Angry\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00181}{m\+\_\+playing\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00156}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_boss_8h_source_l00176}{m\+\_\+power\+Up\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00168}{m\+\_\+wait\+For}}, \mbox{\hyperlink{_boss_8h_source_l00169}{m\+\_\+wait\+Time}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, and \mbox{\hyperlink{_boss_8h_source_l00115}{WAIT}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_acbaa8d0e0dde9ef27ab1aeffbdf85c95}\label{class_little_quest_1_1_boss_acbaa8d0e0dde9ef27ab1aeffbdf85c95}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!SelectAction@{SelectAction}}
+\index{SelectAction@{SelectAction}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{SelectAction()}{SelectAction()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Select\+Action (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00260}{260}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00117}{ATTACK}}, \mbox{\hyperlink{_boss_8h_source_l00104}{BACK\+\_\+\+ANGLE}}, \mbox{\hyperlink{_boss_8h_source_l00131}{BACKFLIP\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00133}{CHARGE\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00116}{CHASE}}, \mbox{\hyperlink{_boss_8h_source_l00096}{CLOSE\+\_\+\+DISTANCE}}, \mbox{\hyperlink{_boss_8h_source_l00129}{COMBO5}}, \mbox{\hyperlink{_boss_8h_source_l00100}{FAR\+\_\+\+DISTANCE}}, \mbox{\hyperlink{_boss_8h_source_l00102}{FRONT\+\_\+\+ANGLE}}, \mbox{\hyperlink{_boss_8h_source_l00138}{m\+\_\+boss\+Combo}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_boss_8h_source_l00155}{m\+\_\+p\+Player}}, \mbox{\hyperlink{_boss_8h_source_l00128}{SWIP}}, \mbox{\hyperlink{_boss_8h_source_l00094}{TOO\+\_\+\+CLOSE\+\_\+\+DISTANCE}}, \mbox{\hyperlink{_boss_8h_source_l00118}{TURN\+\_\+\+LEFT}}, and \mbox{\hyperlink{_boss_8h_source_l00119}{TURN\+\_\+\+RIGHT}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a42c119e0b451ece09ccf8c76b3105902}\label{class_little_quest_1_1_boss_a42c119e0b451ece09ccf8c76b3105902}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!SelectAngryAction@{SelectAngryAction}}
+\index{SelectAngryAction@{SelectAngryAction}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{SelectAngryAction()}{SelectAngryAction()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Select\+Angry\+Action (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00329}{329}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00117}{ATTACK}}, \mbox{\hyperlink{_boss_8h_source_l00104}{BACK\+\_\+\+ANGLE}}, \mbox{\hyperlink{_boss_8h_source_l00131}{BACKFLIP\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00133}{CHARGE\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00116}{CHASE}}, \mbox{\hyperlink{_boss_8h_source_l00096}{CLOSE\+\_\+\+DISTANCE}}, \mbox{\hyperlink{_boss_8h_source_l00129}{COMBO5}}, \mbox{\hyperlink{_boss_8h_source_l00100}{FAR\+\_\+\+DISTANCE}}, \mbox{\hyperlink{_boss_8h_source_l00102}{FRONT\+\_\+\+ANGLE}}, \mbox{\hyperlink{_boss_8h_source_l00138}{m\+\_\+boss\+Combo}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_boss_8h_source_l00155}{m\+\_\+p\+Player}}, \mbox{\hyperlink{_boss_8h_source_l00128}{SWIP}}, \mbox{\hyperlink{_boss_8h_source_l00094}{TOO\+\_\+\+CLOSE\+\_\+\+DISTANCE}}, \mbox{\hyperlink{_boss_8h_source_l00118}{TURN\+\_\+\+LEFT}}, and \mbox{\hyperlink{_boss_8h_source_l00119}{TURN\+\_\+\+RIGHT}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ab7fe9b9d64d3530169c09305ecb31fc3}\label{class_little_quest_1_1_boss_ab7fe9b9d64d3530169c09305ecb31fc3}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!SetAnimList@{SetAnimList}}
+\index{SetAnimList@{SetAnimList}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{SetAnimList()}{SetAnimList()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Set\+Anim\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00738}{738}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00151}{ANGRY\+\_\+\+AURA}}, \mbox{\hyperlink{_boss_8h_source_l00146}{BACKFLIP}}, \mbox{\hyperlink{_boss_8h_source_l00148}{CHARGE}}, \mbox{\hyperlink{_boss_8h_source_l00147}{DOUBLE\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00120}{GET\+\_\+\+HIT}}, \mbox{\hyperlink{_boss_8h_source_l00162}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_boss_8h_source_l00143}{PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00144}{QUICK\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00142}{QUICK\+\_\+\+SWIP}}, \mbox{\hyperlink{_boss_8h_source_l00149}{ROAR}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, \mbox{\hyperlink{_boss_8h_source_l00141}{SWIP\+\_\+\+ATTACK}}, and \mbox{\hyperlink{_boss_8h_source_l00150}{TAUNT\+\_\+\+ANIM}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_adb69caf312c26f3f55218d2dda17f22d}\label{class_little_quest_1_1_boss_adb69caf312c26f3f55218d2dda17f22d}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!SetComboList@{SetComboList}}
+\index{SetComboList@{SetComboList}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{SetComboList()}{SetComboList()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Set\+Combo\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00823}{823}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00131}{BACKFLIP\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00133}{CHARGE\+\_\+\+PUNCH}}, \mbox{\hyperlink{_boss_8h_source_l00129}{COMBO5}}, \mbox{\hyperlink{_boss_8h_source_l00163}{m\+\_\+combo\+List}}, and \mbox{\hyperlink{_boss_8h_source_l00128}{SWIP}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ab833e7b11f2b941ac5345c3cd7392dfe}\label{class_little_quest_1_1_boss_ab833e7b11f2b941ac5345c3cd7392dfe}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Swip@{Swip}}
+\index{Swip@{Swip}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Swip()}{Swip()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Swip (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00563}{563}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00162}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_boss_8h_source_l00173}{m\+\_\+curr\+Anim\+Time}}, \mbox{\hyperlink{_boss_8h_source_l00188}{m\+\_\+is\+Angry}}, \mbox{\hyperlink{_boss_8h_source_l00185}{m\+\_\+p\+Effect\+List}}, \mbox{\hyperlink{_boss_8h_source_l00181}{m\+\_\+playing\+Effect}}, \mbox{\hyperlink{_boss_8h_source_l00159}{m\+\_\+p\+Left\+Hand\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00155}{m\+\_\+p\+Player}}, \mbox{\hyperlink{_boss_8h_source_l00160}{m\+\_\+p\+Right\+Hand\+Box}}, \mbox{\hyperlink{_boss_8h_source_l00168}{m\+\_\+wait\+For}}, \mbox{\hyperlink{_boss_8h_source_l00169}{m\+\_\+wait\+Time}}, \mbox{\hyperlink{_boss_8h_source_l00143}{PUNCH}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, \mbox{\hyperlink{_boss_8h_source_l00141}{SWIP\+\_\+\+ATTACK}}, and \mbox{\hyperlink{_boss_8h_source_l00115}{WAIT}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00395}{Attack()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_aa956ac55140cd80ee73ef84cf87aacb6}\label{class_little_quest_1_1_boss_aa956ac55140cd80ee73ef84cf87aacb6}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Taunt@{Taunt}}
+\index{Taunt@{Taunt}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Taunt()}{Taunt()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Taunt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00598}{598}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00114}{IDLE}}, \mbox{\hyperlink{_boss_8h_source_l00162}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, and \mbox{\hyperlink{_boss_8h_source_l00150}{TAUNT\+\_\+\+ANIM}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00115}{Trans\+In\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a9bde9b8b52a028fd43ff1217828633ec}\label{class_little_quest_1_1_boss_a9bde9b8b52a028fd43ff1217828633ec}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!TransInAction@{TransInAction}}
+\index{TransInAction@{TransInAction}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{TransInAction()}{TransInAction()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Trans\+In\+Action (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00115}{115}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00114}{IDLE}}, \mbox{\hyperlink{_boss_8h_source_l00156}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_boss_8h_source_l00125}{m\+\_\+state}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, \mbox{\hyperlink{_boss_8h_source_l00122}{TAUNT}}, and \mbox{\hyperlink{_boss_8cpp_source_l00598}{Taunt()}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00101}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a7888b7ab3d793ad51b17ad1737638322}\label{class_little_quest_1_1_boss_a7888b7ab3d793ad51b17ad1737638322}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!TransOutAction@{TransOutAction}}
+\index{TransOutAction@{TransOutAction}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{TransOutAction()}{TransOutAction()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Trans\+Out\+Action (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00185}{185}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8h_source_l00123}{DEAD}}, \mbox{\hyperlink{_boss_8cpp_source_l00684}{Die()}}, \mbox{\hyperlink{_boss_8cpp_source_l00227}{Idle()}}, and \mbox{\hyperlink{_boss_8h_source_l00125}{m\+\_\+state}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00101}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a20675e076f998f2f892ddec20d1c9b96}\label{class_little_quest_1_1_boss_a20675e076f998f2f892ddec20d1c9b96}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Update@{Update}}
+\index{Update@{Update}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+更新処理を行います。 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00101}{101}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, \mbox{\hyperlink{_boss_8h_source_l00165}{m\+\_\+scene\+State}}, \mbox{\hyperlink{_boss_8cpp_source_l00115}{Trans\+In\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00185}{Trans\+Out\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a9632359ba3e3708460dcfea0c9d2c4f4}\label{class_little_quest_1_1_boss_a9632359ba3e3708460dcfea0c9d2c4f4}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!Wait@{Wait}}
+\index{Wait@{Wait}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{Wait()}{Wait()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Boss\+::\+Wait (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8cpp_source_l00231}{231}} of file \mbox{\hyperlink{_boss_8cpp_source}{Boss.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8h_source_l00114}{IDLE}}, \mbox{\hyperlink{_boss_8h_source_l00138}{m\+\_\+boss\+Combo}}, \mbox{\hyperlink{_boss_8h_source_l00175}{m\+\_\+combo}}, \mbox{\hyperlink{_boss_8h_source_l00188}{m\+\_\+is\+Angry}}, \mbox{\hyperlink{_boss_8h_source_l00157}{m\+\_\+p\+HP}}, \mbox{\hyperlink{_boss_8h_source_l00156}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_boss_8h_source_l00168}{m\+\_\+wait\+For}}, \mbox{\hyperlink{_boss_8h_source_l00136}{NONE}}, and \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a7de2896eeb946d9bd1a689e3c747c002}\label{class_little_quest_1_1_boss_a7de2896eeb946d9bd1a689e3c747c002}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!ANGRY\_WAIT@{ANGRY\_WAIT}}
+\index{ANGRY\_WAIT@{ANGRY\_WAIT}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{ANGRY\_WAIT}{ANGRY\_WAIT}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Boss\+::\+ANGRY\+\_\+\+WAIT = 30.f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+怒っている時の待機時間 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00092}{92}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a5a1566c5c9e9f5eab02216838b5bb7d9}\label{class_little_quest_1_1_boss_a5a1566c5c9e9f5eab02216838b5bb7d9}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!BACK\_ANGLE@{BACK\_ANGLE}}
+\index{BACK\_ANGLE@{BACK\_ANGLE}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{BACK\_ANGLE}{BACK\_ANGLE}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Boss\+::\+BACK\+\_\+\+ANGLE = 140.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+背後の角度 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00104}{104}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00260}{Select\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00329}{Select\+Angry\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a0e40093dbd4fc71d34b87c140574c386}\label{class_little_quest_1_1_boss_a0e40093dbd4fc71d34b87c140574c386}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!CLOSE\_DISTANCE@{CLOSE\_DISTANCE}}
+\index{CLOSE\_DISTANCE@{CLOSE\_DISTANCE}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{CLOSE\_DISTANCE}{CLOSE\_DISTANCE}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Boss\+::\+CLOSE\+\_\+\+DISTANCE = 30.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+近距離 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00096}{96}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00242}{Chase\+Player()}}, \mbox{\hyperlink{_boss_8cpp_source_l00260}{Select\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00329}{Select\+Angry\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_aa03c1f81882d6da393056287b3e41b9f}\label{class_little_quest_1_1_boss_aa03c1f81882d6da393056287b3e41b9f}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!DAMAGE\_CAP@{DAMAGE\_CAP}}
+\index{DAMAGE\_CAP@{DAMAGE\_CAP}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{DAMAGE\_CAP}{DAMAGE\_CAP}}
+{\footnotesize\ttfamily const int Little\+Quest\+::\+Boss\+::\+DAMAGE\+\_\+\+CAP = int(\mbox{\hyperlink{class_little_quest_1_1_boss_a0a2f8a7af46834a9b9c2bed9860562bf}{MAX\+\_\+\+HP}} $\ast$ 0.\+15f)\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+ダメージ溜まるキャップ 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00108}{108}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00649}{Get\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a49835f276c5214e011bb55f0691f43be}\label{class_little_quest_1_1_boss_a49835f276c5214e011bb55f0691f43be}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!DAMAGE\_TIME@{DAMAGE\_TIME}}
+\index{DAMAGE\_TIME@{DAMAGE\_TIME}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{DAMAGE\_TIME}{DAMAGE\_TIME}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Boss\+::\+DAMAGE\+\_\+\+TIME = 420.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+ダメージ溜まる時間 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00106}{106}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00649}{Get\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a105f802b807f6a77daa34dbee0662e28}\label{class_little_quest_1_1_boss_a105f802b807f6a77daa34dbee0662e28}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!FAR\_DISTANCE@{FAR\_DISTANCE}}
+\index{FAR\_DISTANCE@{FAR\_DISTANCE}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{FAR\_DISTANCE}{FAR\_DISTANCE}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Boss\+::\+FAR\+\_\+\+DISTANCE = 90.\+0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+遠距離 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00100}{100}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00260}{Select\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00329}{Select\+Angry\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_acf6dc2dc783eb7f455885357bb183f68}\label{class_little_quest_1_1_boss_acf6dc2dc783eb7f455885357bb183f68}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!FRONT\_ANGLE@{FRONT\_ANGLE}}
+\index{FRONT\_ANGLE@{FRONT\_ANGLE}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{FRONT\_ANGLE}{FRONT\_ANGLE}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Boss\+::\+FRONT\+\_\+\+ANGLE = 60.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+前の角度 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00102}{102}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00260}{Select\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00329}{Select\+Angry\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_adb85aa624825851e1dc8a7a122930677}\label{class_little_quest_1_1_boss_adb85aa624825851e1dc8a7a122930677}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_anim@{m\_anim}}
+\index{m\_anim@{m\_anim}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_anim}{m\_anim}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811}{Boss\+Anim}} Little\+Quest\+::\+Boss\+::m\+\_\+anim = \mbox{\hyperlink{class_little_quest_1_1_boss_afbc72d92cc06c7165037bc32546b4811a8c8a23244b0635c693dcdec621cfabce}{Boss\+Anim\+::\+TAUNT\+\_\+\+ANIM}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00153}{153}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a2cc70ba4fa5f01973f38dd6f718f8bff}\label{class_little_quest_1_1_boss_a2cc70ba4fa5f01973f38dd6f718f8bff}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_animList@{m\_animList}}
+\index{m\_animList@{m\_animList}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_animList}{m\_animList}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::string, Anim\+Info$>$ Little\+Quest\+::\+Boss\+::m\+\_\+anim\+List\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00162}{162}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00672}{Damaging()}}, \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}, \mbox{\hyperlink{_boss_8cpp_source_l00738}{Set\+Anim\+List()}}, \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00598}{Taunt()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ad8c5b32d22e1e41c7db9ff1cf2242c04}\label{class_little_quest_1_1_boss_ad8c5b32d22e1e41c7db9ff1cf2242c04}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_attackSE@{m\_attackSE}}
+\index{m\_attackSE@{m\_attackSE}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_attackSE}{m\_attackSE}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Boss\+::m\+\_\+attack\+SE = -\/1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00182}{182}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8cpp_source_l00727}{Exit()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_aaec442b07dbf6d941bdb27dd18a8d989}\label{class_little_quest_1_1_boss_aaec442b07dbf6d941bdb27dd18a8d989}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_attackVal@{m\_attackVal}}
+\index{m\_attackVal@{m\_attackVal}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_attackVal}{m\_attackVal}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Boss\+::m\+\_\+attack\+Val = 10\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00184}{184}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00213}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a229320887dd80ed6d5487f414ea5f362}\label{class_little_quest_1_1_boss_a229320887dd80ed6d5487f414ea5f362}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_bossCombo@{m\_bossCombo}}
+\index{m\_bossCombo@{m\_bossCombo}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_bossCombo}{m\_bossCombo}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620a}{Boss\+Combo}} Little\+Quest\+::\+Boss\+::m\+\_\+boss\+Combo = \mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620aa30d41d32cc4879c22eb59f3bc14017ea}{Boss\+Combo\+::\+NONE}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00138}{138}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00395}{Attack()}}, \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00649}{Get\+Hit()}}, \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}, \mbox{\hyperlink{_boss_8cpp_source_l00213}{On\+Hit()}}, \mbox{\hyperlink{_boss_8cpp_source_l00260}{Select\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00329}{Select\+Angry\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00231}{Wait()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_afdacd85bfcd8a8b8f23d4beb52759750}\label{class_little_quest_1_1_boss_afdacd85bfcd8a8b8f23d4beb52759750}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_combo@{m\_combo}}
+\index{m\_combo@{m\_combo}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_combo}{m\_combo}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Boss\+::m\+\_\+combo = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00175}{175}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00672}{Damaging()}}, \mbox{\hyperlink{_boss_8cpp_source_l00649}{Get\+Hit()}}, \mbox{\hyperlink{_boss_8cpp_source_l00697}{Play\+Taunt()}}, \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}, \mbox{\hyperlink{_boss_8cpp_source_l00260}{Select\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00329}{Select\+Angry\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}, \mbox{\hyperlink{_boss_8cpp_source_l00598}{Taunt()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00231}{Wait()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a8c50817795951b514bbbe3616760bf93}\label{class_little_quest_1_1_boss_a8c50817795951b514bbbe3616760bf93}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_comboList@{m\_comboList}}
+\index{m\_comboList@{m\_comboList}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_comboList}{m\_comboList}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$\mbox{\hyperlink{class_little_quest_1_1_boss_a2fa4261fc567ebac14795b3ec3b1620a}{Boss\+Combo}}, float$>$ Little\+Quest\+::\+Boss\+::m\+\_\+combo\+List\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00163}{163}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00213}{On\+Hit()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00823}{Set\+Combo\+List()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a49a350eca1f4fb8deb241b05e3eaf58d}\label{class_little_quest_1_1_boss_a49a350eca1f4fb8deb241b05e3eaf58d}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_currAnimTime@{m\_currAnimTime}}
+\index{m\_currAnimTime@{m\_currAnimTime}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_currAnimTime}{m\_currAnimTime}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Boss\+::m\+\_\+curr\+Anim\+Time = 0.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00173}{173}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a9ba042149a4e786d7c82850aedbba5ca}\label{class_little_quest_1_1_boss_a9ba042149a4e786d7c82850aedbba5ca}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_damageCount@{m\_damageCount}}
+\index{m\_damageCount@{m\_damageCount}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_damageCount}{m\_damageCount}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Boss\+::m\+\_\+damage\+Count = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00183}{183}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00649}{Get\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_adde7f1e3ff01a9de9b181be53f20b4d9}\label{class_little_quest_1_1_boss_adde7f1e3ff01a9de9b181be53f20b4d9}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_damageTimer@{m\_damageTimer}}
+\index{m\_damageTimer@{m\_damageTimer}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_damageTimer}{m\_damageTimer}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Boss\+::m\+\_\+damage\+Timer = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00174}{174}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00649}{Get\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a95defa760fa7f7b82e5a34ffeab0b972}\label{class_little_quest_1_1_boss_a95defa760fa7f7b82e5a34ffeab0b972}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_degree@{m\_degree}}
+\index{m\_degree@{m\_degree}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_degree}{m\_degree}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Boss\+::m\+\_\+degree = 0.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00170}{170}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a473f78d421ecca26080a164e015fd7ab}\label{class_little_quest_1_1_boss_a473f78d421ecca26080a164e015fd7ab}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_destroyTimer@{m\_destroyTimer}}
+\index{m\_destroyTimer@{m\_destroyTimer}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_destroyTimer}{m\_destroyTimer}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Boss\+::m\+\_\+destroy\+Timer = 5.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00172}{172}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a4bed4e6e11909d804f63a02ec17ebc4e}\label{class_little_quest_1_1_boss_a4bed4e6e11909d804f63a02ec17ebc4e}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_doublePunchEffect@{m\_doublePunchEffect}}
+\index{m\_doublePunchEffect@{m\_doublePunchEffect}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_doublePunchEffect}{m\_doublePunchEffect}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Boss\+::m\+\_\+double\+Punch\+Effect = -\/1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00179}{179}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00727}{Exit()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a85c93fcf047ef74035ef728cdd97acb7}\label{class_little_quest_1_1_boss_a85c93fcf047ef74035ef728cdd97acb7}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_isAngry@{m\_isAngry}}
+\index{m\_isAngry@{m\_isAngry}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_isAngry}{m\_isAngry}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Boss\+::m\+\_\+is\+Angry = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00188}{188}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00213}{On\+Hit()}}, \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}, \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00231}{Wait()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ab1bb759be43023e98087b1fa607c8d20}\label{class_little_quest_1_1_boss_ab1bb759be43023e98087b1fa607c8d20}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_isDead@{m\_isDead}}
+\index{m\_isDead@{m\_isDead}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_isDead}{m\_isDead}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Boss\+::m\+\_\+is\+Dead = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00187}{187}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a8a84e4e3bd4d8762eb33aec7c4965ab9}\label{class_little_quest_1_1_boss_a8a84e4e3bd4d8762eb33aec7c4965ab9}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_isHitPlayer@{m\_isHitPlayer}}
+\index{m\_isHitPlayer@{m\_isHitPlayer}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_isHitPlayer}{m\_isHitPlayer}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Boss\+::m\+\_\+is\+Hit\+Player = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00186}{186}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8cpp_source_l00213}{On\+Hit()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a108c12f2aa363df24488490dc3bc7297}\label{class_little_quest_1_1_boss_a108c12f2aa363df24488490dc3bc7297}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_move@{m\_move}}
+\index{m\_move@{m\_move}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_move}{m\_move}}
+{\footnotesize\ttfamily float3 Little\+Quest\+::\+Boss\+::m\+\_\+move = \{0, 0, 0\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00167}{167}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_af7c354313f3efa24d2fe34d3d31422e1}\label{class_little_quest_1_1_boss_af7c354313f3efa24d2fe34d3d31422e1}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_pAngryBox@{m\_pAngryBox}}
+\index{m\_pAngryBox@{m\_pAngryBox}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_pAngryBox}{m\_pAngryBox}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$Component\+Collision\+Sphere$>$ Little\+Quest\+::\+Boss\+::m\+\_\+p\+Angry\+Box\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00161}{161}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00684}{Die()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a15212120adc9e5b58e7cb5ddde15aa1a}\label{class_little_quest_1_1_boss_a15212120adc9e5b58e7cb5ddde15aa1a}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_pBodyBox@{m\_pBodyBox}}
+\index{m\_pBodyBox@{m\_pBodyBox}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_pBodyBox}{m\_pBodyBox}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$Component\+Collision\+Capsule$>$ Little\+Quest\+::\+Boss\+::m\+\_\+p\+Body\+Box\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00158}{158}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00684}{Die()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_abb117c1faf9ff917bc5e8353d42e9ced}\label{class_little_quest_1_1_boss_abb117c1faf9ff917bc5e8353d42e9ced}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_pEffectList@{m\_pEffectList}}
+\index{m\_pEffectList@{m\_pEffectList}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_pEffectList}{m\_pEffectList}}
+{\footnotesize\ttfamily int$\ast$ Little\+Quest\+::\+Boss\+::m\+\_\+p\+Effect\+List\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00185}{185}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00727}{Exit()}}, \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a6bfd4fc9f2c7dba829df8cb8e99b86ba}\label{class_little_quest_1_1_boss_a6bfd4fc9f2c7dba829df8cb8e99b86ba}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_pHP@{m\_pHP}}
+\index{m\_pHP@{m\_pHP}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_pHP}{m\_pHP}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}}$>$ Little\+Quest\+::\+Boss\+::m\+\_\+p\+HP\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00157}{157}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00649}{Get\+Hit()}}, \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}, \mbox{\hyperlink{_boss_8cpp_source_l00714}{Is\+Dead()}}, \mbox{\hyperlink{_boss_8cpp_source_l00196}{Late\+Draw()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00231}{Wait()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ac70b7f16ebf5a5719250d3d9c1536d5b}\label{class_little_quest_1_1_boss_ac70b7f16ebf5a5719250d3d9c1536d5b}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_playedSE@{m\_playedSE}}
+\index{m\_playedSE@{m\_playedSE}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_playedSE}{m\_playedSE}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Boss\+::m\+\_\+played\+SE = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00189}{189}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a91f2bcd3f8ece9e7480869f1822b5c44}\label{class_little_quest_1_1_boss_a91f2bcd3f8ece9e7480869f1822b5c44}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_playingEffect@{m\_playingEffect}}
+\index{m\_playingEffect@{m\_playingEffect}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_playingEffect}{m\_playingEffect}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Boss\+::m\+\_\+playing\+Effect = -\/1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00181}{181}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a12514f6a96f43d0e259234584395b122}\label{class_little_quest_1_1_boss_a12514f6a96f43d0e259234584395b122}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_pLeftHandBox@{m\_pLeftHandBox}}
+\index{m\_pLeftHandBox@{m\_pLeftHandBox}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_pLeftHandBox}{m\_pLeftHandBox}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$Component\+Collision\+Capsule$>$ Little\+Quest\+::\+Boss\+::m\+\_\+p\+Left\+Hand\+Box\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00159}{159}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a4ed990848d2b70255df0aaa33eabe0b4}\label{class_little_quest_1_1_boss_a4ed990848d2b70255df0aaa33eabe0b4}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_pModel@{m\_pModel}}
+\index{m\_pModel@{m\_pModel}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_pModel}{m\_pModel}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$Component\+Model$>$ Little\+Quest\+::\+Boss\+::m\+\_\+p\+Model\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00156}{156}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}, \mbox{\hyperlink{_boss_8cpp_source_l00242}{Chase\+Player()}}, \mbox{\hyperlink{_boss_8cpp_source_l00684}{Die()}}, \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00227}{Idle()}}, \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}, \mbox{\hyperlink{_boss_8cpp_source_l00706}{Is\+Played\+Taunt()}}, \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}, \mbox{\hyperlink{_boss_8cpp_source_l00115}{Trans\+In\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00231}{Wait()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_ab2ffeadde4d5f0f5362c4f1b62adb6dd}\label{class_little_quest_1_1_boss_ab2ffeadde4d5f0f5362c4f1b62adb6dd}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_powerDoublePunchEffect@{m\_powerDoublePunchEffect}}
+\index{m\_powerDoublePunchEffect@{m\_powerDoublePunchEffect}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_powerDoublePunchEffect}{m\_powerDoublePunchEffect}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Boss\+::m\+\_\+power\+Double\+Punch\+Effect = -\/1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00180}{180}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00727}{Exit()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a01ac6faa099500cf5aafdbfce4338131}\label{class_little_quest_1_1_boss_a01ac6faa099500cf5aafdbfce4338131}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_powerPunchEffect@{m\_powerPunchEffect}}
+\index{m\_powerPunchEffect@{m\_powerPunchEffect}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_powerPunchEffect}{m\_powerPunchEffect}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Boss\+::m\+\_\+power\+Punch\+Effect = -\/1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00178}{178}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00727}{Exit()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a1b9469be7d7bef20bbaf20ec8c60519f}\label{class_little_quest_1_1_boss_a1b9469be7d7bef20bbaf20ec8c60519f}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_powerUpEffect@{m\_powerUpEffect}}
+\index{m\_powerUpEffect@{m\_powerUpEffect}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_powerUpEffect}{m\_powerUpEffect}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Boss\+::m\+\_\+power\+Up\+Effect = -\/1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00176}{176}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00727}{Exit()}}, \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a5dfee3911e8942228325dfb5cfe80b6a}\label{class_little_quest_1_1_boss_a5dfee3911e8942228325dfb5cfe80b6a}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_pPlayer@{m\_pPlayer}}
+\index{m\_pPlayer@{m\_pPlayer}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_pPlayer}{m\_pPlayer}}
+{\footnotesize\ttfamily Object\+Weak\+Ptr Little\+Quest\+::\+Boss\+::m\+\_\+p\+Player\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00155}{155}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00242}{Chase\+Player()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}, \mbox{\hyperlink{_boss_8cpp_source_l00260}{Select\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00329}{Select\+Angry\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a592d43715a4d02f331d12111c7059344}\label{class_little_quest_1_1_boss_a592d43715a4d02f331d12111c7059344}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_pRightHandBox@{m\_pRightHandBox}}
+\index{m\_pRightHandBox@{m\_pRightHandBox}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_pRightHandBox}{m\_pRightHandBox}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$Component\+Collision\+Capsule$>$ Little\+Quest\+::\+Boss\+::m\+\_\+p\+Right\+Hand\+Box\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00160}{160}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a00d026320a7ce55357fef583ee136ea3}\label{class_little_quest_1_1_boss_a00d026320a7ce55357fef583ee136ea3}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_punchEffect@{m\_punchEffect}}
+\index{m\_punchEffect@{m\_punchEffect}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_punchEffect}{m\_punchEffect}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Boss\+::m\+\_\+punch\+Effect = -\/1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00177}{177}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00727}{Exit()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_af0b6ac43ce28f0bbf428c564d438708c}\label{class_little_quest_1_1_boss_af0b6ac43ce28f0bbf428c564d438708c}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_sceneState@{m\_sceneState}}
+\index{m\_sceneState@{m\_sceneState}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_sceneState}{m\_sceneState}}
+{\footnotesize\ttfamily Scene\+::\+Scene\+State Little\+Quest\+::\+Boss\+::m\+\_\+scene\+State = Scene\+::\+Scene\+State\+::\+GAME\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00165}{165}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00196}{Late\+Draw()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00101}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a642df4b33639634b2ba1f06c5f054bd3}\label{class_little_quest_1_1_boss_a642df4b33639634b2ba1f06c5f054bd3}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_speedFactor@{m\_speedFactor}}
+\index{m\_speedFactor@{m\_speedFactor}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_speedFactor}{m\_speedFactor}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Boss\+::m\+\_\+speed\+Factor = 1.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00171}{171}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_af1e7ffdad13287c8e03a5c39be1c3f94}\label{class_little_quest_1_1_boss_af1e7ffdad13287c8e03a5c39be1c3f94}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_state@{m\_state}}
+\index{m\_state@{m\_state}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_state}{m\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193f}{Boss\+State}} Little\+Quest\+::\+Boss\+::m\+\_\+state = \mbox{\hyperlink{class_little_quest_1_1_boss_a31a87ee38296b9bc58726ad3e120193fabe627a3938e4a8bd0c088cd1665efae1}{Boss\+State\+::\+IDLE}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00125}{125}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00718}{Change\+State()}}, \mbox{\hyperlink{_boss_8cpp_source_l00126}{Game\+Action()}}, \mbox{\hyperlink{_boss_8cpp_source_l00649}{Get\+Hit()}}, \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}, \mbox{\hyperlink{_boss_8cpp_source_l00115}{Trans\+In\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00185}{Trans\+Out\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_acd4e4e6d47ccf7ece4f1294f3e0e7a12}\label{class_little_quest_1_1_boss_acd4e4e6d47ccf7ece4f1294f3e0e7a12}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_waitFor@{m\_waitFor}}
+\index{m\_waitFor@{m\_waitFor}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_waitFor}{m\_waitFor}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Boss\+::m\+\_\+wait\+For = 0.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00168}{168}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00672}{Damaging()}}, \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}, \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00231}{Wait()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a664e6311b0ef014505fd429bf77e71f8}\label{class_little_quest_1_1_boss_a664e6311b0ef014505fd429bf77e71f8}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!m\_waitTime@{m\_waitTime}}
+\index{m\_waitTime@{m\_waitTime}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{m\_waitTime}{m\_waitTime}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Boss\+::m\+\_\+wait\+Time = \mbox{\hyperlink{class_little_quest_1_1_boss_a9ff65a7ebf6ac275148431d098566424}{NORMAL\+\_\+\+WAIT}}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00169}{169}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00494}{Backflip\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00532}{Charge\+Punch()}}, \mbox{\hyperlink{_boss_8cpp_source_l00447}{Combo5()}}, \mbox{\hyperlink{_boss_8cpp_source_l00672}{Damaging()}}, \mbox{\hyperlink{_boss_8cpp_source_l00609}{Power\+Up()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00563}{Swip()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a0a2f8a7af46834a9b9c2bed9860562bf}\label{class_little_quest_1_1_boss_a0a2f8a7af46834a9b9c2bed9860562bf}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!MAX\_HP@{MAX\_HP}}
+\index{MAX\_HP@{MAX\_HP}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{MAX\_HP}{MAX\_HP}}
+{\footnotesize\ttfamily const int Little\+Quest\+::\+Boss\+::\+MAX\+\_\+\+HP = 500\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+最大\+HP 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00110}{110}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00029}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_afebf0213f0e006e6ef623ace8cea5835}\label{class_little_quest_1_1_boss_afebf0213f0e006e6ef623ace8cea5835}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!MAX\_VOLUME@{MAX\_VOLUME}}
+\index{MAX\_VOLUME@{MAX\_VOLUME}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{MAX\_VOLUME}{MAX\_VOLUME}}
+{\footnotesize\ttfamily const int Little\+Quest\+::\+Boss\+::\+MAX\+\_\+\+VOLUME = 255\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00111}{111}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00412}{Attack\+Animation()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a4cb5fc9124b769cc368fd98a27d0936d}\label{class_little_quest_1_1_boss_a4cb5fc9124b769cc368fd98a27d0936d}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!MIDDLE\_DISTANCE@{MIDDLE\_DISTANCE}}
+\index{MIDDLE\_DISTANCE@{MIDDLE\_DISTANCE}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{MIDDLE\_DISTANCE}{MIDDLE\_DISTANCE}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Boss\+::\+MIDDLE\+\_\+\+DISTANCE = 60.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+中距離 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00098}{98}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a9ff65a7ebf6ac275148431d098566424}\label{class_little_quest_1_1_boss_a9ff65a7ebf6ac275148431d098566424}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!NORMAL\_WAIT@{NORMAL\_WAIT}}
+\index{NORMAL\_WAIT@{NORMAL\_WAIT}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{NORMAL\_WAIT}{NORMAL\_WAIT}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Boss\+::\+NORMAL\+\_\+\+WAIT = 120.f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+怒っていない時の待機時間 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00090}{90}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_aea9165e33a65ba2c13022f9cfafdfc63}\label{class_little_quest_1_1_boss_aea9165e33a65ba2c13022f9cfafdfc63}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!TOO\_CLOSE\_DISTANCE@{TOO\_CLOSE\_DISTANCE}}
+\index{TOO\_CLOSE\_DISTANCE@{TOO\_CLOSE\_DISTANCE}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{TOO\_CLOSE\_DISTANCE}{TOO\_CLOSE\_DISTANCE}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Boss\+::\+TOO\+\_\+\+CLOSE\+\_\+\+DISTANCE = 15.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+超近距離 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00094}{94}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00260}{Select\+Action()}}, and \mbox{\hyperlink{_boss_8cpp_source_l00329}{Select\+Angry\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_boss_a8765ea8e7b0a641def6c2262a476c33c}\label{class_little_quest_1_1_boss_a8765ea8e7b0a641def6c2262a476c33c}} 
+\index{LittleQuest::Boss@{LittleQuest::Boss}!WALK\_SPEED@{WALK\_SPEED}}
+\index{WALK\_SPEED@{WALK\_SPEED}!LittleQuest::Boss@{LittleQuest::Boss}}
+\doxysubsubsection{\texorpdfstring{WALK\_SPEED}{WALK\_SPEED}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Boss\+::\+WALK\+\_\+\+SPEED = 0.\+5f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+移動スピード 
+
+
+
+Definition at line \mbox{\hyperlink{_boss_8h_source_l00088}{88}} of file \mbox{\hyperlink{_boss_8h_source}{Boss.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_boss_8cpp_source_l00242}{Chase\+Player()}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_boss_8h}{Boss.\+h}}\item 
+\mbox{\hyperlink{_boss_8cpp}{Boss.\+cpp}}\end{DoxyCompactItemize}

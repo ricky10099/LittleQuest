@@ -1,0 +1,660 @@
+\hypertarget{class_texture}{}\doxysection{Texture クラス}
+\label{class_texture}\index{Texture@{Texture}}
+
+
+テクスチャ  
+
+
+
+
+{\ttfamily \#include $<$Texture.\+h$>$}
+
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_texture_a66179be276016021e80b1c67c047d4ad}{Texture}} ()=default
+\item 
+\mbox{\hyperlink{class_texture_ae9a85f7b33715ef0e68edce67be843a3}{Texture}} (ID3\+D11\+Resource $\ast$d3d\+\_\+resource)
+\begin{DoxyCompactList}\small\item\em D3\+D11\+Resource指定で初期化 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_texture_a11fcd56485771262b0a6531ac462859c}{Texture}} (int graphic\+\_\+handle)
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} ハンドル指定で初期化 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_texture_af842a6fc3ecf83d8a1c94817ab98cb24}{Texture}} (std\+::string\+\_\+view \mbox{\hyperlink{class_texture_a47ac74626b65d49db950c3d4c09ba0fe}{path}})
+\begin{DoxyCompactList}\small\item\em ファイルから作成 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_texture_a9deee0cc32ca74cdf8275bc19c4134fa}{Texture}} (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{class_texture_a9c341afd0ca1af6d79c67c89eff67d25}{width}}, \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{class_texture_a22a0dedfb70725f0b78c295e8e4bb0b9}{height}}, DXGI\+\_\+\+FORMAT dxgi\+\_\+format)
+\begin{DoxyCompactList}\small\item\em 描画対象のテクスチャ(Render\+Target/\+Depth\+Stencil)を作成 \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_texture_a09c4bcb7462f64c1d20fa69dba3cee8a}{$\sim$\+Texture}} ()
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_texture_ae02304cd1a555cd43b0af49162102a1a}{clear}} ()
+\begin{DoxyCompactList}\small\item\em 解放 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{class_texture_a9c341afd0ca1af6d79c67c89eff67d25}{width}} () const
+\begin{DoxyCompactList}\small\item\em 幅を取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{class_texture_a22a0dedfb70725f0b78c295e8e4bb0b9}{height}} () const
+\begin{DoxyCompactList}\small\item\em 高さを取得 \end{DoxyCompactList}\item 
+ID3\+D11\+Resource $\ast$ \mbox{\hyperlink{class_texture_a91c9a5e26823f3f5d109bbfcb65ed030}{d3d\+Resource}} () const
+\begin{DoxyCompactList}\small\item\em D3\+Dリソースを取得 \end{DoxyCompactList}\item 
+ID3\+D11\+Shader\+Resource\+View $\ast$ \mbox{\hyperlink{class_texture_a4f0578eda3a38e2dfcbb769382a6fabd}{srv}} () const
+\begin{DoxyCompactList}\small\item\em Shader\+Resource\+Viewを取得 \end{DoxyCompactList}\item 
+ID3\+D11\+Render\+Target\+View $\ast$ \mbox{\hyperlink{class_texture_a496d0b82437139031e35a232e81d9985}{rtv}} () const
+\begin{DoxyCompactList}\small\item\em Render\+Target\+Viewを取得 \end{DoxyCompactList}\item 
+ID3\+D11\+Depth\+Stencil\+View $\ast$ \mbox{\hyperlink{class_texture_adae0710525cf51a10a5b44c8bfc12704}{dsv}} () const
+\begin{DoxyCompactList}\small\item\em Depth\+Stencil\+Viewを取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_texture_a54c11f0221ff775c7937fce6d48cf756}{operator int}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} Graphハンドルを取得 \end{DoxyCompactList}\item 
+const std\+::wstring \& \mbox{\hyperlink{class_texture_a47ac74626b65d49db950c3d4c09ba0fe}{path}} () const
+\begin{DoxyCompactList}\small\item\em ファイルパスを取得 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_texture_ab00dee4883d41ac03b28cf15989eaa48}{is\+\_\+valid}} () const
+\begin{DoxyCompactList}\small\item\em 初期化が正しく成功しているかどうか \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_texture_ac93b1f45c2596d473c33806768fc902c}{is\+\_\+active}} () const
+\begin{DoxyCompactList}\small\item\em 描画可能な状態かどうか取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_texture_a6ab555c3825a26edb68b87df48b06d47}{initialize}} (ID3\+D11\+Resource $\ast$d3d\+\_\+resource)
+\begin{DoxyCompactList}\small\item\em D3\+D11\+Resource指定で初期化 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_texture_a56224ad23e5732920877471d4ff6e538}{on\+\_\+initialize}} ()
+\begin{DoxyCompactList}\small\item\em 遅延初期化 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{class_texture_a56895dccd0b05ea56476b721d2fed811}{width\+\_\+}} = 0
+\begin{DoxyCompactList}\small\item\em 幅 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{class_texture_a509508e9b6d8f075757a88c95bd4a2d5}{height\+\_\+}} = 0
+\begin{DoxyCompactList}\small\item\em 高さ \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_texture_a7fde183054fd3db4bc89abb63f437a4d}{handle\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} Graphicハンドル \end{DoxyCompactList}\item 
+std\+::wstring \mbox{\hyperlink{class_texture_a5771fda846de68e860a4ef7eaebdd34c}{path\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ファイルパス \end{DoxyCompactList}\item 
+std\+::atomic$<$ bool $>$ \mbox{\hyperlink{class_texture_aee2111a87b945ec4185ba6e0cf32f2af}{active\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em アクティブ状態 true\+:利用可能 false\+:ロード未完了 \end{DoxyCompactList}\item 
+std\+::atomic$<$ bool $>$ \mbox{\hyperlink{class_texture_a6895c68b9fadc7ebfb4eac4db17cb793}{need\+\_\+initialize\+\_\+}} = false
+\item 
+Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Resource $>$ \mbox{\hyperlink{class_texture_afc8c086eab9d2b211bf08993be743370}{d3d\+\_\+resource\+\_\+}}
+\begin{DoxyCompactList}\small\item\em D3\+Dリソース(Texture2\+D/3D) \end{DoxyCompactList}\item 
+Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Shader\+Resource\+View $>$ \mbox{\hyperlink{class_texture_a71bce01bc07d2b5e0ebe7c443af74ef1}{d3d\+\_\+srv\+\_\+}}
+\begin{DoxyCompactList}\small\item\em D3D Shader\+Resource View \end{DoxyCompactList}\item 
+Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Render\+Target\+View $>$ \mbox{\hyperlink{class_texture_a2e47b7edba5d0101d8d9f8045c1e8401}{d3d\+\_\+rtv\+\_\+}}
+\begin{DoxyCompactList}\small\item\em D3D Render\+Target View \end{DoxyCompactList}\item 
+Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ ID3\+D11\+Depth\+Stencil\+View $>$ \mbox{\hyperlink{class_texture_a4db26fc933a53a6bab991a3a0bf0163b}{d3d\+\_\+dsv\+\_\+}}
+\begin{DoxyCompactList}\small\item\em D3D Depth\+Stencil View \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+テクスチャ 
+
+ \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}} の \mbox{\hyperlink{_texture_8h_source_l00010}{10}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{class_texture_a66179be276016021e80b1c67c047d4ad}\label{class_texture_a66179be276016021e80b1c67c047d4ad}} 
+\index{Texture@{Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily Texture\+::\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\mbox{\Hypertarget{class_texture_ae9a85f7b33715ef0e68edce67be843a3}\label{class_texture_ae9a85f7b33715ef0e68edce67be843a3}} 
+\index{Texture@{Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{ID3\+D11\+Resource $\ast$}]{d3d\+\_\+resource }\end{DoxyParamCaption})}
+
+
+
+D3\+D11\+Resource指定で初期化 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em d3d\+\_\+resource} & D3\+Dリソースオブジェクト \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00032}{32}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00090}{active\+\_\+}}, \mbox{\hyperlink{_texture_8cpp_source_l00127}{initialize()}}.
+
+\mbox{\Hypertarget{class_texture_a11fcd56485771262b0a6531ac462859c}\label{class_texture_a11fcd56485771262b0a6531ac462859c}} 
+\index{Texture@{Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{int}]{graphic\+\_\+handle }\end{DoxyParamCaption})}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} ハンドル指定で初期化 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em graphic\+\_\+handle} & DXライブラリのグラフィックハンドル \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00040}{40}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00090}{active\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00097}{d3d\+\_\+dsv\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00094}{d3d\+\_\+resource\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00096}{d3d\+\_\+rtv\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00088}{handle\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00087}{height\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00086}{width\+\_\+}}.
+
+\mbox{\Hypertarget{class_texture_af842a6fc3ecf83d8a1c94817ab98cb24}\label{class_texture_af842a6fc3ecf83d8a1c94817ab98cb24}} 
+\index{Texture@{Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{std\+::string\+\_\+view}]{path }\end{DoxyParamCaption})}
+
+
+
+ファイルから作成 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em path} & ファイルパス \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00061}{61}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00090}{active\+\_\+}}, \mbox{\hyperlink{_precompile_8cpp_source_l00008}{convert\+To()}}, \mbox{\hyperlink{_texture_8h_source_l00088}{handle\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00091}{need\+\_\+initialize\+\_\+}}, \mbox{\hyperlink{_texture_8cpp_source_l00269}{path()}}, \mbox{\hyperlink{_texture_8h_source_l00089}{path\+\_\+}}.
+
+\mbox{\Hypertarget{class_texture_a9deee0cc32ca74cdf8275bc19c4134fa}\label{class_texture_a9deee0cc32ca74cdf8275bc19c4134fa}} 
+\index{Texture@{Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{width,  }\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{height,  }\item[{DXGI\+\_\+\+FORMAT}]{dxgi\+\_\+format }\end{DoxyParamCaption})}
+
+
+
+描画対象のテクスチャ(Render\+Target/\+Depth\+Stencil)を作成 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em width} & 幅 \\
+\hline
+\mbox{\texttt{ in}}  & {\em height} & 高さ \\
+\hline
+\mbox{\texttt{ in}}  & {\em dxgi\+\_\+format} & ピクセルフォーマット \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00089}{89}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00090}{active\+\_\+}}, \mbox{\hyperlink{_texture_8cpp_source_l00219}{height()}}, \mbox{\hyperlink{_texture_8cpp_source_l00127}{initialize()}}, \mbox{\hyperlink{_texture_8cpp_source_l00212}{width()}}.
+
+\mbox{\Hypertarget{class_texture_a09c4bcb7462f64c1d20fa69dba3cee8a}\label{class_texture_a09c4bcb7462f64c1d20fa69dba3cee8a}} 
+\index{Texture@{Texture}!````~Texture@{$\sim$Texture}}
+\index{````~Texture@{$\sim$Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{$\sim$Texture()}{~Texture()}}
+{\footnotesize\ttfamily Texture\+::$\sim$\+Texture (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+デストラクタ 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00010}{10}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8cpp_source_l00017}{clear()}}.
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_texture_ae02304cd1a555cd43b0af49162102a1a}\label{class_texture_ae02304cd1a555cd43b0af49162102a1a}} 
+\index{Texture@{Texture}!clear@{clear}}
+\index{clear@{clear}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void Texture\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+解放 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00017}{17}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00097}{d3d\+\_\+dsv\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00094}{d3d\+\_\+resource\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00096}{d3d\+\_\+rtv\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00095}{d3d\+\_\+srv\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00088}{handle\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00010}{$\sim$\+Texture()}}.
+
+\mbox{\Hypertarget{class_texture_a91c9a5e26823f3f5d109bbfcb65ed030}\label{class_texture_a91c9a5e26823f3f5d109bbfcb65ed030}} 
+\index{Texture@{Texture}!d3dResource@{d3dResource}}
+\index{d3dResource@{d3dResource}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{d3dResource()}{d3dResource()}}
+{\footnotesize\ttfamily ID3\+D11\+Resource $\ast$ Texture\+::d3d\+Resource (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+D3\+Dリソースを取得 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00226}{226}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00094}{d3d\+\_\+resource\+\_\+}}.
+
+\mbox{\Hypertarget{class_texture_adae0710525cf51a10a5b44c8bfc12704}\label{class_texture_adae0710525cf51a10a5b44c8bfc12704}} 
+\index{Texture@{Texture}!dsv@{dsv}}
+\index{dsv@{dsv}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{dsv()}{dsv()}}
+{\footnotesize\ttfamily ID3\+D11\+Depth\+Stencil\+View $\ast$ Texture\+::dsv (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Depth\+Stencil\+Viewを取得 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00247}{247}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00097}{d3d\+\_\+dsv\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_render_8cpp_source_l00111}{Clear\+Depth()}}, \mbox{\hyperlink{_render_8cpp_source_l00118}{Clear\+Stencil()}}, \mbox{\hyperlink{_render_8cpp_source_l00132}{Set\+Render\+Target()}}.
+
+\mbox{\Hypertarget{class_texture_a22a0dedfb70725f0b78c295e8e4bb0b9}\label{class_texture_a22a0dedfb70725f0b78c295e8e4bb0b9}} 
+\index{Texture@{Texture}!height@{height}}
+\index{height@{height}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{height()}{height()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} Texture\+::height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+高さを取得 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00219}{219}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00087}{height\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00089}{Texture()}}.
+
+\mbox{\Hypertarget{class_texture_a6ab555c3825a26edb68b87df48b06d47}\label{class_texture_a6ab555c3825a26edb68b87df48b06d47}} 
+\index{Texture@{Texture}!initialize@{initialize}}
+\index{initialize@{initialize}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily bool Texture\+::initialize (\begin{DoxyParamCaption}\item[{ID3\+D11\+Resource $\ast$}]{d3d\+\_\+resource }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+D3\+D11\+Resource指定で初期化 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00127}{127}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00097}{d3d\+\_\+dsv\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00094}{d3d\+\_\+resource\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00096}{d3d\+\_\+rtv\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00095}{d3d\+\_\+srv\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00088}{handle\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00087}{height\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00086}{width\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00196}{on\+\_\+initialize()}}, \mbox{\hyperlink{_texture_8cpp_source_l00032}{Texture()}}.
+
+\mbox{\Hypertarget{class_texture_ac93b1f45c2596d473c33806768fc902c}\label{class_texture_ac93b1f45c2596d473c33806768fc902c}} 
+\index{Texture@{Texture}!is\_active@{is\_active}}
+\index{is\_active@{is\_active}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{is\_active()}{is\_active()}}
+{\footnotesize\ttfamily bool Texture\+::is\+\_\+active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+描画可能な状態かどうか取得 
+
+\begin{DoxyNote}{覚え書き}
+描画可能になっていない状態で\+MV1関数を呼ぶとブロッキングされます 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00283}{283}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00090}{active\+\_\+}}.
+
+\mbox{\Hypertarget{class_texture_ab00dee4883d41ac03b28cf15989eaa48}\label{class_texture_ab00dee4883d41ac03b28cf15989eaa48}} 
+\index{Texture@{Texture}!is\_valid@{is\_valid}}
+\index{is\_valid@{is\_valid}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{is\_valid()}{is\_valid()}}
+{\footnotesize\ttfamily bool Texture\+::is\+\_\+valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+初期化が正しく成功しているかどうか 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00276}{276}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00094}{d3d\+\_\+resource\+\_\+}}, \mbox{\hyperlink{_texture_8h_source_l00088}{handle\+\_\+}}.
+
+\mbox{\Hypertarget{class_texture_a56224ad23e5732920877471d4ff6e538}\label{class_texture_a56224ad23e5732920877471d4ff6e538}} 
+\index{Texture@{Texture}!on\_initialize@{on\_initialize}}
+\index{on\_initialize@{on\_initialize}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{on\_initialize()}{on\_initialize()}}
+{\footnotesize\ttfamily void Texture\+::on\+\_\+initialize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+遅延初期化 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00196}{196}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00088}{handle\+\_\+}}, \mbox{\hyperlink{_texture_8cpp_source_l00127}{initialize()}}, \mbox{\hyperlink{_texture_8h_source_l00091}{need\+\_\+initialize\+\_\+}}.
+
+\mbox{\Hypertarget{class_texture_a54c11f0221ff775c7937fce6d48cf756}\label{class_texture_a54c11f0221ff775c7937fce6d48cf756}} 
+\index{Texture@{Texture}!operator int@{operator int}}
+\index{operator int@{operator int}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{operator int()}{operator int()}}
+{\footnotesize\ttfamily Texture\+::operator int (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} Graphハンドルを取得 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00254}{254}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_texture_a47ac74626b65d49db950c3d4c09ba0fe}\label{class_texture_a47ac74626b65d49db950c3d4c09ba0fe}} 
+\index{Texture@{Texture}!path@{path}}
+\index{path@{path}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{path()}{path()}}
+{\footnotesize\ttfamily const std\+::wstring \& Texture\+::path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+ファイルパスを取得 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00269}{269}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00089}{path\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00061}{Texture()}}.
+
+\mbox{\Hypertarget{class_texture_a496d0b82437139031e35a232e81d9985}\label{class_texture_a496d0b82437139031e35a232e81d9985}} 
+\index{Texture@{Texture}!rtv@{rtv}}
+\index{rtv@{rtv}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{rtv()}{rtv()}}
+{\footnotesize\ttfamily ID3\+D11\+Render\+Target\+View $\ast$ Texture\+::rtv (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Render\+Target\+Viewを取得 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00240}{240}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00096}{d3d\+\_\+rtv\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_render_8cpp_source_l00102}{Clear\+Color()}}.
+
+\mbox{\Hypertarget{class_texture_a4f0578eda3a38e2dfcbb769382a6fabd}\label{class_texture_a4f0578eda3a38e2dfcbb769382a6fabd}} 
+\index{Texture@{Texture}!srv@{srv}}
+\index{srv@{srv}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{srv()}{srv()}}
+{\footnotesize\ttfamily ID3\+D11\+Shader\+Resource\+View $\ast$ Texture\+::srv (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Shader\+Resource\+Viewを取得 
+
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00233}{233}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00095}{d3d\+\_\+srv\+\_\+}}.
+
+\mbox{\Hypertarget{class_texture_a9c341afd0ca1af6d79c67c89eff67d25}\label{class_texture_a9c341afd0ca1af6d79c67c89eff67d25}} 
+\index{Texture@{Texture}!width@{width}}
+\index{width@{width}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{width()}{width()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} Texture\+::width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+幅を取得 
+
+\begin{DoxyNote}{覚え書き}
+取得/参照 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_texture_8cpp_source}{Texture.\+cpp}} の \mbox{\hyperlink{_texture_8cpp_source_l00212}{212}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8h_source_l00086}{width\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00089}{Texture()}}.
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{class_texture_aee2111a87b945ec4185ba6e0cf32f2af}\label{class_texture_aee2111a87b945ec4185ba6e0cf32f2af}} 
+\index{Texture@{Texture}!active\_@{active\_}}
+\index{active\_@{active\_}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{active\_}{active\_}}
+{\footnotesize\ttfamily std\+::atomic$<$bool$>$ Texture\+::active\+\_\+ = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+アクティブ状態 true\+:利用可能 false\+:ロード未完了 
+
+
+
+ \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}} の \mbox{\hyperlink{_texture_8h_source_l00090}{90}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00283}{is\+\_\+active()}}, \mbox{\hyperlink{_texture_8cpp_source_l00032}{Texture()}}.
+
+\mbox{\Hypertarget{class_texture_a4db26fc933a53a6bab991a3a0bf0163b}\label{class_texture_a4db26fc933a53a6bab991a3a0bf0163b}} 
+\index{Texture@{Texture}!d3d\_dsv\_@{d3d\_dsv\_}}
+\index{d3d\_dsv\_@{d3d\_dsv\_}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{d3d\_dsv\_}{d3d\_dsv\_}}
+{\footnotesize\ttfamily Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ID3\+D11\+Depth\+Stencil\+View$>$ Texture\+::d3d\+\_\+dsv\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+D3D Depth\+Stencil View 
+
+
+
+ \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}} の \mbox{\hyperlink{_texture_8h_source_l00097}{97}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00017}{clear()}}, \mbox{\hyperlink{_texture_8cpp_source_l00247}{dsv()}}, \mbox{\hyperlink{_texture_8cpp_source_l00127}{initialize()}}, \mbox{\hyperlink{_texture_8cpp_source_l00040}{Texture()}}.
+
+\mbox{\Hypertarget{class_texture_afc8c086eab9d2b211bf08993be743370}\label{class_texture_afc8c086eab9d2b211bf08993be743370}} 
+\index{Texture@{Texture}!d3d\_resource\_@{d3d\_resource\_}}
+\index{d3d\_resource\_@{d3d\_resource\_}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{d3d\_resource\_}{d3d\_resource\_}}
+{\footnotesize\ttfamily Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ID3\+D11\+Resource$>$ Texture\+::d3d\+\_\+resource\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+D3\+Dリソース(Texture2\+D/3D) 
+
+
+
+ \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}} の \mbox{\hyperlink{_texture_8h_source_l00094}{94}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00017}{clear()}}, \mbox{\hyperlink{_texture_8cpp_source_l00226}{d3d\+Resource()}}, \mbox{\hyperlink{_texture_8cpp_source_l00127}{initialize()}}, \mbox{\hyperlink{_texture_8cpp_source_l00276}{is\+\_\+valid()}}, \mbox{\hyperlink{_texture_8cpp_source_l00040}{Texture()}}.
+
+\mbox{\Hypertarget{class_texture_a2e47b7edba5d0101d8d9f8045c1e8401}\label{class_texture_a2e47b7edba5d0101d8d9f8045c1e8401}} 
+\index{Texture@{Texture}!d3d\_rtv\_@{d3d\_rtv\_}}
+\index{d3d\_rtv\_@{d3d\_rtv\_}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{d3d\_rtv\_}{d3d\_rtv\_}}
+{\footnotesize\ttfamily Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ID3\+D11\+Render\+Target\+View$>$ Texture\+::d3d\+\_\+rtv\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+D3D Render\+Target View 
+
+
+
+ \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}} の \mbox{\hyperlink{_texture_8h_source_l00096}{96}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00017}{clear()}}, \mbox{\hyperlink{_texture_8cpp_source_l00127}{initialize()}}, \mbox{\hyperlink{_texture_8cpp_source_l00240}{rtv()}}, \mbox{\hyperlink{_texture_8cpp_source_l00040}{Texture()}}.
+
+\mbox{\Hypertarget{class_texture_a71bce01bc07d2b5e0ebe7c443af74ef1}\label{class_texture_a71bce01bc07d2b5e0ebe7c443af74ef1}} 
+\index{Texture@{Texture}!d3d\_srv\_@{d3d\_srv\_}}
+\index{d3d\_srv\_@{d3d\_srv\_}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{d3d\_srv\_}{d3d\_srv\_}}
+{\footnotesize\ttfamily Microsoft\+::\+WRL\+::\+Com\+Ptr$<$ID3\+D11\+Shader\+Resource\+View$>$ Texture\+::d3d\+\_\+srv\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+D3D Shader\+Resource View 
+
+
+
+ \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}} の \mbox{\hyperlink{_texture_8h_source_l00095}{95}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00017}{clear()}}, \mbox{\hyperlink{_texture_8cpp_source_l00127}{initialize()}}, \mbox{\hyperlink{_texture_8cpp_source_l00233}{srv()}}.
+
+\mbox{\Hypertarget{class_texture_a7fde183054fd3db4bc89abb63f437a4d}\label{class_texture_a7fde183054fd3db4bc89abb63f437a4d}} 
+\index{Texture@{Texture}!handle\_@{handle\_}}
+\index{handle\_@{handle\_}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{handle\_}{handle\_}}
+{\footnotesize\ttfamily int Texture\+::handle\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} Graphicハンドル 
+
+
+
+ \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}} の \mbox{\hyperlink{_texture_8h_source_l00088}{88}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00017}{clear()}}, \mbox{\hyperlink{_texture_8cpp_source_l00127}{initialize()}}, \mbox{\hyperlink{_texture_8cpp_source_l00276}{is\+\_\+valid()}}, \mbox{\hyperlink{_texture_8cpp_source_l00196}{on\+\_\+initialize()}}, \mbox{\hyperlink{_texture_8cpp_source_l00040}{Texture()}}.
+
+\mbox{\Hypertarget{class_texture_a509508e9b6d8f075757a88c95bd4a2d5}\label{class_texture_a509508e9b6d8f075757a88c95bd4a2d5}} 
+\index{Texture@{Texture}!height\_@{height\_}}
+\index{height\_@{height\_}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{height\_}{height\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} Texture\+::height\+\_\+ = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+高さ 
+
+
+
+ \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}} の \mbox{\hyperlink{_texture_8h_source_l00087}{87}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00219}{height()}}, \mbox{\hyperlink{_texture_8cpp_source_l00127}{initialize()}}, \mbox{\hyperlink{_texture_8cpp_source_l00040}{Texture()}}.
+
+\mbox{\Hypertarget{class_texture_a6895c68b9fadc7ebfb4eac4db17cb793}\label{class_texture_a6895c68b9fadc7ebfb4eac4db17cb793}} 
+\index{Texture@{Texture}!need\_initialize\_@{need\_initialize\_}}
+\index{need\_initialize\_@{need\_initialize\_}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{need\_initialize\_}{need\_initialize\_}}
+{\footnotesize\ttfamily std\+::atomic$<$bool$>$ Texture\+::need\+\_\+initialize\+\_\+ = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+初期化要求フラグ true\+:初期化が必要 false\+:初期化済または完了で不要 
+
+ \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}} の \mbox{\hyperlink{_texture_8h_source_l00091}{91}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00196}{on\+\_\+initialize()}}, \mbox{\hyperlink{_texture_8cpp_source_l00061}{Texture()}}.
+
+\mbox{\Hypertarget{class_texture_a5771fda846de68e860a4ef7eaebdd34c}\label{class_texture_a5771fda846de68e860a4ef7eaebdd34c}} 
+\index{Texture@{Texture}!path\_@{path\_}}
+\index{path\_@{path\_}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{path\_}{path\_}}
+{\footnotesize\ttfamily std\+::wstring Texture\+::path\+\_\+\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+ファイルパス 
+
+
+
+ \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}} の \mbox{\hyperlink{_texture_8h_source_l00089}{89}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00269}{path()}}, \mbox{\hyperlink{_texture_8cpp_source_l00061}{Texture()}}.
+
+\mbox{\Hypertarget{class_texture_a56895dccd0b05ea56476b721d2fed811}\label{class_texture_a56895dccd0b05ea56476b721d2fed811}} 
+\index{Texture@{Texture}!width\_@{width\_}}
+\index{width\_@{width\_}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{width\_}{width\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} Texture\+::width\+\_\+ = 0\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+幅 
+
+
+
+ \mbox{\hyperlink{_texture_8h_source}{Texture.\+h}} の \mbox{\hyperlink{_texture_8h_source_l00086}{86}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_texture_8cpp_source_l00127}{initialize()}}, \mbox{\hyperlink{_texture_8cpp_source_l00040}{Texture()}}, \mbox{\hyperlink{_texture_8cpp_source_l00212}{width()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_texture_8h}{Texture.\+h}}\item 
+\mbox{\hyperlink{_texture_8cpp}{Texture.\+cpp}}\end{DoxyCompactItemize}

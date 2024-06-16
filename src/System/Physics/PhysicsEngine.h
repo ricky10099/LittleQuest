@@ -25,8 +25,7 @@ enum ObjectLayers : u16;
 //--------------------------------------------------------------
 struct RayCastResult {
     u64 body_id_;    // ボディID
-    f32 t_;          // 衝突点のパラメーターt  hit_position = start + t * (end
-                     // - start)
+    f32 t_;          // 衝突点のパラメーターt  hit_position = start + t * (end - start)
 };
 
 //===========================================================================
@@ -54,20 +53,18 @@ class Engine {
 
     //! シーン最適化を実行
     //! @details これによって衝突検出のパフォーマンスが向上します
-    //! @attention
-    //! かなり重い処理のため、毎フレームまたは新しいレベルセクションのストリーミング時などには
+    //! @attention かなり重い処理のため、毎フレームまたは新しいレベルセクションのストリーミング時などには
     //! @attention 絶対に呼び出さない方がよいでしょう。
     virtual void optimize() = 0;
 
     //! オブジェクトレイヤーをカスタム設定
-    //! @param  [in]    layers
-    //! 自前レイヤーとphysics::ObjectLayersが対応するペアの配列先頭(nullptrで解除)
+    //! @param  [in]    layers      自前レイヤーとphysics::ObjectLayersが対応するペアの配列先頭(nullptrで解除)
     //! @param  [in]    layerCount  配列数
     virtual void setLayerAlias(const std::pair<physics::ObjectLayers, u16>* layers, size_t layerCount) = 0;
 
     //! オブジェクトレイヤー同士が衝突するかどうかをカスタマイズ
-    //! コールバック関数の [第1引数] 対象のレイヤー [第2引数]
-    //! 相手のレイヤー [戻り値] true:衝突する false:衝突しない
+    //! コールバック関数の [第1引数] 対象のレイヤー [第2引数] 相手のレイヤー
+    //! [戻り値] true:衝突する false:衝突しない
     virtual void overrideLayerCollide(std::function<bool(u16, u16)> callback) = 0;
 
     //----------------------------------------------------------

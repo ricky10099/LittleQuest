@@ -1,0 +1,51 @@
+\begin{DoxyItemize}
+\item スマートポインタにて管理 (オブジェクト管理が楽) \item シーン切り替えが容易にできる \item GUIにて現状把握できる\end{DoxyItemize}
+\begin{DoxyItemize}
+\item 【簡易\+Scene使用方法】①シーンを用意する 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }SceneSample\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_scene_1_1_base}{Scene::Base}}}
+\DoxyCodeLine{\ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ std::string\ Name()\textcolor{keyword}{\ override\ }\{\ \ \ \textcolor{comment}{//<}}
+\DoxyCodeLine{シーンに名前をつける必要があります\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Sample"{}};\ \textcolor{comment}{//<}}
+\DoxyCodeLine{別のシーンに同じ名前はを使用しないでください。\ \ \ \ \ \ \ \ \ \}\ \textcolor{comment}{//<}}
+\DoxyCodeLine{\ SceneXXXXのXXXXを名前にするとよいと思います。}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_scene_1_1_base_a0b3e5ef57d5a7142c71060555e2f511e}{Init}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Objectの初期化例}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ obj\ =\ Scene::CreateObjectPtr<Object>();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obj-\/>AddComponent<ModelComponent>(\textcolor{stringliteral}{"{}Model.mv1"{}});}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obj-\/>AddComponent<CameraComponent>();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_1_1_base_a436767ffb4cae760e2d7f4515c875efe}{Update}}(\textcolor{keywordtype}{float}\ delta)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obj-\/>Update(delta);}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シーンが始まって10秒以上たったらSceneNextへ}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_scene_a2e96b3b59a70f7ca3b2911c97a933aba}{Scene::GetTime}}()\ >\ 10.0f)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_a00308ed75b7a8835f0cb091f96e747d3}{Scene::Change}}(\ Scene::GetScene<SceneNext>()\ );}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_1_1_base_a23b645fe0ed8548384fc6ca9e322a01f}{Draw}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ obj-\/>Draw();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_1_1_base_aea546aec5c374052aae6d7d9ac307ddf}{Exit}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_scene_1_1_base_a604e0945cde121e2daafd9083f5969a1}{GUI}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ \ \ \ \ \ \ }\{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \};}
+
+\end{DoxyCode}
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item 【簡易\+Scene使用方法】②シーンを切り替える (初期は\+Game\+Mainで切り替えます) 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ 例:\ シーンを「SceneSample」に変更します}}
+\DoxyCodeLine{\ \ \mbox{\hyperlink{class_scene_a00308ed75b7a8835f0cb091f96e747d3}{Scene::Change}}(\ Scene::GetScene<SceneSample>()\ );}
+
+\end{DoxyCode}
+ \end{DoxyItemize}

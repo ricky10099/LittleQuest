@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: Sceneについて</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+</div><!-- top -->
+<div><div class="header">
+  <div class="headertitle"><div class="title">Sceneについて </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><ul>
+<li>スマートポインタにて管理 (オブジェクト管理が楽) </li>
+<li>シーン切り替えが容易にできる </li>
+<li>GUIにて現状把握できる</li>
+</ul>
+<ul>
+<li>【簡易Scene使用方法】①シーンを用意する <div class="fragment"><div class="line">    <span class="keyword">class </span>SceneSample : <span class="keyword">public</span> <a class="code hl_class" href="../../dd/da4/class_scene_1_1_base.html">Scene::Base</a></div>
+<div class="line">    {</div>
+<div class="line">    <span class="keyword">public</span>:</div>
+<div class="line">        std::string Name()<span class="keyword"> override </span>{   <span class="comment">//&lt;</span></div>
+<div class="line">シーンに名前をつける必要があります           <span class="keywordflow">return</span> <span class="stringliteral">&quot;Sample&quot;</span>; <span class="comment">//&lt;</span></div>
+<div class="line">別のシーンに同じ名前はを使用しないでください。         } <span class="comment">//&lt;</span></div>
+<div class="line"> SceneXXXXのXXXXを名前にするとよいと思います。</div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordtype">bool</span> <a class="code hl_function" href="../../dd/da4/class_scene_1_1_base.html#a0b3e5ef57d5a7142c71060555e2f511e">Init</a>()<span class="keyword"> override</span></div>
+<div class="line"><span class="keyword">        </span>{</div>
+<div class="line">            <span class="comment">// Objectの初期化例</span></div>
+<div class="line">            <span class="keyword">auto</span> obj = Scene::CreateObjectPtr&lt;Object&gt;();</div>
+<div class="line">            obj-&gt;AddComponent&lt;ModelComponent&gt;(<span class="stringliteral">&quot;Model.mv1&quot;</span>);</div>
+<div class="line">            obj-&gt;AddComponent&lt;CameraComponent&gt;();</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/da4/class_scene_1_1_base.html#a436767ffb4cae760e2d7f4515c875efe">Update</a>(<span class="keywordtype">float</span> delta)<span class="keyword"> override</span></div>
+<div class="line"><span class="keyword">        </span>{</div>
+<div class="line">            obj-&gt;Update(delta);</div>
+<div class="line"> </div>
+<div class="line">            <span class="comment">// シーンが始まって10秒以上たったらSceneNextへ</span></div>
+<div class="line">            <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d6/db5/class_scene.html#a2e96b3b59a70f7ca3b2911c97a933aba">Scene::GetTime</a>() &gt; 10.0f)</div>
+<div class="line">               <a class="code hl_function" href="../../d6/db5/class_scene.html#a00308ed75b7a8835f0cb091f96e747d3">Scene::Change</a>( Scene::GetScene&lt;SceneNext&gt;() );</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/da4/class_scene_1_1_base.html#a23b645fe0ed8548384fc6ca9e322a01f">Draw</a>()<span class="keyword"> override</span></div>
+<div class="line"><span class="keyword">        </span>{</div>
+<div class="line">            obj-&gt;Draw();</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/da4/class_scene_1_1_base.html#aea546aec5c374052aae6d7d9ac307ddf">Exit</a>()<span class="keyword"> override</span></div>
+<div class="line"><span class="keyword">        </span>{</div>
+<div class="line">        }</div>
+<div class="line">        <span class="keywordtype">void</span> <a class="code hl_function" href="../../dd/da4/class_scene_1_1_base.html#a604e0945cde121e2daafd9083f5969a1">GUI</a>()<span class="keyword"> override</span></div>
+<div class="line"><span class="keyword">        </span>{</div>
+<div class="line"> </div>
+<div class="line">        }</div>
+<div class="line">    };</div>
+<div class="ttc" id="aclass_scene_1_1_base_html"><div class="ttname"><a href="../../dd/da4/class_scene_1_1_base.html">Scene::Base</a></div><div class="ttdoc">シーンベース</div><div class="ttdef"><b>Definition:</b> <a href="../../de/d56/_scene_8h_source.html#l00060">Scene.h:60</a></div></div>
+<div class="ttc" id="aclass_scene_1_1_base_html_a0b3e5ef57d5a7142c71060555e2f511e"><div class="ttname"><a href="../../dd/da4/class_scene_1_1_base.html#a0b3e5ef57d5a7142c71060555e2f511e">Scene::Base::Init</a></div><div class="ttdeci">virtual bool Init()</div><div class="ttdef"><b>Definition:</b> <a href="../../de/d56/_scene_8h_source.html#l00078">Scene.h:78</a></div></div>
+<div class="ttc" id="aclass_scene_1_1_base_html_a23b645fe0ed8548384fc6ca9e322a01f"><div class="ttname"><a href="../../dd/da4/class_scene_1_1_base.html#a23b645fe0ed8548384fc6ca9e322a01f">Scene::Base::Draw</a></div><div class="ttdeci">virtual void Draw()</div><div class="ttdoc">更新</div><div class="ttdef"><b>Definition:</b> <a href="../../de/d56/_scene_8h_source.html#l00082">Scene.h:82</a></div></div>
+<div class="ttc" id="aclass_scene_1_1_base_html_a436767ffb4cae760e2d7f4515c875efe"><div class="ttname"><a href="../../dd/da4/class_scene_1_1_base.html#a436767ffb4cae760e2d7f4515c875efe">Scene::Base::Update</a></div><div class="ttdeci">virtual void Update()</div><div class="ttdoc">初期化</div><div class="ttdef"><b>Definition:</b> <a href="../../de/d56/_scene_8h_source.html#l00081">Scene.h:81</a></div></div>
+<div class="ttc" id="aclass_scene_1_1_base_html_a604e0945cde121e2daafd9083f5969a1"><div class="ttname"><a href="../../dd/da4/class_scene_1_1_base.html#a604e0945cde121e2daafd9083f5969a1">Scene::Base::GUI</a></div><div class="ttdeci">virtual void GUI()</div><div class="ttdoc">終了</div><div class="ttdef"><b>Definition:</b> <a href="../../de/d56/_scene_8h_source.html#l00084">Scene.h:84</a></div></div>
+<div class="ttc" id="aclass_scene_1_1_base_html_aea546aec5c374052aae6d7d9ac307ddf"><div class="ttname"><a href="../../dd/da4/class_scene_1_1_base.html#aea546aec5c374052aae6d7d9ac307ddf">Scene::Base::Exit</a></div><div class="ttdeci">virtual void Exit()</div><div class="ttdoc">描画</div><div class="ttdef"><b>Definition:</b> <a href="../../de/d56/_scene_8h_source.html#l00083">Scene.h:83</a></div></div>
+<div class="ttc" id="aclass_scene_html_a00308ed75b7a8835f0cb091f96e747d3"><div class="ttname"><a href="../../d6/db5/class_scene.html#a00308ed75b7a8835f0cb091f96e747d3">Scene::Change</a></div><div class="ttdeci">static void Change(BasePtr scene)</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d44/_scene_8cpp_source.html#l00819">Scene.cpp:819</a></div></div>
+<div class="ttc" id="aclass_scene_html_a2e96b3b59a70f7ca3b2911c97a933aba"><div class="ttname"><a href="../../d6/db5/class_scene.html#a2e96b3b59a70f7ca3b2911c97a933aba">Scene::GetTime</a></div><div class="ttdeci">static float GetTime()</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d44/_scene_8cpp_source.html#l01457">Scene.cpp:1457</a></div></div>
+</div><!-- fragment --></li>
+</ul>
+<ul>
+<li>【簡易Scene使用方法】②シーンを切り替える (初期はGameMainで切り替えます) <div class="fragment"><div class="line"><span class="comment">// 例: シーンを「SceneSample」に変更します</span></div>
+<div class="line">  <a class="code hl_function" href="../../d6/db5/class_scene.html#a00308ed75b7a8835f0cb091f96e747d3">Scene::Change</a>( Scene::GetScene&lt;SceneSample&gt;() );</div>
+</div><!-- fragment --> </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>

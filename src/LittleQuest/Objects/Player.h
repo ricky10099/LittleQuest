@@ -18,7 +18,7 @@ class ComponentCombo;
 //////////////////////////////////////////////////////////////
 class Player: public Object {
    public:
-    BP_OBJECT_TYPE(Player, Object);
+    BP_OBJECT_DECL(Player, "LittleQuest/Player");
     //------------------------------------------------------------
     //! @brief プレイヤーを生成します。
     //------------------------------------------------------------

@@ -9,7 +9,6 @@
 #include <System/Object.h>
 
 #include <ImGuizmo/ImGuizmo.h>
-#include <DxLib.h>
 
 USING_PTR(ComponentEffect);
 
@@ -18,7 +17,7 @@ class ComponentEffect final
     : public Component
     , public IMatrix<ComponentEffect> {
    public:
-    BP_COMPONENT_TYPE(ComponentEffect, Component);
+    BP_COMPONENT_DECL(ComponentEffect, u8"Effectコンポーネント");
     ComponentEffect() {
         component_effect_count++;
     }

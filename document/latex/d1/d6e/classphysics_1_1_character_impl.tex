@@ -1,0 +1,1033 @@
+\hypertarget{classphysics_1_1_character_impl}{}\doxysection{physics\+::Character\+Impl クラス}
+\label{classphysics_1_1_character_impl}\index{physics::CharacterImpl@{physics::CharacterImpl}}
+
+
+キャラクターコントローラー (実装部)  
+
+
+
+
+physics\+::Character\+Impl の継承関係図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{dd/d8d/classphysics_1_1_character_impl__inherit__graph}
+\end{center}
+\end{figure}
+
+
+physics\+::Character\+Impl 連携図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/def/classphysics_1_1_character_impl__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{公開型}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873}{Ground\+State}} \{ \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a2b9beed57034f5727573d7ded76cf777}{On\+Ground}}
+, \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a50f80f8d96a6d65de73ba8a6b9910761}{On\+Steep\+Ground}}
+, \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a9ed2d871602556951e39f3cebd08d6cb}{Not\+Supported}}
+, \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873aee4e669a07b061d70b9b79dfed9cb5e7}{In\+Air}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classphysics_1_1_character_impl_a8c208b90dac0867801f95b4f5a78fbdc}{Character\+Impl}} (\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} layer)
+\begin{DoxyCompactList}\small\item\em コンストラクタ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ コンタクトリスナー}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_character_impl_ae9ffc5c398e62e9ee28840efd8c203d8}{set\+Listener}} (\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener}{physics\+::\+Character\+::\+Contact\+Listener}} $\ast$\mbox{\hyperlink{classphysics_1_1_character_impl_a7afc1e8aac66cd18f331ecfb2a5df7e4}{listener}}) override
+\begin{DoxyCompactList}\small\item\em コンタクトリスナーを設定 \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener}{physics\+::\+Character\+::\+Contact\+Listener}} $\ast$ \mbox{\hyperlink{classphysics_1_1_character_impl_a7afc1e8aac66cd18f331ecfb2a5df7e4}{listener}} () const override
+\begin{DoxyCompactList}\small\item\em コンタクトリスナーを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ パラメーター}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_character_impl_a6a9bdfbb23ac362f0ab81cc7e32b60c2}{linear\+Velocity}} () const override
+\begin{DoxyCompactList}\small\item\em 速度を取得 (単位\+:m/s) \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_character_impl_aa78a269188d6bdc40e79022d2d18ed82}{set\+Linear\+Velocity}} (const float3 \&linear\+\_\+velocity) override
+\begin{DoxyCompactList}\small\item\em 速度を設定 (単位\+:m/s) \end{DoxyCompactList}\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_character_impl_a7dadc8a9fbeec59b0d358b0ecd4fd840}{position}} () const override
+\begin{DoxyCompactList}\small\item\em 位置を取得 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_character_impl_a6e786f4a629d7257c07c88753d750986}{set\+Position}} (const float3 \&p) override
+\begin{DoxyCompactList}\small\item\em 位置を設定 \end{DoxyCompactList}\item 
+virtual quaternion \mbox{\hyperlink{classphysics_1_1_character_impl_a910d4ee6e9ce97bf217e1af8c44b40c8}{rotation}} () const override
+\begin{DoxyCompactList}\small\item\em 回転姿勢を取得 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_character_impl_a6deeaf90df4f70ceab056e1a77f64be9}{set\+Rotation}} (const quaternion \&r) override
+\begin{DoxyCompactList}\small\item\em 回転姿勢を設定 \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classphysics_1_1_character_impl_a11351f1e4ab1b1481bf6eb1c1643f079}{world\+Matrix}} () const override
+\begin{DoxyCompactList}\small\item\em ワールド行列を取得 \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{classphysics_1_1_character_impl_a6a857c86a2d3eb3a350768ebb7d6216e}{center\+Of\+Mass\+Transform}} () const override
+\begin{DoxyCompactList}\small\item\em 重心の変換行列を取得 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_character_impl_acae19a475ba488e8af62b5e5a263d9dd}{set\+Mass}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} mass) override
+\begin{DoxyCompactList}\small\item\em 質量を設定 (単位\+:kg) \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_character_impl_acf58de9fcf6c240422dc360e821e95d3}{set\+Max\+Slope\+Angle}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} max\+\_\+slope\+\_\+angle) override
+\begin{DoxyCompactList}\small\item\em キャラクターがまだ歩ける最大傾斜角度を設定する (単位\+:ラジアン) \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_character_impl_a2d62679f01db0fde2d40a23f4cbab08b}{set\+Max\+Strength}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} max\+\_\+strength) override
+\begin{DoxyCompactList}\small\item\em キャラクターが他の物体を押すことができる最大の力を設定（単位\+:N） \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} \mbox{\hyperlink{classphysics_1_1_character_impl_afc9106021b3444117647e6a007257894}{character\+Padding}} () const override
+\begin{DoxyCompactList}\small\item\em ジオメトリからどれだけ離れられるかの距離を取得 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_character_impl_a1cc067d85141eb767d759368bc079448}{update}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} delta\+\_\+time) override
+\begin{DoxyCompactList}\small\item\em 更新 \end{DoxyCompactList}\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_character_impl_aad1d38e50dc00e3b2b1f42ef59561a07}{move}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} delta\+\_\+time, const float3 \&move\+\_\+vector, const float3 \&old\+\_\+position, const float3 \&jump\+\_\+vector=float3(0.\+0f, 0.\+0f, 0.\+0f)) override
+\begin{DoxyCompactList}\small\item\em 移動 \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classphysics_1_1_character_impl_a40617fe3cec508c337a6ea2146fccfb4}{can\+Walk\+Stairs}} (const float3 \&move\+\_\+vector) const override
+\begin{DoxyCompactList}\small\item\em 階段を歩けるかどうかを取得 \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classphysics_1_1_character_impl_a7226f2fe4001666278c23c98e36ec99d}{walk\+Stairs}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} delta\+\_\+time, const float3 \&step\+\_\+up, const float3 \&step\+\_\+forward, const float3 \&step\+\_\+forward\+\_\+test, const float3 \&step\+\_\+down\+\_\+extra=float3(0.\+0f, 0.\+0f, 0.\+0f)) override
+\begin{DoxyCompactList}\small\item\em 階段歩行 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_character_impl_a44008683da3148c64237cbac4d6c3cc8}{reflesh\+Contacts}} () override
+\begin{DoxyCompactList}\small\item\em この機能はキャラクターがテレポートした後に、新しい世界とのコンタクトを決定するために使用することができます。 \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classphysics_1_1_character_impl_ac6d9109b2645d93293039db95ba585a8}{set\+Shape}} (const \mbox{\hyperlink{classshape_1_1_base}{shape\+::\+Base}} \&\mbox{\hyperlink{classphysics_1_1_character_impl_a4ec7196fe59e2de427d6fc62b59ca7c9}{shape}}, const float3 \&shape\+\_\+offset=float3(0.\+0f, 0.\+0f, 0.\+0f)) override
+\begin{DoxyCompactList}\small\item\em キャラクターの形状を入れ替える（しゃがみ、構え方など） \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classshape_1_1_base}{shape\+::\+Base}} $\ast$ \mbox{\hyperlink{classphysics_1_1_character_impl_a4ec7196fe59e2de427d6fc62b59ca7c9}{shape}} () const override
+\begin{DoxyCompactList}\small\item\em シェイプを取得 \end{DoxyCompactList}\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_character_impl_a0bf361416ac7fdb39f1932b25cb459fe}{shape\+Offset}} () const override
+\begin{DoxyCompactList}\small\item\em シェイプの移動オフセットを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ 接地判定関連}\par
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873}{Character\+::\+Ground\+State}} \mbox{\hyperlink{classphysics_1_1_character_impl_a902ec6d9ac2709a09f4690ed4d738043}{ground\+State}} () const override
+\begin{DoxyCompactList}\small\item\em 現在の接地状態を取得 \end{DoxyCompactList}\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_character_impl_a5874bce3dfd5446710b24ad194195e89}{ground\+Position}} () const override
+\begin{DoxyCompactList}\small\item\em 接地している足元の位置座標を取得 \end{DoxyCompactList}\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_character_impl_a42c6e2ba07868b6ebb0a7204f37c6982}{ground\+Normal}} () const override
+\begin{DoxyCompactList}\small\item\em 接地している足元の法線を取得 \end{DoxyCompactList}\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_character_impl_a19953a4e2f4236f9f404d03e720fcdbd}{ground\+Velocity}} () const override
+\begin{DoxyCompactList}\small\item\em 接地している足元の速度を取得 \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} \mbox{\hyperlink{classphysics_1_1_character_impl_a67bf8f892cae1a2d7a3555a38183203b}{ground\+Body\+ID}} () const override
+\begin{DoxyCompactList}\small\item\em キャラクターが立っているオブジェクトのボディ\+IDを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener}{physics\+::\+Character\+::\+Contact\+Listener}} $\ast$ \mbox{\hyperlink{classphysics_1_1_character_impl_a67d3988a5241f1cb932c0487071d6b32}{listener\+\_\+}} = nullptr
+\end{DoxyCompactItemize}
+\doxysubsection*{Jolt\+Physicsから呼ばれるコンタクトリスナー}
+\begin{DoxyCompactItemize}
+\item 
+JPH\+::\+Ref$<$ JPH\+::\+Character\+Virtual $>$ \mbox{\hyperlink{classphysics_1_1_character_impl_abf341a59897e4c2d75c36f339894634d}{jph\+\_\+character\+\_\+}}
+\begin{DoxyCompactList}\small\item\em \mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} Vitrualキャラクター \end{DoxyCompactList}\item 
+JPH\+::\+Shape\+RefC \mbox{\hyperlink{classphysics_1_1_character_impl_a7335dbc388dc526d39e1b678a39ed6c9}{jph\+\_\+shape\+\_\+}}
+\begin{DoxyCompactList}\small\item\em \mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} 設定中のシェイプ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} \mbox{\hyperlink{classphysics_1_1_character_impl_a4e58c71f654118093b61926f8fec3e71}{layer\+\_\+}} = \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{physics\+::\+Object\+Layers\+::\+MOVING}}
+\begin{DoxyCompactList}\small\item\em オブジェクトレイヤー \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classshape_1_1_base}{shape\+::\+Base}} $>$ \mbox{\hyperlink{classphysics_1_1_character_impl_af86e914bd8b6b0e6a50ce9bc361933c2}{shape\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 形状 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{classphysics_1_1_character_impl_a7dc5c6416d4c8798dfc197f493d17813}{shape\+\_\+offset\+\_\+}} = float3(0.\+0f, 0.\+0f, 0.\+0f)
+\begin{DoxyCompactList}\small\item\em シェイプの移動オフセット \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classphysics_1_1_character_impl_a98f17945e4052f4aecdb9f3197992eae}{On\+Contact\+Validate}} (const JPH\+::\+Character\+Virtual $\ast$character, const JPH\+::\+Body\+ID \&body\+\_\+id2, const JPH\+::\+Sub\+Shape\+ID \&sub\+\_\+shape\+\_\+id2) override
+\begin{DoxyCompactList}\small\item\em キャラクターが指定されたボディと衝突可能かどうかをチェックします。 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_character_impl_a88d286c3efb2ab6d831741dda79f662a}{On\+Contact\+Added}} (const JPH\+::\+Character\+Virtual $\ast$character, const JPH\+::\+Body\+ID \&body\+\_\+id2, const JPH\+::\+Sub\+Shape\+ID \&sub\+\_\+shape\+\_\+id2, JPH\+::\+Vec3\+Arg contact\+\_\+position, JPH\+::\+Vec3\+Arg contact\+\_\+normal, JPH\+::\+Character\+Contact\+Settings \&settings) override
+\begin{DoxyCompactList}\small\item\em キャラクターがボディと衝突するたびに呼び出されます \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+キャラクターコントローラー (実装部) 
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00045}{45}} 行目に定義があります。
+
+
+
+\doxysubsection{列挙型メンバ詳解}
+\mbox{\Hypertarget{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873}\label{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!GroundState@{GroundState}}
+\index{GroundState@{GroundState}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{GroundState}{GroundState}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873}{physics\+::\+Character\+::\+Ground\+State}}\hspace{0.3cm}{\ttfamily [strong]}, {\ttfamily [inherited]}}
+
+\begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OnGround@{OnGround}!physics::CharacterImpl@{physics::CharacterImpl}}\index{physics::CharacterImpl@{physics::CharacterImpl}!OnGround@{OnGround}}}\mbox{\Hypertarget{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a2b9beed57034f5727573d7ded76cf777}\label{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a2b9beed57034f5727573d7ded76cf777}} 
+On\+Ground&キャラクターが地上にいて自由に動ける状態 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OnSteepGround@{OnSteepGround}!physics::CharacterImpl@{physics::CharacterImpl}}\index{physics::CharacterImpl@{physics::CharacterImpl}!OnSteepGround@{OnSteepGround}}}\mbox{\Hypertarget{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a50f80f8d96a6d65de73ba8a6b9910761}\label{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a50f80f8d96a6d65de73ba8a6b9910761}} 
+On\+Steep\+Ground&キャラクターは急すぎる斜面にいて、これ以上登れない。もし斜面から滑りたいのであれば、呼び出し手は下降速度をかけ始める必要があります。 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NotSupported@{NotSupported}!physics::CharacterImpl@{physics::CharacterImpl}}\index{physics::CharacterImpl@{physics::CharacterImpl}!NotSupported@{NotSupported}}}\mbox{\Hypertarget{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a9ed2d871602556951e39f3cebd08d6cb}\label{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a9ed2d871602556951e39f3cebd08d6cb}} 
+Not\+Supported&キャラクターがオブジェクトに触れているが、そのオブジェクトに対応していないため落下する必要がある。\+Get\+Ground\+XXX関数は、タッチされたオブジェクトの情報を返します。 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{InAir@{InAir}!physics::CharacterImpl@{physics::CharacterImpl}}\index{physics::CharacterImpl@{physics::CharacterImpl}!InAir@{InAir}}}\mbox{\Hypertarget{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873aee4e669a07b061d70b9b79dfed9cb5e7}\label{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873aee4e669a07b061d70b9b79dfed9cb5e7}} 
+In\+Air&キャラクターは空宙にいる \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+ \mbox{\hyperlink{_physics_character_8h_source}{Physics\+Character.\+h}} の \mbox{\hyperlink{_physics_character_8h_source_l00022}{22}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a8c208b90dac0867801f95b4f5a78fbdc}\label{classphysics_1_1_character_impl_a8c208b90dac0867801f95b4f5a78fbdc}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!CharacterImpl@{CharacterImpl}}
+\index{CharacterImpl@{CharacterImpl}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{CharacterImpl()}{CharacterImpl()}}
+{\footnotesize\ttfamily physics\+::\+Character\+Impl\+::\+Character\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}}]{layer }\end{DoxyParamCaption})}
+
+
+
+コンストラクタ 
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00225}{225}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_precompile_8h_source_l00090}{Deg\+To\+Rad}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00216}{layer\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00676}{physics\+::\+Engine\+::physics\+System()}}.
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a40617fe3cec508c337a6ea2146fccfb4}\label{classphysics_1_1_character_impl_a40617fe3cec508c337a6ea2146fccfb4}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!canWalkStairs@{canWalkStairs}}
+\index{canWalkStairs@{canWalkStairs}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{canWalkStairs()}{canWalkStairs()}}
+{\footnotesize\ttfamily bool physics\+::\+Character\+Impl\+::can\+Walk\+Stairs (\begin{DoxyParamCaption}\item[{const float3 \&}]{move\+\_\+vector }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+階段を歩けるかどうかを取得 
+
+この関数はキャラクターが急すぎる斜面（垂直な壁など）に移動した場合にtrueを返します。 階段を上ろうとする場合はwalk\+Stairsを呼び出すことになります。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em move\+\_\+vector} & 移動ベクトル \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a2258c4316e1079fa738005bfbf502316}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00460}{460}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00373}{move()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a6a857c86a2d3eb3a350768ebb7d6216e}\label{classphysics_1_1_character_impl_a6a857c86a2d3eb3a350768ebb7d6216e}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!centerOfMassTransform@{centerOfMassTransform}}
+\index{centerOfMassTransform@{centerOfMassTransform}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{centerOfMassTransform()}{centerOfMassTransform()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} physics\+::\+Character\+Impl\+::center\+Of\+Mass\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+重心の変換行列を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a2e47b974eaaf62e982e657e251b26201}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00327}{327}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_afc9106021b3444117647e6a007257894}\label{classphysics_1_1_character_impl_afc9106021b3444117647e6a007257894}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!characterPadding@{characterPadding}}
+\index{characterPadding@{characterPadding}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{characterPadding()}{characterPadding()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} physics\+::\+Character\+Impl\+::character\+Padding (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+ジオメトリからどれだけ離れられるかの距離を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_ab76bde2e4a93c6be241012d48b19bd74}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00355}{355}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a67bf8f892cae1a2d7a3555a38183203b}\label{classphysics_1_1_character_impl_a67bf8f892cae1a2d7a3555a38183203b}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!groundBodyID@{groundBodyID}}
+\index{groundBodyID@{groundBodyID}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{groundBodyID()}{groundBodyID()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} physics\+::\+Character\+Impl\+::ground\+Body\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+キャラクターが立っているオブジェクトのボディ\+IDを取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_afefff07cea497a369bca10f06f202809}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00582}{582}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a42c6e2ba07868b6ebb0a7204f37c6982}\label{classphysics_1_1_character_impl_a42c6e2ba07868b6ebb0a7204f37c6982}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!groundNormal@{groundNormal}}
+\index{groundNormal@{groundNormal}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{groundNormal()}{groundNormal()}}
+{\footnotesize\ttfamily float3 physics\+::\+Character\+Impl\+::ground\+Normal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+接地している足元の法線を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a44010813f6325b7ab5965052d1a711fe}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00568}{568}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00373}{move()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a5874bce3dfd5446710b24ad194195e89}\label{classphysics_1_1_character_impl_a5874bce3dfd5446710b24ad194195e89}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!groundPosition@{groundPosition}}
+\index{groundPosition@{groundPosition}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{groundPosition()}{groundPosition()}}
+{\footnotesize\ttfamily float3 physics\+::\+Character\+Impl\+::ground\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+接地している足元の位置座標を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a75ef2bba3278c6effed998b2f61c71e0}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00561}{561}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a902ec6d9ac2709a09f4690ed4d738043}\label{classphysics_1_1_character_impl_a902ec6d9ac2709a09f4690ed4d738043}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!groundState@{groundState}}
+\index{groundState@{groundState}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{groundState()}{groundState()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873}{Character\+::\+Ground\+State}} physics\+::\+Character\+Impl\+::ground\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+現在の接地状態を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a8a24875f6882a34c25776422cc83ff13}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00546}{546}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873aee4e669a07b061d70b9b79dfed9cb5e7}{physics\+::\+Character\+::\+In\+Air}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}, \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a9ed2d871602556951e39f3cebd08d6cb}{physics\+::\+Character\+::\+Not\+Supported}}, \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a2b9beed57034f5727573d7ded76cf777}{physics\+::\+Character\+::\+On\+Ground}}, \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a50f80f8d96a6d65de73ba8a6b9910761}{physics\+::\+Character\+::\+On\+Steep\+Ground}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00373}{move()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a19953a4e2f4236f9f404d03e720fcdbd}\label{classphysics_1_1_character_impl_a19953a4e2f4236f9f404d03e720fcdbd}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!groundVelocity@{groundVelocity}}
+\index{groundVelocity@{groundVelocity}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{groundVelocity()}{groundVelocity()}}
+{\footnotesize\ttfamily float3 physics\+::\+Character\+Impl\+::ground\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+接地している足元の速度を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a7a562edf20007702fae5f8a25c7fc9b8}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00575}{575}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00373}{move()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a6a9bdfbb23ac362f0ab81cc7e32b60c2}\label{classphysics_1_1_character_impl_a6a9bdfbb23ac362f0ab81cc7e32b60c2}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!linearVelocity@{linearVelocity}}
+\index{linearVelocity@{linearVelocity}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{linearVelocity()}{linearVelocity()}}
+{\footnotesize\ttfamily float3 physics\+::\+Character\+Impl\+::linear\+Velocity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+速度を取得 (単位\+:m/s) 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a8e6a4bb7757c969fb3fc3a35ff866696}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00278}{278}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00373}{move()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a7afc1e8aac66cd18f331ecfb2a5df7e4}\label{classphysics_1_1_character_impl_a7afc1e8aac66cd18f331ecfb2a5df7e4}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!listener@{listener}}
+\index{listener@{listener}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{listener()}{listener()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener}{physics\+::\+Character\+::\+Contact\+Listener}} $\ast$ physics\+::\+Character\+Impl\+::listener (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+コンタクトリスナーを取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_af75d79d7efe3e5a592474b1f9bdc542f}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00271}{271}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00053}{listener\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00264}{set\+Listener()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_aad1d38e50dc00e3b2b1f42ef59561a07}\label{classphysics_1_1_character_impl_aad1d38e50dc00e3b2b1f42ef59561a07}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!move@{move}}
+\index{move@{move}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily float3 physics\+::\+Character\+Impl\+::move (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{delta\+\_\+time,  }\item[{const float3 \&}]{move\+\_\+vector,  }\item[{const float3 \&}]{old\+\_\+position,  }\item[{const float3 \&}]{jump\+\_\+vector = {\ttfamily float3(0.0f,~0.0f,~0.0f)} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+移動 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em delta\+\_\+time} & シミュレーションステップ時間 \\
+\hline
+\mbox{\texttt{ in}}  & {\em move\+\_\+vector} & 移動ベクトル \\
+\hline
+\mbox{\texttt{ in}}  & {\em old\+\_\+position} & 移動前の位置( \mbox{\hyperlink{classphysics_1_1_character_impl_a1cc067d85141eb767d759368bc079448}{update()}}実行前の座標が必要です ) \\
+\hline
+\mbox{\texttt{ in}}  & {\em jump\+\_\+vector} & ジャンプ方向ベクトル(ジャンプしない場合は0で渡します) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+新しい補正後の移動速度 内部でwalk\+Stairs()による階段歩行も行います 
+\end{DoxyReturn}
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a07bd7bb40708ed1beb8f2d06d5f9daca}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00373}{373}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00460}{can\+Walk\+Stairs()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00568}{ground\+Normal()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00546}{ground\+State()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00575}{ground\+Velocity()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00278}{linear\+Velocity()}}, \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a2b9beed57034f5727573d7ded76cf777}{physics\+::\+Character\+::\+On\+Ground}}, \mbox{\hyperlink{classphysics_1_1_character_a64bf4eb4653df1dfeefb2443f2fa4873a50f80f8d96a6d65de73ba8a6b9910761}{physics\+::\+Character\+::\+On\+Steep\+Ground}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00292}{position()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00467}{walk\+Stairs()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a88d286c3efb2ab6d831741dda79f662a}\label{classphysics_1_1_character_impl_a88d286c3efb2ab6d831741dda79f662a}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!OnContactAdded@{OnContactAdded}}
+\index{OnContactAdded@{OnContactAdded}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{OnContactAdded()}{OnContactAdded()}}
+{\footnotesize\ttfamily void physics\+::\+Character\+Impl\+::\+On\+Contact\+Added (\begin{DoxyParamCaption}\item[{const JPH\+::\+Character\+Virtual $\ast$}]{character,  }\item[{const JPH\+::\+Body\+ID \&}]{body\+\_\+id2,  }\item[{const JPH\+::\+Sub\+Shape\+ID \&}]{sub\+\_\+shape\+\_\+id2,  }\item[{JPH\+::\+Vec3\+Arg}]{contact\+\_\+position,  }\item[{JPH\+::\+Vec3\+Arg}]{contact\+\_\+normal,  }\item[{JPH\+::\+Character\+Contact\+Settings \&}]{settings }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+キャラクターがボディと衝突するたびに呼び出されます 
+
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 接触がキャラクターを押すことができる \\
+\hline
+{\em false} & 接触がキャラクターを押すことができない \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00604}{604}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8h_source_l00177}{physics\+::\+Character\+::\+Contact\+Settings\+::can\+\_\+push\+\_\+character\+\_\+}}, \mbox{\hyperlink{_physics_character_8h_source_l00178}{physics\+::\+Character\+::\+Contact\+Settings\+::can\+\_\+receive\+\_\+impulses\+\_\+}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00053}{listener\+\_\+}}, \mbox{\hyperlink{_physics_character_8h_source_l00206}{physics\+::\+Character\+::\+Contact\+Listener\+::on\+Contact\+Added()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a98f17945e4052f4aecdb9f3197992eae}\label{classphysics_1_1_character_impl_a98f17945e4052f4aecdb9f3197992eae}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!OnContactValidate@{OnContactValidate}}
+\index{OnContactValidate@{OnContactValidate}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{OnContactValidate()}{OnContactValidate()}}
+{\footnotesize\ttfamily bool physics\+::\+Character\+Impl\+::\+On\+Contact\+Validate (\begin{DoxyParamCaption}\item[{const JPH\+::\+Character\+Virtual $\ast$}]{character,  }\item[{const JPH\+::\+Body\+ID \&}]{body\+\_\+id2,  }\item[{const JPH\+::\+Sub\+Shape\+ID \&}]{sub\+\_\+shape\+\_\+id2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+キャラクターが指定されたボディと衝突可能かどうかをチェックします。 
+
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 衝突可能 \\
+\hline
+{\em false} & 衝突しない \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00589}{589}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00053}{listener\+\_\+}}, \mbox{\hyperlink{_physics_character_8h_source_l00195}{physics\+::\+Character\+::\+Contact\+Listener\+::on\+Contact\+Validate()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a7dadc8a9fbeec59b0d358b0ecd4fd840}\label{classphysics_1_1_character_impl_a7dadc8a9fbeec59b0d358b0ecd4fd840}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!position@{position}}
+\index{position@{position}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{position()}{position()}}
+{\footnotesize\ttfamily float3 physics\+::\+Character\+Impl\+::position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+位置を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a4dd722578045fe3b4f9343efa7f1f9a4}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00292}{292}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00373}{move()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a44008683da3148c64237cbac4d6c3cc8}\label{classphysics_1_1_character_impl_a44008683da3148c64237cbac4d6c3cc8}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!refleshContacts@{refleshContacts}}
+\index{refleshContacts@{refleshContacts}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{refleshContacts()}{refleshContacts()}}
+{\footnotesize\ttfamily void physics\+::\+Character\+Impl\+::reflesh\+Contacts (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+この機能はキャラクターがテレポートした後に、新しい世界とのコンタクトを決定するために使用することができます。 
+
+衝突点を再検出 
+
+\mbox{\hyperlink{classphysics_1_1_character_a1c8eab5932aa07a6c7777b05658c7a2a}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00482}{482}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00216}{layer\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00676}{physics\+::\+Engine\+::physics\+System()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00690}{physics\+::\+Engine\+::temp\+Allocator()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a910d4ee6e9ce97bf217e1af8c44b40c8}\label{classphysics_1_1_character_impl_a910d4ee6e9ce97bf217e1af8c44b40c8}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!rotation@{rotation}}
+\index{rotation@{rotation}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{rotation()}{rotation()}}
+{\footnotesize\ttfamily quaternion physics\+::\+Character\+Impl\+::rotation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+回転姿勢を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a6af7cf39f8ca37c9009003875bb06468}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00306}{306}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_aa78a269188d6bdc40e79022d2d18ed82}\label{classphysics_1_1_character_impl_aa78a269188d6bdc40e79022d2d18ed82}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!setLinearVelocity@{setLinearVelocity}}
+\index{setLinearVelocity@{setLinearVelocity}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{setLinearVelocity()}{setLinearVelocity()}}
+{\footnotesize\ttfamily void physics\+::\+Character\+Impl\+::set\+Linear\+Velocity (\begin{DoxyParamCaption}\item[{const float3 \&}]{linear\+\_\+velocity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+速度を設定 (単位\+:m/s) 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a7a466020621512467bf8b2c99cbd7410}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00285}{285}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_ae9ffc5c398e62e9ee28840efd8c203d8}\label{classphysics_1_1_character_impl_ae9ffc5c398e62e9ee28840efd8c203d8}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!setListener@{setListener}}
+\index{setListener@{setListener}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{setListener()}{setListener()}}
+{\footnotesize\ttfamily void physics\+::\+Character\+Impl\+::set\+Listener (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener}{physics\+::\+Character\+::\+Contact\+Listener}} $\ast$}]{listener }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+コンタクトリスナーを設定 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a312ff4bf8d4d23672f70481de601e174}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00264}{264}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00271}{listener()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00053}{listener\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_acae19a475ba488e8af62b5e5a263d9dd}\label{classphysics_1_1_character_impl_acae19a475ba488e8af62b5e5a263d9dd}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!setMass@{setMass}}
+\index{setMass@{setMass}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{setMass()}{setMass()}}
+{\footnotesize\ttfamily void physics\+::\+Character\+Impl\+::set\+Mass (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{mass }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+質量を設定 (単位\+:kg) 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a35601f6453ac278e80f3fb81157ad7a5}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00334}{334}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_acf58de9fcf6c240422dc360e821e95d3}\label{classphysics_1_1_character_impl_acf58de9fcf6c240422dc360e821e95d3}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!setMaxSlopeAngle@{setMaxSlopeAngle}}
+\index{setMaxSlopeAngle@{setMaxSlopeAngle}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{setMaxSlopeAngle()}{setMaxSlopeAngle()}}
+{\footnotesize\ttfamily void physics\+::\+Character\+Impl\+::set\+Max\+Slope\+Angle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{max\+\_\+slope\+\_\+angle }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+キャラクターがまだ歩ける最大傾斜角度を設定する (単位\+:ラジアン) 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_aff28ca0b1c3abccb44914e43f54eeefd}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00341}{341}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a2d62679f01db0fde2d40a23f4cbab08b}\label{classphysics_1_1_character_impl_a2d62679f01db0fde2d40a23f4cbab08b}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!setMaxStrength@{setMaxStrength}}
+\index{setMaxStrength@{setMaxStrength}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{setMaxStrength()}{setMaxStrength()}}
+{\footnotesize\ttfamily void physics\+::\+Character\+Impl\+::set\+Max\+Strength (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{max\+\_\+strength }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+キャラクターが他の物体を押すことができる最大の力を設定（単位\+:N） 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a1850bc55a8663491fee199f7fb31f3d8}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00348}{348}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a6e786f4a629d7257c07c88753d750986}\label{classphysics_1_1_character_impl_a6e786f4a629d7257c07c88753d750986}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily void physics\+::\+Character\+Impl\+::set\+Position (\begin{DoxyParamCaption}\item[{const float3 \&}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+位置を設定 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_ade4826fc25e3722627329a79fad55302}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00299}{299}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a6deeaf90df4f70ceab056e1a77f64be9}\label{classphysics_1_1_character_impl_a6deeaf90df4f70ceab056e1a77f64be9}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!setRotation@{setRotation}}
+\index{setRotation@{setRotation}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{setRotation()}{setRotation()}}
+{\footnotesize\ttfamily void physics\+::\+Character\+Impl\+::set\+Rotation (\begin{DoxyParamCaption}\item[{const quaternion \&}]{r }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+回転姿勢を設定 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_af06acd9d0fe75db90f2b82282c5b283f}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00313}{313}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_ac6d9109b2645d93293039db95ba585a8}\label{classphysics_1_1_character_impl_ac6d9109b2645d93293039db95ba585a8}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!setShape@{setShape}}
+\index{setShape@{setShape}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{setShape()}{setShape()}}
+{\footnotesize\ttfamily bool physics\+::\+Character\+Impl\+::set\+Shape (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classshape_1_1_base}{shape\+::\+Base}} \&}]{shape,  }\item[{const float3 \&}]{shape\+\_\+offset = {\ttfamily float3(0.0f,~0.0f,~0.0f)} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+キャラクターの形状を入れ替える（しゃがみ、構え方など） 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em shape} & 形状 \\
+\hline
+\mbox{\texttt{ in}}  & {\em shape\+\_\+offset} & 形状位置をずらすオフセット \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 正常終了(形状の入れ替え成功) \\
+\hline
+{\em false} & 形状の入れ替え後に衝突物があり、切り替えできなかった場合 \\
+\hline
+\end{DoxyRetVals}
+
+
+\mbox{\hyperlink{classphysics_1_1_character_add6b0d15ca001aec9f26747094859ea2}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00493}{493}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{namespaceshape_ae636a35f964aba505258a5702c159786a4880c0f12c06dd6d142e7a40b041bf1a}{shape\+::\+Capsule}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00215}{jph\+\_\+shape\+\_\+}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00216}{layer\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00676}{physics\+::\+Engine\+::physics\+System()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00218}{shape\+\_\+}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00219}{shape\+\_\+offset\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00690}{physics\+::\+Engine\+::temp\+Allocator()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a4ec7196fe59e2de427d6fc62b59ca7c9}\label{classphysics_1_1_character_impl_a4ec7196fe59e2de427d6fc62b59ca7c9}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!shape@{shape}}
+\index{shape@{shape}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{shape()}{shape()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classshape_1_1_base}{shape\+::\+Base}} $\ast$ physics\+::\+Character\+Impl\+::shape (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+シェイプを取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_ac27dc5721dd843a3b4dd182fd55fd101}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00532}{532}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00218}{shape\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a0bf361416ac7fdb39f1932b25cb459fe}\label{classphysics_1_1_character_impl_a0bf361416ac7fdb39f1932b25cb459fe}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!shapeOffset@{shapeOffset}}
+\index{shapeOffset@{shapeOffset}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{shapeOffset()}{shapeOffset()}}
+{\footnotesize\ttfamily float3 physics\+::\+Character\+Impl\+::shape\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+シェイプの移動オフセットを取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a2e72aef2bd84dff611547cdb640e1c2e}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00539}{539}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00219}{shape\+\_\+offset\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a1cc067d85141eb767d759368bc079448}\label{classphysics_1_1_character_impl_a1cc067d85141eb767d759368bc079448}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!update@{update}}
+\index{update@{update}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void physics\+::\+Character\+Impl\+::update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{delta\+\_\+time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+更新 
+
+現在の速度に応じてキャラクターを移動させます。 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em delta\+\_\+time} & シミュレーションステップ時間 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a6368798da0919a9f9d39db5b13e23edd}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00362}{362}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00216}{layer\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00676}{physics\+::\+Engine\+::physics\+System()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00690}{physics\+::\+Engine\+::temp\+Allocator()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a7226f2fe4001666278c23c98e36ec99d}\label{classphysics_1_1_character_impl_a7226f2fe4001666278c23c98e36ec99d}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!walkStairs@{walkStairs}}
+\index{walkStairs@{walkStairs}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{walkStairs()}{walkStairs()}}
+{\footnotesize\ttfamily bool physics\+::\+Character\+Impl\+::walk\+Stairs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{delta\+\_\+time,  }\item[{const float3 \&}]{step\+\_\+up,  }\item[{const float3 \&}]{step\+\_\+forward,  }\item[{const float3 \&}]{step\+\_\+forward\+\_\+test,  }\item[{const float3 \&}]{step\+\_\+down\+\_\+extra = {\ttfamily float3(0.0f,~0.0f,~0.0f)} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+階段歩行 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em delta\+\_\+time} & シミュレーションのステップ時間 \\
+\hline
+\mbox{\texttt{ in}}  & {\em step\+\_\+up} & ステップアップする方向と距離（これが最大ステップ高に相当する） \\
+\hline
+\mbox{\texttt{ in}}  & {\em step\+\_\+forward} & 踏み台昇降の後に前に踏み出す方向と距離 \\
+\hline
+\mbox{\texttt{ in}}  & {\em step\+\_\+forward\+\_\+test} & 床を検査する方向と距離 \\
+\hline
+ & {\em in\+Step\+Down\+Extra} & ステップダウンする最後に加算される平行移動。上より下にステップダウンできるようにします。不要な場合は0に設定します。 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+階段の歩行が成功した場合はtrueが戻ります
+\end{DoxyReturn}
+引数 step\+\_\+forward\+\_\+test について 高い周波数で走行している場合 step\+\_\+forward は非常に小さくなり、降りるときに階段の側面にぶつかる可能性があります。 そのため、最大傾斜角度に違反する法線が発生する可能性があります。 このような場合は上昇位置からこの距離を使って再度テストし、有効なスロープを見つけるかどうかを確認します。 
+
+\mbox{\hyperlink{classphysics_1_1_character_a5c310f6ab55042491d41f831634199c1}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00467}{467}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00216}{layer\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00676}{physics\+::\+Engine\+::physics\+System()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00690}{physics\+::\+Engine\+::temp\+Allocator()}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00373}{move()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a11351f1e4ab1b1481bf6eb1c1643f079}\label{classphysics_1_1_character_impl_a11351f1e4ab1b1481bf6eb1c1643f079}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!worldMatrix@{worldMatrix}}
+\index{worldMatrix@{worldMatrix}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{worldMatrix()}{worldMatrix()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} physics\+::\+Character\+Impl\+::world\+Matrix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+ワールド行列を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_character_a2eeffe7b11fe0663f455e198bc3681c3}{physics\+::\+Character}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00320}{320}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{jph\+\_\+character\+\_\+}}.
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{classphysics_1_1_character_impl_abf341a59897e4c2d75c36f339894634d}\label{classphysics_1_1_character_impl_abf341a59897e4c2d75c36f339894634d}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!jph\_character\_@{jph\_character\_}}
+\index{jph\_character\_@{jph\_character\_}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{jph\_character\_}{jph\_character\_}}
+{\footnotesize\ttfamily JPH\+::\+Ref$<$JPH\+::\+Character\+Virtual$>$ physics\+::\+Character\+Impl\+::jph\+\_\+character\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} Vitrualキャラクター 
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00214}{214}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00460}{can\+Walk\+Stairs()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00327}{center\+Of\+Mass\+Transform()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00225}{Character\+Impl()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00355}{character\+Padding()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00582}{ground\+Body\+ID()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00568}{ground\+Normal()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00561}{ground\+Position()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00546}{ground\+State()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00575}{ground\+Velocity()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00278}{linear\+Velocity()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00292}{position()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00482}{reflesh\+Contacts()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00306}{rotation()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00285}{set\+Linear\+Velocity()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00334}{set\+Mass()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00341}{set\+Max\+Slope\+Angle()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00348}{set\+Max\+Strength()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00299}{set\+Position()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00313}{set\+Rotation()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00493}{set\+Shape()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00362}{update()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00467}{walk\+Stairs()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00320}{world\+Matrix()}} (計23項目).
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a7335dbc388dc526d39e1b678a39ed6c9}\label{classphysics_1_1_character_impl_a7335dbc388dc526d39e1b678a39ed6c9}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!jph\_shape\_@{jph\_shape\_}}
+\index{jph\_shape\_@{jph\_shape\_}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{jph\_shape\_}{jph\_shape\_}}
+{\footnotesize\ttfamily JPH\+::\+Shape\+RefC physics\+::\+Character\+Impl\+::jph\+\_\+shape\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} 設定中のシェイプ 
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00215}{215}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00493}{set\+Shape()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a4e58c71f654118093b61926f8fec3e71}\label{classphysics_1_1_character_impl_a4e58c71f654118093b61926f8fec3e71}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!layer\_@{layer\_}}
+\index{layer\_@{layer\_}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{layer\_}{layer\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} physics\+::\+Character\+Impl\+::layer\+\_\+ = \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{physics\+::\+Object\+Layers\+::\+MOVING}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+オブジェクトレイヤー 
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00216}{216}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00225}{Character\+Impl()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00482}{reflesh\+Contacts()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00493}{set\+Shape()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00362}{update()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00467}{walk\+Stairs()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a67d3988a5241f1cb932c0487071d6b32}\label{classphysics_1_1_character_impl_a67d3988a5241f1cb932c0487071d6b32}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!listener\_@{listener\_}}
+\index{listener\_@{listener\_}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{listener\_}{listener\_}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classphysics_1_1_character_1_1_contact_listener}{physics\+::\+Character\+::\+Contact\+Listener}}$\ast$ physics\+::\+Character\+Impl\+::listener\+\_\+ = nullptr}
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00053}{53}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00271}{listener()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00604}{On\+Contact\+Added()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00589}{On\+Contact\+Validate()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00264}{set\+Listener()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_af86e914bd8b6b0e6a50ce9bc361933c2}\label{classphysics_1_1_character_impl_af86e914bd8b6b0e6a50ce9bc361933c2}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!shape\_@{shape\_}}
+\index{shape\_@{shape\_}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{shape\_}{shape\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{classshape_1_1_base}{shape\+::\+Base}}$>$ physics\+::\+Character\+Impl\+::shape\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+形状 
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00218}{218}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00493}{set\+Shape()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00532}{shape()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_character_impl_a7dc5c6416d4c8798dfc197f493d17813}\label{classphysics_1_1_character_impl_a7dc5c6416d4c8798dfc197f493d17813}} 
+\index{physics::CharacterImpl@{physics::CharacterImpl}!shape\_offset\_@{shape\_offset\_}}
+\index{shape\_offset\_@{shape\_offset\_}!physics::CharacterImpl@{physics::CharacterImpl}}
+\doxysubsubsection{\texorpdfstring{shape\_offset\_}{shape\_offset\_}}
+{\footnotesize\ttfamily float3 physics\+::\+Character\+Impl\+::shape\+\_\+offset\+\_\+ = float3(0.\+0f, 0.\+0f, 0.\+0f)\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+シェイプの移動オフセット 
+
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00219}{219}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00493}{set\+Shape()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00539}{shape\+Offset()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_physics_character_8cpp}{Physics\+Character.\+cpp}}\end{DoxyCompactItemize}

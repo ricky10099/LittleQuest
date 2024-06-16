@@ -1,0 +1,1645 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: physics::RigidBodyImpl クラス</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../d5/dd0/namespacephysics.html">physics</a></li><li class="navelem"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html">RigidBodyImpl</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">公開メンバ関数</a> &#124;
+<a href="../../de/d16/classphysics_1_1_rigid_body_impl-members.html">全メンバ一覧</a>  </div>
+  <div class="headertitle"><div class="title">physics::RigidBodyImpl クラス</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>剛体クラス  
+ <a href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#details">[詳解]</a></p>
+<div class="dynheader">
+physics::RigidBodyImpl の継承関係図</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/d19/classphysics_1_1_rigid_body_impl__inherit__graph.png" border="0" usemap="#aphysics_1_1_rigid_body_impl_inherit__map" alt="Inheritance graph"/></div>
+<map name="aphysics_1_1_rigid_body_impl_inherit__map" id="aphysics_1_1_rigid_body_impl_inherit__map">
+<area shape="rect" title="剛体クラス" alt="" coords="5,79,164,104"/>
+<area shape="rect" href="../../d1/d17/classphysics_1_1_rigid_body.html" title="剛体クラス" alt="" coords="17,5,152,31"/>
+</map>
+<center><span class="legend">[<a href="../../graph_legend.html">凡例</a>]</span></center></div>
+<div class="dynheader">
+physics::RigidBodyImpl 連携図</div>
+<div class="dyncontent">
+<div class="center"><img src="../../de/d83/classphysics_1_1_rigid_body_impl__coll__graph.png" border="0" usemap="#aphysics_1_1_rigid_body_impl_coll__map" alt="Collaboration graph"/></div>
+<map name="aphysics_1_1_rigid_body_impl_coll__map" id="aphysics_1_1_rigid_body_impl_coll__map">
+<area shape="rect" title="剛体クラス" alt="" coords="5,79,164,104"/>
+<area shape="rect" href="../../d1/d17/classphysics_1_1_rigid_body.html" title="剛体クラス" alt="" coords="17,5,152,31"/>
+</map>
+<center><span class="legend">[<a href="../../graph_legend.html">凡例</a>]</span></center></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+公開メンバ関数</h2></td></tr>
+<tr class="memitem:a9accc230f45fba04a4a960c0aa5dacbc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a9accc230f45fba04a4a960c0aa5dacbc">RigidBodyImpl</a> (const JPH::ShapeRefC &amp;shape, <a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a> <a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a7c8134edfc221841bed40b92dc2ac4d5">layer</a>, <a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3">physics::MotionType</a> motion_type)</td></tr>
+<tr class="separator:a9accc230f45fba04a4a960c0aa5dacbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6739d2141726cecc97d74ae584322ed8"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a6739d2141726cecc97d74ae584322ed8">~RigidBodyImpl</a> ()</td></tr>
+<tr class="memdesc:a6739d2141726cecc97d74ae584322ed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">デストラクタ  <br /></td></tr>
+<tr class="separator:a6739d2141726cecc97d74ae584322ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">オブジェクトレイヤー（フィルター）</div></td></tr>
+<tr class="memitem:a436ff388f1e91b4afbefa5b5c08310c3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a436ff388f1e91b4afbefa5b5c08310c3">setLayer</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a> <a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a7c8134edfc221841bed40b92dc2ac4d5">layer</a>) override</td></tr>
+<tr class="separator:a436ff388f1e91b4afbefa5b5c08310c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c8134edfc221841bed40b92dc2ac4d5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a7c8134edfc221841bed40b92dc2ac4d5">layer</a> () const override</td></tr>
+<tr class="memdesc:a7c8134edfc221841bed40b92dc2ac4d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">オブジェクトレイヤーを取得  <br /></td></tr>
+<tr class="separator:a7c8134edfc221841bed40b92dc2ac4d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">位置と回転姿勢</div></td></tr>
+<tr class="memitem:ab75bd58c85aadf52aec1a6bf85724606"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#ab75bd58c85aadf52aec1a6bf85724606">setPosition</a> (const float3 &amp;<a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#af583eb4a9b3a974000da8855e2580eab">position</a>, bool is_activate=true) override</td></tr>
+<tr class="separator:ab75bd58c85aadf52aec1a6bf85724606"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af583eb4a9b3a974000da8855e2580eab"><td class="memItemLeft" align="right" valign="top">virtual float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#af583eb4a9b3a974000da8855e2580eab">position</a> () const override</td></tr>
+<tr class="memdesc:af583eb4a9b3a974000da8855e2580eab"><td class="mdescLeft">&#160;</td><td class="mdescRight">位置を取得  <br /></td></tr>
+<tr class="separator:af583eb4a9b3a974000da8855e2580eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aebd211cac4fa91bcd3b359ac09b741"><td class="memItemLeft" align="right" valign="top">virtual float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a2aebd211cac4fa91bcd3b359ac09b741">centerOfMassPosition</a> () const override</td></tr>
+<tr class="memdesc:a2aebd211cac4fa91bcd3b359ac09b741"><td class="mdescLeft">&#160;</td><td class="mdescRight">重心位置を取得  <br /></td></tr>
+<tr class="separator:a2aebd211cac4fa91bcd3b359ac09b741"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa82d8f9bec0071d59af33f86d710c96a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#aa82d8f9bec0071d59af33f86d710c96a">setRotation</a> (const quaternion &amp;rot, bool is_activate=true) override</td></tr>
+<tr class="separator:aa82d8f9bec0071d59af33f86d710c96a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a631656992c2ac7d7a475c56f0908862f"><td class="memItemLeft" align="right" valign="top">virtual quaternion&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a631656992c2ac7d7a475c56f0908862f">rotation</a> () const override</td></tr>
+<tr class="memdesc:a631656992c2ac7d7a475c56f0908862f"><td class="mdescLeft">&#160;</td><td class="mdescRight">回転姿勢を設定  <br /></td></tr>
+<tr class="separator:a631656992c2ac7d7a475c56f0908862f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28f98e21cf9527f130ff7e1811c65347"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a28f98e21cf9527f130ff7e1811c65347">worldMatrix</a> () const override</td></tr>
+<tr class="memdesc:a28f98e21cf9527f130ff7e1811c65347"><td class="mdescLeft">&#160;</td><td class="mdescRight">ワールド行列を取得  <br /></td></tr>
+<tr class="separator:a28f98e21cf9527f130ff7e1811c65347"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a490314772ae4ca2e4d0eba7f135c5edf"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a490314772ae4ca2e4d0eba7f135c5edf">centerOfMassTransform</a> () const override</td></tr>
+<tr class="memdesc:a490314772ae4ca2e4d0eba7f135c5edf"><td class="mdescLeft">&#160;</td><td class="mdescRight">重心の変換行列を取得  <br /></td></tr>
+<tr class="separator:a490314772ae4ca2e4d0eba7f135c5edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">速度と角速度</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>LinearVelocityは重心の速度であり、物体の位置と一致しない場合がありますので補正してください。 </p>
+</div></td></tr>
+<tr class="memitem:abf5271b85ed269de96eb8ba2cc6b2bd4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#abf5271b85ed269de96eb8ba2cc6b2bd4">moveKinematic</a> (const float3 &amp;target_position, const quaternion &amp;target_rotation, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> delta_time) override</td></tr>
+<tr class="separator:abf5271b85ed269de96eb8ba2cc6b2bd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05421f18ecd62dbfa803854b04e1b54e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a05421f18ecd62dbfa803854b04e1b54e">setLinearVelocity</a> (const float3 &amp;v) override</td></tr>
+<tr class="separator:a05421f18ecd62dbfa803854b04e1b54e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38cc279dfb0ed976883dc1ae81f62ed5"><td class="memItemLeft" align="right" valign="top">virtual float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a38cc279dfb0ed976883dc1ae81f62ed5">linearVelocity</a> () const override</td></tr>
+<tr class="memdesc:a38cc279dfb0ed976883dc1ae81f62ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">速度を取得  <br /></td></tr>
+<tr class="separator:a38cc279dfb0ed976883dc1ae81f62ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1b9aab71714856ded97028a9224b14e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#ab1b9aab71714856ded97028a9224b14e">addLinearVelocity</a> (const float3 &amp;v) override</td></tr>
+<tr class="separator:ab1b9aab71714856ded97028a9224b14e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d7c1632034e4ac7684f498eee4269e0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a0d7c1632034e4ac7684f498eee4269e0">setAngularVelocity</a> (const float3 &amp;vrot) override</td></tr>
+<tr class="separator:a0d7c1632034e4ac7684f498eee4269e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d5d6a4921e469847f9162bca0d89afe"><td class="memItemLeft" align="right" valign="top">virtual float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a0d5d6a4921e469847f9162bca0d89afe">angularVelocity</a> () const override</td></tr>
+<tr class="memdesc:a0d5d6a4921e469847f9162bca0d89afe"><td class="mdescLeft">&#160;</td><td class="mdescRight">角速度を取得  <br /></td></tr>
+<tr class="separator:a0d5d6a4921e469847f9162bca0d89afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a470193ca4b227f37707f43ba6fb22022"><td class="memItemLeft" align="right" valign="top">virtual float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a470193ca4b227f37707f43ba6fb22022">pointVelocity</a> (const float3 &amp;point) const override</td></tr>
+<tr class="separator:a470193ca4b227f37707f43ba6fb22022"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">力を与える</div></td></tr>
+<tr class="memitem:af5fef435fcf6f9d15abb2643a19bb893"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#af5fef435fcf6f9d15abb2643a19bb893">addForce</a> (const float3 &amp;force) override</td></tr>
+<tr class="separator:af5fef435fcf6f9d15abb2643a19bb893"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55cf250e9330e212251779290e1facc8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a55cf250e9330e212251779290e1facc8">addForce</a> (const float3 &amp;force, const float3 &amp;point) override</td></tr>
+<tr class="separator:a55cf250e9330e212251779290e1facc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afaa3f9ba44bf3a6d9f06d2d47926e006"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#afaa3f9ba44bf3a6d9f06d2d47926e006">addTorque</a> (const float3 &amp;torque) override</td></tr>
+<tr class="separator:afaa3f9ba44bf3a6d9f06d2d47926e006"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">撃力を与える</div></td></tr>
+<tr class="memitem:ac9042f4b06c0e59aaf1bfc2c2fad19b8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#ac9042f4b06c0e59aaf1bfc2c2fad19b8">addImpulse</a> (const float3 &amp;impulse) override</td></tr>
+<tr class="separator:ac9042f4b06c0e59aaf1bfc2c2fad19b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc31b20b078bfcd90ec27da59deb621e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#acc31b20b078bfcd90ec27da59deb621e">addImpulse</a> (const float3 &amp;impulse, const float3 &amp;point) override</td></tr>
+<tr class="separator:acc31b20b078bfcd90ec27da59deb621e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a2c1a77f793b3673595e0e762f1b975"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a5a2c1a77f793b3673595e0e762f1b975">addAngularImpulse</a> (const float3 &amp;impulse) override</td></tr>
+<tr class="separator:a5a2c1a77f793b3673595e0e762f1b975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">跳ね返り係数</div></td></tr>
+<tr class="memitem:a0b96b571c32a3d0b693b8b6858291117"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a0b96b571c32a3d0b693b8b6858291117">setRestitution</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> coeff) override</td></tr>
+<tr class="separator:a0b96b571c32a3d0b693b8b6858291117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26cfe4dcebc11c86ca8af26445153a99"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a26cfe4dcebc11c86ca8af26445153a99">restitution</a> () const override</td></tr>
+<tr class="memdesc:a26cfe4dcebc11c86ca8af26445153a99"><td class="mdescLeft">&#160;</td><td class="mdescRight">跳ね返り係数を取得  <br /></td></tr>
+<tr class="separator:a26cfe4dcebc11c86ca8af26445153a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">摩擦係数</div></td></tr>
+<tr class="memitem:a5f56da99a6f374834964a0915c0f8efd"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a5f56da99a6f374834964a0915c0f8efd">setFriction</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> coeff) override</td></tr>
+<tr class="separator:a5f56da99a6f374834964a0915c0f8efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab18ffcff8e578c4318113e8b8f60eff0"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#ab18ffcff8e578c4318113e8b8f60eff0">friction</a> () const override</td></tr>
+<tr class="memdesc:ab18ffcff8e578c4318113e8b8f60eff0"><td class="mdescLeft">&#160;</td><td class="mdescRight">摩擦係数を取得  <br /></td></tr>
+<tr class="separator:ab18ffcff8e578c4318113e8b8f60eff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader">重力係数</h2></td></tr>
+<tr class="memitem:a299b136bb3625eb16ac3e42718d8702d"><td class="memItemLeft" align="right" valign="top">JPH::BodyID&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a299b136bb3625eb16ac3e42718d8702d">body_id_</a></td></tr>
+<tr class="memdesc:a299b136bb3625eb16ac3e42718d8702d"><td class="mdescLeft">&#160;</td><td class="mdescRight">[<a class="el" href="../../d2/d9b/namespace_j_p_h.html">JPH</a>] ボディID  <br /></td></tr>
+<tr class="separator:a299b136bb3625eb16ac3e42718d8702d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a157aea383bbbb85ea4cab4f33dd5b00b"><td class="memItemLeft" align="right" valign="top">JPH::Body *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a157aea383bbbb85ea4cab4f33dd5b00b">jph_body_</a> = nullptr</td></tr>
+<tr class="memdesc:a157aea383bbbb85ea4cab4f33dd5b00b"><td class="mdescLeft">&#160;</td><td class="mdescRight">[<a class="el" href="../../d2/d9b/namespace_j_p_h.html">JPH</a>] ボディ  <br /></td></tr>
+<tr class="separator:a157aea383bbbb85ea4cab4f33dd5b00b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01ebe081f3695dd776a0892773951c24"><td class="memItemLeft" align="right" valign="top">std::intptr_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a01ebe081f3695dd776a0892773951c24">data_</a> = 0</td></tr>
+<tr class="memdesc:a01ebe081f3695dd776a0892773951c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">任意のデーター  <br /></td></tr>
+<tr class="separator:a01ebe081f3695dd776a0892773951c24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5a7bdedc8667f64744c0d4be796b72e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#ac5a7bdedc8667f64744c0d4be796b72e">setGravityFactor</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> coeff) override</td></tr>
+<tr class="separator:ac5a7bdedc8667f64744c0d4be796b72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a7410693e02e34f18bd9c50b913f9ca"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a3a7410693e02e34f18bd9c50b913f9ca">gravityFactor</a> () const override</td></tr>
+<tr class="memdesc:a3a7410693e02e34f18bd9c50b913f9ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">重力係数を取得  <br /></td></tr>
+<tr class="separator:a3a7410693e02e34f18bd9c50b913f9ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a516a0d2be52fa2063e43f6ad7c604048"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a516a0d2be52fa2063e43f6ad7c604048">setMotionType</a> (<a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3">physics::MotionType</a> motion_type, bool is_activate=true) override</td></tr>
+<tr class="separator:a516a0d2be52fa2063e43f6ad7c604048"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a164a629d688ff333cf080c30497b3867"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a164a629d688ff333cf080c30497b3867">inverseInertia</a> () const override</td></tr>
+<tr class="memdesc:a164a629d688ff333cf080c30497b3867"><td class="mdescLeft">&#160;</td><td class="mdescRight">ワールド空間の逆慣性テンソルを取得する  <br /></td></tr>
+<tr class="separator:a164a629d688ff333cf080c30497b3867"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fa4438034ff5c9193de3effcc42865a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a9fa4438034ff5c9193de3effcc42865a">setData</a> (std::intptr_t s) override</td></tr>
+<tr class="separator:a9fa4438034ff5c9193de3effcc42865a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9277a6818976e6dab2f06415b6b5cd40"><td class="memItemLeft" align="right" valign="top">virtual std::intptr_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a9277a6818976e6dab2f06415b6b5cd40">data</a> () const override</td></tr>
+<tr class="memdesc:a9277a6818976e6dab2f06415b6b5cd40"><td class="mdescLeft">&#160;</td><td class="mdescRight">ユーザーデーターを取得  <br /></td></tr>
+<tr class="separator:a9277a6818976e6dab2f06415b6b5cd40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a541d30b8319d8de2b5cfd0530ebe0118"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/db9/_typedef_8h.html#a1af9f95651e921615e75917a6dd1b574">u64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dc1/classphysics_1_1_rigid_body_impl.html#a541d30b8319d8de2b5cfd0530ebe0118">bodyID</a> () const override</td></tr>
+<tr class="memdesc:a541d30b8319d8de2b5cfd0530ebe0118"><td class="mdescLeft">&#160;</td><td class="mdescRight">ボディIDを取得  <br /></td></tr>
+<tr class="separator:a541d30b8319d8de2b5cfd0530ebe0118"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>剛体クラス </p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00046">46</a> 行目に定義があります。</p>
+</div><h2 class="groupheader">構築子と解体子</h2>
+<a id="a9accc230f45fba04a4a960c0aa5dacbc" name="a9accc230f45fba04a4a960c0aa5dacbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9accc230f45fba04a4a960c0aa5dacbc">&#9670;&#160;</a></span>RigidBodyImpl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">physics::RigidBodyImpl::RigidBodyImpl </td>
+          <td>(</td>
+          <td class="paramtype">const JPH::ShapeRefC &amp;&#160;</td>
+          <td class="paramname"><em>shape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a>&#160;</td>
+          <td class="paramname"><em>layer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3">physics::MotionType</a>&#160;</td>
+          <td class="paramname"><em>motion_type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00048">48</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../dc/d91/_precompile_8cpp_source.html#l00008">convertTo()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00345">jph_body_</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00101">layer()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00121">position()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00143">rotation()</a>.</p>
+
+</div>
+</div>
+<a id="a6739d2141726cecc97d74ae584322ed8" name="a6739d2141726cecc97d74ae584322ed8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6739d2141726cecc97d74ae584322ed8">&#9670;&#160;</a></span>~RigidBodyImpl()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual physics::RigidBodyImpl::~RigidBodyImpl </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>デストラクタ </p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00081">81</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">関数詳解</h2>
+<a id="a5a2c1a77f793b3673595e0e762f1b975" name="a5a2c1a77f793b3673595e0e762f1b975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a2c1a77f793b3673595e0e762f1b975">&#9670;&#160;</a></span>addAngularImpulse()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::addAngularImpulse </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>impulse</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>角力積を与える </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">impulse</td><td>与える角力積 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a4424738f3f08bfa0e3f6adf9698a04a4">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00256">256</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="af5fef435fcf6f9d15abb2643a19bb893" name="af5fef435fcf6f9d15abb2643a19bb893"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5fef435fcf6f9d15abb2643a19bb893">&#9670;&#160;</a></span>addForce() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::addForce </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>force</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>力を与える </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">force</td><td>与える力 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#af6c8404e91d54e8783ddb3ebb364f98b">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00218">218</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="a55cf250e9330e212251779290e1facc8" name="a55cf250e9330e212251779290e1facc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55cf250e9330e212251779290e1facc8">&#9670;&#160;</a></span>addForce() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::addForce </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>force</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>point</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>指定位置に力を与える </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">force</td><td>与える力 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">point</td><td>位置 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a95f0919a27bf81b0f244382734232eb7">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00225">225</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="ac9042f4b06c0e59aaf1bfc2c2fad19b8" name="ac9042f4b06c0e59aaf1bfc2c2fad19b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9042f4b06c0e59aaf1bfc2c2fad19b8">&#9670;&#160;</a></span>addImpulse() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::addImpulse </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>impulse</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>撃力を与える </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">impulse</td><td>与える撃力 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a81b0c1a3b94735b1377f13bddb758156">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00243">243</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="acc31b20b078bfcd90ec27da59deb621e" name="acc31b20b078bfcd90ec27da59deb621e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc31b20b078bfcd90ec27da59deb621e">&#9670;&#160;</a></span>addImpulse() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::addImpulse </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>impulse</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>point</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>指定位置に撃力を与える </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">impulse</td><td>与える撃力 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">point</td><td>位置 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a5b626de3448224a249ced873c05e2c3e">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00250">250</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="ab1b9aab71714856ded97028a9224b14e" name="ab1b9aab71714856ded97028a9224b14e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1b9aab71714856ded97028a9224b14e">&#9670;&#160;</a></span>addLinearVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::addLinearVelocity </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>現在の速度に速度を加算 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">v</td><td>加算する速度 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a2060d916e6bb2a292387fd90951e767b">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00189">189</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="afaa3f9ba44bf3a6d9f06d2d47926e006" name="afaa3f9ba44bf3a6d9f06d2d47926e006"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afaa3f9ba44bf3a6d9f06d2d47926e006">&#9670;&#160;</a></span>addTorque()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::addTorque </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>torque</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>トルクを与える </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">force</td><td>与える力 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#aedfe68f1035bd0a879340d548b92a10f">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00231">231</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="a0d5d6a4921e469847f9162bca0d89afe" name="a0d5d6a4921e469847f9162bca0d89afe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d5d6a4921e469847f9162bca0d89afe">&#9670;&#160;</a></span>angularVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float3 physics::RigidBodyImpl::angularVelocity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>角速度を取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#aca09f2b18ac78d022623059e1dc6a2d5">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00200">200</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="a541d30b8319d8de2b5cfd0530ebe0118" name="a541d30b8319d8de2b5cfd0530ebe0118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a541d30b8319d8de2b5cfd0530ebe0118">&#9670;&#160;</a></span>bodyID()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../d2/db9/_typedef_8h.html#a1af9f95651e921615e75917a6dd1b574">u64</a> physics::RigidBodyImpl::bodyID </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ボディIDを取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#aa3aedac15bd41b6d2623fde9a7b35e8e">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00339">339</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>.</p>
+
+</div>
+</div>
+<a id="a2aebd211cac4fa91bcd3b359ac09b741" name="a2aebd211cac4fa91bcd3b359ac09b741"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2aebd211cac4fa91bcd3b359ac09b741">&#9670;&#160;</a></span>centerOfMassPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float3 physics::RigidBodyImpl::centerOfMassPosition </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>重心位置を取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a670ba2bf210384276c1c4fe305d2605a">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00127">127</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="a490314772ae4ca2e4d0eba7f135c5edf" name="a490314772ae4ca2e4d0eba7f135c5edf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a490314772ae4ca2e4d0eba7f135c5edf">&#9670;&#160;</a></span>centerOfMassTransform()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> physics::RigidBodyImpl::centerOfMassTransform </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>重心の変換行列を取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a065d328b0a961382a8911805168282eb">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00154">154</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="a9277a6818976e6dab2f06415b6b5cd40" name="a9277a6818976e6dab2f06415b6b5cd40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9277a6818976e6dab2f06415b6b5cd40">&#9670;&#160;</a></span>data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::intptr_t physics::RigidBodyImpl::data </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ユーザーデーターを取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#aa06209408a89f72e2b9c37d0dbbc3369">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00334">334</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00346">data_</a>.</p>
+
+</div>
+</div>
+<a id="ab18ffcff8e578c4318113e8b8f60eff0" name="ab18ffcff8e578c4318113e8b8f60eff0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab18ffcff8e578c4318113e8b8f60eff0">&#9670;&#160;</a></span>friction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> physics::RigidBodyImpl::friction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>摩擦係数を取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#aa4acbfa32015dedfcbd04fc59e9893e6">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00290">290</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>.</p>
+
+</div>
+</div>
+<a id="a3a7410693e02e34f18bd9c50b913f9ca" name="a3a7410693e02e34f18bd9c50b913f9ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a7410693e02e34f18bd9c50b913f9ca">&#9670;&#160;</a></span>gravityFactor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> physics::RigidBodyImpl::gravityFactor </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>重力係数を取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#aaa35fb380e89eaf36505627c723a90d0">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00307">307</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>.</p>
+
+</div>
+</div>
+<a id="a164a629d688ff333cf080c30497b3867" name="a164a629d688ff333cf080c30497b3867"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a164a629d688ff333cf080c30497b3867">&#9670;&#160;</a></span>inverseInertia()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> physics::RigidBodyImpl::inverseInertia </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ワールド空間の逆慣性テンソルを取得する </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a4ddd6c758d9f7a53ef5d6d20e36502b5">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00323">323</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="a7c8134edfc221841bed40b92dc2ac4d5" name="a7c8134edfc221841bed40b92dc2ac4d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c8134edfc221841bed40b92dc2ac4d5">&#9670;&#160;</a></span>layer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a> physics::RigidBodyImpl::layer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>オブジェクトレイヤーを取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#aff03acd91146bc9a20f2a491f93d1932">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00101">101</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00048">RigidBodyImpl()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00096">setLayer()</a>.</p>
+
+</div>
+</div>
+<a id="a38cc279dfb0ed976883dc1ae81f62ed5" name="a38cc279dfb0ed976883dc1ae81f62ed5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38cc279dfb0ed976883dc1ae81f62ed5">&#9670;&#160;</a></span>linearVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float3 physics::RigidBodyImpl::linearVelocity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>速度を取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a795c95e408ea76d6acdcec99e3bb98e4">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00183">183</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="abf5271b85ed269de96eb8ba2cc6b2bd4" name="abf5271b85ed269de96eb8ba2cc6b2bd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf5271b85ed269de96eb8ba2cc6b2bd4">&#9670;&#160;</a></span>moveKinematic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::moveKinematic </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>target_position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const quaternion &amp;&#160;</td>
+          <td class="paramname"><em>target_rotation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
+          <td class="paramname"><em>delta_time</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>速度と角速度を逆算して設定 target_position/target_rotation に delta_time 秒で位置するようにボディの速度を設定する。 必要に応じてボディをアクティブにします。 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a7be837e25dd2f8cded86f47fa2d1d2b4">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00170">170</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="a470193ca4b227f37707f43ba6fb22022" name="a470193ca4b227f37707f43ba6fb22022"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a470193ca4b227f37707f43ba6fb22022">&#9670;&#160;</a></span>pointVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float3 physics::RigidBodyImpl::pointVelocity </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>point</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>指定座標のワールド空間での速度を取得 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">point</td><td>座標 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a0a0c9e6a7c5df94035190acf80b5fd28">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00206">206</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="af583eb4a9b3a974000da8855e2580eab" name="af583eb4a9b3a974000da8855e2580eab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af583eb4a9b3a974000da8855e2580eab">&#9670;&#160;</a></span>position()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual float3 physics::RigidBodyImpl::position </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>位置を取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a43919be018e0b51e9b4b9c568962181e">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00121">121</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00048">RigidBodyImpl()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00115">setPosition()</a>.</p>
+
+</div>
+</div>
+<a id="a26cfe4dcebc11c86ca8af26445153a99" name="a26cfe4dcebc11c86ca8af26445153a99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26cfe4dcebc11c86ca8af26445153a99">&#9670;&#160;</a></span>restitution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> physics::RigidBodyImpl::restitution </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>跳ね返り係数を取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a633447c5e3021f47842e0e21e790e938">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00273">273</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>.</p>
+
+</div>
+</div>
+<a id="a631656992c2ac7d7a475c56f0908862f" name="a631656992c2ac7d7a475c56f0908862f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a631656992c2ac7d7a475c56f0908862f">&#9670;&#160;</a></span>rotation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual quaternion physics::RigidBodyImpl::rotation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>回転姿勢を設定 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a191e138030612de47568431c8b6e727a">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00143">143</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00048">RigidBodyImpl()</a>.</p>
+
+</div>
+</div>
+<a id="a0d7c1632034e4ac7684f498eee4269e0" name="a0d7c1632034e4ac7684f498eee4269e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d7c1632034e4ac7684f498eee4269e0">&#9670;&#160;</a></span>setAngularVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::setAngularVelocity </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>vrot</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>角速度を設定 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">vrot</td><td>角速度 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#ab09d70d5181788b5893755a1e1621b7f">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00195">195</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="a9fa4438034ff5c9193de3effcc42865a" name="a9fa4438034ff5c9193de3effcc42865a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fa4438034ff5c9193de3effcc42865a">&#9670;&#160;</a></span>setData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::setData </td>
+          <td>(</td>
+          <td class="paramtype">std::intptr_t&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>ユーザーデーターを設定 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">[s]</td><td>ユーザーデーター(識別用に任意に設定可能です) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a0eaf71f1f1d32abdf4f4095581061a2a">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00329">329</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00346">data_</a>.</p>
+
+</div>
+</div>
+<a id="a5f56da99a6f374834964a0915c0f8efd" name="a5f56da99a6f374834964a0915c0f8efd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f56da99a6f374834964a0915c0f8efd">&#9670;&#160;</a></span>setFriction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::setFriction </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
+          <td class="paramname"><em>coeff</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>摩擦係数を設定 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">coeff</td><td>摩擦係数(0.0f~) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a3176341b3cd9b22e1dd62122e3e3d6b4">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00285">285</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>.</p>
+
+</div>
+</div>
+<a id="ac5a7bdedc8667f64744c0d4be796b72e" name="ac5a7bdedc8667f64744c0d4be796b72e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5a7bdedc8667f64744c0d4be796b72e">&#9670;&#160;</a></span>setGravityFactor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::setGravityFactor </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
+          <td class="paramname"><em>coeff</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>重力係数を設定 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">coeff</td><td>摩擦係数(0.0f~) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a40753495537fbb8104fb953ed876fd77">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00302">302</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>.</p>
+
+</div>
+</div>
+<a id="a436ff388f1e91b4afbefa5b5c08310c3" name="a436ff388f1e91b4afbefa5b5c08310c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a436ff388f1e91b4afbefa5b5c08310c3">&#9670;&#160;</a></span>setLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::setLayer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#a6dbf9516e516c901604625282c174aa4">u16</a>&#160;</td>
+          <td class="paramname"><em>layer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>オブジェクトレイヤーを設定 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">layer</td><td>オブジェクトレイヤー </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a4db561e203a7a6238b7e6dabfefacbd6">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00096">96</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00101">layer()</a>.</p>
+
+</div>
+</div>
+<a id="a05421f18ecd62dbfa803854b04e1b54e" name="a05421f18ecd62dbfa803854b04e1b54e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05421f18ecd62dbfa803854b04e1b54e">&#9670;&#160;</a></span>setLinearVelocity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::setLinearVelocity </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>速度を設定 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">v</td><td>速度 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#abea074b8e238039bf3dda46a19ab0179">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00178">178</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="a516a0d2be52fa2063e43f6ad7c604048" name="a516a0d2be52fa2063e43f6ad7c604048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a516a0d2be52fa2063e43f6ad7c604048">&#9670;&#160;</a></span>setMotionType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::setMotionType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d5/dd0/namespacephysics.html#a7664f0ec137fcd61a578e2447e866bd3">physics::MotionType</a>&#160;</td>
+          <td class="paramname"><em>motion_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_activate</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>動的/静的/キネマティックを切り替え </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">motion_type</td><td>動作タイプ </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">is_activate</td><td>アクティブ化するかどうか true:アクティブにする false:アクティブにしない </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#ab4fd511bac9774e5061a2a57b40e16d3">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00317">317</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../dc/d91/_precompile_8cpp_source.html#l00008">convertTo()</a>.</p>
+
+</div>
+</div>
+<a id="ab75bd58c85aadf52aec1a6bf85724606" name="ab75bd58c85aadf52aec1a6bf85724606"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab75bd58c85aadf52aec1a6bf85724606">&#9670;&#160;</a></span>setPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::setPosition </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_activate</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>位置を設定 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">position</td><td>設定座標 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">is_activate</td><td>アクティブ化するかどうか true:アクティブにする false:アクティブにしない </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a5a6e6230056bbc74b6af14ecb85fbd58">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00115">115</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00121">position()</a>.</p>
+
+</div>
+</div>
+<a id="a0b96b571c32a3d0b693b8b6858291117" name="a0b96b571c32a3d0b693b8b6858291117"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b96b571c32a3d0b693b8b6858291117">&#9670;&#160;</a></span>setRestitution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::setRestitution </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
+          <td class="paramname"><em>coeff</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>跳ね返り係数を設定 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">coeff</td><td>跳ね返り係数(0.0f-1.0f) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#ae5b08588113928e34e44d2a5bb04473a">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00268">268</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>.</p>
+
+</div>
+</div>
+<a id="aa82d8f9bec0071d59af33f86d710c96a" name="aa82d8f9bec0071d59af33f86d710c96a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa82d8f9bec0071d59af33f86d710c96a">&#9670;&#160;</a></span>setRotation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void physics::RigidBodyImpl::setRotation </td>
+          <td>(</td>
+          <td class="paramtype">const quaternion &amp;&#160;</td>
+          <td class="paramname"><em>rot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>is_activate</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>回転姿勢を設定 </p><dl class="params"><dt>引数</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">rot</td><td>設定角度 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">is_activate</td><td>アクティブ化するかどうか true:アクティブにする false:アクティブにしない </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#a9deeb6a45f111d31082587d6782fa8c5">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00136">136</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<a id="a28f98e21cf9527f130ff7e1811c65347" name="a28f98e21cf9527f130ff7e1811c65347"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28f98e21cf9527f130ff7e1811c65347">&#9670;&#160;</a></span>worldMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> physics::RigidBodyImpl::worldMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>ワールド行列を取得 </p>
+
+<p><a class="el" href="../../d1/d17/classphysics_1_1_rigid_body.html#aa66ae217f95717046cc57b312e2e77a2">physics::RigidBody</a>を実装しています。</p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00149">149</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">body_id_</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00683">physics::Engine::bodyInterface()</a>, <a class="el" href="../../d0/d41/_physics_engine_8cpp_source.html#l00708">physics::castJPH()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">メンバ詳解</h2>
+<a id="a299b136bb3625eb16ac3e42718d8702d" name="a299b136bb3625eb16ac3e42718d8702d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a299b136bb3625eb16ac3e42718d8702d">&#9670;&#160;</a></span>body_id_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">JPH::BodyID physics::RigidBodyImpl::body_id_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>[<a class="el" href="../../d2/d9b/namespace_j_p_h.html">JPH</a>] ボディID </p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00344">344</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00256">addAngularImpulse()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00218">addForce()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00243">addImpulse()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00189">addLinearVelocity()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00231">addTorque()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00200">angularVelocity()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00339">bodyID()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00127">centerOfMassPosition()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00154">centerOfMassTransform()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00290">friction()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00307">gravityFactor()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00323">inverseInertia()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00101">layer()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00183">linearVelocity()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00170">moveKinematic()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00206">pointVelocity()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00121">position()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00273">restitution()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00048">RigidBodyImpl()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00143">rotation()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00195">setAngularVelocity()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00285">setFriction()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00302">setGravityFactor()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00096">setLayer()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00178">setLinearVelocity()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00317">setMotionType()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00115">setPosition()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00268">setRestitution()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00136">setRotation()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00149">worldMatrix()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00081">~RigidBodyImpl()</a> (計31項目).</p>
+
+</div>
+</div>
+<a id="a01ebe081f3695dd776a0892773951c24" name="a01ebe081f3695dd776a0892773951c24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01ebe081f3695dd776a0892773951c24">&#9670;&#160;</a></span>data_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::intptr_t physics::RigidBodyImpl::data_ = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>任意のデーター </p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00346">346</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00334">data()</a>, <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00329">setData()</a>.</p>
+
+</div>
+</div>
+<a id="a157aea383bbbb85ea4cab4f33dd5b00b" name="a157aea383bbbb85ea4cab4f33dd5b00b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a157aea383bbbb85ea4cab4f33dd5b00b">&#9670;&#160;</a></span>jph_body_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">JPH::Body* physics::RigidBodyImpl::jph_body_ = nullptr</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>[<a class="el" href="../../d2/d9b/namespace_j_p_h.html">JPH</a>] ボディ </p>
+
+<p class="definition"> <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a> の <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00345">345</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html#l00048">RigidBodyImpl()</a>.</p>
+
+</div>
+</div>
+<hr/>このクラス詳解は次のファイルから抽出されました:<ul>
+<li><a class="el" href="../../d2/d88/_rigid_body_8cpp_source.html">RigidBody.cpp</a></li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>

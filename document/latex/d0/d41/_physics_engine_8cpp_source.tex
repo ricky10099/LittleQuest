@@ -1,0 +1,757 @@
+\hypertarget{_physics_engine_8cpp_source}{}\doxysection{Physics\+Engine.\+cpp}
+\label{_physics_engine_8cpp_source}\index{PhysicsEngine.cpp@{PhysicsEngine.cpp}}
+\mbox{\hyperlink{_physics_engine_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ PhysicsEngine.cpp}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ 物理シミュレーション}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_physics_engine_8h}{PhysicsEngine.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_physics_layer_8h}{PhysicsLayer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_geometry_8h}{System/Geometry.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00009}00009\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00010}00010\ \textcolor{comment}{//\ JoltPhysicsインクルードファイル}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00011}00011\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <Jolt/Jolt.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <Jolt/RegisterTypes.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <Jolt/Core/Factory.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <Jolt/Core/TempAllocator.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <Jolt/Core/JobSystemThreadPool.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/PhysicsSettings.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00019}00019\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/PhysicsSystem.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00020}00020\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/HeightFieldShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00021}00021\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/MeshShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00022}00022\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/SphereShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00023}00023\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/BoxShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00024}00024\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/ConvexHullShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00025}00025\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/CapsuleShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00026}00026\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/TaperedCapsuleShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00027}00027\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/CylinderShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00028}00028\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/TriangleShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00029}00029\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/StaticCompoundShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00030}00030\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/MutableCompoundShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00031}00031\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/Shape/ScaledShape.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00032}00032\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Body/BodyCreationSettings.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00033}00033\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Body/BodyActivationListener.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00035}00035\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/RayCast.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00036}00036\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/CastResult.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00037}00037\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/CollisionCollectorImpl.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00038}00038\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/BroadPhase/BroadPhaseQuery.h>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00040}00040\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00041}00041\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00042}00042\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00044}00044\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00046}00046\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00047}00047\ \textcolor{comment}{//!\ @name\ \ \ コールバックのカスタマイズ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00048}00048\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00049}00049\ \textcolor{comment}{//@\{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00050}00050\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00051}00051\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00052}00052\ \textcolor{comment}{//!\ トレース用のコールバック}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00053}00053\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00054}00054\ \textcolor{keywordtype}{void}\ TraceImpl(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ format,\ ...)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00055}00055\ \ \ \ \ va\_list\ list;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00056}00056\ \ \ \ \ va\_start(list,\ format);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00057}00057\ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[1024];}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00058}00058\ \ \ \ \ vsnprintf\_s(buffer,\ \textcolor{keyword}{sizeof}(buffer),\ format,\ list);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00060}00060\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{comment}{//\ 「出力」ウィンドウに出力}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00062}00062\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00063}00063\ \ \ \ \ OutputDebugStringA(buffer);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00066}00066\ \textcolor{preprocessor}{\#ifdef\ JPH\_ENABLE\_ASSERTS}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00068}00068\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00069}00069\ \textcolor{comment}{//!\ assert用のコールバック}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00070}00070\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00071}00071\ \textcolor{keywordtype}{bool}\ AssertFailedImpl(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ expression,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ message,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file,\ JPH::uint\ line)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00072}00072\ \ \ \ \ std::ostringstream\ oss\{\};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00073}00073\ \ \ \ \ oss\ <<\ file\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ファイル名}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}:"{}}\ <<\ line\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 行}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}:\ ("{}}\ <<\ expression\ <<\ \textcolor{stringliteral}{"{})\ "{}}\ \ \ \ \textcolor{comment}{//\ 内容}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ <<\ (message\ ?\ message\ :\ \textcolor{stringliteral}{"{}"{}})\ \ \ \ \ \ \ \textcolor{comment}{//\ メッセージ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00079}00079\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00080}00080\ \ \ \ \ \textcolor{comment}{//\ 「出力」ウィンドウに出力}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00081}00081\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00082}00082\ \ \ \ \ std::string\ s\ =\ oss.str();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00083}00083\ \ \ \ \ OutputDebugStringA(s.c\_str());}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00086}00086\ \};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00088}00088\ \textcolor{preprocessor}{\#endif\ \ \ \ }\textcolor{comment}{//\ JPH\_ENABLE\_ASSERTS}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00089}00089\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00090}00090\ \textcolor{comment}{//@\}}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00091}00091\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00092}00092\ \textcolor{comment}{//!\ @name\ \ \ Broad-\/phase\ レイヤーのカスタマイズ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00093}00093\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00094}00094\ \textcolor{comment}{//@\{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00095}00095\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00096}00096\ \textcolor{comment}{//\ Broad-\/phaseの各レイヤーはBroad-\/phaseの個別のバウンディングボリュームツリーになります。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00097}00097\ \textcolor{comment}{//\ 少なくとも、動かないオブジェクトと動くオブジェクトのレイヤーを用意して}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00098}00098\ \textcolor{comment}{//\ フレームごとに静的オブジェクトでいっぱいのツリー更新を実行する必要がないようにする必要があります。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00099}00099\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00100}00100\ \textcolor{comment}{//\ オブジェクトレイヤーとBroad-\/phase}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00101}00101\ \textcolor{comment}{//\ Layerとの間に1対1のマッピングが可能ですが、}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00102}00102\ \textcolor{comment}{//\ 多くのオブジェクトレイヤーがある場合は多くのブロードフェーズツリーを作成することになり、効率的ではありません。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00103}00103\ \textcolor{comment}{//\ Broad-\/phase\ Layerを微調整したい場合\ JPH\_TRACK\_BROADPHASE\_STATS}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00104}00104\ \textcolor{comment}{//\ を定義して出力メッセージで報告される統計情報を見てください。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00105}\mbox{\hyperlink{namespace_broad_phase_layers}{00105}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_broad_phase_layers}{BroadPhaseLayers}}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00107}00107\ \ \ \ \ \textcolor{keyword}{constexpr}\ JPH::BroadPhaseLayer\ NON\_MOVING(0);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00108}00108\ \ \ \ \ \textcolor{keyword}{constexpr}\ JPH::BroadPhaseLayer\ MOVING(1);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00109}00109\ \ \ \ \ \textcolor{keyword}{constexpr}\ JPH::BroadPhaseLayer\ DEBRIS(2);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00110}00110\ \ \ \ \ \textcolor{keyword}{constexpr}\ JPH::BroadPhaseLayer\ SENSOR(3);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00111}00111\ \ \ \ \ \textcolor{keyword}{constexpr}\ JPH::uint\ \ \ \ \ \ \ \ \ \ \ \ NUM\_LAYERS(4);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00112}00112\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00113}00113\ \textcolor{comment}{\ \ \ \ //!\ オブジェクトからBroad-\/phaseレイヤーへの変換テーブル}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00114}00114\ \textcolor{comment}{}\ \ \ \ std::vector<JPH::BroadPhaseLayer>\ object\_to\_broad\_phase\_;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00115}00115\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00116}00116\ \textcolor{comment}{\ \ \ \ //!\ オブジェクトレイヤー同士が衝突するかどうかをカスタマイズするコールバック関数}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00117}00117\ \textcolor{comment}{}\ \ \ \ std::function<bool(\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}},\ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})>\ can\_object\_layer\_collide\_;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00119}00119\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ BroadPhaseLayers}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00120}00120\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00121}00121\ \textcolor{comment}{//@\}}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00122}00122\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00123}00123\ \textcolor{comment}{//!\ @name\ \ \ レイヤーのカスタマイズ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00124}00124\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00125}00125\ \textcolor{comment}{//@\{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00126}00126\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00127}00127\ \textcolor{keyword}{class\ }ObjectLayerPairFilter:\ \textcolor{keyword}{public}\ JPH::ObjectLayerPairFilter\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00128}00128\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00129}00129\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~ObjectLayerPairFilter()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00130}00130\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00131}00131\ \textcolor{comment}{\ \ \ \ //!\ 2つのオブジェクトレイヤーが衝突可能かどうかを判断するカスタム関数}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00132}00132\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ \ \ \ 互いのレイヤーは衝突する}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00133}00133\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ ShouldCollide(JPH::ObjectLayer\ layer1,\ JPH::ObjectLayer\ layer2)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ カスタム関数がある場合は実行}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(BroadPhaseLayers::can\_object\_layer\_collide\_)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ BroadPhaseLayers::can\_object\_layer\_collide\_(layer1,\ layer2);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ デフォルトの設定}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(layer1)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baadb7efabc078fc1b67b86c709623de88a}{physics::ObjectLayers::NON\_MOVING}}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ layer2\ ==\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{physics::ObjectLayers::MOVING}}\ ||\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layer2\ ==\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baaf636b41154b4d22d47e007d5a7e9ecab}{physics::ObjectLayers::DEBRIS}};\ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{physics::ObjectLayers::MOVING}}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ layer2\ ==\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baadb7efabc078fc1b67b86c709623de88a}{physics::ObjectLayers::NON\_MOVING}}\ ||\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layer2\ ==\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{physics::ObjectLayers::MOVING}}\ ||\ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layer2\ ==\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa4cdbb711da8a5eef955dcbe48baea742}{physics::ObjectLayers::SENSOR}};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baaf636b41154b4d22d47e007d5a7e9ecab}{physics::ObjectLayers::DEBRIS}}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ layer2\ ==\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baadb7efabc078fc1b67b86c709623de88a}{physics::ObjectLayers::NON\_MOVING}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa4cdbb711da8a5eef955dcbe48baea742}{physics::ObjectLayers::SENSOR}}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ layer2\ ==\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{physics::ObjectLayers::MOVING}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ JPH\_ASSERT(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00156}00156\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00157}00157\ \};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00158}00158\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00159}00159\ \textcolor{comment}{//@\}}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00160}00160\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00161}00161\ \textcolor{comment}{//!\ BroadPhaseLayerInterface\ 実装部}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00162}00162\ \textcolor{comment}{//!\ @details\ オブジェクト層とBroad-\/phase層の間のマッピングを定義します}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00163}00163\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00164}00164\ \textcolor{keyword}{class\ }BPLayerInterfaceImpl\ final:\ \textcolor{keyword}{public}\ JPH::BroadPhaseLayerInterface\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00165}00165\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00166}00166\ \ \ \ \ BPLayerInterfaceImpl()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00167}00167\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00168}00168\ \textcolor{comment}{\ \ \ \ //!\ Broad-\/phaseレイヤーの個数を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00169}00169\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ JPH::uint\ GetNumBroadPhaseLayers()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ BroadPhaseLayers::NUM\_LAYERS;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00171}00171\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00172}00172\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00173}00173\ \textcolor{comment}{\ \ \ \ //!\ Broad-\/phaseレイヤーを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00174}00174\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ JPH::BroadPhaseLayer\ GetBroadPhaseLayer(JPH::ObjectLayer\ layer)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ BroadPhaseLayers::object\_to\_broad\_phase\_[layer];}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00176}00176\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00178}00178\ \textcolor{preprocessor}{\#if\ defined(JPH\_EXTERNAL\_PROFILE)\ ||\ defined(JPH\_PROFILE\_ENABLED)}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00179}00179\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00180}00180\ \textcolor{comment}{\ \ \ \ //!\ Broad-\/phaseレイヤーの名前を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00181}00181\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ GetBroadPhaseLayerName(JPH::BroadPhaseLayer\ layer)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\textcolor{keyword}{static\_cast<}JPH::BroadPhaseLayer::Type\textcolor{keyword}{>}(layer))\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ BroadPhaseLayers::NON\_MOVING:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}NON\_MOVING"{}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00185}00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ BroadPhaseLayers::MOVING:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}MOVING"{}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ BroadPhaseLayers::DEBRIS:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}DEBRIS"{}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ BroadPhaseLayers::SENSOR:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}SENSOR"{}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ BroadPhaseLayers::UNUSED:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}UNUSED"{}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ JPH\_ASSERT(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}invalid"{}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00197}00197\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00199}00199\ \textcolor{preprocessor}{\#endif\ \ \ \ }\textcolor{comment}{//\ JPH\_EXTERNAL\_PROFILE\ ||\ JPH\_PROFILE\_ENABLED}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00201}00201\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00202}00202\ \};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00203}00203\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00204}00204\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00205}00205\ \textcolor{comment}{//!\ Broad-\/phase層同士が衝突するかどうかを判定するカスタマイズ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00206}00206\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00207}00207\ \textcolor{keyword}{class\ }ObjectVsBroadPhaseLayerFilter:\ \textcolor{keyword}{public}\ JPH::ObjectVsBroadPhaseLayerFilter\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00208}00208\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00209}00209\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~ObjectVsBroadPhaseLayerFilter()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00210}00210\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00211}00211\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ \ \ \ 衝突あり}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00212}00212\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ \ \ \ 衝突なし}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00213}00213\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ ShouldCollide(JPH::ObjectLayer\ layer1,\ JPH::BroadPhaseLayer\ layer2)\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00214}00214\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ layer1\_broad\_phase\ =\ BroadPhaseLayers::object\_to\_broad\_phase\_[layer1];}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00215}00215\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00216}00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(layer1\_broad\_phase\ ==\ BroadPhaseLayers::NON\_MOVING)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ layer2\ ==\ BroadPhaseLayers::MOVING;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(layer1\_broad\_phase\ ==\ BroadPhaseLayers::MOVING)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ layer2\ ==\ BroadPhaseLayers::NON\_MOVING\ ||\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layer2\ ==\ BroadPhaseLayers::MOVING\ ||\ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ layer2\ ==\ BroadPhaseLayers::SENSOR;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(layer1\_broad\_phase\ ==\ BroadPhaseLayers::DEBRIS)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ layer2\ ==\ BroadPhaseLayers::NON\_MOVING;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(layer1\_broad\_phase\ ==\ BroadPhaseLayers::SENSOR)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ layer2\ ==\ BroadPhaseLayers::MOVING;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ JPH\_ASSERT(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00233}00233\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00234}00234\ \};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00236}00236\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00237}00237\ \textcolor{comment}{//!\ コンタクトListenerの実装サンプル}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00238}00238\ \textcolor{comment}{//!\ @see\ JPH::ContactListener}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00239}00239\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00240}00240\ \textcolor{keyword}{class\ }MyContactListener:\ \textcolor{keyword}{public}\ JPH::ContactListener\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00241}00241\ \ \ \ \textcolor{keyword}{public}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00242}00242\ \textcolor{comment}{\ \ \ \ //!\ コンタクトを有効にするかどうかの判定}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00243}00243\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ JPH::ValidateResult}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ OnContactValidate([[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::Body\&\ body1,\ [[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::Body\&\ body2,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ JPH::RVec3Arg\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ baseOffset,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::CollideShapeResult\&\ collision\_result)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00248}00248\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ "{}コールバックが有効か確認."{}\ <<\ std::endl;}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 作成前のコンタクトを無視できるようにできる}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ （但し、レイヤーを使ってオブジェクトを衝突させないようにするほうが軽い）}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00252}00252\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::ValidateResult::AcceptAllContactsForThisBodyPair;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00253}00253\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00254}00254\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00255}00255\ \textcolor{comment}{\ \ \ \ //!\ コンタクトが追加される時}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00256}00256\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnContactAdded([[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::Body\&\ body1,\ [[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::Body\&\ body2,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::ContactManifold\&\ manifold,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ JPH::ContactSettings\&\ \ \ \ \ \ \ settings)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ "{}コンタクトが追加されました."{}\ <<\ std::endl;}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00260}00260\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00261}00261\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00262}00262\ \textcolor{comment}{\ \ \ \ //!\ コンタクトが継続している時}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00263}00263\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnContactPersisted([[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::Body\&\ body1,\ [[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::Body\&\ body2,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::ContactManifold\&\ manifold,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ JPH::ContactSettings\&\ \ \ \ \ \ \ settings)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00266}00266\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ "{}コンタクトが継続."{}\ <<\ std::endl;}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00267}00267\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00268}00268\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00269}00269\ \textcolor{comment}{\ \ \ \ //!\ コンタクトが削除される時}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00270}00270\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnContactRemoved([[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::SubShapeIDPair\&\ sub\_shape\_pair)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00271}00271\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ "{}コンタクトが削除されました."{}\ <<\ std::endl;}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00272}00272\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00273}00273\ \};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00275}00275\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00276}00276\ \textcolor{comment}{//!\ Activation\ Listenerの実装サンプル}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00277}00277\ \textcolor{comment}{//!\ @see\ JPH::BodyActivationListener}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00278}00278\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00279}00279\ \textcolor{keyword}{class\ }MyBodyActivationListener:\ \textcolor{keyword}{public}\ JPH::BodyActivationListener\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00280}00280\ \ \ \ \textcolor{keyword}{public}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00281}00281\ \textcolor{comment}{\ \ \ \ //!\ アクティブになる時}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00282}00282\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnBodyActivated([[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::BodyID\&\ body\_id,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ JPH::uint64\ \ \ \ \ \ \ \ body\_user\_data)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00284}00284\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ "{}オブジェクトがアクティブになりました."{}\ <<}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00285}00285\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::endl;}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00286}00286\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00287}00287\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00288}00288\ \textcolor{comment}{\ \ \ \ //!\ 非アクティブになる時}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00289}00289\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ OnBodyDeactivated([[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::BodyID\&\ body\_id,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ JPH::uint64\ \ \ \ \ \ \ \ body\_user\_data)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00291}00291\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00292}00292\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ "{}オブジェクトが非アクティブ(スリープ状態)に移行しました."{}\ <<}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00293}00293\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::endl;}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00294}00294\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00295}00295\ \};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00297}00297\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00299}00299\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacephysics}{physics}}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00300}00300\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00301}00301\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00302}00302\ \textcolor{comment}{//!\ 物理シミュレーション(実装部)}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00303}00303\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00304}\mbox{\hyperlink{classphysics_1_1_engine_impl}{00304}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classphysics_1_1_engine_impl}{EngineImpl}}\ final:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classphysics_1_1_engine}{physics::Engine}}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00305}00305\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00306}00306\ \ \ \ \ \textcolor{comment}{//\ デフォルトコンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00307}00307\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a448f7078a2e79094a22d95e018ee391e}{EngineImpl}}();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00308}00308\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00309}00309\ \ \ \ \ \textcolor{comment}{//\ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00310}00310\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a4d8c1ec3b219bf2c600d3e6c05e8bceb}{\string~EngineImpl}}();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00312}00312\ \ \ \ \ \textcolor{comment}{//\ \ 更新}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00313}00313\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ dt\ \ 経過時間⊿t}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00314}00314\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a18b77240bc274de55e3efa1b26e595d1}{update}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ dt)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00315}00315\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00316}00316\ \ \ \ \ \textcolor{comment}{//\ \ シーンにレイをキャスト}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00317}00317\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ ray\ \ \ \ \ シーンに飛ばすレイ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00318}00318\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [out]\ \ \ result\ \ 衝突結果}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00319}00319\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ \ \ \ 衝突あり。resultに結果が格納されています}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00320}00320\ \textcolor{comment}{\ \ \ \ //!\ @retval\ false\ \ \ 衝突なし。結果は無効}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00321}00321\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a8e6b0779be2000bf896478f321651db0}{castRay}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_ray}{Ray}}\&\ ray,\ \mbox{\hyperlink{structphysics_1_1_ray_cast_result}{RayCastResult}}\&\ result)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00322}00322\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00323}00323\ \ \ \ \ \textcolor{comment}{//\ \ 解放}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00324}00324\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a3207b81685277db5f0483907a59b011c}{clear}}();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00325}00325\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00326}00326\ \ \ \ \ \textcolor{comment}{//\ \ シーン最適化を実行}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00327}00327\ \textcolor{comment}{\ \ \ \ //!\ @details\ これによって衝突検出のパフォーマンスが向上します}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00328}00328\ \textcolor{comment}{\ \ \ \ //!\ @attention}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00329}00329\ \textcolor{comment}{\ \ \ \ //!\ かなり重い処理のため、毎フレームまたは新しいレベルセクションのストリーミング時などには}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00330}00330\ \textcolor{comment}{\ \ \ \ //!\ @attention\ 絶対に呼び出さない方がよいでしょう。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00331}00331\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_aef0e6c3fbd88d0009481d6458abbfd39}{optimize}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00332}00332\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00333}00333\ \ \ \ \ \textcolor{comment}{//\ \ オブジェクトレイヤーをカスタム設定}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00334}00334\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ layers}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00335}00335\ \textcolor{comment}{\ \ \ \ //!\ 自前レイヤーとphysics::ObjectLayersが対応するペアの配列先頭(nullptrで解除)}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00336}00336\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ layerCount\ \ 配列数}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00337}00337\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a861a1a3f769f9b1ed99adee826f3a211}{setLayerAlias}}(\textcolor{keyword}{const}\ std::pair<physics::ObjectLayers,\ u16>*\ layers,\ \textcolor{keywordtype}{size\_t}\ layerCount)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00338}00338\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00339}00339\ \ \ \ \ \textcolor{comment}{//\ \ オブジェクトレイヤー同士が衝突するかどうかをカスタマイズ}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00340}00340\ \textcolor{comment}{\ \ \ \ //!\ コールバック関数の\ [第1引数]\ 対象のレイヤー\ [第2引数]}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00341}00341\ \textcolor{comment}{\ \ \ \ //!\ 相手のレイヤー\ [戻り値]\ true:衝突する\ false:衝突しない}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00342}00342\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_ae8672d13a73cf098703076cfebdc5c4d}{overrideLayerCollide}}(std::function<\textcolor{keywordtype}{bool}(\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}},\ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})>\ callback)\ \textcolor{keyword}{override};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00343}00343\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00344}00344\ \ \ \ \ \textcolor{comment}{//\ 重力を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00345}00345\ \ \ \ \ \textcolor{keyword}{virtual}\ float3\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a10e74653eb3601d227af50459d57ae9b}{gravity}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00346}00346\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00347}00347\ \ \ \ \ \textcolor{comment}{//\ \ 正常に初期化されているかどうかを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00348}00348\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5a2e75e62a0b850646f27bad6f2f578e}{isValid}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00349}00349\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00350}00350\ \ \ \ \ \textcolor{comment}{//\ \ [JPH]\ Physicsシステムを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00351}00351\ \ \ \ \ \textcolor{keyword}{static}\ JPH::PhysicsSystem*\ \mbox{\hyperlink{classphysics_1_1_engine_impl_ae7924147a234722edad274e6b4322d99}{physicsSystem}}();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00353}00353\ \ \ \ \ \textcolor{comment}{//\ \ [JPH]\ ボディインターフェイスを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00354}00354\ \ \ \ \ \textcolor{keyword}{static}\ JPH::BodyInterface*\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a6c0e3efae30d9a6c7e3a23876ca5e1d1}{bodyInterface}}();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00356}00356\ \ \ \ \ \textcolor{comment}{//\ \ [JPH]\ テンポラリアロケーターを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00357}00357\ \ \ \ \ \textcolor{keyword}{static}\ JPH::TempAllocator*\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a212a59a3055caaaff403e7f064751cc9}{tempAllocator}}();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00358}00358\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00359}00359\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00360}00360\ \textcolor{comment}{\ \ \ \ //!\ @name\ \ \ copy/move禁止}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00361}00361\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00362}00362\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00363}00363\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00364}00364\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00365}\mbox{\hyperlink{classphysics_1_1_engine_impl_a80740800b744e8a93ad8342e28af38b9}{00365}}\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a80740800b744e8a93ad8342e28af38b9}{EngineImpl}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classphysics_1_1_engine_impl}{EngineImpl}}\&)\ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00366}\mbox{\hyperlink{classphysics_1_1_engine_impl_aac83cb731b0f030a6b86beb0eb2d0646}{00366}}\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_aac83cb731b0f030a6b86beb0eb2d0646}{EngineImpl}}(\mbox{\hyperlink{classphysics_1_1_engine_impl}{EngineImpl}}\&\&)\ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00367}\mbox{\hyperlink{classphysics_1_1_engine_impl_aff86c6434afb8a8d92e4e1553f757c6b}{00367}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_aff86c6434afb8a8d92e4e1553f757c6b}{operator=}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classphysics_1_1_engine_impl}{EngineImpl}}\&)\ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00368}\mbox{\hyperlink{classphysics_1_1_engine_impl_aeaff5d59b0946f9b256d8f9962127010}{00368}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_aeaff5d59b0946f9b256d8f9962127010}{operator=}}(\mbox{\hyperlink{classphysics_1_1_engine_impl}{EngineImpl}}\&\&)\ \ \ \ \ \ =\ \textcolor{keyword}{delete};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00369}00369\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00370}00370\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00371}00371\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00372}00372\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00373}\mbox{\hyperlink{classphysics_1_1_engine_impl_ad72201ffa0f48388b64998304e9d1527}{00373}}\ \ \ \ \ std::unique\_ptr<JPH::Factory>\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_ad72201ffa0f48388b64998304e9d1527}{jph\_factory\_}};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ Factoryクラス}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00374}\mbox{\hyperlink{classphysics_1_1_engine_impl_a9d015e2c0bc855b6cf5b1ecd11aa6d88}{00374}}\ \ \ \ \ std::unique\_ptr<JPH::JobSystemThreadPool>\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a9d015e2c0bc855b6cf5b1ecd11aa6d88}{job\_system\_}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ ジョブシステム}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00375}\mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{00375}}\ \ \ \ \ std::unique\_ptr<JPH::PhysicsSystem>\ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}};\ \ \ \ \textcolor{comment}{//!<\ Physicsシステム}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00376}\mbox{\hyperlink{classphysics_1_1_engine_impl_afdd1ed0003a64adf2dbddc1ad5a80fb9}{00376}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ JPH::PhysicsSystem*\ \mbox{\hyperlink{classphysics_1_1_engine_impl_afdd1ed0003a64adf2dbddc1ad5a80fb9}{physics\_system\_}}\ =\ \textcolor{keyword}{nullptr};\ \ \ \ \ \ \textcolor{comment}{//!<\ Physicsシステムのstaticアクセス用の参照}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00377}\mbox{\hyperlink{classphysics_1_1_engine_impl_a90c40f89e5a719f3fab017c9e7cc1743}{00377}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ JPH::BodyInterface*\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a90c40f89e5a719f3fab017c9e7cc1743}{body\_interface\_}}\ =\ \textcolor{keyword}{nullptr};\ \ \ \ \ \ \textcolor{comment}{//!<\ ボディインターフェイス参照}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00378}\mbox{\hyperlink{classphysics_1_1_engine_impl_af44606a14da2365fb6a761bfe0c0d07a}{00378}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ JPH::TempAllocator*\ \mbox{\hyperlink{classphysics_1_1_engine_impl_af44606a14da2365fb6a761bfe0c0d07a}{temp\_allocator\_}}\ =\ \textcolor{keyword}{nullptr};\ \ \ \ \ \ \textcolor{comment}{//!<\ !}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00379}00379\ \textcolor{comment}{\ \ \ \ \ \ \ \ //!<\ テンポラリアロケーターのstaticアクセス用の参照}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00380}00380\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00381}00381\ \textcolor{comment}{\ \ \ \ //!\ テンポラリアロケーター}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00382}00382\ \textcolor{comment}{\ \ \ \ //!\ @details}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00383}00383\ \textcolor{comment}{\ \ \ \ //!\ 物理演算の更新中にアロケーションを行う必要がないように、事前アロケーションを行っています。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00384}00384\ \textcolor{comment}{\ \ \ \ //!\ \ \ \ \ \ \ \ \ \ もし事前割り当てをしたくない場合はTempAllocatorMallocを使って}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00385}00385\ \textcolor{comment}{\ \ \ \ //!\ \ \ \ \ \ \ \ \ \ malloc/freeにフォールバックすることもできます。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00386}\mbox{\hyperlink{classphysics_1_1_engine_impl_a057ca1e5708c8cb99544bd869c8d327a}{00386}}\ \textcolor{comment}{}\ \ \ \ std::unique\_ptr<JPH::TempAllocator>\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a057ca1e5708c8cb99544bd869c8d327a}{jph\_temp\_allocator\_}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00387}00387\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00388}00388\ \textcolor{comment}{\ \ \ \ //!\ オブジェクト層からBroad-\/phase層へのマッピングテーブル}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00389}00389\ \textcolor{comment}{\ \ \ \ //!\ @attention}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00390}00390\ \textcolor{comment}{\ \ \ \ //!\ これはインターフェースですのでPhysicsシステムはこのインスタンスへ参照します。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00391}00391\ \textcolor{comment}{\ \ \ \ //!\ \ \ \ \ \ \ \ \ \ \ \ このインスタンスはシステムの解放まで必要です。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00392}\mbox{\hyperlink{classphysics_1_1_engine_impl_a5d858e0b1937c0df675d9e0f75941ee2}{00392}}\ \textcolor{comment}{}\ \ \ \ BPLayerInterfaceImpl\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5d858e0b1937c0df675d9e0f75941ee2}{broad\_phase\_layer\_interface\_}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00393}00393\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00394}\mbox{\hyperlink{classphysics_1_1_engine_impl_a0beaec7caf0441d6682d7e02d6585375}{00394}}\ \ \ \ \ MyBodyActivationListener\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a0beaec7caf0441d6682d7e02d6585375}{body\_activation\_listener\_}};\ \ \ \ \textcolor{comment}{//!<\ ユーザーコールバック}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00395}00395\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //!<\ BodyActivationListener}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00396}\mbox{\hyperlink{classphysics_1_1_engine_impl_a23d50f7c9821469d6c1d54ebe5a6680e}{00396}}\ \textcolor{comment}{}\ \ \ \ MyContactListener\ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a23d50f7c9821469d6c1d54ebe5a6680e}{contact\_listener\_}};\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ ユーザーコールバック\ ContactListener}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00398}\mbox{\hyperlink{classphysics_1_1_engine_impl_a0b5f2da6fee0c9d58306b4a5941c8315}{00398}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a0b5f2da6fee0c9d58306b4a5941c8315}{is\_valid\_}}\ =\ \textcolor{keyword}{false};\ \ \ \ \textcolor{comment}{//!<\ 正常に初期化されているか}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00399}00399\ \};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00400}00400\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00401}00401\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00403}00403\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl}{physics::EngineImpl}}*\ physics\_\ =\ \textcolor{keyword}{nullptr};\ \ \ \ \textcolor{comment}{//!<\ Physicsインスタンス}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00405}00405\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00406}00406\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00407}00407\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00408}00408\ \textcolor{comment}{//!\ デフォルトコンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00409}00409\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00410}\mbox{\hyperlink{classphysics_1_1_engine_impl_a448f7078a2e79094a22d95e018ee391e}{00410}}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a448f7078a2e79094a22d95e018ee391e}{EngineImpl::EngineImpl}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00411}00411\ \ \ \ \ \textcolor{comment}{//\ デフォルトアロケーターを登録}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00412}00412\ \ \ \ \ JPH::RegisterDefaultAllocator();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00414}00414\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a057ca1e5708c8cb99544bd869c8d327a}{jph\_temp\_allocator\_}}\ =\ std::make\_unique<JPH::TempAllocatorImpl>(64\ *\ 1024\ *\ 1024);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00415}00415\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00416}00416\ \ \ \ \ physics\_\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00417}00417\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_af44606a14da2365fb6a761bfe0c0d07a}{temp\_allocator\_}}\ =\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a057ca1e5708c8cb99544bd869c8d327a}{jph\_temp\_allocator\_}}.get();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00418}00418\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00419}00419\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00420}00420\ \ \ \ \ \textcolor{comment}{//\ トレースコールバックを登録}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00421}00421\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00422}00422\ \ \ \ \ JPH::Trace\ =\ TraceImpl;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00423}00423\ \ \ \ \ JPH\_IF\_ENABLE\_ASSERTS(JPH::AssertFailed\ =\ AssertFailedImpl;)}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00424}00424\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00425}00425\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00426}00426\ \ \ \ \ \textcolor{comment}{//\ Factoryを作成}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00427}00427\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00428}00428\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_ad72201ffa0f48388b64998304e9d1527}{jph\_factory\_}}\ =\ std::make\_unique<JPH::Factory>();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00429}00429\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00430}00430\ \ \ \ \ \textcolor{comment}{//\ JoltPhysics内部変数に登録する}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00431}00431\ \ \ \ \ JPH::Factory::sInstance\ =\ \mbox{\hyperlink{classphysics_1_1_engine_impl_ad72201ffa0f48388b64998304e9d1527}{jph\_factory\_}}.get();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00432}00432\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00433}00433\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00434}00434\ \ \ \ \ \textcolor{comment}{//\ すべてのJoltPhysicsの型をFactoryに登録}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00435}00435\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00436}00436\ \ \ \ \ JPH::RegisterTypes();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00437}00437\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00438}00438\ \ \ \ \ \textcolor{comment}{//\ 物理ジョブを複数スレッドで実行するジョブシステムが必要です。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00439}00439\ \ \ \ \ \textcolor{comment}{//\ JoltPhysicsは基本的には自前のジョブスケジューラの上で実行することが出来ます。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00440}00440\ \ \ \ \ \textcolor{comment}{//\ このJobSystemThreadPoolは実装例です。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00441}00441\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a9d015e2c0bc855b6cf5b1ecd11aa6d88}{job\_system\_}}\ =\ std::make\_unique<JPH::JobSystemThreadPool>(JPH::cMaxPhysicsJobs,\ JPH::cMaxPhysicsBarriers,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::thread::hardware\_concurrency()\ -\/\ 1);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00443}00443\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00444}00444\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00445}00445\ \ \ \ \ \textcolor{comment}{//\ Physicsシステムを初期化}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00446}00446\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00447}00447\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00448}00448\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Physicsシステムに追加できる剛体の最大量}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00449}00449\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ この個数以上追加しようとするとエラーが発生します。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00450}00450\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ JPH::uint\ MAX\_BODIES\ =\ 65536;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00451}00451\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00452}00452\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 剛体を同時アクセスから保護するために割り当てるべきミューテックスの数です。(default:0)}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00453}00453\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ JPH::uint\ BODY\_MUTEX\_COUNT\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00454}00454\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00455}00455\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ いつでもキューに入れられるボディペアの最大数}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00456}00456\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Broad-\/phaseではバウンディングボックスに基づいて重複するボディペアを検出してNarrow-\/phaseのキューに挿入します}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00457}00457\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ このバッファを小さくしすぎると、キューが一杯になりBroad-\/phaseのジョブがNarrow-\/phaseの実行をし始めることになります。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00458}00458\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ これは若干効率的ではありません。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00459}00459\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ JPH::uint\ MAX\_BODY\_PAIRS\ =\ 65536;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00460}00460\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00461}00461\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ コンタクト拘束バッファの最大サイズ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00462}00462\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ この数よりも多くの接触（ボディ間の衝突）が検出された場合、これらの接触は無視されボディはワールド突き抜けて落下し始めます。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00463}00463\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ JPH::uint\ MAX\_CONTACT\_CONSTRAINTS\ =\ 65536;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00464}00464\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00465}00465\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Physicsシステムを初期化作成}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00466}00466\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}\ =\ std::make\_unique<JPH::PhysicsSystem>();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00467}00467\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00468}00468\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ ObjectVsBroadPhaseLayerFilter\ object\_broad\_phase\_layer\_filter\_;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00469}00469\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ ObjectLayerPairFilter\ \ \ \ \ \ \ \ \ object\_layer\_pair\_filter\_;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00470}00470\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00471}00471\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}-\/>Init(MAX\_BODIES,\ BODY\_MUTEX\_COUNT,\ MAX\_BODY\_PAIRS,\ MAX\_CONTACT\_CONSTRAINTS,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00472}00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5d858e0b1937c0df675d9e0f75941ee2}{broad\_phase\_layer\_interface\_}},\ object\_broad\_phase\_layer\_filter\_,\ object\_layer\_pair\_filter\_);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00473}00473\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00474}00474\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ パラメーター設定}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00475}00475\ \ \ \ \ \ \ \ \ JPH::PhysicsSettings\ settings\{\};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00476}00476\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00477}00477\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}-\/>SetPhysicsSettings(settings);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00478}00478\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00479}00479\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 重力を設定}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00480}00480\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}-\/>SetGravity(JPH::Vec3(0.0f,\ -\/9.81f,\ 0.0f));}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00481}00481\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00482}00482\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ポインタを保存}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00483}00483\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_afdd1ed0003a64adf2dbddc1ad5a80fb9}{physics\_system\_}}\ =\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}.get();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00484}00484\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00485}00485\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00486}00486\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00487}00487\ \ \ \ \ \textcolor{comment}{//\ ボディインターフェイスを保存}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00488}00488\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00489}00489\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00490}00490\ \ \ \ \ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{bool}\ thread\_safe\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00491}00491\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00492}00492\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keyword}{constexpr}(thread\_safe)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00493}00493\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a90c40f89e5a719f3fab017c9e7cc1743}{body\_interface\_}}\ =\ \&\mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}-\/>GetBodyInterface();\ \ \ \ \textcolor{comment}{//\ Lockあり}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00494}00494\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00495}00495\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a90c40f89e5a719f3fab017c9e7cc1743}{body\_interface\_}}\ =\ \&\mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}-\/>GetBodyInterfaceNoLock();\ \ \ \ \textcolor{comment}{//\ Lockなし(利用には注意)}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00496}00496\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00497}00497\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00498}00498\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00499}00499\ \ \ \ \ \textcolor{comment}{//\ ボディがアクティブになりスリープ状態になると、BodyActivationListenerが通知されます。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00500}00500\ \ \ \ \ \textcolor{comment}{//\ これはジョブから呼び出されるので、ここで行うことはスレッドセーフである必要があることに注意してください。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00501}00501\ \ \ \ \ \textcolor{comment}{//\ (登録は完全に任意です)}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00502}00502\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}-\/>SetBodyActivationListener(\&\mbox{\hyperlink{classphysics_1_1_engine_impl_a0beaec7caf0441d6682d7e02d6585375}{body\_activation\_listener\_}});}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00503}00503\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00504}00504\ \ \ \ \ \textcolor{comment}{//\ ボディが衝突する（しそうな）ときと再び離れるときに、ContactListenerに通知されます。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00505}00505\ \ \ \ \ \textcolor{comment}{//\ これはジョブから呼び出されるので、ここで何をするにしてもスレッドセーフである必要があることに注意してください。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00506}00506\ \ \ \ \ \textcolor{comment}{//\ (登録は完全に任意です)}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00507}00507\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}-\/>SetContactListener(\&\mbox{\hyperlink{classphysics_1_1_engine_impl_a23d50f7c9821469d6c1d54ebe5a6680e}{contact\_listener\_}});}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00508}00508\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00509}00509\ \ \ \ \ \textcolor{comment}{//\ デフォルトのBroadPhase変換テーブルを初期化}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00510}00510\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a861a1a3f769f9b1ed99adee826f3a211}{setLayerAlias}}(\textcolor{keyword}{nullptr},\ 0);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00511}00511\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00512}00512\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a0b5f2da6fee0c9d58306b4a5941c8315}{is\_valid\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00513}00513\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00514}00514\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00515}00515\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00516}00516\ \textcolor{comment}{//!\ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00517}00517\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00518}\mbox{\hyperlink{classphysics_1_1_engine_impl_a4d8c1ec3b219bf2c600d3e6c05e8bceb}{00518}}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a4d8c1ec3b219bf2c600d3e6c05e8bceb}{EngineImpl::\string~EngineImpl}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00519}00519\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a3207b81685277db5f0483907a59b011c}{clear}}();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00520}00520\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00521}00521\ \ \ \ \ physics\_\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00522}00522\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00523}00523\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00524}00524\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00525}00525\ \textcolor{comment}{//!\ 更新}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00526}00526\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00527}\mbox{\hyperlink{classphysics_1_1_engine_impl_a18b77240bc274de55e3efa1b26e595d1}{00527}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a18b77240bc274de55e3efa1b26e595d1}{EngineImpl::update}}(\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ dt)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00528}00528\ \ \ \ \ \textcolor{comment}{//\ 1/60秒より大きなステップを取る場合、シミュレーションを安定させるために}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00529}00529\ \ \ \ \ \textcolor{comment}{//\ 複数回の衝突ステップを行う必要があります。1/60秒ごとに1回の衝突ステップを実行します（切り上げ）}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00530}00530\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ collision\_steps\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00531}00531\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00532}00532\ \ \ \ \ \textcolor{comment}{//\ より正確なステップ結果を得たい場合は、コリジョンステップの中で複数のサブステップを行うことができます。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00533}00533\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ integration\_sub\_steps\ =\ 1;\ \ \ \ \textcolor{comment}{//\ 通常は1に設定します。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00534}00534\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00535}00535\ \ \ \ \ \textcolor{comment}{//\ ワールドを時間経過させて更新}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00536}00536\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}-\/>Update(dt,\ collision\_steps,\ integration\_sub\_steps,\ \mbox{\hyperlink{classphysics_1_1_engine_impl_af44606a14da2365fb6a761bfe0c0d07a}{temp\_allocator\_}},\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a9d015e2c0bc855b6cf5b1ecd11aa6d88}{job\_system\_}}.get());}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00537}00537\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00538}00538\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00539}00539\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00540}00540\ \textcolor{comment}{//!\ シーンにレイをキャスト}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00541}00541\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00542}\mbox{\hyperlink{classphysics_1_1_engine_impl_a8e6b0779be2000bf896478f321651db0}{00542}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a8e6b0779be2000bf896478f321651db0}{EngineImpl::castRay}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_ray}{Ray}}\&\ ray,\ \mbox{\hyperlink{structphysics_1_1_ray_cast_result}{RayCastResult}}\&\ result)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00543}00543\ \ \ \ \ JPH::RRayCast\ ray\_cast\{\mbox{\hyperlink{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}{castJPH}}(ray.\mbox{\hyperlink{class_ray_a46df210e794c81cc5b9e0ea0d2ae4301}{position\_}}),\ \mbox{\hyperlink{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}{castJPH}}(ray.\mbox{\hyperlink{class_ray_abb03b54758c433f33d8ccbd27da3f143}{dir\_}})\};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00544}00544\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00545}00545\ \ \ \ \ \textcolor{keyword}{auto}\&\ jph\_narrow\_phase\ =\ \mbox{\hyperlink{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}{physics::Engine::physicsSystem}}()-\/>GetNarrowPhaseQuery();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00546}00546\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00547}00547\ \ \ \ \ JPH::RayCastResult\ jph\_result;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00548}00548\ \ \ \ \ \textcolor{keywordflow}{if}(jph\_narrow\_phase.CastRay(ray\_cast,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00549}00549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ jph\_result,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00550}00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::BroadPhaseLayerFilter\{\},\ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00551}00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::ObjectLayerFilter\{\},\ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00552}00552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::BodyFilter\{\}))\ \{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00553}00553\ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{structphysics_1_1_ray_cast_result_a1dbfd3b3449e28f07e344e44bef48670}{t\_}}\ \ \ \ \ \ \ =\ jph\_result.mFraction;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00554}00554\ \ \ \ \ \ \ \ \ result.\mbox{\hyperlink{structphysics_1_1_ray_cast_result_aa3f21ec03bebb01db4e8a5055e1d7ef5}{body\_id\_}}\ =\ jph\_result.mBodyID.GetIndexAndSequenceNumber();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00555}00555\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00556}00556\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00557}00557\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00558}00558\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00559}00559\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00560}00560\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00561}00561\ \textcolor{comment}{//!\ 解放}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00562}00562\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00563}\mbox{\hyperlink{classphysics_1_1_engine_impl_a3207b81685277db5f0483907a59b011c}{00563}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a3207b81685277db5f0483907a59b011c}{EngineImpl::clear}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00564}00564\ \ \ \ \ \textcolor{comment}{//\ JoltPhysics内部変数のFactoryを登録解除}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00565}00565\ \ \ \ \ \textcolor{comment}{//\ 実体の解放はスマートポインタが解放します}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00566}00566\ \ \ \ \ JPH::Factory::sInstance\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00567}00567\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00568}00568\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00569}00569\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00570}00570\ \textcolor{comment}{//!\ シーン最適化を実行}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00571}00571\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00572}\mbox{\hyperlink{classphysics_1_1_engine_impl_aef0e6c3fbd88d0009481d6458abbfd39}{00572}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_aef0e6c3fbd88d0009481d6458abbfd39}{EngineImpl::optimize}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00573}00573\ \ \ \ \ \textcolor{comment}{//\ 物理シミュレーションを開始する前にBroad-\/phaseを最適化することができます。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00574}00574\ \ \ \ \ \textcolor{comment}{//\ これによって衝突検出のパフォーマンスが向上します}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00575}00575\ \ \ \ \ \textcolor{comment}{//\ これは高価な操作なので、毎フレームまたは新しいレベルセクションのストリーミング時などには絶対に呼び出さない方がよいでしょう。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00576}00576\ \ \ \ \ \textcolor{comment}{//\ 代替策はすべての新しいオブジェクトを一度に}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00577}00577\ \ \ \ \ \textcolor{comment}{//\ 1つずつではなく、バッチで挿入してBroad-\/phaseを効率的に維持することです。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00578}00578\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}-\/>OptimizeBroadPhase();\ \ \ \ \textcolor{comment}{//\ ※このタイミングではまだオブジェクトが1つもないため無意味です。}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00579}00579\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00580}00580\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00581}00581\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00582}00582\ \textcolor{comment}{//!\ オブジェクトレイヤーをカスタム設定}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00583}00583\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00584}\mbox{\hyperlink{classphysics_1_1_engine_impl_a861a1a3f769f9b1ed99adee826f3a211}{00584}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a861a1a3f769f9b1ed99adee826f3a211}{EngineImpl::setLayerAlias}}(\textcolor{keyword}{const}\ std::pair<physics::ObjectLayers,\ u16>*\ layers,\ \textcolor{keywordtype}{size\_t}\ layerCount)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00585}00585\ \ \ \ \ std::array<JPH::BroadPhaseLayer,\ 4>\ table\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00586}00586\ \ \ \ \ \ \ \ \ BroadPhaseLayers::NON\_MOVING,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00587}00587\ \ \ \ \ \ \ \ \ BroadPhaseLayers::MOVING,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00588}00588\ \ \ \ \ \ \ \ \ BroadPhaseLayers::DEBRIS,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00589}00589\ \ \ \ \ \ \ \ \ BroadPhaseLayers::SENSOR,}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00590}00590\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00591}00591\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00592}00592\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00593}00593\ \ \ \ \ \textcolor{comment}{//\ オブジェクトからBroad-\/phaseレイヤーへの変換テーブル作成}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00594}00594\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00595}00595\ \ \ \ \ \textcolor{keywordflow}{if}(layers)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00596}00596\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 値の最大値を検索して変換テーブルを作成}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00597}00597\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 都度検索すると負荷が高くなるため一発変換できる構造に変更しておく}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00598}00598\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ myLayerMax\ =\ std::max\_element(layers,\ layers\ +\ layerCount,\ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ l,\ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ r)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00599}00599\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ l.second\ <\ r.second;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00600}00600\ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00601}00601\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00602}00602\ \ \ \ \ \ \ \ \ std::vector<physics::ObjectLayers>\ toObjectLayers\_;\ \ \ \ \textcolor{comment}{//\ カスタム設定したレイヤー番号を内部番号に変換するテーブル}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00603}00603\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00604}00604\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 変換テーブルを最大数で設定}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00605}00605\ \ \ \ \ \ \ \ \ BroadPhaseLayers::object\_to\_broad\_phase\_.resize(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(myLayerMax-\/>second)\ +\ 1);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00606}00606\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00607}00607\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ layerCount;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00608}00608\ \ \ \ \ \ \ \ \ \ \ \ \ BroadPhaseLayers::object\_to\_broad\_phase\_[layers[i].second]\ =\ table[layers[i].first];}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00609}00609\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00610}00610\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00611}00611\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ デフォルト設定}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00612}00612\ \ \ \ \ \ \ \ \ BroadPhaseLayers::object\_to\_broad\_phase\_.resize(\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa73d103b12bd08b49bf611a15e890d86d}{physics::ObjectLayers::MAX\_COUNT}});}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00613}00613\ \ \ \ \ \ \ \ \ BroadPhaseLayers::object\_to\_broad\_phase\_[\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baadb7efabc078fc1b67b86c709623de88a}{physics::ObjectLayers::NON\_MOVING}}]\ =\ BroadPhaseLayers::NON\_MOVING;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00614}00614\ \ \ \ \ \ \ \ \ BroadPhaseLayers::object\_to\_broad\_phase\_[\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{physics::ObjectLayers::MOVING}}]\ \ \ \ \ =\ BroadPhaseLayers::MOVING;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00615}00615\ \ \ \ \ \ \ \ \ BroadPhaseLayers::object\_to\_broad\_phase\_[\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baaf636b41154b4d22d47e007d5a7e9ecab}{physics::ObjectLayers::DEBRIS}}]\ \ \ \ \ =\ BroadPhaseLayers::DEBRIS;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00616}00616\ \ \ \ \ \ \ \ \ BroadPhaseLayers::object\_to\_broad\_phase\_[\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa4cdbb711da8a5eef955dcbe48baea742}{physics::ObjectLayers::SENSOR}}]\ \ \ \ \ =\ BroadPhaseLayers::SENSOR;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00617}00617\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00618}00618\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00619}00619\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00620}00620\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00621}00621\ \textcolor{comment}{//!\ オブジェクトレイヤー同士が衝突するかどうかをカスタマイズ}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00622}00622\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00623}\mbox{\hyperlink{classphysics_1_1_engine_impl_ae8672d13a73cf098703076cfebdc5c4d}{00623}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_ae8672d13a73cf098703076cfebdc5c4d}{EngineImpl::overrideLayerCollide}}(std::function<\textcolor{keywordtype}{bool}(\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}},\ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})>\ callback)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00624}00624\ \ \ \ \ BroadPhaseLayers::can\_object\_layer\_collide\_\ =\ callback;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00625}00625\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00626}00626\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00627}00627\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00628}00628\ \textcolor{comment}{//!\ 重力を取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00629}00629\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00630}\mbox{\hyperlink{classphysics_1_1_engine_impl_a10e74653eb3601d227af50459d57ae9b}{00630}}\ float3\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a10e74653eb3601d227af50459d57ae9b}{EngineImpl::gravity}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00631}00631\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}{castJPH}}(\mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\_physics\_system\_}}-\/>GetGravity());}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00632}00632\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00633}00633\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00634}00634\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00635}00635\ \textcolor{comment}{//!\ 正常に初期化されているかどうかを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00636}00636\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00637}\mbox{\hyperlink{classphysics_1_1_engine_impl_a5a2e75e62a0b850646f27bad6f2f578e}{00637}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5a2e75e62a0b850646f27bad6f2f578e}{EngineImpl::isValid}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00638}00638\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a0b5f2da6fee0c9d58306b4a5941c8315}{is\_valid\_}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00639}00639\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00640}00640\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00641}00641\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00642}00642\ \textcolor{comment}{//!\ [JPH]\ Physicsシステムを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00643}00643\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00644}\mbox{\hyperlink{classphysics_1_1_engine_impl_ae7924147a234722edad274e6b4322d99}{00644}}\ JPH::PhysicsSystem*\ \mbox{\hyperlink{classphysics_1_1_engine_impl_ae7924147a234722edad274e6b4322d99}{EngineImpl::physicsSystem}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00645}00645\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_afdd1ed0003a64adf2dbddc1ad5a80fb9}{physics\_system\_}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00646}00646\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00647}00647\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00648}00648\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00649}00649\ \textcolor{comment}{//!\ [JPH]\ ボディインターフェイスを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00650}00650\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00651}\mbox{\hyperlink{classphysics_1_1_engine_impl_a6c0e3efae30d9a6c7e3a23876ca5e1d1}{00651}}\ JPH::BodyInterface*\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a6c0e3efae30d9a6c7e3a23876ca5e1d1}{EngineImpl::bodyInterface}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00652}00652\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a90c40f89e5a719f3fab017c9e7cc1743}{body\_interface\_}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00653}00653\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00654}00654\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00655}00655\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00656}00656\ \textcolor{comment}{//!\ \ [JPH]\ テンポラリアロケーターを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00657}00657\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00658}\mbox{\hyperlink{classphysics_1_1_engine_impl_a212a59a3055caaaff403e7f064751cc9}{00658}}\ JPH::TempAllocator*\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a212a59a3055caaaff403e7f064751cc9}{EngineImpl::tempAllocator}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00659}00659\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_af44606a14da2365fb6a761bfe0c0d07a}{temp\_allocator\_}};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00660}00660\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00661}00661\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00662}00662\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00663}00663\ \textcolor{comment}{//\ physics::Engine}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00664}00664\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00665}00665\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00666}00666\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00667}00667\ \textcolor{comment}{//!\ \ Physicsインスタンスを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00668}00668\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00669}\mbox{\hyperlink{classphysics_1_1_engine_ac114076717c5b5e26c9e740c76f3f058}{00669}}\ \mbox{\hyperlink{classphysics_1_1_engine}{physics::Engine}}*\ \mbox{\hyperlink{classphysics_1_1_engine_ac114076717c5b5e26c9e740c76f3f058}{Engine::instance}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00670}00670\ \ \ \ \ \textcolor{keywordflow}{return}\ physics\_;}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00671}00671\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00672}00672\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00673}00673\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00674}00674\ \textcolor{comment}{//!\ [JPH]\ Physicsシステムを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00675}00675\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00676}\mbox{\hyperlink{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}{00676}}\ JPH::PhysicsSystem*\ \mbox{\hyperlink{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}{Engine::physicsSystem}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00677}00677\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_ae7924147a234722edad274e6b4322d99}{EngineImpl::physicsSystem}}();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00678}00678\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00679}00679\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00680}00680\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00681}00681\ \textcolor{comment}{//!\ [JPH]\ ボディインターフェイスを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00682}00682\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00683}\mbox{\hyperlink{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}{00683}}\ JPH::BodyInterface*\ \mbox{\hyperlink{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}{Engine::bodyInterface}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00684}00684\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a6c0e3efae30d9a6c7e3a23876ca5e1d1}{EngineImpl::bodyInterface}}();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00685}00685\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00686}00686\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00687}00687\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00688}00688\ \textcolor{comment}{//!\ \ [JPH]\ テンポラリアロケーターを取得}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00689}00689\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00690}\mbox{\hyperlink{classphysics_1_1_engine_a55570741b680677c849770aa20c832cc}{00690}}\ JPH::TempAllocator*\ \mbox{\hyperlink{classphysics_1_1_engine_a55570741b680677c849770aa20c832cc}{Engine::tempAllocator}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00691}00691\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classphysics_1_1_engine_impl_a212a59a3055caaaff403e7f064751cc9}{EngineImpl::tempAllocator}}();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00692}00692\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00693}00693\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00694}00694\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00695}00695\ \textcolor{comment}{//!\ 物理シミュレーションクラスを作成}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00696}00696\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00697}\mbox{\hyperlink{namespacephysics_ab56dd186fdba2f715f4f076a4e71486f}{00697}}\ std::unique\_ptr<physics::Engine>\ \mbox{\hyperlink{namespacephysics_ab56dd186fdba2f715f4f076a4e71486f}{createPhysics}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00698}00698\ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_unique<EngineImpl>();}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00699}00699\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00700}00700\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00701}00701\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00702}00702\ \textcolor{comment}{//\ キャスト}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00703}00703\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00704}00704\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00705}00705\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00706}00706\ \textcolor{comment}{//!\ float3\ →\ JPH::Vec3\ へキャスト}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00707}00707\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00708}\mbox{\hyperlink{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}{00708}}\ JPH::Vec3\ \mbox{\hyperlink{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}{castJPH}}(\textcolor{keyword}{const}\ float3\&\ v)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00709}00709\ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::Vec3\{v.x,\ v.y,\ v.z\};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00710}00710\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00711}00711\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00712}00712\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00713}00713\ \textcolor{comment}{//!\ JPH::Vec3\ →\ float3\ へキャスト}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00714}00714\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00715}\mbox{\hyperlink{namespacephysics_ac54bad230e864c4807b2e96d69e9bca1}{00715}}\ float3\ \mbox{\hyperlink{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}{castJPH}}(\textcolor{keyword}{const}\ JPH::Vec3\&\ v)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00716}00716\ \ \ \ \ \textcolor{keywordflow}{return}\ float3(v.GetX(),\ v.GetY(),\ v.GetZ());}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00717}00717\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00718}00718\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00719}00719\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00720}00720\ \textcolor{comment}{//!\ quaternion\ →\ JPH::Quat\ へキャスト}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00721}00721\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00722}\mbox{\hyperlink{namespacephysics_a8e71141ecb5eb31efdb06c5a9d82240a}{00722}}\ JPH::Quat\ \mbox{\hyperlink{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}{castJPH}}(\textcolor{keyword}{const}\ quaternion\&\ q)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00723}00723\ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::Quat\{q.x,\ q.y,\ q.z,\ q.w\};}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00724}00724\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00725}00725\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00726}00726\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00727}00727\ \textcolor{comment}{//!\ JPH::Quat\ →\ quaternion\ へキャスト}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00728}00728\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00729}\mbox{\hyperlink{namespacephysics_afa2dba9557c424fe00d0c87185fd88e1}{00729}}\ quaternion\ \mbox{\hyperlink{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}{castJPH}}(\textcolor{keyword}{const}\ JPH::Quat\&\ v)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00730}00730\ \ \ \ \ \textcolor{keywordflow}{return}\ quaternion(v.GetX(),\ v.GetY(),\ v.GetZ(),\ v.GetW());}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00731}00731\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00732}00732\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00733}00733\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00734}00734\ \textcolor{comment}{//!\ JPH::Mat44\ →\ matrix\ へキャスト}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00735}00735\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00736}\mbox{\hyperlink{namespacephysics_a44b780f4639ede00d44cb37c9a039c22}{00736}}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}{castJPH}}(\textcolor{keyword}{const}\ JPH::Mat44\&\ mat44)\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00737}00737\ \ \ \ \ \textcolor{keyword}{auto}\ c0\ =\ mat44.GetColumn4(0);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00738}00738\ \ \ \ \ \textcolor{keyword}{auto}\ c1\ =\ mat44.GetColumn4(1);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00739}00739\ \ \ \ \ \textcolor{keyword}{auto}\ c2\ =\ mat44.GetColumn4(2);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00740}00740\ \ \ \ \ \textcolor{keyword}{auto}\ c3\ =\ mat44.GetColumn4(3);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00741}00741\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00742}00742\ \ \ \ \ float4\ v[4];}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00743}00743\ \ \ \ \ load(v[0],\ c0.mF32);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00744}00744\ \ \ \ \ load(v[1],\ c1.mF32);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00745}00745\ \ \ \ \ load(v[2],\ c2.mF32);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00746}00746\ \ \ \ \ load(v[3],\ c3.mF32);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00747}00747\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00748}00748\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classmatrix}{matrix}}(v[0],\ v[1],\ v[2],\ v[3]);}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00749}00749\ \}}
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00750}00750\ }
+\DoxyCodeLine{\Hypertarget{_physics_engine_8cpp_source_l00751}00751\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ physics}}
+
+\end{DoxyCode}

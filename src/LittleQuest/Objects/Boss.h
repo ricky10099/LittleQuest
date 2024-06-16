@@ -15,7 +15,7 @@ class ComponentHP;
 //////////////////////////////////////////////////////////////
 class Boss: public Object {
    public:
-    BP_OBJECT_TYPE(Boss, Object);
+    BP_OBJECT_DECL(Boss, "LittleQuest/Boss");
     //------------------------------------------------------------
     //! @brief ボスを生成します。
     //------------------------------------------------------------

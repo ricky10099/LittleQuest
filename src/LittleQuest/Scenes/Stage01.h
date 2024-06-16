@@ -17,7 +17,7 @@ namespace LittleQuest {
 //////////////////////////////////////////////////////////////
 class Stage01: public Scene::Base {
    public:
-    BP_CLASS_TYPE(Stage01, Scene::Base)
+    BP_CLASS_DECL(Stage01, u8"LittleQuest/Stage01")
 
     //------------------------------------------------------------
     //! @brief 初期化処理を行います。

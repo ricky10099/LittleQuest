@@ -1,0 +1,234 @@
+\hypertarget{_component_collision_model_8cpp_source}{}\doxysection{Component\+Collision\+Model.\+cpp}
+\label{_component_collision_model_8cpp_source}\index{ComponentCollisionModel.cpp@{ComponentCollisionModel.cpp}}
+\mbox{\hyperlink{_component_collision_model_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ ComponentCollisionModel.h}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ Sphereコリジョンコンポーネント}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_collision_model_8h}{System/Component/ComponentCollisionModel.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_collision_sphere_8h}{System/Component/ComponentCollisionSphere.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_collision_capsule_8h}{System/Component/ComponentCollisionCapsule.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_collision_line_8h}{System/Component/ComponentCollisionLine.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_transform_8h}{System/Component/ComponentTransform.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_model_8h}{System/Component/ComponentModel.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_object_8h}{System/Object.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_scene_8h}{System/Scene.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00014}\mbox{\hyperlink{_component_collision_model_8cpp_aab93dcccd695d7a9318bf15430c95e55}{00014}}\ \mbox{\hyperlink{_component_8h_acb5da28bae949d7ba8d6a74c97e1e394}{BP\_COMPONENT\_IMPL}}(\mbox{\hyperlink{class_component_collision_model}{ComponentCollisionModel}},\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}ModelCollision機能クラス"{}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00016}\mbox{\hyperlink{class_component_collision_model_a9fabbc4329628b5865f8cd3913a465be}{00016}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_model_a9fabbc4329628b5865f8cd3913a465be}{ComponentCollisionModel::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00017}00017\ \ \ \ \ \_\_super::Init();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00018}00018\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00020}\mbox{\hyperlink{class_component_collision_model_a887ba66ac69aca8cbb8893ef97c621a1}{00020}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_model_a887ba66ac69aca8cbb8893ef97c621a1}{ComponentCollisionModel::Update}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00021}00021\ \ \ \ \ \_\_super::Update();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{comment}{//\ モデルチェック}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>GetComponent<ComponentModel>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!mdl-\/>IsValid())}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}}\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00027}00027\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}}\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00032}00032\ \textcolor{comment}{//\ ここで当たり処理後の処理を行います}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00033}\mbox{\hyperlink{class_component_collision_model_add49f4471463915df798c69b65991678}{00033}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_model_add49f4471463915df798c69b65991678}{ComponentCollisionModel::PostUpdate}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00034}00034\ \ \ \ \ \_\_super::PostUpdate();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00035}00035\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00037}\mbox{\hyperlink{class_component_collision_model_a99290e583ab2ce25cc9d3f84429c25bd}{00037}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_model_a99290e583ab2ce25cc9d3f84429c25bd}{ComponentCollisionModel::Draw}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00038}00038\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_collision_model_aeaacb12f9fc4e57f280e75ce8cce7500}{update\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ MV1RefreshReferenceMesh(\mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}},\ -\/1,\ TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ MV1RefreshCollInfo(\mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_model_a7611723dfbee7680d2db414591ccf566}{ref\_poly\_}}\ =\ MV1GetReferenceMesh(\mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}},\ -\/1,\ TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00042}00042\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_scene_afdbdfec1e74b6e150c53a0328ed69d86}{Scene::IsEdit}}()\ \&\&\ !\mbox{\hyperlink{class_component_collision_a7ccef5dcf94b38e8bb2b13589ffba1ed}{collision\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(\mbox{\hyperlink{class_component_collision_a09ef016a0bdbe352924b8c714b8f6e5da84bc9636c1bdddab2cc7fd1c05fd8da9}{CollisionBit::ShowInGame}}))}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00047}00047\ \ \ \ \ \_\_super::Draw();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00049}00049\ \ \ \ \ SetUseLighting(FALSE);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00050}00050\ \ \ \ \ SetLightEnable(FALSE);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00052}00052\ \ \ \ \ \textcolor{comment}{//\ ポリゴンの数だけ繰り返し}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_component_collision_model_a7611723dfbee7680d2db414591ccf566}{ref\_poly\_}}.PolygonNum;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ float3\ p0\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\mbox{\hyperlink{class_component_collision_model_a7611723dfbee7680d2db414591ccf566}{ref\_poly\_}}.Vertexs[\mbox{\hyperlink{class_component_collision_model_a7611723dfbee7680d2db414591ccf566}{ref\_poly\_}}.Polygons[i].VIndex[0]].Position);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ float3\ p1\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\mbox{\hyperlink{class_component_collision_model_a7611723dfbee7680d2db414591ccf566}{ref\_poly\_}}.Vertexs[\mbox{\hyperlink{class_component_collision_model_a7611723dfbee7680d2db414591ccf566}{ref\_poly\_}}.Polygons[i].VIndex[1]].Position);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ float3\ p2\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\mbox{\hyperlink{class_component_collision_model_a7611723dfbee7680d2db414591ccf566}{ref\_poly\_}}.Vertexs[\mbox{\hyperlink{class_component_collision_model_a7611723dfbee7680d2db414591ccf566}{ref\_poly\_}}.Polygons[i].VIndex[2]].Position);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ポリゴンを形成する三頂点を使用してワイヤーフレームを描画する}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ DrawLine3D(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p0),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p1),\ GetColor(255,\ 255,\ 0));}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ DrawLine3D(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p1),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p2),\ GetColor(255,\ 255,\ 0));}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ DrawLine3D(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p2),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p0),\ GetColor(255,\ 255,\ 0));}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00064}00064\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00066}00066\ \ \ \ \ SetLightEnable(TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00067}00067\ \ \ \ \ SetUseLighting(TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00068}00068\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00070}\mbox{\hyperlink{class_component_collision_model_a4704ba68650ac25a1b05d6083a063299}{00070}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_model_a4704ba68650ac25a1b05d6083a063299}{ComponentCollisionModel::Exit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00071}00071\ \ \ \ \ \_\_super::Exit();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}}\ !=\ -\/1)}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ MV1TerminateReferenceMesh(\mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}},\ -\/1,\ TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00075}00075\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00076}00076\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00077}00077\ \textcolor{comment}{//!\ @brief\ GUI処理}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00078}\mbox{\hyperlink{class_component_collision_model_ad71a19b1e7ad0be6a5f2146e156d90b8}{00078}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_model_ad71a19b1e7ad0be6a5f2146e156d90b8}{ComponentCollisionModel::GUI}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00079}00079\ \ \ \ \ \textcolor{comment}{//\ 基底クラスのGUIはそのままは使用しない}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00080}00080\ \ \ \ \ \textcolor{comment}{//\_\_super::GUI();}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00082}00082\ \ \ \ \ \textcolor{comment}{//\ オーナーの取得}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00083}00083\ \ \ \ \ assert(\mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}());}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00084}00084\ \ \ \ \ \textcolor{keyword}{auto}\ obj\_name\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a1b62160fcfdc36e88ed94d99334d99c8}{GetName}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00086}00086\ \ \ \ \ ImGui::Begin(obj\_name.data());}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00087}00087\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ui\_name\ =\ std::string(\textcolor{stringliteral}{"{}Collision\ Model:"{}})\ +\ std::to\_string(\mbox{\hyperlink{class_component_collision_af40acb66ae551af4b1282068ef0413d7}{collision\_id\_}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::TreeNode(ui\_name.c\_str()))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}削除"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_ac38b3442d6f6e93af4cdb35a9be08dbc}{RemoveComponent}}(shared\_from\_this());}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ コリジョン情報を出す}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_a7f3cf1b4259c82671d1fe0ab515dfd4f}{GUICollisionData}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ colname\ =\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}COL:"{}}\ +\ std::to\_string(\mbox{\hyperlink{class_component_collision_af40acb66ae551af4b1282068ef0413d7}{collision\_id\_}})\ +\ \textcolor{stringliteral}{"{}/\ "{}};}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ mat\ =\ \mbox{\hyperlink{class_component_collision_a2b635c7a87bec46499190e94f8dd5249}{GetColMatrixFloat}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ matrixTranslation[3],\ matrixRotation[3],\ matrixScale[3];}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_a6d9d86eb5b39827e671616046aef46d8}{DecomposeMatrixToComponents}}(mat,\ matrixTranslation,\ matrixRotation,\ matrixScale);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat3((colname\ +\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}座標(T)"{}}).c\_str(),\ matrixTranslation,\ 0.01f);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ImGui::DragFloat3(\ u8"{}COL回転(R)"{},\ matrixRotation,\ 0.1f\ );}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ImGui::DragFloat3(\ u8"{}COLサイズ(S)"{},\ matrixScale,\ 0.01f\ );}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_abe00c8be42f2761185a0ccfca2ded81a}{RecomposeMatrixFromComponents}}(matrixTranslation,\ matrixRotation,\ matrixScale,\ mat);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}モデルにコリジョンを張り付ける"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}}\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_model_ae30089aaeb8b46ad1bf39ce1df575feb}{AttachToModel}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::TreePop();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00115}00115\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00116}00116\ \ \ \ \ ImGui::End();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00117}00117\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00119}\mbox{\hyperlink{class_component_collision_model_ae30089aaeb8b46ad1bf39ce1df575feb}{00119}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_collision_model_ae30089aaeb8b46ad1bf39ce1df575feb}{ComponentCollisionModel::AttachToModel}}(\textcolor{keywordtype}{bool}\ update)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00120}00120\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>GetComponent<ComponentModel>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00121}00121\ \textcolor{preprocessor}{\#ifdef\ USE\_JOLT\_PHYSICS}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 地形衝突情報を作成\ (メッシュ剛体は必ず静的)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ float3\ scale\ =\ mdl-\/>GetScaleAxisXYZ();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ same\ \ =\ (fabs(scale.x\ -\/\ scale.y)\ <\ FLT\_EPSILON)\ \&\&\ (fabs(scale.x\ -\/\ scale.z)\ <\ FLT\_EPSILON);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ assert(\textcolor{stringliteral}{"{}マップのスケールのXYZが異なります。[無視する]で平均をとります."{}}\ \&\&\ same);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ s\ \ \ \ \ =\ (scale.x\ +\ scale.y\ +\ scale.z)\ /\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ RigidBody()\ =\ \mbox{\hyperlink{namespacephysics_ab2e98ec6c12aa9b5613b46bd3d3d0577}{physics::createRigidBody}}(\mbox{\hyperlink{classshape_1_1_mesh}{shape::Mesh}}(mdl-\/>GetModelClass().get(),\ s),\ \ \ \ \textcolor{comment}{//\ メッシュ}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baadb7efabc078fc1b67b86c709623de88a}{physics::ObjectLayers::NON\_MOVING}});\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 静的グループ}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00130}00130\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}}\ =\ mdl-\/>GetModel();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 地形の傾きはDxLibからもらう}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ MV1SetupReferenceMesh(\mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}},\ -\/1,\ TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モデルが存在すればその当たりを構築する(※Defaultを使用)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ MV1SetupCollInfo(\mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_model_a7611723dfbee7680d2db414591ccf566}{ref\_poly\_}}\ =\ MV1GetReferenceMesh(\mbox{\hyperlink{class_component_collision_model_ab4757ea82b3e980ce73a7d0f19b23d7f}{ref\_model\_}},\ -\/1,\ TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00142}00142\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_collision_model_aeaacb12f9fc4e57f280e75ce8cce7500}{update\_}}\ =\ update;}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00144}00144\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ assert(!\textcolor{stringliteral}{"{}ComponentModelをAddしてから実行してください."{}});}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00146}00146\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00147}00147\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00148}00148\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00149}00149\ \textcolor{comment}{//!\ @brief\ 当たっているかを調べる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00150}00150\ \textcolor{comment}{//!\ @param\ col\ 相手のコリジョン}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00151}00151\ \textcolor{comment}{//!\ @return\ HitInfoを返す}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00152}\mbox{\hyperlink{class_component_collision_model_a920f16c0d9f03e554984a7b5257584e6}{00152}}\ \textcolor{comment}{}\mbox{\hyperlink{struct_component_collision_1_1_hit_info}{ComponentCollisionModel::HitInfo}}\ \mbox{\hyperlink{class_component_collision_model_a920f16c0d9f03e554984a7b5257584e6}{ComponentCollisionModel::IsHit}}(ComponentCollisionPtr\ col)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00153}00153\ \ \ \ \ \mbox{\hyperlink{struct_component_collision_1_1_hit_info}{HitInfo}}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00155}00155\ \ \ \ \ \textcolor{keywordflow}{switch}(col-\/>GetCollisionType())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00156}00156\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_component_collision_ac871fff0db414ee6b5a1e6b3acd05ebea17b8ef2c330f1430e00c9de5469fc7e7}{ComponentCollision::CollisionType::LINE}}:}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{isHit}}(std::dynamic\_pointer\_cast<ComponentCollisionModel>(shared\_from\_this()),}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::dynamic\_pointer\_cast<ComponentCollisionLine>(col));}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00160}00160\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_component_collision_ac871fff0db414ee6b5a1e6b3acd05ebea9bcd89070cae224dce305f5011659ef4}{ComponentCollision::CollisionType::TRIANGLE}}:}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ @todo\ HitCheck\_Sphere\_Triangle()}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00163}00163\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_component_collision_ac871fff0db414ee6b5a1e6b3acd05ebea6f7cea7381e843e2ee0338b4a92b0d43}{ComponentCollision::CollisionType::SPHERE}}:}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{isHit}}(std::dynamic\_pointer\_cast<ComponentCollisionModel>(shared\_from\_this()),}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::dynamic\_pointer\_cast<ComponentCollisionSphere>(col));}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00166}00166\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00167}00167\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_component_collision_ac871fff0db414ee6b5a1e6b3acd05ebea67586f12c9792da11a4bdf60360d40e9}{ComponentCollision::CollisionType::CAPSULE}}:}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_collision_ace0d31ceef4d58fcf0ffbceff4a5aa79}{isHit}}(std::dynamic\_pointer\_cast<ComponentCollisionModel>(shared\_from\_this()),}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::dynamic\_pointer\_cast<ComponentCollisionCapsule>(col));}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00171}00171\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_component_collision_ac871fff0db414ee6b5a1e6b3acd05ebea7a03bac2692f8d17e2cda1b0721ffd0e}{ComponentCollision::CollisionType::MODEL}}:}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 現状では当たらない}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00174}00174\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00176}00176\ \ \ \ \ \textcolor{keywordflow}{return}\ info;}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00177}00177\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00178}00178\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00179}00179\ \textcolor{comment}{//!\ @brief\ ワールドMatrixの取得}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00180}00180\ \textcolor{comment}{//!\ @return\ 他のコンポーネントも含めた位置}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00181}\mbox{\hyperlink{class_component_collision_model_ae722d2a1ed2844c9e6a2f8b22c51b4c8}{00181}}\ \textcolor{comment}{}\textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_collision_model_ae722d2a1ed2844c9e6a2f8b22c51b4c8}{ComponentCollisionModel::GetWorldMatrix}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00182}00182\ \ \ \ \ \textcolor{keyword}{auto}\ transform\ =\ \mbox{\hyperlink{classmatrix_a7a798d3438d4e94705a520bb41bd85d9}{matrix::identity}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00184}00184\ \ \ \ \ \textcolor{keyword}{auto}\ obj\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00185}00185\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ mdl\ =\ obj-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(mdl)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ transform\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(transform,\ mdl-\/>GetWorldMatrix());}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cmp\ =\ obj-\/>GetComponent<\mbox{\hyperlink{class_component_transform}{ComponentTransform}}>();}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cmp)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ transform\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(transform,\ cmp-\/>GetWorldMatrix());}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00194}00194\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00196}00196\ \ \ \ \ \textcolor{keywordflow}{return}\ transform;}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00197}00197\ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00198}00198\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00199}00199\ \textcolor{comment}{//!\ @brief\ マップに対する正確な移動量を割り出す(傾きによる移動量)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00200}00200\ \textcolor{comment}{//!\ @param\ vec\ 動きたい移動量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00201}00201\ \textcolor{comment}{//!\ @param\ force\ 山に上る時の上りにくさ\ (1.0で普通に楽々上る}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00202}00202\ \textcolor{comment}{//!\ \string~\ 3.0くらいだともう登れない\ )}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00203}00203\ \textcolor{comment}{//!\ @return\ 実際動ける量}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00204}\mbox{\hyperlink{class_component_collision_model_a281f9cd73871226a04675dfe96a8c3a2}{00204}}\ \textcolor{comment}{}float3\ \mbox{\hyperlink{class_component_collision_model_a281f9cd73871226a04675dfe96a8c3a2}{ComponentCollisionModel::checkMovement}}(float3\ pos,\ float3\ vec,\ \textcolor{keywordtype}{float}\ force)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00205}00205\ \ \ \ \ MV1\_COLL\_RESULT\_POLY\ hit\_poly\{\};}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00206}00206\ \ \ \ \ float3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ top\ =\ pos\ +\ float3(0,\ 10,\ 0);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00207}00207\ \ \ \ \ float3\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ btm\ =\ pos\ +\ float3(0,\ -\/1.5,\ 0);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00209}00209\ \ \ \ \ \textcolor{keywordflow}{if}(length(vec).x\ <=\ 0)}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ float3(0,\ 0,\ 0);}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00212}00212\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>GetComponent<ComponentModel>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00213}00213\ \ \ \ \ \ \ \ \ hit\_poly\ =\ MV1CollCheck\_Line(mdl-\/>GetModel(),\ -\/1,\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(top),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(btm));}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00214}00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(hit\_poly.HitFlag)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 制限あり\ (dotがマイナスということは山に上る形になっている)}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ pt\ =\ dot(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(hit\_poly.Normal),\ normalize(vec));}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pt\ <\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pt\ *=\ force;}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pt\ <\ -\/1)}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pt\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 傾きに合わせて、実際の移動量は、vec(最大)\ \string~\ 0(最小)\ となる}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ vec\ +\ vec\ *\ pt;}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00226}00226\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00227}00227\ \ \ \ \ \textcolor{keywordflow}{return}\ vec;}
+\DoxyCodeLine{\Hypertarget{_component_collision_model_8cpp_source_l00228}00228\ \}}
+
+\end{DoxyCode}

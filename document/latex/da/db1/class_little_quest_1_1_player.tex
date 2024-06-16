@@ -1,0 +1,1303 @@
+\hypertarget{class_little_quest_1_1_player}{}\doxysection{Little\+Quest\+::Player Class Reference}
+\label{class_little_quest_1_1_player}\index{LittleQuest::Player@{LittleQuest::Player}}
+
+
+{\ttfamily \#include $<$Player.\+h$>$}
+
+Inheritance diagram for Little\+Quest\+::Player\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{da/db1/class_little_quest_1_1_player}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_player_adffb31354e4842352e12588685e7a833}{BP\+\_\+\+OBJECT\+\_\+\+TYPE}} (\mbox{\hyperlink{class_little_quest_1_1_player}{Player}}, Object)
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_player_a1cfb8589ee147e93b4eae0d635a0403f}{Init}} () override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_ac774419b99a0b098a0972086f08cb69f}{Update}} () override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a84f4a2e72aafbf056dff3a384e4355c0}{Late\+Draw}} () override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a1686bb2709f80113d9ef1066190e1eb0}{GUI}} () override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a2b8aa0ba8b710e7c05797f18f8dbc2f5}{On\+Hit}} (const Component\+Collision\+::\+Hit\+Info \&hit\+Info) override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_adb90d638bbb4c14b16afe946a77dc70a}{Exit}} () override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a7c997c5f6be629d2a618e6da8d7e1181}{Get\+Hit}} (int damage)
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a9190427e7b1a6d42f0c9a57ebaf610cc}{Set\+Scene\+State}} (Scene\+::\+Scene\+State state)
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_player_aaff9bbcefc9d2739e5b4ec9cdcc2ca9c}{Is\+Dead}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_ac0aec20fcc1659a5f13b541a260c6dc2}{Play\+Dead}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Player\+Ptr \mbox{\hyperlink{class_little_quest_1_1_player_a5b939a2e4bae5ee71c6b73160bce357c}{Create}} (const float3 \&pos)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8ef}{Player\+State}} \{ \newline
+\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}{IDLE}}
+, \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efacfa52b895cd4fab6a1052484b9990144}{WALK}}
+, \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa5e9383496c2082cabfd4d6b729a10317}{RUN}}
+, \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa0e98f4210e28fd7cbf55d5ae8eb53f4f}{ROLL}}
+, \newline
+\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efac312ee127e0b5d577f36c3e8f3338c07}{ATTACK}}
+, \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa46320c7dfdfeeaa7ac64c1fb160d30c4}{GET\+\_\+\+HIT}}
+, \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efaaa059bf2a631dac2d0da38295c26e6ab}{DEAD}}
+ \}
+\item 
+enum \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596}{Combo}} \{ \newline
+\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{NO\+\_\+\+COMBO}}
+, \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abfa508abe850e4c6684fa3b69529727b}{NORMAL\+\_\+\+COMBO1}}
+, \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a68d3c9ba96ebe0c745c53fc77bfa7d4a}{NORMAL\+\_\+\+COMBO2}}
+, \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a4c5d3b77c6d0f9ae224999488a668991}{NORMAL\+\_\+\+COMBO3}}
+, \newline
+\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a59a2eed715e6b7ada859a87e9d550c9a}{NORMAL\+\_\+\+COMBO4}}
+, \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{SPECIAL\+\_\+\+ATTACK}}
+, \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abd69fad9a5ad921b4c08e59d8dbf417d}{SPECIAL\+\_\+\+CHARGE}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_aff05d6d82acb90bd41149ecc91677216}{Input\+Handle}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a69cd9bb60dc05f2a2d5afb0d484d1b0d}{Game\+Action}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a374235ae9beb2b2c8c4a212397213c04}{Trans\+Out\+Action}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a9004c431e0c6e198cc0c5fe429912406}{Idle}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_ae42b64577ebf05020fb9253f9b5875f5}{Walk}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a4518a9031a2833ef0fecb2969437dcf6}{Jump}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_aff07df83c11362188d36c01a7cd3085c}{Attack}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a38ff1219b39bf1a33e3a677176302d36}{Die}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}{Attack\+Animation}} (std\+::string anim\+Name, Anim\+Info anim\+Info, \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596}{Combo}} next\+Combo=\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo\+::\+NO\+\_\+\+COMBO}})
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a3994c58739555998a67002c8b6d214bf}{Set\+Model\+Rotation}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a85136589199668228ff87555f55ae832}{Set\+Anim\+Info}} ()
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_player_a67b07b312261acd1d91b7caa8d9d8d25}{Set\+Combo\+List}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_player_a06342bfcdf65a1e543d3345a84e00369}{BASE\+\_\+\+SPEED}} = 40.\+0f
+\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_player_a6490b0e4cebad930eea03a0afedb32af}{RUN\+\_\+\+SPEED}} = 1.\+0f
+\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_player_a58d85fd4ddb3d57ed0fea0dbfbf0323c}{WALK\+\_\+\+SPEED}} = 0.\+5f
+\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_player_a003215a8c776b404a07253280e6d785f}{HIT\+\_\+\+PAUSE}} = 20
+\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_player_a45f8cf24aa271e39fea405eac903af92}{SPECIAL\+\_\+\+CHARGE\+\_\+\+TIME}} = 75.\+0f
+\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_player_adc008057e202fd575903069cd5c7be8d}{BASE\+\_\+\+ATK}} = 3
+\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_player_a5a41f4fd744564294211b900d8326f0c}{MAX\+\_\+\+HP}} = 200
+\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_player_ab2525176e682159b6ce2d7853153f1d1}{MAX\+\_\+\+VOLUME}} = 255
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8ef}{Player\+State}} \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\+\_\+player\+State}} = \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}{Player\+State\+::\+IDLE}}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596}{Combo}} \mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\+\_\+curr\+Combo}} = \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo\+::\+NO\+\_\+\+COMBO}}
+\item 
+std\+::unordered\+\_\+map$<$ std\+::string, Anim\+Info $>$ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\+\_\+anim\+List}}
+\item 
+std\+::unordered\+\_\+map$<$ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596}{Combo}}, int $>$ \mbox{\hyperlink{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}{m\+\_\+combo\+List}}
+\item 
+std\+::vector$<$ std\+::string\+\_\+view $>$ \mbox{\hyperlink{class_little_quest_1_1_player_ab82f181b8a13785bae10ca3d29f4d6d6}{m\+\_\+attack\+List}}
+\item 
+Object\+Weak\+Ptr \mbox{\hyperlink{class_little_quest_1_1_player_a1045e19132abc80d0b3cdbbfe1217200}{m\+\_\+p\+Sword}}
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Model $>$ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\+\_\+p\+Model}}
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_little_quest_1_1_camera}{Camera}} $>$ \mbox{\hyperlink{class_little_quest_1_1_player_aefdafbcc9bc5402b1be586d15b39245e}{m\+\_\+p\+Camera}}
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}} $>$ \mbox{\hyperlink{class_little_quest_1_1_player_adc2e0591ef6fc8b646fa8f2acc47b41b}{m\+\_\+p\+HP}}
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_little_quest_1_1_component_combo}{Component\+Combo}} $>$ \mbox{\hyperlink{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}{m\+\_\+p\+Combo}}
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Collision\+Capsule $>$ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\+\_\+p\+Weapon}}
+\item 
+Scene\+::\+Scene\+State \mbox{\hyperlink{class_little_quest_1_1_player_ab5c6f05a8097a3e3e57f48185040925d}{m\+\_\+scene\+State}} = Scene\+::\+Scene\+State\+::\+GAME
+\item 
+matrix \mbox{\hyperlink{class_little_quest_1_1_player_a86d4b309763b52970009bd3ce917dbb1}{m\+\_\+self\+Matrix}} = \{\}
+\item 
+float3 \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\+\_\+movement}} = \{0, 0, 0\}
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_player_a30baebe408dea092bb80a41a436f86d8}{m\+\_\+camera\+Length}} = 10.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_player_a9fae4a5ee8f8296c23fd643d0cd96dd0}{m\+\_\+speed\+Factor}} = 1.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_player_a1422ff88e323b926b5ec6c9221a30a6e}{m\+\_\+hit\+Timer}} = 0.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_player_a598ef8e06dd777c1fc35a087243e5590}{m\+\_\+curr\+Anim\+Speed}} = 1.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}{m\+\_\+curr\+Anim\+Time}} = 0.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_player_aee6d3ce45c4227b37a9ca509b73effac}{m\+\_\+charge\+Time}} = 0.\+0f
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_player_a021eb71d1aacf3c4065db032e1053940}{m\+\_\+is\+Combo}} = false
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_player_a568eecf94f06de9801110e7b70e321fe}{m\+\_\+wait\+For\+Combo}} = false
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_player_abf1fa63a7d307aff383c8d3b292b5730}{m\+\_\+is\+Hit}} = false
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_player_a1a6f45a037401c9127183c30eaea5aa1}{m\+\_\+is\+Invincible}} = false
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\+\_\+played\+FX}} = false
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_player_a81f8fb7951958af95a9cb8db0d31d419}{m\+\_\+charged}} = false
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_player_a73587f4bd71f2c97c513042187bee23a}{m\+\_\+hit\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\+\_\+playing\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_player_a2e3884a5605ebcf43556ce0761b85044}{m\+\_\+slash\+Effect1}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_player_afcb7c0b1cffdaef9d455b71e1ffd4512}{m\+\_\+slash\+Effect2}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_player_afba2e38df7153300690aa15a7f499f08}{m\+\_\+slash\+Effect3}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_player_a4400bc044dd056a49b5a9cb13e5d3031}{m\+\_\+charging\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_player_aa56c8dd35ee7e6fc5ad158e1e87f7291}{m\+\_\+charged\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_player_a7e41fa5bcc4f5e77b35d8f411b5e4f99}{m\+\_\+playing\+Charge\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\+\_\+sword\+SE}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_player_a7330b6913fdf77a01d04567833e75a2d}{m\+\_\+sword\+Hit\+SE}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_player_ac5cb11e7fb5537d6de4c5f33158afbd7}{m\+\_\+debug\+Cnt}} = 0
+\item 
+int $\ast$ \mbox{\hyperlink{class_little_quest_1_1_player_a2c0d3bf8f480f2ff9c89690d61ec7de8}{m\+\_\+p\+Effect\+List}}
+\item 
+int $\ast$ \mbox{\hyperlink{class_little_quest_1_1_player_a1f7de0cbb94c87a0a849844d5bc38d8c}{m\+\_\+p\+Charge\+List}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00016}{16}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596}\label{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!Combo@{Combo}}
+\index{Combo@{Combo}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{Combo}{Combo}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596}{Little\+Quest\+::\+Player\+::\+Combo}}\hspace{0.3cm}{\ttfamily [private]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NO\_COMBO@{NO\_COMBO}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!NO\_COMBO@{NO\_COMBO}}}\mbox{\Hypertarget{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}\label{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}} 
+NO\+\_\+\+COMBO&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NORMAL\_COMBO1@{NORMAL\_COMBO1}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!NORMAL\_COMBO1@{NORMAL\_COMBO1}}}\mbox{\Hypertarget{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abfa508abe850e4c6684fa3b69529727b}\label{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abfa508abe850e4c6684fa3b69529727b}} 
+NORMAL\+\_\+\+COMBO1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NORMAL\_COMBO2@{NORMAL\_COMBO2}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!NORMAL\_COMBO2@{NORMAL\_COMBO2}}}\mbox{\Hypertarget{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a68d3c9ba96ebe0c745c53fc77bfa7d4a}\label{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a68d3c9ba96ebe0c745c53fc77bfa7d4a}} 
+NORMAL\+\_\+\+COMBO2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NORMAL\_COMBO3@{NORMAL\_COMBO3}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!NORMAL\_COMBO3@{NORMAL\_COMBO3}}}\mbox{\Hypertarget{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a4c5d3b77c6d0f9ae224999488a668991}\label{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a4c5d3b77c6d0f9ae224999488a668991}} 
+NORMAL\+\_\+\+COMBO3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NORMAL\_COMBO4@{NORMAL\_COMBO4}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!NORMAL\_COMBO4@{NORMAL\_COMBO4}}}\mbox{\Hypertarget{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a59a2eed715e6b7ada859a87e9d550c9a}\label{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a59a2eed715e6b7ada859a87e9d550c9a}} 
+NORMAL\+\_\+\+COMBO4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPECIAL\_ATTACK@{SPECIAL\_ATTACK}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!SPECIAL\_ATTACK@{SPECIAL\_ATTACK}}}\mbox{\Hypertarget{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}\label{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}} 
+SPECIAL\+\_\+\+ATTACK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SPECIAL\_CHARGE@{SPECIAL\_CHARGE}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!SPECIAL\_CHARGE@{SPECIAL\_CHARGE}}}\mbox{\Hypertarget{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abd69fad9a5ad921b4c08e59d8dbf417d}\label{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abd69fad9a5ad921b4c08e59d8dbf417d}} 
+SPECIAL\+\_\+\+CHARGE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00054}{54}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8ef}\label{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8ef}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!PlayerState@{PlayerState}}
+\index{PlayerState@{PlayerState}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{PlayerState}{PlayerState}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8ef}{Little\+Quest\+::\+Player\+::\+Player\+State}}\hspace{0.3cm}{\ttfamily [private]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IDLE@{IDLE}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!IDLE@{IDLE}}}\mbox{\Hypertarget{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}\label{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}} 
+IDLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WALK@{WALK}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!WALK@{WALK}}}\mbox{\Hypertarget{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efacfa52b895cd4fab6a1052484b9990144}\label{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efacfa52b895cd4fab6a1052484b9990144}} 
+WALK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{RUN@{RUN}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!RUN@{RUN}}}\mbox{\Hypertarget{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa5e9383496c2082cabfd4d6b729a10317}\label{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa5e9383496c2082cabfd4d6b729a10317}} 
+RUN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ROLL@{ROLL}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!ROLL@{ROLL}}}\mbox{\Hypertarget{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa0e98f4210e28fd7cbf55d5ae8eb53f4f}\label{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa0e98f4210e28fd7cbf55d5ae8eb53f4f}} 
+ROLL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ATTACK@{ATTACK}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!ATTACK@{ATTACK}}}\mbox{\Hypertarget{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efac312ee127e0b5d577f36c3e8f3338c07}\label{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efac312ee127e0b5d577f36c3e8f3338c07}} 
+ATTACK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GET\_HIT@{GET\_HIT}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!GET\_HIT@{GET\_HIT}}}\mbox{\Hypertarget{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa46320c7dfdfeeaa7ac64c1fb160d30c4}\label{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa46320c7dfdfeeaa7ac64c1fb160d30c4}} 
+GET\+\_\+\+HIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DEAD@{DEAD}!LittleQuest::Player@{LittleQuest::Player}}\index{LittleQuest::Player@{LittleQuest::Player}!DEAD@{DEAD}}}\mbox{\Hypertarget{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efaaa059bf2a631dac2d0da38295c26e6ab}\label{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efaaa059bf2a631dac2d0da38295c26e6ab}} 
+DEAD&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00043}{43}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_player_aff07df83c11362188d36c01a7cd3085c}\label{class_little_quest_1_1_player_aff07df83c11362188d36c01a7cd3085c}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!Attack@{Attack}}
+\index{Attack@{Attack}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{Attack()}{Attack()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00378}{378}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8cpp_source_l00477}{Attack\+Animation()}}, \mbox{\hyperlink{_player_8h_source_l00044}{IDLE}}, \mbox{\hyperlink{_player_8h_source_l00065}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_player_8h_source_l00083}{m\+\_\+curr\+Anim\+Time}}, \mbox{\hyperlink{_player_8h_source_l00063}{m\+\_\+curr\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00085}{m\+\_\+is\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00072}{m\+\_\+p\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00102}{m\+\_\+p\+Effect\+List}}, \mbox{\hyperlink{_player_8h_source_l00089}{m\+\_\+played\+FX}}, \mbox{\hyperlink{_player_8h_source_l00052}{m\+\_\+player\+State}}, \mbox{\hyperlink{_player_8h_source_l00092}{m\+\_\+playing\+Effect}}, \mbox{\hyperlink{_player_8h_source_l00069}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_player_8h_source_l00099}{m\+\_\+sword\+SE}}, \mbox{\hyperlink{_player_8h_source_l00041}{MAX\+\_\+\+VOLUME}}, \mbox{\hyperlink{_player_8h_source_l00055}{NO\+\_\+\+COMBO}}, \mbox{\hyperlink{_player_8h_source_l00056}{NORMAL\+\_\+\+COMBO1}}, \mbox{\hyperlink{_player_8h_source_l00057}{NORMAL\+\_\+\+COMBO2}}, \mbox{\hyperlink{_player_8h_source_l00058}{NORMAL\+\_\+\+COMBO3}}, \mbox{\hyperlink{_player_8h_source_l00059}{NORMAL\+\_\+\+COMBO4}}, \mbox{\hyperlink{_player_8h_source_l00060}{SPECIAL\+\_\+\+ATTACK}}, \mbox{\hyperlink{_player_8h_source_l00061}{SPECIAL\+\_\+\+CHARGE}}, and \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}\label{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!AttackAnimation@{AttackAnimation}}
+\index{AttackAnimation@{AttackAnimation}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{AttackAnimation()}{AttackAnimation()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Attack\+Animation (\begin{DoxyParamCaption}\item[{std\+::string}]{anim\+Name,  }\item[{Anim\+Info}]{anim\+Info,  }\item[{\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596}{Combo}}}]{next\+Combo = {\ttfamily \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo\+::\+NO\+\_\+\+COMBO}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00477}{477}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00065}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_player_8h_source_l00067}{m\+\_\+attack\+List}}, \mbox{\hyperlink{_player_8h_source_l00083}{m\+\_\+curr\+Anim\+Time}}, \mbox{\hyperlink{_player_8h_source_l00063}{m\+\_\+curr\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00085}{m\+\_\+is\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00087}{m\+\_\+is\+Hit}}, \mbox{\hyperlink{_player_8h_source_l00089}{m\+\_\+played\+FX}}, \mbox{\hyperlink{_player_8h_source_l00069}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_player_8h_source_l00073}{m\+\_\+p\+Weapon}}, \mbox{\hyperlink{_player_8h_source_l00055}{NO\+\_\+\+COMBO}}, and \mbox{\hyperlink{_player_8cpp_source_l00518}{Set\+Model\+Rotation()}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_adffb31354e4842352e12588685e7a833}\label{class_little_quest_1_1_player_adffb31354e4842352e12588685e7a833}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!BP\_OBJECT\_TYPE@{BP\_OBJECT\_TYPE}}
+\index{BP\_OBJECT\_TYPE@{BP\_OBJECT\_TYPE}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{BP\_OBJECT\_TYPE()}{BP\_OBJECT\_TYPE()}}
+{\footnotesize\ttfamily Little\+Quest\+::\+Player\+::\+BP\+\_\+\+OBJECT\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_player}{Player}}}]{,  }\item[{Object}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a5b939a2e4bae5ee71c6b73160bce357c}\label{class_little_quest_1_1_player_a5b939a2e4bae5ee71c6b73160bce357c}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!Create@{Create}}
+\index{Create@{Create}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily Player\+Ptr Little\+Quest\+::\+Player\+::\+Create (\begin{DoxyParamCaption}\item[{const float3 \&}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00022}{22}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+Referenced by \mbox{\hyperlink{_stage01_8cpp_source_l00035}{Little\+Quest\+::\+Stage01\+::\+Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a38ff1219b39bf1a33e3a677176302d36}\label{class_little_quest_1_1_player_a38ff1219b39bf1a33e3a677176302d36}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!Die@{Die}}
+\index{Die@{Die}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{Die()}{Die()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Die (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00506}{506}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00050}{DEAD}}, \mbox{\hyperlink{_player_8h_source_l00069}{m\+\_\+p\+Model}}, and \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, and \mbox{\hyperlink{_player_8cpp_source_l00186}{Trans\+Out\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_adb90d638bbb4c14b16afe946a77dc70a}\label{class_little_quest_1_1_player_adb90d638bbb4c14b16afe946a77dc70a}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!Exit@{Exit}}
+\index{Exit@{Exit}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{Exit()}{Exit()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00604}{604}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00065}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_player_8h_source_l00066}{m\+\_\+combo\+List}}, \mbox{\hyperlink{_player_8h_source_l00091}{m\+\_\+hit\+Effect}}, \mbox{\hyperlink{_player_8h_source_l00103}{m\+\_\+p\+Charge\+List}}, \mbox{\hyperlink{_player_8h_source_l00102}{m\+\_\+p\+Effect\+List}}, \mbox{\hyperlink{_player_8h_source_l00093}{m\+\_\+slash\+Effect1}}, \mbox{\hyperlink{_player_8h_source_l00094}{m\+\_\+slash\+Effect2}}, \mbox{\hyperlink{_player_8h_source_l00095}{m\+\_\+slash\+Effect3}}, \mbox{\hyperlink{_player_8h_source_l00100}{m\+\_\+sword\+Hit\+SE}}, and \mbox{\hyperlink{_player_8h_source_l00099}{m\+\_\+sword\+SE}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a69cd9bb60dc05f2a2d5afb0d484d1b0d}\label{class_little_quest_1_1_player_a69cd9bb60dc05f2a2d5afb0d484d1b0d}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!GameAction@{GameAction}}
+\index{GameAction@{GameAction}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{GameAction()}{GameAction()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Game\+Action (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00120}{120}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00048}{ATTACK}}, \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, \mbox{\hyperlink{_player_8h_source_l00050}{DEAD}}, \mbox{\hyperlink{_player_8cpp_source_l00506}{Die()}}, \mbox{\hyperlink{_player_8h_source_l00049}{GET\+\_\+\+HIT}}, \mbox{\hyperlink{_player_8h_source_l00044}{IDLE}}, \mbox{\hyperlink{_player_8cpp_source_l00362}{Idle()}}, \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}, \mbox{\hyperlink{_player_8h_source_l00079}{m\+\_\+camera\+Length}}, \mbox{\hyperlink{_player_8h_source_l00063}{m\+\_\+curr\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00081}{m\+\_\+hit\+Timer}}, \mbox{\hyperlink{_player_8h_source_l00087}{m\+\_\+is\+Hit}}, \mbox{\hyperlink{_player_8h_source_l00088}{m\+\_\+is\+Invincible}}, \mbox{\hyperlink{_player_8h_source_l00078}{m\+\_\+movement}}, \mbox{\hyperlink{_player_8h_source_l00070}{m\+\_\+p\+Camera}}, \mbox{\hyperlink{_player_8h_source_l00052}{m\+\_\+player\+State}}, \mbox{\hyperlink{_player_8h_source_l00069}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_player_8h_source_l00073}{m\+\_\+p\+Weapon}}, \mbox{\hyperlink{_player_8h_source_l00077}{m\+\_\+self\+Matrix}}, \mbox{\hyperlink{_player_8h_source_l00055}{NO\+\_\+\+COMBO}}, \mbox{\hyperlink{_player_8h_source_l00047}{ROLL}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, \mbox{\hyperlink{_player_8h_source_l00045}{WALK}}, and \mbox{\hyperlink{_player_8cpp_source_l00366}{Walk()}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00107}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a7c997c5f6be629d2a618e6da8d7e1181}\label{class_little_quest_1_1_player_a7c997c5f6be629d2a618e6da8d7e1181}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!GetHit@{GetHit}}
+\index{GetHit@{GetHit}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{GetHit()}{GetHit()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Get\+Hit (\begin{DoxyParamCaption}\item[{int}]{damage }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00247}{247}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00050}{DEAD}}, \mbox{\hyperlink{_player_8h_source_l00049}{GET\+\_\+\+HIT}}, \mbox{\hyperlink{_player_8h_source_l00084}{m\+\_\+charge\+Time}}, \mbox{\hyperlink{_player_8h_source_l00063}{m\+\_\+curr\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00088}{m\+\_\+is\+Invincible}}, \mbox{\hyperlink{_player_8h_source_l00071}{m\+\_\+p\+HP}}, \mbox{\hyperlink{_player_8h_source_l00052}{m\+\_\+player\+State}}, \mbox{\hyperlink{_player_8h_source_l00069}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_player_8h_source_l00073}{m\+\_\+p\+Weapon}}, \mbox{\hyperlink{_player_8h_source_l00055}{NO\+\_\+\+COMBO}}, and \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a1686bb2709f80113d9ef1066190e1eb0}\label{class_little_quest_1_1_player_a1686bb2709f80113d9ef1066190e1eb0}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!GUI@{GUI}}
+\index{GUI@{GUI}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{GUI()}{GUI()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+GUI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00211}{211}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a9004c431e0c6e198cc0c5fe429912406}\label{class_little_quest_1_1_player_a9004c431e0c6e198cc0c5fe429912406}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!Idle@{Idle}}
+\index{Idle@{Idle}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{Idle()}{Idle()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Idle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00362}{362}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00044}{IDLE}}, \mbox{\hyperlink{_player_8h_source_l00069}{m\+\_\+p\+Model}}, and \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, and \mbox{\hyperlink{_player_8cpp_source_l00186}{Trans\+Out\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a1cfb8589ee147e93b4eae0d635a0403f}\label{class_little_quest_1_1_player_a1cfb8589ee147e93b4eae0d635a0403f}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!Init@{Init}}
+\index{Init@{Init}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Player\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00031}{31}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00050}{DEAD}}, \mbox{\hyperlink{_player_8h_source_l00049}{GET\+\_\+\+HIT}}, \mbox{\hyperlink{_player_8h_source_l00044}{IDLE}}, \mbox{\hyperlink{_player_8h_source_l00097}{m\+\_\+charged\+Effect}}, \mbox{\hyperlink{_player_8h_source_l00096}{m\+\_\+charging\+Effect}}, \mbox{\hyperlink{_player_8h_source_l00091}{m\+\_\+hit\+Effect}}, \mbox{\hyperlink{_player_8h_source_l00103}{m\+\_\+p\+Charge\+List}}, \mbox{\hyperlink{_player_8h_source_l00072}{m\+\_\+p\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00102}{m\+\_\+p\+Effect\+List}}, \mbox{\hyperlink{_player_8h_source_l00071}{m\+\_\+p\+HP}}, \mbox{\hyperlink{_player_8h_source_l00069}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_player_8h_source_l00068}{m\+\_\+p\+Sword}}, \mbox{\hyperlink{_player_8h_source_l00073}{m\+\_\+p\+Weapon}}, \mbox{\hyperlink{_player_8h_source_l00077}{m\+\_\+self\+Matrix}}, \mbox{\hyperlink{_player_8h_source_l00093}{m\+\_\+slash\+Effect1}}, \mbox{\hyperlink{_player_8h_source_l00094}{m\+\_\+slash\+Effect2}}, \mbox{\hyperlink{_player_8h_source_l00095}{m\+\_\+slash\+Effect3}}, \mbox{\hyperlink{_player_8h_source_l00080}{m\+\_\+speed\+Factor}}, \mbox{\hyperlink{_player_8h_source_l00100}{m\+\_\+sword\+Hit\+SE}}, \mbox{\hyperlink{_player_8h_source_l00099}{m\+\_\+sword\+SE}}, \mbox{\hyperlink{_player_8h_source_l00040}{MAX\+\_\+\+HP}}, \mbox{\hyperlink{_player_8h_source_l00056}{NORMAL\+\_\+\+COMBO1}}, \mbox{\hyperlink{_player_8h_source_l00057}{NORMAL\+\_\+\+COMBO2}}, \mbox{\hyperlink{_player_8h_source_l00058}{NORMAL\+\_\+\+COMBO3}}, \mbox{\hyperlink{_player_8h_source_l00059}{NORMAL\+\_\+\+COMBO4}}, \mbox{\hyperlink{_component_h_p_8h_source_l00019}{Little\+Quest\+::\+Component\+HP\+::\+PLAYER}}, \mbox{\hyperlink{_player_8h_source_l00047}{ROLL}}, \mbox{\hyperlink{_player_8h_source_l00046}{RUN}}, \mbox{\hyperlink{_player_8h_source_l00035}{RUN\+\_\+\+SPEED}}, \mbox{\hyperlink{_player_8cpp_source_l00534}{Set\+Anim\+Info()}}, \mbox{\hyperlink{_player_8cpp_source_l00595}{Set\+Combo\+List()}}, \mbox{\hyperlink{_player_8h_source_l00060}{SPECIAL\+\_\+\+ATTACK}}, \mbox{\hyperlink{_player_8h_source_l00061}{SPECIAL\+\_\+\+CHARGE}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, and \mbox{\hyperlink{_player_8h_source_l00045}{WALK}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_aff05d6d82acb90bd41149ecc91677216}\label{class_little_quest_1_1_player_aff05d6d82acb90bd41149ecc91677216}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!InputHandle@{InputHandle}}
+\index{InputHandle@{InputHandle}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{InputHandle()}{InputHandle()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Input\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00267}{267}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00048}{ATTACK}}, \mbox{\hyperlink{_player_8h_source_l00050}{DEAD}}, \mbox{\hyperlink{_player_8h_source_l00049}{GET\+\_\+\+HIT}}, \mbox{\hyperlink{_player_8h_source_l00079}{m\+\_\+camera\+Length}}, \mbox{\hyperlink{_player_8h_source_l00090}{m\+\_\+charged}}, \mbox{\hyperlink{_player_8h_source_l00084}{m\+\_\+charge\+Time}}, \mbox{\hyperlink{_player_8h_source_l00063}{m\+\_\+curr\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00085}{m\+\_\+is\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00078}{m\+\_\+movement}}, \mbox{\hyperlink{_player_8h_source_l00070}{m\+\_\+p\+Camera}}, \mbox{\hyperlink{_player_8h_source_l00103}{m\+\_\+p\+Charge\+List}}, \mbox{\hyperlink{_player_8h_source_l00052}{m\+\_\+player\+State}}, \mbox{\hyperlink{_player_8h_source_l00098}{m\+\_\+playing\+Charge\+Effect}}, \mbox{\hyperlink{_player_8h_source_l00077}{m\+\_\+self\+Matrix}}, \mbox{\hyperlink{_player_8h_source_l00080}{m\+\_\+speed\+Factor}}, \mbox{\hyperlink{_player_8h_source_l00055}{NO\+\_\+\+COMBO}}, \mbox{\hyperlink{_player_8h_source_l00056}{NORMAL\+\_\+\+COMBO1}}, \mbox{\hyperlink{_player_8h_source_l00047}{ROLL}}, \mbox{\hyperlink{_player_8h_source_l00035}{RUN\+\_\+\+SPEED}}, \mbox{\hyperlink{_player_8cpp_source_l00518}{Set\+Model\+Rotation()}}, \mbox{\hyperlink{_player_8h_source_l00060}{SPECIAL\+\_\+\+ATTACK}}, \mbox{\hyperlink{_player_8h_source_l00038}{SPECIAL\+\_\+\+CHARGE\+\_\+\+TIME}}, \mbox{\hyperlink{_player_8h_source_l00045}{WALK}}, and \mbox{\hyperlink{_player_8h_source_l00036}{WALK\+\_\+\+SPEED}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_aaff9bbcefc9d2739e5b4ec9cdcc2ca9c}\label{class_little_quest_1_1_player_aaff9bbcefc9d2739e5b4ec9cdcc2ca9c}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!IsDead@{IsDead}}
+\index{IsDead@{IsDead}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{IsDead()}{IsDead()}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Player\+::\+Is\+Dead (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00510}{510}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00071}{m\+\_\+p\+HP}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a4518a9031a2833ef0fecb2969437dcf6}\label{class_little_quest_1_1_player_a4518a9031a2833ef0fecb2969437dcf6}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!Jump@{Jump}}
+\index{Jump@{Jump}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{Jump()}{Jump()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Jump (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00376}{376}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a84f4a2e72aafbf056dff3a384e4355c0}\label{class_little_quest_1_1_player_a84f4a2e72aafbf056dff3a384e4355c0}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!LateDraw@{LateDraw}}
+\index{LateDraw@{LateDraw}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{LateDraw()}{LateDraw()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Late\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00198}{198}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00072}{m\+\_\+p\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00071}{m\+\_\+p\+HP}}, and \mbox{\hyperlink{_player_8h_source_l00075}{m\+\_\+scene\+State}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a2b8aa0ba8b710e7c05797f18f8dbc2f5}\label{class_little_quest_1_1_player_a2b8aa0ba8b710e7c05797f18f8dbc2f5}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!OnHit@{OnHit}}
+\index{OnHit@{OnHit}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{OnHit()}{OnHit()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+On\+Hit (\begin{DoxyParamCaption}\item[{const Component\+Collision\+::\+Hit\+Info \&}]{hit\+Info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00215}{215}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00039}{BASE\+\_\+\+ATK}}, \mbox{\hyperlink{_boss_8cpp_source_l00649}{Little\+Quest\+::\+Boss\+::\+Get\+Hit()}}, \mbox{\hyperlink{_player_8h_source_l00037}{HIT\+\_\+\+PAUSE}}, \mbox{\hyperlink{_player_8h_source_l00067}{m\+\_\+attack\+List}}, \mbox{\hyperlink{_player_8h_source_l00066}{m\+\_\+combo\+List}}, \mbox{\hyperlink{_player_8h_source_l00063}{m\+\_\+curr\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00091}{m\+\_\+hit\+Effect}}, \mbox{\hyperlink{_player_8h_source_l00081}{m\+\_\+hit\+Timer}}, \mbox{\hyperlink{_player_8h_source_l00087}{m\+\_\+is\+Hit}}, \mbox{\hyperlink{_player_8h_source_l00072}{m\+\_\+p\+Combo}}, \mbox{\hyperlink{_player_8h_source_l00092}{m\+\_\+playing\+Effect}}, \mbox{\hyperlink{_player_8h_source_l00100}{m\+\_\+sword\+Hit\+SE}}, \mbox{\hyperlink{_player_8h_source_l00041}{MAX\+\_\+\+VOLUME}}, and \mbox{\hyperlink{_player_8h_source_l00055}{NO\+\_\+\+COMBO}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_ac0aec20fcc1659a5f13b541a260c6dc2}\label{class_little_quest_1_1_player_ac0aec20fcc1659a5f13b541a260c6dc2}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!PlayDead@{PlayDead}}
+\index{PlayDead@{PlayDead}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{PlayDead()}{PlayDead()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Play\+Dead (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00514}{514}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00050}{DEAD}}, and \mbox{\hyperlink{_player_8h_source_l00052}{m\+\_\+player\+State}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a85136589199668228ff87555f55ae832}\label{class_little_quest_1_1_player_a85136589199668228ff87555f55ae832}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!SetAnimInfo@{SetAnimInfo}}
+\index{SetAnimInfo@{SetAnimInfo}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{SetAnimInfo()}{SetAnimInfo()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Set\+Anim\+Info (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00534}{534}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00065}{m\+\_\+anim\+List}}, \mbox{\hyperlink{_player_8h_source_l00056}{NORMAL\+\_\+\+COMBO1}}, \mbox{\hyperlink{_player_8h_source_l00057}{NORMAL\+\_\+\+COMBO2}}, \mbox{\hyperlink{_player_8h_source_l00058}{NORMAL\+\_\+\+COMBO3}}, \mbox{\hyperlink{_player_8h_source_l00059}{NORMAL\+\_\+\+COMBO4}}, \mbox{\hyperlink{_player_8h_source_l00060}{SPECIAL\+\_\+\+ATTACK}}, \mbox{\hyperlink{_player_8h_source_l00061}{SPECIAL\+\_\+\+CHARGE}}, and \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a67b07b312261acd1d91b7caa8d9d8d25}\label{class_little_quest_1_1_player_a67b07b312261acd1d91b7caa8d9d8d25}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!SetComboList@{SetComboList}}
+\index{SetComboList@{SetComboList}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{SetComboList()}{SetComboList()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Set\+Combo\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00595}{595}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00066}{m\+\_\+combo\+List}}, \mbox{\hyperlink{_player_8h_source_l00056}{NORMAL\+\_\+\+COMBO1}}, \mbox{\hyperlink{_player_8h_source_l00057}{NORMAL\+\_\+\+COMBO2}}, \mbox{\hyperlink{_player_8h_source_l00058}{NORMAL\+\_\+\+COMBO3}}, \mbox{\hyperlink{_player_8h_source_l00059}{NORMAL\+\_\+\+COMBO4}}, \mbox{\hyperlink{_player_8h_source_l00060}{SPECIAL\+\_\+\+ATTACK}}, and \mbox{\hyperlink{_player_8h_source_l00061}{SPECIAL\+\_\+\+CHARGE}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a3994c58739555998a67002c8b6d214bf}\label{class_little_quest_1_1_player_a3994c58739555998a67002c8b6d214bf}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!SetModelRotation@{SetModelRotation}}
+\index{SetModelRotation@{SetModelRotation}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{SetModelRotation()}{SetModelRotation()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Set\+Model\+Rotation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00518}{518}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00078}{m\+\_\+movement}}, and \mbox{\hyperlink{_player_8h_source_l00069}{m\+\_\+p\+Model}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00477}{Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}, and \mbox{\hyperlink{_player_8cpp_source_l00366}{Walk()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a9190427e7b1a6d42f0c9a57ebaf610cc}\label{class_little_quest_1_1_player_a9190427e7b1a6d42f0c9a57ebaf610cc}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!SetSceneState@{SetSceneState}}
+\index{SetSceneState@{SetSceneState}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{SetSceneState()}{SetSceneState()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Set\+Scene\+State (\begin{DoxyParamCaption}\item[{Scene\+::\+Scene\+State}]{state }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00529}{529}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00044}{IDLE}}, \mbox{\hyperlink{_player_8h_source_l00052}{m\+\_\+player\+State}}, and \mbox{\hyperlink{_player_8h_source_l00075}{m\+\_\+scene\+State}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a374235ae9beb2b2c8c4a212397213c04}\label{class_little_quest_1_1_player_a374235ae9beb2b2c8c4a212397213c04}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!TransOutAction@{TransOutAction}}
+\index{TransOutAction@{TransOutAction}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{TransOutAction()}{TransOutAction()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Trans\+Out\+Action (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00186}{186}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00050}{DEAD}}, \mbox{\hyperlink{_player_8cpp_source_l00506}{Die()}}, \mbox{\hyperlink{_player_8cpp_source_l00362}{Idle()}}, \mbox{\hyperlink{_player_8h_source_l00052}{m\+\_\+player\+State}}, and \mbox{\hyperlink{_player_8h_source_l00069}{m\+\_\+p\+Model}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00107}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_ac774419b99a0b098a0972086f08cb69f}\label{class_little_quest_1_1_player_ac774419b99a0b098a0972086f08cb69f}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!Update@{Update}}
+\index{Update@{Update}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00107}{107}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, \mbox{\hyperlink{_player_8h_source_l00075}{m\+\_\+scene\+State}}, and \mbox{\hyperlink{_player_8cpp_source_l00186}{Trans\+Out\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_ae42b64577ebf05020fb9253f9b5875f5}\label{class_little_quest_1_1_player_ae42b64577ebf05020fb9253f9b5875f5}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!Walk@{Walk}}
+\index{Walk@{Walk}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{Walk()}{Walk()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Player\+::\+Walk (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8cpp_source_l00366}{366}} of file \mbox{\hyperlink{_player_8cpp_source}{Player.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_player_8h_source_l00034}{BASE\+\_\+\+SPEED}}, \mbox{\hyperlink{_player_8h_source_l00078}{m\+\_\+movement}}, \mbox{\hyperlink{_player_8h_source_l00069}{m\+\_\+p\+Model}}, \mbox{\hyperlink{_player_8h_source_l00080}{m\+\_\+speed\+Factor}}, \mbox{\hyperlink{_player_8cpp_source_l00518}{Set\+Model\+Rotation()}}, \mbox{\hyperlink{_tool_8h_source_l00004}{STR}}, and \mbox{\hyperlink{_player_8h_source_l00045}{WALK}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_player_adc008057e202fd575903069cd5c7be8d}\label{class_little_quest_1_1_player_adc008057e202fd575903069cd5c7be8d}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!BASE\_ATK@{BASE\_ATK}}
+\index{BASE\_ATK@{BASE\_ATK}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{BASE\_ATK}{BASE\_ATK}}
+{\footnotesize\ttfamily const int Little\+Quest\+::\+Player\+::\+BASE\+\_\+\+ATK = 3\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00039}{39}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a06342bfcdf65a1e543d3345a84e00369}\label{class_little_quest_1_1_player_a06342bfcdf65a1e543d3345a84e00369}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!BASE\_SPEED@{BASE\_SPEED}}
+\index{BASE\_SPEED@{BASE\_SPEED}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{BASE\_SPEED}{BASE\_SPEED}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Player\+::\+BASE\+\_\+\+SPEED = 40.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00034}{34}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00366}{Walk()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a003215a8c776b404a07253280e6d785f}\label{class_little_quest_1_1_player_a003215a8c776b404a07253280e6d785f}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!HIT\_PAUSE@{HIT\_PAUSE}}
+\index{HIT\_PAUSE@{HIT\_PAUSE}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{HIT\_PAUSE}{HIT\_PAUSE}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Player\+::\+HIT\+\_\+\+PAUSE = 20\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00037}{37}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}\label{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_animList@{m\_animList}}
+\index{m\_animList@{m\_animList}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_animList}{m\_animList}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$std\+::string, Anim\+Info$>$ Little\+Quest\+::\+Player\+::m\+\_\+anim\+List\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00065}{65}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, \mbox{\hyperlink{_player_8cpp_source_l00477}{Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00604}{Exit()}}, and \mbox{\hyperlink{_player_8cpp_source_l00534}{Set\+Anim\+Info()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_ab82f181b8a13785bae10ca3d29f4d6d6}\label{class_little_quest_1_1_player_ab82f181b8a13785bae10ca3d29f4d6d6}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_attackList@{m\_attackList}}
+\index{m\_attackList@{m\_attackList}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_attackList}{m\_attackList}}
+{\footnotesize\ttfamily std\+::vector$<$std\+::string\+\_\+view$>$ Little\+Quest\+::\+Player\+::m\+\_\+attack\+List\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00067}{67}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00477}{Attack\+Animation()}}, and \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a30baebe408dea092bb80a41a436f86d8}\label{class_little_quest_1_1_player_a30baebe408dea092bb80a41a436f86d8}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_cameraLength@{m\_cameraLength}}
+\index{m\_cameraLength@{m\_cameraLength}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_cameraLength}{m\_cameraLength}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Player\+::m\+\_\+camera\+Length = 10.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00079}{79}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, and \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a81f8fb7951958af95a9cb8db0d31d419}\label{class_little_quest_1_1_player_a81f8fb7951958af95a9cb8db0d31d419}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_charged@{m\_charged}}
+\index{m\_charged@{m\_charged}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_charged}{m\_charged}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Player\+::m\+\_\+charged = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00090}{90}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_aa56c8dd35ee7e6fc5ad158e1e87f7291}\label{class_little_quest_1_1_player_aa56c8dd35ee7e6fc5ad158e1e87f7291}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_chargedEffect@{m\_chargedEffect}}
+\index{m\_chargedEffect@{m\_chargedEffect}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_chargedEffect}{m\_chargedEffect}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Player\+::m\+\_\+charged\+Effect = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00097}{97}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_aee6d3ce45c4227b37a9ca509b73effac}\label{class_little_quest_1_1_player_aee6d3ce45c4227b37a9ca509b73effac}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_chargeTime@{m\_chargeTime}}
+\index{m\_chargeTime@{m\_chargeTime}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_chargeTime}{m\_chargeTime}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Player\+::m\+\_\+charge\+Time = 0.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00084}{84}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00247}{Get\+Hit()}}, and \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a4400bc044dd056a49b5a9cb13e5d3031}\label{class_little_quest_1_1_player_a4400bc044dd056a49b5a9cb13e5d3031}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_chargingEffect@{m\_chargingEffect}}
+\index{m\_chargingEffect@{m\_chargingEffect}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_chargingEffect}{m\_chargingEffect}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Player\+::m\+\_\+charging\+Effect = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00096}{96}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}\label{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_comboList@{m\_comboList}}
+\index{m\_comboList@{m\_comboList}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_comboList}{m\_comboList}}
+{\footnotesize\ttfamily std\+::unordered\+\_\+map$<$\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596}{Combo}}, int$>$ Little\+Quest\+::\+Player\+::m\+\_\+combo\+List\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00066}{66}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00604}{Exit()}}, \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}, and \mbox{\hyperlink{_player_8cpp_source_l00595}{Set\+Combo\+List()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a598ef8e06dd777c1fc35a087243e5590}\label{class_little_quest_1_1_player_a598ef8e06dd777c1fc35a087243e5590}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_currAnimSpeed@{m\_currAnimSpeed}}
+\index{m\_currAnimSpeed@{m\_currAnimSpeed}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_currAnimSpeed}{m\_currAnimSpeed}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Player\+::m\+\_\+curr\+Anim\+Speed = 1.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00082}{82}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}\label{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_currAnimTime@{m\_currAnimTime}}
+\index{m\_currAnimTime@{m\_currAnimTime}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_currAnimTime}{m\_currAnimTime}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Player\+::m\+\_\+curr\+Anim\+Time = 0.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00083}{83}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, and \mbox{\hyperlink{_player_8cpp_source_l00477}{Attack\+Animation()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}\label{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_currCombo@{m\_currCombo}}
+\index{m\_currCombo@{m\_currCombo}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_currCombo}{m\_currCombo}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596}{Combo}} Little\+Quest\+::\+Player\+::m\+\_\+curr\+Combo = \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo\+::\+NO\+\_\+\+COMBO}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00063}{63}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, \mbox{\hyperlink{_player_8cpp_source_l00477}{Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00247}{Get\+Hit()}}, \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}, and \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_ac5cb11e7fb5537d6de4c5f33158afbd7}\label{class_little_quest_1_1_player_ac5cb11e7fb5537d6de4c5f33158afbd7}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_debugCnt@{m\_debugCnt}}
+\index{m\_debugCnt@{m\_debugCnt}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_debugCnt}{m\_debugCnt}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Player\+::m\+\_\+debug\+Cnt = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00101}{101}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a73587f4bd71f2c97c513042187bee23a}\label{class_little_quest_1_1_player_a73587f4bd71f2c97c513042187bee23a}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_hitEffect@{m\_hitEffect}}
+\index{m\_hitEffect@{m\_hitEffect}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_hitEffect}{m\_hitEffect}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Player\+::m\+\_\+hit\+Effect = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00091}{91}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00604}{Exit()}}, \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}, and \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a1422ff88e323b926b5ec6c9221a30a6e}\label{class_little_quest_1_1_player_a1422ff88e323b926b5ec6c9221a30a6e}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_hitTimer@{m\_hitTimer}}
+\index{m\_hitTimer@{m\_hitTimer}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_hitTimer}{m\_hitTimer}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Player\+::m\+\_\+hit\+Timer = 0.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00081}{81}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, and \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a021eb71d1aacf3c4065db032e1053940}\label{class_little_quest_1_1_player_a021eb71d1aacf3c4065db032e1053940}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_isCombo@{m\_isCombo}}
+\index{m\_isCombo@{m\_isCombo}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_isCombo}{m\_isCombo}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Player\+::m\+\_\+is\+Combo = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00085}{85}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, \mbox{\hyperlink{_player_8cpp_source_l00477}{Attack\+Animation()}}, and \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_abf1fa63a7d307aff383c8d3b292b5730}\label{class_little_quest_1_1_player_abf1fa63a7d307aff383c8d3b292b5730}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_isHit@{m\_isHit}}
+\index{m\_isHit@{m\_isHit}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_isHit}{m\_isHit}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Player\+::m\+\_\+is\+Hit = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00087}{87}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00477}{Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, and \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a1a6f45a037401c9127183c30eaea5aa1}\label{class_little_quest_1_1_player_a1a6f45a037401c9127183c30eaea5aa1}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_isInvincible@{m\_isInvincible}}
+\index{m\_isInvincible@{m\_isInvincible}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_isInvincible}{m\_isInvincible}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Player\+::m\+\_\+is\+Invincible = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00088}{88}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, and \mbox{\hyperlink{_player_8cpp_source_l00247}{Get\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}\label{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_movement@{m\_movement}}
+\index{m\_movement@{m\_movement}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_movement}{m\_movement}}
+{\footnotesize\ttfamily float3 Little\+Quest\+::\+Player\+::m\+\_\+movement = \{0, 0, 0\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00078}{78}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}, \mbox{\hyperlink{_player_8cpp_source_l00518}{Set\+Model\+Rotation()}}, and \mbox{\hyperlink{_player_8cpp_source_l00366}{Walk()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_aefdafbcc9bc5402b1be586d15b39245e}\label{class_little_quest_1_1_player_aefdafbcc9bc5402b1be586d15b39245e}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_pCamera@{m\_pCamera}}
+\index{m\_pCamera@{m\_pCamera}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_pCamera}{m\_pCamera}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_little_quest_1_1_camera}{Camera}}$>$ Little\+Quest\+::\+Player\+::m\+\_\+p\+Camera\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00070}{70}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, and \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a1f7de0cbb94c87a0a849844d5bc38d8c}\label{class_little_quest_1_1_player_a1f7de0cbb94c87a0a849844d5bc38d8c}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_pChargeList@{m\_pChargeList}}
+\index{m\_pChargeList@{m\_pChargeList}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_pChargeList}{m\_pChargeList}}
+{\footnotesize\ttfamily int$\ast$ Little\+Quest\+::\+Player\+::m\+\_\+p\+Charge\+List\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00103}{103}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00604}{Exit()}}, \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}, and \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}\label{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_pCombo@{m\_pCombo}}
+\index{m\_pCombo@{m\_pCombo}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_pCombo}{m\_pCombo}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_little_quest_1_1_component_combo}{Component\+Combo}}$>$ Little\+Quest\+::\+Player\+::m\+\_\+p\+Combo\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00072}{72}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}, \mbox{\hyperlink{_player_8cpp_source_l00198}{Late\+Draw()}}, and \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a2c0d3bf8f480f2ff9c89690d61ec7de8}\label{class_little_quest_1_1_player_a2c0d3bf8f480f2ff9c89690d61ec7de8}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_pEffectList@{m\_pEffectList}}
+\index{m\_pEffectList@{m\_pEffectList}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_pEffectList}{m\_pEffectList}}
+{\footnotesize\ttfamily int$\ast$ Little\+Quest\+::\+Player\+::m\+\_\+p\+Effect\+List\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00102}{102}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, \mbox{\hyperlink{_player_8cpp_source_l00604}{Exit()}}, and \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_adc2e0591ef6fc8b646fa8f2acc47b41b}\label{class_little_quest_1_1_player_adc2e0591ef6fc8b646fa8f2acc47b41b}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_pHP@{m\_pHP}}
+\index{m\_pHP@{m\_pHP}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_pHP}{m\_pHP}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}}$>$ Little\+Quest\+::\+Player\+::m\+\_\+p\+HP\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00071}{71}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00247}{Get\+Hit()}}, \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}, \mbox{\hyperlink{_player_8cpp_source_l00510}{Is\+Dead()}}, and \mbox{\hyperlink{_player_8cpp_source_l00198}{Late\+Draw()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}\label{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_playedFX@{m\_playedFX}}
+\index{m\_playedFX@{m\_playedFX}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_playedFX}{m\_playedFX}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Player\+::m\+\_\+played\+FX = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00089}{89}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, and \mbox{\hyperlink{_player_8cpp_source_l00477}{Attack\+Animation()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}\label{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_playerState@{m\_playerState}}
+\index{m\_playerState@{m\_playerState}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_playerState}{m\_playerState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8ef}{Player\+State}} Little\+Quest\+::\+Player\+::m\+\_\+player\+State = \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}{Player\+State\+::\+IDLE}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00052}{52}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00247}{Get\+Hit()}}, \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}, \mbox{\hyperlink{_player_8cpp_source_l00514}{Play\+Dead()}}, \mbox{\hyperlink{_player_8cpp_source_l00529}{Set\+Scene\+State()}}, and \mbox{\hyperlink{_player_8cpp_source_l00186}{Trans\+Out\+Action()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a7e41fa5bcc4f5e77b35d8f411b5e4f99}\label{class_little_quest_1_1_player_a7e41fa5bcc4f5e77b35d8f411b5e4f99}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_playingChargeEffect@{m\_playingChargeEffect}}
+\index{m\_playingChargeEffect@{m\_playingChargeEffect}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_playingChargeEffect}{m\_playingChargeEffect}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Player\+::m\+\_\+playing\+Charge\+Effect = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00098}{98}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}\label{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_playingEffect@{m\_playingEffect}}
+\index{m\_playingEffect@{m\_playingEffect}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_playingEffect}{m\_playingEffect}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Player\+::m\+\_\+playing\+Effect = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00092}{92}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, and \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}\label{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_pModel@{m\_pModel}}
+\index{m\_pModel@{m\_pModel}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_pModel}{m\_pModel}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$Component\+Model$>$ Little\+Quest\+::\+Player\+::m\+\_\+p\+Model\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00069}{69}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, \mbox{\hyperlink{_player_8cpp_source_l00477}{Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00506}{Die()}}, \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00247}{Get\+Hit()}}, \mbox{\hyperlink{_player_8cpp_source_l00362}{Idle()}}, \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}, \mbox{\hyperlink{_player_8cpp_source_l00518}{Set\+Model\+Rotation()}}, \mbox{\hyperlink{_player_8cpp_source_l00186}{Trans\+Out\+Action()}}, and \mbox{\hyperlink{_player_8cpp_source_l00366}{Walk()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a1045e19132abc80d0b3cdbbfe1217200}\label{class_little_quest_1_1_player_a1045e19132abc80d0b3cdbbfe1217200}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_pSword@{m\_pSword}}
+\index{m\_pSword@{m\_pSword}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_pSword}{m\_pSword}}
+{\footnotesize\ttfamily Object\+Weak\+Ptr Little\+Quest\+::\+Player\+::m\+\_\+p\+Sword\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00068}{68}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}\label{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_pWeapon@{m\_pWeapon}}
+\index{m\_pWeapon@{m\_pWeapon}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_pWeapon}{m\_pWeapon}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$Component\+Collision\+Capsule$>$ Little\+Quest\+::\+Player\+::m\+\_\+p\+Weapon\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00073}{73}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00477}{Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00247}{Get\+Hit()}}, and \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_ab5c6f05a8097a3e3e57f48185040925d}\label{class_little_quest_1_1_player_ab5c6f05a8097a3e3e57f48185040925d}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_sceneState@{m\_sceneState}}
+\index{m\_sceneState@{m\_sceneState}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_sceneState}{m\_sceneState}}
+{\footnotesize\ttfamily Scene\+::\+Scene\+State Little\+Quest\+::\+Player\+::m\+\_\+scene\+State = Scene\+::\+Scene\+State\+::\+GAME\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00075}{75}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00198}{Late\+Draw()}}, \mbox{\hyperlink{_player_8cpp_source_l00529}{Set\+Scene\+State()}}, and \mbox{\hyperlink{_player_8cpp_source_l00107}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a86d4b309763b52970009bd3ce917dbb1}\label{class_little_quest_1_1_player_a86d4b309763b52970009bd3ce917dbb1}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_selfMatrix@{m\_selfMatrix}}
+\index{m\_selfMatrix@{m\_selfMatrix}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_selfMatrix}{m\_selfMatrix}}
+{\footnotesize\ttfamily matrix Little\+Quest\+::\+Player\+::m\+\_\+self\+Matrix = \{\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00077}{77}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00120}{Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}, and \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a2e3884a5605ebcf43556ce0761b85044}\label{class_little_quest_1_1_player_a2e3884a5605ebcf43556ce0761b85044}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_slashEffect1@{m\_slashEffect1}}
+\index{m\_slashEffect1@{m\_slashEffect1}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_slashEffect1}{m\_slashEffect1}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Player\+::m\+\_\+slash\+Effect1 = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00093}{93}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00604}{Exit()}}, and \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_afcb7c0b1cffdaef9d455b71e1ffd4512}\label{class_little_quest_1_1_player_afcb7c0b1cffdaef9d455b71e1ffd4512}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_slashEffect2@{m\_slashEffect2}}
+\index{m\_slashEffect2@{m\_slashEffect2}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_slashEffect2}{m\_slashEffect2}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Player\+::m\+\_\+slash\+Effect2 = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00094}{94}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00604}{Exit()}}, and \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_afba2e38df7153300690aa15a7f499f08}\label{class_little_quest_1_1_player_afba2e38df7153300690aa15a7f499f08}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_slashEffect3@{m\_slashEffect3}}
+\index{m\_slashEffect3@{m\_slashEffect3}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_slashEffect3}{m\_slashEffect3}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Player\+::m\+\_\+slash\+Effect3 = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00095}{95}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00604}{Exit()}}, and \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a9fae4a5ee8f8296c23fd643d0cd96dd0}\label{class_little_quest_1_1_player_a9fae4a5ee8f8296c23fd643d0cd96dd0}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_speedFactor@{m\_speedFactor}}
+\index{m\_speedFactor@{m\_speedFactor}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_speedFactor}{m\_speedFactor}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Player\+::m\+\_\+speed\+Factor = 1.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00080}{80}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}, \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}, and \mbox{\hyperlink{_player_8cpp_source_l00366}{Walk()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a7330b6913fdf77a01d04567833e75a2d}\label{class_little_quest_1_1_player_a7330b6913fdf77a01d04567833e75a2d}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_swordHitSE@{m\_swordHitSE}}
+\index{m\_swordHitSE@{m\_swordHitSE}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_swordHitSE}{m\_swordHitSE}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Player\+::m\+\_\+sword\+Hit\+SE = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00100}{100}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00604}{Exit()}}, \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}, and \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}\label{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_swordSE@{m\_swordSE}}
+\index{m\_swordSE@{m\_swordSE}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_swordSE}{m\_swordSE}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Player\+::m\+\_\+sword\+SE = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00099}{99}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, \mbox{\hyperlink{_player_8cpp_source_l00604}{Exit()}}, and \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a568eecf94f06de9801110e7b70e321fe}\label{class_little_quest_1_1_player_a568eecf94f06de9801110e7b70e321fe}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!m\_waitForCombo@{m\_waitForCombo}}
+\index{m\_waitForCombo@{m\_waitForCombo}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{m\_waitForCombo}{m\_waitForCombo}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Player\+::m\+\_\+wait\+For\+Combo = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00086}{86}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a5a41f4fd744564294211b900d8326f0c}\label{class_little_quest_1_1_player_a5a41f4fd744564294211b900d8326f0c}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!MAX\_HP@{MAX\_HP}}
+\index{MAX\_HP@{MAX\_HP}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{MAX\_HP}{MAX\_HP}}
+{\footnotesize\ttfamily const int Little\+Quest\+::\+Player\+::\+MAX\+\_\+\+HP = 200\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00040}{40}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_ab2525176e682159b6ce2d7853153f1d1}\label{class_little_quest_1_1_player_ab2525176e682159b6ce2d7853153f1d1}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!MAX\_VOLUME@{MAX\_VOLUME}}
+\index{MAX\_VOLUME@{MAX\_VOLUME}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{MAX\_VOLUME}{MAX\_VOLUME}}
+{\footnotesize\ttfamily const int Little\+Quest\+::\+Player\+::\+MAX\+\_\+\+VOLUME = 255\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00041}{41}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00378}{Attack()}}, and \mbox{\hyperlink{_player_8cpp_source_l00215}{On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a6490b0e4cebad930eea03a0afedb32af}\label{class_little_quest_1_1_player_a6490b0e4cebad930eea03a0afedb32af}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!RUN\_SPEED@{RUN\_SPEED}}
+\index{RUN\_SPEED@{RUN\_SPEED}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{RUN\_SPEED}{RUN\_SPEED}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Player\+::\+RUN\+\_\+\+SPEED = 1.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00035}{35}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00031}{Init()}}, and \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a45f8cf24aa271e39fea405eac903af92}\label{class_little_quest_1_1_player_a45f8cf24aa271e39fea405eac903af92}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!SPECIAL\_CHARGE\_TIME@{SPECIAL\_CHARGE\_TIME}}
+\index{SPECIAL\_CHARGE\_TIME@{SPECIAL\_CHARGE\_TIME}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{SPECIAL\_CHARGE\_TIME}{SPECIAL\_CHARGE\_TIME}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Player\+::\+SPECIAL\+\_\+\+CHARGE\+\_\+\+TIME = 75.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00038}{38}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_player_a58d85fd4ddb3d57ed0fea0dbfbf0323c}\label{class_little_quest_1_1_player_a58d85fd4ddb3d57ed0fea0dbfbf0323c}} 
+\index{LittleQuest::Player@{LittleQuest::Player}!WALK\_SPEED@{WALK\_SPEED}}
+\index{WALK\_SPEED@{WALK\_SPEED}!LittleQuest::Player@{LittleQuest::Player}}
+\doxysubsubsection{\texorpdfstring{WALK\_SPEED}{WALK\_SPEED}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Player\+::\+WALK\+\_\+\+SPEED = 0.\+5f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line \mbox{\hyperlink{_player_8h_source_l00036}{36}} of file \mbox{\hyperlink{_player_8h_source}{Player.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_player_8cpp_source_l00267}{Input\+Handle()}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_player_8h}{Player.\+h}}\item 
+\mbox{\hyperlink{_player_8cpp}{Player.\+cpp}}\end{DoxyCompactItemize}

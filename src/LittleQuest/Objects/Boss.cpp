@@ -14,9 +14,6 @@
 #include <System/Component/ComponentTargetTracking.h>
 
 namespace LittleQuest {
-
-BP_OBJECT_IMPL(Boss, "LittleQuest/Boss");
-
 BossPtr Boss::Create(const float3& pos) {
     auto pBoss = Scene::CreateObjectDelayInitialize<Boss>();
     pBoss->SetName("Boss");

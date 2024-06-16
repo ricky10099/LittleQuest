@@ -2,7 +2,6 @@
 
 #include <System/Component/Component.h>
 #include <System/Component/ComponentTransform.h>
-#include <System/Utils/HelperLib.h>
 #include <System/Cereal.h>
 
 #include <im-neo-sequencer/imgui_neo_sequencer.h>
@@ -162,7 +161,7 @@ class ComponentSequencer: public Component {
     friend class Object;
 
    public:
-    BP_COMPONENT_TYPE(ComponentSequencer, Component);
+    BP_COMPONENT_DECL(ComponentSequencer, u8"Sequencer機能クラス");
 
     ComponentSequencer() {}
 

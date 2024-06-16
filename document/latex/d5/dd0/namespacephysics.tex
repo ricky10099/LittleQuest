@@ -1,0 +1,339 @@
+\hypertarget{namespacephysics}{}\doxysection{physics 名前空間}
+\label{namespacephysics}\index{physics@{physics}}
+\doxysubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classphysics_1_1_character}{Character}}
+\begin{DoxyCompactList}\small\item\em キャラクターコントローラー \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classphysics_1_1_character_impl}{Character\+Impl}}
+\begin{DoxyCompactList}\small\item\em キャラクターコントローラー (実装部) \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classphysics_1_1_engine}{Engine}}
+\item 
+class \mbox{\hyperlink{classphysics_1_1_engine_impl}{Engine\+Impl}}
+\begin{DoxyCompactList}\small\item\em 物理シミュレーション(実装部) \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structphysics_1_1_ray_cast_result}{Ray\+Cast\+Result}}
+\begin{DoxyCompactList}\small\item\em レイキャストの結果 \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classphysics_1_1_rigid_body}{Rigid\+Body}}
+\begin{DoxyCompactList}\small\item\em 剛体クラス \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classphysics_1_1_rigid_body_impl}{Rigid\+Body\+Impl}}
+\begin{DoxyCompactList}\small\item\em 剛体クラス \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{列挙型}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267ba}{Object\+Layers}} \+: u16 \{ \newline
+\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baadb7efabc078fc1b67b86c709623de88a}{NON\+\_\+\+MOVING}} = 0
+, \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{MOVING}} = 1
+, \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baaf636b41154b4d22d47e007d5a7e9ecab}{DEBRIS}} = 2
+, \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa4cdbb711da8a5eef955dcbe48baea742}{SENSOR}} = 3
+, \newline
+\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa73d103b12bd08b49bf611a15e890d86d}{MAX\+\_\+\+COUNT}} = 4
+ \}
+\item 
+enum class \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{Motion\+Type}} \{ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a84a8921b25f505d0d2077aeb5db4bc16}{Static}}
+, \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a40c78b58b86002ee38fad2d3c9dd787e}{Kinematic}}
+, \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}{Dynamic}}
+ \}
+\begin{DoxyCompactList}\small\item\em 動作タイプ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{関数}
+\begin{Indent}\textbf{ 生成}\par
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_character}{physics\+::\+Character}} $>$ \mbox{\hyperlink{namespacephysics_a826efe90e97d11b9e77fdc5f86109f15}{create\+Character}} (\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} layer)
+\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_engine}{physics\+::\+Engine}} $>$ \mbox{\hyperlink{namespacephysics_ab56dd186fdba2f715f4f076a4e71486f}{create\+Physics}} ()
+\begin{DoxyCompactList}\small\item\em 物理シミュレーションクラスを作成 \end{DoxyCompactList}\item 
+JPH\+::\+Vec3 \mbox{\hyperlink{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}{cast\+JPH}} (const float3 \&v)
+\begin{DoxyCompactList}\small\item\em float3 → JPH\+::\+Vec3 へキャスト \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{namespacephysics_ac54bad230e864c4807b2e96d69e9bca1}{cast\+JPH}} (const JPH\+::\+Vec3 \&v)
+\begin{DoxyCompactList}\small\item\em JPH\+::\+Vec3 → float3 へキャスト \end{DoxyCompactList}\item 
+JPH\+::\+Quat \mbox{\hyperlink{namespacephysics_a8e71141ecb5eb31efdb06c5a9d82240a}{cast\+JPH}} (const quaternion \&q)
+\begin{DoxyCompactList}\small\item\em quaternion → JPH\+::\+Quat へキャスト \end{DoxyCompactList}\item 
+quaternion \mbox{\hyperlink{namespacephysics_afa2dba9557c424fe00d0c87185fd88e1}{cast\+JPH}} (const JPH\+::\+Quat \&v)
+\begin{DoxyCompactList}\small\item\em JPH\+::\+Quat → quaternion へキャスト \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classmatrix}{matrix}} \mbox{\hyperlink{namespacephysics_a44b780f4639ede00d44cb37c9a039c22}{cast\+JPH}} (const JPH\+::\+Mat44 \&mat44)
+\begin{DoxyCompactList}\small\item\em JPH\+::\+Mat44 → matrix へキャスト \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_rigid_body}{physics\+::\+Rigid\+Body}} $>$ \mbox{\hyperlink{namespacephysics_ab2e98ec6c12aa9b5613b46bd3d3d0577}{create\+Rigid\+Body}} (const \mbox{\hyperlink{classshape_1_1_sphere}{shape\+::\+Sphere}} \&o, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} layer, \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}} motion\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Sphere剛体を作成 \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_rigid_body}{physics\+::\+Rigid\+Body}} $>$ \mbox{\hyperlink{namespacephysics_abefc69a0c70c16200898b95658d1cd56}{create\+Rigid\+Body}} (const \mbox{\hyperlink{classshape_1_1_box}{shape\+::\+Box}} \&o, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} layer, \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}} motion\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Box剛体を作成 \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_rigid_body}{physics\+::\+Rigid\+Body}} $>$ \mbox{\hyperlink{namespacephysics_abf6e8a9a2b4d868c8c494b647706abf8}{create\+Rigid\+Body}} (const \mbox{\hyperlink{classshape_1_1_cylinder}{shape\+::\+Cylinder}} \&o, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} layer, \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}} motion\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Cylinder剛体を作成 \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_rigid_body}{physics\+::\+Rigid\+Body}} $>$ \mbox{\hyperlink{namespacephysics_ad811345119774e07ae1c5ad253517a3a}{create\+Rigid\+Body}} (const \mbox{\hyperlink{classshape_1_1_convex_hull}{shape\+::\+Convex\+Hull}} \&o, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} layer, \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}} motion\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Convex\+Hull剛体を作成 \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_rigid_body}{physics\+::\+Rigid\+Body}} $>$ \mbox{\hyperlink{namespacephysics_a2a93d994134381d223627d3c0cc35b26}{create\+Rigid\+Body}} (const \mbox{\hyperlink{classshape_1_1_mesh}{shape\+::\+Mesh}} \&o, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} layer)
+\begin{DoxyCompactList}\small\item\em Mesh剛体を作成 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{列挙型詳解}
+\mbox{\Hypertarget{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}\label{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}} 
+\index{physics@{physics}!MotionType@{MotionType}}
+\index{MotionType@{MotionType}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{MotionType}{MotionType}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+動作タイプ 
+
+\begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Static@{Static}!physics@{physics}}\index{physics@{physics}!Static@{Static}}}\mbox{\Hypertarget{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a84a8921b25f505d0d2077aeb5db4bc16}\label{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a84a8921b25f505d0d2077aeb5db4bc16}} 
+Static&静的。動かない。 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Kinematic@{Kinematic}!physics@{physics}}\index{physics@{physics}!Kinematic@{Kinematic}}}\mbox{\Hypertarget{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a40c78b58b86002ee38fad2d3c9dd787e}\label{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a40c78b58b86002ee38fad2d3c9dd787e}} 
+Kinematic&速度のみで移動可能で、力には反応しない。 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Dynamic@{Dynamic}!physics@{physics}}\index{physics@{physics}!Dynamic@{Dynamic}}}\mbox{\Hypertarget{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}\label{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}} 
+Dynamic&通常の物理オブジェクトとして力に応答する。 \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+ \mbox{\hyperlink{_rigid_body_8h_source}{Rigid\+Body.\+h}} の \mbox{\hyperlink{_rigid_body_8h_source_l00026}{26}} 行目に定義があります。
+
+\mbox{\Hypertarget{namespacephysics_a8f3495d58817a58553d47f58730267ba}\label{namespacephysics_a8f3495d58817a58553d47f58730267ba}} 
+\index{physics@{physics}!ObjectLayers@{ObjectLayers}}
+\index{ObjectLayers@{ObjectLayers}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{ObjectLayers}{ObjectLayers}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267ba}{physics\+::\+Object\+Layers}} \+: \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}}
+
+\begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NON\_MOVING@{NON\_MOVING}!physics@{physics}}\index{physics@{physics}!NON\_MOVING@{NON\_MOVING}}}\mbox{\Hypertarget{namespacephysics_a8f3495d58817a58553d47f58730267baadb7efabc078fc1b67b86c709623de88a}\label{namespacephysics_a8f3495d58817a58553d47f58730267baadb7efabc078fc1b67b86c709623de88a}} 
+NON\+\_\+\+MOVING&静的。動かない固定 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOVING@{MOVING}!physics@{physics}}\index{physics@{physics}!MOVING@{MOVING}}}\mbox{\Hypertarget{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}\label{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}} 
+MOVING&動的 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DEBRIS@{DEBRIS}!physics@{physics}}\index{physics@{physics}!DEBRIS@{DEBRIS}}}\mbox{\Hypertarget{namespacephysics_a8f3495d58817a58553d47f58730267baaf636b41154b4d22d47e007d5a7e9ecab}\label{namespacephysics_a8f3495d58817a58553d47f58730267baaf636b41154b4d22d47e007d5a7e9ecab}} 
+DEBRIS&破片エフェクトなどは NON\+\_\+\+MOVING のみ衝突 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SENSOR@{SENSOR}!physics@{physics}}\index{physics@{physics}!SENSOR@{SENSOR}}}\mbox{\Hypertarget{namespacephysics_a8f3495d58817a58553d47f58730267baa4cdbb711da8a5eef955dcbe48baea742}\label{namespacephysics_a8f3495d58817a58553d47f58730267baa4cdbb711da8a5eef955dcbe48baea742}} 
+SENSOR&センサーは MOVING オブジェクトにのみ衝突 \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MAX\_COUNT@{MAX\_COUNT}!physics@{physics}}\index{physics@{physics}!MAX\_COUNT@{MAX\_COUNT}}}\mbox{\Hypertarget{namespacephysics_a8f3495d58817a58553d47f58730267baa73d103b12bd08b49bf611a15e890d86d}\label{namespacephysics_a8f3495d58817a58553d47f58730267baa73d103b12bd08b49bf611a15e890d86d}} 
+MAX\+\_\+\+COUNT&定義最大数 \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+ \mbox{\hyperlink{_physics_layer_8h_source}{Physics\+Layer.\+h}} の \mbox{\hyperlink{_physics_layer_8h_source_l00014}{14}} 行目に定義があります。
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}\label{namespacephysics_a7b2897ae22f415bf7f0bcc8079bf90da}} 
+\index{physics@{physics}!castJPH@{castJPH}}
+\index{castJPH@{castJPH}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{castJPH()}{castJPH()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily JPH\+::\+Vec3 physics\+::cast\+JPH (\begin{DoxyParamCaption}\item[{const float3 \&}]{v }\end{DoxyParamCaption})}
+
+
+
+float3 → JPH\+::\+Vec3 へキャスト 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{708}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_rigid_body_8cpp_source_l00256}{physics\+::\+Rigid\+Body\+Impl\+::add\+Angular\+Impulse()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00218}{physics\+::\+Rigid\+Body\+Impl\+::add\+Force()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00243}{physics\+::\+Rigid\+Body\+Impl\+::add\+Impulse()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00189}{physics\+::\+Rigid\+Body\+Impl\+::add\+Linear\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00231}{physics\+::\+Rigid\+Body\+Impl\+::add\+Torque()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00200}{physics\+::\+Rigid\+Body\+Impl\+::angular\+Velocity()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00460}{physics\+::\+Character\+Impl\+::can\+Walk\+Stairs()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00542}{physics\+::\+Engine\+Impl\+::cast\+Ray()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00127}{physics\+::\+Rigid\+Body\+Impl\+::center\+Of\+Mass\+Position()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00327}{physics\+::\+Character\+Impl\+::center\+Of\+Mass\+Transform()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00154}{physics\+::\+Rigid\+Body\+Impl\+::center\+Of\+Mass\+Transform()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00630}{physics\+::\+Engine\+Impl\+::gravity()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00568}{physics\+::\+Character\+Impl\+::ground\+Normal()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00561}{physics\+::\+Character\+Impl\+::ground\+Position()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00575}{physics\+::\+Character\+Impl\+::ground\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00323}{physics\+::\+Rigid\+Body\+Impl\+::inverse\+Inertia()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00278}{physics\+::\+Character\+Impl\+::linear\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00183}{physics\+::\+Rigid\+Body\+Impl\+::linear\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00170}{physics\+::\+Rigid\+Body\+Impl\+::move\+Kinematic()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00206}{physics\+::\+Rigid\+Body\+Impl\+::point\+Velocity()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00292}{physics\+::\+Character\+Impl\+::position()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00121}{physics\+::\+Rigid\+Body\+Impl\+::position()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00306}{physics\+::\+Character\+Impl\+::rotation()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00143}{physics\+::\+Rigid\+Body\+Impl\+::rotation()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00195}{physics\+::\+Rigid\+Body\+Impl\+::set\+Angular\+Velocity()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00285}{physics\+::\+Character\+Impl\+::set\+Linear\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00178}{physics\+::\+Rigid\+Body\+Impl\+::set\+Linear\+Velocity()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00299}{physics\+::\+Character\+Impl\+::set\+Position()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00115}{physics\+::\+Rigid\+Body\+Impl\+::set\+Position()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00313}{physics\+::\+Character\+Impl\+::set\+Rotation()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00136}{physics\+::\+Rigid\+Body\+Impl\+::set\+Rotation()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00493}{physics\+::\+Character\+Impl\+::set\+Shape()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00467}{physics\+::\+Character\+Impl\+::walk\+Stairs()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00320}{physics\+::\+Character\+Impl\+::world\+Matrix()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00149}{physics\+::\+Rigid\+Body\+Impl\+::world\+Matrix()}} (計35項目).
+
+\mbox{\Hypertarget{namespacephysics_a44b780f4639ede00d44cb37c9a039c22}\label{namespacephysics_a44b780f4639ede00d44cb37c9a039c22}} 
+\index{physics@{physics}!castJPH@{castJPH}}
+\index{castJPH@{castJPH}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{castJPH()}{castJPH()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classmatrix}{matrix}} physics\+::cast\+JPH (\begin{DoxyParamCaption}\item[{const JPH\+::\+Mat44 \&}]{mat44 }\end{DoxyParamCaption})}
+
+
+
+JPH\+::\+Mat44 → matrix へキャスト 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00736}{736}} 行目に定義があります。
+
+\mbox{\Hypertarget{namespacephysics_afa2dba9557c424fe00d0c87185fd88e1}\label{namespacephysics_afa2dba9557c424fe00d0c87185fd88e1}} 
+\index{physics@{physics}!castJPH@{castJPH}}
+\index{castJPH@{castJPH}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{castJPH()}{castJPH()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily quaternion physics\+::cast\+JPH (\begin{DoxyParamCaption}\item[{const JPH\+::\+Quat \&}]{v }\end{DoxyParamCaption})}
+
+
+
+JPH\+::\+Quat → quaternion へキャスト 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00729}{729}} 行目に定義があります。
+
+\mbox{\Hypertarget{namespacephysics_ac54bad230e864c4807b2e96d69e9bca1}\label{namespacephysics_ac54bad230e864c4807b2e96d69e9bca1}} 
+\index{physics@{physics}!castJPH@{castJPH}}
+\index{castJPH@{castJPH}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{castJPH()}{castJPH()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily float3 physics\+::cast\+JPH (\begin{DoxyParamCaption}\item[{const JPH\+::\+Vec3 \&}]{v }\end{DoxyParamCaption})}
+
+
+
+JPH\+::\+Vec3 → float3 へキャスト 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00715}{715}} 行目に定義があります。
+
+\mbox{\Hypertarget{namespacephysics_a8e71141ecb5eb31efdb06c5a9d82240a}\label{namespacephysics_a8e71141ecb5eb31efdb06c5a9d82240a}} 
+\index{physics@{physics}!castJPH@{castJPH}}
+\index{castJPH@{castJPH}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{castJPH()}{castJPH()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily JPH\+::\+Quat physics\+::cast\+JPH (\begin{DoxyParamCaption}\item[{const quaternion \&}]{q }\end{DoxyParamCaption})}
+
+
+
+quaternion → JPH\+::\+Quat へキャスト 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00722}{722}} 行目に定義があります。
+
+\mbox{\Hypertarget{namespacephysics_a826efe90e97d11b9e77fdc5f86109f15}\label{namespacephysics_a826efe90e97d11b9e77fdc5f86109f15}} 
+\index{physics@{physics}!createCharacter@{createCharacter}}
+\index{createCharacter@{createCharacter}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{createCharacter()}{createCharacter()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_character}{physics\+::\+Character}} $>$ physics\+::create\+Character (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}}]{layer }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em layer} & オブジェクトレイヤー(カテゴリー) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_physics_character_8cpp_source}{Physics\+Character.\+cpp}} の \mbox{\hyperlink{_physics_character_8cpp_source_l00632}{632}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00015}{Component\+Collision\+Capsule\+::\+Init()}}.
+
+\mbox{\Hypertarget{namespacephysics_ab56dd186fdba2f715f4f076a4e71486f}\label{namespacephysics_ab56dd186fdba2f715f4f076a4e71486f}} 
+\index{physics@{physics}!createPhysics@{createPhysics}}
+\index{createPhysics@{createPhysics}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{createPhysics()}{createPhysics()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_engine}{physics\+::\+Engine}} $>$ physics\+::create\+Physics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+物理シミュレーションクラスを作成 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00697}{697}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_system_main_8cpp_source_l00285}{System\+Init()}}.
+
+\mbox{\Hypertarget{namespacephysics_abefc69a0c70c16200898b95658d1cd56}\label{namespacephysics_abefc69a0c70c16200898b95658d1cd56}} 
+\index{physics@{physics}!createRigidBody@{createRigidBody}}
+\index{createRigidBody@{createRigidBody}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{createRigidBody()}{createRigidBody()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_rigid_body}{physics\+::\+Rigid\+Body}} $>$ physics\+::create\+Rigid\+Body (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classshape_1_1_box}{shape\+::\+Box}} \&}]{o,  }\item[{\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}}]{layer,  }\item[{\mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}}}]{motion\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Box剛体を作成 
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00372}{372}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_shape_8h_source_l00056}{shape\+::\+Box\+::extent\+\_\+}}.
+
+\mbox{\Hypertarget{namespacephysics_ad811345119774e07ae1c5ad253517a3a}\label{namespacephysics_ad811345119774e07ae1c5ad253517a3a}} 
+\index{physics@{physics}!createRigidBody@{createRigidBody}}
+\index{createRigidBody@{createRigidBody}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{createRigidBody()}{createRigidBody()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_rigid_body}{physics\+::\+Rigid\+Body}} $>$ physics\+::create\+Rigid\+Body (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classshape_1_1_convex_hull}{shape\+::\+Convex\+Hull}} \&}]{o,  }\item[{\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}}]{layer,  }\item[{\mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}}}]{motion\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Convex\+Hull剛体を作成 
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00402}{402}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_shape_8h_source_l00091}{shape\+::\+Convex\+Hull\+::vertices\+\_\+}}.
+
+\mbox{\Hypertarget{namespacephysics_abf6e8a9a2b4d868c8c494b647706abf8}\label{namespacephysics_abf6e8a9a2b4d868c8c494b647706abf8}} 
+\index{physics@{physics}!createRigidBody@{createRigidBody}}
+\index{createRigidBody@{createRigidBody}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{createRigidBody()}{createRigidBody()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_rigid_body}{physics\+::\+Rigid\+Body}} $>$ physics\+::create\+Rigid\+Body (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classshape_1_1_cylinder}{shape\+::\+Cylinder}} \&}]{o,  }\item[{\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}}]{layer,  }\item[{\mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}}}]{motion\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Cylinder剛体を作成 
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00387}{387}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_shape_8h_source_l00079}{shape\+::\+Cylinder\+::half\+\_\+height\+\_\+}}, \mbox{\hyperlink{_shape_8h_source_l00080}{shape\+::\+Cylinder\+::radius\+\_\+}}.
+
+\mbox{\Hypertarget{namespacephysics_a2a93d994134381d223627d3c0cc35b26}\label{namespacephysics_a2a93d994134381d223627d3c0cc35b26}} 
+\index{physics@{physics}!createRigidBody@{createRigidBody}}
+\index{createRigidBody@{createRigidBody}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{createRigidBody()}{createRigidBody()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_rigid_body}{physics\+::\+Rigid\+Body}} $>$ physics\+::create\+Rigid\+Body (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classshape_1_1_mesh}{shape\+::\+Mesh}} \&}]{o,  }\item[{\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}}]{layer }\end{DoxyParamCaption})}
+
+
+
+Mesh剛体を作成 
+
+\begin{DoxyNote}{覚え書き}
+メッシュ剛体は常に静的で生成されます 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00431}{431}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_shape_8h_source_l00103}{shape\+::\+Mesh\+::indices\+\_\+}}, \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a84a8921b25f505d0d2077aeb5db4bc16}{Static}}, \mbox{\hyperlink{_shape_8h_source_l00102}{shape\+::\+Mesh\+::vertices\+\_\+}}.
+
+\mbox{\Hypertarget{namespacephysics_ab2e98ec6c12aa9b5613b46bd3d3d0577}\label{namespacephysics_ab2e98ec6c12aa9b5613b46bd3d3d0577}} 
+\index{physics@{physics}!createRigidBody@{createRigidBody}}
+\index{createRigidBody@{createRigidBody}!physics@{physics}}
+\doxysubsubsection{\texorpdfstring{createRigidBody()}{createRigidBody()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{classphysics_1_1_rigid_body}{physics\+::\+Rigid\+Body}} $>$ physics\+::create\+Rigid\+Body (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classshape_1_1_sphere}{shape\+::\+Sphere}} \&}]{o,  }\item[{\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}}]{layer,  }\item[{\mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3}{physics\+::\+Motion\+Type}}}]{motion\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Sphere剛体を作成 
+
+
+
+ \mbox{\hyperlink{_rigid_body_8cpp_source}{Rigid\+Body.\+cpp}} の \mbox{\hyperlink{_rigid_body_8cpp_source_l00357}{357}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_shape_8h_source_l00045}{shape\+::\+Sphere\+::radius\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_collision_model_8cpp_source_l00119}{Component\+Collision\+Model\+::\+Attach\+To\+Model()}}.
+

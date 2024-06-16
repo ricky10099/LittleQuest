@@ -1,0 +1,459 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: ComponentTargetTracking.cpp ソースファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_ef68f1e1f5148ff8ef7fb1c955106c3c.html">System</a></li><li class="navelem"><a class="el" href="../../dir_62db5b8162a41e57b9d75d02d7d318ce.html">Component</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">ComponentTargetTracking.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d4/d72/_component_target_tracking_8cpp.html">[詳解]</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;<a class="code" href="../../d1/d83/_component_target_tracking_8h.html">System/Component/ComponentTargetTracking.h</a>&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;<a class="code" href="../../d2/da1/_component_model_8h.html">System/Component/ComponentModel.h</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="../../d0/d46/_component_transform_8h.html">System/Component/ComponentTransform.h</a>&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="../../df/d30/_object_8h.html">System/Object.h</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="../../de/d56/_scene_8h.html">System/Scene.h</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="../../d7/d96/_im_gui_8h.html">System/ImGui.h</a>&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="../../dc/d5f/_helper_lib_8h.html">System/Utils/HelperLib.h</a>&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="../../d4/d72/_component_target_tracking_8cpp.html#ab5320bead7292545cb5be2f56f9790bd">   10</a></span><a class="code hl_define" href="../../dc/d20/_component_8h.html#acb5da28bae949d7ba8d6a74c97e1e394">BP_COMPONENT_IMPL</a>(<a class="code hl_class" href="../../df/d48/class_component_target_tracking.html">ComponentTargetTracking</a>, <a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a><span class="stringliteral">&quot;TargetTracking機能クラス&quot;</span>);</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>std::string null_name = <span class="stringliteral">&quot;  &quot;</span>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">// string用のCombo</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">static</span> <span class="keywordtype">int</span> Combo(<span class="keyword">const</span> std::string&amp; caption, std::string&amp; current_item, <span class="keyword">const</span> std::vector&lt;std::string_view&gt;&amp; items) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">int</span> select_index = -1;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">if</span>(ImGui::BeginCombo(caption.c_str(), current_item.c_str())) {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; items.size(); i++) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>            <span class="keyword">auto</span>&amp; item = items[i];</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>            <span class="keywordtype">bool</span> is_selected = (current_item == item);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="keywordflow">if</span>(ImGui::Selectable(item.data(), is_selected)) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                current_item = item;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                select_index = i;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <span class="keywordflow">if</span>(is_selected)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>                ImGui::SetItemDefaultFocus();</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        ImGui::EndCombo();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">return</span> select_index;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}    <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment">//---------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="comment">//! カメラ初期化</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment"></span><span class="comment">//---------------------------------------------------------</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#ac054f0910aa806784323f2ecac25ecd3">   42</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#ac054f0910aa806784323f2ecac25ecd3">ComponentTargetTracking::Init</a>() {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    __super::Init();</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#ae301eddd2d00ef453af05c17d634ab15">tracking_status_</a>.<a class="code hl_function" href="../../df/df2/struct_status.html#a467ddc32f7183ea10eeac09cc90c23bf">on</a>(<a class="code hl_enumvalue" href="../../df/d48/class_component_target_tracking.html#ad594f0dd0aefbb4c491121efe0db0a2ca59d87a4758a9d35fbaf6b204341bb399">TrackingBit::Initialized</a>);</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="comment">//---------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">//! 更新</span></div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment"></span><span class="comment">//---------------------------------------------------------</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#a2870883573b583981c30e1b800684273">   51</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#a2870883573b583981c30e1b800684273">ComponentTargetTracking::PreUpdate</a>() {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="comment">// 一旦リセットする</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">if</span>(<span class="keyword">auto</span> model = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#aa171d99d64e2a95a38e84b14ed2af8f5">owner_model_</a>.lock())</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        MV1ResetFrameUserLocalMatrix(model-&gt;GetModel(), <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a1d13e1f46d7b80edf8ded2474735058f">tracked_node_index_</a>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#a24a6edfe0c2f88b10967addba4eb0913">   57</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#a24a6edfe0c2f88b10967addba4eb0913">ComponentTargetTracking::PostUpdate</a>() {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="comment">// アニメーション適応後、</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="comment">// tracked_node_index_からノードマトリクスを取得してそれに対して</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">// さらなる向きの方向(now_xy_)を適応してTrackingを行うように変更する</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a1d13e1f46d7b80edf8ded2474735058f">tracked_node_index_</a> &lt; 0)</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    float3 target_pos = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a6126e81bfe187ce5d47d9f7bafd9315e">look_at_</a>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">if</span>(<span class="keyword">auto</span> target = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a28609ec41a2ff35e5b95bcedbeb8157e">tracking_object_</a>.lock())</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        target_pos = target-&gt;GetTranslate();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">// Objectのモデルを先にWeakPtrで取得して確保しておく</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#aa171d99d64e2a95a38e84b14ed2af8f5">owner_model_</a>.lock() == <span class="keyword">nullptr</span>)</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#aa171d99d64e2a95a38e84b14ed2af8f5">owner_model_</a> = <a class="code hl_function" href="../../d2/d00/class_component.html#adc1b85b65e84e7b0a7b8382c90aae9ee">GetOwner</a>()-&gt;<a class="code hl_function" href="../../d8/d83/class_object.html#a4e9dfbca25ab6d6e9303910192b89564">GetComponent</a>&lt;<a class="code hl_class" href="../../d0/de1/class_component_model.html">ComponentModel</a>&gt;();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">if</span>(<span class="keyword">auto</span> model = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#aa171d99d64e2a95a38e84b14ed2af8f5">owner_model_</a>.lock()) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="comment">// trackingするマトリクス</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a4eecd0279b127d161a7c039c0e47b8a2">tracking_matrix_</a> = <a class="code hl_function" href="../../de/d57/_vector_math_8h.html#acaf43804f3b1a2e96e58f2ccbbeaab76">cast</a>(MV1GetFrameLocalMatrix(model-&gt;GetModel(), <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a1d13e1f46d7b80edf8ded2474735058f">tracked_node_index_</a>));</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="comment">// 正しい向きのノードMatrixを取得しておく</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        float3 node_rot;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        float3 node_trans;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        float3 node_scale;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <a class="code hl_function" href="../../d2/de3/_component_transform_8cpp.html#a6d9d86eb5b39827e671616046aef46d8">DecomposeMatrixToComponents</a>((<span class="keywordtype">float</span>*)<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a4eecd0279b127d161a7c039c0e47b8a2">tracking_matrix_</a>.f32_128_0, (<span class="keywordtype">float</span>*)&amp;node_trans, (<span class="keywordtype">float</span>*)&amp;node_rot,</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                                    (<span class="keywordtype">float</span>*)&amp;node_scale);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#if 1</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="comment">// モデルの方向を取得する</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        float3 model_vec = normalize(<a class="code hl_function" href="../../de/d57/_vector_math_8h.html#ab151ff244ab06b4f346d5827dde650e0">mul</a>(float4(<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a7cd61fd765a65876162bc39ce2671de7">front_vector_</a>, 0), model-&gt;GetWorldMatrix()).xyz);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="comment">// モデルを通常に戻すインバーズマトリクスを取得しておく</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keyword">auto</span> fmat = inverse(<a class="code hl_function" href="../../db/d2b/namespace_helper_lib_1_1_math.html#a5fdeef4fc76f0323e735a35a17da818b">HelperLib::Math::CreateMatrixByFrontVector</a>(model_vec));</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="comment">// ターゲットへの向きを取得して(</span></div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        <span class="comment">// MV1GetFrameLocalWorldMatrixでとると100%位置はあっているがどうやら…1Frame遅れる)</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        float3 node_pos  = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a4eecd0279b127d161a7c039c0e47b8a2">tracking_matrix_</a>._41_42_43;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>        float3 model_pos = <a class="code hl_function" href="../../de/d57/_vector_math_8h.html#ab151ff244ab06b4f346d5827dde650e0">mul</a>(float4(node_pos, 1), <a class="code hl_function" href="../../d2/d00/class_component.html#adc1b85b65e84e7b0a7b8382c90aae9ee">GetOwner</a>()-&gt;GetMatrix()).xyz;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        float3 vec = target_pos - model_pos;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        <span class="keyword">auto</span>   mat = <a class="code hl_function" href="../../db/d2b/namespace_helper_lib_1_1_math.html#a5fdeef4fc76f0323e735a35a17da818b">HelperLib::Math::CreateMatrixByFrontVector</a>(vec, {0, 1, 0}, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="comment">// それにインバースを掛け合わせて0基準のベクトルに変換する</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        mat           = <a class="code hl_function" href="../../de/d57/_vector_math_8h.html#ab151ff244ab06b4f346d5827dde650e0">mul</a>(mat, fmat);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        mat._41_42_43 = node_pos;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="comment">// 現状の回転と照らし合わせて回転を計算する</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        float3 new_rot;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        float3 new_trans;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        float3 new_scale;</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="comment">// その回転をノードMatrixにさらに加えて向きの回転を実現する</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <a class="code hl_function" href="../../d2/de3/_component_transform_8cpp.html#a6d9d86eb5b39827e671616046aef46d8">DecomposeMatrixToComponents</a>((<span class="keywordtype">float</span>*)mat.f32_128_0, (<span class="keywordtype">float</span>*)&amp;new_trans, (<span class="keywordtype">float</span>*)&amp;new_rot, (<span class="keywordtype">float</span>*)&amp;new_scale);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        <span class="comment">// ZベクトルをY軸固定で角度に変化させる</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        float3 zvec  = mat.axisZ();</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordtype">float</span>  lenzx = sqrt((zvec.z * zvec.z) + (zvec.x * zvec.x));</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="keywordtype">float</span>  lenzy = sqrt((zvec.z * zvec.z) + (zvec.y * zvec.y));</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        new_rot.x = atan2((<span class="keywordtype">float</span>)zvec.y, (<span class="keywordtype">float</span>)lenzx) * <a class="code hl_variable" href="../../d2/ddd/_precompile_8h.html#aad0324c49354ecf08266df8024fb155c">RadToDeg</a>;</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        new_rot.y = atan2((<span class="keywordtype">float</span>)zvec.x, (<span class="keywordtype">float</span>)lenzy) * <a class="code hl_variable" href="../../d2/ddd/_precompile_8h.html#aad0324c49354ecf08266df8024fb155c">RadToDeg</a>;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        new_rot.z = 0;</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="keywordflow">if</span>(new_rot.y &gt; 180)</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>            new_rot.y = new_rot.y - 360;</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <span class="keywordflow">if</span>(new_rot.x &lt; -180)</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>            new_rot.x += 360;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="comment">// 右リミット</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <span class="keywordflow">if</span>((<span class="keywordtype">float</span>)new_rot.y &gt; (<span class="keywordtype">float</span>)<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#af608621d78fca99c58eb4aeeb8b511a3">limit_lr_</a>.y) {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>            new_rot.y = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#af608621d78fca99c58eb4aeeb8b511a3">limit_lr_</a>.y;</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        }</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="comment">// 左リミット</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordflow">if</span>((<span class="keywordtype">float</span>)new_rot.y &lt; -(<span class="keywordtype">float</span>)<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#af608621d78fca99c58eb4aeeb8b511a3">limit_lr_</a>.x) {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>            new_rot.y = -<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#af608621d78fca99c58eb4aeeb8b511a3">limit_lr_</a>.x;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        }</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        <span class="comment">// 上リミット</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">if</span>((<span class="keywordtype">float</span>)new_rot.x &gt; (<span class="keywordtype">float</span>)<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a155d85aa68f4ea5220ed38955cca4f69">limit_ud_</a>.x) {</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            new_rot.x = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a155d85aa68f4ea5220ed38955cca4f69">limit_ud_</a>.x;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        }</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>        <span class="comment">// 下リミット</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="keywordflow">if</span>((<span class="keywordtype">float</span>)new_rot.x &lt; -(<span class="keywordtype">float</span>)<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a155d85aa68f4ea5220ed38955cca4f69">limit_ud_</a>.y) {</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            new_rot.x = -<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a155d85aa68f4ea5220ed38955cca4f69">limit_ud_</a>.y;</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        float2 diff = {new_rot.x - <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a68d83bc6168ecaaf4bdb5b2d854d8e2d">now_rot_</a>.x, new_rot.y - <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a68d83bc6168ecaaf4bdb5b2d854d8e2d">now_rot_</a>.y};</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="keywordtype">float</span>  len  = length(diff);</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>        <span class="keywordflow">if</span>(len &gt; <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a7513710ccf984b562b72a802fc34f3eb">limit_frame_</a>) {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            diff = normalize(diff) * <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a7513710ccf984b562b72a802fc34f3eb">limit_frame_</a>;</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        }</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a68d83bc6168ecaaf4bdb5b2d854d8e2d">now_rot_</a>.x += diff.x;</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a68d83bc6168ecaaf4bdb5b2d854d8e2d">now_rot_</a>.y += diff.y;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        node_rot.x += <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a68d83bc6168ecaaf4bdb5b2d854d8e2d">now_rot_</a>.x;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        node_rot.y += <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a68d83bc6168ecaaf4bdb5b2d854d8e2d">now_rot_</a>.y;</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        <a class="code hl_function" href="../../d2/de3/_component_transform_8cpp.html#abe00c8be42f2761185a0ccfca2ded81a">RecomposeMatrixFromComponents</a>((<span class="keywordtype">float</span>*)&amp;node_trans, (<span class="keywordtype">float</span>*)&amp;node_rot, (<span class="keywordtype">float</span>*)&amp;node_scale, (<span class="keywordtype">float</span>*)mat.f32_128_0);</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="comment">// auto roty = matrix::rotateY(radians((float1)theta_xz));</span></div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="comment">// auto rotx = matrix::rotateX(radians((float1)theta_yz));</span></div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <span class="comment">// mat = mul(mul(tracking_matrix_, rotx), roty);</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        MV1SetFrameUserLocalMatrix(model-&gt;GetModel(), <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a1d13e1f46d7b80edf8ded2474735058f">tracked_node_index_</a>, <a class="code hl_function" href="../../de/d57/_vector_math_8h.html#acaf43804f3b1a2e96e58f2ccbbeaab76">cast</a>(mat));</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="comment">// これをONにすると他のGizmoのIsOverなどがチェックが取れずPICKが常に有効になる(地面が選ばれてしまう)</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>        <span class="comment">// ShowGizmo( (float*)mat.f32_128_0, ImGuizmo::OPERATION::TRANSLATE,</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="comment">// ImGuizmo::MODE::LOCAL, 0xab1245 );</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    }</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>}</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="comment">//---------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="comment">//! 向きのマトリクス表示(デバッグ用)</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="comment"></span><span class="comment">//---------------------------------------------------------</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#a9fd550732558f908a8d0961a632d9279">  171</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#a9fd550732558f908a8d0961a632d9279">ComponentTargetTracking::Draw</a>() {}</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="comment">//---------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="comment">//! カメラ終了処理</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span><span class="comment"></span><span class="comment">//---------------------------------------------------------</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#a27a74be16ae1b3e87d7b347311c783f4">  176</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#a27a74be16ae1b3e87d7b347311c783f4">ComponentTargetTracking::Exit</a>() {</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    __super::Exit();</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>}</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="comment">//---------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="comment">//! カメラGUI処理</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><span class="comment"></span><span class="comment">//---------------------------------------------------------</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#a604635ae0c9a8c4ed47a09dd1e5ceeff">  183</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#a604635ae0c9a8c4ed47a09dd1e5ceeff">ComponentTargetTracking::GUI</a>() {</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    assert(<a class="code hl_function" href="../../d2/d00/class_component.html#adc1b85b65e84e7b0a7b8382c90aae9ee">GetOwner</a>());</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keyword">auto</span> obj_name = <a class="code hl_function" href="../../d2/d00/class_component.html#adc1b85b65e84e7b0a7b8382c90aae9ee">GetOwner</a>()-&gt;<a class="code hl_function" href="../../d8/d83/class_object.html#a1b62160fcfdc36e88ed94d99334d99c8">GetName</a>();</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    ImGui::Begin(obj_name.data());</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    {</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        ImGui::Separator();</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="keywordflow">if</span>(ImGui::TreeNode(<a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a><span class="stringliteral">&quot;TargetTracking&quot;</span>)) {</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>            <span class="keywordflow">if</span>(ImGui::Button(<a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a><span class="stringliteral">&quot;削除&quot;</span>)) {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                <a class="code hl_function" href="../../d2/d00/class_component.html#adc1b85b65e84e7b0a7b8382c90aae9ee">GetOwner</a>()-&gt;<a class="code hl_function" href="../../d8/d83/class_object.html#ac38b3442d6f6e93af4cdb35a9be08dbc">RemoveComponent</a>(shared_from_this());</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            }</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            <span class="keywordtype">int</span> select_node_index = -1;</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>            <span class="keywordflow">if</span>(<span class="keyword">auto</span> model = <a class="code hl_function" href="../../d2/d00/class_component.html#adc1b85b65e84e7b0a7b8382c90aae9ee">GetOwner</a>()-&gt;GetComponent&lt;ComponentModel&gt;()) {</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>                <span class="keyword">auto</span> list         = model-&gt;GetNodesName();</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>                select_node_index = Combo(<a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a><span class="stringliteral">&quot;トラッキングノード&quot;</span>, <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a04a85d5becf61d7fc344f01db82d3492">tracked_node_</a>, list);</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>                <span class="keywordflow">if</span>(select_node_index &lt; list.size())</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>                    <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#a3e07b9e006288545cef57b9124cc87c5">SetTrackingNode</a>(select_node_index);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>            }</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>            <span class="keywordflow">if</span>(<span class="keyword">auto</span> scene = <a class="code hl_function" href="../../d6/db5/class_scene.html#a8ef78e083da6e5e0ff7a78a8453ec2c1">Scene::GetCurrentScene</a>()) {</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>                std::string name = <span class="stringliteral">&quot;&quot;</span>;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>                <span class="keywordflow">if</span>(<span class="keyword">auto</span> obj = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a28609ec41a2ff35e5b95bcedbeb8157e">tracking_object_</a>.lock()) {</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>                    name = obj-&gt;GetName();</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>                }</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>                <span class="keyword">auto</span>                          objs = scene-&gt;GetObjectPtrVec();</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>                std::vector&lt;std::string_view&gt; names;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>                names.push_back(null_name);</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>                <span class="keywordflow">for</span>(<span class="keyword">auto</span> obj: objs) {</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>                    names.push_back(obj-&gt;GetName());</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>                }</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>                <span class="keywordtype">int</span> <span class="keywordtype">id</span> = Combo(<a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a><span class="stringliteral">&quot;ターゲットオブジェクト&quot;</span>, name, names) - 1;</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>                <span class="keywordflow">if</span>(<span class="keywordtype">id</span> &gt;= 0) {</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>                    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a28609ec41a2ff35e5b95bcedbeb8157e">tracking_object_</a> = objs[id];</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(<span class="keywordtype">id</span> == -1) {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>                    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a28609ec41a2ff35e5b95bcedbeb8157e">tracking_object_</a>.reset();</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>                }</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            }</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>            <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#ae301eddd2d00ef453af05c17d634ab15">tracking_status_</a>.<a class="code hl_function" href="../../df/df2/struct_status.html#a0e024bca0f58b5e1cda3dd6bf94d40c7">off</a>(<a class="code hl_enumvalue" href="../../df/d48/class_component_target_tracking.html#ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5">TrackingBit::ObjectTracking</a>);</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            <span class="keywordflow">if</span>(<span class="keyword">auto</span> obj = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a28609ec41a2ff35e5b95bcedbeb8157e">tracking_object_</a>.lock()) {</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>                <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#ae301eddd2d00ef453af05c17d634ab15">tracking_status_</a>.<a class="code hl_function" href="../../df/df2/struct_status.html#a467ddc32f7183ea10eeac09cc90c23bf">on</a>(<a class="code hl_enumvalue" href="../../df/d48/class_component_target_tracking.html#ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5">TrackingBit::ObjectTracking</a>);</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            <span class="keywordflow">if</span>(!<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#ae301eddd2d00ef453af05c17d634ab15">tracking_status_</a>.<a class="code hl_function" href="../../df/df2/struct_status.html#af4b46e2be91cf8da689ef283875f6bc2">is</a>(<a class="code hl_enumvalue" href="../../df/d48/class_component_target_tracking.html#ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5">TrackingBit::ObjectTracking</a>)) {</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>                ImGui::DragFloat3(<a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a><span class="stringliteral">&quot;ターゲットポイント&quot;</span>, (<span class="keywordtype">float</span>*)&amp;<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a6126e81bfe187ce5d47d9f7bafd9315e">look_at_</a>, 0.01f);</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>            }</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            ImGui::Separator();</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>            ImGui::DragFloat2(<a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a><span class="stringliteral">&quot;左右角度制限&quot;</span>, (<span class="keywordtype">float</span>*)&amp;<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#af608621d78fca99c58eb4aeeb8b511a3">limit_lr_</a>, 0.1f, 0, 180, <span class="stringliteral">&quot;%.1f&quot;</span>);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>            ImGui::DragFloat2(<a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a><span class="stringliteral">&quot;上下角度制限&quot;</span>, (<span class="keywordtype">float</span>*)&amp;<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a155d85aa68f4ea5220ed38955cca4f69">limit_ud_</a>, 0.1f, 0, 89, <span class="stringliteral">&quot;%.1f&quot;</span>);</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>            ImGui::Separator();</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>            ImGui::DragFloat3(<a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a><span class="stringliteral">&quot;前ベクトル&quot;</span>, (<span class="keywordtype">float</span>*)&amp;<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a7cd61fd765a65876162bc39ce2671de7">front_vector_</a>, 0.1f, 0, 180, <span class="stringliteral">&quot;%.1f&quot;</span>);</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>            ImGui::TreePop();</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        }</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    }</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    ImGui::End();</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>}</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#aae6698280230239197a773e5cf538131">  245</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#aae6698280230239197a773e5cf538131">ComponentTargetTracking::SetTargetObjectPtr</a>(ObjectWeakPtr obj) {</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a28609ec41a2ff35e5b95bcedbeb8157e">tracking_object_</a> = obj;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#ae301eddd2d00ef453af05c17d634ab15">tracking_status_</a>.<a class="code hl_function" href="../../df/df2/struct_status.html#a467ddc32f7183ea10eeac09cc90c23bf">on</a>(<a class="code hl_enumvalue" href="../../df/d48/class_component_target_tracking.html#ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5">TrackingBit::ObjectTracking</a>);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a28609ec41a2ff35e5b95bcedbeb8157e">tracking_object_</a>.expired()) {</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#ae301eddd2d00ef453af05c17d634ab15">tracking_status_</a>.<a class="code hl_function" href="../../df/df2/struct_status.html#a0e024bca0f58b5e1cda3dd6bf94d40c7">off</a>(<a class="code hl_enumvalue" href="../../df/d48/class_component_target_tracking.html#ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5">TrackingBit::ObjectTracking</a>);</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>}</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#addcbd3cd335d4db25ddff5ad5aab7e4e">  253</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#aae6698280230239197a773e5cf538131">ComponentTargetTracking::SetTargetObjectPtr</a>(<span class="keyword">const</span> std::string_view obj_name) {</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="keyword">auto</span> obj = Scene::GetObjectPtr&lt;Object&gt;(obj_name);</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>    <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#aae6698280230239197a773e5cf538131">SetTargetObjectPtr</a>(obj);</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>}</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#a59adf20bc856a293e1b741e0bfbb572c">  258</a></span>ObjectPtr <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#a59adf20bc856a293e1b741e0bfbb572c">ComponentTargetTracking::GetTargetObjectPtr</a>() {</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    <span class="keywordflow">if</span>(<span class="keyword">auto</span> obj = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a28609ec41a2ff35e5b95bcedbeb8157e">tracking_object_</a>.lock()) {</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        <span class="keywordflow">return</span> obj;</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    }</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>}</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#ad81e038c85c83342a1a4100dc95219ec">  266</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#ad81e038c85c83342a1a4100dc95219ec">ComponentTargetTracking::SetTargetPoint</a>(float3 target) {</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a28609ec41a2ff35e5b95bcedbeb8157e">tracking_object_</a>.reset();</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a6126e81bfe187ce5d47d9f7bafd9315e">look_at_</a> = target;</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#ae301eddd2d00ef453af05c17d634ab15">tracking_status_</a>.<a class="code hl_function" href="../../df/df2/struct_status.html#a0e024bca0f58b5e1cda3dd6bf94d40c7">off</a>(<a class="code hl_enumvalue" href="../../df/d48/class_component_target_tracking.html#ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5">TrackingBit::ObjectTracking</a>);</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>}</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#a3e07b9e006288545cef57b9124cc87c5">  272</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#a3e07b9e006288545cef57b9124cc87c5">ComponentTargetTracking::SetTrackingNode</a>(<span class="keyword">const</span> std::string&amp; name) {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#aa171d99d64e2a95a38e84b14ed2af8f5">owner_model_</a>.lock() == <span class="keyword">nullptr</span>)</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#aa171d99d64e2a95a38e84b14ed2af8f5">owner_model_</a> = <a class="code hl_function" href="../../d2/d00/class_component.html#adc1b85b65e84e7b0a7b8382c90aae9ee">GetOwner</a>()-&gt;<a class="code hl_function" href="../../d8/d83/class_object.html#a4e9dfbca25ab6d6e9303910192b89564">GetComponent</a>&lt;<a class="code hl_class" href="../../d0/de1/class_component_model.html">ComponentModel</a>&gt;();</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordflow">if</span>(<span class="keyword">auto</span> model = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#aa171d99d64e2a95a38e84b14ed2af8f5">owner_model_</a>.lock()) {</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a04a85d5becf61d7fc344f01db82d3492">tracked_node_</a> = name;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a1d13e1f46d7b80edf8ded2474735058f">tracked_node_index_</a> = MV1SearchFrame(model-&gt;GetModel(), name.c_str());</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        <span class="keyword">auto</span> mat         = <a class="code hl_function" href="../../de/d57/_vector_math_8h.html#acaf43804f3b1a2e96e58f2ccbbeaab76">cast</a>(MV1GetFrameLocalMatrix(model-&gt;GetModel(), <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a1d13e1f46d7b80edf8ded2474735058f">tracked_node_index_</a>));</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a4eecd0279b127d161a7c039c0e47b8a2">tracking_matrix_</a> = mat;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>    }</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>}</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span> </div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#af639925b2c85f220c73d391ff6ec36dc">  286</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#a3e07b9e006288545cef57b9124cc87c5">ComponentTargetTracking::SetTrackingNode</a>(<span class="keywordtype">int</span> tracking_node_index) {</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#aa171d99d64e2a95a38e84b14ed2af8f5">owner_model_</a>.lock() == <span class="keyword">nullptr</span>)</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#aa171d99d64e2a95a38e84b14ed2af8f5">owner_model_</a> = <a class="code hl_function" href="../../d2/d00/class_component.html#adc1b85b65e84e7b0a7b8382c90aae9ee">GetOwner</a>()-&gt;<a class="code hl_function" href="../../d8/d83/class_object.html#a4e9dfbca25ab6d6e9303910192b89564">GetComponent</a>&lt;<a class="code hl_class" href="../../d0/de1/class_component_model.html">ComponentModel</a>&gt;();</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>    <span class="keywordflow">if</span>(<span class="keyword">auto</span> model = <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#aa171d99d64e2a95a38e84b14ed2af8f5">owner_model_</a>.lock()) {</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a1d13e1f46d7b80edf8ded2474735058f">tracked_node_index_</a> = tracking_node_index;</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span> </div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        <span class="keyword">auto</span> mat         = <a class="code hl_function" href="../../de/d57/_vector_math_8h.html#acaf43804f3b1a2e96e58f2ccbbeaab76">cast</a>(MV1GetFrameLocalMatrix(model-&gt;GetModel(), <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a1d13e1f46d7b80edf8ded2474735058f">tracked_node_index_</a>));</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a4eecd0279b127d161a7c039c0e47b8a2">tracking_matrix_</a> = mat;</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    }</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>}</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span> </div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#abb0d359cde66787cc48d8ca13ff320c6">  298</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#abb0d359cde66787cc48d8ca13ff320c6">ComponentTargetTracking::SetTrackingLimitLeftRight</a>(float2 left_right) {</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#af608621d78fca99c58eb4aeeb8b511a3">limit_lr_</a> = left_right;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>}</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#a4116f845b7e81bb1d90f20555a5dfeb3">  302</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#a4116f845b7e81bb1d90f20555a5dfeb3">ComponentTargetTracking::SetTrackingLimitUpDown</a>(float2 up_down) {</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <span class="keywordflow">if</span>(up_down.x &gt; 89.0f)</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        up_down.x = 89.0f;</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keywordflow">if</span>(up_down.x &lt; -89.0f)</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        up_down.x = -89.0f;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <span class="keywordflow">if</span>(up_down.y &gt; 89.0f)</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        up_down.y = 89.0f;</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    <span class="keywordflow">if</span>(up_down.y &lt; -89.0f)</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        up_down.y = -89.0f;</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a155d85aa68f4ea5220ed38955cca4f69">limit_ud_</a> = up_down;</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>}</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span> </div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#a5e624bf9c9d54da462d112cf699d3e2e">  315</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#a5e624bf9c9d54da462d112cf699d3e2e">ComponentTargetTracking::SetTrackingFrameLimit</a>(<span class="keywordtype">float</span> limit) {</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a7513710ccf984b562b72a802fc34f3eb">limit_frame_</a> = limit;</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>}</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno"><a class="line" href="../../df/d48/class_component_target_tracking.html#aa008ef47e8a1fcec755b6d488da3adbb">  319</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../df/d48/class_component_target_tracking.html#aa008ef47e8a1fcec755b6d488da3adbb">ComponentTargetTracking::SetFrontVector</a>(float3 vec) {</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <a class="code hl_variable" href="../../df/d48/class_component_target_tracking.html#a7cd61fd765a65876162bc39ce2671de7">front_vector_</a> = normalize(vec);</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>}</div>
+<div class="ttc" id="a_component_8h_html_acb5da28bae949d7ba8d6a74c97e1e394"><div class="ttname"><a href="../../dc/d20/_component_8h.html#acb5da28bae949d7ba8d6a74c97e1e394">BP_COMPONENT_IMPL</a></div><div class="ttdeci">#define BP_COMPONENT_IMPL(CLASS, DESC_NAME)</div><div class="ttdef"><b>Definition:</b> <a href="../../dc/d20/_component_8h_source.html#l00095">Component.h:95</a></div></div>
+<div class="ttc" id="a_component_model_8h_html"><div class="ttname"><a href="../../d2/da1/_component_model_8h.html">ComponentModel.h</a></div><div class="ttdoc">モデルコンポーネント</div></div>
+<div class="ttc" id="a_component_target_tracking_8h_html"><div class="ttname"><a href="../../d1/d83/_component_target_tracking_8h.html">ComponentTargetTracking.h</a></div></div>
+<div class="ttc" id="a_component_transform_8cpp_html_a6d9d86eb5b39827e671616046aef46d8"><div class="ttname"><a href="../../d2/de3/_component_transform_8cpp.html#a6d9d86eb5b39827e671616046aef46d8">DecomposeMatrixToComponents</a></div><div class="ttdeci">void DecomposeMatrixToComponents(const float *matx, float *translation, float *rotation, float *scale)</div><div class="ttdoc">Matrixから位置・回転・スケールに変換(ZXYで変換)</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/de3/_component_transform_8cpp_source.html#l00061">ComponentTransform.cpp:61</a></div></div>
+<div class="ttc" id="a_component_transform_8cpp_html_abe00c8be42f2761185a0ccfca2ded81a"><div class="ttname"><a href="../../d2/de3/_component_transform_8cpp.html#abe00c8be42f2761185a0ccfca2ded81a">RecomposeMatrixFromComponents</a></div><div class="ttdeci">void RecomposeMatrixFromComponents(const float *translation, const float *rotation, const float *scale, float *matx)</div><div class="ttdoc">位置・回転・スケールからMatrixに変換(ZXYで変換)</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/de3/_component_transform_8cpp_source.html#l00089">ComponentTransform.cpp:89</a></div></div>
+<div class="ttc" id="a_component_transform_8h_html"><div class="ttname"><a href="../../d0/d46/_component_transform_8h.html">ComponentTransform.h</a></div><div class="ttdoc">トランスフォームコンポーネント(座標と姿勢と大きさ)</div></div>
+<div class="ttc" id="a_helper_lib_8h_html"><div class="ttname"><a href="../../dc/d5f/_helper_lib_8h.html">HelperLib.h</a></div></div>
+<div class="ttc" id="a_im_gui_8h_html"><div class="ttname"><a href="../../d7/d96/_im_gui_8h.html">ImGui.h</a></div></div>
+<div class="ttc" id="a_object_8h_html"><div class="ttname"><a href="../../df/d30/_object_8h.html">Object.h</a></div><div class="ttdoc">オブジェクト ベースクラス</div></div>
+<div class="ttc" id="a_precompile_8h_html_aad0324c49354ecf08266df8024fb155c"><div class="ttname"><a href="../../d2/ddd/_precompile_8h.html#aad0324c49354ecf08266df8024fb155c">RadToDeg</a></div><div class="ttdeci">static constexpr f32 RadToDeg</div><div class="ttdoc">Radian→Degree 変換係数</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/ddd/_precompile_8h_source.html#l00089">Precompile.h:89</a></div></div>
+<div class="ttc" id="a_scene_8h_html"><div class="ttname"><a href="../../de/d56/_scene_8h.html">Scene.h</a></div><div class="ttdoc">シーン</div></div>
+<div class="ttc" id="a_typedef_8h_html_a987e4d6cf789cb59dbb390728271e4d6"><div class="ttname"><a href="../../d2/db9/_typedef_8h.html#a987e4d6cf789cb59dbb390728271e4d6">u8</a></div><div class="ttdeci">uint8_t u8</div><div class="ttdoc">8bit 符号なし整数</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/db9/_typedef_8h_source.html#l00021">Typedef.h:21</a></div></div>
+<div class="ttc" id="a_vector_math_8h_html_ab151ff244ab06b4f346d5827dde650e0"><div class="ttname"><a href="../../de/d57/_vector_math_8h.html#ab151ff244ab06b4f346d5827dde650e0">mul</a></div><div class="ttdeci">hlslpp_inline float3 mul(const float3x4 &amp;m1, const float4 &amp;v)</div><div class="ttdoc">3x4行列 ✕ float4</div><div class="ttdef"><b>Definition:</b> <a href="../../de/d57/_vector_math_8h_source.html#l00073">VectorMath.h:73</a></div></div>
+<div class="ttc" id="a_vector_math_8h_html_acaf43804f3b1a2e96e58f2ccbbeaab76"><div class="ttname"><a href="../../de/d57/_vector_math_8h.html#acaf43804f3b1a2e96e58f2ccbbeaab76">cast</a></div><div class="ttdeci">DxLib::FLOAT2 cast(const float2 &amp;v)</div><div class="ttdoc">DxLib::FLOAT2へキャスト</div><div class="ttdef"><b>Definition:</b> <a href="../../de/d57/_vector_math_8h_source.html#l00013">VectorMath.h:13</a></div></div>
+<div class="ttc" id="aclass_component_html_adc1b85b65e84e7b0a7b8382c90aae9ee"><div class="ttname"><a href="../../d2/d00/class_component.html#adc1b85b65e84e7b0a7b8382c90aae9ee">Component::GetOwner</a></div><div class="ttdeci">Object * GetOwner()</div><div class="ttdoc">オーナー(従属しているオブジェクト)の取得</div><div class="ttdef"><b>Definition:</b> <a href="../../da/dbb/_component_8cpp_source.html#l00014">Component.cpp:14</a></div></div>
+<div class="ttc" id="aclass_component_model_html"><div class="ttname"><a href="../../d0/de1/class_component_model.html">ComponentModel</a></div><div class="ttdoc">モデルコンポーネントクラス</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/da1/_component_model_8h_source.html#l00018">ComponentModel.h:20</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html">ComponentTargetTracking</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00009">ComponentTargetTracking.h:9</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a04a85d5becf61d7fc344f01db82d3492"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a04a85d5becf61d7fc344f01db82d3492">ComponentTargetTracking::tracked_node_</a></div><div class="ttdeci">std::string tracked_node_</div><div class="ttdoc">追跡させるノード名</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00080">ComponentTargetTracking.h:80</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a155d85aa68f4ea5220ed38955cca4f69"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a155d85aa68f4ea5220ed38955cca4f69">ComponentTargetTracking::limit_ud_</a></div><div class="ttdeci">float2 limit_ud_</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00086">ComponentTargetTracking.h:86</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a1d13e1f46d7b80edf8ded2474735058f"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a1d13e1f46d7b80edf8ded2474735058f">ComponentTargetTracking::tracked_node_index_</a></div><div class="ttdeci">int tracked_node_index_</div><div class="ttdoc">ノードインデックス</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00081">ComponentTargetTracking.h:81</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a24a6edfe0c2f88b10967addba4eb0913"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a24a6edfe0c2f88b10967addba4eb0913">ComponentTargetTracking::PostUpdate</a></div><div class="ttdeci">virtual void PostUpdate() override</div><div class="ttdoc">向きの更新</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00057">ComponentTargetTracking.cpp:57</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a27a74be16ae1b3e87d7b347311c783f4"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a27a74be16ae1b3e87d7b347311c783f4">ComponentTargetTracking::Exit</a></div><div class="ttdeci">virtual void Exit() override</div><div class="ttdoc">終了処理</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00176">ComponentTargetTracking.cpp:176</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a28609ec41a2ff35e5b95bcedbeb8157e"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a28609ec41a2ff35e5b95bcedbeb8157e">ComponentTargetTracking::tracking_object_</a></div><div class="ttdeci">ObjectWeakPtr tracking_object_</div><div class="ttdoc">追跡オブジェクト</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00092">ComponentTargetTracking.h:92</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a2870883573b583981c30e1b800684273"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a2870883573b583981c30e1b800684273">ComponentTargetTracking::PreUpdate</a></div><div class="ttdeci">virtual void PreUpdate() override</div><div class="ttdoc">向きの初期化</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00051">ComponentTargetTracking.cpp:51</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a3e07b9e006288545cef57b9124cc87c5"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a3e07b9e006288545cef57b9124cc87c5">ComponentTargetTracking::SetTrackingNode</a></div><div class="ttdeci">void SetTrackingNode(const std::string &amp;name)</div><div class="ttdoc">トラッキングを行うノード名</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00272">ComponentTargetTracking.cpp:272</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a4116f845b7e81bb1d90f20555a5dfeb3"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a4116f845b7e81bb1d90f20555a5dfeb3">ComponentTargetTracking::SetTrackingLimitUpDown</a></div><div class="ttdeci">void SetTrackingLimitUpDown(float2 up_down)</div><div class="ttdoc">上下の角度制限</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00302">ComponentTargetTracking.cpp:302</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a4eecd0279b127d161a7c039c0e47b8a2"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a4eecd0279b127d161a7c039c0e47b8a2">ComponentTargetTracking::tracking_matrix_</a></div><div class="ttdeci">matrix tracking_matrix_</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00090">ComponentTargetTracking.h:90</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a59adf20bc856a293e1b741e0bfbb572c"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a59adf20bc856a293e1b741e0bfbb572c">ComponentTargetTracking::GetTargetObjectPtr</a></div><div class="ttdeci">ObjectPtr GetTargetObjectPtr()</div><div class="ttdoc">追跡オブジェクトの取得</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00258">ComponentTargetTracking.cpp:258</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a5e624bf9c9d54da462d112cf699d3e2e"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a5e624bf9c9d54da462d112cf699d3e2e">ComponentTargetTracking::SetTrackingFrameLimit</a></div><div class="ttdeci">void SetTrackingFrameLimit(float limit)</div><div class="ttdoc">フレーム単位の角度制限</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00315">ComponentTargetTracking.cpp:315</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a604635ae0c9a8c4ed47a09dd1e5ceeff"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a604635ae0c9a8c4ed47a09dd1e5ceeff">ComponentTargetTracking::GUI</a></div><div class="ttdeci">virtual void GUI() override</div><div class="ttdoc">GUI処理</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00183">ComponentTargetTracking.cpp:183</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a6126e81bfe187ce5d47d9f7bafd9315e"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a6126e81bfe187ce5d47d9f7bafd9315e">ComponentTargetTracking::look_at_</a></div><div class="ttdeci">float3 look_at_</div><div class="ttdoc">注視点</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00084">ComponentTargetTracking.h:84</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a68d83bc6168ecaaf4bdb5b2d854d8e2d"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a68d83bc6168ecaaf4bdb5b2d854d8e2d">ComponentTargetTracking::now_rot_</a></div><div class="ttdeci">float2 now_rot_</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00088">ComponentTargetTracking.h:88</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a7513710ccf984b562b72a802fc34f3eb"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a7513710ccf984b562b72a802fc34f3eb">ComponentTargetTracking::limit_frame_</a></div><div class="ttdeci">float limit_frame_</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00087">ComponentTargetTracking.h:87</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a7cd61fd765a65876162bc39ce2671de7"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a7cd61fd765a65876162bc39ce2671de7">ComponentTargetTracking::front_vector_</a></div><div class="ttdeci">float3 front_vector_</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00082">ComponentTargetTracking.h:82</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_a9fd550732558f908a8d0961a632d9279"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#a9fd550732558f908a8d0961a632d9279">ComponentTargetTracking::Draw</a></div><div class="ttdeci">virtual void Draw() override</div><div class="ttdoc">向きのマトリクス表示(デバッグ用)</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00171">ComponentTargetTracking.cpp:171</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_aa008ef47e8a1fcec755b6d488da3adbb"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#aa008ef47e8a1fcec755b6d488da3adbb">ComponentTargetTracking::SetFrontVector</a></div><div class="ttdeci">void SetFrontVector(float3 vec)</div><div class="ttdoc">前ベクトルのセット</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00319">ComponentTargetTracking.cpp:319</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_aa171d99d64e2a95a38e84b14ed2af8f5"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#aa171d99d64e2a95a38e84b14ed2af8f5">ComponentTargetTracking::owner_model_</a></div><div class="ttdeci">ComponentModelWeakPtr owner_model_</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00093">ComponentTargetTracking.h:93</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_aae6698280230239197a773e5cf538131"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#aae6698280230239197a773e5cf538131">ComponentTargetTracking::SetTargetObjectPtr</a></div><div class="ttdeci">void SetTargetObjectPtr(ObjectWeakPtr obj)</div><div class="ttdoc">追跡オブジェクトの設定</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00245">ComponentTargetTracking.cpp:245</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_abb0d359cde66787cc48d8ca13ff320c6"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#abb0d359cde66787cc48d8ca13ff320c6">ComponentTargetTracking::SetTrackingLimitLeftRight</a></div><div class="ttdeci">void SetTrackingLimitLeftRight(float2 left_right)</div><div class="ttdoc">左右の角度制限</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00298">ComponentTargetTracking.cpp:298</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_ac054f0910aa806784323f2ecac25ecd3"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#ac054f0910aa806784323f2ecac25ecd3">ComponentTargetTracking::Init</a></div><div class="ttdeci">virtual void Init() override</div><div class="ttdoc">初期化</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00042">ComponentTargetTracking.cpp:42</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5">ComponentTargetTracking::TrackingBit::ObjectTracking</a></div><div class="ttdeci">@ ObjectTracking</div><div class="ttdoc">オブジェクトをトラッキングする</div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_ad594f0dd0aefbb4c491121efe0db0a2ca59d87a4758a9d35fbaf6b204341bb399"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#ad594f0dd0aefbb4c491121efe0db0a2ca59d87a4758a9d35fbaf6b204341bb399">ComponentTargetTracking::TrackingBit::Initialized</a></div><div class="ttdeci">@ Initialized</div><div class="ttdoc">初期化済み</div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_ad81e038c85c83342a1a4100dc95219ec"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#ad81e038c85c83342a1a4100dc95219ec">ComponentTargetTracking::SetTargetPoint</a></div><div class="ttdeci">void SetTargetPoint(float3 target)</div><div class="ttdoc">追跡ポイントの設定</div><div class="ttdef"><b>Definition:</b> <a href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00266">ComponentTargetTracking.cpp:266</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_ae301eddd2d00ef453af05c17d634ab15"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#ae301eddd2d00ef453af05c17d634ab15">ComponentTargetTracking::tracking_status_</a></div><div class="ttdeci">Status&lt; TrackingBit &gt; tracking_status_</div><div class="ttdoc">状態</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00079">ComponentTargetTracking.h:79</a></div></div>
+<div class="ttc" id="aclass_component_target_tracking_html_af608621d78fca99c58eb4aeeb8b511a3"><div class="ttname"><a href="../../df/d48/class_component_target_tracking.html#af608621d78fca99c58eb4aeeb8b511a3">ComponentTargetTracking::limit_lr_</a></div><div class="ttdeci">float2 limit_lr_</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d83/_component_target_tracking_8h_source.html#l00085">ComponentTargetTracking.h:85</a></div></div>
+<div class="ttc" id="aclass_object_html_a1b62160fcfdc36e88ed94d99334d99c8"><div class="ttname"><a href="../../d8/d83/class_object.html#a1b62160fcfdc36e88ed94d99334d99c8">Object::GetName</a></div><div class="ttdeci">std::string_view GetName() const</div><div class="ttdoc">名前の取得</div><div class="ttdef"><b>Definition:</b> <a href="../../d8/ded/_object_8cpp_source.html#l00324">Object.cpp:324</a></div></div>
+<div class="ttc" id="aclass_object_html_a4e9dfbca25ab6d6e9303910192b89564"><div class="ttname"><a href="../../d8/d83/class_object.html#a4e9dfbca25ab6d6e9303910192b89564">Object::GetComponent</a></div><div class="ttdeci">std::shared_ptr&lt; T &gt; GetComponent()</div><div class="ttdoc">コンポーネント取得</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d30/_object_8h_source.html#l00444">Object.h:444</a></div></div>
+<div class="ttc" id="aclass_object_html_ac38b3442d6f6e93af4cdb35a9be08dbc"><div class="ttname"><a href="../../d8/d83/class_object.html#ac38b3442d6f6e93af4cdb35a9be08dbc">Object::RemoveComponent</a></div><div class="ttdeci">void RemoveComponent()</div><div class="ttdef"><b>Definition:</b> <a href="../../df/d30/_object_8h_source.html#l00511">Object.h:511</a></div></div>
+<div class="ttc" id="aclass_scene_html_a8ef78e083da6e5e0ff7a78a8453ec2c1"><div class="ttname"><a href="../../d6/db5/class_scene.html#a8ef78e083da6e5e0ff7a78a8453ec2c1">Scene::GetCurrentScene</a></div><div class="ttdeci">static Scene::Base * GetCurrentScene()</div><div class="ttdoc">現在アクティブなシーンを取得します</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d44/_scene_8cpp_source.html#l00794">Scene.cpp:794</a></div></div>
+<div class="ttc" id="anamespace_helper_lib_1_1_math_html_a5fdeef4fc76f0323e735a35a17da818b"><div class="ttname"><a href="../../db/d2b/namespace_helper_lib_1_1_math.html#a5fdeef4fc76f0323e735a35a17da818b">HelperLib::Math::CreateMatrixByFrontVector</a></div><div class="ttdeci">matrix CreateMatrixByFrontVector(float3 front, float3 up, bool upremake)</div><div class="ttdoc">ベクトルからMatrixを作成します</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/df0/_helper_lib_8cpp_source.html#l00246">HelperLib.cpp:246</a></div></div>
+<div class="ttc" id="astruct_status_html_a0e024bca0f58b5e1cda3dd6bf94d40c7"><div class="ttname"><a href="../../df/df2/struct_status.html#a0e024bca0f58b5e1cda3dd6bf94d40c7">Status::off</a></div><div class="ttdeci">V off(T b)</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/ddd/_status_8h_source.html#l00027">Status.h:27</a></div></div>
+<div class="ttc" id="astruct_status_html_a467ddc32f7183ea10eeac09cc90c23bf"><div class="ttname"><a href="../../df/df2/struct_status.html#a467ddc32f7183ea10eeac09cc90c23bf">Status::on</a></div><div class="ttdeci">V on(T b)</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/ddd/_status_8h_source.html#l00023">Status.h:23</a></div></div>
+<div class="ttc" id="astruct_status_html_af4b46e2be91cf8da689ef283875f6bc2"><div class="ttname"><a href="../../df/df2/struct_status.html#af4b46e2be91cf8da689ef283875f6bc2">Status::is</a></div><div class="ttdeci">V is(T b) const</div><div class="ttdef"><b>Definition:</b> <a href="../../d3/ddd/_status_8h_source.html#l00034">Status.h:34</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>

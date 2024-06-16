@@ -1,0 +1,430 @@
+\hypertarget{class_little_quest_1_1_component_h_p}{}\doxysection{Little\+Quest\+::Component\+HP Class Reference}
+\label{class_little_quest_1_1_component_h_p}\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+
+
+HPコンポーネントクラス  
+
+
+
+
+{\ttfamily \#include $<$Component\+HP.\+h$>$}
+
+Inheritance diagram for Little\+Quest\+::Component\+HP\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{df/db3/class_little_quest_1_1_component_h_p}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947}{HP\+\_\+\+TYPE}} \{ \mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947a2669923c9a2a3bf1507617ea920906c2}{PLAYER}}
+, \mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947ae44978313da6c0af1070ef5d56bf2859}{BOSS}}
+ \}
+\begin{DoxyCompactList}\small\item\em HPゲージタイプの列挙型 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_component_h_p_a63294565f0bc3feb54663d9b03fd93aa}{BP\+\_\+\+COMPONENT\+\_\+\+TYPE}} (\mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}}, Component)
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_component_h_p_afaf9b5405d311ce2d8303c2808f4c5da}{Update}} () override
+\begin{DoxyCompactList}\small\item\em 更新処理を行います。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_component_h_p_ae750a1d052d9b23186ab6ed38ee5bd5a}{Set\+Type}} (\mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947}{HP\+\_\+\+TYPE}} type)
+\begin{DoxyCompactList}\small\item\em ゲージのタイプを設定します。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_component_h_p_aa40b3a9584bc9bad72d8c837ce902517}{Set\+HP}} (int HP)
+\begin{DoxyCompactList}\small\item\em 最大の\+HP量を設定します。 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a2bd0d00eb5ad6393a1ab95d41502eadd}{Get\+HP}} ()
+\begin{DoxyCompactList}\small\item\em 現在の\+HP量を取得します。 \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a1415de30ece7ce05964e301669093a20}{Get\+HPRate}} ()
+\begin{DoxyCompactList}\small\item\em HPのパーセントを取得します。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a7db16d0bbdd441c42cd533e53c7d46c6}{Take\+Damage}} (int damage)
+\begin{DoxyCompactList}\small\item\em ダメージの計算を行います。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a1e32b13847d727c7195a42f998c80aac}{Draw\+HPBar}} ()
+\begin{DoxyCompactList}\small\item\em HPゲージを描画します。 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{Indent}\textbf{ Cereal処理}\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_component_h_p_a489541063f07f6dcc76151538a3272bd}{CEREAL\+\_\+\+SAVELOAD}} (arc, ver)
+\begin{DoxyCompactList}\small\item\em セーブ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a78b327337713e17d28cef9522d9d7988}{DAMAGE\+\_\+\+TIME}} = 60.\+0f
+\begin{DoxyCompactList}\small\item\em ダメージアニメーションを表示する時間 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947}{HP\+\_\+\+TYPE}} \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a5fd96de1f17bd81750299f88a639b965}{m\+\_\+type}} = \mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947a2669923c9a2a3bf1507617ea920906c2}{HP\+\_\+\+TYPE\+::\+PLAYER}}
+\begin{DoxyCompactList}\small\item\em HPゲージのタイプ \end{DoxyCompactList}\item 
+VECTOR \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a3c6b5638ba6cb02bd34853ffe216f24b}{m\+\_\+pos2D}} = \{0, 0, 0\}
+\begin{DoxyCompactList}\small\item\em ゲージを描画する座標 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a2b9da08b1508b3822573d5a889f92a46}{m\+\_\+max\+HP}} = 100
+\begin{DoxyCompactList}\small\item\em 最大\+HP量 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a2795881787540f6da43cf8cf2cca8a6e}{m\+\_\+curr\+HP}} = \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a2b9da08b1508b3822573d5a889f92a46}{m\+\_\+max\+HP}}
+\begin{DoxyCompactList}\small\item\em 現在の\+HP量 \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_little_quest_1_1_component_h_p_ae9c775b1ff5dd26120325f297fe41a6d}{m\+\_\+back\+HP}} = (float)\mbox{\hyperlink{class_little_quest_1_1_component_h_p_a2b9da08b1508b3822573d5a889f92a46}{m\+\_\+max\+HP}}
+\begin{DoxyCompactList}\small\item\em ゲージ裏の\+HP量（ダメージアニメーション） \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a4db13c75e1c440a338c8a820019f7849}{m\+\_\+damage\+Timer}} = 0
+\begin{DoxyCompactList}\small\item\em ダメージアニメーションのタイマー \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_component_h_p_aebaa5c1d1a2a48a34d440b4e4def5255}{m\+\_\+decreasing}} = false
+\begin{DoxyCompactList}\small\item\em アニメーション中なのか \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+HPコンポーネントクラス 
+
+Definition at line \mbox{\hyperlink{_component_h_p_8h_source_l00014}{14}} of file \mbox{\hyperlink{_component_h_p_8h_source}{Component\+HP.\+h}}.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947}\label{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!HP\_TYPE@{HP\_TYPE}}
+\index{HP\_TYPE@{HP\_TYPE}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{HP\_TYPE}{HP\_TYPE}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947}{Little\+Quest\+::\+Component\+HP\+::\+HP\+\_\+\+TYPE}}}
+
+
+
+HPゲージタイプの列挙型 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PLAYER@{PLAYER}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!PLAYER@{PLAYER}}}\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947a2669923c9a2a3bf1507617ea920906c2}\label{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947a2669923c9a2a3bf1507617ea920906c2}} 
+PLAYER&プレイヤー \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BOSS@{BOSS}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!BOSS@{BOSS}}}\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947ae44978313da6c0af1070ef5d56bf2859}\label{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947ae44978313da6c0af1070ef5d56bf2859}} 
+BOSS&ボス \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8h_source_l00018}{18}} of file \mbox{\hyperlink{_component_h_p_8h_source}{Component\+HP.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a63294565f0bc3feb54663d9b03fd93aa}\label{class_little_quest_1_1_component_h_p_a63294565f0bc3feb54663d9b03fd93aa}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!BP\_COMPONENT\_TYPE@{BP\_COMPONENT\_TYPE}}
+\index{BP\_COMPONENT\_TYPE@{BP\_COMPONENT\_TYPE}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{BP\_COMPONENT\_TYPE()}{BP\_COMPONENT\_TYPE()}}
+{\footnotesize\ttfamily Little\+Quest\+::\+Component\+HP\+::\+BP\+\_\+\+COMPONENT\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}}}]{,  }\item[{Component}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a489541063f07f6dcc76151538a3272bd}\label{class_little_quest_1_1_component_h_p_a489541063f07f6dcc76151538a3272bd}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!CEREAL\_SAVELOAD@{CEREAL\_SAVELOAD}}
+\index{CEREAL\_SAVELOAD@{CEREAL\_SAVELOAD}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_SAVELOAD()}{CEREAL\_SAVELOAD()}}
+{\footnotesize\ttfamily Little\+Quest\+::\+Component\+HP\+::\+CEREAL\+\_\+\+SAVELOAD (\begin{DoxyParamCaption}\item[{arc}]{,  }\item[{ver}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+セーブ 
+
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8h_source_l00095}{95}} of file \mbox{\hyperlink{_component_h_p_8h_source}{Component\+HP.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a1e32b13847d727c7195a42f998c80aac}\label{class_little_quest_1_1_component_h_p_a1e32b13847d727c7195a42f998c80aac}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!DrawHPBar@{DrawHPBar}}
+\index{DrawHPBar@{DrawHPBar}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{DrawHPBar()}{DrawHPBar()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Component\+HP\+::\+Draw\+HPBar (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+HPゲージを描画します。 
+
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8cpp_source_l00073}{73}} of file \mbox{\hyperlink{_component_h_p_8cpp_source}{Component\+HP.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_component_h_p_8h_source_l00020}{BOSS}}, \mbox{\hyperlink{_component_h_p_8h_source_l00081}{m\+\_\+back\+HP}}, \mbox{\hyperlink{_component_h_p_8h_source_l00079}{m\+\_\+curr\+HP}}, \mbox{\hyperlink{_component_h_p_8h_source_l00077}{m\+\_\+max\+HP}}, \mbox{\hyperlink{_component_h_p_8h_source_l00073}{m\+\_\+type}}, and \mbox{\hyperlink{_component_h_p_8h_source_l00019}{PLAYER}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a2bd0d00eb5ad6393a1ab95d41502eadd}\label{class_little_quest_1_1_component_h_p_a2bd0d00eb5ad6393a1ab95d41502eadd}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!GetHP@{GetHP}}
+\index{GetHP@{GetHP}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{GetHP()}{GetHP()}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Component\+HP\+::\+Get\+HP (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+現在の\+HP量を取得します。 
+
+\begin{DoxyReturn}{Returns}
+現在の\+HP量 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8cpp_source_l00046}{46}} of file \mbox{\hyperlink{_component_h_p_8cpp_source}{Component\+HP.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_component_h_p_8h_source_l00079}{m\+\_\+curr\+HP}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a1415de30ece7ce05964e301669093a20}\label{class_little_quest_1_1_component_h_p_a1415de30ece7ce05964e301669093a20}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!GetHPRate@{GetHPRate}}
+\index{GetHPRate@{GetHPRate}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{GetHPRate()}{GetHPRate()}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Component\+HP\+::\+Get\+HPRate (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+HPのパーセントを取得します。 
+
+\begin{DoxyReturn}{Returns}
+現在の\+HPのパーセント 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8cpp_source_l00053}{53}} of file \mbox{\hyperlink{_component_h_p_8cpp_source}{Component\+HP.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_component_h_p_8h_source_l00079}{m\+\_\+curr\+HP}}, and \mbox{\hyperlink{_component_h_p_8h_source_l00077}{m\+\_\+max\+HP}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_aa40b3a9584bc9bad72d8c837ce902517}\label{class_little_quest_1_1_component_h_p_aa40b3a9584bc9bad72d8c837ce902517}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!SetHP@{SetHP}}
+\index{SetHP@{SetHP}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{SetHP()}{SetHP()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Component\+HP\+::\+Set\+HP (\begin{DoxyParamCaption}\item[{int}]{HP }\end{DoxyParamCaption})}
+
+
+
+最大の\+HP量を設定します。 
+
+
+\begin{DoxyParams}{Parameters}
+{\em HP} & 最大の\+HP量 \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8cpp_source_l00037}{37}} of file \mbox{\hyperlink{_component_h_p_8cpp_source}{Component\+HP.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_component_h_p_8h_source_l00081}{m\+\_\+back\+HP}}, \mbox{\hyperlink{_component_h_p_8h_source_l00079}{m\+\_\+curr\+HP}}, and \mbox{\hyperlink{_component_h_p_8h_source_l00077}{m\+\_\+max\+HP}}.
+
+
+
+Referenced by \mbox{\hyperlink{_mutant_8cpp_source_l00017}{Little\+Quest\+::\+Mutant\+::\+Create()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_ae750a1d052d9b23186ab6ed38ee5bd5a}\label{class_little_quest_1_1_component_h_p_ae750a1d052d9b23186ab6ed38ee5bd5a}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!SetType@{SetType}}
+\index{SetType@{SetType}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{SetType()}{SetType()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Component\+HP\+::\+Set\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947}{HP\+\_\+\+TYPE}}}]{type }\end{DoxyParamCaption})}
+
+
+
+ゲージのタイプを設定します。 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & HPゲージ列挙型のタイプ \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8cpp_source_l00030}{30}} of file \mbox{\hyperlink{_component_h_p_8cpp_source}{Component\+HP.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_component_h_p_8h_source_l00073}{m\+\_\+type}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a7db16d0bbdd441c42cd533e53c7d46c6}\label{class_little_quest_1_1_component_h_p_a7db16d0bbdd441c42cd533e53c7d46c6}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!TakeDamage@{TakeDamage}}
+\index{TakeDamage@{TakeDamage}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{TakeDamage()}{TakeDamage()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Component\+HP\+::\+Take\+Damage (\begin{DoxyParamCaption}\item[{int}]{damage }\end{DoxyParamCaption})}
+
+
+
+ダメージの計算を行います。 
+
+
+\begin{DoxyParams}{Parameters}
+{\em damage} & ダメージ量 \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8cpp_source_l00060}{60}} of file \mbox{\hyperlink{_component_h_p_8cpp_source}{Component\+HP.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_component_h_p_8h_source_l00070}{DAMAGE\+\_\+\+TIME}}, \mbox{\hyperlink{_component_h_p_8h_source_l00081}{m\+\_\+back\+HP}}, \mbox{\hyperlink{_component_h_p_8h_source_l00079}{m\+\_\+curr\+HP}}, \mbox{\hyperlink{_component_h_p_8h_source_l00083}{m\+\_\+damage\+Timer}}, and \mbox{\hyperlink{_component_h_p_8h_source_l00085}{m\+\_\+decreasing}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_afaf9b5405d311ce2d8303c2808f4c5da}\label{class_little_quest_1_1_component_h_p_afaf9b5405d311ce2d8303c2808f4c5da}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!Update@{Update}}
+\index{Update@{Update}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Component\+HP\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+更新処理を行います。 
+
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_component_h_p_8cpp_source}{Component\+HP.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_component_h_p_8h_source_l00081}{m\+\_\+back\+HP}}, \mbox{\hyperlink{_component_h_p_8h_source_l00079}{m\+\_\+curr\+HP}}, \mbox{\hyperlink{_component_h_p_8h_source_l00083}{m\+\_\+damage\+Timer}}, \mbox{\hyperlink{_component_h_p_8h_source_l00085}{m\+\_\+decreasing}}, and \mbox{\hyperlink{_component_h_p_8h_source_l00075}{m\+\_\+pos2D}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a78b327337713e17d28cef9522d9d7988}\label{class_little_quest_1_1_component_h_p_a78b327337713e17d28cef9522d9d7988}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!DAMAGE\_TIME@{DAMAGE\_TIME}}
+\index{DAMAGE\_TIME@{DAMAGE\_TIME}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{DAMAGE\_TIME}{DAMAGE\_TIME}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Component\+HP\+::\+DAMAGE\+\_\+\+TIME = 60.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ダメージアニメーションを表示する時間 
+
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8h_source_l00070}{70}} of file \mbox{\hyperlink{_component_h_p_8h_source}{Component\+HP.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_h_p_8cpp_source_l00060}{Take\+Damage()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_ae9c775b1ff5dd26120325f297fe41a6d}\label{class_little_quest_1_1_component_h_p_ae9c775b1ff5dd26120325f297fe41a6d}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!m\_backHP@{m\_backHP}}
+\index{m\_backHP@{m\_backHP}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{m\_backHP}{m\_backHP}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Component\+HP\+::m\+\_\+back\+HP = (float)\mbox{\hyperlink{class_little_quest_1_1_component_h_p_a2b9da08b1508b3822573d5a889f92a46}{m\+\_\+max\+HP}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ゲージ裏の\+HP量（ダメージアニメーション） 
+
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8h_source_l00081}{81}} of file \mbox{\hyperlink{_component_h_p_8h_source}{Component\+HP.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_h_p_8cpp_source_l00073}{Draw\+HPBar()}}, \mbox{\hyperlink{_component_h_p_8cpp_source_l00037}{Set\+HP()}}, \mbox{\hyperlink{_component_h_p_8cpp_source_l00060}{Take\+Damage()}}, and \mbox{\hyperlink{_component_h_p_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a2795881787540f6da43cf8cf2cca8a6e}\label{class_little_quest_1_1_component_h_p_a2795881787540f6da43cf8cf2cca8a6e}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!m\_currHP@{m\_currHP}}
+\index{m\_currHP@{m\_currHP}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{m\_currHP}{m\_currHP}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Component\+HP\+::m\+\_\+curr\+HP = \mbox{\hyperlink{class_little_quest_1_1_component_h_p_a2b9da08b1508b3822573d5a889f92a46}{m\+\_\+max\+HP}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+現在の\+HP量 
+
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8h_source_l00079}{79}} of file \mbox{\hyperlink{_component_h_p_8h_source}{Component\+HP.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_h_p_8cpp_source_l00073}{Draw\+HPBar()}}, \mbox{\hyperlink{_component_h_p_8cpp_source_l00046}{Get\+HP()}}, \mbox{\hyperlink{_component_h_p_8cpp_source_l00053}{Get\+HPRate()}}, \mbox{\hyperlink{_component_h_p_8cpp_source_l00037}{Set\+HP()}}, \mbox{\hyperlink{_component_h_p_8cpp_source_l00060}{Take\+Damage()}}, and \mbox{\hyperlink{_component_h_p_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a4db13c75e1c440a338c8a820019f7849}\label{class_little_quest_1_1_component_h_p_a4db13c75e1c440a338c8a820019f7849}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!m\_damageTimer@{m\_damageTimer}}
+\index{m\_damageTimer@{m\_damageTimer}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{m\_damageTimer}{m\_damageTimer}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Component\+HP\+::m\+\_\+damage\+Timer = 0\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ダメージアニメーションのタイマー 
+
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8h_source_l00083}{83}} of file \mbox{\hyperlink{_component_h_p_8h_source}{Component\+HP.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_h_p_8cpp_source_l00060}{Take\+Damage()}}, and \mbox{\hyperlink{_component_h_p_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_aebaa5c1d1a2a48a34d440b4e4def5255}\label{class_little_quest_1_1_component_h_p_aebaa5c1d1a2a48a34d440b4e4def5255}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!m\_decreasing@{m\_decreasing}}
+\index{m\_decreasing@{m\_decreasing}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{m\_decreasing}{m\_decreasing}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Component\+HP\+::m\+\_\+decreasing = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+アニメーション中なのか 
+
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8h_source_l00085}{85}} of file \mbox{\hyperlink{_component_h_p_8h_source}{Component\+HP.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_h_p_8cpp_source_l00060}{Take\+Damage()}}, and \mbox{\hyperlink{_component_h_p_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a2b9da08b1508b3822573d5a889f92a46}\label{class_little_quest_1_1_component_h_p_a2b9da08b1508b3822573d5a889f92a46}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!m\_maxHP@{m\_maxHP}}
+\index{m\_maxHP@{m\_maxHP}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{m\_maxHP}{m\_maxHP}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Component\+HP\+::m\+\_\+max\+HP = 100\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+最大\+HP量 
+
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8h_source_l00077}{77}} of file \mbox{\hyperlink{_component_h_p_8h_source}{Component\+HP.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_h_p_8cpp_source_l00073}{Draw\+HPBar()}}, \mbox{\hyperlink{_component_h_p_8cpp_source_l00053}{Get\+HPRate()}}, and \mbox{\hyperlink{_component_h_p_8cpp_source_l00037}{Set\+HP()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a3c6b5638ba6cb02bd34853ffe216f24b}\label{class_little_quest_1_1_component_h_p_a3c6b5638ba6cb02bd34853ffe216f24b}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!m\_pos2D@{m\_pos2D}}
+\index{m\_pos2D@{m\_pos2D}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{m\_pos2D}{m\_pos2D}}
+{\footnotesize\ttfamily VECTOR Little\+Quest\+::\+Component\+HP\+::m\+\_\+pos2D = \{0, 0, 0\}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ゲージを描画する座標 
+
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8h_source_l00075}{75}} of file \mbox{\hyperlink{_component_h_p_8h_source}{Component\+HP.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_h_p_8cpp_source_l00007}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_component_h_p_a5fd96de1f17bd81750299f88a639b965}\label{class_little_quest_1_1_component_h_p_a5fd96de1f17bd81750299f88a639b965}} 
+\index{LittleQuest::ComponentHP@{LittleQuest::ComponentHP}!m\_type@{m\_type}}
+\index{m\_type@{m\_type}!LittleQuest::ComponentHP@{LittleQuest::ComponentHP}}
+\doxysubsubsection{\texorpdfstring{m\_type}{m\_type}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947}{HP\+\_\+\+TYPE}} Little\+Quest\+::\+Component\+HP\+::m\+\_\+type = \mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947a2669923c9a2a3bf1507617ea920906c2}{HP\+\_\+\+TYPE\+::\+PLAYER}}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+HPゲージのタイプ 
+
+
+
+Definition at line \mbox{\hyperlink{_component_h_p_8h_source_l00073}{73}} of file \mbox{\hyperlink{_component_h_p_8h_source}{Component\+HP.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_component_h_p_8cpp_source_l00073}{Draw\+HPBar()}}, and \mbox{\hyperlink{_component_h_p_8cpp_source_l00030}{Set\+Type()}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_component_h_p_8h}{Component\+HP.\+h}}\item 
+\mbox{\hyperlink{_component_h_p_8cpp}{Component\+HP.\+cpp}}\end{DoxyCompactItemize}

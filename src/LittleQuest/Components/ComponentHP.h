@@ -13,7 +13,7 @@ namespace LittleQuest {
 //////////////////////////////////////////////////////////////
 class ComponentHP: public Component {
    public:
-    BP_COMPONENT_TYPE(ComponentHP, Component);
+    BP_COMPONENT_DECL(ComponentHP, u8"HPコンポーネント");
     //! HPゲージタイプの列挙型
     enum HP_TYPE {
         PLAYER,    //!< プレイヤー

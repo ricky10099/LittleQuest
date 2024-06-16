@@ -6,8 +6,6 @@
 #include <System/Debug/DebugCamera.h>
 #include <System/ImGui.h>
 
-BP_COMPONENT_IMPL(ComponentCamera, u8"Camera機能クラス");
-
 ComponentCameraWeakPtr ComponentCamera::current_camera_{};
 
 //---------------------------------------------------------
@@ -93,8 +91,8 @@ void ComponentCamera::SetCameraTransform() {
         current_camera_ = std::weak_ptr<ComponentCamera>(std::dynamic_pointer_cast<ComponentCamera>(shared_from_this()));
     }
 
-    //	if( !camera_status_.is( CameraBit::Current ) || ( DebugCamera::IsUse()
-    //&& !camera_status_.is( CameraBit::DebugCameara ) ) ) 		return;
+    //	if( !camera_status_.is( CameraBit::Current ) || ( DebugCamera::IsUse() && !camera_status_.is( CameraBit::DebugCameara ) ) )
+    //		return;
 
     auto position = GetPosition();
     auto target   = GetTarget();
@@ -141,13 +139,13 @@ float3 ComponentCamera::GetPosition() const {
     }
 
     /*
-        auto   transform = GetOwner()->GetComponent<ComponentTransform>();
-        if( transform )
-                //position = mul( position, transform->GetMatrix() );
-                position = mul( transform->GetMatrix(), position );
+	auto   transform = GetOwner()->GetComponent<ComponentTransform>();
+	if( transform )
+		//position = mul( position, transform->GetMatrix() );
+		position = mul( transform->GetMatrix(), position );
 
-        return position.xyz;
-        */
+	return position.xyz;
+	*/
     return position.xyz;
 }
 

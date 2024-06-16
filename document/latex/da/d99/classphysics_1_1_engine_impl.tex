@@ -1,0 +1,657 @@
+\hypertarget{classphysics_1_1_engine_impl}{}\doxysection{physics\+::Engine\+Impl クラス}
+\label{classphysics_1_1_engine_impl}\index{physics::EngineImpl@{physics::EngineImpl}}
+
+
+物理シミュレーション(実装部)  
+
+
+
+
+physics\+::Engine\+Impl の継承関係図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{d8/d84/classphysics_1_1_engine_impl__inherit__graph}
+\end{center}
+\end{figure}
+
+
+physics\+::Engine\+Impl 連携図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d79/classphysics_1_1_engine_impl__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classphysics_1_1_engine_impl_a448f7078a2e79094a22d95e018ee391e}{Engine\+Impl}} ()
+\begin{DoxyCompactList}\small\item\em デフォルトコンストラクタ \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{classphysics_1_1_engine_impl_a4d8c1ec3b219bf2c600d3e6c05e8bceb}{$\sim$\+Engine\+Impl}} ()
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_engine_impl_a18b77240bc274de55e3efa1b26e595d1}{update}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} dt) override
+\begin{DoxyCompactList}\small\item\em 更新 \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classphysics_1_1_engine_impl_a8e6b0779be2000bf896478f321651db0}{cast\+Ray}} (const \mbox{\hyperlink{class_ray}{Ray}} \&ray, \mbox{\hyperlink{structphysics_1_1_ray_cast_result}{Ray\+Cast\+Result}} \&result) override
+\begin{DoxyCompactList}\small\item\em シーンにレイをキャスト \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classphysics_1_1_engine_impl_a3207b81685277db5f0483907a59b011c}{clear}} ()
+\begin{DoxyCompactList}\small\item\em 解放 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_engine_impl_aef0e6c3fbd88d0009481d6458abbfd39}{optimize}} () override
+\begin{DoxyCompactList}\small\item\em シーン最適化を実行 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_engine_impl_a861a1a3f769f9b1ed99adee826f3a211}{set\+Layer\+Alias}} (const std\+::pair$<$ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267ba}{physics\+::\+Object\+Layers}}, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} $>$ $\ast$layers, size\+\_\+t layer\+Count) override
+\begin{DoxyCompactList}\small\item\em オブジェクトレイヤーをカスタム設定 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_engine_impl_ae8672d13a73cf098703076cfebdc5c4d}{override\+Layer\+Collide}} (std\+::function$<$ bool(\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})$>$ callback) override
+\begin{DoxyCompactList}\small\item\em オブジェクトレイヤー同士が衝突するかどうかをカスタマイズ \end{DoxyCompactList}\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_engine_impl_a10e74653eb3601d227af50459d57ae9b}{gravity}} () const override
+\begin{DoxyCompactList}\small\item\em 重力を取得 \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classphysics_1_1_engine_impl_a5a2e75e62a0b850646f27bad6f2f578e}{is\+Valid}} () const override
+\begin{DoxyCompactList}\small\item\em 正常に初期化されているかどうかを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{静的公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+static JPH\+::\+Physics\+System $\ast$ \mbox{\hyperlink{classphysics_1_1_engine_impl_ae7924147a234722edad274e6b4322d99}{physics\+System}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} Physicsシステムを取得 \end{DoxyCompactList}\item 
+static JPH\+::\+Body\+Interface $\ast$ \mbox{\hyperlink{classphysics_1_1_engine_impl_a6c0e3efae30d9a6c7e3a23876ca5e1d1}{body\+Interface}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} ボディインターフェイスを取得 \end{DoxyCompactList}\item 
+static JPH\+::\+Temp\+Allocator $\ast$ \mbox{\hyperlink{classphysics_1_1_engine_impl_a212a59a3055caaaff403e7f064751cc9}{temp\+Allocator}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} テンポラリアロケーターを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ 参照}\par
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classphysics_1_1_engine}{Engine}} $\ast$ \mbox{\hyperlink{classphysics_1_1_engine_ac114076717c5b5e26c9e740c76f3f058}{instance}} ()
+\begin{DoxyCompactList}\small\item\em Physicsインスタンスを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{copy/move禁止}
+\begin{DoxyCompactItemize}
+\item 
+std\+::unique\+\_\+ptr$<$ JPH\+::\+Factory $>$ \mbox{\hyperlink{classphysics_1_1_engine_impl_ad72201ffa0f48388b64998304e9d1527}{jph\+\_\+factory\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Factoryクラス \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ JPH\+::\+Job\+System\+Thread\+Pool $>$ \mbox{\hyperlink{classphysics_1_1_engine_impl_a9d015e2c0bc855b6cf5b1ecd11aa6d88}{job\+\_\+system\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ジョブシステム \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ JPH\+::\+Physics\+System $>$ \mbox{\hyperlink{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}{jph\+\_\+physics\+\_\+system\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Physicsシステム \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ JPH\+::\+Temp\+Allocator $>$ \mbox{\hyperlink{classphysics_1_1_engine_impl_a057ca1e5708c8cb99544bd869c8d327a}{jph\+\_\+temp\+\_\+allocator\+\_\+}}
+\item 
+BPLayer\+Interface\+Impl \mbox{\hyperlink{classphysics_1_1_engine_impl_a5d858e0b1937c0df675d9e0f75941ee2}{broad\+\_\+phase\+\_\+layer\+\_\+interface\+\_\+}}
+\item 
+My\+Body\+Activation\+Listener \mbox{\hyperlink{classphysics_1_1_engine_impl_a0beaec7caf0441d6682d7e02d6585375}{body\+\_\+activation\+\_\+listener\+\_\+}}
+\item 
+My\+Contact\+Listener \mbox{\hyperlink{classphysics_1_1_engine_impl_a23d50f7c9821469d6c1d54ebe5a6680e}{contact\+\_\+listener\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ユーザーコールバック Contact\+Listener \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classphysics_1_1_engine_impl_a0b5f2da6fee0c9d58306b4a5941c8315}{is\+\_\+valid\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em 正常に初期化されているか \end{DoxyCompactList}\item 
+static JPH\+::\+Physics\+System $\ast$ \mbox{\hyperlink{classphysics_1_1_engine_impl_afdd1ed0003a64adf2dbddc1ad5a80fb9}{physics\+\_\+system\+\_\+}} = nullptr
+\begin{DoxyCompactList}\small\item\em Physicsシステムのstaticアクセス用の参照 \end{DoxyCompactList}\item 
+static JPH\+::\+Body\+Interface $\ast$ \mbox{\hyperlink{classphysics_1_1_engine_impl_a90c40f89e5a719f3fab017c9e7cc1743}{body\+\_\+interface\+\_\+}} = nullptr
+\begin{DoxyCompactList}\small\item\em ボディインターフェイス参照 \end{DoxyCompactList}\item 
+static JPH\+::\+Temp\+Allocator $\ast$ \mbox{\hyperlink{classphysics_1_1_engine_impl_af44606a14da2365fb6a761bfe0c0d07a}{temp\+\_\+allocator\+\_\+}} = nullptr
+\begin{DoxyCompactList}\small\item\em テンポラリアロケーターのstaticアクセス用の参照 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classphysics_1_1_engine_impl_a80740800b744e8a93ad8342e28af38b9}{Engine\+Impl}} (const \mbox{\hyperlink{classphysics_1_1_engine_impl}{Engine\+Impl}} \&)=delete
+\item 
+\mbox{\hyperlink{classphysics_1_1_engine_impl_aac83cb731b0f030a6b86beb0eb2d0646}{Engine\+Impl}} (\mbox{\hyperlink{classphysics_1_1_engine_impl}{Engine\+Impl}} \&\&)=delete
+\item 
+void \mbox{\hyperlink{classphysics_1_1_engine_impl_aff86c6434afb8a8d92e4e1553f757c6b}{operator=}} (const \mbox{\hyperlink{classphysics_1_1_engine_impl}{Engine\+Impl}} \&)=delete
+\item 
+void \mbox{\hyperlink{classphysics_1_1_engine_impl_aeaff5d59b0946f9b256d8f9962127010}{operator=}} (\mbox{\hyperlink{classphysics_1_1_engine_impl}{Engine\+Impl}} \&\&)=delete
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+物理シミュレーション(実装部) 
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00304}{304}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a448f7078a2e79094a22d95e018ee391e}\label{classphysics_1_1_engine_impl_a448f7078a2e79094a22d95e018ee391e}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!EngineImpl@{EngineImpl}}
+\index{EngineImpl@{EngineImpl}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{EngineImpl()}{EngineImpl()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily physics\+::\+Engine\+Impl\+::\+Engine\+Impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+デフォルトコンストラクタ 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{410}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00394}{body\+\_\+activation\+\_\+listener\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00377}{body\+\_\+interface\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00392}{broad\+\_\+phase\+\_\+layer\+\_\+interface\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00396}{contact\+\_\+listener\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00398}{is\+\_\+valid\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00374}{job\+\_\+system\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00373}{jph\+\_\+factory\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00375}{jph\+\_\+physics\+\_\+system\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00386}{jph\+\_\+temp\+\_\+allocator\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00376}{physics\+\_\+system\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00584}{set\+Layer\+Alias()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00378}{temp\+\_\+allocator\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a4d8c1ec3b219bf2c600d3e6c05e8bceb}\label{classphysics_1_1_engine_impl_a4d8c1ec3b219bf2c600d3e6c05e8bceb}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!````~EngineImpl@{$\sim$EngineImpl}}
+\index{````~EngineImpl@{$\sim$EngineImpl}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{$\sim$EngineImpl()}{~EngineImpl()}}
+{\footnotesize\ttfamily physics\+::\+Engine\+Impl\+::$\sim$\+Engine\+Impl (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+デストラクタ 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00518}{518}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00563}{clear()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a80740800b744e8a93ad8342e28af38b9}\label{classphysics_1_1_engine_impl_a80740800b744e8a93ad8342e28af38b9}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!EngineImpl@{EngineImpl}}
+\index{EngineImpl@{EngineImpl}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{EngineImpl()}{EngineImpl()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily physics\+::\+Engine\+Impl\+::\+Engine\+Impl (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classphysics_1_1_engine_impl}{Engine\+Impl}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_aac83cb731b0f030a6b86beb0eb2d0646}\label{classphysics_1_1_engine_impl_aac83cb731b0f030a6b86beb0eb2d0646}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!EngineImpl@{EngineImpl}}
+\index{EngineImpl@{EngineImpl}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{EngineImpl()}{EngineImpl()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily physics\+::\+Engine\+Impl\+::\+Engine\+Impl (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classphysics_1_1_engine_impl}{Engine\+Impl}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a6c0e3efae30d9a6c7e3a23876ca5e1d1}\label{classphysics_1_1_engine_impl_a6c0e3efae30d9a6c7e3a23876ca5e1d1}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!bodyInterface@{bodyInterface}}
+\index{bodyInterface@{bodyInterface}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{bodyInterface()}{bodyInterface()}}
+{\footnotesize\ttfamily JPH\+::\+Body\+Interface $\ast$ physics\+::\+Engine\+Impl\+::body\+Interface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} ボディインターフェイスを取得 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00651}{651}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00377}{body\+\_\+interface\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{physics\+::\+Engine\+::body\+Interface()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a8e6b0779be2000bf896478f321651db0}\label{classphysics_1_1_engine_impl_a8e6b0779be2000bf896478f321651db0}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!castRay@{castRay}}
+\index{castRay@{castRay}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{castRay()}{castRay()}}
+{\footnotesize\ttfamily bool physics\+::\+Engine\+Impl\+::cast\+Ray (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_ray}{Ray}} \&}]{ray,  }\item[{\mbox{\hyperlink{structphysics_1_1_ray_cast_result}{Ray\+Cast\+Result}} \&}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+シーンにレイをキャスト 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em ray} & シーンに飛ばすレイ \\
+\hline
+\mbox{\texttt{ out}}  & {\em result} & 衝突結果 \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 衝突あり。resultに結果が格納されています \\
+\hline
+{\em false} & 衝突なし。結果は無効 \\
+\hline
+\end{DoxyRetVals}
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_ad87d160a08543e440af348a00be309cd}{physics\+::\+Engine}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00542}{542}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8h_source_l00027}{physics\+::\+Ray\+Cast\+Result\+::body\+\_\+id\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_geometry_8h_source_l00013}{Ray\+::dir\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00676}{physics\+::\+Engine\+::physics\+System()}}, \mbox{\hyperlink{_geometry_8h_source_l00012}{Ray\+::position\+\_\+}}, \mbox{\hyperlink{_physics_engine_8h_source_l00028}{physics\+::\+Ray\+Cast\+Result\+::t\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a3207b81685277db5f0483907a59b011c}\label{classphysics_1_1_engine_impl_a3207b81685277db5f0483907a59b011c}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!clear@{clear}}
+\index{clear@{clear}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void physics\+::\+Engine\+Impl\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+解放 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00563}{563}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00518}{$\sim$\+Engine\+Impl()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a10e74653eb3601d227af50459d57ae9b}\label{classphysics_1_1_engine_impl_a10e74653eb3601d227af50459d57ae9b}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!gravity@{gravity}}
+\index{gravity@{gravity}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{gravity()}{gravity()}}
+{\footnotesize\ttfamily float3 physics\+::\+Engine\+Impl\+::gravity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+重力を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_af553ad1f2213303c889854b95e3b2a75}{physics\+::\+Engine}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00630}{630}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00708}{physics\+::cast\+JPH()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00375}{jph\+\_\+physics\+\_\+system\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_ac114076717c5b5e26c9e740c76f3f058}\label{classphysics_1_1_engine_ac114076717c5b5e26c9e740c76f3f058}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!instance@{instance}}
+\index{instance@{instance}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{instance()}{instance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classphysics_1_1_engine}{physics\+::\+Engine}} $\ast$ physics\+::\+Engine\+::instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [inherited]}}
+
+
+
+Physicsインスタンスを取得 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00669}{669}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00043}{Component\+Collision\+Capsule\+::\+Pre\+Physics()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a5a2e75e62a0b850646f27bad6f2f578e}\label{classphysics_1_1_engine_impl_a5a2e75e62a0b850646f27bad6f2f578e}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!isValid@{isValid}}
+\index{isValid@{isValid}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{isValid()}{isValid()}}
+{\footnotesize\ttfamily bool physics\+::\+Engine\+Impl\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+正常に初期化されているかどうかを取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_a7b10220f9e53630cb19fc6da12cf0317}{physics\+::\+Engine}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00637}{637}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00398}{is\+\_\+valid\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_aff86c6434afb8a8d92e4e1553f757c6b}\label{classphysics_1_1_engine_impl_aff86c6434afb8a8d92e4e1553f757c6b}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!operator=@{operator=}}
+\index{operator=@{operator=}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void physics\+::\+Engine\+Impl\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classphysics_1_1_engine_impl}{Engine\+Impl}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_aeaff5d59b0946f9b256d8f9962127010}\label{classphysics_1_1_engine_impl_aeaff5d59b0946f9b256d8f9962127010}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!operator=@{operator=}}
+\index{operator=@{operator=}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void physics\+::\+Engine\+Impl\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classphysics_1_1_engine_impl}{Engine\+Impl}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_aef0e6c3fbd88d0009481d6458abbfd39}\label{classphysics_1_1_engine_impl_aef0e6c3fbd88d0009481d6458abbfd39}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!optimize@{optimize}}
+\index{optimize@{optimize}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{optimize()}{optimize()}}
+{\footnotesize\ttfamily void physics\+::\+Engine\+Impl\+::optimize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+シーン最適化を実行 
+
+これによって衝突検出のパフォーマンスが向上します \begin{DoxyAttention}{注意}
+かなり重い処理のため、毎フレームまたは新しいレベルセクションのストリーミング時などには 
+
+絶対に呼び出さない方がよいでしょう。 
+\end{DoxyAttention}
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_abbc4494b9eca276c577867230d10b304}{physics\+::\+Engine}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00572}{572}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00375}{jph\+\_\+physics\+\_\+system\+\_\+}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_ae8672d13a73cf098703076cfebdc5c4d}\label{classphysics_1_1_engine_impl_ae8672d13a73cf098703076cfebdc5c4d}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!overrideLayerCollide@{overrideLayerCollide}}
+\index{overrideLayerCollide@{overrideLayerCollide}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{overrideLayerCollide()}{overrideLayerCollide()}}
+{\footnotesize\ttfamily void physics\+::\+Engine\+Impl\+::override\+Layer\+Collide (\begin{DoxyParamCaption}\item[{std\+::function$<$ bool(\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})$>$}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+オブジェクトレイヤー同士が衝突するかどうかをカスタマイズ 
+
+コールバック関数の \mbox{[}第1引数\mbox{]} 対象のレイヤー \mbox{[}第2引数\mbox{]} 相手のレイヤー \mbox{[}戻り値\mbox{]} true\+:衝突する false\+:衝突しない 
+
+\mbox{\hyperlink{classphysics_1_1_engine_ad67bc7551d7da8b923967e983260af0d}{physics\+::\+Engine}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00623}{623}} 行目に定義があります。
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_ae7924147a234722edad274e6b4322d99}\label{classphysics_1_1_engine_impl_ae7924147a234722edad274e6b4322d99}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!physicsSystem@{physicsSystem}}
+\index{physicsSystem@{physicsSystem}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{physicsSystem()}{physicsSystem()}}
+{\footnotesize\ttfamily JPH\+::\+Physics\+System $\ast$ physics\+::\+Engine\+Impl\+::physics\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} Physicsシステムを取得 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00644}{644}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00376}{physics\+\_\+system\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00676}{physics\+::\+Engine\+::physics\+System()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a861a1a3f769f9b1ed99adee826f3a211}\label{classphysics_1_1_engine_impl_a861a1a3f769f9b1ed99adee826f3a211}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!setLayerAlias@{setLayerAlias}}
+\index{setLayerAlias@{setLayerAlias}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{setLayerAlias()}{setLayerAlias()}}
+{\footnotesize\ttfamily void physics\+::\+Engine\+Impl\+::set\+Layer\+Alias (\begin{DoxyParamCaption}\item[{const std\+::pair$<$ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267ba}{physics\+::\+Object\+Layers}}, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} $>$ $\ast$}]{layers,  }\item[{size\+\_\+t}]{layer\+Count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+オブジェクトレイヤーをカスタム設定 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em layers} & 自前レイヤーとphysics\+::\+Object\+Layersが対応するペアの配列先頭(nullptrで解除) \\
+\hline
+\mbox{\texttt{ in}}  & {\em layer\+Count} & 配列数 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_a4ed415ef1b0a43a39bc75eab7d9e83b2}{physics\+::\+Engine}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00584}{584}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_layer_8h_source_l00017}{physics\+::\+DEBRIS}}, \mbox{\hyperlink{_physics_layer_8h_source_l00020}{physics\+::\+MAX\+\_\+\+COUNT}}, \mbox{\hyperlink{_physics_layer_8h_source_l00016}{physics\+::\+MOVING}}, \mbox{\hyperlink{_physics_layer_8h_source_l00015}{physics\+::\+NON\+\_\+\+MOVING}}, \mbox{\hyperlink{_physics_layer_8h_source_l00018}{physics\+::\+SENSOR}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a212a59a3055caaaff403e7f064751cc9}\label{classphysics_1_1_engine_impl_a212a59a3055caaaff403e7f064751cc9}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!tempAllocator@{tempAllocator}}
+\index{tempAllocator@{tempAllocator}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{tempAllocator()}{tempAllocator()}}
+{\footnotesize\ttfamily JPH\+::\+Temp\+Allocator $\ast$ physics\+::\+Engine\+Impl\+::temp\+Allocator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} テンポラリアロケーターを取得 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00658}{658}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00378}{temp\+\_\+allocator\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00690}{physics\+::\+Engine\+::temp\+Allocator()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a18b77240bc274de55e3efa1b26e595d1}\label{classphysics_1_1_engine_impl_a18b77240bc274de55e3efa1b26e595d1}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!update@{update}}
+\index{update@{update}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void physics\+::\+Engine\+Impl\+::update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+更新 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em dt} & 経過時間⊿t \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_a96a24878ea8a67f35ebfef84e804f1cf}{physics\+::\+Engine}}を実装しています。
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00527}{527}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00374}{job\+\_\+system\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00375}{jph\+\_\+physics\+\_\+system\+\_\+}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00378}{temp\+\_\+allocator\+\_\+}}.
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a0beaec7caf0441d6682d7e02d6585375}\label{classphysics_1_1_engine_impl_a0beaec7caf0441d6682d7e02d6585375}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!body\_activation\_listener\_@{body\_activation\_listener\_}}
+\index{body\_activation\_listener\_@{body\_activation\_listener\_}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{body\_activation\_listener\_}{body\_activation\_listener\_}}
+{\footnotesize\ttfamily My\+Body\+Activation\+Listener physics\+::\+Engine\+Impl\+::body\+\_\+activation\+\_\+listener\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+ユーザーコールバック Body\+Activation\+Listener 
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00394}{394}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a90c40f89e5a719f3fab017c9e7cc1743}\label{classphysics_1_1_engine_impl_a90c40f89e5a719f3fab017c9e7cc1743}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!body\_interface\_@{body\_interface\_}}
+\index{body\_interface\_@{body\_interface\_}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{body\_interface\_}{body\_interface\_}}
+{\footnotesize\ttfamily JPH\+::\+Body\+Interface$\ast$ physics\+::\+Engine\+Impl\+::body\+\_\+interface\+\_\+ = nullptr\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+ボディインターフェイス参照 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00377}{377}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00651}{body\+Interface()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a5d858e0b1937c0df675d9e0f75941ee2}\label{classphysics_1_1_engine_impl_a5d858e0b1937c0df675d9e0f75941ee2}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!broad\_phase\_layer\_interface\_@{broad\_phase\_layer\_interface\_}}
+\index{broad\_phase\_layer\_interface\_@{broad\_phase\_layer\_interface\_}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{broad\_phase\_layer\_interface\_}{broad\_phase\_layer\_interface\_}}
+{\footnotesize\ttfamily BPLayer\+Interface\+Impl physics\+::\+Engine\+Impl\+::broad\+\_\+phase\+\_\+layer\+\_\+interface\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+オブジェクト層から\+Broad-\/phase層へのマッピングテーブル \begin{DoxyAttention}{注意}
+これはインターフェースですので\+Physicsシステムはこのインスタンスへ参照します。 このインスタンスはシステムの解放まで必要です。 
+\end{DoxyAttention}
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00392}{392}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a23d50f7c9821469d6c1d54ebe5a6680e}\label{classphysics_1_1_engine_impl_a23d50f7c9821469d6c1d54ebe5a6680e}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!contact\_listener\_@{contact\_listener\_}}
+\index{contact\_listener\_@{contact\_listener\_}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{contact\_listener\_}{contact\_listener\_}}
+{\footnotesize\ttfamily My\+Contact\+Listener physics\+::\+Engine\+Impl\+::contact\+\_\+listener\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ユーザーコールバック Contact\+Listener 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00396}{396}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a0b5f2da6fee0c9d58306b4a5941c8315}\label{classphysics_1_1_engine_impl_a0b5f2da6fee0c9d58306b4a5941c8315}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!is\_valid\_@{is\_valid\_}}
+\index{is\_valid\_@{is\_valid\_}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{is\_valid\_}{is\_valid\_}}
+{\footnotesize\ttfamily bool physics\+::\+Engine\+Impl\+::is\+\_\+valid\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+正常に初期化されているか 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00398}{398}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00637}{is\+Valid()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a9d015e2c0bc855b6cf5b1ecd11aa6d88}\label{classphysics_1_1_engine_impl_a9d015e2c0bc855b6cf5b1ecd11aa6d88}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!job\_system\_@{job\_system\_}}
+\index{job\_system\_@{job\_system\_}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{job\_system\_}{job\_system\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$JPH\+::\+Job\+System\+Thread\+Pool$>$ physics\+::\+Engine\+Impl\+::job\+\_\+system\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ジョブシステム 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00374}{374}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00527}{update()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_ad72201ffa0f48388b64998304e9d1527}\label{classphysics_1_1_engine_impl_ad72201ffa0f48388b64998304e9d1527}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!jph\_factory\_@{jph\_factory\_}}
+\index{jph\_factory\_@{jph\_factory\_}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{jph\_factory\_}{jph\_factory\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$JPH\+::\+Factory$>$ physics\+::\+Engine\+Impl\+::jph\+\_\+factory\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Factoryクラス 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00373}{373}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}\label{classphysics_1_1_engine_impl_a5b27d611f238d1cf50c91a59acd4cc42}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!jph\_physics\_system\_@{jph\_physics\_system\_}}
+\index{jph\_physics\_system\_@{jph\_physics\_system\_}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{jph\_physics\_system\_}{jph\_physics\_system\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$JPH\+::\+Physics\+System$>$ physics\+::\+Engine\+Impl\+::jph\+\_\+physics\+\_\+system\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Physicsシステム 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00375}{375}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00630}{gravity()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00572}{optimize()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00527}{update()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_a057ca1e5708c8cb99544bd869c8d327a}\label{classphysics_1_1_engine_impl_a057ca1e5708c8cb99544bd869c8d327a}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!jph\_temp\_allocator\_@{jph\_temp\_allocator\_}}
+\index{jph\_temp\_allocator\_@{jph\_temp\_allocator\_}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{jph\_temp\_allocator\_}{jph\_temp\_allocator\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$JPH\+::\+Temp\+Allocator$>$ physics\+::\+Engine\+Impl\+::jph\+\_\+temp\+\_\+allocator\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+テンポラリアロケーター
+
+物理演算の更新中にアロケーションを行う必要がないように、事前アロケーションを行っています。 もし事前割り当てをしたくない場合は\+Temp\+Allocator\+Mallocを使って malloc/freeにフォールバックすることもできます。 
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00386}{386}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_afdd1ed0003a64adf2dbddc1ad5a80fb9}\label{classphysics_1_1_engine_impl_afdd1ed0003a64adf2dbddc1ad5a80fb9}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!physics\_system\_@{physics\_system\_}}
+\index{physics\_system\_@{physics\_system\_}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{physics\_system\_}{physics\_system\_}}
+{\footnotesize\ttfamily JPH\+::\+Physics\+System$\ast$ physics\+::\+Engine\+Impl\+::physics\+\_\+system\+\_\+ = nullptr\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Physicsシステムのstaticアクセス用の参照 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00376}{376}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00644}{physics\+System()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_impl_af44606a14da2365fb6a761bfe0c0d07a}\label{classphysics_1_1_engine_impl_af44606a14da2365fb6a761bfe0c0d07a}} 
+\index{physics::EngineImpl@{physics::EngineImpl}!temp\_allocator\_@{temp\_allocator\_}}
+\index{temp\_allocator\_@{temp\_allocator\_}!physics::EngineImpl@{physics::EngineImpl}}
+\doxysubsubsection{\texorpdfstring{temp\_allocator\_}{temp\_allocator\_}}
+{\footnotesize\ttfamily JPH\+::\+Temp\+Allocator$\ast$ physics\+::\+Engine\+Impl\+::temp\+\_\+allocator\+\_\+ = nullptr\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+テンポラリアロケーターのstaticアクセス用の参照 
+
+! 
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00378}{378}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00410}{Engine\+Impl()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00658}{temp\+Allocator()}}, \mbox{\hyperlink{_physics_engine_8cpp_source_l00527}{update()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_physics_engine_8cpp}{Physics\+Engine.\+cpp}}\end{DoxyCompactItemize}

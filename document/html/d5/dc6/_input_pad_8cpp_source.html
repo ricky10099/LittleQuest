@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: InputPad.cpp ソースファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_ef68f1e1f5148ff8ef7fb1c955106c3c.html">System</a></li><li class="navelem"><a class="el" href="../../dir_fa1246c715ea0ae33e3acb8a46f21f5a.html">Input</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">InputPad.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d5/dc6/_input_pad_8cpp.html">[詳解]</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//---------------------------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//! @file   InputPad.cpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//! @brief  パッド入力管理</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"></span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="../../d9/d99/_input_pad_8h.html">InputPad.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>{</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">constexpr</span> <a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a> MAX_PAD_NUM  = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a><span class="keyword">&gt;</span>(<a class="code hl_enumvalue" href="../../d9/d99/_input_pad_8h.html#a5595d3d6116280df5ba965dc8aea4eddace5efe6eab7ec7526582f000b75cd78a">PAD_ID::PAD_ID_MAX</a>);    <span class="comment">//&lt;! 上下左右/A B C X Y Z L R START Mボタン</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">constexpr</span> <a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a> MAX_PAD_TYPE = <span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a><span class="keyword">&gt;</span>(<a class="code hl_enumvalue" href="../../d9/d99/_input_pad_8h.html#a8d35e725dc3bf6447b51790b26173285a8d885f7a7f9dd698ada3548501c49201">PAD_NO::PAD_NO_MAX</a>);    <span class="comment">//&lt;! PAD接続最大数</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">constexpr</span> <a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a> PAD_BUTTONS[MAX_PAD_NUM] = {PAD_INPUT_UP, PAD_INPUT_DOWN, PAD_INPUT_LEFT, PAD_INPUT_RIGHT,</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>                                          PAD_INPUT_1,  PAD_INPUT_2,    PAD_INPUT_3,    PAD_INPUT_4,     PAD_INPUT_5,</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>                                          PAD_INPUT_6,  PAD_INPUT_7,    PAD_INPUT_8,    PAD_INPUT_9,     PAD_INPUT_10,</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>                                          PAD_INPUT_11, PAD_INPUT_12,   PAD_INPUT_13,   PAD_INPUT_14,    PAD_INPUT_15};</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">constexpr</span> <a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a> PAD_TYPES[MAX_PAD_TYPE]  = {DX_INPUT_PAD1, DX_INPUT_PAD2, DX_INPUT_PAD3, DX_INPUT_PAD4};</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a> pads_[MAX_PAD_TYPE][MAX_PAD_NUM];</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>};    <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">// 初期化</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="../../d5/dc6/_input_pad_8cpp.html#a8df9a55c398e46803d151180a326b91a">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#a8df9a55c398e46803d151180a326b91a">InputPadInit</a>() {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> j = 0; j &lt; MAX_PAD_TYPE; ++j) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; MAX_PAD_NUM; ++i) {</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            pads_[j][i] = 0;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        }</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">// 更新</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="../../d5/dc6/_input_pad_8cpp.html#a0e1498a05f33c8c4e386385e377248a8">   34</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#a0e1498a05f33c8c4e386385e377248a8">InputPadUpdate</a>() {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> j = 0; j &lt; MAX_PAD_TYPE; ++j) {</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="keywordtype">int</span> tmp_pad = GetJoypadInputState(PAD_TYPES[j]);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; MAX_PAD_NUM; ++i) {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <span class="keywordflow">if</span>(tmp_pad &amp; PAD_BUTTONS[i]) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                ++pads_[j][i];</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                <span class="keywordflow">if</span>(pads_[j][i] &gt; UINT_MAX)</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                    pads_[j][i] = 1;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            pads_[j][i] = 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        }</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="comment">// 終了</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="../../d5/dc6/_input_pad_8cpp.html#af1b030bc6d8103403f0bac065f674ed1">   53</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#af1b030bc6d8103403f0bac065f674ed1">InputPadExit</a>() {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    ;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="comment">// 特定パッドボタンの1回だけ押下検証</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="../../d5/dc6/_input_pad_8cpp.html#a395872f650c68171d0c2ddb44e4f6ebc">   60</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#a395872f650c68171d0c2ddb44e4f6ebc">IsPadOn</a>(<a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a5595d3d6116280df5ba965dc8aea4edd">PAD_ID</a> padID, <span class="keywordtype">int</span> padType, <a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a8d35e725dc3bf6447b51790b26173285">PAD_NO</a> pad_no) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">return</span> (pads_[<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a><span class="keyword">&gt;</span>(pad_no)][<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a><span class="keyword">&gt;</span>(padID)] == 1) &amp;&amp; (padType == GetJoypadType((<span class="keywordtype">int</span>)pad_no + 1));</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="comment">// 特定パッドボタンの解放検証</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="../../d5/dc6/_input_pad_8cpp.html#a5662d03201f0fd01eacb6f10419c90eb">   67</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#a5662d03201f0fd01eacb6f10419c90eb">IsPadRelease</a>(<a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a5595d3d6116280df5ba965dc8aea4edd">PAD_ID</a> padID, <span class="keywordtype">int</span> padType, <a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a8d35e725dc3bf6447b51790b26173285">PAD_NO</a> pad_no) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> (pads_[<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a><span class="keyword">&gt;</span>(pad_no)][<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a><span class="keyword">&gt;</span>(padID)] == 0) &amp;&amp; (padType == GetJoypadType((<span class="keywordtype">int</span>)pad_no + 1));</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="comment">// 特定パッドボタンの長押し検証</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="../../d5/dc6/_input_pad_8cpp.html#ad9bcf5beec958438f34d15a98799fa2b">   74</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#ad9bcf5beec958438f34d15a98799fa2b">IsPadRepeat</a>(<a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a5595d3d6116280df5ba965dc8aea4edd">PAD_ID</a> padID, <span class="keywordtype">int</span> padType, <a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a8d35e725dc3bf6447b51790b26173285">PAD_NO</a> pad_no, <a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a> frame) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    <span class="keywordflow">return</span> (pads_[<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a><span class="keyword">&gt;</span>(pad_no)][<span class="keyword">static_cast&lt;</span><a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a><span class="keyword">&gt;</span>(padID)] &gt;= frame) &amp;&amp; (padType == GetJoypadType((<span class="keywordtype">int</span>)pad_no + 1));</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="../../d5/dc6/_input_pad_8cpp.html#a29f107f99b9eddcf03f8d21d11ce8e9f">   79</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#a29f107f99b9eddcf03f8d21d11ce8e9f">IsPadDown</a>(<a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a5595d3d6116280df5ba965dc8aea4edd">PAD_ID</a> padID, <span class="keywordtype">int</span> padType, <a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a8d35e725dc3bf6447b51790b26173285">PAD_NO</a> pad_no) {</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#a395872f650c68171d0c2ddb44e4f6ebc">IsPadOn</a>(padID, padType, pad_no);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="../../d5/dc6/_input_pad_8cpp.html#a6de6215ee26282a13797a699de0accf5">   83</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#a6de6215ee26282a13797a699de0accf5">IsPadUp</a>(<a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a5595d3d6116280df5ba965dc8aea4edd">PAD_ID</a> padID, <span class="keywordtype">int</span> padType, <a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a8d35e725dc3bf6447b51790b26173285">PAD_NO</a> pad_no) {</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#a5662d03201f0fd01eacb6f10419c90eb">IsPadRelease</a>(padID, padType, pad_no);</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="../../d5/dc6/_input_pad_8cpp.html#add244994351588fd2cfdb15754897780">   87</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#add244994351588fd2cfdb15754897780">IsPad</a>(<a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a5595d3d6116280df5ba965dc8aea4edd">PAD_ID</a> padID, <span class="keywordtype">int</span> padType, <a class="code hl_enumeration" href="../../d9/d99/_input_pad_8h.html#a8d35e725dc3bf6447b51790b26173285">PAD_NO</a> pad_no) {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="../../d5/dc6/_input_pad_8cpp.html#ad9bcf5beec958438f34d15a98799fa2b">IsPadRepeat</a>(padID, padType, pad_no, 1);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="ttc" id="a_input_pad_8cpp_html_a0e1498a05f33c8c4e386385e377248a8"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#a0e1498a05f33c8c4e386385e377248a8">InputPadUpdate</a></div><div class="ttdeci">void InputPadUpdate()</div><div class="ttdoc">更新</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00034">InputPad.cpp:34</a></div></div>
+<div class="ttc" id="a_input_pad_8cpp_html_a29f107f99b9eddcf03f8d21d11ce8e9f"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#a29f107f99b9eddcf03f8d21d11ce8e9f">IsPadDown</a></div><div class="ttdeci">bool IsPadDown(PAD_ID padID, int padType, PAD_NO pad_no)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00079">InputPad.cpp:79</a></div></div>
+<div class="ttc" id="a_input_pad_8cpp_html_a395872f650c68171d0c2ddb44e4f6ebc"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#a395872f650c68171d0c2ddb44e4f6ebc">IsPadOn</a></div><div class="ttdeci">bool IsPadOn(PAD_ID padID, int padType, PAD_NO pad_no)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00060">InputPad.cpp:60</a></div></div>
+<div class="ttc" id="a_input_pad_8cpp_html_a5662d03201f0fd01eacb6f10419c90eb"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#a5662d03201f0fd01eacb6f10419c90eb">IsPadRelease</a></div><div class="ttdeci">bool IsPadRelease(PAD_ID padID, int padType, PAD_NO pad_no)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00067">InputPad.cpp:67</a></div></div>
+<div class="ttc" id="a_input_pad_8cpp_html_a6de6215ee26282a13797a699de0accf5"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#a6de6215ee26282a13797a699de0accf5">IsPadUp</a></div><div class="ttdeci">bool IsPadUp(PAD_ID padID, int padType, PAD_NO pad_no)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00083">InputPad.cpp:83</a></div></div>
+<div class="ttc" id="a_input_pad_8cpp_html_a8df9a55c398e46803d151180a326b91a"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#a8df9a55c398e46803d151180a326b91a">InputPadInit</a></div><div class="ttdeci">void InputPadInit()</div><div class="ttdoc">初期化</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00023">InputPad.cpp:23</a></div></div>
+<div class="ttc" id="a_input_pad_8cpp_html_ad9bcf5beec958438f34d15a98799fa2b"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#ad9bcf5beec958438f34d15a98799fa2b">IsPadRepeat</a></div><div class="ttdeci">bool IsPadRepeat(PAD_ID padID, int padType, PAD_NO pad_no, u32 frame)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00074">InputPad.cpp:74</a></div></div>
+<div class="ttc" id="a_input_pad_8cpp_html_add244994351588fd2cfdb15754897780"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#add244994351588fd2cfdb15754897780">IsPad</a></div><div class="ttdeci">bool IsPad(PAD_ID padID, int padType, PAD_NO pad_no)</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00087">InputPad.cpp:87</a></div></div>
+<div class="ttc" id="a_input_pad_8cpp_html_af1b030bc6d8103403f0bac065f674ed1"><div class="ttname"><a href="../../d5/dc6/_input_pad_8cpp.html#af1b030bc6d8103403f0bac065f674ed1">InputPadExit</a></div><div class="ttdeci">void InputPadExit()</div><div class="ttdoc">終了</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dc6/_input_pad_8cpp_source.html#l00053">InputPad.cpp:53</a></div></div>
+<div class="ttc" id="a_input_pad_8h_html"><div class="ttname"><a href="../../d9/d99/_input_pad_8h.html">InputPad.h</a></div><div class="ttdoc">パッド入力管理</div></div>
+<div class="ttc" id="a_input_pad_8h_html_a5595d3d6116280df5ba965dc8aea4edd"><div class="ttname"><a href="../../d9/d99/_input_pad_8h.html#a5595d3d6116280df5ba965dc8aea4edd">PAD_ID</a></div><div class="ttdeci">PAD_ID</div><div class="ttdoc">ボタン種別</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d99/_input_pad_8h_source.html#l00026">InputPad.h:26</a></div></div>
+<div class="ttc" id="a_input_pad_8h_html_a5595d3d6116280df5ba965dc8aea4eddace5efe6eab7ec7526582f000b75cd78a"><div class="ttname"><a href="../../d9/d99/_input_pad_8h.html#a5595d3d6116280df5ba965dc8aea4eddace5efe6eab7ec7526582f000b75cd78a">PAD_ID::PAD_ID_MAX</a></div><div class="ttdeci">@ PAD_ID_MAX</div></div>
+<div class="ttc" id="a_input_pad_8h_html_a8d35e725dc3bf6447b51790b26173285"><div class="ttname"><a href="../../d9/d99/_input_pad_8h.html#a8d35e725dc3bf6447b51790b26173285">PAD_NO</a></div><div class="ttdeci">PAD_NO</div><div class="ttdoc">パッド種別</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/d99/_input_pad_8h_source.html#l00012">InputPad.h:12</a></div></div>
+<div class="ttc" id="a_input_pad_8h_html_a8d35e725dc3bf6447b51790b26173285a8d885f7a7f9dd698ada3548501c49201"><div class="ttname"><a href="../../d9/d99/_input_pad_8h.html#a8d35e725dc3bf6447b51790b26173285a8d885f7a7f9dd698ada3548501c49201">PAD_NO::PAD_NO_MAX</a></div><div class="ttdeci">@ PAD_NO_MAX</div></div>
+<div class="ttc" id="a_typedef_8h_html_a70c1fcc1a4e96af8f6580f708657cd41"><div class="ttname"><a href="../../d2/db9/_typedef_8h.html#a70c1fcc1a4e96af8f6580f708657cd41">u32</a></div><div class="ttdeci">uint32_t u32</div><div class="ttdoc">32bit 符号なし整数</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/db9/_typedef_8h_source.html#l00023">Typedef.h:23</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>

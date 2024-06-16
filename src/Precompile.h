@@ -64,22 +64,8 @@ using namespace hlslpp;
 #include "EffekseerForDXLib.h"
 #pragma warning(pop)
 
-//===========================================================================
-// 実装コード
-//===========================================================================
-
 #include "System/Typedef.h"
 #include "System/TypeInfo.h"
-#include "System/VectorMath.h"
-#include "System/SystemMain.h"
-#include "System/ImGui.h"
-#include "System/Input/InputKey.h"
-#include "System/Input/InputPad.h"
-#include "System/Input/InputMouse.h"
-#include "System/Graphics/Render.h"
-#include "System/Graphics/Shader.h"
-#include "System/Graphics/Texture.h"
-#include "System/Graphics/Model.h"
 
 //--------------------------------------------------------------
 // 数学定数
@@ -103,17 +89,36 @@ inline f32 D2R(f32 degree) {
     return degree * DegToRad;
 }
 
-#define BLACK   GetColor(0, 0, 0)
-#define WHITE   GetColor(255, 255, 255)
-#define RED     GetColor(255, 0, 0)
-#define GREEN   GetColor(0, 255, 0)
-#define BLUE    GetColor(0, 0, 255)
-#define YELLOW  GetColor(255, 255, 0)
-#define PINK    GetColor(255, 0, 255)
-#define SKYBLUE GetColor(0, 255, 255)
+static const u32 BLACK   = GetColor(0, 0, 0);
+static const u32 WHITE   = GetColor(255, 255, 255);
+static const u32 RED     = GetColor(255, 0, 0);
+static const u32 GREEN   = GetColor(0, 255, 0);
+static const u32 BLUE    = GetColor(0, 0, 255);
+static const u32 YELLOW  = GetColor(255, 255, 0);
+static const u32 PINK    = GetColor(255, 0, 255);
+static const u32 SKYBLUE = GetColor(0, 255, 255);
 
 // std::stringをstd::wstringへ変換する
 std::wstring convertTo(std::string_view string);
 
 // std::wstringをstd::stringへ変換する
 std::string convertTo(std::wstring_view wstring);
+
+//===========================================================================
+// 実装コード
+//===========================================================================
+#include "System/VectorMath.h"
+#include "System/SystemMain.h"
+#include "System/ImGui.h"
+#include "System/Cereal.h"
+#include "System/Utils/HelperLib.h"
+#include "System/Input/InputKey.h"
+#include "System/Input/InputPad.h"
+#include "System/Input/InputMouse.h"
+#include "System/Graphics/Render.h"
+#include "System/Graphics/Shader.h"
+#include "System/Graphics/Texture.h"
+#include "System/Graphics/Model.h"
+#include "System/Object.h"
+#include "System/Scene.h"
+#include "System/Component/Component.h"

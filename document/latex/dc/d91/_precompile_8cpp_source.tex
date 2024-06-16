@@ -1,0 +1,45 @@
+\hypertarget{_precompile_8cpp_source}{}\doxysection{Precompile.\+cpp}
+\label{_precompile_8cpp_source}\index{Precompile.cpp@{Precompile.cpp}}
+\mbox{\hyperlink{_precompile_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00001}00001\ \textcolor{comment}{//\ プリコンパイルヘッダービルド用cpp}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00002}00002\ \textcolor{comment}{//\ ここには実装を追加しない}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_precompile_8h}{Precompile.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00005}00005\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00006}00006\ \textcolor{comment}{//\ std::stringをstd::wstringへ変換する}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00007}00007\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00008}\mbox{\hyperlink{_precompile_8cpp_a519b42bb9e2e54f0a92b1a75678dea07}{00008}}\ std::wstring\ \mbox{\hyperlink{_precompile_8cpp_a519b42bb9e2e54f0a92b1a75678dea07}{convertTo}}(std::string\_view\ \textcolor{keywordtype}{string})\ \{}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00009}00009\ \ \ \ \ \textcolor{comment}{//\ 受け側の必要サイズを取得}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00010}00010\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ size\ =\ MultiByteToWideChar(CP\_ACP,\ 0,\ \textcolor{keywordtype}{string}.data(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\textcolor{keywordtype}{string}.length()),\ \textcolor{keyword}{nullptr},\ 0);}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{comment}{//\ バッファの取得}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00013}00013\ \ \ \ \ std::wstring\ wstring;}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00014}00014\ \ \ \ \ wstring.resize(size);}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{comment}{//\ 変換}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00017}00017\ \ \ \ \ MultiByteToWideChar(CP\_ACP,\ 0,\ \textcolor{keywordtype}{string}.data(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\textcolor{keywordtype}{string}.length()),\ wstring.data(),}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(wstring.size()));}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{keywordflow}{return}\ wstring;}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00021}00021\ \}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00023}00023\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00024}00024\ \textcolor{comment}{//\ std::wstringをstd::stringへ変換する}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00025}00025\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00026}\mbox{\hyperlink{_precompile_8cpp_a365915b350245f0c8fee28825d01a9e2}{00026}}\ std::string\ \mbox{\hyperlink{_precompile_8cpp_a519b42bb9e2e54f0a92b1a75678dea07}{convertTo}}(std::wstring\_view\ wstring)\ \{}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00027}00027\ \ \ \ \ \textcolor{comment}{//\ 受け側の必要サイズを取得}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00028}00028\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ size\ =\ WideCharToMultiByte(CP\_ACP,\ 0,\ wstring.data(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(wstring.length()),\ \textcolor{keyword}{nullptr},\ 0,\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00030}00030\ \ \ \ \ \textcolor{comment}{//\ バッファの取得}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00031}00031\ \ \ \ \ std::string\ string;}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00032}00032\ \ \ \ \ \textcolor{keywordtype}{string}.resize(size);}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{comment}{//\ 変換}}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00035}00035\ \ \ \ \ WideCharToMultiByte(CP\_ACP,\ 0,\ wstring.data(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(wstring.length()),\ \textcolor{keywordtype}{string}.data(),}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\textcolor{keywordtype}{string}.size()),\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00038}00038\ \ \ \ \ \textcolor{keywordflow}{return}\ string;}
+\DoxyCodeLine{\Hypertarget{_precompile_8cpp_source_l00039}00039\ \}}
+
+\end{DoxyCode}

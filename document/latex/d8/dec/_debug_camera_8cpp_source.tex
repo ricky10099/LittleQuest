@@ -1,0 +1,209 @@
+\hypertarget{_debug_camera_8cpp_source}{}\doxysection{Debug\+Camera.\+cpp}
+\label{_debug_camera_8cpp_source}\index{DebugCamera.cpp@{DebugCamera.cpp}}
+\mbox{\hyperlink{_debug_camera_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ DebugCamera.h}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ デバッグカメラ}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_debug_camera_8h}{DebugCamera.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_object_8h}{System/Object.h}}>}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_input_mouse_8h}{System/Input/InputMouse.h}}>}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_input_key_8h}{System/Input/InputKey.h}}>}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_scene_8h}{System/Scene.h}}>}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00011}\mbox{\hyperlink{namespace_debug_camera}{00011}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_debug_camera}{DebugCamera}}\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00012}00012\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00013}00013\ \ \ \ \ \mbox{\hyperlink{namespace_debug_camera_a11b4a552c87ef1cc5965c18fcd66053c}{Control}}\ control\ =\ \mbox{\hyperlink{namespace_debug_camera_a11b4a552c87ef1cc5965c18fcd66053cac5ce776a1b0109bac07c0ff7b47e08d3}{UnrealEngine}};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ is\_use\ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00015}00015\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00017}00017\ \textcolor{comment}{//\ デバックカメラオブジェクト}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00018}\mbox{\hyperlink{class_debug_camera_1_1_debug_camera}{00018}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{namespace_debug_camera}{DebugCamera}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_object}{Object}}\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00019}00019\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00020}\mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a0e6e96d047a97b617d1cacc59f91de41}{00020}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a0e6e96d047a97b617d1cacc59f91de41}{Init}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \_\_super::Init();}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ mat\_view\_\ =\ GetCameraViewMatrix();}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ mat\_proj\_\ =\ GetCameraProjectionMatrix();}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ inv\ =\ inverse(mat\_view\_);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ cam\_pos\_\ \ \ =\ inv.\mbox{\hyperlink{classmatrix_af2b5677c2f4ae2e615b4bab101e2c358}{translate}}();}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ tgt\_pos\_\ \ \ =\ cam\_pos\_\ +\ inv.\mbox{\hyperlink{classmatrix_ab76eb4b005f28f1db5e3dfb3b8a4ad15}{axisZ}}()\ *\ 100.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cam\ =\ AddComponent<ComponentCamera>();}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ cam-\/>SetPositionAndTarget(cam\_pos\_,\ tgt\_pos\_);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ SetStatus(StatusBit::ShowGUI,\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00035}00035\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00037}\mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a736da3a471b9cb35471d715986c0719d}{00037}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a736da3a471b9cb35471d715986c0719d}{PreDraw}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cam\ =\ GetComponent<ComponentCamera>();}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ LR\ =\ (GetMouseInput()\ \&\ (MOUSE\_INPUT\_LEFT\ |\ MOUSE\_INPUT\_RIGHT))\ ==\ (MOUSE\_INPUT\_LEFT\ |\ MOUSE\_INPUT\_RIGHT);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ M\ \ =\ (GetMouseInput()\ \&\ MOUSE\_INPUT\_MIDDLE);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ \textcolor{keyword}{auto}\ L\ =\ (GetMouseInput()\ \&\ MOUSE\_INPUT\_LEFT);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ R\ =\ (GetMouseInput()\ \&\ MOUSE\_INPUT\_RIGHT);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ float2\ mouse\_now\ =\ float2\{\mbox{\hyperlink{_input_mouse_8cpp_ad49a1cdce195e24c9b248bd6e89d4581}{GetMouseX}}(),\ \mbox{\hyperlink{_input_mouse_8cpp_ac2f8b66e77bec9c3ca6d3d2b2a594821}{GetMouseY}}()\};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ mouse\_vec\_\ \ \ \ \ \ \ =\ mouse\_now\ -\/\ mouse\_xy\_;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ mouse\_xy\_\ \ \ \ \ \ \ \ =\ mouse\_now;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::IsAnyItemActive())}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGuizmo::IsUsing())}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UnrealEngineのみ仮作成}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(control\ ==\ \mbox{\hyperlink{namespace_debug_camera_a11b4a552c87ef1cc5965c18fcd66053cac5ce776a1b0109bac07c0ff7b47e08d3}{UnrealEngine}})\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ カメラに合わせた軸の作成}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ back\ \ =\ normalize(cam\_pos\_\ -\/\ tgt\_pos\_);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ up\ \ \ \ =\ \{0,\ 1,\ 0\};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ right\ =\ cross(up,\ back);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ front\ =\ -\/back;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ wheel}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ wheel\_val\ =\ GetMouseWheelRotVolF();}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(wheel\_val\ !=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ front\ *=\ wheel\_val\ *\ 10;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cam\_pos\_\ =\ cam\_pos\_\ +\ front;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tgt\_pos\_\ =\ tgt\_pos\_\ +\ front;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 平行移動}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(M\ ||\ LR)\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ mv\ =\ (right\ *\ -\/mouse\_vec\_.x\ +\ up\ *\ -\/mouse\_vec\_.y)\ *\ 0.1f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cam\_pos\_\ =\ cam\_pos\_\ +\ mv;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tgt\_pos\_\ =\ tgt\_pos\_\ +\ mv;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(R)\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tgt\_new\_\ =\ tgt\_pos\_\ -\/\ cam\_pos\_;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ rot\_y\ =\ \mbox{\hyperlink{classmatrix_a345b415c27cd30fe0f1b92d28cd8c8ea}{matrix::rotateY}}(mouse\_vec\_.x\ *\ 0.003f);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ rot\_x\ =\ \mbox{\hyperlink{classmatrix_a261342323c8242cae787a5699044b965}{matrix::rotateAxis}}(right,\ -\/mouse\_vec\_.y\ *\ 0.003f);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tgt\_pos\_\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(tgt\_new\_,\ 1),\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(rot\_y,\ rot\_x)).xyz\ +\ cam\_pos\_;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_input_a305ec74ae382e8fea72de7fdf95f0700}{Input::IsKey}}(KEY\_INPUT\_W))\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tgt\_pos\_\ +=\ front\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cam\_pos\_\ +=\ front\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_input_a305ec74ae382e8fea72de7fdf95f0700}{Input::IsKey}}(KEY\_INPUT\_A))\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tgt\_pos\_\ +=\ right\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cam\_pos\_\ +=\ right\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_input_a305ec74ae382e8fea72de7fdf95f0700}{Input::IsKey}}(KEY\_INPUT\_D))\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tgt\_pos\_\ -\/=\ right\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cam\_pos\_\ -\/=\ right\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_input_a305ec74ae382e8fea72de7fdf95f0700}{Input::IsKey}}(KEY\_INPUT\_S))\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tgt\_pos\_\ +=\ back\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cam\_pos\_\ +=\ back\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_input_a305ec74ae382e8fea72de7fdf95f0700}{Input::IsKey}}(KEY\_INPUT\_Q))\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tgt\_pos\_\ +=\ up\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cam\_pos\_\ +=\ up\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_input_a305ec74ae382e8fea72de7fdf95f0700}{Input::IsKey}}(KEY\_INPUT\_E))\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tgt\_pos\_\ -\/=\ up\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cam\_pos\_\ -\/=\ up\ *\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(L)\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ tgt\_new\_\ =\ tgt\_pos\_\ -\/\ cam\_pos\_;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ rot\_y\ =\ \mbox{\hyperlink{classmatrix_a345b415c27cd30fe0f1b92d28cd8c8ea}{matrix::rotateY}}(mouse\_vec\_.x\ *\ 0.003f);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ auto\ rot\_x\ =\ matrix::rotateAxis(\ right,\ -\/mouse\_vec\_.y}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ *\ 0.003f\ );}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ f\_v\ =\ front;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ f\_v.y\ \ \ \ =\ 0.0f;\ \ \ \ \textcolor{comment}{//\ 地面に沿った平行な向きに進む}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tgt\_pos\_\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(tgt\_new\_,\ 1),\ rot\_y).xyz\ +\ cam\_pos\_\ +\ f\_v\ *\ (-\/mouse\_vec\_.y);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cam\_pos\_\ +=\ f\_v\ *\ (-\/mouse\_vec\_.y);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ フォーカス}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_input_a6ad3803459c23f32a3e0050d0b978882}{Input::IsKeyDown}}(KEY\_INPUT\_F))\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ f\_v\ =\ normalize(tgt\_pos\_\ -\/\ cam\_pos\_);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ obj\ =\ \mbox{\hyperlink{class_scene_a8aec7383f088214eee941473352e46aa}{Scene::SelectObjectPtr}}())\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tgt\_pos\_\ =\ obj-\/>GetTranslate();}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cam\_pos\_\ =\ obj-\/>GetTranslate()\ -\/\ f\_v\ *\ 30.0f;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ mat\_view\_\ =\ \mbox{\hyperlink{classmatrix_a56c05b9fe6bcc4c817b583b476db6675}{matrix::lookAtLH}}(cam\_pos\_,\ tgt\_pos\_);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ cam-\/>SetPositionAndTarget(cam\_pos\_,\ tgt\_pos\_);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ cam-\/>SetCameraStatus(\mbox{\hyperlink{class_component_camera_a2edc0795adccac4e1611ec70b690936fa9cc55728caf6cde84f46e8e517b84ada}{ComponentCamera::CameraBit::DebugCamera}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ SetCameraViewMatrix(mat\_view\_);\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ビュー行列}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ SetupCamera\_ProjectionMatrix(mat\_proj\_);\ \ \ \ \textcolor{comment}{//\ 投影行列}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00140}00140\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00142}00142\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00143}\mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a2fa840e250d0017e449c6f5348a3b2bb}{00143}}\ \ \ \ \ float2\ mouse\_xy\_\ \ =\ \{0,\ 0\};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00144}\mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a11309252dc7d165f1131c4438376fdba}{00144}}\ \ \ \ \ float2\ mouse\_vec\_\ =\ \{0,\ 0\};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00145}\mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a8089f138ad949553fb7a4307793f30a6}{00145}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \ wheel\_val\ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00147}\mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a922ecc6dd18b6bfea7ff2188bc5f167a}{00147}}\ \ \ \ \ float3\ cam\_pos\_\{\};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00148}\mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a742c6de791f630502d88333e9a6c1f15}{00148}}\ \ \ \ \ float3\ tgt\_pos\_\{\};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00150}\mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a408078b9f1fd69709aa0784514afbbb7}{00150}}\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a408078b9f1fd69709aa0784514afbbb7}{mat\_view\_}};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00151}\mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a37049e98b6570bd736670602fc6dcc12}{00151}}\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a37049e98b6570bd736670602fc6dcc12}{mat\_proj\_}};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00153}\mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a9a029fd6c8d1c0e39b0d09ea920a5e37}{00153}}\ \ \ \ \ \mbox{\hyperlink{class_debug_camera_1_1_debug_camera_a9a029fd6c8d1c0e39b0d09ea920a5e37}{CEREAL\_SAVELOAD}}(arc,\ ver)\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(cam\_pos\_),\ CEREAL\_NVP(tgt\_pos\_),\ CEREAL\_NVP(mat\_view\_),\ CEREAL\_NVP(mat\_proj\_));}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(is\_use));}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00156}00156\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00157}00157\ \};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00158}\mbox{\hyperlink{namespace_debug_camera_a495f3b6c0b969b7dc5599b4f2f629de9}{00158}}\ \mbox{\hyperlink{_typedef_8h_ae1b2d029be4658cd85fd1bc379e76178}{USING\_PTR}}(\mbox{\hyperlink{namespace_debug_camera}{DebugCamera}});}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00159}00159\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00160}00160\ \textcolor{comment}{//!\ @brief\ デバックカメラを使用する}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00161}00161\ \textcolor{comment}{//!\ @param\ use\ 使用するかどうか}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00162}\mbox{\hyperlink{namespace_debug_camera_a21055478ad38cd3f18b68d9e4af62aa9}{00162}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_debug_camera_a21055478ad38cd3f18b68d9e4af62aa9}{Use}}(\textcolor{keywordtype}{bool}\ use)\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00163}00163\ \ \ \ \ \textcolor{comment}{//\ すでに設定済み}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00164}00164\ \ \ \ \ \textcolor{keywordflow}{if}(is\_use\ ==\ use)}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00165}00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00167}00167\ \ \ \ \ is\_use\ =\ use;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00169}00169\ \ \ \ \ \textcolor{keywordflow}{if}(use)\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00170}00170\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ デバッグカメラを作成します}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ Scene::GetObjectPtrWithCreate<DebugCamera>()-\/>SetName(\textcolor{stringliteral}{"{}DebugCamera"{}});}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00172}00172\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ デバッグカメラを消去します}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ obj\ =\ Scene::GetObjectPtr<DebugCamera>())}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_scene_a298d059ec0aa85b0f905519a05a3b5ce}{Scene::ReleaseObject}}(obj);}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00176}00176\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00177}00177\ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00178}00178\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00179}00179\ \textcolor{comment}{//!\ @brief\ デバッグカメラを使用中かどうか}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00180}00180\ \textcolor{comment}{//!\ @retval\ true\ :\ デバッグカメラ使用中}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00181}\mbox{\hyperlink{namespace_debug_camera_a61e659915a8c79b60460055e37528a17}{00181}}\ \textcolor{comment}{}\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_debug_camera_a61e659915a8c79b60460055e37528a17}{IsUse}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00182}00182\ \ \ \ \ \textcolor{keywordflow}{return}\ is\_use;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00183}00183\ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00184}00184\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00185}00185\ \textcolor{comment}{//!\ @brief\ デバッグカメラの移動方法設定}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00186}00186\ \textcolor{comment}{//!\ @param\ mode\ 移動方式}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00187}\mbox{\hyperlink{namespace_debug_camera_a2dcf41ebd69a18b4003d3ba0d3bea6d5}{00187}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_debug_camera_a2dcf41ebd69a18b4003d3ba0d3bea6d5}{SetControl}}(\mbox{\hyperlink{namespace_debug_camera_a11b4a552c87ef1cc5965c18fcd66053c}{Control}}\ mode)\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00188}00188\ \ \ \ \ control\ =\ mode;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00189}00189\ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00191}\mbox{\hyperlink{namespace_debug_camera_a9dc75c14ec2238ecd2a670d07bcffb94}{00191}}\ ComponentCameraWeakPtr\ \mbox{\hyperlink{namespace_debug_camera_a9dc75c14ec2238ecd2a670d07bcffb94}{GetCamera}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00192}00192\ \ \ \ \ \textcolor{keyword}{auto}\ cam\ =\ Scene::GetObjectPtr<DebugCamera>(\textcolor{stringliteral}{"{}DebugCamera"{}});}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00193}00193\ \ \ \ \ \textcolor{keywordflow}{if}(cam)\ \{}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ weak\_cam\ =\ std::weak\_ptr<ComponentCamera>(cam-\/>GetComponent<\mbox{\hyperlink{class_component_camera}{ComponentCamera}}>());}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ weak\_cam;}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00196}00196\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00197}00197\ \ \ \ \ \textcolor{keywordflow}{return}\ ComponentCameraWeakPtr();}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00198}00198\ \}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00200}00200\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ DebugCamera}}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00202}00202\ CEREAL\_REGISTER\_TYPE(\mbox{\hyperlink{class_debug_camera_1_1_debug_camera}{DebugCamera::DebugCamera}})}
+\DoxyCodeLine{\Hypertarget{_debug_camera_8cpp_source_l00203}00203\ CEREAL\_REGISTER\_POLYMORPHIC\_RELATION(\mbox{\hyperlink{class_object}{Object}},\ \mbox{\hyperlink{class_debug_camera_1_1_debug_camera}{DebugCamera::DebugCamera}})}
+
+\end{DoxyCode}

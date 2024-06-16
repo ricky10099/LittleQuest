@@ -15,7 +15,7 @@ namespace LittleQuest {
 //////////////////////////////////////////////////////////////
 class ComponentTexture2D: public Component {
    public:
-    BP_COMPONENT_TYPE(ComponentTexture2D, Component);
+    BP_COMPONENT_DECL(ComponentTexture2D, u8"Textureasdコンポーネント");
     //------------------------------------------------------------
     //! @brief コンストラクタです。
     //!

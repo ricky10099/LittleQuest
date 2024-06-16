@@ -4,37 +4,52 @@
 //---------------------------------------------------------------------------
 #pragma once
 
-#include <System/Priority.h>
 #include <System/ProcTiming.h>
 #include <System/Status.h>
 
-#include <functional>
-#include <sigslot/include/sigslot/signal.hpp>
-#include <vector>
-#include <cassert>
-
 #include <cereal/cereal.hpp>
-#include <cereal/types/polymorphic.hpp>
-
-#include <xtr1common>
 
 // ポインター宣言
 USING_PTR(Component);
 USING_PTR(Object);
 
-//
+//! Componentルートの型情報
+class ComponentTypeInfo: public TypeInfo {
+   public:
+    ComponentTypeInfo(const char* class_name, size_t class_size, ComponentTypeInfo* parent_type = nullptr,
+                      const char* desc_name = "");
+    //! ルートの型情報
+    static ComponentTypeInfo component_root;
+
+    ComponentPtr     tmp = std::shared_ptr<class Component>((Component*)createInstance());
+    ComponentWeakPtr ptr = tmp;
+    virtual void*    createComponentPtr(const ObjectPtr&) {
+        return reinterpret_cast<void*>(&ptr);
+    }
+};
+
+//! @note   基底クラスでSuperを宣言するとときにこのクラスが参照されます
+class ComponentClass {
+   public:
+    static inline ComponentTypeInfo& Type = ComponentTypeInfo::component_root;
+};
+
 //===========================================================================
 //! クラス用型情報 ClassComponentType<T>
 //===========================================================================
 template<class T>
-class ClassComponentType: public Type {
+class ClassComponentType: public ComponentTypeInfo {
    public:
-    using Type::Type;    // 継承コンストラクタ
+    //  コンストラクタ
+    //! @param  [in]    class_name  クラスの名前
+    //! @param  [in]    parent_type 親クラスの型情報(親がないクラスはnullptr)
+    //! @param  [in]    desc_name   説明文文字列
+    ClassComponentType(const char* class_name, ComponentTypeInfo* parent_type = nullptr, const char* desc_name = "")
+        : ComponentTypeInfo(class_name, sizeof(T), parent_type, desc_name) {}
 
-    virtual void* createComponentPtr(ObjectPtr obj) {
+    virtual void* createComponentPtr(const ObjectPtr& obj) override {
         std::shared_ptr<T> cmp = std::make_shared<T>();
 
-        // すでに存在している場合はnullptrを返す
         Component::RegisterToObject(cmp, obj);
 
         tmp = cmp;
@@ -43,6 +58,37 @@ class ClassComponentType: public Type {
 
     std::weak_ptr<T> tmp;
 };
+
+//---------------------------------------------------------------------------
+//! クラス内ヘッダー宣言
+//! publicで BP_COMPONENT_DECL(クラス名, u8"任意の解説文字列") で宣言します
+//!
+//! @code
+//!     class B : public A
+//!     {
+//!     public:
+//!         BP_COMPONENT_DECL(B, u8"コンポーネント");
+//! @endcode
+//---------------------------------------------------------------------------
+#define BP_COMPONENT_DECL(CLASS, ...)                                                                                                                   \
+    using Super = ComponentClass; /*! 親クラスの型 : 上のクラス階層で定義されているClassを使うことで親クラスを定義 */ \
+    using ComponentClass = CLASS; /*! 自クラスの型 : これ以降は親クラスではなく自クラスを指す */                              \
+                                                                                                                                                        \
+    /*! 型情報 */                                                                                                                                    \
+    static inline ClassComponentType<CLASS> Type = ClassComponentType<CLASS>(#CLASS, &Super::Type, __VA_ARGS__);                                        \
+                                                                                                                                                        \
+    /*! 型情報を取得 */                                                                                                                           \
+    virtual const ComponentTypeInfo* typeInfo() const {                                                                                                 \
+        return &Type;                                                                                                                                   \
+    }                                                                                                                                                   \
+    void* createComponentPtr(const ObjectPtr& obj) {                                                                                                    \
+        return Type.createComponentPtr(obj);                                                                                                            \
+    }
+
+//***************************************************************************
+//***************************************************************************
+// 削除予定 ここから
+// ↓↓↓↓↓↓↓
 
 //---------------------------------------------------------------------------
 //! Componentクラス内ヘッダー宣言 基底クラス用
@@ -55,15 +101,17 @@ class ClassComponentType: public Type {
 //!         BP_COMPONENT_BASE_TYPE(A)
 //! @endcode
 //---------------------------------------------------------------------------
-#define BP_COMPONENT_BASE_TYPE(CLASS)                \
-    using MyClass = CLASS; /*! 自クラスの型 */ \
-                                                     \
-    /*! 型情報 */                                 \
-    static ClassComponentType<CLASS> TypeInfo;       \
-                                                     \
-    /*! 型情報を取得 */                        \
-    virtual const Type* typeInfo() const {           \
-        return &TypeInfo;                            \
+#define BP_COMPONENT_BASE_TYPE(CLASS)                                                                                                                                           \
+    using MyClass = CLASS; /*! 自クラスの型 */                                                                                                                            \
+                                                                                                                                                                                \
+    /*! 型情報 */                                                                                                                                                            \
+    [[deprecated("BP_COMPONENT_TYPE() と BP_COMPONENT_BASE_TYPE() は古い宣言です。BP_COMPONENT_DECL(クラス名, u8\"解説文\") に置換してください。")]] static ClassComponentType< \
+        CLASS>                                                                                                                                                                  \
+        Type;                                                                                                                                                                   \
+                                                                                                                                                                                \
+    /*! 型情報を取得 */                                                                                                                                                   \
+    virtual const ComponentTypeInfo* typeInfo() const {                                                                                                                         \
+        return &Type;                                                                                                                                                           \
     }
 
 //---------------------------------------------------------------------------
@@ -90,21 +138,26 @@ class ClassComponentType: public Type {
 //---------------------------------------------------------------------------
 #define BP_COMPONENT_BASE_IMPL(CLASS, DESC_NAME) \
     /*! 型情報の実体 */                    \
-    ClassComponentType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, nullptr);
+    ClassComponentType<CLASS> CLASS::Type(#CLASS, sizeof(CLASS), nullptr, DESC_NAME);
 
 #define BP_COMPONENT_IMPL(CLASS, DESC_NAME) \
     /*! 型情報の実体 */               \
-    ClassComponentType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, &Super::TypeInfo);
+    ClassComponentType<CLASS> CLASS::Type(#CLASS, &Super::Type, DESC_NAME);
+//ClassComponentType<CLASS> CLASS::Type(#CLASS, sizeof(CLASS), &Super::Type, DESC_NAME);
+
+// ↑↑↑↑↑↑↑
+// 削除予定 ここまで
+//***************************************************************************
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 //! @brief コンポーネント
 class Component: public std::enable_shared_from_this<Component> {
-    friend class Object;
+    friend class ::Object;
     friend class Scene;
 
    public:
-    BP_COMPONENT_BASE_TYPE(Component);
-
+    BP_COMPONENT_DECL(Component, u8"Componentクラス");
     //	Component( const Component& )			 = delete;
     //	Component& operator=( const Component& ) = delete;
 
@@ -124,6 +177,16 @@ class Component: public std::enable_shared_from_this<Component> {
     ObjectPtr       GetOwnerPtr();          //!< オーナー(従属しているオブジェクト)の取得(SharedPtr)
     const ObjectPtr GetOwnerPtr() const;    //!< オーナー(従属しているオブジェクト)の取得(SharedPtr)
 
+    template<class T>
+    std::shared_ptr<T> SetName(const std::string_view& name) {
+        name_ = name;
+        return std::dynamic_pointer_cast<T>(shared_from_this());
+    }
+
+    const std::string_view GetName() const {
+        return name_;
+    }
+
     virtual void Init();          //!< 初期化
     virtual void Update();        //!< アップデート
     virtual void LateUpdate();    //!< 遅いアップデート
@@ -132,15 +195,24 @@ class Component: public std::enable_shared_from_this<Component> {
     virtual void Exit();          //!< 終了
     virtual void GUI();           //!< GUI表示
 
-    virtual void PreUpdate();     //!< 更新前処理
-    virtual void PostUpdate();    //!< 更新後処理
-    virtual void PreDraw();       //!< 描画前処理
-    virtual void PostDraw();      //!< 描画後処理
-    virtual void PrePhysics();    //!< Physics前処理
+    virtual void PreUpdate();      //!< 更新前処理
+    virtual void PostUpdate();     //!< 更新後処理
+    virtual void PreDraw();        //!< 描画前処理
+    virtual void PostDraw();       //!< 描画後処理
+    virtual void PrePhysics();     //!< Physics前処理
+    virtual void PostPhysics();    //!< Physics後処理
 
     virtual void InitSerialize();    //!< シリアライズでもどらないユーザー処理関数などを設定
 
-    void SetPriority(ProcTiming timing, Priority priority);
+    void SetPriority(ProcTiming timing, ProcPriority priority);
+
+#define UNIQUE_TEXT(n) UniqueText(n).c_str()
+
+    std::string UniqueText(const std::string_view& name, int id = 0) {
+        auto str =
+            std::string(name) + "##" + std::string(name) + "." + std::to_string(id) + "." + std::to_string((size_t)(this));
+        return str;
+    }
 
     //----------------------------------------------------------
     //! @name  コンポーネントオブジェクト登録メソッド
@@ -161,7 +233,7 @@ class Component: public std::enable_shared_from_this<Component> {
     }
 
     SlotProc& SetProc(std::string proc_name, ProcTimingFunc func, ProcTiming timing = ProcTiming::Update,
-                      Priority prio = Priority::NORMAL) {
+                      ProcPriority prio = ProcPriority::NORMAL) {
         auto& proc = GetProc(proc_name, timing);
         proc.SetProc(proc_name, timing, prio, func);
         return proc;
@@ -196,13 +268,15 @@ class Component: public std::enable_shared_from_this<Component> {
     bool GetStatus(StatusBit b);             //!< ステータスの取得
 
     Component();
-    void Construct(ObjectPtr owner);
+    virtual void Construct(ObjectPtr owner);
 
    protected:
     ObjectPtr owner_ = nullptr;    //!< オーナー
     SlotProcs proc_timings_;       //!< 登録処理(update)
 
     float update_delta_time_ = 0.0f;    //!< update以外で使用できるように
+
+    std::string name_;
 
    private:
     Status<StatusBit> status_;    //!< コンポーネント状態
@@ -221,7 +295,11 @@ class Component: public std::enable_shared_from_this<Component> {
             CEREAL_NVP(proc_timings_),    //< プロセスタイミング
             CEREAL_NVP(status_.get())     //< ステータス
         );
+        if(ver >= 2)
+            arc(CEREAL_NVP(name_));
     }
 
     //@}
 };
+
+CEREAL_CLASS_VERSION(Component, 2);

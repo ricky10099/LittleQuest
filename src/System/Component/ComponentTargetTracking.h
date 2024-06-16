@@ -1,14 +1,13 @@
 ﻿#pragma once
 
 #include <System/Component/Component.h>
-#include <System/Component/ComponentModel.h>
 #include <System/Cereal.h>
 
 USING_PTR(ComponentTargetTracking);
 
 class ComponentTargetTracking: public Component {
    public:
-    BP_COMPONENT_TYPE(ComponentTargetTracking, Component);
+    BP_COMPONENT_DECL(ComponentTargetTracking, u8"TargetTracking機能クラス");
     ComponentTargetTracking() {}
 
     virtual void Init() override;          //!< 初期化
@@ -102,13 +101,11 @@ class ComponentTargetTracking: public Component {
     // @param arc アーカイバ
     // @param ver バージョン
     CEREAL_SAVELOAD(arc, ver) {
-        arc(cereal::make_nvp("owner", owner_));    //< オーナー
-        arc(cereal::make_nvp("tracking_status",
-                             tracking_status_.get()));    //< カメラステート
+        arc(cereal::make_nvp("owner", owner_));                              //< オーナー
+        arc(cereal::make_nvp("tracking_status", tracking_status_.get()));    //< カメラステート
         arc(CEREAL_NVP(tracked_node_), CEREAL_NVP(tracked_node_index_));
         arc(CEREAL_NVP(front_vector_));
-        arc(CEREAL_NVP(tracking_object_),
-            CEREAL_NVP(look_at_));    //< カメラ位置とターゲット
+        arc(CEREAL_NVP(tracking_object_), CEREAL_NVP(look_at_));    //< カメラ位置とターゲット
         arc(CEREAL_NVP(limit_lr_), CEREAL_NVP(limit_ud_), CEREAL_NVP(limit_frame_));
 
         SetTrackingNode(tracked_node_);

@@ -1,0 +1,315 @@
+\hypertarget{_cereal_8h}{}\doxysection{Cereal.\+h ファイル}
+\label{_cereal_8h}\index{Cereal.h@{Cereal.h}}
+
+
+シリアル組み込み用  
+
+
+{\ttfamily \#include $<$cereal/cereal.\+hpp$>$}\newline
+{\ttfamily \#include $<$cereal/archives/json.\+hpp$>$}\newline
+{\ttfamily \#include $<$cereal/types/vector.\+hpp$>$}\newline
+{\ttfamily \#include $<$cereal/types/memory.\+hpp$>$}\newline
+{\ttfamily \#include $<$cereal/types/array.\+hpp$>$}\newline
+{\ttfamily \#include $<$cereal/types/unordered\+\_\+map.\+hpp$>$}\newline
+{\ttfamily \#include $<$cereal/types/functional.\+hpp$>$}\newline
+{\ttfamily \#include $<$System/\+Vector\+Math.\+h$>$}\newline
+Cereal.\+h の依存先関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/daf/_cereal_8h__incl}
+\end{center}
+\end{figure}
+被依存関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d64/_cereal_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{名前空間}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacecereal}{cereal}}
+\begin{DoxyCompactList}\small\item\em 非侵入型定義 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{マクロ定義}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_cereal_8h_a7df5c4a4fa530d0bf2831fc2180f0386}{CEREAL\+\_\+\+SAVELOAD}}(arc,  ver)
+\begin{DoxyCompactList}\small\item\em Cereal \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_cereal_8h_a997aad9a4a1580a702f32c7b2e6670fb}{CEREAL\+\_\+\+SAVE}}(arc,  ver)
+\begin{DoxyCompactList}\small\item\em セーブ処理のみの時に使用します (※現在処理されないと思われます) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_cereal_8h_a923824656ea32056b0b56929875b7ee9}{CEREAL\+\_\+\+LOAD}}(arc,  ver)
+\begin{DoxyCompactList}\small\item\em ロード処理のみの時に使用します \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_cereal_8h_a5292af2aae9a6ae45a2721c4ea68694e}{CEREAL\+\_\+\+LOAD\+\_\+\+AND\+\_\+\+CONSTRUCT}}(cls,  arc,  ver)
+\begin{DoxyCompactList}\small\item\em ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_cereal_8h_a2a43680013c25eb9ad5df8865a26d47c}{CEREAL\+\_\+\+SAVELOAD\+\_\+\+CPP}}(cls,  arc,  ver)
+\begin{DoxyCompactList}\small\item\em ロード・セーブ両方同じ処理の時に使用します (CPPにて組み込む場合) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_cereal_8h_a97cac89fceb099ad10645e1b7c47af85}{CEREAL\+\_\+\+SAVE\+\_\+\+CPP}}(cls,  arc,  ver)
+\item 
+\#define \mbox{\hyperlink{_cereal_8h_ace44ea4d0295f26f11bbcba5e9be33d1}{CEREAL\+\_\+\+LOAD\+\_\+\+CPP}}(cls,  arc,  ver)
+\begin{DoxyCompactList}\small\item\em ロード処理のみの時に使用します (CPPにて組み込む場合) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_cereal_8h_ac6b673f3b803293ad3ab39197d53afed}{CEREAL\+\_\+\+LOAD\+\_\+\+AND\+\_\+\+CONSTRUCT\+\_\+\+CPP}}(cls,  arc,  ver)
+\item 
+\#define \mbox{\hyperlink{_cereal_8h_a8308c66065124010af82a39d23de874f}{CEREAL\+\_\+\+LOAD\+\_\+\+AND\+\_\+\+CONSTRUCT\+\_\+\+BEGIN}}(cls,  arc,  ver)
+\item 
+\#define \mbox{\hyperlink{_cereal_8h_a3948333019d8374832c914f5bf82acc4}{CEREAL\+\_\+\+LOAD\+\_\+\+AND\+\_\+\+CONSTRUCT\+\_\+\+END}}()
+\begin{DoxyCompactList}\small\item\em デフォルトコンストラクタ以外の初期化の場合に利用する(\+END) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_cereal_8h_a76188fcf3b00899cfe85a847f49dc1d6}{CEREAL\+\_\+\+SAVELOAD\+\_\+\+OTHER}}(cls,  arc,  other)
+\begin{DoxyCompactList}\small\item\em ロード・セーブ非侵入型の際に使用します \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{関数}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{namespacecereal_ae25d54304d43ae74f16e0c6d065881e7}{cereal\+::load}} (Archive \&arc, std\+::function$<$ void()$>$ \&f)
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{namespacecereal_a6864019813012eacb50f6093a74d2b94}{cereal\+::save}} (Archive \&arc, std\+::function$<$ void()$>$ \&f)
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{namespacecereal_afde703f59c0266cbb4c8bf16543a57e1}{cereal\+::serialize}} (Archive \&arc, std\+::function$<$ void(float)$>$ \&f)
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{namespacecereal_a2af7f4e32862aea346173acfe85c3b73}{cereal\+::serialize}} (Archive \&arc, hlslpp\+::float2 \&f)
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{namespacecereal_a2f67636a6fb5371b3345abfe0fe020c5}{cereal\+::serialize}} (Archive \&arc, hlslpp\+::float3 \&f)
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{namespacecereal_a7e9c11a60897bcbc13a3b28ec9fc8abf}{cereal\+::serialize}} (Archive \&arc, hlslpp\+::float4 \&f)
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{namespacecereal_a46ce81f338b66e1b3bfe8f90ab8485a3}{cereal\+::save}} (Archive \&arc, const \mbox{\hyperlink{classmatrix}{matrix}} \&m)
+\item 
+{\footnotesize template$<$class Archive $>$ }\\void \mbox{\hyperlink{namespacecereal_a098f8073b665461d40ea70adb7836a10}{cereal\+::load}} (Archive \&arc, \mbox{\hyperlink{classmatrix}{matrix}} \&m)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+シリアル組み込み用 
+
+
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} に定義があります。
+
+
+
+\doxysubsection{マクロ定義詳解}
+\mbox{\Hypertarget{_cereal_8h_a923824656ea32056b0b56929875b7ee9}\label{_cereal_8h_a923824656ea32056b0b56929875b7ee9}} 
+\index{Cereal.h@{Cereal.h}!CEREAL\_LOAD@{CEREAL\_LOAD}}
+\index{CEREAL\_LOAD@{CEREAL\_LOAD}!Cereal.h@{Cereal.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_LOAD}{CEREAL\_LOAD}}
+{\footnotesize\ttfamily \#define CEREAL\+\_\+\+LOAD(\begin{DoxyParamCaption}\item[{}]{arc,  }\item[{}]{ver }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }cereal::access;\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>\ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ load(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ \textcolor{keyword}{const}\ ver)}
+
+\end{DoxyCode}
+
+
+ロード処理のみの時に使用します 
+
+
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} の \mbox{\hyperlink{_cereal_8h_source_l00082}{82}} 行目に定義があります。
+
+\mbox{\Hypertarget{_cereal_8h_a5292af2aae9a6ae45a2721c4ea68694e}\label{_cereal_8h_a5292af2aae9a6ae45a2721c4ea68694e}} 
+\index{Cereal.h@{Cereal.h}!CEREAL\_LOAD\_AND\_CONSTRUCT@{CEREAL\_LOAD\_AND\_CONSTRUCT}}
+\index{CEREAL\_LOAD\_AND\_CONSTRUCT@{CEREAL\_LOAD\_AND\_CONSTRUCT}!Cereal.h@{Cereal.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_LOAD\_AND\_CONSTRUCT}{CEREAL\_LOAD\_AND\_CONSTRUCT}}
+{\footnotesize\ttfamily \#define CEREAL\+\_\+\+LOAD\+\_\+\+AND\+\_\+\+CONSTRUCT(\begin{DoxyParamCaption}\item[{}]{cls,  }\item[{}]{arc,  }\item[{}]{ver }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_and\_construct(Archive\&\ arc,\ cereal::construct<cls>\&\ construct,\ [[maybe\_unused]]\ std::uint32\_t\ \textcolor{keyword}{const}\ ver)}
+
+\end{DoxyCode}
+
+
+ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します 
+
+
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} の \mbox{\hyperlink{_cereal_8h_source_l00088}{88}} 行目に定義があります。
+
+\mbox{\Hypertarget{_cereal_8h_a8308c66065124010af82a39d23de874f}\label{_cereal_8h_a8308c66065124010af82a39d23de874f}} 
+\index{Cereal.h@{Cereal.h}!CEREAL\_LOAD\_AND\_CONSTRUCT\_BEGIN@{CEREAL\_LOAD\_AND\_CONSTRUCT\_BEGIN}}
+\index{CEREAL\_LOAD\_AND\_CONSTRUCT\_BEGIN@{CEREAL\_LOAD\_AND\_CONSTRUCT\_BEGIN}!Cereal.h@{Cereal.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_LOAD\_AND\_CONSTRUCT\_BEGIN}{CEREAL\_LOAD\_AND\_CONSTRUCT\_BEGIN}}
+{\footnotesize\ttfamily \#define CEREAL\+\_\+\+LOAD\+\_\+\+AND\+\_\+\+CONSTRUCT\+\_\+\+BEGIN(\begin{DoxyParamCaption}\item[{}]{cls,  }\item[{}]{arc,  }\item[{}]{ver }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacecereal}{cereal}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{template}<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{struct\ }LoadAndConstruct<cls>\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ load\_and\_construct(Archive\&\ arc,\ cereal::construct<cls>\&\ construct,\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ std::uint32\_t\ \textcolor{keyword}{const}\ ver)}
+
+\end{DoxyCode}
+ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します(外部) \begin{DoxyAttention}{注意}
+変数名はconstruct以外使うと再定義になってしまうため変数化していない。 
+\end{DoxyAttention}
+
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} の \mbox{\hyperlink{_cereal_8h_source_l00120}{120}} 行目に定義があります。
+
+\mbox{\Hypertarget{_cereal_8h_ac6b673f3b803293ad3ab39197d53afed}\label{_cereal_8h_ac6b673f3b803293ad3ab39197d53afed}} 
+\index{Cereal.h@{Cereal.h}!CEREAL\_LOAD\_AND\_CONSTRUCT\_CPP@{CEREAL\_LOAD\_AND\_CONSTRUCT\_CPP}}
+\index{CEREAL\_LOAD\_AND\_CONSTRUCT\_CPP@{CEREAL\_LOAD\_AND\_CONSTRUCT\_CPP}!Cereal.h@{Cereal.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_LOAD\_AND\_CONSTRUCT\_CPP}{CEREAL\_LOAD\_AND\_CONSTRUCT\_CPP}}
+{\footnotesize\ttfamily \#define CEREAL\+\_\+\+LOAD\+\_\+\+AND\+\_\+\+CONSTRUCT\+\_\+\+CPP(\begin{DoxyParamCaption}\item[{}]{cls,  }\item[{}]{arc,  }\item[{}]{ver }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ cls::load\_and\_construct(Archive\&\ arc,\ cereal::construct<cls>\&\ construct,\ [[maybe\_unused]]\ std::uint32\_t\ \textcolor{keyword}{const}\ ver)}
+
+\end{DoxyCode}
+ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します (CPPにて組み込む場合) \begin{DoxyAttention}{注意}
+変数名はconstruct以外使うと再定義になってしまうため変数化していない。 
+\end{DoxyAttention}
+
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} の \mbox{\hyperlink{_cereal_8h_source_l00113}{113}} 行目に定義があります。
+
+\mbox{\Hypertarget{_cereal_8h_a3948333019d8374832c914f5bf82acc4}\label{_cereal_8h_a3948333019d8374832c914f5bf82acc4}} 
+\index{Cereal.h@{Cereal.h}!CEREAL\_LOAD\_AND\_CONSTRUCT\_END@{CEREAL\_LOAD\_AND\_CONSTRUCT\_END}}
+\index{CEREAL\_LOAD\_AND\_CONSTRUCT\_END@{CEREAL\_LOAD\_AND\_CONSTRUCT\_END}!Cereal.h@{Cereal.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_LOAD\_AND\_CONSTRUCT\_END}{CEREAL\_LOAD\_AND\_CONSTRUCT\_END}}
+{\footnotesize\ttfamily \#define CEREAL\+\_\+\+LOAD\+\_\+\+AND\+\_\+\+CONSTRUCT\+\_\+\+END(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ ;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+デフォルトコンストラクタ以外の初期化の場合に利用する(\+END) 
+
+ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します(外部) 
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} の \mbox{\hyperlink{_cereal_8h_source_l00130}{130}} 行目に定義があります。
+
+\mbox{\Hypertarget{_cereal_8h_ace44ea4d0295f26f11bbcba5e9be33d1}\label{_cereal_8h_ace44ea4d0295f26f11bbcba5e9be33d1}} 
+\index{Cereal.h@{Cereal.h}!CEREAL\_LOAD\_CPP@{CEREAL\_LOAD\_CPP}}
+\index{CEREAL\_LOAD\_CPP@{CEREAL\_LOAD\_CPP}!Cereal.h@{Cereal.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_LOAD\_CPP}{CEREAL\_LOAD\_CPP}}
+{\footnotesize\ttfamily \#define CEREAL\+\_\+\+LOAD\+\_\+\+CPP(\begin{DoxyParamCaption}\item[{}]{cls,  }\item[{}]{arc,  }\item[{}]{ver }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }cereal::access;\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ cls::load(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ \textcolor{keyword}{const}\ ver)}
+
+\end{DoxyCode}
+
+
+ロード処理のみの時に使用します (CPPにて組み込む場合) 
+
+
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} の \mbox{\hyperlink{_cereal_8h_source_l00104}{104}} 行目に定義があります。
+
+\mbox{\Hypertarget{_cereal_8h_a997aad9a4a1580a702f32c7b2e6670fb}\label{_cereal_8h_a997aad9a4a1580a702f32c7b2e6670fb}} 
+\index{Cereal.h@{Cereal.h}!CEREAL\_SAVE@{CEREAL\_SAVE}}
+\index{CEREAL\_SAVE@{CEREAL\_SAVE}!Cereal.h@{Cereal.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_SAVE}{CEREAL\_SAVE}}
+{\footnotesize\ttfamily \#define CEREAL\+\_\+\+SAVE(\begin{DoxyParamCaption}\item[{}]{arc,  }\item[{}]{ver }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }cereal::access;\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>\ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ save(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ \textcolor{keyword}{const}\ ver)\ \textcolor{keyword}{const}}
+
+\end{DoxyCode}
+
+
+セーブ処理のみの時に使用します (※現在処理されないと思われます) 
+
+
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} の \mbox{\hyperlink{_cereal_8h_source_l00076}{76}} 行目に定義があります。
+
+\mbox{\Hypertarget{_cereal_8h_a97cac89fceb099ad10645e1b7c47af85}\label{_cereal_8h_a97cac89fceb099ad10645e1b7c47af85}} 
+\index{Cereal.h@{Cereal.h}!CEREAL\_SAVE\_CPP@{CEREAL\_SAVE\_CPP}}
+\index{CEREAL\_SAVE\_CPP@{CEREAL\_SAVE\_CPP}!Cereal.h@{Cereal.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_SAVE\_CPP}{CEREAL\_SAVE\_CPP}}
+{\footnotesize\ttfamily \#define CEREAL\+\_\+\+SAVE\+\_\+\+CPP(\begin{DoxyParamCaption}\item[{}]{cls,  }\item[{}]{arc,  }\item[{}]{ver }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ cls::save(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ \textcolor{keyword}{const}\ ver)\ \textcolor{keyword}{const}}
+
+\end{DoxyCode}
+セーブ処理のみの時に使用します (CPPにて組み込む場合) (※現在処理されないと思われます) 
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} の \mbox{\hyperlink{_cereal_8h_source_l00099}{99}} 行目に定義があります。
+
+\mbox{\Hypertarget{_cereal_8h_a7df5c4a4fa530d0bf2831fc2180f0386}\label{_cereal_8h_a7df5c4a4fa530d0bf2831fc2180f0386}} 
+\index{Cereal.h@{Cereal.h}!CEREAL\_SAVELOAD@{CEREAL\_SAVELOAD}}
+\index{CEREAL\_SAVELOAD@{CEREAL\_SAVELOAD}!Cereal.h@{Cereal.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_SAVELOAD}{CEREAL\_SAVELOAD}}
+{\footnotesize\ttfamily \#define CEREAL\+\_\+\+SAVELOAD(\begin{DoxyParamCaption}\item[{}]{arc,  }\item[{}]{ver }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }cereal::access;\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>\ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ serialize(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ \textcolor{keyword}{const}\ ver)}
+
+\end{DoxyCode}
+
+
+Cereal 
+
+ロード・セーブ両方同じ処理の時に使用します 
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} の \mbox{\hyperlink{_cereal_8h_source_l00070}{70}} 行目に定義があります。
+
+\mbox{\Hypertarget{_cereal_8h_a2a43680013c25eb9ad5df8865a26d47c}\label{_cereal_8h_a2a43680013c25eb9ad5df8865a26d47c}} 
+\index{Cereal.h@{Cereal.h}!CEREAL\_SAVELOAD\_CPP@{CEREAL\_SAVELOAD\_CPP}}
+\index{CEREAL\_SAVELOAD\_CPP@{CEREAL\_SAVELOAD\_CPP}!Cereal.h@{Cereal.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_SAVELOAD\_CPP}{CEREAL\_SAVELOAD\_CPP}}
+{\footnotesize\ttfamily \#define CEREAL\+\_\+\+SAVELOAD\+\_\+\+CPP(\begin{DoxyParamCaption}\item[{}]{cls,  }\item[{}]{arc,  }\item[{}]{ver }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ cls::serialize(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ \textcolor{keyword}{const}\ ver)}
+
+\end{DoxyCode}
+
+
+ロード・セーブ両方同じ処理の時に使用します (CPPにて組み込む場合) 
+
+
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} の \mbox{\hyperlink{_cereal_8h_source_l00093}{93}} 行目に定義があります。
+
+\mbox{\Hypertarget{_cereal_8h_a76188fcf3b00899cfe85a847f49dc1d6}\label{_cereal_8h_a76188fcf3b00899cfe85a847f49dc1d6}} 
+\index{Cereal.h@{Cereal.h}!CEREAL\_SAVELOAD\_OTHER@{CEREAL\_SAVELOAD\_OTHER}}
+\index{CEREAL\_SAVELOAD\_OTHER@{CEREAL\_SAVELOAD\_OTHER}!Cereal.h@{Cereal.h}}
+\doxysubsubsection{\texorpdfstring{CEREAL\_SAVELOAD\_OTHER}{CEREAL\_SAVELOAD\_OTHER}}
+{\footnotesize\ttfamily \#define CEREAL\+\_\+\+SAVELOAD\+\_\+\+OTHER(\begin{DoxyParamCaption}\item[{}]{cls,  }\item[{}]{arc,  }\item[{}]{other }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ serialize(Archive\&\ arc,\ cls\&\ other)}
+
+\end{DoxyCode}
+
+
+ロード・セーブ非侵入型の際に使用します 
+
+
+
+ \mbox{\hyperlink{_cereal_8h_source}{Cereal.\+h}} の \mbox{\hyperlink{_cereal_8h_source_l00136}{136}} 行目に定義があります。
+

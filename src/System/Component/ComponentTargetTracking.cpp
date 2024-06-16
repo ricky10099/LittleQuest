@@ -7,8 +7,6 @@
 #include <System/ImGui.h>
 #include <System/Utils/HelperLib.h>
 
-BP_COMPONENT_IMPL(ComponentTargetTracking, u8"TargetTracking機能クラス");
-
 namespace {
 std::string null_name = "  ";
 
@@ -87,8 +85,7 @@ void ComponentTargetTracking::PostUpdate() {
         // モデルを通常に戻すインバーズマトリクスを取得しておく
         auto fmat = inverse(HelperLib::Math::CreateMatrixByFrontVector(model_vec));
 
-        // ターゲットへの向きを取得して(
-        // MV1GetFrameLocalWorldMatrixでとると100%位置はあっているがどうやら…1Frame遅れる)
+        // ターゲットへの向きを取得して( MV1GetFrameLocalWorldMatrixでとると100%位置はあっているがどうやら…1Frame遅れる)
         float3 node_pos  = tracking_matrix_._41_42_43;
         float3 model_pos = mul(float4(node_pos, 1), GetOwner()->GetMatrix()).xyz;
 
@@ -153,15 +150,14 @@ void ComponentTargetTracking::PostUpdate() {
 #endif
         RecomposeMatrixFromComponents((float*)&node_trans, (float*)&node_rot, (float*)&node_scale, (float*)mat.f32_128_0);
 
-        // auto roty = matrix::rotateY(radians((float1)theta_xz));
-        // auto rotx = matrix::rotateX(radians((float1)theta_yz));
-        // mat = mul(mul(tracking_matrix_, rotx), roty);
+        //auto roty = matrix::rotateY(radians((float1)theta_xz));
+        //auto rotx = matrix::rotateX(radians((float1)theta_yz));
+        //mat = mul(mul(tracking_matrix_, rotx), roty);
 
         MV1SetFrameUserLocalMatrix(model->GetModel(), tracked_node_index_, cast(mat));
 
         // これをONにすると他のGizmoのIsOverなどがチェックが取れずPICKが常に有効になる(地面が選ばれてしまう)
-        // ShowGizmo( (float*)mat.f32_128_0, ImGuizmo::OPERATION::TRANSLATE,
-        // ImGuizmo::MODE::LOCAL, 0xab1245 );
+        //ShowGizmo( (float*)mat.f32_128_0, ImGuizmo::OPERATION::TRANSLATE, ImGuizmo::MODE::LOCAL, 0xab1245 );
     }
 }
 

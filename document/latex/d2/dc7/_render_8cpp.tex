@@ -1,0 +1,444 @@
+\hypertarget{_render_8cpp}{}\doxysection{Render.\+cpp ファイル}
+\label{_render_8cpp}\index{Render.cpp@{Render.cpp}}
+{\ttfamily \#include \char`\"{}System/\+Graphics/\+Render.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Texture.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Win\+Main.\+h\char`\"{}}\newline
+Render.\+cpp の依存先関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dfb/_render_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{関数}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{_render_8cpp_a05289d9a01a96e895fd86fddc0eca131}{Render\+Init}} ()
+\begin{DoxyCompactList}\small\item\em Render初期化 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_render_8cpp_ab9d46ca95b48137614293b5bf24a8a42}{Render\+Exit}} ()
+\begin{DoxyCompactList}\small\item\em Render終了 \end{DoxyCompactList}\item 
+ID3\+D11\+Device $\ast$ \mbox{\hyperlink{_render_8cpp_aea7cfbfd95b4f3811244b85063c3ac9d}{Get\+D3\+DDevice}} ()
+\begin{DoxyCompactList}\small\item\em D3\+Dデバイスを取得 \end{DoxyCompactList}\item 
+ID3\+D11\+Device\+Context $\ast$ \mbox{\hyperlink{_render_8cpp_a78a59eaee0fdb6dc4ea0db0b863e1a10}{Get\+D3\+DDevice\+Context}} ()
+\begin{DoxyCompactList}\small\item\em D3\+Dデバイスコンテキストを取得 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_render_8cpp_acff1ef100ab5993b21a9fe6054b034f6}{Clear\+Color}} (const float4 \&clear\+\_\+color)
+\begin{DoxyCompactList}\small\item\em 現在のカラーバッファをクリア \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_render_8cpp_a84c27947c851ca64ee91741333fd7460}{Clear\+Depth}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} depth\+\_\+value)
+\begin{DoxyCompactList}\small\item\em 現在のデプスバッファをクリア \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_render_8cpp_a683d429791e76207ac17dd87946493f2}{Clear\+Stencil}} (\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}} stencil\+\_\+value)
+\begin{DoxyCompactList}\small\item\em 現在のステンシルバッファをクリア \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_render_8cpp_a47df9f64312ac6d5dc7136fd0907f6ba}{Clear\+Color}} (const \mbox{\hyperlink{class_texture}{Texture}} $\ast$texture, const float4 \&clear\+\_\+color)
+\begin{DoxyCompactList}\small\item\em カラーバッファをクリア \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_render_8cpp_a93a5467ef3b2c3a3d6d864211cf89b01}{Clear\+Depth}} (const \mbox{\hyperlink{class_texture}{Texture}} $\ast$texture, \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} depth\+\_\+value)
+\begin{DoxyCompactList}\small\item\em デプスバッファをクリア \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_render_8cpp_a08a81d4e78cad6ab12c09e1e524d27d5}{Clear\+Stencil}} (const \mbox{\hyperlink{class_texture}{Texture}} $\ast$texture, \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}} stencil\+\_\+value)
+\begin{DoxyCompactList}\small\item\em ステンシルバッファをクリア \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_target_desc}{Target\+Desc}} \mbox{\hyperlink{_render_8cpp_ad21a1134aefefb45dfae818c4fce1cac}{Get\+Render\+Target}} ()
+\begin{DoxyCompactList}\small\item\em 現在の\+Render\+Target情報を取得 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_render_8cpp_a510ef5c7299810ce44233328a48be555}{Set\+Render\+Target}} (const \mbox{\hyperlink{struct_target_desc}{Target\+Desc}} \&desc)
+\begin{DoxyCompactList}\small\item\em Render\+Targetを一括設定 (Target\+Desc指定) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_render_8cpp_a0a896ecd0eb713d919f77ac21fcae8d7}{Set\+Render\+Target}} (\mbox{\hyperlink{class_texture}{Texture}} $\ast$color\+\_\+target, \mbox{\hyperlink{class_texture}{Texture}} $\ast$depth\+\_\+stencil)
+\begin{DoxyCompactList}\small\item\em Render\+Targetを設定 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_render_8cpp_ac03f8830527e44f5d3717a375ba5a6de}{Set\+Render\+Target}} (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} color\+\_\+count, \mbox{\hyperlink{class_texture}{Texture}} $\ast$$\ast$color\+\_\+targets, \mbox{\hyperlink{class_texture}{Texture}} $\ast$depth\+\_\+stencil)
+\begin{DoxyCompactList}\small\item\em Render\+Targetを設定(\+Multiple Render Target) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_texture}{Texture}} $\ast$ \mbox{\hyperlink{_render_8cpp_a8561269468a8e445ad1b992a8e0b8142}{Get\+Back\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em デフォルトのバックバッファを取得 (R8\+G8\+B8\+A8\+\_\+\+UNORM) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_texture}{Texture}} $\ast$ \mbox{\hyperlink{_render_8cpp_abbb529e1fb437600e34fc58aa8ab8bcb}{Get\+Depth\+Stencil}} ()
+\begin{DoxyCompactList}\small\item\em デフォルトのデプスバッファを取得 (D32\+\_\+\+FLOAT) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_render_8cpp_ae3fd154fc45bb61f3c0f6829ced1380c}{Copy\+To\+Render\+Target}} (\mbox{\hyperlink{class_texture}{Texture}} $\ast$dest\+\_\+render\+\_\+target, \mbox{\hyperlink{class_texture}{Texture}} $\ast$source\+\_\+texture, int shader\+\_\+ps\+\_\+handle)
+\begin{DoxyCompactList}\small\item\em Render\+Targetにイメージをコピー \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{_render_8cpp_acff1ef100ab5993b21a9fe6054b034f6}\label{_render_8cpp_acff1ef100ab5993b21a9fe6054b034f6}} 
+\index{Render.cpp@{Render.cpp}!ClearColor@{ClearColor}}
+\index{ClearColor@{ClearColor}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{ClearColor()}{ClearColor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Clear\+Color (\begin{DoxyParamCaption}\item[{const float4 \&}]{clear\+\_\+color }\end{DoxyParamCaption})}
+
+
+
+現在のカラーバッファをクリア 
+
+現在のカラーバッファをクリア 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em clear\+\_\+color} & クリアするカラー値 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00066}{66}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_render_8cpp_source_l00066}{Clear\+Color()}}.
+
+
+
+参照元 \mbox{\hyperlink{_render_8cpp_source_l00066}{Clear\+Color()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00496}{System\+Draw()}}, \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_render_8cpp_a47df9f64312ac6d5dc7136fd0907f6ba}\label{_render_8cpp_a47df9f64312ac6d5dc7136fd0907f6ba}} 
+\index{Render.cpp@{Render.cpp}!ClearColor@{ClearColor}}
+\index{ClearColor@{ClearColor}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{ClearColor()}{ClearColor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Clear\+Color (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_texture}{Texture}} $\ast$}]{texture,  }\item[{const float4 \&}]{clear\+\_\+color }\end{DoxyParamCaption})}
+
+
+
+カラーバッファをクリア 
+
+カラーバッファをクリア 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em texture} & 対象のカラーバッファ \\
+\hline
+\mbox{\texttt{ in}}  & {\em clear\+\_\+color} & クリアするカラー値 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00102}{102}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_render_8cpp_source_l00059}{Get\+D3\+DDevice\+Context()}}, \mbox{\hyperlink{_texture_8cpp_source_l00240}{Texture\+::rtv()}}.
+
+\mbox{\Hypertarget{_render_8cpp_a93a5467ef3b2c3a3d6d864211cf89b01}\label{_render_8cpp_a93a5467ef3b2c3a3d6d864211cf89b01}} 
+\index{Render.cpp@{Render.cpp}!ClearDepth@{ClearDepth}}
+\index{ClearDepth@{ClearDepth}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{ClearDepth()}{ClearDepth()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Clear\+Depth (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_texture}{Texture}} $\ast$}]{texture,  }\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{depth\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+デプスバッファをクリア 
+
+デプスバッファをクリア 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em texture} & 対象のデプスバッファ \\
+\hline
+\mbox{\texttt{ in}}  & {\em depth\+\_\+value} & クリアするデプス値 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00111}{111}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8cpp_source_l00247}{Texture\+::dsv()}}, \mbox{\hyperlink{_render_8cpp_source_l00059}{Get\+D3\+DDevice\+Context()}}.
+
+\mbox{\Hypertarget{_render_8cpp_a84c27947c851ca64ee91741333fd7460}\label{_render_8cpp_a84c27947c851ca64ee91741333fd7460}} 
+\index{Render.cpp@{Render.cpp}!ClearDepth@{ClearDepth}}
+\index{ClearDepth@{ClearDepth}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{ClearDepth()}{ClearDepth()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Clear\+Depth (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{depth\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+現在のデプスバッファをクリア 
+
+現在のデプスバッファをクリア 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em depth\+\_\+value} & クリアするデプス値 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00078}{78}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_render_8cpp_source_l00078}{Clear\+Depth()}}.
+
+
+
+参照元 \mbox{\hyperlink{_render_8cpp_source_l00078}{Clear\+Depth()}}, \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_render_8cpp_a08a81d4e78cad6ab12c09e1e524d27d5}\label{_render_8cpp_a08a81d4e78cad6ab12c09e1e524d27d5}} 
+\index{Render.cpp@{Render.cpp}!ClearStencil@{ClearStencil}}
+\index{ClearStencil@{ClearStencil}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{ClearStencil()}{ClearStencil()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Clear\+Stencil (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_texture}{Texture}} $\ast$}]{texture,  }\item[{\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}}]{stencil\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+ステンシルバッファをクリア 
+
+ステンシルバッファをクリア 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em texture} & 対象のデプスバッファ \\
+\hline
+\mbox{\texttt{ in}}  & {\em stencil\+\_\+value} & クリアするステンシル値 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00118}{118}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_texture_8cpp_source_l00247}{Texture\+::dsv()}}, \mbox{\hyperlink{_render_8cpp_source_l00059}{Get\+D3\+DDevice\+Context()}}.
+
+\mbox{\Hypertarget{_render_8cpp_a683d429791e76207ac17dd87946493f2}\label{_render_8cpp_a683d429791e76207ac17dd87946493f2}} 
+\index{Render.cpp@{Render.cpp}!ClearStencil@{ClearStencil}}
+\index{ClearStencil@{ClearStencil}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{ClearStencil()}{ClearStencil()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Clear\+Stencil (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}}]{stencil\+\_\+value }\end{DoxyParamCaption})}
+
+
+
+現在のステンシルバッファをクリア 
+
+現在のステンシルバッファをクリア 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em stencil\+\_\+value} & クリアするステンシル値 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00090}{90}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_render_8cpp_source_l00090}{Clear\+Stencil()}}.
+
+
+
+参照元 \mbox{\hyperlink{_render_8cpp_source_l00090}{Clear\+Stencil()}}.
+
+\mbox{\Hypertarget{_render_8cpp_ae3fd154fc45bb61f3c0f6829ced1380c}\label{_render_8cpp_ae3fd154fc45bb61f3c0f6829ced1380c}} 
+\index{Render.cpp@{Render.cpp}!CopyToRenderTarget@{CopyToRenderTarget}}
+\index{CopyToRenderTarget@{CopyToRenderTarget}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{CopyToRenderTarget()}{CopyToRenderTarget()}}
+{\footnotesize\ttfamily void Copy\+To\+Render\+Target (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_texture}{Texture}} $\ast$}]{dst\+\_\+render\+\_\+target,  }\item[{\mbox{\hyperlink{class_texture}{Texture}} $\ast$}]{src\+\_\+texture,  }\item[{int}]{shader\+\_\+ps\+\_\+handle = {\ttfamily -\/1} }\end{DoxyParamCaption})}
+
+
+
+Render\+Targetにイメージをコピー 
+
+Render\+Targetにイメージをコピー 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ out}}  & {\em dst\+\_\+render\+\_\+target} & 出力先\+Render\+Target \\
+\hline
+\mbox{\texttt{ in}}  & {\em src\+\_\+texture} & コピー元テクスチャ \\
+\hline
+\mbox{\texttt{ in}}  & {\em shader\+\_\+ps\+\_\+handle} & カスタムのピクセルシェーダー (-\/1の場合は単純コピー) \\
+\hline
+\end{DoxyParams}
+フルスクリーン2\+D三角形の描画 \begin{DoxySeeAlso}{参照}
+GDC\textquotesingle{}14 Vertex Shader Tricks 通常の四角形描画では三角形2枚で描画しますが、斜めのエッジ部分が2回ラスタライズされます。 無駄を省くために巨大な三角形で覆うことでこの問題を解決できます。(数の高速化効果)
+\end{DoxySeeAlso}
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00208}{208}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_render_8cpp_source_l00125}{Get\+Render\+Target()}}, \mbox{\hyperlink{_render_8cpp_source_l00132}{Set\+Render\+Target()}}, \mbox{\hyperlink{_win_main_8cpp_source_l00007}{WINDOW\+\_\+H}}, \mbox{\hyperlink{_win_main_8cpp_source_l00006}{WINDOW\+\_\+W}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_filter_fade_8cpp_source_l00043}{Component\+Filter\+Fade\+::\+Init()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00496}{System\+Draw()}}.
+
+\mbox{\Hypertarget{_render_8cpp_a8561269468a8e445ad1b992a8e0b8142}\label{_render_8cpp_a8561269468a8e445ad1b992a8e0b8142}} 
+\index{Render.cpp@{Render.cpp}!GetBackBuffer@{GetBackBuffer}}
+\index{GetBackBuffer@{GetBackBuffer}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{GetBackBuffer()}{GetBackBuffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_texture}{Texture}} $\ast$ Get\+Back\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+デフォルトのバックバッファを取得 (R8\+G8\+B8\+A8\+\_\+\+UNORM) 
+
+デフォルトのバックバッファを取得(\+R8\+G8\+B8\+A8\+\_\+\+UNORM) 
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00194}{194}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_system_main_8cpp_source_l00496}{System\+Draw()}}, \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_render_8cpp_aea7cfbfd95b4f3811244b85063c3ac9d}\label{_render_8cpp_aea7cfbfd95b4f3811244b85063c3ac9d}} 
+\index{Render.cpp@{Render.cpp}!GetD3DDevice@{GetD3DDevice}}
+\index{GetD3DDevice@{GetD3DDevice}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{GetD3DDevice()}{GetD3DDevice()}}
+{\footnotesize\ttfamily ID3\+D11\+Device $\ast$ Get\+D3\+DDevice (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+D3\+Dデバイスを取得 
+
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00052}{52}} 行目に定義があります。
+
+\mbox{\Hypertarget{_render_8cpp_a78a59eaee0fdb6dc4ea0db0b863e1a10}\label{_render_8cpp_a78a59eaee0fdb6dc4ea0db0b863e1a10}} 
+\index{Render.cpp@{Render.cpp}!GetD3DDeviceContext@{GetD3DDeviceContext}}
+\index{GetD3DDeviceContext@{GetD3DDeviceContext}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{GetD3DDeviceContext()}{GetD3DDeviceContext()}}
+{\footnotesize\ttfamily ID3\+D11\+Device\+Context $\ast$ Get\+D3\+DDevice\+Context (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+D3\+Dデバイスコンテキストを取得 
+
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00059}{59}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_render_8cpp_source_l00102}{Clear\+Color()}}, \mbox{\hyperlink{_render_8cpp_source_l00111}{Clear\+Depth()}}, \mbox{\hyperlink{_render_8cpp_source_l00118}{Clear\+Stencil()}}, \mbox{\hyperlink{_render_8cpp_source_l00132}{Set\+Render\+Target()}}.
+
+\mbox{\Hypertarget{_render_8cpp_abbb529e1fb437600e34fc58aa8ab8bcb}\label{_render_8cpp_abbb529e1fb437600e34fc58aa8ab8bcb}} 
+\index{Render.cpp@{Render.cpp}!GetDepthStencil@{GetDepthStencil}}
+\index{GetDepthStencil@{GetDepthStencil}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{GetDepthStencil()}{GetDepthStencil()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_texture}{Texture}} $\ast$ Get\+Depth\+Stencil (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+デフォルトのデプスバッファを取得 (D32\+\_\+\+FLOAT) 
+
+デフォルトのデプスバッファを取得(\+D32\+\_\+\+FLOAT) 
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00201}{201}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_system_main_8cpp_source_l00496}{System\+Draw()}}, \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_render_8cpp_ad21a1134aefefb45dfae818c4fce1cac}\label{_render_8cpp_ad21a1134aefefb45dfae818c4fce1cac}} 
+\index{Render.cpp@{Render.cpp}!GetRenderTarget@{GetRenderTarget}}
+\index{GetRenderTarget@{GetRenderTarget}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{GetRenderTarget()}{GetRenderTarget()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_target_desc}{Target\+Desc}} Get\+Render\+Target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+現在の\+Render\+Target情報を取得 
+
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00125}{125}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_render_8cpp_source_l00208}{Copy\+To\+Render\+Target()}}, \mbox{\hyperlink{_component_filter_fade_8cpp_source_l00043}{Component\+Filter\+Fade\+::\+Init()}}.
+
+\mbox{\Hypertarget{_render_8cpp_ab9d46ca95b48137614293b5bf24a8a42}\label{_render_8cpp_ab9d46ca95b48137614293b5bf24a8a42}} 
+\index{Render.cpp@{Render.cpp}!RenderExit@{RenderExit}}
+\index{RenderExit@{RenderExit}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{RenderExit()}{RenderExit()}}
+{\footnotesize\ttfamily void Render\+Exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Render終了 
+
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00043}{43}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_render_8cpp_a05289d9a01a96e895fd86fddc0eca131}\label{_render_8cpp_a05289d9a01a96e895fd86fddc0eca131}} 
+\index{Render.cpp@{Render.cpp}!RenderInit@{RenderInit}}
+\index{RenderInit@{RenderInit}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{RenderInit()}{RenderInit()}}
+{\footnotesize\ttfamily bool Render\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Render初期化 
+
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00022}{22}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_render_8cpp_a510ef5c7299810ce44233328a48be555}\label{_render_8cpp_a510ef5c7299810ce44233328a48be555}} 
+\index{Render.cpp@{Render.cpp}!SetRenderTarget@{SetRenderTarget}}
+\index{SetRenderTarget@{SetRenderTarget}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{SetRenderTarget()}{SetRenderTarget()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily void Set\+Render\+Target (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_target_desc}{Target\+Desc}} \&}]{desc }\end{DoxyParamCaption})}
+
+
+
+Render\+Targetを一括設定 (Target\+Desc指定) 
+
+Render\+Targetを一括設定 (Target\+Desc指定) 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em desc} & Render\+Target情報 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00132}{132}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_render_8h_source_l00061}{Target\+Desc\+::color\+\_\+count\+\_\+}}, \mbox{\hyperlink{_render_8h_source_l00062}{Target\+Desc\+::color\+\_\+targets\+\_\+}}, \mbox{\hyperlink{_render_8h_source_l00063}{Target\+Desc\+::depth\+\_\+stencil\+\_\+}}, \mbox{\hyperlink{_texture_8cpp_source_l00247}{Texture\+::dsv()}}, \mbox{\hyperlink{_render_8cpp_source_l00059}{Get\+D3\+DDevice\+Context()}}.
+
+
+
+参照元 \mbox{\hyperlink{_render_8cpp_source_l00208}{Copy\+To\+Render\+Target()}}, \mbox{\hyperlink{_component_filter_fade_8cpp_source_l00043}{Component\+Filter\+Fade\+::\+Init()}}, \mbox{\hyperlink{_render_8cpp_source_l00170}{Set\+Render\+Target()}}, \mbox{\hyperlink{_system_main_8cpp_source_l00496}{System\+Draw()}}, \mbox{\hyperlink{_win_main_8cpp_source_l00017}{Win\+Main()}}.
+
+\mbox{\Hypertarget{_render_8cpp_a0a896ecd0eb713d919f77ac21fcae8d7}\label{_render_8cpp_a0a896ecd0eb713d919f77ac21fcae8d7}} 
+\index{Render.cpp@{Render.cpp}!SetRenderTarget@{SetRenderTarget}}
+\index{SetRenderTarget@{SetRenderTarget}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{SetRenderTarget()}{SetRenderTarget()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily void Set\+Render\+Target (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_texture}{Texture}} $\ast$}]{color\+\_\+target,  }\item[{\mbox{\hyperlink{class_texture}{Texture}} $\ast$}]{depth\+\_\+stencil = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Render\+Targetを設定 
+
+Render\+Targetを設定 (単体) 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em color\+\_\+target} & カラーターゲットの先頭アドレス \\
+\hline
+\mbox{\texttt{ in}}  & {\em depth\+\_\+stencil} & デプスバッファ(nullptr指定で無効化) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00170}{170}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_render_8cpp_source_l00132}{Set\+Render\+Target()}}.
+
+\mbox{\Hypertarget{_render_8cpp_ac03f8830527e44f5d3717a375ba5a6de}\label{_render_8cpp_ac03f8830527e44f5d3717a375ba5a6de}} 
+\index{Render.cpp@{Render.cpp}!SetRenderTarget@{SetRenderTarget}}
+\index{SetRenderTarget@{SetRenderTarget}!Render.cpp@{Render.cpp}}
+\doxysubsubsection{\texorpdfstring{SetRenderTarget()}{SetRenderTarget()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily void Set\+Render\+Target (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{color\+\_\+count,  }\item[{\mbox{\hyperlink{class_texture}{Texture}} $\ast$$\ast$}]{color\+\_\+targets,  }\item[{\mbox{\hyperlink{class_texture}{Texture}} $\ast$}]{depth\+\_\+stencil = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+Render\+Targetを設定(\+Multiple Render Target) 
+
+Render\+Targetを設定 (Multiple Render Target) 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em color\+\_\+count} & カラーターゲット数(1～8) \\
+\hline
+\mbox{\texttt{ in}}  & {\em color\+\_\+targets} & カラーターゲット配列の先頭アドレス \\
+\hline
+\mbox{\texttt{ in}}  & {\em depth\+\_\+stencil} & デプスバッファ(nullptr指定で無効化) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_render_8cpp_source}{Render.\+cpp}} の \mbox{\hyperlink{_render_8cpp_source_l00177}{177}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_render_8h_source_l00061}{Target\+Desc\+::color\+\_\+count\+\_\+}}, \mbox{\hyperlink{_render_8h_source_l00062}{Target\+Desc\+::color\+\_\+targets\+\_\+}}, \mbox{\hyperlink{_render_8h_source_l00063}{Target\+Desc\+::depth\+\_\+stencil\+\_\+}}, \mbox{\hyperlink{_render_8cpp_source_l00132}{Set\+Render\+Target()}}.
+

@@ -5,7 +5,6 @@
 #include <System/Component/ComponentModel.h>
 
 namespace LittleQuest {
-BP_OBJECT_IMPL(DestroyedHouse, "LittleQuest/DestroyedHouse");
 DestroyedHousePtr DestroyedHouse::Create(std::string name, const float3& pos) {
     auto obj = Scene::CreateObjectPtr<DestroyedHouse>();
     obj->SetName(name);

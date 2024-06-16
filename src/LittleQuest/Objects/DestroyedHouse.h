@@ -9,10 +9,7 @@ USING_PTR(DestroyedHouse);
 //////////////////////////////////////////////////////////////
 class DestroyedHouse: public Object {
    public:
-    BP_OBJECT_TYPE(DestroyedHouse, Object);
-    //------------------------------------------------------------
-    //! @brief 破壊された家を生成します。
-    //------------------------------------------------------------
+    BP_OBJECT_DECL(DestroyedHouse, "LittleQuest/DestroyedHouse");
     static DestroyedHousePtr Create(std::string name = "DestroyedHouse", const float3& pos = {0, 0, 0});
 
     //------------------------------------------------------------

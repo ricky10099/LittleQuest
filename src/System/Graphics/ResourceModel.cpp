@@ -50,7 +50,7 @@ ResourceModel::ResourceModel(std::string_view path) {
         SetASyncLoadFinishCallback(mv1_handle_, (void (*)(int, void*))finish_callback, this);
     }
     SetUseASyncLoadFlag(false);
-};
+}
 
 //---------------------------------------------------------------------------
 //! デストラクタ

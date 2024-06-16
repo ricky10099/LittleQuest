@@ -1,0 +1,53 @@
+\hypertarget{_fence_8cpp_source}{}\doxysection{Fence.\+cpp}
+\label{_fence_8cpp_source}\index{Fence.cpp@{Fence.cpp}}
+\mbox{\hyperlink{_fence_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_fence_8h}{Fence.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentAttachModel.h>}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionModel.h>}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentModel.h>}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00007}00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_little_quest}{LittleQuest}}\ \{}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00008}\mbox{\hyperlink{namespace_little_quest_ada3fa4ca4b5dcc167e096bc5f9107aa2}{00008}}\ \mbox{\hyperlink{namespace_little_quest_a4f4793ee72ca4c547385306dfeb36b35}{BP\_OBJECT\_IMPL}}(\mbox{\hyperlink{class_little_quest_1_1_fence}{Fence}},\ \textcolor{stringliteral}{"{}LittleQuest/Fence"{}});}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00009}\mbox{\hyperlink{class_little_quest_1_1_fence_a58e0cd6f99e7fec97e6f54268c7927f6}{00009}}\ FencePtr\ \mbox{\hyperlink{class_little_quest_1_1_fence_a58e0cd6f99e7fec97e6f54268c7927f6}{Fence::Create}}(\textcolor{keyword}{const}\ float3\&\ pos)\ \{}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{auto}\ obj\ =\ Scene::CreateObjectPtr<Fence>();}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00011}00011\ \ \ \ \ obj-\/>SetName(\textcolor{stringliteral}{"{}Fence"{}});}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00012}00012\ \ \ \ \ obj-\/>SetTranslate(pos);}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00013}00013\ \ \ \ \ obj-\/>AddComponent<ComponentModel>(\textcolor{stringliteral}{"{}data/Sample/SwordBout/Stage/Stage\_Obj009.mv1"{}});}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00015}00015\ \ \ \ \ obj-\/>m\_pBox\ =\ Scene::CreateObjectPtr<Object>(\textcolor{stringliteral}{"{}FenceBox"{}});}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00016}00016\ \ \ \ \ obj-\/>m\_pBox-\/>AddComponent<ComponentModel>(\textcolor{stringliteral}{"{}data/Sample/SwordBout/Stage/Stage\_Obj009\_c.mv1"{}});}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00017}00017\ \ \ \ \ obj-\/>m\_pBox-\/>SetTranslate(pos);}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00018}00018\ \ \ \ \ obj-\/>m\_pBox-\/>SetRotationAxisXYZ(\{0,\ 90,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00019}00019\ \ \ \ \ obj-\/>m\_pBox-\/>AddComponent<ComponentCollisionModel>()-\/>AttachToModel();}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{return}\ obj;}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00022}00022\ \}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00024}\mbox{\hyperlink{class_little_quest_1_1_fence_ad30049df6b5863dc4a05e69093a0f57f}{00024}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_little_quest_1_1_fence_ad30049df6b5863dc4a05e69093a0f57f}{Fence::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{keywordflow}{return}\ Super::Init();}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00026}00026\ \}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00028}\mbox{\hyperlink{class_little_quest_1_1_fence_a79f0acb4bf4b785bba92bc89776683f6}{00028}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_fence_a79f0acb4bf4b785bba92bc89776683f6}{Fence::Update}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00029}00029\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_fence_aee87e521850788759c7076c9b70f69e1}{m\_pBox}}-\/>GetStatus(StatusBit::NoDraw))\ \{}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_fence_aee87e521850788759c7076c9b70f69e1}{m\_pBox}}-\/>SetStatus(StatusBit::NoDraw,\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00031}00031\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00032}00032\ \}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00034}\mbox{\hyperlink{class_little_quest_1_1_fence_ac630f7ad3d8485ef37eb2f2e5bec9d60}{00034}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_fence_ac630f7ad3d8485ef37eb2f2e5bec9d60}{Fence::LateDraw}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00036}\mbox{\hyperlink{class_little_quest_1_1_fence_a9cd26f71222f7272abe4b4408a91d978}{00036}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_fence_a9cd26f71222f7272abe4b4408a91d978}{Fence::GUI}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00037}00037\ \ \ \ \ Super::GUI();}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00038}00038\ \}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00040}\mbox{\hyperlink{class_little_quest_1_1_fence_a089473a7e57083962bd55c1cabd0f668}{00040}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_fence_a089473a7e57083962bd55c1cabd0f668}{Fence::OnHit}}([[maybe\_unused]]\ \textcolor{keyword}{const}\ ComponentCollision::HitInfo\&\ hitInfo)\ \ \ \ \textcolor{comment}{//\ override}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00041}00041\ \{}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00042}00042\ \ \ \ \ Super::OnHit(hitInfo);}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00043}00043\ \}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00044}00044\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ LittleQuest}}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00046}00046\ CEREAL\_REGISTER\_TYPE(\mbox{\hyperlink{class_little_quest_1_1_fence}{LittleQuest::Fence}})}
+\DoxyCodeLine{\Hypertarget{_fence_8cpp_source_l00047}00047\ CEREAL\_REGISTER\_POLYMORPHIC\_RELATION(Object,\ \mbox{\hyperlink{class_little_quest_1_1_fence}{LittleQuest::Fence}})}
+
+\end{DoxyCode}

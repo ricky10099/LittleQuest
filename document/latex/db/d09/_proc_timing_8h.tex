@@ -1,0 +1,298 @@
+\hypertarget{_proc_timing_8h}{}\doxysection{Proc\+Timing.\+h ファイル}
+\label{_proc_timing_8h}\index{ProcTiming.h@{ProcTiming.h}}
+
+
+処理タイミング  
+
+
+{\ttfamily \#include \char`\"{}Priority.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$System/\+Signals.\+h$>$}\newline
+{\ttfamily \#include $<$System/\+Cereal.\+h$>$}\newline
+{\ttfamily \#include $<$functional$>$}\newline
+Proc\+Timing.\+h の依存先関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/d2d/_proc_timing_8h__incl}
+\end{center}
+\end{figure}
+被依存関係図\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d09/_proc_timing_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_callable}{Callable}}
+\item 
+struct \mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}}
+\begin{DoxyCompactList}\small\item\em スロット \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{マクロ定義}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_proc_timing_8h_a79954a1c537a0d505633565cfa3a164b}{OBJTIMING}}(p)~\mbox{\hyperlink{_proc_timing_8h_a6461e51a4f1ff47f46759c9668dc10c1}{TIMING}}(Proc\+Timing\+::\#\#p)
+\begin{DoxyCompactList}\small\item\em プライオリティ設定(\+Macro) \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{_proc_timing_8h_a467d763ebd1698c335ae5ee88d44c839}{Proc\+Add\+Proc}}(name,  x)
+\end{DoxyCompactItemize}
+\doxysubsection*{型定義}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{Proc\+Timing\+Func}} = std\+::function$<$ void()$>$
+\item 
+using \mbox{\hyperlink{_proc_timing_8h_ab05faf2a61120596baea980b99128c56}{Slot\+Procs}} = std\+::unordered\+\_\+map$<$ std\+::string, \mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}} $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{列挙型}
+\begin{DoxyCompactItemize}
+\item 
+enum struct \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}} \+: u32 \{ \newline
+\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba4d6938dc46ac97dde005fab44a01386c}{Pre\+Update}} = 0
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba06933067aafd48425d67bcb01bba5cb6}{Update}}
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba2609005edfde618c70f2140bb3e9b7c2}{Late\+Update}}
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba601c11681e9b4876cd5fcd08474eee98}{Pre\+Physics}}
+, \newline
+\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6bad1265336b66d91a1fc4f5904e34591f4}{Post\+Update}}
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba0182552d5e4261f81f5da8211bdc4fd5}{Pre\+Draw}}
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba2d03c2d5a7ec65ef4619e0582c272ec2}{Draw}}
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6baec48f96242d5a4fb2470c5166bc8c801}{Late\+Draw}}
+, \newline
+\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba6cc86790e3e99e2f8fdd8722c99151c6}{Post\+Draw}}
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba3f39588bb19e28051d9aedfbb170025c}{Shadow}}
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6baf9b9ec1143901183f0e08f9f685d5fb5}{Gbuffer}}
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba9914a0ce04a7b7b6a8e39bec55064b82}{Light}}
+, \newline
+\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba6cad826248cd3f4e93da71e7b49928e3}{HDR}}
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6bad7778d0c64b6ba21494c97f77a66885a}{Filter}}
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba71ff71526d15db86eb50fcac245d183b}{UI}}
+, \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba44119bf3bae5d40a8d0766b91c304aac}{NUM}}
+ \}
+\begin{DoxyCompactList}\small\item\em タイミング \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_proc_timing_8h_a2deff0220e6921920b821b718ebc8b94}{USING\+\_\+\+PTR}} (\mbox{\hyperlink{class_object}{Object}})
+\item 
+\mbox{\hyperlink{_proc_timing_8h_acf719dccd2f400d5bef112558e3ab522}{USING\+\_\+\+PTR}} (\mbox{\hyperlink{class_component}{Component}})
+\item 
+constexpr int \mbox{\hyperlink{_proc_timing_8h_a6461e51a4f1ff47f46759c9668dc10c1}{TIMING}} (\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}} p)
+\begin{DoxyCompactList}\small\item\em プライオリティ設定 \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{_proc_timing_8h_ac6580db62c4a37f293339076616d1a06}{Get\+Proc\+Timing\+Name}} (\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}} proc)
+\item 
+\mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{Proc\+Timing\+Func}} \mbox{\hyperlink{_proc_timing_8h_a677cbee623f7bded94f1e096826e5e51}{Get\+Proc\+Timing\+Func}} (\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}} proc)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+処理タイミング 
+
+
+
+ \mbox{\hyperlink{_proc_timing_8h_source}{Proc\+Timing.\+h}} に定義があります。
+
+
+
+\doxysubsection{マクロ定義詳解}
+\mbox{\Hypertarget{_proc_timing_8h_a79954a1c537a0d505633565cfa3a164b}\label{_proc_timing_8h_a79954a1c537a0d505633565cfa3a164b}} 
+\index{ProcTiming.h@{ProcTiming.h}!OBJTIMING@{OBJTIMING}}
+\index{OBJTIMING@{OBJTIMING}!ProcTiming.h@{ProcTiming.h}}
+\doxysubsubsection{\texorpdfstring{OBJTIMING}{OBJTIMING}}
+{\footnotesize\ttfamily \#define OBJTIMING(\begin{DoxyParamCaption}\item[{}]{p }\end{DoxyParamCaption})~\mbox{\hyperlink{_proc_timing_8h_a6461e51a4f1ff47f46759c9668dc10c1}{TIMING}}(Proc\+Timing\+::\#\#p)}
+
+
+
+プライオリティ設定(\+Macro) 
+
+
+
+ \mbox{\hyperlink{_proc_timing_8h_source}{Proc\+Timing.\+h}} の \mbox{\hyperlink{_proc_timing_8h_source_l00047}{47}} 行目に定義があります。
+
+\mbox{\Hypertarget{_proc_timing_8h_a467d763ebd1698c335ae5ee88d44c839}\label{_proc_timing_8h_a467d763ebd1698c335ae5ee88d44c839}} 
+\index{ProcTiming.h@{ProcTiming.h}!ProcAddProc@{ProcAddProc}}
+\index{ProcAddProc@{ProcAddProc}!ProcTiming.h@{ProcTiming.h}}
+\doxysubsubsection{\texorpdfstring{ProcAddProc}{ProcAddProc}}
+{\footnotesize\ttfamily \#define Proc\+Add\+Proc(\begin{DoxyParamCaption}\item[{}]{name,  }\item[{}]{x }\end{DoxyParamCaption})}
+
+{\bfseries 値\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_callable}{Callable}}\#\#name:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_callable}{Callable}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \textcolor{keyword}{public}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{class_callable}{Callable}}\#\#name():\ \mbox{\hyperlink{class_callable}{Callable}}(\#name)\ \{\}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_callable_a23ddda5ee112e39f8807ea483a6335e9}{Exec}}\ x;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \textcolor{keyword}{private}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ CEREAL\_SAVELOAD(arc,\ ver)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_callable_ad2d8b621e6d955dbf1bd2d5b4fbff5c9}{name\_}}));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ std::shared\_ptr<Callable\#\#name>\ name\ =\ std::make\_shared<Callable\#\#name>();\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ CEREAL\_REGISTER\_TYPE(\mbox{\hyperlink{class_callable}{Callable}}\#\#name);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ CEREAL\_REGISTER\_POLYMORPHIC\_RELATION(\mbox{\hyperlink{class_callable}{Callable}},\ \mbox{\hyperlink{class_callable}{Callable}}\#\#name)}
+
+\end{DoxyCode}
+
+
+ \mbox{\hyperlink{_proc_timing_8h_source}{Proc\+Timing.\+h}} の \mbox{\hyperlink{_proc_timing_8h_source_l00072}{72}} 行目に定義があります。
+
+
+
+\doxysubsection{型定義詳解}
+\mbox{\Hypertarget{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}\label{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}} 
+\index{ProcTiming.h@{ProcTiming.h}!ProcTimingFunc@{ProcTimingFunc}}
+\index{ProcTimingFunc@{ProcTimingFunc}!ProcTiming.h@{ProcTiming.h}}
+\doxysubsubsection{\texorpdfstring{ProcTimingFunc}{ProcTimingFunc}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{Proc\+Timing\+Func}} =  std\+::function$<$void()$>$}
+
+
+
+ \mbox{\hyperlink{_proc_timing_8h_source}{Proc\+Timing.\+h}} の \mbox{\hyperlink{_proc_timing_8h_source_l00016}{16}} 行目に定義があります。
+
+\mbox{\Hypertarget{_proc_timing_8h_ab05faf2a61120596baea980b99128c56}\label{_proc_timing_8h_ab05faf2a61120596baea980b99128c56}} 
+\index{ProcTiming.h@{ProcTiming.h}!SlotProcs@{SlotProcs}}
+\index{SlotProcs@{SlotProcs}!ProcTiming.h@{ProcTiming.h}}
+\doxysubsubsection{\texorpdfstring{SlotProcs}{SlotProcs}}
+{\footnotesize\ttfamily using \mbox{\hyperlink{_proc_timing_8h_ab05faf2a61120596baea980b99128c56}{Slot\+Procs}} =  std\+::unordered\+\_\+map$<$std\+::string, \mbox{\hyperlink{struct_slot_proc}{Slot\+Proc}}$>$}
+
+
+
+ \mbox{\hyperlink{_proc_timing_8h_source}{Proc\+Timing.\+h}} の \mbox{\hyperlink{_proc_timing_8h_source_l00178}{178}} 行目に定義があります。
+
+
+
+\doxysubsection{列挙型詳解}
+\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}} 
+\index{ProcTiming.h@{ProcTiming.h}!ProcTiming@{ProcTiming}}
+\index{ProcTiming@{ProcTiming}!ProcTiming.h@{ProcTiming.h}}
+\doxysubsubsection{\texorpdfstring{ProcTiming}{ProcTiming}}
+{\footnotesize\ttfamily enum struct \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}} \+: \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+タイミング 
+
+\begin{DoxyEnumFields}{列挙値}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PreUpdate@{PreUpdate}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!PreUpdate@{PreUpdate}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba4d6938dc46ac97dde005fab44a01386c}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba4d6938dc46ac97dde005fab44a01386c}} 
+Pre\+Update&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Update@{Update}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!Update@{Update}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba06933067aafd48425d67bcb01bba5cb6}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba06933067aafd48425d67bcb01bba5cb6}} 
+Update&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LateUpdate@{LateUpdate}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!LateUpdate@{LateUpdate}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba2609005edfde618c70f2140bb3e9b7c2}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba2609005edfde618c70f2140bb3e9b7c2}} 
+Late\+Update&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PrePhysics@{PrePhysics}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!PrePhysics@{PrePhysics}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba601c11681e9b4876cd5fcd08474eee98}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba601c11681e9b4876cd5fcd08474eee98}} 
+Pre\+Physics&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PostUpdate@{PostUpdate}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!PostUpdate@{PostUpdate}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6bad1265336b66d91a1fc4f5904e34591f4}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6bad1265336b66d91a1fc4f5904e34591f4}} 
+Post\+Update&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PreDraw@{PreDraw}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!PreDraw@{PreDraw}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba0182552d5e4261f81f5da8211bdc4fd5}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba0182552d5e4261f81f5da8211bdc4fd5}} 
+Pre\+Draw&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Draw@{Draw}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!Draw@{Draw}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba2d03c2d5a7ec65ef4619e0582c272ec2}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba2d03c2d5a7ec65ef4619e0582c272ec2}} 
+Draw&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LateDraw@{LateDraw}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!LateDraw@{LateDraw}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6baec48f96242d5a4fb2470c5166bc8c801}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6baec48f96242d5a4fb2470c5166bc8c801}} 
+Late\+Draw&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PostDraw@{PostDraw}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!PostDraw@{PostDraw}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba6cc86790e3e99e2f8fdd8722c99151c6}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba6cc86790e3e99e2f8fdd8722c99151c6}} 
+Post\+Draw&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Shadow@{Shadow}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!Shadow@{Shadow}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba3f39588bb19e28051d9aedfbb170025c}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba3f39588bb19e28051d9aedfbb170025c}} 
+Shadow&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Gbuffer@{Gbuffer}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!Gbuffer@{Gbuffer}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6baf9b9ec1143901183f0e08f9f685d5fb5}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6baf9b9ec1143901183f0e08f9f685d5fb5}} 
+Gbuffer&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Light@{Light}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!Light@{Light}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba9914a0ce04a7b7b6a8e39bec55064b82}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba9914a0ce04a7b7b6a8e39bec55064b82}} 
+Light&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HDR@{HDR}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!HDR@{HDR}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba6cad826248cd3f4e93da71e7b49928e3}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba6cad826248cd3f4e93da71e7b49928e3}} 
+HDR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Filter@{Filter}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!Filter@{Filter}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6bad7778d0c64b6ba21494c97f77a66885a}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6bad7778d0c64b6ba21494c97f77a66885a}} 
+Filter&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UI@{UI}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!UI@{UI}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba71ff71526d15db86eb50fcac245d183b}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba71ff71526d15db86eb50fcac245d183b}} 
+UI&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NUM@{NUM}!ProcTiming.h@{ProcTiming.h}}\index{ProcTiming.h@{ProcTiming.h}!NUM@{NUM}}}\mbox{\Hypertarget{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba44119bf3bae5d40a8d0766b91c304aac}\label{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba44119bf3bae5d40a8d0766b91c304aac}} 
+NUM&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+ \mbox{\hyperlink{_proc_timing_8h_source}{Proc\+Timing.\+h}} の \mbox{\hyperlink{_proc_timing_8h_source_l00019}{19}} 行目に定義があります。
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{_proc_timing_8h_a677cbee623f7bded94f1e096826e5e51}\label{_proc_timing_8h_a677cbee623f7bded94f1e096826e5e51}} 
+\index{ProcTiming.h@{ProcTiming.h}!GetProcTimingFunc@{GetProcTimingFunc}}
+\index{GetProcTimingFunc@{GetProcTimingFunc}!ProcTiming.h@{ProcTiming.h}}
+\doxysubsubsection{\texorpdfstring{GetProcTimingFunc()}{GetProcTimingFunc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{_proc_timing_8h_a322b5cad852df319cf99f93d9c95a05e}{Proc\+Timing\+Func}} Get\+Proc\+Timing\+Func (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}}}]{proc }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_proc_timing_8h_ac6580db62c4a37f293339076616d1a06}\label{_proc_timing_8h_ac6580db62c4a37f293339076616d1a06}} 
+\index{ProcTiming.h@{ProcTiming.h}!GetProcTimingName@{GetProcTimingName}}
+\index{GetProcTimingName@{GetProcTimingName}!ProcTiming.h@{ProcTiming.h}}
+\doxysubsubsection{\texorpdfstring{GetProcTimingName()}{GetProcTimingName()}}
+{\footnotesize\ttfamily std\+::string Get\+Proc\+Timing\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}}}]{proc }\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_proc_timing_8cpp_source}{Proc\+Timing.\+cpp}} の \mbox{\hyperlink{_proc_timing_8cpp_source_l00009}{9}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6ba44119bf3bae5d40a8d0766b91c304aac}{NUM}}.
+
+
+
+参照元 \mbox{\hyperlink{_scene_8cpp_source_l00596}{Scene\+::check\+Serialized()}}, \mbox{\hyperlink{_scene_8cpp_source_l00561}{Scene\+::function\+Serialize()}}, \mbox{\hyperlink{_scene_8cpp_source_l00251}{Scene\+::\+Base\+::\+Pre\+Register()}}, \mbox{\hyperlink{_scene_8cpp_source_l00830}{Scene\+::\+Pre\+Update()}}, \mbox{\hyperlink{_scene_8cpp_source_l00274}{Scene\+::\+Base\+::\+Register()}}, \mbox{\hyperlink{_scene_8cpp_source_l00348}{Scene\+::\+Base\+::\+Register\+For\+Load()}}, \mbox{\hyperlink{_scene_8cpp_source_l00224}{Scene\+::\+Base\+::\+Set\+Priority()}}.
+
+\mbox{\Hypertarget{_proc_timing_8h_a6461e51a4f1ff47f46759c9668dc10c1}\label{_proc_timing_8h_a6461e51a4f1ff47f46759c9668dc10c1}} 
+\index{ProcTiming.h@{ProcTiming.h}!TIMING@{TIMING}}
+\index{TIMING@{TIMING}!ProcTiming.h@{ProcTiming.h}}
+\doxysubsubsection{\texorpdfstring{TIMING()}{TIMING()}}
+{\footnotesize\ttfamily constexpr int TIMING (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_proc_timing_8h_ad69e549667e66f71bd785b024e931d6b}{Proc\+Timing}}}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+プライオリティ設定 
+
+
+
+ \mbox{\hyperlink{_proc_timing_8h_source}{Proc\+Timing.\+h}} の \mbox{\hyperlink{_proc_timing_8h_source_l00042}{42}} 行目に定義があります。
+
+\mbox{\Hypertarget{_proc_timing_8h_acf719dccd2f400d5bef112558e3ab522}\label{_proc_timing_8h_acf719dccd2f400d5bef112558e3ab522}} 
+\index{ProcTiming.h@{ProcTiming.h}!USING\_PTR@{USING\_PTR}}
+\index{USING\_PTR@{USING\_PTR}!ProcTiming.h@{ProcTiming.h}}
+\doxysubsubsection{\texorpdfstring{USING\_PTR()}{USING\_PTR()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily USING\+\_\+\+PTR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component}{Component}}}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{_proc_timing_8h_a2deff0220e6921920b821b718ebc8b94}\label{_proc_timing_8h_a2deff0220e6921920b821b718ebc8b94}} 
+\index{ProcTiming.h@{ProcTiming.h}!USING\_PTR@{USING\_PTR}}
+\index{USING\_PTR@{USING\_PTR}!ProcTiming.h@{ProcTiming.h}}
+\doxysubsubsection{\texorpdfstring{USING\_PTR()}{USING\_PTR()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily USING\+\_\+\+PTR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_object}{Object}}}]{ }\end{DoxyParamCaption})}
+

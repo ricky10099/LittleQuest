@@ -117,11 +117,13 @@ void ComponentObjectController::Update() {
     }
 }
 
-void ComponentObjectController::SetMoveSpeed(const float speed) {
+ComponentObjectControllerPtr ComponentObjectController::SetMoveSpeed(const float speed) {
     move_speed_ = speed;
+    return std::dynamic_pointer_cast<ComponentObjectController>(shared_from_this());
 }
-void ComponentObjectController::SetRotateSpeed(const float speed) {
+ComponentObjectControllerPtr ComponentObjectController::SetRotateSpeed(const float speed) {
     rot_speed_ = speed;
+    return std::dynamic_pointer_cast<ComponentObjectController>(shared_from_this());
 }
 
 const float ComponentObjectController::GetMoveSpeed() const {
@@ -132,36 +134,41 @@ const float ComponentObjectController::GetRotateSpeed() const {
     return rot_speed_;
 }
 
-void ComponentObjectController::SetKeys(int up, int down, int left, int right) {
+ComponentObjectControllerPtr ComponentObjectController::SetKeys(int up, int down, int left, int right) {
     // 移動キーの設定
     key_up_    = up;
     key_down_  = down;
     key_left_  = left;
     key_right_ = right;
+    return std::dynamic_pointer_cast<ComponentObjectController>(shared_from_this());
 }
 
-void ComponentObjectController::SetCameraKeys(int up, int down, int left, int right) {
+ComponentObjectControllerPtr ComponentObjectController::SetCameraKeys(int up, int down, int left, int right) {
     // カメラキーの設定
     cam_up_    = up;
     cam_down_  = down;
     cam_left_  = left;
     cam_right_ = right;
+    return std::dynamic_pointer_cast<ComponentObjectController>(shared_from_this());
 }
 
-void ComponentObjectController::SetTarget(ObjectPtr target) {
+ComponentObjectControllerPtr ComponentObjectController::SetTarget(ObjectPtr target) {
     target_ = target;
+    return std::dynamic_pointer_cast<ComponentObjectController>(shared_from_this());
 }
 
-void ComponentObjectController::SetCameraRotate(float3 rot) {
+ComponentObjectControllerPtr ComponentObjectController::SetCameraRotate(float3 rot) {
     cam_rx_ = rot.x;
     cam_ry_ = rot.y;
+    return std::dynamic_pointer_cast<ComponentObjectController>(shared_from_this());
 }
 
-void ComponentObjectController::SetUseMouse(bool use) {
+ComponentObjectControllerPtr ComponentObjectController::SetUseMouse(bool use) {
     use_mouse_ = use;
+    return std::dynamic_pointer_cast<ComponentObjectController>(shared_from_this());
 }
 
-bool ComponentObjectController::IsUseMouse() {
+bool ComponentObjectController::IsUseMouse() const {
     return use_mouse_;
 }
 
@@ -194,8 +201,6 @@ void ComponentObjectController::GUI() {
     }
     ImGui::End();
 }
-
-BP_COMPONENT_IMPL(ComponentObjectController, u8"移動コンポーネント");
 
 CEREAL_REGISTER_TYPE(ComponentObjectController)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, ComponentObjectController)

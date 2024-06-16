@@ -11,7 +11,7 @@
 //===========================================================================
 class ComponentFilterFade: public Component {
    public:
-    BP_COMPONENT_TYPE(ComponentFilterFade, Component);
+    BP_COMPONENT_DECL(ComponentFilterFade, u8"FilterFade機能クラス");
     //! コンストラクタ
     ComponentFilterFade();
 

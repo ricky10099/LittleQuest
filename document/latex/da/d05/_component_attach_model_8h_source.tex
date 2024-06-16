@@ -1,0 +1,102 @@
+\hypertarget{_component_attach_model_8h_source}{}\doxysection{Component\+Attach\+Model.\+h}
+\label{_component_attach_model_8h_source}\index{ComponentAttachModel.h@{ComponentAttachModel.h}}
+\mbox{\hyperlink{_component_attach_model_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_8h}{System/Component/Component.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_transform_8h}{System/Component/ComponentTransform.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_helper_lib_8h}{System/Utils/HelperLib.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_cereal_8h}{System/Cereal.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00008}\mbox{\hyperlink{_component_attach_model_8h_a2f518f9603983b88ebad2470aefda9f7}{00008}}\ \mbox{\hyperlink{_typedef_8h_ae1b2d029be4658cd85fd1bc379e76178}{USING\_PTR}}(\mbox{\hyperlink{class_component_attach_model}{ComponentAttachModel}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00010}\mbox{\hyperlink{class_component_attach_model}{00010}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_component_attach_model}{ComponentAttachModel}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_component}{Component}}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00011}\mbox{\hyperlink{class_component_attach_model_a0720b5f434e636e22a3ed34f847eec57}{00011}}\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_object}{Object}};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00013}00013\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00014}\mbox{\hyperlink{class_component_attach_model_a4c38200360ac363c3b2780ea87520512}{00014}}\ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a4c38200360ac363c3b2780ea87520512}{BP\_COMPONENT\_TYPE}}(\mbox{\hyperlink{class_component_attach_model}{ComponentAttachModel}},\ \mbox{\hyperlink{class_component}{Component}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00015}\mbox{\hyperlink{class_component_attach_model_aaa622d83d2f12ae8ba5c7fdda346424a}{00015}}\ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_aaa622d83d2f12ae8ba5c7fdda346424a}{ComponentAttachModel}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00017}00017\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_a967ad600ec4a163e391fbcad3424889e}{Init}}()\ \textcolor{keyword}{override};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 初期化}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_a76d8a9d598daf4bc6dc7b81c8363775e}{Update}}()\ \textcolor{keyword}{override};\ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 更新}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_a179e4f54bc1962c6575099a8ad683314}{PostUpdate}}()\ \textcolor{keyword}{override};\ \ \ \ \textcolor{comment}{//!<\ 更新}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_aa265cfaea036a378092e26a46f6f83df}{Draw}}()\ \textcolor{keyword}{override};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ デバッグ描画}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_a139c7055e265403f097baaeaabd669b0}{Exit}}()\ \textcolor{keyword}{override};\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ 終了処理}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_aa8fc6cd255d6ae7e8a8dd1e665f33342}{GUI}}()\ \textcolor{keyword}{override};\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ GUI処理}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00023}00023\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00024}00024\ \textcolor{comment}{\ \ \ \ //!\ @brief\ アタッチするノードの位置の取得}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00025}00025\ \textcolor{comment}{\ \ \ \ //!\ @return\ 位置の取得}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00026}00026\ \textcolor{comment}{}\ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_attach_model_a5c145a7a89368f86e648fba0500f38d3}{GetPutOnMatrix}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00028}00028\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00029}00029\ \textcolor{comment}{\ \ \ \ //!\ モデルステータス}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00030}00030\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00031}\mbox{\hyperlink{class_component_attach_model_a4751d9ce09323c804ea0e008d88d2ce4}{00031}}\ \ \ \ \ \textcolor{keyword}{enum\ struct}\ \mbox{\hyperlink{class_component_attach_model_a4751d9ce09323c804ea0e008d88d2ce4}{AttachModelBit}}\ :\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00032}00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a4751d9ce09323c804ea0e008d88d2ce4a59d87a4758a9d35fbaf6b204341bb399}{Initialized}},\ \ \ \ \textcolor{comment}{//!<\ 初期化済み}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00033}00033\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00035}\mbox{\hyperlink{class_component_attach_model_a35a72144cb28d564c90689b7bf2e1d99}{00035}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_a35a72144cb28d564c90689b7bf2e1d99}{SetAttachModelStatus}}(\mbox{\hyperlink{class_component_attach_model_a4751d9ce09323c804ea0e008d88d2ce4}{AttachModelBit}}\ bit,\ \textcolor{keywordtype}{bool}\ on)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a58af47aad5bd781883bc59e4f148ad28}{attach\_model\_status\_}}.\mbox{\hyperlink{struct_status_ad9dc31e328652e8e835aa12d89195811}{set}}(bit,\ on);}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00037}00037\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00038}\mbox{\hyperlink{class_component_attach_model_a413cc6fb8e3a78dcde0214565fba3e2c}{00038}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_attach_model_a413cc6fb8e3a78dcde0214565fba3e2c}{GetAttachModelStatus}}(\mbox{\hyperlink{class_component_attach_model_a4751d9ce09323c804ea0e008d88d2ce4}{AttachModelBit}}\ bit)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_attach_model_a58af47aad5bd781883bc59e4f148ad28}{attach\_model\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(bit);}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00040}00040\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00042}00042\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_adb518a51fc1e8a6b0a6741e86979eb24}{SetAttachObject}}(ObjectPtr\ \textcolor{keywordtype}{object},\ std::string\_view\ node\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00044}00044\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_adb518a51fc1e8a6b0a6741e86979eb24}{SetAttachObject}}(std::string\_view\ name,\ std::string\_view\ node\ =\ \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00046}\mbox{\hyperlink{class_component_attach_model_ae8823d41897363133e232930c5a81359}{00046}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_ae8823d41897363133e232930c5a81359}{SetAttachRotate}}(float3\ rot)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00047}00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a96e1a933962d10f018a1d079d2bbe01c}{attach\_model\_rotate\_}}\ =\ rot;}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00048}00048\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00050}\mbox{\hyperlink{class_component_attach_model_ad57dc9c075e1828ca77c104de2cd3538}{00050}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_attach_model_ad57dc9c075e1828ca77c104de2cd3538}{SetAttachOffset}}(float3\ offset)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_ab22acca8a6119dce5333e8b628f6044e}{attach\_model\_offset\_}}\ =\ offset;}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00054}\mbox{\hyperlink{class_component_attach_model_a887a622f00389a3711a5f7e9e866bedc}{00054}}\ \ \ \ \ ObjectWeakPtr\ \mbox{\hyperlink{class_component_attach_model_a887a622f00389a3711a5f7e9e866bedc}{GetAttachObject}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_attach_model_a94fee436f293800d68ab1d17fea592a8}{object\_}};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00056}00056\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00058}00058\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00059}\mbox{\hyperlink{class_component_attach_model_a58af47aad5bd781883bc59e4f148ad28}{00059}}\ \ \ \ \ \mbox{\hyperlink{struct_status}{Status<AttachModelBit>}}\ \mbox{\hyperlink{class_component_attach_model_a58af47aad5bd781883bc59e4f148ad28}{attach\_model\_status\_}};\ \ \ \ \textcolor{comment}{//!<\ 状態}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00061}\mbox{\hyperlink{class_component_attach_model_a96e1a933962d10f018a1d079d2bbe01c}{00061}}\ \ \ \ \ float3\ \mbox{\hyperlink{class_component_attach_model_a96e1a933962d10f018a1d079d2bbe01c}{attach\_model\_rotate\_}}\{0,\ 0,\ 0\};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00062}\mbox{\hyperlink{class_component_attach_model_ab22acca8a6119dce5333e8b628f6044e}{00062}}\ \ \ \ \ float3\ \mbox{\hyperlink{class_component_attach_model_ab22acca8a6119dce5333e8b628f6044e}{attach\_model\_offset\_}}\{0,\ 0,\ 0\};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00064}\mbox{\hyperlink{class_component_attach_model_a94fee436f293800d68ab1d17fea592a8}{00064}}\ \ \ \ \ ObjectWeakPtr\ \mbox{\hyperlink{class_component_attach_model_a94fee436f293800d68ab1d17fea592a8}{object\_}};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00065}\mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{00065}}\ \ \ \ \ std::string\ \ \ \mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{object\_name\_}}\{\};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00067}\mbox{\hyperlink{class_component_attach_model_aff86b89906b31b84a5cc6e59a8861c9f}{00067}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_aff86b89906b31b84a5cc6e59a8861c9f}{object\_node\_index\_}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00068}\mbox{\hyperlink{class_component_attach_model_a6b5033eaf899f81eb9150b6a249a1d19}{00068}}\ \ \ \ \ std::string\ \mbox{\hyperlink{class_component_attach_model_a6b5033eaf899f81eb9150b6a249a1d19}{object\_node\_name\_}}\{\};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00070}\mbox{\hyperlink{class_component_attach_model_ab0071ceb77095df1488e649fb7d1b2ff}{00070}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_attach_model_ab0071ceb77095df1488e649fb7d1b2ff}{node\_manipulate\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00072}00072\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00073}00073\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00074}00074\ \textcolor{comment}{\ \ \ \ //!\ @name\ Cereal処理}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00075}00075\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00076}00076\ \textcolor{comment}{\ \ \ \ //@\{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00077}00077\ \textcolor{comment}{}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00078}00078\ \textcolor{comment}{\ \ \ \ //!\ @brief\ セーブ}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00079}00079\ \textcolor{comment}{}\ \ \ \ \textcolor{comment}{//\ @param\ arc\ アーカイバ}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00080}00080\ \ \ \ \ \textcolor{comment}{//\ @param\ ver\ バージョン}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00081}\mbox{\hyperlink{class_component_attach_model_a8a5f2143689071b8f64f4789b9b0e321}{00081}}\ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a8a5f2143689071b8f64f4789b9b0e321}{CEREAL\_SAVELOAD}}(arc,\ ver)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00082}00082\ \ \ \ \ \ \ \ \ arc(cereal::make\_nvp(\textcolor{stringliteral}{"{}owner"{}},\ \mbox{\hyperlink{class_component_aaf224b0e73780a9c3cbad323a0ec59f5}{owner\_}}));\ \ \ \ \textcolor{comment}{//<\ オーナー}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00083}00083\ \ \ \ \ \ \ \ \ arc(cereal::make\_nvp(\textcolor{stringliteral}{"{}attach\_model\_status"{}},}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_attach_model_a58af47aad5bd781883bc59e4f148ad28}{attach\_model\_status\_}}.\mbox{\hyperlink{struct_status_a5ab7163f7b7a66a3194abef65187eddc}{get}}()));\ \ \ \ \textcolor{comment}{//<\ カメラステート}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00085}00085\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_component_attach_model_a96e1a933962d10f018a1d079d2bbe01c}{attach\_model\_rotate\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00086}00086\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_component_attach_model_ab22acca8a6119dce5333e8b628f6044e}{attach\_model\_offset\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00087}00087\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_component_attach_model_a442db1549fb51fedbbf34cd0f2449dcf}{object\_name\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00088}00088\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_component_attach_model_aff86b89906b31b84a5cc6e59a8861c9f}{object\_node\_index\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00089}00089\ \ \ \ \ \ \ \ \ arc(CEREAL\_NVP(\mbox{\hyperlink{class_component_attach_model_a6b5033eaf899f81eb9150b6a249a1d19}{object\_node\_name\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00090}00090\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00091}00091\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00092}00092\ \textcolor{comment}{\ \ \ \ //@\}}}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00093}00093\ \textcolor{comment}{}\};}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00095}00095\ CEREAL\_REGISTER\_TYPE(\mbox{\hyperlink{class_component_attach_model}{ComponentAttachModel}})}
+\DoxyCodeLine{\Hypertarget{_component_attach_model_8h_source_l00096}00096\ CEREAL\_REGISTER\_POLYMORPHIC\_RELATION(\mbox{\hyperlink{class_component}{Component}},\ \mbox{\hyperlink{class_component_attach_model}{ComponentAttachModel}})}
+
+\end{DoxyCode}

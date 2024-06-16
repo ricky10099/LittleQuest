@@ -1,0 +1,793 @@
+\hypertarget{class_little_quest_1_1_enemy}{}\doxysection{Little\+Quest\+::Enemy Class Reference}
+\label{class_little_quest_1_1_enemy}\index{LittleQuest::Enemy@{LittleQuest::Enemy}}
+
+
+{\ttfamily \#include $<$Enemy.\+h$>$}
+
+Inheritance diagram for Little\+Quest\+::Enemy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{db/d2a/class_little_quest_1_1_enemy}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_enemy_a49ac1c9ff28b8ee38268e6eec39c096e}{BP\+\_\+\+OBJECT\+\_\+\+TYPE}} (\mbox{\hyperlink{class_little_quest_1_1_enemy}{Enemy}}, Object)
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_enemy_a632f5383e3e2b5bc800bab3da72776f1}{Init}} () override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_enemy_a927115bb187c0055c6e6514486bd579a}{Update}} () override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_enemy_a680b3f8355d40c89c78008ef99f9bb6b}{Late\+Draw}} () override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_enemy_aa7a015ba643026e71180233250f680d5}{GUI}} () override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_enemy_a1f7ca6013e23e888c61dd448e887e18e}{On\+Hit}} (const Component\+Collision\+::\+Hit\+Info \&hit\+Info) override
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_enemy_a4928416ad71887f3b1da51a59339e7a6}{Get\+Hit}} (int damage)
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_enemy_a0435fe4abf8042737f055074cd3b3383}{get\+Destroy\+Timer}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Enemy\+Ptr \mbox{\hyperlink{class_little_quest_1_1_enemy_a5f56945906f290ef07eeec1fcee6cf81}{Create}} (const float3 \&pos, bool \mbox{\hyperlink{class_little_quest_1_1_enemy_a9057aaba6ca845792990e7f4babc25fa}{is\+Patrol}}=true, bool is\+Boss=false)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}{Enemy\+State}} \+: unsigned int \{ \newline
+\mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4aa5daf7f2ebbba4975d61dab1c40188c7}{IDLE}}
+, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4a5383e862b017e18e1087d61e9f2684d9}{PATROL}}
+, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4a7b710a1314d6f9aa2cedd8bce1a050ef}{GIVE\+\_\+\+UP}}
+, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ad5cc6a0064b5c25ba37826aa3fda910c}{WAIT}}
+, \newline
+\mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ab1cdb24e3483650f45299987269d835e}{CHASING}}
+, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ac6ddd0f72ff2fd344693b9ca8d483871}{ATTACK}}
+, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ab6ce6a74e5b900c9fc876ee999f4f80a}{GET\+\_\+\+HIT}}
+, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4abb4784231ff45108ee20bad16e4a2e8c}{DEAD}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_enemy_a39c6de713729b0381d4f9a2a0c768038}{Change\+State}} (\mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}{Enemy\+State}} \mbox{\hyperlink{class_little_quest_1_1_enemy_ab3eb31d5e32353f86bf3192c8432f4aa}{state}})
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_enemy_aee5c78ffdc4fc6db9371a3f547ab496b}{Idle}} ()
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_enemy_a3c3176a20bd7aa0a99bb0ee844eb27e2}{Die}} ()
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_enemy_a4c27250365aa6adfa33a6ca6df10acfa}{Back\+To\+Initial\+Position}} (float3 \&move)
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_enemy_ad85376f403f6961669ed4b5a4bc0acc5}{Patrol}} (float3 \&move)
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_enemy_a191cc28698b6aa0b6ca4227241686661}{Wait}} (float time)
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_enemy_aed5dab28ff3ca7ce69c0eed3e3342550}{Waiting}} (float delta\+Time)
+\item 
+virtual bool \mbox{\hyperlink{class_little_quest_1_1_enemy_a544f41ad43e451c44fb731a7b52acbc6}{Find\+Player}} ()
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_enemy_a082b5d933a9a14652d2cd00238641b8a}{Chase\+Player}} (float3 \&move)
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_enemy_a38e287e0cff215fd33b3f81774166f58}{Attack}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}{Enemy\+State}} \mbox{\hyperlink{class_little_quest_1_1_enemy_ab3eb31d5e32353f86bf3192c8432f4aa}{state}}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}{Enemy\+State}} \mbox{\hyperlink{class_little_quest_1_1_enemy_a38ebc055612ce41734f3ed82bf0b0bbe}{prev\+State}}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}{Enemy\+State}} \mbox{\hyperlink{class_little_quest_1_1_enemy_a0b17f039571839411c84c4e7cf2c8670}{initial\+State}}
+\item 
+float3 \mbox{\hyperlink{class_little_quest_1_1_enemy_a3a892e0a1172fb15837bc3be1fb66d7a}{spawn\+Pos}}
+\item 
+float3 \mbox{\hyperlink{class_little_quest_1_1_enemy_a6172669ebb7fb95b8fcf05841169e6d4}{goal}}
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_enemy_a9057aaba6ca845792990e7f4babc25fa}{is\+Patrol}}
+\item 
+std\+::vector$<$ float3 $>$ \mbox{\hyperlink{class_little_quest_1_1_enemy_a53853015cfe6a62e37bbd3084a4ffb27}{patrol\+Point}}
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_enemy_a58af0db929786076283653e5e3b4fb97}{patrol\+Index}}
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_enemy_ac60fd706d24f91b10b406b0968e19920}{wait\+Time}}
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_enemy_a093918fa030b0ead9206478995a4c72a}{is\+Attack}} = false
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_enemy_ad35ba27fe946cb28c1a0cddd5a131b40}{is\+Hit\+Player}}
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_enemy_a3a6327e350e9d0642df6fb2aa7117025}{is\+Found\+Player}}
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_enemy_a21278e6eb48370abeed65605bb75fca5}{degree}}
+\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_enemy_a397cbd1431fab0a647841af4ac7059ba}{speed\+Base}} = 0.\+3f
+\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_enemy_adaa97610bcd275b2cc2c386c825049b4}{walk\+Val}} = 0.\+5f
+\item 
+const float \mbox{\hyperlink{class_little_quest_1_1_enemy_aa6b27c3bbe5b77352adea5d4972ae55e}{run\+Val}} = 1.f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_enemy_a923ea1822b3ed5b10e8ae778e79e8cc7}{speed\+Factor}} = 1.\+0f
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_enemy_a30d6394107f993fe08c280d92158d7a0}{is\+Dead}} = false
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_enemy_a941a3730331ba53c39586a9e3af56fab}{destroy\+Timer}} = 5
+\item 
+Object\+Weak\+Ptr \mbox{\hyperlink{class_little_quest_1_1_enemy_ad05dac6fd6752e4aed76c159970fadff}{p\+Player}}
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Model $>$ \mbox{\hyperlink{class_little_quest_1_1_enemy_ab91ff01a86875a75f1a577fafda2af52}{p\+Model}}
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}} $>$ \mbox{\hyperlink{class_little_quest_1_1_enemy_a0a458e4614dea5d7c8e617046fe7a5f9}{p\+HP}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00012}{12}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}\label{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!EnemyState@{EnemyState}}
+\index{EnemyState@{EnemyState}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{EnemyState}{EnemyState}}
+{\footnotesize\ttfamily enum class \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}{Little\+Quest\+::\+Enemy\+::\+Enemy\+State}} \+: unsigned int\hspace{0.3cm}{\ttfamily [strong]}, {\ttfamily [protected]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IDLE@{IDLE}!LittleQuest::Enemy@{LittleQuest::Enemy}}\index{LittleQuest::Enemy@{LittleQuest::Enemy}!IDLE@{IDLE}}}\mbox{\Hypertarget{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4aa5daf7f2ebbba4975d61dab1c40188c7}\label{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4aa5daf7f2ebbba4975d61dab1c40188c7}} 
+IDLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PATROL@{PATROL}!LittleQuest::Enemy@{LittleQuest::Enemy}}\index{LittleQuest::Enemy@{LittleQuest::Enemy}!PATROL@{PATROL}}}\mbox{\Hypertarget{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4a5383e862b017e18e1087d61e9f2684d9}\label{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4a5383e862b017e18e1087d61e9f2684d9}} 
+PATROL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GIVE\_UP@{GIVE\_UP}!LittleQuest::Enemy@{LittleQuest::Enemy}}\index{LittleQuest::Enemy@{LittleQuest::Enemy}!GIVE\_UP@{GIVE\_UP}}}\mbox{\Hypertarget{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4a7b710a1314d6f9aa2cedd8bce1a050ef}\label{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4a7b710a1314d6f9aa2cedd8bce1a050ef}} 
+GIVE\+\_\+\+UP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WAIT@{WAIT}!LittleQuest::Enemy@{LittleQuest::Enemy}}\index{LittleQuest::Enemy@{LittleQuest::Enemy}!WAIT@{WAIT}}}\mbox{\Hypertarget{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ad5cc6a0064b5c25ba37826aa3fda910c}\label{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ad5cc6a0064b5c25ba37826aa3fda910c}} 
+WAIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CHASING@{CHASING}!LittleQuest::Enemy@{LittleQuest::Enemy}}\index{LittleQuest::Enemy@{LittleQuest::Enemy}!CHASING@{CHASING}}}\mbox{\Hypertarget{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ab1cdb24e3483650f45299987269d835e}\label{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ab1cdb24e3483650f45299987269d835e}} 
+CHASING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ATTACK@{ATTACK}!LittleQuest::Enemy@{LittleQuest::Enemy}}\index{LittleQuest::Enemy@{LittleQuest::Enemy}!ATTACK@{ATTACK}}}\mbox{\Hypertarget{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ac6ddd0f72ff2fd344693b9ca8d483871}\label{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ac6ddd0f72ff2fd344693b9ca8d483871}} 
+ATTACK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GET\_HIT@{GET\_HIT}!LittleQuest::Enemy@{LittleQuest::Enemy}}\index{LittleQuest::Enemy@{LittleQuest::Enemy}!GET\_HIT@{GET\_HIT}}}\mbox{\Hypertarget{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ab6ce6a74e5b900c9fc876ee999f4f80a}\label{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ab6ce6a74e5b900c9fc876ee999f4f80a}} 
+GET\+\_\+\+HIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DEAD@{DEAD}!LittleQuest::Enemy@{LittleQuest::Enemy}}\index{LittleQuest::Enemy@{LittleQuest::Enemy}!DEAD@{DEAD}}}\mbox{\Hypertarget{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4abb4784231ff45108ee20bad16e4a2e8c}\label{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4abb4784231ff45108ee20bad16e4a2e8c}} 
+DEAD&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00027}{27}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a38e287e0cff215fd33b3f81774166f58}\label{class_little_quest_1_1_enemy_a38e287e0cff215fd33b3f81774166f58}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!Attack@{Attack}}
+\index{Attack@{Attack}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{Attack()}{Attack()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Attack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00224}{224}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8h_source_l00063}{is\+Hit\+Player}}, \mbox{\hyperlink{_enemy_8h_source_l00076}{p\+Model}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00183}{Wait()}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a4c27250365aa6adfa33a6ca6df10acfa}\label{class_little_quest_1_1_enemy_a4c27250365aa6adfa33a6ca6df10acfa}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!BackToInitialPosition@{BackToInitialPosition}}
+\index{BackToInitialPosition@{BackToInitialPosition}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{BackToInitialPosition()}{BackToInitialPosition()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Back\+To\+Initial\+Position (\begin{DoxyParamCaption}\item[{float3 \&}]{move }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_little_quest_1_1_mutant_a19383e0d48fe273e060358304ebe9bc5}{Little\+Quest\+::\+Mutant}}.
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00139}{139}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8cpp_source_l00271}{Change\+State()}}, \mbox{\hyperlink{_enemy_8h_source_l00039}{initial\+State}}, \mbox{\hyperlink{_enemy_8h_source_l00069}{run\+Val}}, \mbox{\hyperlink{_enemy_8h_source_l00055}{spawn\+Pos}}, and \mbox{\hyperlink{_enemy_8h_source_l00070}{speed\+Factor}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a49ac1c9ff28b8ee38268e6eec39c096e}\label{class_little_quest_1_1_enemy_a49ac1c9ff28b8ee38268e6eec39c096e}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!BP\_OBJECT\_TYPE@{BP\_OBJECT\_TYPE}}
+\index{BP\_OBJECT\_TYPE@{BP\_OBJECT\_TYPE}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{BP\_OBJECT\_TYPE()}{BP\_OBJECT\_TYPE()}}
+{\footnotesize\ttfamily Little\+Quest\+::\+Enemy\+::\+BP\+\_\+\+OBJECT\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_enemy}{Enemy}}}]{,  }\item[{Object}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a39c6de713729b0381d4f9a2a0c768038}\label{class_little_quest_1_1_enemy_a39c6de713729b0381d4f9a2a0c768038}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!ChangeState@{ChangeState}}
+\index{ChangeState@{ChangeState}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{ChangeState()}{ChangeState()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Change\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}{Enemy\+State}}}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00271}{271}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8h_source_l00038}{prev\+State}}, and \mbox{\hyperlink{_enemy_8h_source_l00037}{state}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00139}{Back\+To\+Initial\+Position()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00199}{Chase\+Player()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00128}{Find\+Player()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00258}{Get\+Hit()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00119}{Idle()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00183}{Wait()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00189}{Waiting()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a082b5d933a9a14652d2cd00238641b8a}\label{class_little_quest_1_1_enemy_a082b5d933a9a14652d2cd00238641b8a}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!ChasePlayer@{ChasePlayer}}
+\index{ChasePlayer@{ChasePlayer}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{ChasePlayer()}{ChasePlayer()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Chase\+Player (\begin{DoxyParamCaption}\item[{float3 \&}]{move }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00199}{199}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ac6ddd0f72ff2fd344693b9ca8d483871}{ATTACK}}, \mbox{\hyperlink{_enemy_8cpp_source_l00271}{Change\+State()}}, \mbox{\hyperlink{_enemy_8h_source_l00076}{p\+Model}}, \mbox{\hyperlink{_enemy_8h_source_l00075}{p\+Player}}, \mbox{\hyperlink{_enemy_8h_source_l00069}{run\+Val}}, and \mbox{\hyperlink{_enemy_8h_source_l00070}{speed\+Factor}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a5f56945906f290ef07eeec1fcee6cf81}\label{class_little_quest_1_1_enemy_a5f56945906f290ef07eeec1fcee6cf81}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!Create@{Create}}
+\index{Create@{Create}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily static Enemy\+Ptr Little\+Quest\+::\+Enemy\+::\+Create (\begin{DoxyParamCaption}\item[{const float3 \&}]{pos,  }\item[{bool}]{is\+Patrol = {\ttfamily true},  }\item[{bool}]{is\+Boss = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a3c3176a20bd7aa0a99bb0ee844eb27e2}\label{class_little_quest_1_1_enemy_a3c3176a20bd7aa0a99bb0ee844eb27e2}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!Die@{Die}}
+\index{Die@{Die}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{Die()}{Die()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Die (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_little_quest_1_1_mutant_ad0323121febbcaaa63f986a2aeca3922}{Little\+Quest\+::\+Mutant}}.
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00276}{276}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8h_source_l00072}{is\+Dead}}, and \mbox{\hyperlink{_enemy_8h_source_l00076}{p\+Model}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00258}{Get\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a544f41ad43e451c44fb731a7b52acbc6}\label{class_little_quest_1_1_enemy_a544f41ad43e451c44fb731a7b52acbc6}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!FindPlayer@{FindPlayer}}
+\index{FindPlayer@{FindPlayer}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{FindPlayer()}{FindPlayer()}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Enemy\+::\+Find\+Player (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00128}{128}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8cpp_source_l00271}{Change\+State()}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ab1cdb24e3483650f45299987269d835e}{CHASING}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4a7b710a1314d6f9aa2cedd8bce1a050ef}{GIVE\+\_\+\+UP}}, \mbox{\hyperlink{_enemy_8h_source_l00075}{p\+Player}}, and \mbox{\hyperlink{_enemy_8h_source_l00038}{prev\+State}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a0435fe4abf8042737f055074cd3b3383}\label{class_little_quest_1_1_enemy_a0435fe4abf8042737f055074cd3b3383}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!getDestroyTimer@{getDestroyTimer}}
+\index{getDestroyTimer@{getDestroyTimer}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{getDestroyTimer()}{getDestroyTimer()}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Enemy\+::get\+Destroy\+Timer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00282}{282}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8h_source_l00073}{destroy\+Timer}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a4928416ad71887f3b1da51a59339e7a6}\label{class_little_quest_1_1_enemy_a4928416ad71887f3b1da51a59339e7a6}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!GetHit@{GetHit}}
+\index{GetHit@{GetHit}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{GetHit()}{GetHit()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Get\+Hit (\begin{DoxyParamCaption}\item[{int}]{damage }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_little_quest_1_1_mutant_a8a423d169231eb6ce768044fe5c1ae2e}{Little\+Quest\+::\+Mutant}}.
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00258}{258}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8cpp_source_l00271}{Change\+State()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00276}{Die()}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ab6ce6a74e5b900c9fc876ee999f4f80a}{GET\+\_\+\+HIT}}, \mbox{\hyperlink{_enemy_8h_source_l00077}{p\+HP}}, and \mbox{\hyperlink{_enemy_8h_source_l00076}{p\+Model}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_aa7a015ba643026e71180233250f680d5}\label{class_little_quest_1_1_enemy_aa7a015ba643026e71180233250f680d5}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!GUI@{GUI}}
+\index{GUI@{GUI}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{GUI()}{GUI()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+GUI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00111}{111}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_aee5c78ffdc4fc6db9371a3f547ab496b}\label{class_little_quest_1_1_enemy_aee5c78ffdc4fc6db9371a3f547ab496b}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!Idle@{Idle}}
+\index{Idle@{Idle}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{Idle()}{Idle()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Idle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_little_quest_1_1_zombie_a44f67a8377a5a03d658d98a5d94b0d13}{Little\+Quest\+::\+Zombie}}.
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00119}{119}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8cpp_source_l00271}{Change\+State()}}, and \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4aa5daf7f2ebbba4975d61dab1c40188c7}{IDLE}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a632f5383e3e2b5bc800bab3da72776f1}\label{class_little_quest_1_1_enemy_a632f5383e3e2b5bc800bab3da72776f1}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!Init@{Init}}
+\index{Init@{Init}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{Init()}{Init()}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Enemy\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8h_source_l00056}{goal}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4aa5daf7f2ebbba4975d61dab1c40188c7}{IDLE}}, \mbox{\hyperlink{_enemy_8h_source_l00039}{initial\+State}}, \mbox{\hyperlink{_enemy_8h_source_l00057}{is\+Patrol}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4a5383e862b017e18e1087d61e9f2684d9}{PATROL}}, \mbox{\hyperlink{_enemy_8h_source_l00059}{patrol\+Index}}, \mbox{\hyperlink{_enemy_8h_source_l00058}{patrol\+Point}}, \mbox{\hyperlink{_enemy_8h_source_l00075}{p\+Player}}, \mbox{\hyperlink{_enemy_8h_source_l00038}{prev\+State}}, and \mbox{\hyperlink{_enemy_8h_source_l00037}{state}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a680b3f8355d40c89c78008ef99f9bb6b}\label{class_little_quest_1_1_enemy_a680b3f8355d40c89c78008ef99f9bb6b}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!LateDraw@{LateDraw}}
+\index{LateDraw@{LateDraw}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{LateDraw()}{LateDraw()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Late\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00093}{93}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8h_source_l00073}{destroy\+Timer}}, \mbox{\hyperlink{_enemy_8h_source_l00056}{goal}}, \mbox{\hyperlink{_enemy_8h_source_l00064}{is\+Found\+Player}}, \mbox{\hyperlink{_enemy_8h_source_l00059}{patrol\+Index}}, \mbox{\hyperlink{_enemy_8h_source_l00077}{p\+HP}}, \mbox{\hyperlink{_enemy_8h_source_l00075}{p\+Player}}, and \mbox{\hyperlink{_enemy_8h_source_l00037}{state}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a1f7ca6013e23e888c61dd448e887e18e}\label{class_little_quest_1_1_enemy_a1f7ca6013e23e888c61dd448e887e18e}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!OnHit@{OnHit}}
+\index{OnHit@{OnHit}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{OnHit()}{OnHit()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+On\+Hit (\begin{DoxyParamCaption}\item[{const Component\+Collision\+::\+Hit\+Info \&}]{hit\+Info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00115}{115}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_ad85376f403f6961669ed4b5a4bc0acc5}\label{class_little_quest_1_1_enemy_ad85376f403f6961669ed4b5a4bc0acc5}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!Patrol@{Patrol}}
+\index{Patrol@{Patrol}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{Patrol()}{Patrol()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Patrol (\begin{DoxyParamCaption}\item[{float3 \&}]{move }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{class_little_quest_1_1_mutant_a6be2f9fb365012b4a113a16e43d6f319}{Little\+Quest\+::\+Mutant}}.
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00157}{157}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8h_source_l00056}{goal}}, \mbox{\hyperlink{_enemy_8h_source_l00059}{patrol\+Index}}, \mbox{\hyperlink{_enemy_8h_source_l00058}{patrol\+Point}}, \mbox{\hyperlink{_enemy_8h_source_l00070}{speed\+Factor}}, \mbox{\hyperlink{_enemy_8cpp_source_l00183}{Wait()}}, and \mbox{\hyperlink{_enemy_8h_source_l00068}{walk\+Val}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a927115bb187c0055c6e6514486bd579a}\label{class_little_quest_1_1_enemy_a927115bb187c0055c6e6514486bd579a}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!Update@{Update}}
+\index{Update@{Update}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00041}{41}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ac6ddd0f72ff2fd344693b9ca8d483871}{ATTACK}}, \mbox{\hyperlink{_enemy_8cpp_source_l00224}{Attack()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00139}{Back\+To\+Initial\+Position()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00271}{Change\+State()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00199}{Chase\+Player()}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ab1cdb24e3483650f45299987269d835e}{CHASING}}, \mbox{\hyperlink{_enemy_8h_source_l00073}{destroy\+Timer}}, \mbox{\hyperlink{_enemy_8cpp_source_l00128}{Find\+Player()}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ab6ce6a74e5b900c9fc876ee999f4f80a}{GET\+\_\+\+HIT}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4a7b710a1314d6f9aa2cedd8bce1a050ef}{GIVE\+\_\+\+UP}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4aa5daf7f2ebbba4975d61dab1c40188c7}{IDLE}}, \mbox{\hyperlink{_enemy_8cpp_source_l00119}{Idle()}}, \mbox{\hyperlink{_enemy_8h_source_l00072}{is\+Dead}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4a5383e862b017e18e1087d61e9f2684d9}{PATROL}}, \mbox{\hyperlink{_enemy_8cpp_source_l00157}{Patrol()}}, \mbox{\hyperlink{_enemy_8h_source_l00058}{patrol\+Point}}, \mbox{\hyperlink{_enemy_8h_source_l00076}{p\+Model}}, \mbox{\hyperlink{_enemy_8h_source_l00067}{speed\+Base}}, \mbox{\hyperlink{_enemy_8h_source_l00070}{speed\+Factor}}, \mbox{\hyperlink{_enemy_8h_source_l00037}{state}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ad5cc6a0064b5c25ba37826aa3fda910c}{WAIT}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00189}{Waiting()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a191cc28698b6aa0b6ca4227241686661}\label{class_little_quest_1_1_enemy_a191cc28698b6aa0b6ca4227241686661}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!Wait@{Wait}}
+\index{Wait@{Wait}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{Wait()}{Wait()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Wait (\begin{DoxyParamCaption}\item[{float}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00183}{183}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8cpp_source_l00271}{Change\+State()}}, \mbox{\hyperlink{_enemy_8h_source_l00076}{p\+Model}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4ad5cc6a0064b5c25ba37826aa3fda910c}{WAIT}}, and \mbox{\hyperlink{_enemy_8h_source_l00060}{wait\+Time}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00224}{Attack()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00157}{Patrol()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_aed5dab28ff3ca7ce69c0eed3e3342550}\label{class_little_quest_1_1_enemy_aed5dab28ff3ca7ce69c0eed3e3342550}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!Waiting@{Waiting}}
+\index{Waiting@{Waiting}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{Waiting()}{Waiting()}}
+{\footnotesize\ttfamily void Little\+Quest\+::\+Enemy\+::\+Waiting (\begin{DoxyParamCaption}\item[{float}]{delta\+Time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8cpp_source_l00189}{189}} of file \mbox{\hyperlink{_enemy_8cpp_source}{Enemy.\+cpp}}.
+
+
+
+References \mbox{\hyperlink{_enemy_8cpp_source_l00271}{Change\+State()}}, \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4aa5daf7f2ebbba4975d61dab1c40188c7}{IDLE}}, and \mbox{\hyperlink{_enemy_8h_source_l00060}{wait\+Time}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a21278e6eb48370abeed65605bb75fca5}\label{class_little_quest_1_1_enemy_a21278e6eb48370abeed65605bb75fca5}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!degree@{degree}}
+\index{degree@{degree}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{degree}{degree}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Enemy\+::degree\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00065}{65}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a941a3730331ba53c39586a9e3af56fab}\label{class_little_quest_1_1_enemy_a941a3730331ba53c39586a9e3af56fab}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!destroyTimer@{destroyTimer}}
+\index{destroyTimer@{destroyTimer}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{destroyTimer}{destroyTimer}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Enemy\+::destroy\+Timer = 5\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00073}{73}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00282}{get\+Destroy\+Timer()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00093}{Late\+Draw()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a6172669ebb7fb95b8fcf05841169e6d4}\label{class_little_quest_1_1_enemy_a6172669ebb7fb95b8fcf05841169e6d4}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!goal@{goal}}
+\index{goal@{goal}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{goal}{goal}}
+{\footnotesize\ttfamily float3 Little\+Quest\+::\+Enemy\+::goal\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00056}{56}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00020}{Init()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00093}{Late\+Draw()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00157}{Patrol()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a0b17f039571839411c84c4e7cf2c8670}\label{class_little_quest_1_1_enemy_a0b17f039571839411c84c4e7cf2c8670}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!initialState@{initialState}}
+\index{initialState@{initialState}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{initialState}{initialState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}{Enemy\+State}} Little\+Quest\+::\+Enemy\+::initial\+State\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00039}{39}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00139}{Back\+To\+Initial\+Position()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00020}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a093918fa030b0ead9206478995a4c72a}\label{class_little_quest_1_1_enemy_a093918fa030b0ead9206478995a4c72a}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!isAttack@{isAttack}}
+\index{isAttack@{isAttack}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{isAttack}{isAttack}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Enemy\+::is\+Attack = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00062}{62}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_mutant_8cpp_source_l00082}{Little\+Quest\+::\+Mutant\+::\+On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a30d6394107f993fe08c280d92158d7a0}\label{class_little_quest_1_1_enemy_a30d6394107f993fe08c280d92158d7a0}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!isDead@{isDead}}
+\index{isDead@{isDead}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{isDead}{isDead}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Enemy\+::is\+Dead = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00072}{72}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00276}{Die()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a3a6327e350e9d0642df6fb2aa7117025}\label{class_little_quest_1_1_enemy_a3a6327e350e9d0642df6fb2aa7117025}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!isFoundPlayer@{isFoundPlayer}}
+\index{isFoundPlayer@{isFoundPlayer}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{isFoundPlayer}{isFoundPlayer}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Enemy\+::is\+Found\+Player\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00064}{64}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00093}{Late\+Draw()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_ad35ba27fe946cb28c1a0cddd5a131b40}\label{class_little_quest_1_1_enemy_ad35ba27fe946cb28c1a0cddd5a131b40}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!isHitPlayer@{isHitPlayer}}
+\index{isHitPlayer@{isHitPlayer}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{isHitPlayer}{isHitPlayer}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Enemy\+::is\+Hit\+Player\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00063}{63}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00224}{Attack()}}, and \mbox{\hyperlink{_mutant_8cpp_source_l00082}{Little\+Quest\+::\+Mutant\+::\+On\+Hit()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a9057aaba6ca845792990e7f4babc25fa}\label{class_little_quest_1_1_enemy_a9057aaba6ca845792990e7f4babc25fa}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!isPatrol@{isPatrol}}
+\index{isPatrol@{isPatrol}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{isPatrol}{isPatrol}}
+{\footnotesize\ttfamily bool Little\+Quest\+::\+Enemy\+::is\+Patrol\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00057}{57}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_mutant_8cpp_source_l00017}{Little\+Quest\+::\+Mutant\+::\+Create()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00020}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a58af0db929786076283653e5e3b4fb97}\label{class_little_quest_1_1_enemy_a58af0db929786076283653e5e3b4fb97}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!patrolIndex@{patrolIndex}}
+\index{patrolIndex@{patrolIndex}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{patrolIndex}{patrolIndex}}
+{\footnotesize\ttfamily int Little\+Quest\+::\+Enemy\+::patrol\+Index\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00059}{59}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00020}{Init()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00093}{Late\+Draw()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00157}{Patrol()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a53853015cfe6a62e37bbd3084a4ffb27}\label{class_little_quest_1_1_enemy_a53853015cfe6a62e37bbd3084a4ffb27}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!patrolPoint@{patrolPoint}}
+\index{patrolPoint@{patrolPoint}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{patrolPoint}{patrolPoint}}
+{\footnotesize\ttfamily std\+::vector$<$float3$>$ Little\+Quest\+::\+Enemy\+::patrol\+Point\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00058}{58}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00020}{Init()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00157}{Patrol()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a0a458e4614dea5d7c8e617046fe7a5f9}\label{class_little_quest_1_1_enemy_a0a458e4614dea5d7c8e617046fe7a5f9}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!pHP@{pHP}}
+\index{pHP@{pHP}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{pHP}{pHP}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}}$>$ Little\+Quest\+::\+Enemy\+::p\+HP\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00077}{77}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00258}{Get\+Hit()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00093}{Late\+Draw()}}, and \mbox{\hyperlink{_mutant_8cpp_source_l00073}{Little\+Quest\+::\+Mutant\+::\+Late\+Draw()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_ab91ff01a86875a75f1a577fafda2af52}\label{class_little_quest_1_1_enemy_ab91ff01a86875a75f1a577fafda2af52}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!pModel@{pModel}}
+\index{pModel@{pModel}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{pModel}{pModel}}
+{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$Component\+Model$>$ Little\+Quest\+::\+Enemy\+::p\+Model\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00076}{76}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00224}{Attack()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00199}{Chase\+Player()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00276}{Die()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00258}{Get\+Hit()}}, \mbox{\hyperlink{_mutant_8cpp_source_l00033}{Little\+Quest\+::\+Mutant\+::\+Init()}}, \mbox{\hyperlink{_mutant_8cpp_source_l00082}{Little\+Quest\+::\+Mutant\+::\+On\+Hit()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00183}{Wait()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_ad05dac6fd6752e4aed76c159970fadff}\label{class_little_quest_1_1_enemy_ad05dac6fd6752e4aed76c159970fadff}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!pPlayer@{pPlayer}}
+\index{pPlayer@{pPlayer}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{pPlayer}{pPlayer}}
+{\footnotesize\ttfamily Object\+Weak\+Ptr Little\+Quest\+::\+Enemy\+::p\+Player\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00075}{75}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00199}{Chase\+Player()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00128}{Find\+Player()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00020}{Init()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00093}{Late\+Draw()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a38ebc055612ce41734f3ed82bf0b0bbe}\label{class_little_quest_1_1_enemy_a38ebc055612ce41734f3ed82bf0b0bbe}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!prevState@{prevState}}
+\index{prevState@{prevState}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{prevState}{prevState}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}{Enemy\+State}} Little\+Quest\+::\+Enemy\+::prev\+State\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00038}{38}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00271}{Change\+State()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00128}{Find\+Player()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00020}{Init()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_aa6b27c3bbe5b77352adea5d4972ae55e}\label{class_little_quest_1_1_enemy_aa6b27c3bbe5b77352adea5d4972ae55e}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!runVal@{runVal}}
+\index{runVal@{runVal}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{runVal}{runVal}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Enemy\+::run\+Val = 1.f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00069}{69}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00139}{Back\+To\+Initial\+Position()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00199}{Chase\+Player()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a3a892e0a1172fb15837bc3be1fb66d7a}\label{class_little_quest_1_1_enemy_a3a892e0a1172fb15837bc3be1fb66d7a}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!spawnPos@{spawnPos}}
+\index{spawnPos@{spawnPos}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{spawnPos}{spawnPos}}
+{\footnotesize\ttfamily float3 Little\+Quest\+::\+Enemy\+::spawn\+Pos\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00055}{55}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00139}{Back\+To\+Initial\+Position()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a397cbd1431fab0a647841af4ac7059ba}\label{class_little_quest_1_1_enemy_a397cbd1431fab0a647841af4ac7059ba}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!speedBase@{speedBase}}
+\index{speedBase@{speedBase}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{speedBase}{speedBase}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Enemy\+::speed\+Base = 0.\+3f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00067}{67}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_a923ea1822b3ed5b10e8ae778e79e8cc7}\label{class_little_quest_1_1_enemy_a923ea1822b3ed5b10e8ae778e79e8cc7}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!speedFactor@{speedFactor}}
+\index{speedFactor@{speedFactor}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{speedFactor}{speedFactor}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Enemy\+::speed\+Factor = 1.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00070}{70}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00139}{Back\+To\+Initial\+Position()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00199}{Chase\+Player()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00157}{Patrol()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_ab3eb31d5e32353f86bf3192c8432f4aa}\label{class_little_quest_1_1_enemy_ab3eb31d5e32353f86bf3192c8432f4aa}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!state@{state}}
+\index{state@{state}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{state}{state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_little_quest_1_1_enemy_a911a547534f6dffb9d4b722175976db4}{Enemy\+State}} Little\+Quest\+::\+Enemy\+::state\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00037}{37}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00271}{Change\+State()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00020}{Init()}}, \mbox{\hyperlink{_enemy_8cpp_source_l00093}{Late\+Draw()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00041}{Update()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_ac60fd706d24f91b10b406b0968e19920}\label{class_little_quest_1_1_enemy_ac60fd706d24f91b10b406b0968e19920}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!waitTime@{waitTime}}
+\index{waitTime@{waitTime}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{waitTime}{waitTime}}
+{\footnotesize\ttfamily float Little\+Quest\+::\+Enemy\+::wait\+Time\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00060}{60}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00183}{Wait()}}, and \mbox{\hyperlink{_enemy_8cpp_source_l00189}{Waiting()}}.
+
+\mbox{\Hypertarget{class_little_quest_1_1_enemy_adaa97610bcd275b2cc2c386c825049b4}\label{class_little_quest_1_1_enemy_adaa97610bcd275b2cc2c386c825049b4}} 
+\index{LittleQuest::Enemy@{LittleQuest::Enemy}!walkVal@{walkVal}}
+\index{walkVal@{walkVal}!LittleQuest::Enemy@{LittleQuest::Enemy}}
+\doxysubsubsection{\texorpdfstring{walkVal}{walkVal}}
+{\footnotesize\ttfamily const float Little\+Quest\+::\+Enemy\+::walk\+Val = 0.\+5f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line \mbox{\hyperlink{_enemy_8h_source_l00068}{68}} of file \mbox{\hyperlink{_enemy_8h_source}{Enemy.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{_enemy_8cpp_source_l00157}{Patrol()}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_enemy_8h}{Enemy.\+h}}\item 
+\mbox{\hyperlink{_enemy_8cpp}{Enemy.\+cpp}}\end{DoxyCompactItemize}

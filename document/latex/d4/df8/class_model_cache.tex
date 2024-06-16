@@ -1,0 +1,399 @@
+\hypertarget{class_model_cache}{}\doxysection{Model\+Cache クラス}
+\label{class_model_cache}\index{ModelCache@{ModelCache}}
+
+
+3Dモデルキャッシュ  
+
+
+
+
+{\ttfamily \#include $<$Model\+Cache.\+h$>$}
+
+\doxysubsection*{公開メンバ関数}
+\begin{Indent}\textbf{ 初期化}\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_model_cache_ae272d31a9fcfc9f3d7ae3af7e701909b}{Model\+Cache}} (std\+::string\+\_\+view path)
+\begin{DoxyCompactList}\small\item\em コンストラクタ \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_model_cache_a29b7663cf12285132fab51f057d789c2}{$\sim$\+Model\+Cache}} ()
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_model_cache_a6a5e0f82c6fcefc1f7d379e2aaba1eeb}{save}} (int mv1\+\_\+handle) const
+\begin{DoxyCompactList}\small\item\em モデルキャッシュを保存 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_model_cache_a06646cecfc9af1624fc887a9f3260bc5}{load}} ()
+\begin{DoxyCompactList}\small\item\em モデルキャッシュを読み込み \end{DoxyCompactList}\item 
+const std\+::vector$<$ VECTOR $>$ \& \mbox{\hyperlink{class_model_cache_ae3ba53ee3f87c339f6816b934318af7f}{vertices}} () const
+\begin{DoxyCompactList}\small\item\em 頂点配列を取得 \end{DoxyCompactList}\item 
+const std\+::vector$<$ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} $>$ \& \mbox{\hyperlink{class_model_cache_aabdbd5e1df763606afccb1a1c8d9464a}{indices}} () const
+\begin{DoxyCompactList}\small\item\em インデックス配列を取得 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_model_cache_a82042893479e4c480b0334718c2608f5}{is\+Valid}} () const
+\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{静的公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{class_model_cache_a6580cc38b0b63ab7c5b9e63dd8eac39c}{VERSION}} = 2
+\begin{DoxyCompactList}\small\item\em モデルキャッシュのバージョン \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{操作}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_model_cache_a1ef0f4917e4d78ec0ee817b37b3d882b}{is\+\_\+valid\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em 初期化が正しく成功しているかどうか \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_model_cache_a34939e002d63183a31017923b7135e27}{model\+\_\+path\+\_\+}}
+\begin{DoxyCompactList}\small\item\em モデルのファイルパス \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{class_model_cache_affc749610fd3f3f38b089bb9602b942a}{model\+\_\+cache\+\_\+path\+\_\+}}
+\begin{DoxyCompactList}\small\item\em モデルキャッシュのファイルパス \end{DoxyCompactList}\item 
+std\+::vector$<$ VECTOR $>$ \mbox{\hyperlink{class_model_cache_ad0bc6fde790d468736722f78776e6eb0}{vertices\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 頂点配列 \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} $>$ \mbox{\hyperlink{class_model_cache_a1a88d70388a9977c08d3f265f287fd81}{indices\+\_\+}}
+\begin{DoxyCompactList}\small\item\em インデックス配列 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_model_cache_a8c47f833726851f37da3ccdd12710b05}{handle\+\_\+vb\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} 頂点バッファハンドル \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_model_cache_a28afd558da4ae153cbfb4c29cf26f796}{handle\+\_\+ib\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} インデックスバッファハンドル \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_model_cache_a185ff38e999091d3c34af7c7f605930a}{render}} (const \mbox{\hyperlink{classmatrix}{matrix}} \&mat\+\_\+world) const
+\begin{DoxyCompactList}\small\item\em 描画 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_model_cache_acf354da665d89de5a5838033f602fa0c}{is\+Exist}} () const
+\begin{DoxyCompactList}\small\item\em キャッシュファイルが存在するかチェック \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+3Dモデルキャッシュ 
+
+ \mbox{\hyperlink{_model_cache_8h_source}{Model\+Cache.\+h}} の \mbox{\hyperlink{_model_cache_8h_source_l00010}{10}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{class_model_cache_ae272d31a9fcfc9f3d7ae3af7e701909b}\label{class_model_cache_ae272d31a9fcfc9f3d7ae3af7e701909b}} 
+\index{ModelCache@{ModelCache}!ModelCache@{ModelCache}}
+\index{ModelCache@{ModelCache}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{ModelCache()}{ModelCache()}}
+{\footnotesize\ttfamily Model\+Cache\+::\+Model\+Cache (\begin{DoxyParamCaption}\item[{std\+::string\+\_\+view}]{path }\end{DoxyParamCaption})}
+
+
+
+コンストラクタ 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em path} & モデルファイルパス \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_model_cache_8cpp_source}{Model\+Cache.\+cpp}} の \mbox{\hyperlink{_model_cache_8cpp_source_l00014}{14}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_cache_8h_source_l00061}{model\+\_\+cache\+\_\+path\+\_\+}}, \mbox{\hyperlink{_model_cache_8h_source_l00060}{model\+\_\+path\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_cache_a29b7663cf12285132fab51f057d789c2}\label{class_model_cache_a29b7663cf12285132fab51f057d789c2}} 
+\index{ModelCache@{ModelCache}!````~ModelCache@{$\sim$ModelCache}}
+\index{````~ModelCache@{$\sim$ModelCache}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{$\sim$ModelCache()}{~ModelCache()}}
+{\footnotesize\ttfamily Model\+Cache\+::$\sim$\+Model\+Cache (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+デストラクタ 
+
+
+
+ \mbox{\hyperlink{_model_cache_8cpp_source}{Model\+Cache.\+cpp}} の \mbox{\hyperlink{_model_cache_8cpp_source_l00029}{29}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_cache_8h_source_l00065}{handle\+\_\+ib\+\_\+}}, \mbox{\hyperlink{_model_cache_8h_source_l00064}{handle\+\_\+vb\+\_\+}}.
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_model_cache_aabdbd5e1df763606afccb1a1c8d9464a}\label{class_model_cache_aabdbd5e1df763606afccb1a1c8d9464a}} 
+\index{ModelCache@{ModelCache}!indices@{indices}}
+\index{indices@{indices}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{indices()}{indices()}}
+{\footnotesize\ttfamily const std\+::vector$<$ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} $>$ \& Model\+Cache\+::indices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+インデックス配列を取得 
+
+
+
+ \mbox{\hyperlink{_model_cache_8cpp_source}{Model\+Cache.\+cpp}} の \mbox{\hyperlink{_model_cache_8cpp_source_l00322}{322}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_cache_8h_source_l00063}{indices\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_cache_acf354da665d89de5a5838033f602fa0c}\label{class_model_cache_acf354da665d89de5a5838033f602fa0c}} 
+\index{ModelCache@{ModelCache}!isExist@{isExist}}
+\index{isExist@{isExist}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{isExist()}{isExist()}}
+{\footnotesize\ttfamily bool Model\+Cache\+::is\+Exist (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+キャッシュファイルが存在するかチェック 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em model\+\_\+path} & モデルファイルパス \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_model_cache_8cpp_source}{Model\+Cache.\+cpp}} の \mbox{\hyperlink{_model_cache_8cpp_source_l00369}{369}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_cache_8h_source_l00061}{model\+\_\+cache\+\_\+path\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_cache_a82042893479e4c480b0334718c2608f5}\label{class_model_cache_a82042893479e4c480b0334718c2608f5}} 
+\index{ModelCache@{ModelCache}!isValid@{isValid}}
+\index{isValid@{isValid}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{isValid()}{isValid()}}
+{\footnotesize\ttfamily bool Model\+Cache\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+ \mbox{\hyperlink{_model_cache_8cpp_source}{Model\+Cache.\+cpp}} の \mbox{\hyperlink{_model_cache_8cpp_source_l00329}{329}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_cache_8h_source_l00059}{is\+\_\+valid\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_cache_a06646cecfc9af1624fc887a9f3260bc5}\label{class_model_cache_a06646cecfc9af1624fc887a9f3260bc5}} 
+\index{ModelCache@{ModelCache}!load@{load}}
+\index{load@{load}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily bool Model\+Cache\+::load (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+モデルキャッシュを読み込み 
+
+
+
+ \mbox{\hyperlink{_model_cache_8cpp_source}{Model\+Cache.\+cpp}} の \mbox{\hyperlink{_model_cache_8cpp_source_l00213}{213}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_cache_8h_source_l00065}{handle\+\_\+ib\+\_\+}}, \mbox{\hyperlink{_model_cache_8h_source_l00064}{handle\+\_\+vb\+\_\+}}, \mbox{\hyperlink{_model_cache_8h_source_l00063}{indices\+\_\+}}, \mbox{\hyperlink{_model_cache_8h_source_l00059}{is\+\_\+valid\+\_\+}}, \mbox{\hyperlink{_model_cache_8h_source_l00061}{model\+\_\+cache\+\_\+path\+\_\+}}, \mbox{\hyperlink{_model_cache_8h_source_l00013}{VERSION}}, \mbox{\hyperlink{_model_cache_8h_source_l00062}{vertices\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_cache_a185ff38e999091d3c34af7c7f605930a}\label{class_model_cache_a185ff38e999091d3c34af7c7f605930a}} 
+\index{ModelCache@{ModelCache}!render@{render}}
+\index{render@{render}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void Model\+Cache\+::render (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classmatrix}{matrix}} \&}]{mat\+\_\+world }\end{DoxyParamCaption}) const}
+
+
+
+描画 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em mat\+\_\+world} & ワールド行列 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_model_cache_8cpp_source}{Model\+Cache.\+cpp}} の \mbox{\hyperlink{_model_cache_8cpp_source_l00336}{336}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}, \mbox{\hyperlink{_model_cache_8h_source_l00065}{handle\+\_\+ib\+\_\+}}, \mbox{\hyperlink{_model_cache_8h_source_l00064}{handle\+\_\+vb\+\_\+}}, \mbox{\hyperlink{_model_cache_8h_source_l00063}{indices\+\_\+}}, \mbox{\hyperlink{_model_cache_8h_source_l00062}{vertices\+\_\+}}.
+
+\mbox{\Hypertarget{class_model_cache_a6a5e0f82c6fcefc1f7d379e2aaba1eeb}\label{class_model_cache_a6a5e0f82c6fcefc1f7d379e2aaba1eeb}} 
+\index{ModelCache@{ModelCache}!save@{save}}
+\index{save@{save}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily bool Model\+Cache\+::save (\begin{DoxyParamCaption}\item[{int}]{mv1\+\_\+handle }\end{DoxyParamCaption}) const}
+
+
+
+モデルキャッシュを保存 
+
+
+
+ \mbox{\hyperlink{_model_cache_8cpp_source}{Model\+Cache.\+cpp}} の \mbox{\hyperlink{_model_cache_8cpp_source_l00044}{44}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_vector_math_8h_source_l00013}{cast()}}, \mbox{\hyperlink{_model_cache_8h_source_l00061}{model\+\_\+cache\+\_\+path\+\_\+}}, \mbox{\hyperlink{_model_cache_8h_source_l00013}{VERSION}}.
+
+\mbox{\Hypertarget{class_model_cache_ae3ba53ee3f87c339f6816b934318af7f}\label{class_model_cache_ae3ba53ee3f87c339f6816b934318af7f}} 
+\index{ModelCache@{ModelCache}!vertices@{vertices}}
+\index{vertices@{vertices}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{vertices()}{vertices()}}
+{\footnotesize\ttfamily const std\+::vector$<$ VECTOR $>$ \& Model\+Cache\+::vertices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+頂点配列を取得 
+
+
+
+ \mbox{\hyperlink{_model_cache_8cpp_source}{Model\+Cache.\+cpp}} の \mbox{\hyperlink{_model_cache_8cpp_source_l00315}{315}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_model_cache_8h_source_l00062}{vertices\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_shape_8cpp_source_l00019}{shape\+::\+Convex\+Hull\+::\+Convex\+Hull()}}, \mbox{\hyperlink{_shape_8cpp_source_l00044}{shape\+::\+Mesh\+::\+Mesh()}}.
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{class_model_cache_a28afd558da4ae153cbfb4c29cf26f796}\label{class_model_cache_a28afd558da4ae153cbfb4c29cf26f796}} 
+\index{ModelCache@{ModelCache}!handle\_ib\_@{handle\_ib\_}}
+\index{handle\_ib\_@{handle\_ib\_}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{handle\_ib\_}{handle\_ib\_}}
+{\footnotesize\ttfamily int Model\+Cache\+::handle\+\_\+ib\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} インデックスバッファハンドル 
+
+
+
+ \mbox{\hyperlink{_model_cache_8h_source}{Model\+Cache.\+h}} の \mbox{\hyperlink{_model_cache_8h_source_l00065}{65}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_cache_8cpp_source_l00213}{load()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00336}{render()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00029}{$\sim$\+Model\+Cache()}}.
+
+\mbox{\Hypertarget{class_model_cache_a8c47f833726851f37da3ccdd12710b05}\label{class_model_cache_a8c47f833726851f37da3ccdd12710b05}} 
+\index{ModelCache@{ModelCache}!handle\_vb\_@{handle\_vb\_}}
+\index{handle\_vb\_@{handle\_vb\_}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{handle\_vb\_}{handle\_vb\_}}
+{\footnotesize\ttfamily int Model\+Cache\+::handle\+\_\+vb\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} 頂点バッファハンドル 
+
+
+
+ \mbox{\hyperlink{_model_cache_8h_source}{Model\+Cache.\+h}} の \mbox{\hyperlink{_model_cache_8h_source_l00064}{64}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_cache_8cpp_source_l00213}{load()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00336}{render()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00029}{$\sim$\+Model\+Cache()}}.
+
+\mbox{\Hypertarget{class_model_cache_a1a88d70388a9977c08d3f265f287fd81}\label{class_model_cache_a1a88d70388a9977c08d3f265f287fd81}} 
+\index{ModelCache@{ModelCache}!indices\_@{indices\_}}
+\index{indices\_@{indices\_}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{indices\_}{indices\_}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}$>$ Model\+Cache\+::indices\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+インデックス配列 
+
+
+
+ \mbox{\hyperlink{_model_cache_8h_source}{Model\+Cache.\+h}} の \mbox{\hyperlink{_model_cache_8h_source_l00063}{63}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_cache_8cpp_source_l00322}{indices()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00213}{load()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00336}{render()}}.
+
+\mbox{\Hypertarget{class_model_cache_a1ef0f4917e4d78ec0ee817b37b3d882b}\label{class_model_cache_a1ef0f4917e4d78ec0ee817b37b3d882b}} 
+\index{ModelCache@{ModelCache}!is\_valid\_@{is\_valid\_}}
+\index{is\_valid\_@{is\_valid\_}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{is\_valid\_}{is\_valid\_}}
+{\footnotesize\ttfamily bool Model\+Cache\+::is\+\_\+valid\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+初期化が正しく成功しているかどうか 
+
+
+
+ \mbox{\hyperlink{_model_cache_8h_source}{Model\+Cache.\+h}} の \mbox{\hyperlink{_model_cache_8h_source_l00059}{59}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_cache_8cpp_source_l00329}{is\+Valid()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00213}{load()}}.
+
+\mbox{\Hypertarget{class_model_cache_affc749610fd3f3f38b089bb9602b942a}\label{class_model_cache_affc749610fd3f3f38b089bb9602b942a}} 
+\index{ModelCache@{ModelCache}!model\_cache\_path\_@{model\_cache\_path\_}}
+\index{model\_cache\_path\_@{model\_cache\_path\_}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{model\_cache\_path\_}{model\_cache\_path\_}}
+{\footnotesize\ttfamily std\+::string Model\+Cache\+::model\+\_\+cache\+\_\+path\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+モデルキャッシュのファイルパス 
+
+
+
+ \mbox{\hyperlink{_model_cache_8h_source}{Model\+Cache.\+h}} の \mbox{\hyperlink{_model_cache_8h_source_l00061}{61}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_cache_8cpp_source_l00369}{is\+Exist()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00213}{load()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00014}{Model\+Cache()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00044}{save()}}.
+
+\mbox{\Hypertarget{class_model_cache_a34939e002d63183a31017923b7135e27}\label{class_model_cache_a34939e002d63183a31017923b7135e27}} 
+\index{ModelCache@{ModelCache}!model\_path\_@{model\_path\_}}
+\index{model\_path\_@{model\_path\_}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{model\_path\_}{model\_path\_}}
+{\footnotesize\ttfamily std\+::string Model\+Cache\+::model\+\_\+path\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+モデルのファイルパス 
+
+
+
+ \mbox{\hyperlink{_model_cache_8h_source}{Model\+Cache.\+h}} の \mbox{\hyperlink{_model_cache_8h_source_l00060}{60}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_cache_8cpp_source_l00014}{Model\+Cache()}}.
+
+\mbox{\Hypertarget{class_model_cache_a6580cc38b0b63ab7c5b9e63dd8eac39c}\label{class_model_cache_a6580cc38b0b63ab7c5b9e63dd8eac39c}} 
+\index{ModelCache@{ModelCache}!VERSION@{VERSION}}
+\index{VERSION@{VERSION}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{VERSION}{VERSION}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} Model\+Cache\+::\+VERSION = 2\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+モデルキャッシュのバージョン 
+
+
+
+ \mbox{\hyperlink{_model_cache_8h_source}{Model\+Cache.\+h}} の \mbox{\hyperlink{_model_cache_8h_source_l00013}{13}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_cache_8cpp_source_l00213}{load()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00044}{save()}}.
+
+\mbox{\Hypertarget{class_model_cache_ad0bc6fde790d468736722f78776e6eb0}\label{class_model_cache_ad0bc6fde790d468736722f78776e6eb0}} 
+\index{ModelCache@{ModelCache}!vertices\_@{vertices\_}}
+\index{vertices\_@{vertices\_}!ModelCache@{ModelCache}}
+\doxysubsubsection{\texorpdfstring{vertices\_}{vertices\_}}
+{\footnotesize\ttfamily std\+::vector$<$VECTOR$>$ Model\+Cache\+::vertices\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+頂点配列 
+
+
+
+ \mbox{\hyperlink{_model_cache_8h_source}{Model\+Cache.\+h}} の \mbox{\hyperlink{_model_cache_8h_source_l00062}{62}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_model_cache_8cpp_source_l00213}{load()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00336}{render()}}, \mbox{\hyperlink{_model_cache_8cpp_source_l00315}{vertices()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_model_cache_8h}{Model\+Cache.\+h}}\item 
+\mbox{\hyperlink{_model_cache_8cpp}{Model\+Cache.\+cpp}}\end{DoxyCompactItemize}

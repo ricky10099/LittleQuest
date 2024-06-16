@@ -3,9 +3,9 @@
 //! @brief  コリジョンコンポーネント(ベースクラス)
 //---------------------------------------------------------------------------
 #pragma once
+
 #include <System/Component/Component.h>
 #include <ImGuizmo/ImGuizmo.h>
-#include <DxLib.h>
 
 #ifdef USE_JOLT_PHYSICS
 #    include <System/Physics/PhysicsEngine.h>
@@ -58,11 +58,11 @@ class ComponentCollision: public Component {
     //! @details 当たった回数分ここに来ます
     virtual void OnHit(const HitInfo& hitInfo);
 
-#if 0
+#if 0    // 通常コンポーネントへ移動
     void SetName(std::string_view name);
-#endif
 
-    std::string_view GetName();
+	std::string_view GetName();
+#endif
 
     //---------------------------------------------------------------------------
     //! コリジョンステータス
@@ -103,16 +103,18 @@ class ComponentCollision: public Component {
     };
 
     enum struct CollisionGroupBit : u32 {
-        WALL         = 0U,
-        GROUND       = 1U,
-        PLAYER       = 2U,
-        ENEMY        = 3U,
-        WEAPON       = 4U,
-        ENEMY_WEAPON = 5U,
-        ITEM         = 6U,
-        CAMERA       = 7U,
-        ETC          = 8U,
-        NONE         = 20U,
+        WALL   = 0,
+        GROUND = 1,
+        PLAYER = 2,
+        ENEMY  = 3,
+        WEAPON = 4,
+        ITEM   = 5,
+        CAMERA = 6,
+        ETC    = 7,
+#pragma region customized
+        ENEMY_WEAPON = 8,
+        NONE         = 20,
+#pragma endregion
 #if 0
 		WALL2	= 8,
 		GROUND2	= 9,
@@ -126,16 +128,18 @@ class ComponentCollision: public Component {
     };
 
     enum struct CollisionGroup : u32 {
-        WALL         = 1 << static_cast<u32>(CollisionGroupBit::WALL),
-        GROUND       = 1 << static_cast<u32>(CollisionGroupBit::GROUND),
-        PLAYER       = 1 << static_cast<u32>(CollisionGroupBit::PLAYER),
-        ENEMY        = 1 << static_cast<u32>(CollisionGroupBit::ENEMY),
-        WEAPON       = 1 << static_cast<u32>(CollisionGroupBit::WEAPON),
+        WALL   = 1 << static_cast<u32>(CollisionGroupBit::WALL),
+        GROUND = 1 << static_cast<u32>(CollisionGroupBit::GROUND),
+        PLAYER = 1 << static_cast<u32>(CollisionGroupBit::PLAYER),
+        ENEMY  = 1 << static_cast<u32>(CollisionGroupBit::ENEMY),
+        WEAPON = 1 << static_cast<u32>(CollisionGroupBit::WEAPON),
+        ITEM   = 1 << static_cast<u32>(CollisionGroupBit::ITEM),
+        CAMERA = 1 << static_cast<u32>(CollisionGroupBit::CAMERA),
+        ETC    = 1 << static_cast<u32>(CollisionGroupBit::ETC),
+#pragma region customized
         ENEMY_WEAPON = 1 << static_cast<u32>(CollisionGroupBit::ENEMY_WEAPON),
-        ITEM         = 1 << static_cast<u32>(CollisionGroupBit::ITEM),
-        CAMERA       = 1 << static_cast<u32>(CollisionGroupBit::CAMERA),
-        ETC          = 1 << static_cast<u32>(CollisionGroupBit::ETC),
         NONE         = 1 << static_cast<u32>(CollisionGroupBit::NONE),
+#pragma endregion
 #if 0
 		WALL2   = 1 << static_cast<u32>( CollisionGroupBit::WALL2 ),
 		GROUND2 = 1 << static_cast<u32>( CollisionGroupBit::GROUND2 ),
@@ -166,16 +170,19 @@ class ComponentCollision: public Component {
             return static_cast<u32>(CollisionGroupBit::ENEMY);
         if(grp == CollisionGroup::WEAPON)
             return static_cast<u32>(CollisionGroupBit::WEAPON);
-        if(grp == CollisionGroup::ENEMY_WEAPON)
-            return static_cast<u32>(CollisionGroupBit::ENEMY_WEAPON);
         if(grp == CollisionGroup::ITEM)
             return static_cast<u32>(CollisionGroupBit::ITEM);
         if(grp == CollisionGroup::CAMERA)
             return static_cast<u32>(CollisionGroupBit::CAMERA);
         if(grp == CollisionGroup::ETC)
             return static_cast<u32>(CollisionGroupBit::ETC);
+#pragma region customized
+        if(grp == CollisionGroup::ENEMY_WEAPON)
+            return static_cast<u32>(CollisionGroupBit::ENEMY_WEAPON);
         if(grp == CollisionGroup::NONE)
             return static_cast<u32>(CollisionGroupBit::NONE);
+#pragma endregion
+
         // 登録し忘れの可能性があります
         return -1;
 #pragma warning(default: 26813)
@@ -183,8 +190,7 @@ class ComponentCollision: public Component {
 
     std::string GetCollisionGroupName() const {
 #pragma warning(disable: 26813)
-        //CollisionGroup grp = collision_group_;
-        CollisionGroup grp = (CollisionGroup)collision_hit_;
+        CollisionGroup grp = collision_group_;
 
         // この関数では「grp」はBITを前提としておらず
         // このタイプの名前を知る必要があり、もし&判定した場合、仮にビットが2つついていると
@@ -200,16 +206,18 @@ class ComponentCollision: public Component {
             return "ENEMY";
         if(grp == CollisionGroup::WEAPON)
             return "WEAPON";
-        if(grp == CollisionGroup::ENEMY_WEAPON)
-            return "ENEMY_WEAPON";
         if(grp == CollisionGroup::ITEM)
             return "ITEM";
         if(grp == CollisionGroup::CAMERA)
             return "CAMERA";
         if(grp == CollisionGroup::ETC)
             return "ETC";
+#pragma region customized
+        if(grp == CollisionGroup::ENEMY_WEAPON)
+            return "ENEMY_WEAPON";
         if(grp == CollisionGroup::NONE)
             return "NONE";
+#pragma endregion
         // 登録し忘れの可能性があります
         return "UNKNOWN";
 #pragma warning(default: 26813)
@@ -258,7 +266,9 @@ class ComponentCollision: public Component {
 
     void AttachToModel(const std::string_view node);
 
+#pragma region customized
     int GetAttachedNode();
+#pragma endregion
 #if 1
     //! @brief コリジョンマトリクス
     float* GetColMatrixFloat() {
@@ -332,7 +342,7 @@ class ComponentCollision: public Component {
         return use_gravity_;
     }
 
-    void Overlap(u32 bit) {
+    void [[deprecated("Overlap()は古い命名です。SetOverlapCollisionGroup()を使用してください")]] Overlap(u32 bit) {
         collision_overlap_ = bit;
     }
 
@@ -461,10 +471,11 @@ class ComponentCollision: public Component {
 
     float difficult_to_climb_ = 1.0f;
 
-    // bool is_overlap_ = false;
+    //bool is_overlap_ = false;
 
-    std::string name_ = "None";
-
+#if 0    // 通常コンポーネントへ
+	std::string name_ = "None";
+#endif
 #ifdef USE_JOLT_PHYSICS
 
    public:
@@ -496,12 +507,14 @@ class ComponentCollision: public Component {
             cereal::make_nvp("attach_node", attach_node_), cereal::make_nvp("attach_node_matrix", attach_node_matrix_),
             cereal::make_nvp("collision_transform", collision_transform_), cereal::make_nvp("old_transform", old_transform_));
 
-        if(ver >= 2) {
-            arc(cereal::make_nvp("collision_overlap", collision_overlap_));
-        } else if(ver >= 1) {
+        if(ver >= 1) {
             arc(cereal::make_nvp("use_gravity", use_gravity_), cereal::make_nvp("gravity", gravity_),
-                cereal::make_nvp("now_gravity", now_gravity_), cereal::make_nvp("difficult_to_climb", difficult_to_climb_),
-                cereal::make_nvp("name", name_));
+                cereal::make_nvp("now_gravity", now_gravity_), cereal::make_nvp("difficult_to_climb", difficult_to_climb_));
+            if(ver >= 2) {
+                arc(cereal::make_nvp("collision_overlap", collision_overlap_));
+            } else {
+                arc(cereal::make_nvp("name", name_));
+            }
         }
         arc(cereal::make_nvp("Component", cereal::base_class<Component>(this)));
     }
@@ -509,7 +522,7 @@ class ComponentCollision: public Component {
     //@}
 };
 
-CEREAL_CLASS_VERSION(ComponentCollision, 2);
+CEREAL_CLASS_VERSION(ComponentCollision, 3);
 
 CEREAL_REGISTER_TYPE(ComponentCollision)
 CEREAL_REGISTER_POLYMORPHIC_RELATION(Component, ComponentCollision)

@@ -1,0 +1,99 @@
+\begin{DoxyItemize}
+\item シーン内にて使用することが可能 (シーンがなくなると\+Objectも消えます) \item コンポーネント(\+Component)を追加できる \item 名前設定が可能で\+GUIで情報を見ることが可能\end{DoxyItemize}
+\begin{DoxyItemize}
+\item // 生成方法【例】(シーン内にて) 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{　}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ obj\ =\ Scene::CreateObjectPtr<Object>();}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ item\ =\ Scene::CreateObjectPtr<Item>();\ \ \ \ \textcolor{comment}{//<}}
+\DoxyCodeLine{\ \ \ \ ItemはObjectから継承したクラス}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 名前を変えることも可能です。(GUI上でも名前が変わります)}}
+\DoxyCodeLine{\ \ \ \ item-\/>SetName(\textcolor{stringliteral}{"{}WhiteItem"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ Scene::CreateObjectPtr<Player>()-\/>SetName(\textcolor{stringliteral}{"{}RedPlayer"{}});\ \textcolor{comment}{//<}}
+\DoxyCodeLine{\ \ \ \ 変数に捉えない場合。取得方法にて取得する。}
+\DoxyCodeLine{　}
+
+\end{DoxyCode}
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item // 取得方法【例】(シーン内にて) 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{　}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 存在しているPlayerのオブジェクトを取得します}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ player\ =\ Scene::GetObjectPtr<Player>();\ \ \ \textcolor{comment}{//<}}
+\DoxyCodeLine{\ \ \ \ Playerクラスが一つしかない場合はこれでOK}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{auto}\ red\_player\ =\ Scene::GetObjectPtr<Player>(\textcolor{stringliteral}{"{}RedPlayer"{}});\ \ \ \textcolor{comment}{//<}}
+\DoxyCodeLine{\ \ \ \ 複数の時は名前も指定しないと別のものが取れる可能性がある}
+\DoxyCodeLine{　}
+
+\end{DoxyCode}
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item // 削除方法【例】(シーン内にて) 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{　}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{//\ 存在しているオブジェクトを削除します}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ Scene::ReleaseObject<Player>();\ \ \ \textcolor{comment}{//<}}
+\DoxyCodeLine{\ \ \ \ Playerクラスが一つしかない場合はこれでOK}
+\DoxyCodeLine{　}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{class_scene_a298d059ec0aa85b0f905519a05a3b5ce}{Scene::ReleaseObject}}(\textcolor{stringliteral}{"{}RedPlayer"{}});\ \textcolor{comment}{//<\ 名前指定で削除する場合}}
+
+\end{DoxyCode}
+\end{DoxyItemize}
+\begin{DoxyItemize}
+\item // 継承方法【例】 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{　}
+\DoxyCodeLine{\textcolor{keyword}{class\ }Player\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_object}{Object}}}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\textcolor{keyword}{public}:}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_object_a13cd3c613f3b6a01348436993b0b73c1}{Init}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \_\_super::Init();\ \ \ \ \textcolor{comment}{//<}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Object内でInitが必要なものを定義します※忘れるとASSERTが出ます}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 処理化処理をかく}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 初期化が終了したら\ trueで返してください}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ (※現状機能不完全)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ falseの場合は、もう一度Init()が呼ばれます。(ロード完了で次へ進むなどの場合を想定しています)}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_object_ab5c74337ccd7504eec24590b8c963141}{Update}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 更新処理を行う}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_object_ac469dbbd3cedec6a3e8f0d2172b7429e}{Draw}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 描画処理を行う}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_object_a51100b72b1cfd4055b54f91ca1d77929}{Exit}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \_\_super::Exit();\ \ \ \ \textcolor{comment}{//<}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ Object内でExitの終了も呼びます　※忘れるとASSERTが出ます}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 終了処理を行う}}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_object_a901d6889420e10a7533cd7f543426b20}{GUI}}()\textcolor{keyword}{\ override}}
+\DoxyCodeLine{\textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \_\_super::GUI();\ \ \ \ \ \textcolor{comment}{//<!\ オブジェクトのGUIを使えるようにしておく}}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{//\ PlayerGUI}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ImGui::Begin(name\_.c\_str());}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GUI処理をここに追加する}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ImGui::End()}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\};}
+\DoxyCodeLine{　}
+
+\end{DoxyCode}
+ \end{DoxyItemize}

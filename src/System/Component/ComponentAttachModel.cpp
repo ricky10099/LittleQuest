@@ -5,8 +5,6 @@
 #include <System/Scene.h>
 #include <System/ImGui.h>
 
-BP_COMPONENT_IMPL(ComponentAttachModel, u8"AttachModel機能クラス");
-
 //---------------------------------------------------------
 //! 初期化
 //---------------------------------------------------------
@@ -14,7 +12,7 @@ void ComponentAttachModel::Init() {
     __super::Init();
 
     // モデルの姿勢が完了した後実行したい
-    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PostUpdate, Priority::LOWEST);
+    Scene::GetCurrentScene()->SetPriority(shared_from_this(), ProcTiming::PostUpdate, ProcPriority::LOWEST);
 
     SetAttachModelStatus(AttachModelBit::Initialized, true);
 }

@@ -1,0 +1,322 @@
+\hypertarget{class_resource_model}{}\doxysection{Resource\+Model クラス}
+\label{class_resource_model}\index{ResourceModel@{ResourceModel}}
+
+
+3Dモデルリソース  
+
+
+
+
+{\ttfamily \#include $<$Resource\+Model.\+h$>$}
+
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_resource_model_a29021d711333456640fee1acca141056}{Resource\+Model}} (std\+::string\+\_\+view \mbox{\hyperlink{class_resource_model_a383726782fb0b333714a2eb92435d2a0}{path}})
+\begin{DoxyCompactList}\small\item\em コンストラクタ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_resource_model_a9dcab25673fe61a8af298759a6fd8a66}{$\sim$\+Resource\+Model}} ()
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_resource_model_aee6ed712939e91a12b1b9573e062a80b}{wait\+For\+Read\+Finish}} ()
+\begin{DoxyCompactList}\small\item\em 読み込み完了まで待つ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_resource_model_aa79e1b35ddbd2374a65e9ef718ad5dd3}{operator int}} () const
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} MV1ハンドルを取得 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_model_cache}{Model\+Cache}} $\ast$ \mbox{\hyperlink{class_resource_model_ad917d1ee8b36e5c6cd548558d642941d}{model\+Cache}} () const
+\begin{DoxyCompactList}\small\item\em モデルキャッシュを取得 \end{DoxyCompactList}\item 
+const std\+::wstring \& \mbox{\hyperlink{class_resource_model_a383726782fb0b333714a2eb92435d2a0}{path}} () const
+\begin{DoxyCompactList}\small\item\em ファイルパスを取得 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_resource_model_afecbe97bcd2da8ea0b2d3416ea58246a}{is\+Valid}} () const
+\begin{DoxyCompactList}\small\item\em 初期化が正しく成功しているかどうか \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_resource_model_a900591cd261afc07adc60304dd005bff}{is\+Active}} () const
+\begin{DoxyCompactList}\small\item\em 描画可能な状態かどうか取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{copy/move禁止}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{class_resource_model_a0c1603447901a1d79f7940702840300b}{mv1\+\_\+handle\+\_\+}} = -\/1
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} MV1モデルハンドル \end{DoxyCompactList}\item 
+std\+::wstring \mbox{\hyperlink{class_resource_model_acb0870c2fae0b76f218b457db612f093}{path\+\_\+}}
+\begin{DoxyCompactList}\small\item\em モデルファイルへのパス \end{DoxyCompactList}\item 
+std\+::atomic$<$ bool $>$ \mbox{\hyperlink{class_resource_model_a82bae36cdbc51e733eb4a983acad4bd4}{active\+\_\+}} = false
+\begin{DoxyCompactList}\small\item\em アクティブ状態 true\+:利用可能 false\+:ロード未完了 \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{class_model_cache}{Model\+Cache}} $>$ \mbox{\hyperlink{class_resource_model_a3fb8b407b2b3fb8545282c253b73c57b}{model\+\_\+cache\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 3Dモデルキャッシュ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_resource_model_a4f8523dfcc55cccaeba79cda60b19038}{Resource\+Model}} (const \mbox{\hyperlink{class_resource_model}{Resource\+Model}} \&)=delete
+\item 
+\mbox{\hyperlink{class_resource_model_a0f0dd57e15cbdb44491948ee57faaa29}{Resource\+Model}} (\mbox{\hyperlink{class_resource_model}{Resource\+Model}} \&\&)=delete
+\item 
+void \mbox{\hyperlink{class_resource_model_a886057561e56ea7fd1cd4af8cd7e47bf}{operator=}} (const \mbox{\hyperlink{class_resource_model}{Resource\+Model}} \&)=delete
+\item 
+void \mbox{\hyperlink{class_resource_model_ad8e590fd59a6d5b263acf1a0118583ef}{operator=}} (\mbox{\hyperlink{class_resource_model}{Resource\+Model}} \&\&)=delete
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+3Dモデルリソース 
+
+ \mbox{\hyperlink{_resource_model_8h_source}{Resource\+Model.\+h}} の \mbox{\hyperlink{_resource_model_8h_source_l00012}{12}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{class_resource_model_a29021d711333456640fee1acca141056}\label{class_resource_model_a29021d711333456640fee1acca141056}} 
+\index{ResourceModel@{ResourceModel}!ResourceModel@{ResourceModel}}
+\index{ResourceModel@{ResourceModel}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{ResourceModel()}{ResourceModel()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Resource\+Model\+::\+Resource\+Model (\begin{DoxyParamCaption}\item[{std\+::string\+\_\+view}]{path }\end{DoxyParamCaption})}
+
+
+
+コンストラクタ 
+
+
+
+ \mbox{\hyperlink{_resource_model_8cpp_source}{Resource\+Model.\+cpp}} の \mbox{\hyperlink{_resource_model_8cpp_source_l00011}{11}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_precompile_8cpp_source_l00008}{convert\+To()}}, \mbox{\hyperlink{_resource_model_8h_source_l00057}{model\+\_\+cache\+\_\+}}, \mbox{\hyperlink{_resource_model_8h_source_l00054}{mv1\+\_\+handle\+\_\+}}, \mbox{\hyperlink{_resource_model_8cpp_source_l00088}{path()}}, \mbox{\hyperlink{_resource_model_8h_source_l00055}{path\+\_\+}}.
+
+\mbox{\Hypertarget{class_resource_model_a9dcab25673fe61a8af298759a6fd8a66}\label{class_resource_model_a9dcab25673fe61a8af298759a6fd8a66}} 
+\index{ResourceModel@{ResourceModel}!````~ResourceModel@{$\sim$ResourceModel}}
+\index{````~ResourceModel@{$\sim$ResourceModel}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{$\sim$ResourceModel()}{~ResourceModel()}}
+{\footnotesize\ttfamily Resource\+Model\+::$\sim$\+Resource\+Model (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+デストラクタ 
+
+
+
+ \mbox{\hyperlink{_resource_model_8cpp_source}{Resource\+Model.\+cpp}} の \mbox{\hyperlink{_resource_model_8cpp_source_l00058}{58}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_resource_model_8h_source_l00054}{mv1\+\_\+handle\+\_\+}}.
+
+\mbox{\Hypertarget{class_resource_model_a4f8523dfcc55cccaeba79cda60b19038}\label{class_resource_model_a4f8523dfcc55cccaeba79cda60b19038}} 
+\index{ResourceModel@{ResourceModel}!ResourceModel@{ResourceModel}}
+\index{ResourceModel@{ResourceModel}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{ResourceModel()}{ResourceModel()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Resource\+Model\+::\+Resource\+Model (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_resource_model}{Resource\+Model}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_resource_model_a0f0dd57e15cbdb44491948ee57faaa29}\label{class_resource_model_a0f0dd57e15cbdb44491948ee57faaa29}} 
+\index{ResourceModel@{ResourceModel}!ResourceModel@{ResourceModel}}
+\index{ResourceModel@{ResourceModel}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{ResourceModel()}{ResourceModel()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Resource\+Model\+::\+Resource\+Model (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resource_model}{Resource\+Model}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{class_resource_model_a900591cd261afc07adc60304dd005bff}\label{class_resource_model_a900591cd261afc07adc60304dd005bff}} 
+\index{ResourceModel@{ResourceModel}!isActive@{isActive}}
+\index{isActive@{isActive}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{isActive()}{isActive()}}
+{\footnotesize\ttfamily bool Resource\+Model\+::is\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+描画可能な状態かどうか取得 
+
+\begin{DoxyNote}{覚え書き}
+描画可能になっていない状態で\+MV1関数を呼ぶとブロッキングされます 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_resource_model_8cpp_source}{Resource\+Model.\+cpp}} の \mbox{\hyperlink{_resource_model_8cpp_source_l00102}{102}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_resource_model_8h_source_l00056}{active\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_resource_model_8cpp_source_l00065}{wait\+For\+Read\+Finish()}}.
+
+\mbox{\Hypertarget{class_resource_model_afecbe97bcd2da8ea0b2d3416ea58246a}\label{class_resource_model_afecbe97bcd2da8ea0b2d3416ea58246a}} 
+\index{ResourceModel@{ResourceModel}!isValid@{isValid}}
+\index{isValid@{isValid}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{isValid()}{isValid()}}
+{\footnotesize\ttfamily bool Resource\+Model\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+初期化が正しく成功しているかどうか 
+
+
+
+ \mbox{\hyperlink{_resource_model_8cpp_source}{Resource\+Model.\+cpp}} の \mbox{\hyperlink{_resource_model_8cpp_source_l00095}{95}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_resource_model_8h_source_l00054}{mv1\+\_\+handle\+\_\+}}.
+
+\mbox{\Hypertarget{class_resource_model_ad917d1ee8b36e5c6cd548558d642941d}\label{class_resource_model_ad917d1ee8b36e5c6cd548558d642941d}} 
+\index{ResourceModel@{ResourceModel}!modelCache@{modelCache}}
+\index{modelCache@{modelCache}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{modelCache()}{modelCache()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_model_cache}{Model\+Cache}} $\ast$ Resource\+Model\+::model\+Cache (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+モデルキャッシュを取得 
+
+
+
+ \mbox{\hyperlink{_resource_model_8cpp_source}{Resource\+Model.\+cpp}} の \mbox{\hyperlink{_resource_model_8cpp_source_l00081}{81}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_resource_model_8h_source_l00057}{model\+\_\+cache\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_shape_8cpp_source_l00019}{shape\+::\+Convex\+Hull\+::\+Convex\+Hull()}}, \mbox{\hyperlink{_shape_8cpp_source_l00044}{shape\+::\+Mesh\+::\+Mesh()}}.
+
+\mbox{\Hypertarget{class_resource_model_aa79e1b35ddbd2374a65e9ef718ad5dd3}\label{class_resource_model_aa79e1b35ddbd2374a65e9ef718ad5dd3}} 
+\index{ResourceModel@{ResourceModel}!operator int@{operator int}}
+\index{operator int@{operator int}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{operator int()}{operator int()}}
+{\footnotesize\ttfamily Resource\+Model\+::operator int (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} MV1ハンドルを取得 
+
+
+
+ \mbox{\hyperlink{_resource_model_8cpp_source}{Resource\+Model.\+cpp}} の \mbox{\hyperlink{_resource_model_8cpp_source_l00074}{74}} 行目に定義があります。
+
+\mbox{\Hypertarget{class_resource_model_a886057561e56ea7fd1cd4af8cd7e47bf}\label{class_resource_model_a886057561e56ea7fd1cd4af8cd7e47bf}} 
+\index{ResourceModel@{ResourceModel}!operator=@{operator=}}
+\index{operator=@{operator=}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Resource\+Model\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_resource_model}{Resource\+Model}} \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_resource_model_ad8e590fd59a6d5b263acf1a0118583ef}\label{class_resource_model_ad8e590fd59a6d5b263acf1a0118583ef}} 
+\index{ResourceModel@{ResourceModel}!operator=@{operator=}}
+\index{operator=@{operator=}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Resource\+Model\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resource_model}{Resource\+Model}} \&\&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [delete]}}
+
+\mbox{\Hypertarget{class_resource_model_a383726782fb0b333714a2eb92435d2a0}\label{class_resource_model_a383726782fb0b333714a2eb92435d2a0}} 
+\index{ResourceModel@{ResourceModel}!path@{path}}
+\index{path@{path}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{path()}{path()}}
+{\footnotesize\ttfamily const std\+::wstring \& Resource\+Model\+::path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+ファイルパスを取得 
+
+
+
+ \mbox{\hyperlink{_resource_model_8cpp_source}{Resource\+Model.\+cpp}} の \mbox{\hyperlink{_resource_model_8cpp_source_l00088}{88}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_resource_model_8h_source_l00055}{path\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_resource_model_8cpp_source_l00011}{Resource\+Model()}}.
+
+\mbox{\Hypertarget{class_resource_model_aee6ed712939e91a12b1b9573e062a80b}\label{class_resource_model_aee6ed712939e91a12b1b9573e062a80b}} 
+\index{ResourceModel@{ResourceModel}!waitForReadFinish@{waitForReadFinish}}
+\index{waitForReadFinish@{waitForReadFinish}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{waitForReadFinish()}{waitForReadFinish()}}
+{\footnotesize\ttfamily void Resource\+Model\+::wait\+For\+Read\+Finish (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+読み込み完了まで待つ 
+
+
+
+ \mbox{\hyperlink{_resource_model_8cpp_source}{Resource\+Model.\+cpp}} の \mbox{\hyperlink{_resource_model_8cpp_source_l00065}{65}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_resource_model_8cpp_source_l00102}{is\+Active()}}, \mbox{\hyperlink{_resource_model_8h_source_l00054}{mv1\+\_\+handle\+\_\+}}.
+
+
+
+\doxysubsection{メンバ詳解}
+\mbox{\Hypertarget{class_resource_model_a82bae36cdbc51e733eb4a983acad4bd4}\label{class_resource_model_a82bae36cdbc51e733eb4a983acad4bd4}} 
+\index{ResourceModel@{ResourceModel}!active\_@{active\_}}
+\index{active\_@{active\_}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{active\_}{active\_}}
+{\footnotesize\ttfamily std\+::atomic$<$bool$>$ Resource\+Model\+::active\+\_\+ = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+アクティブ状態 true\+:利用可能 false\+:ロード未完了 
+
+
+
+ \mbox{\hyperlink{_resource_model_8h_source}{Resource\+Model.\+h}} の \mbox{\hyperlink{_resource_model_8h_source_l00056}{56}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_resource_model_8cpp_source_l00102}{is\+Active()}}.
+
+\mbox{\Hypertarget{class_resource_model_a3fb8b407b2b3fb8545282c253b73c57b}\label{class_resource_model_a3fb8b407b2b3fb8545282c253b73c57b}} 
+\index{ResourceModel@{ResourceModel}!model\_cache\_@{model\_cache\_}}
+\index{model\_cache\_@{model\_cache\_}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{model\_cache\_}{model\_cache\_}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$\mbox{\hyperlink{class_model_cache}{Model\+Cache}}$>$ Resource\+Model\+::model\+\_\+cache\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+3Dモデルキャッシュ 
+
+
+
+ \mbox{\hyperlink{_resource_model_8h_source}{Resource\+Model.\+h}} の \mbox{\hyperlink{_resource_model_8h_source_l00057}{57}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_resource_model_8cpp_source_l00081}{model\+Cache()}}, \mbox{\hyperlink{_resource_model_8cpp_source_l00011}{Resource\+Model()}}.
+
+\mbox{\Hypertarget{class_resource_model_a0c1603447901a1d79f7940702840300b}\label{class_resource_model_a0c1603447901a1d79f7940702840300b}} 
+\index{ResourceModel@{ResourceModel}!mv1\_handle\_@{mv1\_handle\_}}
+\index{mv1\_handle\_@{mv1\_handle\_}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{mv1\_handle\_}{mv1\_handle\_}}
+{\footnotesize\ttfamily int Resource\+Model\+::mv1\+\_\+handle\+\_\+ = -\/1\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} MV1モデルハンドル 
+
+
+
+ \mbox{\hyperlink{_resource_model_8h_source}{Resource\+Model.\+h}} の \mbox{\hyperlink{_resource_model_8h_source_l00054}{54}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_resource_model_8cpp_source_l00095}{is\+Valid()}}, \mbox{\hyperlink{_resource_model_8cpp_source_l00011}{Resource\+Model()}}, \mbox{\hyperlink{_resource_model_8cpp_source_l00065}{wait\+For\+Read\+Finish()}}, \mbox{\hyperlink{_resource_model_8cpp_source_l00058}{$\sim$\+Resource\+Model()}}.
+
+\mbox{\Hypertarget{class_resource_model_acb0870c2fae0b76f218b457db612f093}\label{class_resource_model_acb0870c2fae0b76f218b457db612f093}} 
+\index{ResourceModel@{ResourceModel}!path\_@{path\_}}
+\index{path\_@{path\_}!ResourceModel@{ResourceModel}}
+\doxysubsubsection{\texorpdfstring{path\_}{path\_}}
+{\footnotesize\ttfamily std\+::wstring Resource\+Model\+::path\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+モデルファイルへのパス 
+
+
+
+ \mbox{\hyperlink{_resource_model_8h_source}{Resource\+Model.\+h}} の \mbox{\hyperlink{_resource_model_8h_source_l00055}{55}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_resource_model_8cpp_source_l00088}{path()}}, \mbox{\hyperlink{_resource_model_8cpp_source_l00011}{Resource\+Model()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_resource_model_8h}{Resource\+Model.\+h}}\item 
+\mbox{\hyperlink{_resource_model_8cpp}{Resource\+Model.\+cpp}}\end{DoxyCompactItemize}

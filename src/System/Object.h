@@ -6,9 +6,11 @@
 
 #include "Priority.h"
 #include "Status.h"
+#include "TypeInfo.h"
 
 #include <System/Component/Component.h>
 #include <System/Component/ComponentCollision.h>
+#include <System/Component/ComponentPhysics.h>
 #include <System/Component/ComponentTransform.h>
 
 #include <System/Utils/HelperLib.h>
@@ -24,25 +26,80 @@
 USING_PTR(Object);
 USING_PTR(Component);
 
+//! Objectルートの型情報
+class ObjTypeInfo: public TypeInfo {
+   public:
+    ObjTypeInfo(const char* class_name, size_t class_size, ObjTypeInfo* parent_type = nullptr, const char* desc_name = "");
+    //! ルートの型情報
+    static ObjTypeInfo obj_root;
+
+    ObjectPtr     tmp = std::shared_ptr<class Object>((Object*)createInstance());
+    ObjectWeakPtr ptr = tmp;
+    virtual void* createObjectPtr() {
+        return reinterpret_cast<void*>(&ptr);
+    }
+};
+
+//! @note   基底クラスでSuperを宣言するとときにこのクラスが参照されます
+class ObjClass {
+   public:
+    static inline ObjTypeInfo& Type = ObjTypeInfo::obj_root;
+};
+
 //
 //===========================================================================
 //! クラス用型情報 ClassObjectType<T>
 //===========================================================================
 template<class T>
-class ClassObjectType: public Type {
+class ClassObjectType: public ObjTypeInfo {
    public:
-    using Type::Type;    // 継承コンストラクタ
+    //  コンストラクタ
+    //! @param  [in]    class_name  クラスの名前
+    //! @param  [in]    parent_type 親クラスの型情報(親がないクラスはnullptr)
+    //! @param  [in]    desc_name   説明文文字列
+    ClassObjectType(const char* class_name, ObjTypeInfo* parent_type = nullptr, const char* desc_name = "")
+        : ObjTypeInfo(class_name, sizeof(T), parent_type, desc_name) {}
 
-    virtual void* createObjectPtr() {
-        std::shared_ptr<T> tmp = std::make_shared<T>();
-        Object::RegisterCurrentScene(tmp);
+    virtual void* createObjectPtr() override {
+        std::shared_ptr<T> _tmp = std::make_shared<T>();
+        Object::RegisterCurrentScene(_tmp);
 
-        obj = tmp;
+        obj = _tmp;
         return reinterpret_cast<void*>(&obj);
     }
-
     std::weak_ptr<T> obj;
 };
+
+//---------------------------------------------------------------------------
+//! クラス内ヘッダー宣言
+//! publicで BP_OBJECT_DECL(クラス名, u8"任意の解説文字列") で宣言します
+//!
+//! @code
+//!     class B : public A
+//!     {
+//!     public:
+//!         BP_OBJECT_DECL(B, u8"オブジェクト");
+//! @endcode
+//---------------------------------------------------------------------------
+#define BP_OBJECT_DECL(CLASS, ...)                                                                                                                \
+    using Super = ObjClass; /*! 親クラスの型 : 上のクラス階層で定義されているClassを使うことで親クラスを定義 */ \
+    using ObjClass = CLASS; /*! 自クラスの型 : これ以降は親クラスではなく自クラスを指す */                              \
+                                                                                                                                                  \
+    /*! 型情報 */                                                                                                                              \
+    static inline ClassObjectType<CLASS> Type = ClassObjectType<CLASS>(#CLASS, &Super::Type, __VA_ARGS__);                                        \
+                                                                                                                                                  \
+    /*! 型情報を取得 */                                                                                                                     \
+    virtual const ObjTypeInfo* typeInfo() const {                                                                                                 \
+        return &Type;                                                                                                                             \
+    }                                                                                                                                             \
+    void* createObjectPtr() {                                                                                                                     \
+        return Type.createObjectPtr();                                                                                                            \
+    }
+
+//***************************************************************************
+//***************************************************************************
+// 削除予定 ここから
+// ↓↓↓↓↓↓↓
 
 //---------------------------------------------------------------------------
 //! Objectクラス内ヘッダー宣言 基底クラス用
@@ -55,15 +112,17 @@ class ClassObjectType: public Type {
 //!         BP_OBJECT_BASE_TYPE(A)
 //! @endcode
 //---------------------------------------------------------------------------
-#define BP_OBJECT_BASE_TYPE(CLASS)                   \
-    using MyClass = CLASS; /*! 自クラスの型 */ \
-                                                     \
-    /*! 型情報 */                                 \
-    static ClassObjectType<CLASS> TypeInfo;          \
-                                                     \
-    /*! 型情報を取得 */                        \
-    virtual const Type* typeInfo() const {           \
-        return &TypeInfo;                            \
+#define BP_OBJECT_BASE_TYPE(CLASS)                                                                                                                                  \
+    using MyClass = CLASS; /*! 自クラスの型 */                                                                                                                \
+                                                                                                                                                                    \
+    /*! 型情報 */                                                                                                                                                \
+    [[deprecated("BP_OBJECT_TYPE() と BP_OBJECT_BASE_TYPE() は古い宣言です。BP_OBJECT_DECL(クラス名, u8\"解説文\") に置換してください。")]] static ClassObjectType< \
+        CLASS>                                                                                                                                                      \
+        Type;                                                                                                                                                       \
+                                                                                                                                                                    \
+    /*! 型情報を取得 */                                                                                                                                       \
+    virtual const ObjTypeInfo* typeInfo() const {                                                                                                                   \
+        return &Type;                                                                                                                                               \
     }
 
 //	/*! インスタンスを作成(クラスをnewしてポインタを返す)*/ \
@@ -93,11 +152,16 @@ class ClassObjectType: public Type {
 //---------------------------------------------------------------------------
 #define BP_OBJECT_BASE_IMPL(CLASS, DESC_NAME) \
     /*! 型情報の実体 */                 \
-    ClassObjectType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, nullptr);
+    ClassObjectType<CLASS> CLASS::Type(#CLASS, sizeof(CLASS), nullptr, DESC_NAME);
 
 #define BP_OBJECT_IMPL(CLASS, DESC_NAME) \
     /*! 型情報の実体 */            \
-    ClassObjectType<CLASS> CLASS::TypeInfo(#CLASS, sizeof(CLASS), DESC_NAME, &Super::TypeInfo);
+    ClassObjectType<CLASS> CLASS::Type(#CLASS, &Super::Type, DESC_NAME);
+
+// ↑↑↑↑↑↑↑
+// 削除予定 ここまで
+//***************************************************************************
+//***************************************************************************
 
 //---------------------------------------------------------------------------
 //! オブジェクトクラス
@@ -108,7 +172,7 @@ class Object
     friend class Scene;
 
    public:
-    BP_OBJECT_BASE_TYPE(Object);
+    BP_OBJECT_DECL(Object, "object");
 
     Object();             //!< コンストラクタ
     virtual ~Object();    //!< デストラクタ
@@ -121,11 +185,12 @@ class Object
     virtual void Exit();          //!< 終了
     virtual void GUI();           //!< GUI表示
 
-    virtual void PreUpdate();     //!< 更新前処理
-    virtual void PostUpdate();    //!< 更新後処理
-    virtual void PreDraw();       //!< 描画前処理
-    virtual void PostDraw();      //!< 描画後処理
-    virtual void PrePhysics();    //!< 物理シミュレーション前処理
+    virtual void PreUpdate();      //!< 更新前処理
+    virtual void PostUpdate();     //!< 更新後処理
+    virtual void PreDraw();        //!< 描画前処理
+    virtual void PostDraw();       //!< 描画後処理
+    virtual void PrePhysics();     //!< 物理シミュレーション前処理
+    virtual void PostPhysics();    //!< 物理シミュレーション後処理
 
     virtual void InitSerialize();    //!< シリアライズでもどらないユーザー処理関数などを設定
 
@@ -201,13 +266,13 @@ class Object
     //! @tparam T コンポーネントタイプ
     //! @return 追加されたコンポーネント
     template<class T>
-    std::shared_ptr<T> GetComponent();
+    std::shared_ptr<T> GetComponent(const std::string_view& name = "");
 
     //! コンポーネント取得
     //! @tparam T コンポーネントタイプ
     //! @return 追加されたコンポーネント
     template<class T>
-    std::shared_ptr<T> GetComponent() const;
+    std::shared_ptr<T> GetComponent(const std::string_view& name = "") const;
 
     template<class T>
     std::vector<std::shared_ptr<T>> GetComponents();
@@ -237,19 +302,23 @@ class Object
 
     //! @brief コンポーネントのヒットコールバック
     //! @param hitInfo ヒット情報
-    virtual void OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
+    virtual void OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hit_info) {
         if(auto cmp = GetComponent<ComponentTransform>()) {
-            cmp->AddTranslate(hitInfo.push_);
+            cmp->AddTranslate(hit_info.push_);
         }
         // 地面に当たっている時
         // @todo 重力加速も初期化する
 #pragma warning(disable: 26813)
         // ここは&で参照すべき所ではない
-        if(hitInfo.hit_collision_->GetCollisionGroup() == ComponentCollision::CollisionGroup::GROUND) {
-            hitInfo.collision_->SetCollisionStatus(ComponentCollision::CollisionBit::IsGround, true);
+        if(hit_info.hit_collision_->GetCollisionGroup() == ComponentCollision::CollisionGroup::GROUND) {
+            hit_info.collision_->SetCollisionStatus(ComponentCollision::CollisionBit::IsGround, true);
         }
 #pragma warning(default: 26813)
     }
+
+    //! @brief コンポーネントのヒットコールバック
+    //! @param hitInfo ヒット情報
+    virtual void OnHitPhysics([[maybe_unused]] const ComponentPhysics::HitInfo& hit_info) {}
 
     //@}
     //----------------------------------------------------------------
@@ -271,15 +340,15 @@ class Object
     }
 
     /**
-         * @brief           プロセス設定
-         * @param proc_name プロセス名
-         * @param func      処理
-         * @param timing    タイミング
-         * @param prio      処理優先
-         * @return          プロセス
-         */
+     * @brief           プロセス設定
+     * @param proc_name プロセス名
+     * @param func      処理
+     * @param timing    タイミング
+     * @param prio      処理優先
+     * @return          プロセス
+    */
     SlotProc& SetProc(const std::string& proc_name, ProcTimingFunc func, ProcTiming timing = ProcTiming::Update,
-                      Priority prio = Priority::NORMAL) {
+                      ProcPriority prio = ProcPriority::NORMAL) {
         auto& proc = GetProc(proc_name, timing);
         if(proc_name != proc.GetName() || timing != proc.GetTiming() || prio != proc.GetPriority() || proc.IsDirty()) {
             proc.SetProc(proc_name, timing, prio, func);
@@ -288,7 +357,7 @@ class Object
     }
 
     SlotProc& SetAddProc(std::shared_ptr<Callable> func, ProcTiming timing = ProcTiming::Draw,
-                         Priority prio = Priority::NORMAL) {
+                         ProcPriority prio = ProcPriority::NORMAL) {
         auto& proc = GetProc(func->GetName(), timing);
         if(func->GetName() != proc.GetName() || timing != proc.GetTiming() || prio != proc.GetPriority() || proc.IsDirty()) {
             proc.SetAddProc(func, timing, prio);
@@ -346,8 +415,7 @@ class Object
 
     //! 全コンポーネントの取得
     //! @return コンポーネントそのものを受け取る
-    //! @attention auto&
-    //! で受け取ってください。(autoで受け取ると別物になります【C++17】)
+    //! @attention auto& で受け取ってください。(autoで受け取ると別物になります【C++17】)
     ComponentPtrVec& GetComponents() {
         return components_;
     }
@@ -430,8 +498,8 @@ std::shared_ptr<T> Object::AddComponent(Args... args) {
     ptr->Construct(shared_from_this(), std::forward<Args>(args)...);
 
     std::shared_ptr<T> component = std::shared_ptr<T>(ptr);
-    // std::shared_ptr<T> comp = std::make_shared<T>(shared_from_this(),
-    // std::forward<Args>(args)...); comp->Init();
+    // std::shared_ptr<T> comp = std::make_shared<T>(shared_from_this(), std::forward<Args>(args)...);
+    // comp->Init();
     components_.push_back(component);
 
     return component;
@@ -441,15 +509,19 @@ std::shared_ptr<T> Object::AddComponent(Args... args) {
 //! @tparam T コンポーネントタイプ
 //! @return 追加されたコンポーネント
 template<class T>
-std::shared_ptr<T> Object::GetComponent() {
+std::shared_ptr<T> Object::GetComponent(const std::string_view& name) {
     assert(this != nullptr &&
            "実行しているオブジェクト(this)"
            "がありません。「再試行」をおして、「呼び出し履歴」からどこでemptyになったのかを確認してください。");
 
     for(auto& component: components_) {
         auto cast = std::dynamic_pointer_cast<T>(component);
-        if(cast)
-            return cast;
+        if(cast) {
+            if(name == "")
+                return cast;
+            else if(name == cast->GetName())
+                return cast;
+        }
     }
 
     return nullptr;
@@ -459,15 +531,19 @@ std::shared_ptr<T> Object::GetComponent() {
 //! @tparam T コンポーネントタイプ
 //! @return 追加されたコンポーネント
 template<class T>
-std::shared_ptr<T> Object::GetComponent() const {
+std::shared_ptr<T> Object::GetComponent(const std::string_view& name) const {
     assert(this != nullptr &&
            "実行しているオブジェクト(this)"
            "がありません。「再試行」をおして、「呼び出し履歴」からどこでemptyになったのかを確認してください。");
 
     for(auto& component: components_) {
         auto cast = std::dynamic_pointer_cast<T>(component);
-        if(cast)
-            return cast;
+        if(cast) {
+            if(name == "")
+                return cast;
+            else if(name == cast->GetName())
+                return cast;
+        }
     }
 
     return nullptr;
@@ -513,7 +589,7 @@ void Object::RemoveComponent() {
            "実行しているオブジェクト(this)"
            "がありません。「再試行」をおして、「呼び出し履歴」からどこでemptyになったのかを確認してください。");
 
-    for(size_t i = components_.size() - 1; i >= 0; --i) {
+    for(int i = components_.size() - 1; i >= 0; --i) {
         auto& c = components_[i];
 
         if(std::dynamic_pointer_cast<_Type>(c)) {

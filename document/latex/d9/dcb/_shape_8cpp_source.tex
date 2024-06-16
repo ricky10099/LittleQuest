@@ -1,0 +1,73 @@
+\hypertarget{_shape_8cpp_source}{}\doxysection{Shape.\+cpp}
+\label{_shape_8cpp_source}\index{Shape.cpp@{Shape.cpp}}
+\mbox{\hyperlink{_shape_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ Shape.cpp}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ 形状}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_shape_8h}{Shape.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_model_8h}{System/Graphics/Model.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_resource_model_8h}{System/Graphics/ResourceModel.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_model_cache_8h}{System/Graphics/ModelCache.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00010}00010\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceshape}{shape}}\ \{}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00012}00012\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00013}00013\ \textcolor{comment}{//!\ 凸形状\ ConvexHull}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00014}00014\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00016}00016\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00017}00017\ \textcolor{comment}{//!\ コンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00018}00018\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00019}\mbox{\hyperlink{classshape_1_1_convex_hull_a211c4c2d2d1d869c206cb840e24998b6}{00019}}\ \mbox{\hyperlink{classshape_1_1_convex_hull_a211c4c2d2d1d869c206cb840e24998b6}{ConvexHull::ConvexHull}}(\mbox{\hyperlink{class_model}{Model}}*\ model):\ \mbox{\hyperlink{namespaceshape}{shape}}::\mbox{\hyperlink{classshape_1_1_base}{Base}}(\mbox{\hyperlink{namespaceshape}{shape}}::\mbox{\hyperlink{class_type}{Type}}::\mbox{\hyperlink{classshape_1_1_convex_hull}{ConvexHull}})\ \{}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{auto}*\ resource\_model\ =\ model-\/>\mbox{\hyperlink{class_model_ace0fbe89210f733a1aeb5c583316e9df}{resource}}();}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{auto}*\ model\_cache\ \ \ \ =\ resource\_model-\/>\mbox{\hyperlink{class_resource_model_ad917d1ee8b36e5c6cd548558d642941d}{modelCache}}();}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{comment}{//\ リソースがロード中の場合は読み込みが終わるまで待つ}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00024}00024\ \ \ \ \ resource\_model-\/>waitForReadFinish();}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00026}00026\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00027}00027\ \ \ \ \ \textcolor{comment}{//\ モデルキャッシュから頂点配列とインデックス配列を取得}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00028}00028\ \ \ \ \ \textcolor{comment}{//\ この配列は既にリダクションされたジオメトリです}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00029}00029\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00030}00030\ \ \ \ \ \textcolor{comment}{//\ 頂点配列}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{keyword}{auto}\&\ varray\ =\ model\_cache-\/>\mbox{\hyperlink{class_model_cache_ae3ba53ee3f87c339f6816b934318af7f}{vertices}}();}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ v:\ varray)\ \{}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classshape_1_1_convex_hull_a42f128d53d823df440ef6795016473b7}{vertices\_}}.push\_back(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(v));\ \ \ \ \textcolor{comment}{//\ DxLib::VECTOR→float3にキャストしながらコピー}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00034}00034\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00035}00035\ \}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00037}00037\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00038}00038\ \textcolor{comment}{//!\ メッシュ\ Mesh}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00039}00039\ \textcolor{comment}{}\textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00041}00041\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00042}00042\ \textcolor{comment}{//!\ コンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00043}00043\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00044}\mbox{\hyperlink{classshape_1_1_mesh_a667955c63db978d73722260df32dcf4f}{00044}}\ \mbox{\hyperlink{classshape_1_1_mesh_a667955c63db978d73722260df32dcf4f}{Mesh::Mesh}}(\mbox{\hyperlink{class_model}{Model}}*\ model,\ \mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}\ scale):\ \mbox{\hyperlink{namespaceshape}{shape}}::\mbox{\hyperlink{classshape_1_1_base}{Base}}(\mbox{\hyperlink{namespaceshape}{shape}}::\mbox{\hyperlink{class_type}{Type}}::\mbox{\hyperlink{classshape_1_1_mesh}{Mesh}})\ \{}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{keyword}{auto}*\ resource\_model\ =\ model-\/>\mbox{\hyperlink{class_model_ace0fbe89210f733a1aeb5c583316e9df}{resource}}();}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00046}00046\ \ \ \ \ \textcolor{keyword}{auto}*\ model\_cache\ \ \ \ =\ resource\_model-\/>\mbox{\hyperlink{class_resource_model_ad917d1ee8b36e5c6cd548558d642941d}{modelCache}}();}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ モデルキャッシュが有効ではない場合は読み込みが終わるまで待つ}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{if}(model\_cache-\/>isValid()\ ==\ \textcolor{keyword}{false})\ \{}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ resource\_model-\/>waitForReadFinish();}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00054}00054\ \ \ \ \ \textcolor{comment}{//\ モデルキャッシュから頂点配列とインデックス配列を取得}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//\ この配列は既にリダクションされたジオメトリです}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00056}00056\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00057}00057\ \ \ \ \ \textcolor{comment}{//\ 頂点配列}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00058}00058\ \ \ \ \ \textcolor{keyword}{auto}\&\ varray\ =\ model\_cache-\/>\mbox{\hyperlink{class_model_cache_ae3ba53ee3f87c339f6816b934318af7f}{vertices}}();}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ v:\ varray)\ \{}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classshape_1_1_mesh_ac33ce2433e59d084ecc254359f63e67e}{vertices\_}}.push\_back(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(v)\ *\ scale);\ \ \ \ \textcolor{comment}{//\ DxLib::VECTOR→float3にキャストしながらコピー}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00063}00063\ \ \ \ \ \textcolor{comment}{//\ インデックス配列}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00064}00064\ \ \ \ \ \mbox{\hyperlink{classshape_1_1_mesh_a76e421a84989ed7a63e7a5f63266d713}{indices\_}}\ =\ model\_cache-\/>indices();}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00065}00065\ \}}
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{_shape_8cpp_source_l00067}00067\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ shape}}
+
+\end{DoxyCode}

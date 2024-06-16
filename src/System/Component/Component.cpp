@@ -5,8 +5,14 @@
 #include "Component.h"
 #include <System/Object.h>
 #include <System/Scene.h>
+#include <System/TypeInfo.h>
 
-BP_COMPONENT_BASE_IMPL(Component, u8"Componentクラス");
+//! Componentルートの型情報
+ComponentTypeInfo ComponentTypeInfo::component_root = ComponentTypeInfo("component_root", 0, nullptr);
+
+ComponentTypeInfo::ComponentTypeInfo(const char* class_name, size_t class_size, ComponentTypeInfo* parent_type,
+                                     const char* desc_name)
+    : TypeInfo(class_name, class_size, (TypeInfo*)parent_type, desc_name) {}
 
 //! @brief   オーナーの取得
 //! @details 従属しているオブジェクトを取得します
@@ -103,11 +109,14 @@ void Component::PostDraw() {}
 //! @brief Physics前処理
 void Component::PrePhysics() {}
 
+//! @brief Physics後処理
+void Component::PostPhysics() {}
+
 void Component::InitSerialize() {
     SetStatus(StatusBit::Serialized, true);
 }
 
-void Component::SetPriority(ProcTiming timing, Priority priority) {
+void Component::SetPriority(ProcTiming timing, ProcPriority priority) {
     Scene::GetCurrentScene()->SetPriority(shared_from_this(), timing, priority);
 }
 
@@ -147,14 +156,12 @@ bool Component::GetStatus(StatusBit b) {
 //! @page section_component Componentについて
 //! @li 単純な機能を持ったパーツです
 //! @li Objectのつけて利用できます
-//! @li
-//! 基本同じタイプのコンポーネントは付けれません。(「ComponentTransform」を2つとかは付けれません)
+//! @li 基本同じタイプのコンポーネントは付けれません。(「ComponentTransform」を2つとかは付けれません)
 //!
 //! @li コンポーネントの利用方法
 //! @code
 //!　
-//!   obj->AddComponent<ComponentModel>();  //< 「ComponentModel」を
-//!   objにて利用する
+//!   obj->AddComponent<ComponentModel>();  //< 「ComponentModel」を objにて利用する
 //!
 //!   // ※objはObjectタイプで、先に次のように作成しておく必要があります【例】
 //!   auto obj = Scene::CreateObjectPtr<Object>();
@@ -164,8 +171,7 @@ bool Component::GetStatus(StatusBit b) {
 //! @li 使用しなくなったコンポーネントの削除
 //! @code
 //!　
-//!   obj->RemoveComponent<ComponentModel>();  //< 「ComponentModel」を
-//!   objにて削除します
+//!   obj->RemoveComponent<ComponentModel>();  //< 「ComponentModel」を objにて削除します
 //!　
 //! @endcode
 //!

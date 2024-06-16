@@ -96,6 +96,4 @@ void ComponentHP::DrawHPBar() {
         break;
     }
 }
-
-BP_COMPONENT_IMPL(ComponentHP, u8"HPコンポーネント");
 }    // namespace LittleQuest

@@ -6,17 +6,19 @@
 s32 WINDOW_W = 1280;
 s32 WINDOW_H = 720;
 
-bool exit_app   = false;
-int  bgm_volume = 30;
-int  se_volume  = 75;
-int  audio[2]   = {bgm_volume, se_volume};
+#pragma region customized
+bool           exit_app   = false;
+int            bgm_volume = 30;
+int            se_volume  = 75;
+int            audio[2]   = {bgm_volume, se_volume};
+#pragma endregion
 
 //---------------------------------------------------------------------------
 //! アプリケーションエントリーポイント
 //---------------------------------------------------------------------------
-int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_unused]] HINSTANCE hPrevInstance,
-                    _In_ [[maybe_unused]] LPSTR lpCmdLine, _In_ [[maybe_unused]] int nShowCmd) {
-     // 高DPI対応
+int WINAPI     WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_unused]] HINSTANCE hPrevInstance,
+                       _In_ [[maybe_unused]] LPSTR lpCmdLine, _In_ [[maybe_unused]] int nShowCmd) {
+    // 高DPI対応
     SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
     SetOutApplicationLogValidFlag(FALSE);
@@ -25,7 +27,7 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
     IniFileLib   ini("Game.ini");
     const bool   is_fullscreen = ini.GetBool("System", "FullScreen");
     const float2 screen_size   = ini.GetFloat2("System", "ScreenSize", {WINDOW_W, WINDOW_H});
-    const auto   title_name    = ini.GetString("System", "Title", "BaseProject2022");
+    const auto   title_name    = ini.GetString("System", "Title", "BaseProject2024");
 
     WINDOW_W = static_cast<int>(screen_size.x);
     WINDOW_H = static_cast<int>(screen_size.y);
@@ -36,12 +38,20 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
     ChangeWindowMode(!is_fullscreen);
 
     if(!is_fullscreen) {
-         // 高DPI対応のための自動リサイズを抑制するために手動でウィンドウサイズを指定。
+        // 高DPI対応のための自動リサイズを抑制するために手動でウィンドウサイズを指定。
         // 但し、フルスクリーンモードでこれを実行すると描画範囲が壊れるためウィンドウモード時のみ実行
         SetWindowSize(WINDOW_W, WINDOW_H);
+
+        if(ini.GetBool("System", "GUIEditor")) {
+            int width  = GetSystemMetrics(SM_CXSCREEN);
+            int height = GetSystemMetrics(SM_CYSCREEN);
+            int pos_x  = std::max((width - (WINDOW_W + 400)) / 2, 0);
+            int pos_y  = std::max((height - (WINDOW_H + 200)) / 2, 0);
+            SetWindowPosition(pos_x, pos_y);
+        }
     }
 
-     SetBackgroundColor(0, 0, 0);
+    SetBackgroundColor(0, 0, 0);
     SetMainWindowText(title_name.c_str());
     SetAlwaysRunFlag(true);    // ウィンドウメッセージを常に実行
 
@@ -55,20 +65,21 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
     SetASyncLoadThreadNum(4);
 
     if(DxLib_Init() == -1) {
-         return -1;
+        return -1;
     }
 
     // Effekseerの初期化
     if(Effekseer_Init(8000) == -1) {
-         DxLib_End();
-         return -1;
+        DxLib_End();
+        return -1;
     }
-
-    Effekseer_InitDistortion();
 
     // Effekseer対応
     SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
     Effekseer_SetGraphicsDeviceLostCallbackFunctions();
+#pragma region customized
+    Effekseer_InitDistortion();
+#pragma endregion
 
     SetDrawScreen(DX_SCREEN_BACK);
     SetTransColor(255, 0, 255);
@@ -94,11 +105,13 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
     //----------------------------------------------------------
     // メインループ
     //----------------------------------------------------------
- #if defined _DEBUG
+#pragma region customized
+#if defined    _DEBUG
     while(ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0 && !IsProcEnd()) {
 #else
     while(ProcessMessage() == 0 && !IsProcEnd()) {
 #endif
+#pragma endregion
         // 1フレームの開始
         SystemBeginFrame();
 
@@ -114,7 +127,7 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
         InputMouseUpdate();
         ImGuiUpdate();
 
-        ShaderBase::updateFileWatcher();    // ファイル監視を更新
+        Shader::updateFileWatcher();    // ファイル監視を更新
 
         // ---------------
         // 更新処理
@@ -125,9 +138,11 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
         SystemUpdate();
         UpdateEffekseer3D();
 
+#pragma region customized
         if(exit_app) {
             break;
         }
+#pragma endregion
 
         // ---------------
         // 描画処理
@@ -143,7 +158,6 @@ int WINAPI  WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_
         // ---------------
         // 画面更新
         // ---------------
-
         ScreenFlip();
     }
 

@@ -51,6 +51,4 @@ void ComponentTexture2D::SetPosition(float x1, float y1, float x2, float y2) {
     m_vertex[2].pos = {x1, y2, 0.0f};
     m_vertex[3].pos = {x2, y2, 0.0f};
 }
-
-BP_COMPONENT_IMPL(ComponentTexture2D, u8"Textureasdコンポーネント");
 }    // namespace LittleQuest

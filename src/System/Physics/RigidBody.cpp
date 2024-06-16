@@ -110,8 +110,7 @@ class RigidBodyImpl: public physics::RigidBody {
 
     //! 位置を設定
     //! @param  [in]    position    設定座標
-    //! @param  [in]    is_activate アクティブ化するかどうか
-    //! true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
     virtual void setPosition(const float3& position, bool is_activate = true) override {
         physics::Engine::bodyInterface()->SetPosition(
             body_id_, castJPH(position), is_activate ? JPH::EActivation::Activate : JPH::EActivation::DontActivate);
@@ -131,8 +130,7 @@ class RigidBodyImpl: public physics::RigidBody {
 
     //! 回転姿勢を設定
     //! @param  [in]    rot         設定角度
-    //! @param  [in]    is_activate アクティブ化するかどうか
-    //! true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
     virtual void setRotation(const quaternion& rot, bool is_activate = true) override {
         JPH::QuatArg q = castJPH(rot);
         physics::Engine::bodyInterface()->SetRotation(
@@ -158,14 +156,12 @@ class RigidBodyImpl: public physics::RigidBody {
     //@}
     //-----------------------------------------------------------
     //! @name   速度と角速度
-    //! @details
-    //! LinearVelocityは重心の速度であり、物体の位置と一致しない場合がありますので補正してください。
+    //! @details LinearVelocityは重心の速度であり、物体の位置と一致しない場合がありますので補正してください。
     //-----------------------------------------------------------
     //@{
 
     //! 速度と角速度を逆算して設定
-    //! target_position/target_rotation に delta_time
-    //! 秒で位置するようにボディの速度を設定する。
+    //! target_position/target_rotation に delta_time 秒で位置するようにボディの速度を設定する。
     //! 必要に応じてボディをアクティブにします。
     virtual void moveKinematic(const float3& target_position, const quaternion& target_rotation, f32 delta_time) override {
         JPH::Vec3 tpos = castJPH(target_position);
@@ -312,8 +308,7 @@ class RigidBodyImpl: public physics::RigidBody {
 
     //! 動的/静的/キネマティックを切り替え
     //! @param  [in]    motion_type 動作タイプ
-    //! @param  [in]    is_activate アクティブ化するかどうか
-    //! true:アクティブにする false:アクティブにしない
+    //! @param  [in]    is_activate アクティブ化するかどうか true:アクティブにする false:アクティブにしない
     virtual void setMotionType(physics::MotionType motion_type, bool is_activate = true) override {
         physics::Engine::bodyInterface()->SetMotionType(
             body_id_, convertTo(motion_type), is_activate ? JPH::EActivation::Activate : JPH::EActivation::DontActivate);
@@ -328,10 +323,15 @@ class RigidBodyImpl: public physics::RigidBody {
     //! @param  [s] ユーザーデーター(識別用に任意に設定可能です)
     virtual void setData(std::intptr_t s) override {
         data_ = s;
+        if(jph_body_)
+            jph_body_->SetUserData(s);
     }
 
     //! ユーザーデーターを取得
     virtual std::intptr_t data() const override {
+        if(jph_body_)
+            return jph_body_->GetUserData();
+
         return data_;
     }
 
@@ -354,9 +354,11 @@ class RigidBodyImpl: public physics::RigidBody {
 //---------------------------------------------------------------------------
 //! Sphere剛体を作成
 //---------------------------------------------------------------------------
-std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Sphere& o, u16 layer, physics::MotionType motion_type) {
+std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Sphere& o, u16 layer, physics::MotionType motion_type,
+                                                    f32 density) {
     // シェイプを生成
-    JPH::SphereShapeSettings        shape_settings(o.radius_);
+    JPH::SphereShapeSettings shape_settings(o.radius_);
+    shape_settings.SetDensity(density);
     JPH::ShapeSettings::ShapeResult result = shape_settings.Create();
 
     if(result.HasError())
@@ -369,9 +371,11 @@ std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Sphere& o, u16 
 //---------------------------------------------------------------------------
 //! Box剛体を作成
 //---------------------------------------------------------------------------
-std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Box& o, u16 layer, physics::MotionType motion_type) {
+std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Box& o, u16 layer, physics::MotionType motion_type,
+                                                    f32 density) {
     // シェイプを生成
-    JPH::BoxShapeSettings           shape_settings(JPH::Vec3(o.extent_.x, o.extent_.y, o.extent_.z));
+    JPH::BoxShapeSettings shape_settings(JPH::Vec3(o.extent_.x, o.extent_.y, o.extent_.z));
+    shape_settings.SetDensity(density);
     JPH::ShapeSettings::ShapeResult result = shape_settings.Create();
 
     if(result.HasError())
@@ -384,9 +388,28 @@ std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Box& o, u16 lay
 //---------------------------------------------------------------------------
 //! Cylinder剛体を作成
 //---------------------------------------------------------------------------
-std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Cylinder& o, u16 layer, physics::MotionType motion_type) {
+std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Cylinder& o, u16 layer, physics::MotionType motion_type,
+                                                    f32 density) {
     // シェイプを生成
-    JPH::CylinderShapeSettings      shape_settings(o.half_height_, o.radius_);
+    JPH::CylinderShapeSettings shape_settings(o.half_height_, o.radius_);
+    shape_settings.SetDensity(density);
+    JPH::ShapeSettings::ShapeResult result = shape_settings.Create();
+
+    if(result.HasError())
+        return nullptr;
+
+    // 作成
+    return std::make_shared<RigidBodyImpl>(result.Get(), layer, motion_type);
+}
+
+//---------------------------------------------------------------------------
+//! Capsule剛体を作成
+//---------------------------------------------------------------------------
+std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Capsule& o, u16 layer, physics::MotionType motion_type,
+                                                    f32 density) {
+    // シェイプを生成
+    JPH::CapsuleShapeSettings shape_settings(o.half_height_, o.radius_);
+    shape_settings.SetDensity(density);
     JPH::ShapeSettings::ShapeResult result = shape_settings.Create();
 
     if(result.HasError())
@@ -399,7 +422,8 @@ std::shared_ptr<physics::RigidBody> createRigidBody(const shape::Cylinder& o, u1
 //---------------------------------------------------------------------------
 //! ConvexHull剛体を作成
 //---------------------------------------------------------------------------
-std::shared_ptr<physics::RigidBody> createRigidBody(const shape::ConvexHull& o, u16 layer, physics::MotionType motion_type) {
+std::shared_ptr<physics::RigidBody> createRigidBody(const shape::ConvexHull& o, u16 layer, physics::MotionType motion_type,
+                                                    f32 density) {
     //----------------------------------------------------------
     // 頂点配列を取得
     //----------------------------------------------------------
@@ -415,7 +439,8 @@ std::shared_ptr<physics::RigidBody> createRigidBody(const shape::ConvexHull& o, 
     // シェイプを生成
     //----------------------------------------------------------
 
-    JPH::ConvexHullShapeSettings    shape_settings(vertexList);
+    JPH::ConvexHullShapeSettings shape_settings(vertexList);
+    shape_settings.SetDensity(density);
     JPH::ShapeSettings::ShapeResult result = shape_settings.Create();
 
     if(result.HasError())

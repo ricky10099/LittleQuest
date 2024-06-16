@@ -1,0 +1,535 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: VectorMath.h ファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_ef68f1e1f5148ff8ef7fb1c955106c3c.html">System</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">クラス</a>  </div>
+  <div class="headertitle"><div class="title">VectorMath.h ファイル</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>ベクトル算術演算  
+<a href="#details">[詳解]</a></p>
+<div class="textblock"><div class="dynheader">
+被依存関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d7/d57/_vector_math_8h__dep__incl.png" border="0" usemap="#a_vector_math_8hdep" alt=""/></div>
+<map name="a_vector_math_8hdep" id="a_vector_math_8hdep">
+<area shape="rect" title="ベクトル算術演算" alt="" coords="2075,5,2175,31"/>
+<area shape="rect" href="../../d4/dab/_cereal_8h.html" title="シリアル組み込み用" alt="" coords="1670,79,1741,104"/>
+<area shape="rect" href="../../d0/d46/_component_transform_8h.html" title="トランスフォームコンポーネント(座標と姿勢と大きさ)" alt="" coords="2005,152,2161,177"/>
+<area shape="rect" href="../../d2/ddd/_precompile_8h.html" title=" " alt="" coords="2120,79,2219,104"/>
+<area shape="rect" href="../../d7/d97/_vector_math_8cpp.html" title="ベクトル算術演算" alt="" coords="2243,79,2357,104"/>
+<area shape="rect" href="../../da/d05/_component_attach_model_8h.html" title=" " alt="" coords="3187,299,3359,324"/>
+<area shape="rect" href="../../da/d3c/_component_camera_8h.html" title=" " alt="" coords="557,225,701,251"/>
+<area shape="rect" href="../../de/d56/_scene_8h.html" title="シーン" alt="" coords="1411,299,1482,324"/>
+<area shape="rect" href="../../d4/db0/_component_sequencer_8h.html" title=" " alt="" coords="921,299,1082,324"/>
+<area shape="rect" href="../../de/d27/_component_spring_arm_8h.html" title=" " alt="" coords="2377,299,2537,324"/>
+<area shape="rect" href="../../d1/d83/_component_target_tracking_8h.html" title=" " alt="" coords="2697,372,2881,397"/>
+<area shape="rect" href="../../df/d30/_object_8h.html" title="オブジェクト ベースクラス" alt="" coords="1670,225,1741,251"/>
+<area shape="rect" href="../../d1/d97/_priority_8h.html" title="優先設定" alt="" coords="907,152,981,177"/>
+<area shape="rect" href="../../db/d09/_proc_timing_8h.html" title="処理タイミング" alt="" coords="728,225,827,251"/>
+<area shape="rect" href="../../de/d38/_abandon_house_8cpp.html" title=" " alt="" coords="3887,372,4022,397"/>
+<area shape="rect" href="../../df/d75/_boss_8cpp.html" title=" " alt="" coords="2873,445,2951,471"/>
+<area shape="rect" href="../../d3/d4b/_broken_house_8cpp.html" title=" " alt="" coords="3412,372,3537,397"/>
+<area shape="rect" href="../../da/d85/_component_attach_model_8cpp.html" title=" " alt="" coords="1980,372,2167,397"/>
+<area shape="rect" href="../../d9/dc0/_destroyed_house_8cpp.html" title=" " alt="" coords="3613,372,3755,397"/>
+<area shape="rect" href="../../de/d34/_enemy_8cpp.html" title=" " alt="" coords="2745,445,2833,471"/>
+<area shape="rect" href="../../d4/d0f/_fence_8cpp.html" title=" " alt="" coords="3780,372,3863,397"/>
+<area shape="rect" href="../../d3/d7a/_mutant_8cpp.html" title=" " alt="" coords="3674,445,3761,471"/>
+<area shape="rect" href="../../d2/d82/_player_8cpp.html" title=" " alt="" coords="3089,445,3173,471"/>
+<area shape="rect" href="../../d4/de0/_stage01_8cpp.html" title="Stage01シーン" alt="" coords="2309,445,2403,471"/>
+<area shape="rect" href="../../da/df3/_zombie_8cpp.html" title=" " alt="" coords="2975,445,3065,471"/>
+<area shape="rect" href="../../d2/de0/_component_camera_8cpp.html" title=" " alt="" coords="237,372,395,397"/>
+<area shape="rect" href="../../d7/d7f/_debug_camera_8h.html" title="デバッグカメラ" alt="" coords="404,299,519,324"/>
+<area shape="rect" href="../../d8/ded/_object_8cpp.html" title="オブジェクト ベースクラス" alt="" coords="1944,445,2029,471"/>
+<area shape="rect" href="../../d5/da8/_stage01_8h.html" title="Stage01シーン" alt="" coords="825,372,906,397"/>
+<area shape="rect" href="../../d9/d44/_scene_8cpp.html" title=" " alt="" coords="419,372,503,397"/>
+<area shape="rect" href="../../d5/d91/_camera_8h.html" title=" " alt="" coords="1102,372,1181,397"/>
+<area shape="rect" href="../../dc/d7b/_component_collision_capsule_8cpp.html" title=" " alt="" coords="4325,372,4534,397"/>
+<area shape="rect" href="../../d9/d14/_component_collision_line_8cpp.html" title=" " alt="" coords="5084,372,5271,397"/>
+<area shape="rect" href="../../d8/d18/_component_collision_model_8cpp.html" title=" " alt="" coords="4863,372,5060,397"/>
+<area shape="rect" href="../../d3/d5d/_component_collision_sphere_8cpp.html" title=" " alt="" coords="4097,372,4300,397"/>
+<area shape="rect" href="../../d0/d8a/_component_effect_8cpp.html" title=" " alt="" coords="931,372,1077,397"/>
+<area shape="rect" href="../../db/dd6/_component_sequencer_8cpp.html" title=" " alt="" coords="1358,372,1533,397"/>
+<area shape="rect" href="../../d3/de8/_component_spring_arm_8cpp.html" title=" " alt="" coords="1557,372,1731,397"/>
+<area shape="rect" href="../../d4/d72/_component_target_tracking_8cpp.html" title=" " alt="" coords="637,445,835,471"/>
+<area shape="rect" href="../../d2/de3/_component_transform_8cpp.html" title="トランスフォームコンポーネント(座標と姿勢と大きさ)" alt="" coords="528,372,699,397"/>
+<area shape="rect" href="../../d1/d33/_camera_8cpp.html" title=" " alt="" coords="2445,445,2537,471"/>
+<area shape="rect" href="../../d8/da0/_component_collision_8cpp.html" title=" " alt="" coords="5599,372,5761,397"/>
+<area shape="rect" href="../../de/d6c/_component_collision_capsule_8h.html" title="Capsuleコリジョンコンポーネント" alt="" coords="4976,299,5171,324"/>
+<area shape="rect" href="../../d7/dd6/_component_collision_line_8h.html" title="Sphereコリジョンコンポーネント" alt="" coords="5195,299,5367,324"/>
+<area shape="rect" href="../../db/d69/_component_collision_model_8h.html" title="Sphereコリジョンコンポーネント" alt="" coords="4338,299,4521,324"/>
+<area shape="rect" href="../../dd/d26/_component_collision_sphere_8h.html" title="Sphereコリジョンコンポーネント" alt="" coords="5704,299,5893,324"/>
+<area shape="rect" href="../../dc/dec/_component_effect_8h.html" title="モデルコンポーネント" alt="" coords="1558,299,1690,324"/>
+<area shape="rect" href="../../d4/d4d/_component_model_8cpp.html" title=" " alt="" coords="1807,372,1955,397"/>
+<area shape="rect" href="../../d2/da1/_component_model_8h.html" title="モデルコンポーネント" alt="" coords="2927,299,3062,324"/>
+<area shape="rect" href="../../dc/d91/_precompile_8cpp.html" title=" " alt="" coords="4744,152,4856,177"/>
+</map>
+</div>
+</div>
+<p><a href="../../de/d57/_vector_math_8h_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+クラス</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">4x4行列  <a href="../../d1/d8d/classmatrix.html#details">[詳解]</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+関数</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">DxLib相互キャスト処理</div></td></tr>
+<tr class="memitem:acaf43804f3b1a2e96e58f2ccbbeaab76"><td class="memItemLeft" align="right" valign="top">DxLib::FLOAT2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d57/_vector_math_8h.html#acaf43804f3b1a2e96e58f2ccbbeaab76">cast</a> (const float2 &amp;v)</td></tr>
+<tr class="memdesc:acaf43804f3b1a2e96e58f2ccbbeaab76"><td class="mdescLeft">&#160;</td><td class="mdescRight">DxLib::FLOAT2へキャスト  <br /></td></tr>
+<tr class="separator:acaf43804f3b1a2e96e58f2ccbbeaab76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af225719d25df601bb1f8cfb8832b3578"><td class="memItemLeft" align="right" valign="top">DxLib::FLOAT3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d57/_vector_math_8h.html#af225719d25df601bb1f8cfb8832b3578">cast</a> (const float3 &amp;v)</td></tr>
+<tr class="memdesc:af225719d25df601bb1f8cfb8832b3578"><td class="mdescLeft">&#160;</td><td class="mdescRight">DxLib::VECTOR/FLOAT3へキャスト  <br /></td></tr>
+<tr class="separator:af225719d25df601bb1f8cfb8832b3578"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdd91097aaa20b7f04bfe06e8af94ccf"><td class="memItemLeft" align="right" valign="top">DxLib::FLOAT4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d57/_vector_math_8h.html#abdd91097aaa20b7f04bfe06e8af94ccf">cast</a> (const float4 &amp;v)</td></tr>
+<tr class="memdesc:abdd91097aaa20b7f04bfe06e8af94ccf"><td class="mdescLeft">&#160;</td><td class="mdescRight">DxLib::FLOAT4へキャスト  <br /></td></tr>
+<tr class="separator:abdd91097aaa20b7f04bfe06e8af94ccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6acc7323b2f4406ac4c3e70a6e2575d"><td class="memItemLeft" align="right" valign="top">DxLib::INT4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d57/_vector_math_8h.html#ad6acc7323b2f4406ac4c3e70a6e2575d">cast</a> (const int4 &amp;v)</td></tr>
+<tr class="memdesc:ad6acc7323b2f4406ac4c3e70a6e2575d"><td class="mdescLeft">&#160;</td><td class="mdescRight">DxLib::INT4へキャスト  <br /></td></tr>
+<tr class="separator:ad6acc7323b2f4406ac4c3e70a6e2575d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad50fc03a0312fcdffacbbde80f3e3430"><td class="memItemLeft" align="right" valign="top">DxLib::MATRIX&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d57/_vector_math_8h.html#ad50fc03a0312fcdffacbbde80f3e3430">cast</a> (const float4x4 &amp;m)</td></tr>
+<tr class="memdesc:ad50fc03a0312fcdffacbbde80f3e3430"><td class="mdescLeft">&#160;</td><td class="mdescRight">DxLib::MATRIXへキャスト  <br /></td></tr>
+<tr class="separator:ad50fc03a0312fcdffacbbde80f3e3430"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5e7ca84aeca70390f27da4a2b2bea74"><td class="memItemLeft" align="right" valign="top">float2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d57/_vector_math_8h.html#aa5e7ca84aeca70390f27da4a2b2bea74">cast</a> (const DxLib::FLOAT2 &amp;v)</td></tr>
+<tr class="memdesc:aa5e7ca84aeca70390f27da4a2b2bea74"><td class="mdescLeft">&#160;</td><td class="mdescRight">float2へキャスト  <br /></td></tr>
+<tr class="separator:aa5e7ca84aeca70390f27da4a2b2bea74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95c9740648838ebc82e8a5691f4e23b1"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d57/_vector_math_8h.html#a95c9740648838ebc82e8a5691f4e23b1">cast</a> (const DxLib::FLOAT3 &amp;v)</td></tr>
+<tr class="memdesc:a95c9740648838ebc82e8a5691f4e23b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">float3へキャスト  <br /></td></tr>
+<tr class="separator:a95c9740648838ebc82e8a5691f4e23b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1b44a3c0e33569c25933e937debabf3"><td class="memItemLeft" align="right" valign="top">float4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d57/_vector_math_8h.html#af1b44a3c0e33569c25933e937debabf3">cast</a> (const DxLib::FLOAT4 &amp;v)</td></tr>
+<tr class="memdesc:af1b44a3c0e33569c25933e937debabf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">float4へキャスト  <br /></td></tr>
+<tr class="separator:af1b44a3c0e33569c25933e937debabf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca6dd18b88776290653485d24a4162a8"><td class="memItemLeft" align="right" valign="top">int4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d57/_vector_math_8h.html#aca6dd18b88776290653485d24a4162a8">cast</a> (const DxLib::INT4 &amp;v)</td></tr>
+<tr class="memdesc:aca6dd18b88776290653485d24a4162a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">int4へキャスト  <br /></td></tr>
+<tr class="separator:aca6dd18b88776290653485d24a4162a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93f8847088bf7c3b51eee6aa46577bd5"><td class="memItemLeft" align="right" valign="top">float4x4&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d57/_vector_math_8h.html#a93f8847088bf7c3b51eee6aa46577bd5">cast</a> (const DxLib::MATRIX &amp;m)</td></tr>
+<tr class="memdesc:a93f8847088bf7c3b51eee6aa46577bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">float4x4へキャスト  <br /></td></tr>
+<tr class="separator:a93f8847088bf7c3b51eee6aa46577bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">hlslppの追加関数</div></td></tr>
+<tr class="memitem:ab151ff244ab06b4f346d5827dde650e0"><td class="memItemLeft" align="right" valign="top">hlslpp_inline float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d57/_vector_math_8h.html#ab151ff244ab06b4f346d5827dde650e0">mul</a> (const float3x4 &amp;m1, const float4 &amp;v)</td></tr>
+<tr class="memdesc:ab151ff244ab06b4f346d5827dde650e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">3x4行列 ✕ float4  <br /></td></tr>
+<tr class="separator:ab151ff244ab06b4f346d5827dde650e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<div class="textblock"><p>ベクトル算術演算 </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> に定義があります。</p>
+</div><h2 class="groupheader">関数詳解</h2>
+<a id="aa5e7ca84aeca70390f27da4a2b2bea74" name="aa5e7ca84aeca70390f27da4a2b2bea74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5e7ca84aeca70390f27da4a2b2bea74">&#9670;&#160;</a></span>cast() <span class="overload">[1/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float2 cast </td>
+          <td>(</td>
+          <td class="paramtype">const DxLib::FLOAT2 &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>float2へキャスト </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00040">40</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="a95c9740648838ebc82e8a5691f4e23b1" name="a95c9740648838ebc82e8a5691f4e23b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95c9740648838ebc82e8a5691f4e23b1">&#9670;&#160;</a></span>cast() <span class="overload">[2/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float3 cast </td>
+          <td>(</td>
+          <td class="paramtype">const DxLib::FLOAT3 &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>float3へキャスト </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00045">45</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="af1b44a3c0e33569c25933e937debabf3" name="af1b44a3c0e33569c25933e937debabf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1b44a3c0e33569c25933e937debabf3">&#9670;&#160;</a></span>cast() <span class="overload">[3/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float4 cast </td>
+          <td>(</td>
+          <td class="paramtype">const DxLib::FLOAT4 &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>float4へキャスト </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00050">50</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="aca6dd18b88776290653485d24a4162a8" name="aca6dd18b88776290653485d24a4162a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca6dd18b88776290653485d24a4162a8">&#9670;&#160;</a></span>cast() <span class="overload">[4/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int4 cast </td>
+          <td>(</td>
+          <td class="paramtype">const DxLib::INT4 &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>int4へキャスト </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00055">55</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="a93f8847088bf7c3b51eee6aa46577bd5" name="a93f8847088bf7c3b51eee6aa46577bd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93f8847088bf7c3b51eee6aa46577bd5">&#9670;&#160;</a></span>cast() <span class="overload">[5/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float4x4 cast </td>
+          <td>(</td>
+          <td class="paramtype">const DxLib::MATRIX &amp;&#160;</td>
+          <td class="paramname"><em>m</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>float4x4へキャスト </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00060">60</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="acaf43804f3b1a2e96e58f2ccbbeaab76" name="acaf43804f3b1a2e96e58f2ccbbeaab76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acaf43804f3b1a2e96e58f2ccbbeaab76">&#9670;&#160;</a></span>cast() <span class="overload">[6/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DxLib::FLOAT2 cast </td>
+          <td>(</td>
+          <td class="paramtype">const float2 &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>DxLib::FLOAT2へキャスト </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00013">13</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d8/d18/_component_collision_model_8cpp_source.html#l00204">ComponentCollisionModel::checkMovement()</a>, <a class="el" href="../../d9/dcb/_shape_8cpp_source.html#l00019">shape::ConvexHull::ConvexHull()</a>, <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00061">DecomposeMatrixToComponents()</a>, <a class="el" href="../../dc/d7b/_component_collision_capsule_8cpp_source.html#l00121">ComponentCollisionCapsule::Draw()</a>, <a class="el" href="../../d9/d14/_component_collision_line_8cpp_source.html#l00042">ComponentCollisionLine::Draw()</a>, <a class="el" href="../../d8/d18/_component_collision_model_8cpp_source.html#l00037">ComponentCollisionModel::Draw()</a>, <a class="el" href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00029">ComponentCollisionSphere::Draw()</a>, <a class="el" href="../../df/d30/_object_8h_source.html#l00444">Object::GetComponent()</a>, <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00441">IMatrix&lt; T &gt;::GetDegreeToVector()</a>, <a class="el" href="../../de/d56/_scene_8h_source.html#l00650">Scene::Base::GetObjectPtr()</a>, <a class="el" href="../../de/d56/_scene_8h_source.html#l00702">Scene::Base::GetObjectsPtr()</a>, <a class="el" href="../../d8/da0/_component_collision_8cpp_source.html#l00257">ComponentCollision::isHit()</a>, <a class="el" href="../../d9/dcb/_shape_8cpp_source.html#l00044">shape::Mesh::Mesh()</a>, <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00166">ComponentCamera::MousePositionRay()</a>, <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00223">matrix::operator DxLib::MATRIX const()</a>, <a class="el" href="../../d9/d44/_scene_8cpp_source.html#l01600">Scene::PickObject()</a>, <a class="el" href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00057">ComponentTargetTracking::PostUpdate()</a>, <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00089">RecomposeMatrixFromComponents()</a>, <a class="el" href="../../d5/d0e/_model_cache_8cpp_source.html#l00336">ModelCache::render()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00061">Frustum::renderDebug()</a>, <a class="el" href="../../d5/d0e/_model_cache_8cpp_source.html#l00044">ModelCache::save()</a>, <a class="el" href="../../df/d75/_boss_8cpp_source.html#l00260">LittleQuest::Boss::SelectAction()</a>, <a class="el" href="../../df/d75/_boss_8cpp_source.html#l00329">LittleQuest::Boss::SelectAngryAction()</a>, <a class="el" href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00272">ComponentTargetTracking::SetTrackingNode()</a>, <a class="el" href="../../da/ded/_model_8h_source.html#l00088">Model::setWorldMatrix()</a>, <a class="el" href="../../d7/d9e/_component_h_p_8cpp_source.html#l00007">LittleQuest::ComponentHP::Update()</a> (計26項目).</p>
+
+</div>
+</div>
+<a id="af225719d25df601bb1f8cfb8832b3578" name="af225719d25df601bb1f8cfb8832b3578"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af225719d25df601bb1f8cfb8832b3578">&#9670;&#160;</a></span>cast() <span class="overload">[7/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DxLib::FLOAT3 cast </td>
+          <td>(</td>
+          <td class="paramtype">const float3 &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>DxLib::VECTOR/FLOAT3へキャスト </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00018">18</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="abdd91097aaa20b7f04bfe06e8af94ccf" name="abdd91097aaa20b7f04bfe06e8af94ccf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdd91097aaa20b7f04bfe06e8af94ccf">&#9670;&#160;</a></span>cast() <span class="overload">[8/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DxLib::FLOAT4 cast </td>
+          <td>(</td>
+          <td class="paramtype">const float4 &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>DxLib::FLOAT4へキャスト </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00023">23</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="ad50fc03a0312fcdffacbbde80f3e3430" name="ad50fc03a0312fcdffacbbde80f3e3430"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50fc03a0312fcdffacbbde80f3e3430">&#9670;&#160;</a></span>cast() <span class="overload">[9/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DxLib::MATRIX cast </td>
+          <td>(</td>
+          <td class="paramtype">const float4x4 &amp;&#160;</td>
+          <td class="paramname"><em>m</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>DxLib::MATRIXへキャスト </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00033">33</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="ad6acc7323b2f4406ac4c3e70a6e2575d" name="ad6acc7323b2f4406ac4c3e70a6e2575d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6acc7323b2f4406ac4c3e70a6e2575d">&#9670;&#160;</a></span>cast() <span class="overload">[10/10]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">DxLib::INT4 cast </td>
+          <td>(</td>
+          <td class="paramtype">const int4 &amp;&#160;</td>
+          <td class="paramname"><em>v</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>DxLib::INT4へキャスト </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00028">28</a> 行目に定義があります。</p>
+
+</div>
+</div>
+<a id="ab151ff244ab06b4f346d5827dde650e0" name="ab151ff244ab06b4f346d5827dde650e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab151ff244ab06b4f346d5827dde650e0">&#9670;&#160;</a></span>mul()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hlslpp_inline float3 mul </td>
+          <td>(</td>
+          <td class="paramtype">const float3x4 &amp;&#160;</td>
+          <td class="paramname"><em>m1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const float4 &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>3x4行列 ✕ float4 </p>
+
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00073">73</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00090">IMatrix&lt; T &gt;::AddTranslate()</a>, <a class="el" href="../../dc/d7b/_component_collision_capsule_8cpp_source.html#l00121">ComponentCollisionCapsule::Draw()</a>, <a class="el" href="../../d0/d8a/_component_effect_8cpp_source.html#l00293">ComponentEffect::GetOldWorldMatrix()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00531">ComponentModel::GetOldWorldMatrix()</a>, <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00133">ComponentCamera::GetPosition()</a>, <a class="el" href="../../da/d85/_component_attach_model_8cpp_source.html#l00056">ComponentAttachModel::GetPutOnMatrix()</a>, <a class="el" href="../../d3/de8/_component_spring_arm_8cpp_source.html#l00059">ComponentSpringArm::GetPutOnMatrix()</a>, <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00157">ComponentCamera::GetTarget()</a>, <a class="el" href="../../d9/d14/_component_collision_line_8cpp_source.html#l00141">ComponentCollisionLine::GetWorldLine()</a>, <a class="el" href="../../dc/d7b/_component_collision_capsule_8cpp_source.html#l00289">ComponentCollisionCapsule::GetWorldMatrix()</a>, <a class="el" href="../../d9/d14/_component_collision_line_8cpp_source.html#l00185">ComponentCollisionLine::GetWorldMatrix()</a>, <a class="el" href="../../d8/d18/_component_collision_model_8cpp_source.html#l00181">ComponentCollisionModel::GetWorldMatrix()</a>, <a class="el" href="../../d3/d5d/_component_collision_sphere_8cpp_source.html#l00141">ComponentCollisionSphere::GetWorldMatrix()</a>, <a class="el" href="../../d0/d8a/_component_effect_8cpp_source.html#l00286">ComponentEffect::GetWorldMatrix()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00524">ComponentModel::GetWorldMatrix()</a>, <a class="el" href="../../d2/d82/_player_8cpp_source.html#l00267">LittleQuest::Player::InputHandle()</a>, <a class="el" href="../../d8/da0/_component_collision_8cpp_source.html#l00257">ComponentCollision::isHit()</a>, <a class="el" href="../../d0/d8a/_component_effect_8cpp_source.html#l00065">ComponentEffect::PostUpdate()</a>, <a class="el" href="../../d3/de8/_component_spring_arm_8cpp_source.html#l00042">ComponentSpringArm::PostUpdate()</a>, <a class="el" href="../../d4/d72/_component_target_tracking_8cpp_source.html#l00057">ComponentTargetTracking::PostUpdate()</a>, <a class="el" href="../../d8/dec/_debug_camera_8cpp_source.html#l00037">DebugCamera::DebugCamera::PreDraw()</a>, <a class="el" href="../../dc/d7b/_component_collision_capsule_8cpp_source.html#l00043">ComponentCollisionCapsule::PrePhysics()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00170">Frustum::setLookAt()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">Frustum::update()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00043">ComponentModel::Update()</a> (計25項目).</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>

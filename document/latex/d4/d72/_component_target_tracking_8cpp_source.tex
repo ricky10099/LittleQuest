@@ -1,0 +1,327 @@
+\hypertarget{_component_target_tracking_8cpp_source}{}\doxysection{Component\+Target\+Tracking.\+cpp}
+\label{_component_target_tracking_8cpp_source}\index{ComponentTargetTracking.cpp@{ComponentTargetTracking.cpp}}
+\mbox{\hyperlink{_component_target_tracking_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_target_tracking_8h}{System/Component/ComponentTargetTracking.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_model_8h}{System/Component/ComponentModel.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_transform_8h}{System/Component/ComponentTransform.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_object_8h}{System/Object.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_scene_8h}{System/Scene.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_im_gui_8h}{System/ImGui.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_helper_lib_8h}{System/Utils/HelperLib.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00010}\mbox{\hyperlink{_component_target_tracking_8cpp_ab5320bead7292545cb5be2f56f9790bd}{00010}}\ \mbox{\hyperlink{_component_8h_acb5da28bae949d7ba8d6a74c97e1e394}{BP\_COMPONENT\_IMPL}}(\mbox{\hyperlink{class_component_target_tracking}{ComponentTargetTracking}},\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}TargetTracking機能クラス"{}});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00012}00012\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00013}00013\ std::string\ null\_name\ =\ \textcolor{stringliteral}{"{}\ \ "{}};}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00015}00015\ \textcolor{comment}{//\ string用のCombo}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00016}00016\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ Combo(\textcolor{keyword}{const}\ std::string\&\ caption,\ std::string\&\ current\_item,\ \textcolor{keyword}{const}\ std::vector<std::string\_view>\&\ items)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00017}00017\ \ \ \ \ \textcolor{keywordtype}{int}\ select\_index\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginCombo(caption.c\_str(),\ current\_item.c\_str()))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ items.size();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ item\ =\ items[i];}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ is\_selected\ =\ (current\_item\ ==\ item);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Selectable(item.data(),\ is\_selected))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ current\_item\ =\ item;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ select\_index\ =\ i;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(is\_selected)}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::SetItemDefaultFocus();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ ImGui::EndCombo();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{keywordflow}{return}\ select\_index;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00035}00035\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00037}00037\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00039}00039\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00040}00040\ \textcolor{comment}{//!\ カメラ初期化}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00041}00041\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00042}\mbox{\hyperlink{class_component_target_tracking_ac054f0910aa806784323f2ecac25ecd3}{00042}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_ac054f0910aa806784323f2ecac25ecd3}{ComponentTargetTracking::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00043}00043\ \ \ \ \ \_\_super::Init();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00045}00045\ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_ae301eddd2d00ef453af05c17d634ab15}{tracking\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca59d87a4758a9d35fbaf6b204341bb399}{TrackingBit::Initialized}});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00046}00046\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00048}00048\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00049}00049\ \textcolor{comment}{//!\ 更新}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00050}00050\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00051}\mbox{\hyperlink{class_component_target_tracking_a2870883573b583981c30e1b800684273}{00051}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_a2870883573b583981c30e1b800684273}{ComponentTargetTracking::PreUpdate}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00052}00052\ \ \ \ \ \textcolor{comment}{//\ 一旦リセットする}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ model\ =\ \mbox{\hyperlink{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}{owner\_model\_}}.lock())}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ MV1ResetFrameUserLocalMatrix(model-\/>GetModel(),\ \mbox{\hyperlink{class_component_target_tracking_a1d13e1f46d7b80edf8ded2474735058f}{tracked\_node\_index\_}});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00055}00055\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00057}\mbox{\hyperlink{class_component_target_tracking_a24a6edfe0c2f88b10967addba4eb0913}{00057}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_a24a6edfe0c2f88b10967addba4eb0913}{ComponentTargetTracking::PostUpdate}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00058}00058\ \ \ \ \ \textcolor{comment}{//\ アニメーション適応後、}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{comment}{//\ tracked\_node\_index\_からノードマトリクスを取得してそれに対して}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00060}00060\ \ \ \ \ \textcolor{comment}{//\ さらなる向きの方向(now\_xy\_)を適応してTrackingを行うように変更する}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00062}00062\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_target_tracking_a1d13e1f46d7b80edf8ded2474735058f}{tracked\_node\_index\_}}\ <\ 0)}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00065}00065\ \ \ \ \ float3\ target\_pos\ =\ \mbox{\hyperlink{class_component_target_tracking_a6126e81bfe187ce5d47d9f7bafd9315e}{look\_at\_}};}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00067}00067\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ target\ =\ \mbox{\hyperlink{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}{tracking\_object\_}}.lock())}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ target\_pos\ =\ target-\/>GetTranslate();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00070}00070\ \ \ \ \ \textcolor{comment}{//\ Objectのモデルを先にWeakPtrで取得して確保しておく}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}{owner\_model\_}}.lock()\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}{owner\_model\_}}\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a4e9dfbca25ab6d6e9303910192b89564}{GetComponent}}<\mbox{\hyperlink{class_component_model}{ComponentModel}}>();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00074}00074\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ model\ =\ \mbox{\hyperlink{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}{owner\_model\_}}.lock())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ trackingするマトリクス}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a4eecd0279b127d161a7c039c0e47b8a2}{tracking\_matrix\_}}\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(MV1GetFrameLocalMatrix(model-\/>GetModel(),\ \mbox{\hyperlink{class_component_target_tracking_a1d13e1f46d7b80edf8ded2474735058f}{tracked\_node\_index\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 正しい向きのノードMatrixを取得しておく}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ float3\ node\_rot;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ float3\ node\_trans;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ float3\ node\_scale;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_a6d9d86eb5b39827e671616046aef46d8}{DecomposeMatrixToComponents}}((\textcolor{keywordtype}{float}*)\mbox{\hyperlink{class_component_target_tracking_a4eecd0279b127d161a7c039c0e47b8a2}{tracking\_matrix\_}}.f32\_128\_0,\ (\textcolor{keywordtype}{float}*)\&node\_trans,\ (\textcolor{keywordtype}{float}*)\&node\_rot,}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{float}*)\&node\_scale);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00083}00083\ \textcolor{preprocessor}{\#if\ 1}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モデルの方向を取得する}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ float3\ model\_vec\ =\ normalize(\mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(\mbox{\hyperlink{class_component_target_tracking_a7cd61fd765a65876162bc39ce2671de7}{front\_vector\_}},\ 0),\ model-\/>GetWorldMatrix()).xyz);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モデルを通常に戻すインバーズマトリクスを取得しておく}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ fmat\ =\ inverse(\mbox{\hyperlink{namespace_helper_lib_1_1_math_a5fdeef4fc76f0323e735a35a17da818b}{HelperLib::Math::CreateMatrixByFrontVector}}(model\_vec));}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ターゲットへの向きを取得して(}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ MV1GetFrameLocalWorldMatrixでとると100\%位置はあっているがどうやら…1Frame遅れる)}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ float3\ node\_pos\ \ =\ \mbox{\hyperlink{class_component_target_tracking_a4eecd0279b127d161a7c039c0e47b8a2}{tracking\_matrix\_}}.\_41\_42\_43;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ float3\ model\_pos\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(float4(node\_pos,\ 1),\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>GetMatrix()).xyz;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ float3\ vec\ =\ target\_pos\ -\/\ model\_pos;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ mat\ =\ \mbox{\hyperlink{namespace_helper_lib_1_1_math_a5fdeef4fc76f0323e735a35a17da818b}{HelperLib::Math::CreateMatrixByFrontVector}}(vec,\ \{0,\ 1,\ 0\},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ それにインバースを掛け合わせて0基準のベクトルに変換する}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ mat\ \ \ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(mat,\ fmat);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ mat.\_41\_42\_43\ =\ node\_pos;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 現状の回転と照らし合わせて回転を計算する}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ float3\ new\_rot;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ float3\ new\_trans;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ float3\ new\_scale;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ その回転をノードMatrixにさらに加えて向きの回転を実現する}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_a6d9d86eb5b39827e671616046aef46d8}{DecomposeMatrixToComponents}}((\textcolor{keywordtype}{float}*)mat.f32\_128\_0,\ (\textcolor{keywordtype}{float}*)\&new\_trans,\ (\textcolor{keywordtype}{float}*)\&new\_rot,\ (\textcolor{keywordtype}{float}*)\&new\_scale);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ZベクトルをY軸固定で角度に変化させる}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ float3\ zvec\ \ =\ mat.axisZ();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ lenzx\ =\ sqrt((zvec.z\ *\ zvec.z)\ +\ (zvec.x\ *\ zvec.x));}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ lenzy\ =\ sqrt((zvec.z\ *\ zvec.z)\ +\ (zvec.y\ *\ zvec.y));}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ new\_rot.x\ =\ atan2((\textcolor{keywordtype}{float})zvec.y,\ (\textcolor{keywordtype}{float})lenzx)\ *\ \mbox{\hyperlink{_precompile_8h_aad0324c49354ecf08266df8024fb155c}{RadToDeg}};}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ new\_rot.y\ =\ atan2((\textcolor{keywordtype}{float})zvec.x,\ (\textcolor{keywordtype}{float})lenzy)\ *\ \mbox{\hyperlink{_precompile_8h_aad0324c49354ecf08266df8024fb155c}{RadToDeg}};}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ new\_rot.z\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(new\_rot.y\ >\ 180)}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ new\_rot.y\ =\ new\_rot.y\ -\/\ 360;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(new\_rot.x\ <\ -\/180)}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ new\_rot.x\ +=\ 360;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 右リミット}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((\textcolor{keywordtype}{float})new\_rot.y\ >\ (\textcolor{keywordtype}{float})\mbox{\hyperlink{class_component_target_tracking_af608621d78fca99c58eb4aeeb8b511a3}{limit\_lr\_}}.y)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ new\_rot.y\ =\ \mbox{\hyperlink{class_component_target_tracking_af608621d78fca99c58eb4aeeb8b511a3}{limit\_lr\_}}.y;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 左リミット}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((\textcolor{keywordtype}{float})new\_rot.y\ <\ -\/(\textcolor{keywordtype}{float})\mbox{\hyperlink{class_component_target_tracking_af608621d78fca99c58eb4aeeb8b511a3}{limit\_lr\_}}.x)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ new\_rot.y\ =\ -\/\mbox{\hyperlink{class_component_target_tracking_af608621d78fca99c58eb4aeeb8b511a3}{limit\_lr\_}}.x;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 上リミット}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((\textcolor{keywordtype}{float})new\_rot.x\ >\ (\textcolor{keywordtype}{float})\mbox{\hyperlink{class_component_target_tracking_a155d85aa68f4ea5220ed38955cca4f69}{limit\_ud\_}}.x)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ new\_rot.x\ =\ \mbox{\hyperlink{class_component_target_tracking_a155d85aa68f4ea5220ed38955cca4f69}{limit\_ud\_}}.x;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 下リミット}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((\textcolor{keywordtype}{float})new\_rot.x\ <\ -\/(\textcolor{keywordtype}{float})\mbox{\hyperlink{class_component_target_tracking_a155d85aa68f4ea5220ed38955cca4f69}{limit\_ud\_}}.y)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ new\_rot.x\ =\ -\/\mbox{\hyperlink{class_component_target_tracking_a155d85aa68f4ea5220ed38955cca4f69}{limit\_ud\_}}.y;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ float2\ diff\ =\ \{new\_rot.x\ -\/\ \mbox{\hyperlink{class_component_target_tracking_a68d83bc6168ecaaf4bdb5b2d854d8e2d}{now\_rot\_}}.x,\ new\_rot.y\ -\/\ \mbox{\hyperlink{class_component_target_tracking_a68d83bc6168ecaaf4bdb5b2d854d8e2d}{now\_rot\_}}.y\};}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ len\ \ =\ length(diff);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(len\ >\ \mbox{\hyperlink{class_component_target_tracking_a7513710ccf984b562b72a802fc34f3eb}{limit\_frame\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ diff\ =\ normalize(diff)\ *\ \mbox{\hyperlink{class_component_target_tracking_a7513710ccf984b562b72a802fc34f3eb}{limit\_frame\_}};}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a68d83bc6168ecaaf4bdb5b2d854d8e2d}{now\_rot\_}}.x\ +=\ diff.x;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a68d83bc6168ecaaf4bdb5b2d854d8e2d}{now\_rot\_}}.y\ +=\ diff.y;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ node\_rot.x\ +=\ \mbox{\hyperlink{class_component_target_tracking_a68d83bc6168ecaaf4bdb5b2d854d8e2d}{now\_rot\_}}.x;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ node\_rot.y\ +=\ \mbox{\hyperlink{class_component_target_tracking_a68d83bc6168ecaaf4bdb5b2d854d8e2d}{now\_rot\_}}.y;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00153}00153\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_abe00c8be42f2761185a0ccfca2ded81a}{RecomposeMatrixFromComponents}}((\textcolor{keywordtype}{float}*)\&node\_trans,\ (\textcolor{keywordtype}{float}*)\&node\_rot,\ (\textcolor{keywordtype}{float}*)\&node\_scale,\ (\textcolor{keywordtype}{float}*)mat.f32\_128\_0);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ auto\ roty\ =\ matrix::rotateY(radians((float1)theta\_xz));}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ auto\ rotx\ =\ matrix::rotateX(radians((float1)theta\_yz));}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mat\ =\ mul(mul(tracking\_matrix\_,\ rotx),\ roty);}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ MV1SetFrameUserLocalMatrix(model-\/>GetModel(),\ \mbox{\hyperlink{class_component_target_tracking_a1d13e1f46d7b80edf8ded2474735058f}{tracked\_node\_index\_}},\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(mat));}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ これをONにすると他のGizmoのIsOverなどがチェックが取れずPICKが常に有効になる(地面が選ばれてしまう)}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ShowGizmo(\ (float*)mat.f32\_128\_0,\ ImGuizmo::OPERATION::TRANSLATE,}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ImGuizmo::MODE::LOCAL,\ 0xab1245\ );}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00165}00165\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00166}00166\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00168}00168\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00169}00169\ \textcolor{comment}{//!\ 向きのマトリクス表示(デバッグ用)}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00170}00170\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00171}\mbox{\hyperlink{class_component_target_tracking_a9fd550732558f908a8d0961a632d9279}{00171}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_a9fd550732558f908a8d0961a632d9279}{ComponentTargetTracking::Draw}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00172}00172\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00173}00173\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00174}00174\ \textcolor{comment}{//!\ カメラ終了処理}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00175}00175\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00176}\mbox{\hyperlink{class_component_target_tracking_a27a74be16ae1b3e87d7b347311c783f4}{00176}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_a27a74be16ae1b3e87d7b347311c783f4}{ComponentTargetTracking::Exit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00177}00177\ \ \ \ \ \_\_super::Exit();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00178}00178\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00180}00180\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00181}00181\ \textcolor{comment}{//!\ カメラGUI処理}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00182}00182\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00183}\mbox{\hyperlink{class_component_target_tracking_a604635ae0c9a8c4ed47a09dd1e5ceeff}{00183}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_a604635ae0c9a8c4ed47a09dd1e5ceeff}{ComponentTargetTracking::GUI}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00184}00184\ \ \ \ \ assert(\mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}());}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00185}00185\ \ \ \ \ \textcolor{keyword}{auto}\ obj\_name\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a1b62160fcfdc36e88ed94d99334d99c8}{GetName}}();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00187}00187\ \ \ \ \ ImGui::Begin(obj\_name.data());}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00188}00188\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::TreeNode(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}TargetTracking"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}削除"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_ac38b3442d6f6e93af4cdb35a9be08dbc}{RemoveComponent}}(shared\_from\_this());}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ select\_node\_index\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ model\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>GetComponent<ComponentModel>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ list\ \ \ \ \ \ \ \ \ =\ model-\/>GetNodesName();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ select\_node\_index\ =\ Combo(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}トラッキングノード"{}},\ \mbox{\hyperlink{class_component_target_tracking_a04a85d5becf61d7fc344f01db82d3492}{tracked\_node\_}},\ list);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(select\_node\_index\ <\ list.size())}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a3e07b9e006288545cef57b9124cc87c5}{SetTrackingNode}}(select\_node\_index);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ scene\ =\ \mbox{\hyperlink{class_scene_a8ef78e083da6e5e0ff7a78a8453ec2c1}{Scene::GetCurrentScene}}())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ name\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ obj\ =\ \mbox{\hyperlink{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}{tracking\_object\_}}.lock())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name\ =\ obj-\/>GetName();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ objs\ =\ scene-\/>GetObjectPtrVec();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::vector<std::string\_view>\ names;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ names.push\_back(null\_name);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ obj:\ objs)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ names.push\_back(obj-\/>GetName());}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id}\ =\ Combo(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}ターゲットオブジェクト"{}},\ name,\ names)\ -\/\ 1;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keywordtype}{id}\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}{tracking\_object\_}}\ =\ objs[id];}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\textcolor{keywordtype}{id}\ ==\ -\/1)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}{tracking\_object\_}}.reset();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_ae301eddd2d00ef453af05c17d634ab15}{tracking\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}{TrackingBit::ObjectTracking}});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ obj\ =\ \mbox{\hyperlink{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}{tracking\_object\_}}.lock())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_ae301eddd2d00ef453af05c17d634ab15}{tracking\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}{TrackingBit::ObjectTracking}});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_component_target_tracking_ae301eddd2d00ef453af05c17d634ab15}{tracking\_status\_}}.\mbox{\hyperlink{struct_status_af4b46e2be91cf8da689ef283875f6bc2}{is}}(\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}{TrackingBit::ObjectTracking}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat3(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}ターゲットポイント"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_component_target_tracking_a6126e81bfe187ce5d47d9f7bafd9315e}{look\_at\_}},\ 0.01f);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00232}00232\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat2(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}左右角度制限"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_component_target_tracking_af608621d78fca99c58eb4aeeb8b511a3}{limit\_lr\_}},\ 0.1f,\ 0,\ 180,\ \textcolor{stringliteral}{"{}\%.1f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat2(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}上下角度制限"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_component_target_tracking_a155d85aa68f4ea5220ed38955cca4f69}{limit\_ud\_}},\ 0.1f,\ 0,\ 89,\ \textcolor{stringliteral}{"{}\%.1f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat3(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}前ベクトル"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_component_target_tracking_a7cd61fd765a65876162bc39ce2671de7}{front\_vector\_}},\ 0.1f,\ 0,\ 180,\ \textcolor{stringliteral}{"{}\%.1f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::TreePop();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00241}00241\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00242}00242\ \ \ \ \ ImGui::End();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00243}00243\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00245}\mbox{\hyperlink{class_component_target_tracking_aae6698280230239197a773e5cf538131}{00245}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_aae6698280230239197a773e5cf538131}{ComponentTargetTracking::SetTargetObjectPtr}}(ObjectWeakPtr\ obj)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00246}00246\ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}{tracking\_object\_}}\ =\ obj;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00247}00247\ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_ae301eddd2d00ef453af05c17d634ab15}{tracking\_status\_}}.\mbox{\hyperlink{struct_status_a467ddc32f7183ea10eeac09cc90c23bf}{on}}(\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}{TrackingBit::ObjectTracking}});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00248}00248\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}{tracking\_object\_}}.expired())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_ae301eddd2d00ef453af05c17d634ab15}{tracking\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}{TrackingBit::ObjectTracking}});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00250}00250\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00251}00251\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00253}\mbox{\hyperlink{class_component_target_tracking_addcbd3cd335d4db25ddff5ad5aab7e4e}{00253}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_aae6698280230239197a773e5cf538131}{ComponentTargetTracking::SetTargetObjectPtr}}(\textcolor{keyword}{const}\ std::string\_view\ obj\_name)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00254}00254\ \ \ \ \ \textcolor{keyword}{auto}\ obj\ =\ Scene::GetObjectPtr<Object>(obj\_name);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00255}00255\ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_aae6698280230239197a773e5cf538131}{SetTargetObjectPtr}}(obj);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00256}00256\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00258}\mbox{\hyperlink{class_component_target_tracking_a59adf20bc856a293e1b741e0bfbb572c}{00258}}\ ObjectPtr\ \mbox{\hyperlink{class_component_target_tracking_a59adf20bc856a293e1b741e0bfbb572c}{ComponentTargetTracking::GetTargetObjectPtr}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00259}00259\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ obj\ =\ \mbox{\hyperlink{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}{tracking\_object\_}}.lock())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00260}00260\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ obj;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00261}00261\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00262}00262\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00263}00263\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00264}00264\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00266}\mbox{\hyperlink{class_component_target_tracking_ad81e038c85c83342a1a4100dc95219ec}{00266}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_ad81e038c85c83342a1a4100dc95219ec}{ComponentTargetTracking::SetTargetPoint}}(float3\ target)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00267}00267\ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a28609ec41a2ff35e5b95bcedbeb8157e}{tracking\_object\_}}.reset();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00268}00268\ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a6126e81bfe187ce5d47d9f7bafd9315e}{look\_at\_}}\ =\ target;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00269}00269\ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_ae301eddd2d00ef453af05c17d634ab15}{tracking\_status\_}}.\mbox{\hyperlink{struct_status_a0e024bca0f58b5e1cda3dd6bf94d40c7}{off}}(\mbox{\hyperlink{class_component_target_tracking_ad594f0dd0aefbb4c491121efe0db0a2ca5746081740b464ca842f220ff58a78c5}{TrackingBit::ObjectTracking}});}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00270}00270\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00272}\mbox{\hyperlink{class_component_target_tracking_a3e07b9e006288545cef57b9124cc87c5}{00272}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_a3e07b9e006288545cef57b9124cc87c5}{ComponentTargetTracking::SetTrackingNode}}(\textcolor{keyword}{const}\ std::string\&\ name)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00273}00273\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}{owner\_model\_}}.lock()\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00274}00274\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}{owner\_model\_}}\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a4e9dfbca25ab6d6e9303910192b89564}{GetComponent}}<\mbox{\hyperlink{class_component_model}{ComponentModel}}>();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00275}00275\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00276}00276\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ model\ =\ \mbox{\hyperlink{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}{owner\_model\_}}.lock())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00277}00277\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a04a85d5becf61d7fc344f01db82d3492}{tracked\_node\_}}\ =\ name;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00279}00279\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a1d13e1f46d7b80edf8ded2474735058f}{tracked\_node\_index\_}}\ =\ MV1SearchFrame(model-\/>GetModel(),\ name.c\_str());}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00280}00280\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00281}00281\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ mat\ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(MV1GetFrameLocalMatrix(model-\/>GetModel(),\ \mbox{\hyperlink{class_component_target_tracking_a1d13e1f46d7b80edf8ded2474735058f}{tracked\_node\_index\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00282}00282\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a4eecd0279b127d161a7c039c0e47b8a2}{tracking\_matrix\_}}\ =\ mat;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00283}00283\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00284}00284\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00286}\mbox{\hyperlink{class_component_target_tracking_af639925b2c85f220c73d391ff6ec36dc}{00286}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_a3e07b9e006288545cef57b9124cc87c5}{ComponentTargetTracking::SetTrackingNode}}(\textcolor{keywordtype}{int}\ tracking\_node\_index)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00287}00287\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}{owner\_model\_}}.lock()\ ==\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00288}00288\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}{owner\_model\_}}\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a4e9dfbca25ab6d6e9303910192b89564}{GetComponent}}<\mbox{\hyperlink{class_component_model}{ComponentModel}}>();}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00289}00289\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00290}00290\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ model\ =\ \mbox{\hyperlink{class_component_target_tracking_aa171d99d64e2a95a38e84b14ed2af8f5}{owner\_model\_}}.lock())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00291}00291\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a1d13e1f46d7b80edf8ded2474735058f}{tracked\_node\_index\_}}\ =\ tracking\_node\_index;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00292}00292\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00293}00293\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ mat\ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(MV1GetFrameLocalMatrix(model-\/>GetModel(),\ \mbox{\hyperlink{class_component_target_tracking_a1d13e1f46d7b80edf8ded2474735058f}{tracked\_node\_index\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00294}00294\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a4eecd0279b127d161a7c039c0e47b8a2}{tracking\_matrix\_}}\ =\ mat;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00295}00295\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00296}00296\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00298}\mbox{\hyperlink{class_component_target_tracking_abb0d359cde66787cc48d8ca13ff320c6}{00298}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_abb0d359cde66787cc48d8ca13ff320c6}{ComponentTargetTracking::SetTrackingLimitLeftRight}}(float2\ left\_right)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00299}00299\ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_af608621d78fca99c58eb4aeeb8b511a3}{limit\_lr\_}}\ =\ left\_right;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00300}00300\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00302}\mbox{\hyperlink{class_component_target_tracking_a4116f845b7e81bb1d90f20555a5dfeb3}{00302}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_a4116f845b7e81bb1d90f20555a5dfeb3}{ComponentTargetTracking::SetTrackingLimitUpDown}}(float2\ up\_down)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00303}00303\ \ \ \ \ \textcolor{keywordflow}{if}(up\_down.x\ >\ 89.0f)}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00304}00304\ \ \ \ \ \ \ \ \ up\_down.x\ =\ 89.0f;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00305}00305\ \ \ \ \ \textcolor{keywordflow}{if}(up\_down.x\ <\ -\/89.0f)}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00306}00306\ \ \ \ \ \ \ \ \ up\_down.x\ =\ -\/89.0f;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00308}00308\ \ \ \ \ \textcolor{keywordflow}{if}(up\_down.y\ >\ 89.0f)}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00309}00309\ \ \ \ \ \ \ \ \ up\_down.y\ =\ 89.0f;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00310}00310\ \ \ \ \ \textcolor{keywordflow}{if}(up\_down.y\ <\ -\/89.0f)}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00311}00311\ \ \ \ \ \ \ \ \ up\_down.y\ =\ -\/89.0f;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00312}00312\ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a155d85aa68f4ea5220ed38955cca4f69}{limit\_ud\_}}\ =\ up\_down;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00313}00313\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00314}00314\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00315}\mbox{\hyperlink{class_component_target_tracking_a5e624bf9c9d54da462d112cf699d3e2e}{00315}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_a5e624bf9c9d54da462d112cf699d3e2e}{ComponentTargetTracking::SetTrackingFrameLimit}}(\textcolor{keywordtype}{float}\ limit)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00316}00316\ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a7513710ccf984b562b72a802fc34f3eb}{limit\_frame\_}}\ =\ limit;}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00317}00317\ \}}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00318}00318\ }
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00319}\mbox{\hyperlink{class_component_target_tracking_aa008ef47e8a1fcec755b6d488da3adbb}{00319}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_target_tracking_aa008ef47e8a1fcec755b6d488da3adbb}{ComponentTargetTracking::SetFrontVector}}(float3\ vec)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00320}00320\ \ \ \ \ \mbox{\hyperlink{class_component_target_tracking_a7cd61fd765a65876162bc39ce2671de7}{front\_vector\_}}\ =\ normalize(vec);}
+\DoxyCodeLine{\Hypertarget{_component_target_tracking_8cpp_source_l00321}00321\ \}}
+
+\end{DoxyCode}

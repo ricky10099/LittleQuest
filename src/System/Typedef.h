@@ -43,3 +43,66 @@ using f64 = double;      //!< 倍精度浮動小数点数
     using obj##PtrMap       = std::unordered_map<std::string, obj##Ptr>
 
 //@}
+
+//===========================================================================
+//! copy禁止
+//! @note copyを禁止します。moveは許可します。
+//===========================================================================
+class noncopyable {
+   protected:
+    noncopyable()          = default;
+    virtual ~noncopyable() = default;
+
+   private:
+    //----------------------------------------------------------
+    //! @name copy禁止
+    // コピーコンストラクタと代入演算子を削除
+    //----------------------------------------------------------
+    //!@{
+
+    noncopyable(const noncopyable&)            = delete;
+    noncopyable& operator=(const noncopyable&) = delete;
+
+    //!@}
+    //----------------------------------------------------------
+    //! @name move有効
+    //----------------------------------------------------------
+    // std::unique_ptr<T>のように移動だけを許可します。
+    // コピー禁止を定義するとデフォルトでmove禁止にもなるため、
+    // moveコンストラクタとmove代入は明示的に有効化する必要があります。
+    //!@{
+
+    noncopyable(noncopyable&&)            = default;
+    noncopyable& operator=(noncopyable&&) = default;
+
+    //!@}
+};
+
+//===========================================================================
+//! move禁止
+//===========================================================================
+class nonmovable {
+   protected:
+    nonmovable()          = default;
+    virtual ~nonmovable() = default;
+
+   private:
+    //----------------------------------------------------------
+    //! @name copy許可
+    //----------------------------------------------------------
+    //!@{
+
+    nonmovable(const nonmovable&)            = default;
+    nonmovable& operator=(const nonmovable&) = default;
+
+    //!@}
+    //----------------------------------------------------------
+    //! @name move禁止
+    //----------------------------------------------------------
+    //!@{
+
+    nonmovable(nonmovable&&)            = delete;
+    nonmovable& operator=(nonmovable&&) = delete;
+
+    //!@}
+};

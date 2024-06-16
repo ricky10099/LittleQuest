@@ -1,0 +1,29 @@
+\hypertarget{_physics_layer_8h_source}{}\doxysection{Physics\+Layer.\+h}
+\label{_physics_layer_8h_source}\index{PhysicsLayer.h@{PhysicsLayer.h}}
+\mbox{\hyperlink{_physics_layer_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ PhysicsLayer.h}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ 物理シミュレーション\ レイヤー管理}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00005}00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00007}00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacephysics}{physics}}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00009}00009\ \textcolor{comment}{//\ オブジェクトが属することのできるレイヤーで、他のどのオブジェクトと衝突することができるかを決定します。}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00010}00010\ \textcolor{comment}{//\ 一般的には、少なくとも動的オブジェクトのレイヤーと静止オブジェクトのレイヤーが必要ですが、}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00011}00011\ \textcolor{comment}{//\ 必要であればもっと多くのレイヤーを持つことができます。}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00012}00012\ \textcolor{comment}{//\ 例えば、ハイディテールコリジョン用のレイヤーを持つこともできます}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00013}00013\ \textcolor{comment}{//\ （これは物理シミュレーションでは使用されませんが、コリジョンテストを行う場合にのみ使用されます）。}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00014}\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267ba}{00014}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267ba}{ObjectLayers}}\ :\ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ \{}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00015}\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baadb7efabc078fc1b67b86c709623de88a}{00015}}\ \ \ \ \ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baadb7efabc078fc1b67b86c709623de88a}{NON\_MOVING}}\ =\ 0,\ \ \ \ \textcolor{comment}{//!<\ 静的。動かない固定}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00016}\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{00016}}\ \ \ \ \ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{MOVING}}\ \ \ \ \ =\ 1,\ \ \ \ \textcolor{comment}{//!<\ 動的}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00017}\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baaf636b41154b4d22d47e007d5a7e9ecab}{00017}}\ \ \ \ \ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baaf636b41154b4d22d47e007d5a7e9ecab}{DEBRIS}}\ \ \ \ \ =\ 2,\ \ \ \ \textcolor{comment}{//!<\ 破片エフェクトなどは\ NON\_MOVING\ のみ衝突}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00018}\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa4cdbb711da8a5eef955dcbe48baea742}{00018}}\ \ \ \ \ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa4cdbb711da8a5eef955dcbe48baea742}{SENSOR}}\ \ \ \ \ =\ 3,\ \ \ \ \textcolor{comment}{//!<\ センサーは\ MOVING\ オブジェクトにのみ衝突}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00019}00019\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00020}\mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa73d103b12bd08b49bf611a15e890d86d}{00020}}\ \ \ \ \ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa73d103b12bd08b49bf611a15e890d86d}{MAX\_COUNT}}\ \ =\ 4,\ \ \ \ \textcolor{comment}{//!<\ 定義最大数}}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00021}00021\ \};}
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{_physics_layer_8h_source_l00023}00023\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ physics}}
+
+\end{DoxyCode}

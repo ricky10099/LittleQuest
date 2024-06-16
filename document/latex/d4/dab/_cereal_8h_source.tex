@@ -1,0 +1,144 @@
+\hypertarget{_cereal_8h_source}{}\doxysection{Cereal.\+h}
+\label{_cereal_8h_source}\index{Cereal.h@{Cereal.h}}
+\mbox{\hyperlink{_cereal_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ Cereal.h}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ シリアル組み込み用}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00005}00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <cereal/cereal.hpp>}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <cereal/archives/json.hpp>}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <cereal/types/vector.hpp>}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <cereal/types/memory.hpp>}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <cereal/types/array.hpp>}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <cereal/types/unordered\_map.hpp>}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <cereal/types/functional.hpp>}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_vector_math_8h}{System/VectorMath.h}}>}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00016}00016\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00017}00017\ \textcolor{comment}{//!\ 非侵入型定義}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00018}00018\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00020}\mbox{\hyperlink{namespacecereal}{00020}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacecereal}{cereal}}\ \{}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00022}00022\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00023}\mbox{\hyperlink{namespacecereal_ae25d54304d43ae74f16e0c6d065881e7}{00023}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacecereal_ae25d54304d43ae74f16e0c6d065881e7}{load}}(Archive\&\ arc,\ std::function<\textcolor{keywordtype}{void}()>\&\ f)\ \{}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00024}00024\ \ \ \ \ \textcolor{comment}{//\ バイナリ列をロードしてそのポインタからfunctionに変更}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00025}00025\ \}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00027}00027\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00028}\mbox{\hyperlink{namespacecereal_a6864019813012eacb50f6093a74d2b94}{00028}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacecereal_a6864019813012eacb50f6093a74d2b94}{save}}(Archive\&\ arc,\ std::function<\textcolor{keywordtype}{void}()>\&\ f)\ \{}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00029}00029\ \ \ \ \ \textcolor{comment}{//\ TODO\ functionのバイナリ列をすべて取得して書き込み}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00032}00032\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00033}\mbox{\hyperlink{namespacecereal_afde703f59c0266cbb4c8bf16543a57e1}{00033}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacecereal_afde703f59c0266cbb4c8bf16543a57e1}{serialize}}(Archive\&\ arc,\ std::function<\textcolor{keywordtype}{void}(\textcolor{keywordtype}{float})>\&\ f)\ \{}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00034}00034\ \ \ \ \ \textcolor{comment}{//\ バイナリではシリアライズ不可}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00035}00035\ \}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00037}00037\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00038}\mbox{\hyperlink{namespacecereal_a2af7f4e32862aea346173acfe85c3b73}{00038}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacecereal_afde703f59c0266cbb4c8bf16543a57e1}{serialize}}(Archive\&\ arc,\ hlslpp::float2\&\ f)\ \{}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00039}00039\ \ \ \ \ arc(cereal::make\_nvp(\textcolor{stringliteral}{"{}x"{}},\ (\textcolor{keywordtype}{float}\&)f.f32[0]),\ cereal::make\_nvp(\textcolor{stringliteral}{"{}y"{}},\ (\textcolor{keywordtype}{float}\&)f.f32[1]));}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00040}00040\ \}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00042}00042\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00043}\mbox{\hyperlink{namespacecereal_a2f67636a6fb5371b3345abfe0fe020c5}{00043}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacecereal_afde703f59c0266cbb4c8bf16543a57e1}{serialize}}(Archive\&\ arc,\ hlslpp::float3\&\ f)\ \{}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00044}00044\ \ \ \ \ arc(cereal::make\_nvp(\textcolor{stringliteral}{"{}x"{}},\ (\textcolor{keywordtype}{float}\&)f.f32[0]),\ cereal::make\_nvp(\textcolor{stringliteral}{"{}y"{}},\ (\textcolor{keywordtype}{float}\&)f.f32[1]),}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00045}00045\ \ \ \ \ \ \ \ \ cereal::make\_nvp(\textcolor{stringliteral}{"{}z"{}},\ (\textcolor{keywordtype}{float}\&)f.f32[2]));}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00046}00046\ \}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00048}00048\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00049}\mbox{\hyperlink{namespacecereal_a7e9c11a60897bcbc13a3b28ec9fc8abf}{00049}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacecereal_afde703f59c0266cbb4c8bf16543a57e1}{serialize}}(Archive\&\ arc,\ hlslpp::float4\&\ f)\ \{}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00050}00050\ \ \ \ \ arc(cereal::make\_nvp(\textcolor{stringliteral}{"{}x"{}},\ (\textcolor{keywordtype}{float}\&)f.f32[0]),\ cereal::make\_nvp(\textcolor{stringliteral}{"{}y"{}},\ (\textcolor{keywordtype}{float}\&)f.f32[1]),}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00051}00051\ \ \ \ \ \ \ \ \ cereal::make\_nvp(\textcolor{stringliteral}{"{}z"{}},\ (\textcolor{keywordtype}{float}\&)f.f32[2]),\ cereal::make\_nvp(\textcolor{stringliteral}{"{}w"{}},\ (\textcolor{keywordtype}{float}\&)f.f32[3]));}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00052}00052\ \}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00054}00054\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00055}\mbox{\hyperlink{namespacecereal_a46ce81f338b66e1b3bfe8f90ab8485a3}{00055}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacecereal_a6864019813012eacb50f6093a74d2b94}{save}}(Archive\&\ arc,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\&\ m)\ \{}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00056}00056\ \ \ \ \ arc((float4\&)m.f32\_128\_0,\ (float4\&)m.f32\_128\_1,\ (float4\&)m.f32\_128\_2,\ (float4\&)m.f32\_128\_3);}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00057}00057\ \}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00059}00059\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00060}\mbox{\hyperlink{namespacecereal_a098f8073b665461d40ea70adb7836a10}{00060}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespacecereal_ae25d54304d43ae74f16e0c6d065881e7}{load}}(Archive\&\ arc,\ \mbox{\hyperlink{classmatrix}{matrix}}\&\ m)\ \{}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00061}00061\ \ \ \ \ arc((float4\&)m.f32\_128\_0,\ (float4\&)m.f32\_128\_1,\ (float4\&)m.f32\_128\_2,\ (float4\&)m.f32\_128\_3);}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00062}00062\ \}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00064}00064\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ cereal}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00066}00066\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00067}00067\ \textcolor{comment}{//!\ Cereal}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00068}00068\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00069}00069\ \textcolor{comment}{//!\ ロード・セーブ両方同じ処理の時に使用します}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00070}\mbox{\hyperlink{_cereal_8h_a7df5c4a4fa530d0bf2831fc2180f0386}{00070}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ CEREAL\_SAVELOAD(arc,\ ver)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00071}00071\ \textcolor{preprocessor}{\ \ \ \ friend\ class\ cereal::access;\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00072}00072\ \textcolor{preprocessor}{\ \ \ \ template<class\ Archive>\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00073}00073\ \textcolor{preprocessor}{\ \ \ \ void\ serialize(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ const\ ver)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00074}00074\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00075}00075\ \textcolor{comment}{//!\ セーブ処理のみの時に使用します\ (※現在処理されないと思われます)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00076}\mbox{\hyperlink{_cereal_8h_a997aad9a4a1580a702f32c7b2e6670fb}{00076}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ CEREAL\_SAVE(arc,\ ver)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00077}00077\ \textcolor{preprocessor}{\ \ \ \ friend\ class\ cereal::access;\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00078}00078\ \textcolor{preprocessor}{\ \ \ \ template<class\ Archive>\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00079}00079\ \textcolor{preprocessor}{\ \ \ \ void\ save(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ const\ ver)\ const}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00080}00080\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00081}00081\ \textcolor{comment}{//!\ ロード処理のみの時に使用します}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00082}\mbox{\hyperlink{_cereal_8h_a923824656ea32056b0b56929875b7ee9}{00082}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ CEREAL\_LOAD(arc,\ ver)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00083}00083\ \textcolor{preprocessor}{\ \ \ \ friend\ class\ cereal::access;\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00084}00084\ \textcolor{preprocessor}{\ \ \ \ template<class\ Archive>\ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00085}00085\ \textcolor{preprocessor}{\ \ \ \ void\ load(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ const\ ver)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00086}00086\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00087}00087\ \textcolor{comment}{//!\ ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00088}\mbox{\hyperlink{_cereal_8h_a5292af2aae9a6ae45a2721c4ea68694e}{00088}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ CEREAL\_LOAD\_AND\_CONSTRUCT(cls,\ arc,\ ver)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00089}00089\ \textcolor{preprocessor}{\ \ \ \ template<class\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00090}00090\ \textcolor{preprocessor}{\ \ \ \ static\ void\ load\_and\_construct(Archive\&\ arc,\ cereal::construct<cls>\&\ construct,\ [[maybe\_unused]]\ std::uint32\_t\ const\ ver)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00091}00091\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00092}00092\ \textcolor{comment}{//!\ ロード・セーブ両方同じ処理の時に使用します\ (CPPにて組み込む場合)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00093}\mbox{\hyperlink{_cereal_8h_a2a43680013c25eb9ad5df8865a26d47c}{00093}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ CEREAL\_SAVELOAD\_CPP(cls,\ arc,\ ver)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00094}00094\ \textcolor{preprocessor}{\ \ \ \ template<class\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00095}00095\ \textcolor{preprocessor}{\ \ \ \ void\ cls::serialize(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ const\ ver)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00096}00096\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00097}00097\ \textcolor{comment}{//!\ セーブ処理のみの時に使用します\ (CPPにて組み込む場合)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00098}00098\ \textcolor{comment}{//!\ (※現在処理されないと思われます)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00099}\mbox{\hyperlink{_cereal_8h_a97cac89fceb099ad10645e1b7c47af85}{00099}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ CEREAL\_SAVE\_CPP(cls,\ arc,\ ver)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00100}00100\ \textcolor{preprocessor}{\ \ \ \ template<class\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00101}00101\ \textcolor{preprocessor}{\ \ \ \ void\ cls::save(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ const\ ver)\ const}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00102}00102\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00103}00103\ \textcolor{comment}{//!\ ロード処理のみの時に使用します\ (CPPにて組み込む場合)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00104}\mbox{\hyperlink{_cereal_8h_ace44ea4d0295f26f11bbcba5e9be33d1}{00104}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ CEREAL\_LOAD\_CPP(cls,\ arc,\ ver)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00105}00105\ \textcolor{preprocessor}{\ \ \ \ friend\ class\ cereal::access;\ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00106}00106\ \textcolor{preprocessor}{\ \ \ \ template<class\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00107}00107\ \textcolor{preprocessor}{\ \ \ \ void\ cls::load(Archive\&\ arc,\ [[maybe\_unused]]\ std::uint32\_t\ const\ ver)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00108}00108\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00109}00109\ \textcolor{comment}{//!\ ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00110}00110\ \textcolor{comment}{//!\ (CPPにて組み込む場合)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00111}00111\ \textcolor{comment}{//!\ @attention}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00112}00112\ \textcolor{comment}{//!\ 変数名はconstruct以外使うと再定義になってしまうため変数化していない。}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00113}\mbox{\hyperlink{_cereal_8h_ac6b673f3b803293ad3ab39197d53afed}{00113}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ CEREAL\_LOAD\_AND\_CONSTRUCT\_CPP(cls,\ arc,\ ver)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00114}00114\ \textcolor{preprocessor}{\ \ \ \ template<class\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00115}00115\ \textcolor{preprocessor}{\ \ \ \ void\ cls::load\_and\_construct(Archive\&\ arc,\ cereal::construct<cls>\&\ construct,\ [[maybe\_unused]]\ std::uint32\_t\ const\ ver)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00116}00116\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00117}00117\ \textcolor{comment}{//!\ ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します(外部)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00118}00118\ \textcolor{comment}{//!\ @attention}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00119}00119\ \textcolor{comment}{//!\ 変数名はconstruct以外使うと再定義になってしまうため変数化していない。}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00120}\mbox{\hyperlink{_cereal_8h_a8308c66065124010af82a39d23de874f}{00120}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ CEREAL\_LOAD\_AND\_CONSTRUCT\_BEGIN(cls,\ arc,\ ver)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00121}00121\ \textcolor{preprocessor}{\ \ \ \ namespace\ cereal\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00122}00122\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ template<>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00123}00123\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ struct\ LoadAndConstruct<cls>\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00124}00124\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ template<class\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00125}00125\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ static\ void\ load\_and\_construct(Archive\&\ arc,\ cereal::construct<cls>\&\ construct,\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00126}00126\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ std::uint32\_t\ const\ ver)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00127}00127\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00128}00128\ \textcolor{comment}{//!\ ロード処理の時、デフォルトコンストラクタ以外を使用したいときに使用します(外部)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00129}00129\ \textcolor{comment}{//!\ @brief\ デフォルトコンストラクタ以外の初期化の場合に利用する(END)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00130}\mbox{\hyperlink{_cereal_8h_a3948333019d8374832c914f5bf82acc4}{00130}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ CEREAL\_LOAD\_AND\_CONSTRUCT\_END()\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00131}00131\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00132}00132\ \textcolor{preprocessor}{\ \ \ \ ;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00133}00133\ \textcolor{preprocessor}{\ \ \ \ \}\ \ \ \ }\textcolor{comment}{//\ namespace\ cereal}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00134}00134\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00135}00135\ \textcolor{comment}{//!\ ロード・セーブ非侵入型の際に使用します}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00136}\mbox{\hyperlink{_cereal_8h_a76188fcf3b00899cfe85a847f49dc1d6}{00136}}\ \textcolor{comment}{}\textcolor{preprocessor}{\#define\ CEREAL\_SAVELOAD\_OTHER(cls,\ arc,\ other)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00137}00137\ \textcolor{preprocessor}{\ \ \ \ template<class\ Archive>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{_cereal_8h_source_l00138}00138\ \textcolor{preprocessor}{\ \ \ \ void\ serialize(Archive\&\ arc,\ cls\&\ other)}}
+
+\end{DoxyCode}

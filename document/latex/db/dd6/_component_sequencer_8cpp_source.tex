@@ -1,0 +1,466 @@
+\hypertarget{_component_sequencer_8cpp_source}{}\doxysection{Component\+Sequencer.\+cpp}
+\label{_component_sequencer_8cpp_source}\index{ComponentSequencer.cpp@{ComponentSequencer.cpp}}
+\mbox{\hyperlink{_component_sequencer_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_sequencer_8h}{System/Component/ComponentSequencer.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_transform_8h}{System/Component/ComponentTransform.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_model_8h}{System/Component/ComponentModel.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_effect_8h}{System/Component/ComponentEffect.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_object_8h}{System/Object.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_scene_8h}{System/Scene.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_im_gui_8h}{System/ImGui.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00009}00009\ \textcolor{comment}{//\ CPPもここで加えておく}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}../imgui/misc/cpp/imgui\_stdlib.cpp"{}}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <numeric>}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00014}00014\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00015}00015\ \textcolor{comment}{//!\ @brief\ フレーム情報からアニメーションを取得}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00016}00016\ \textcolor{comment}{//!\ @param\ frame\ フレーム}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00017}\mbox{\hyperlink{class_sequence_object_a7ffa6a5df0c9f86b4171963a4c0ce35f}{00017}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sequence_object_a7ffa6a5df0c9f86b4171963a4c0ce35f}{SequenceObject::SetAnimationFromFrame}}(\textcolor{keywordtype}{int}\ frame)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00018}00018\ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a46bf3d853dbf812cfa76509c1aaf1b4a}{animation\_name\_}}\ \ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00019}00019\ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a556f1eedd865fb56098733e03bc04895}{animation\_loop\_}}\ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00020}00020\ \ \ \ \ \mbox{\hyperlink{class_sequence_object_aada94701b03c68b8c15b43a2de1faab9}{animation\_frame\_}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{comment}{//\ 後ろからキーを取得して行く}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{class_sequence_object_a5bb8e7b00281dcee237c1805464294dd}{animation\_keys\_}}.size())\ -\/\ 1;\ i\ >=\ 0;\ -\/-\/i)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ key\ =\ \mbox{\hyperlink{class_sequence_object_a5bb8e7b00281dcee237c1805464294dd}{animation\_keys\_}}[i];}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 指定フレームより低くなったら}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(key\ <=\ frame)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ キーから何フレーム進んでいるかを割り出す}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ past\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(frame\ -\/\ key);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ アニメーションが現在指定されているものと違う場合は}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 変化準備とする}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_sequence_object_a46bf3d853dbf812cfa76509c1aaf1b4a}{animation\_name\_}}\ !=\ \mbox{\hyperlink{class_sequence_object_a8f8bb0071bec2ec980bd9945b8f5b11c}{animation\_values\_}}[i].\mbox{\hyperlink{class_sequence_object_a5e3f2fd669f746a372c9a9eb4b11d9db}{name\_}})}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_aae5801c69d7e21be05fe924147815774}{animation\_change\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a46bf3d853dbf812cfa76509c1aaf1b4a}{animation\_name\_}}\ \ =\ \mbox{\hyperlink{class_sequence_object_a8f8bb0071bec2ec980bd9945b8f5b11c}{animation\_values\_}}[i].name\_;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_aada94701b03c68b8c15b43a2de1faab9}{animation\_frame\_}}\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(past);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a556f1eedd865fb56098733e03bc04895}{animation\_loop\_}}\ \ =\ \mbox{\hyperlink{class_sequence_object_a8f8bb0071bec2ec980bd9945b8f5b11c}{animation\_values\_}}[i].loop\_;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00039}00039\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00040}00040\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00041}00041\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00042}00042\ \textcolor{comment}{//!\ @brief\ フレーム情報からエフェクトを取得}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00043}00043\ \textcolor{comment}{//!\ @param\ frame\ フレーム}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00044}\mbox{\hyperlink{class_sequence_object_a56a0a30f1dd31e78a1187c77f5c9634a}{00044}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sequence_object_a56a0a30f1dd31e78a1187c77f5c9634a}{SequenceObject::SetEffectFromFrame}}(\textcolor{keywordtype}{int}\ frame)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00045}00045\ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a44a4bb874334e53074f648d5843fd571}{effect\_loop\_}}\ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00046}00046\ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a11903da3ed56f0a592b2e92be437b9a9}{effect\_frame\_}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00047}00047\ \ \ \ \ \textcolor{comment}{//\ 後ろからキーを取得して行く}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{class_sequence_object_ad903315ca5d33b52d07bb95531b7362c}{effect\_keys\_}}.size())\ -\/\ 1;\ i\ >=\ 0;\ -\/-\/i)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ key\ =\ \mbox{\hyperlink{class_sequence_object_ad903315ca5d33b52d07bb95531b7362c}{effect\_keys\_}}[i];}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 指定フレームより低くなったら}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(key\ <=\ frame)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ キーから何フレーム進んでいるかを割り出す}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ past\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(frame\ -\/\ key);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ キーフレーム番号と異なる場合は、設定する}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_sequence_object_a72b307bfd6dcb3bfdde6b9c3b6ae8325}{effect\_number\_}}\ !=\ i)}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a03468dc3f24635e050cea182556afdac}{effect\_change\_}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a72b307bfd6dcb3bfdde6b9c3b6ae8325}{effect\_number\_}}\ =\ i;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a11903da3ed56f0a592b2e92be437b9a9}{effect\_frame\_}}\ \ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(past);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a44a4bb874334e53074f648d5843fd571}{effect\_loop\_}}\ \ \ =\ \mbox{\hyperlink{class_sequence_object_a07bd5b91178717390c908700d3edcefc}{effect\_values\_}}[i].loop\_;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i\ ==\ 0\ \&\&\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{class_sequence_object_ad903315ca5d33b52d07bb95531b7362c}{effect\_keys\_}}[i])\ >\ frame)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a72b307bfd6dcb3bfdde6b9c3b6ae8325}{effect\_number\_}}\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00068}00068\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00069}00069\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00070}00070\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00071}00071\ \textcolor{comment}{//!\ @brief\ フレーム情報から姿勢(位置・回転・スケール)を取得}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00072}00072\ \textcolor{comment}{//!\ @param\ frame\ フレーム}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00073}\mbox{\hyperlink{class_sequence_object_ab94d1ae5f3b563d6e21f2c668b359cbd}{00073}}\ \textcolor{comment}{}\mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_sequence_object_ab94d1ae5f3b563d6e21f2c668b359cbd}{SequenceObject::GetTransformFromFrame}}(\textcolor{keywordtype}{int}\ frame)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00074}00074\ \ \ \ \ \textcolor{comment}{//\ frame\ からキー情報を取得するLambda関数}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00075}00075\ \ \ \ \ \textcolor{keyword}{auto}\ calc\_value\ =\ [](\textcolor{keywordtype}{int}\ frame,\ std::vector<uint32\_t>\ keys,\ std::vector<float3>\ values,}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ default\_value\ =\ \{0,\ 0,\ 0\})\ -\/>\ float3\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ old\ \ \ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ float3\ value\ =\ default\_value;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ keys.size();\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ key\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(keys[i]);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(key\ >=\ frame)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ base\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(key\ -\/\ old);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ par\ \ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(frame\ -\/\ old)\ /\ base;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\ =\ value\ *\ (1.0f\ -\/\ par)\ +\ values[i]\ *\ par;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ old\ \ \ =\ key;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\ =\ values[i];}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ value;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00094}00094\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00096}00096\ \ \ \ \ \textcolor{comment}{//\ frameの時の位置の評価をする}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00097}00097\ \ \ \ \ float3\ position\ =\ calc\_value(frame,\ \mbox{\hyperlink{class_sequence_object_a18b7afb047aed710e7d0cc319091d32f}{position\_keys\_}},\ \mbox{\hyperlink{class_sequence_object_a4f45891d5addc4b63e558a0634bbb9ad}{position\_values\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00098}00098\ \ \ \ \ \textcolor{comment}{//\ frameの時の回転の評価をする}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00099}00099\ \ \ \ \ float3\ rotation\ =\ calc\_value(frame,\ \mbox{\hyperlink{class_sequence_object_a6173662c8759ab64aca41f2fae68f2f1}{rotation\_keys\_}},\ \mbox{\hyperlink{class_sequence_object_a615da167e660f27edae0851f09d81609}{rotation\_values\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{comment}{//\ frameの時のスケールの評価をする}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00101}00101\ \ \ \ \ float3\ scale\ \ \ \ =\ calc\_value(frame,\ \mbox{\hyperlink{class_sequence_object_a526b0d4e8e1cbd090aaa5c55bbb51720}{scale\_keys\_}},\ \mbox{\hyperlink{class_sequence_object_a51e52dbc6b8d5d8b1f6c41f8857701fa}{scale\_values\_}},\ \{1,\ 1,\ 1\});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00103}00103\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ mat;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00104}00104\ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_abe00c8be42f2761185a0ccfca2ded81a}{RecomposeMatrixFromComponents}}((\textcolor{keywordtype}{float}*)\&position,\ (\textcolor{keywordtype}{float}*)\&rotation,\ (\textcolor{keywordtype}{float}*)\&scale,\ (\textcolor{keywordtype}{float}*)\&mat);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00105}00105\ \ \ \ \ \textcolor{keywordflow}{return}\ mat;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00106}00106\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00107}00107\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00108}00108\ \textcolor{comment}{//!\ @brief\ 三軸ギズモを表示する}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00109}\mbox{\hyperlink{class_sequence_object_ad00af77d10583f4cdc9dde5c4bfc2800}{00109}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sequence_object_ad00af77d10583f4cdc9dde5c4bfc2800}{SequenceObject::ShowGuizmo}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00110}00110\ \ \ \ \ \textcolor{comment}{//\ object\_matrix\_の位置にギズモを表示する}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_sequence_object_a9aac19fa7080d9d63c05a07fa10982e9}{show\_guizmo\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_component_transform_8cpp_afbbcfe2b9eaee4260761f03a50686852}{ShowGizmo}}(\mbox{\hyperlink{class_sequence_object_ad3f698ca496c2a43082ede34008c0785}{object\_matrix\_}}.f32\_128\_0,\ \mbox{\hyperlink{class_sequence_object_a0fda2b585a734ba577881741283a4758}{guizmo\_operation\_}},\ \mbox{\hyperlink{class_sequence_object_add3498385dff64f23144a00be8a8e749}{guizmo\_mode\_}},\ \textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this})))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ trns[3];}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ rot[3];}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ scale[3];}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_a6d9d86eb5b39827e671616046aef46d8}{DecomposeMatrixToComponents}}(\mbox{\hyperlink{class_sequence_object_ad3f698ca496c2a43082ede34008c0785}{object\_matrix\_}}.f32\_128\_0,\ trns,\ rot,\ scale);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モードによって取得情報を変更する}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{class_sequence_object_a0fda2b585a734ba577881741283a4758}{guizmo\_operation\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ImGuizmo::OPERATION::TRANSLATE:}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a4f45891d5addc4b63e558a0634bbb9ad}{position\_values\_}}[\mbox{\hyperlink{class_sequence_object_aebaada41d0072cbdaf71e13e8093a0e3}{guizmo\_index\_}}]\ =\ float3(trns[0],\ trns[1],\ trns[2]);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ImGuizmo::OPERATION::ROTATE:}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a615da167e660f27edae0851f09d81609}{rotation\_values\_}}[\mbox{\hyperlink{class_sequence_object_aebaada41d0072cbdaf71e13e8093a0e3}{guizmo\_index\_}}]\ =\ float3(rot[0],\ rot[1],\ rot[2]);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ImGuizmo::OPERATION::SCALE:}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a51e52dbc6b8d5d8b1f6c41f8857701fa}{scale\_values\_}}[\mbox{\hyperlink{class_sequence_object_aebaada41d0072cbdaf71e13e8093a0e3}{guizmo\_index\_}}]\ =\ float3(scale[0],\ scale[1],\ scale[2]);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a9aac19fa7080d9d63c05a07fa10982e9}{show\_guizmo\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00134}00134\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00135}00135\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00137}00137\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00138}00138\ \textcolor{comment}{//\ キー情報のデータを並び変える}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00139}00139\ \textcolor{keyword}{template}<\textcolor{keyword}{class}\ T>}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00140}00140\ \textcolor{keywordtype}{void}\ SortVectors(std::vector<uint32\_t>\&\ v1,\ std::vector<T>\&\ v2)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00141}00141\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n\ =\ v1.size();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00142}00142\ \ \ \ \ std::vector<uint32\_t>\ p(n),\ v1x(n);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00143}00143\ \ \ \ \ std::vector<T>\ \ \ \ \ \ \ \ v2x(n);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00144}00144\ \ \ \ \ std::iota(p.begin(),\ p.end(),\ 0);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00145}00145\ \ \ \ \ std::sort(p.begin(),\ p.end(),\ [\&](\textcolor{keywordtype}{int}\ a,\ \textcolor{keywordtype}{int}\ b)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ return\ v1[a]\ <\ v1[b];}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00147}00147\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00148}00148\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ v1x[i]\ =\ v1[p[i]];}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ v2x[i]\ =\ v2[p[i]];}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00151}00151\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00152}00152\ \ \ \ \ v1\ =\ v1x;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00153}00153\ \ \ \ \ v2\ =\ v2x;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00154}00154\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00155}00155\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00156}00156\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00157}00157\ \textcolor{comment}{//!\ @brief\ データを並び替えます}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00158}\mbox{\hyperlink{class_sequence_object_a74a0bcf64e7801dc9cdc6f4930b9bf96}{00158}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sequence_object_a74a0bcf64e7801dc9cdc6f4930b9bf96}{SequenceObject::Sort}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00159}00159\ \ \ \ \ \textcolor{comment}{//設定後にキーの並び替えをしておく}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00160}00160\ \ \ \ \ SortVectors<float3>(\mbox{\hyperlink{class_sequence_object_a18b7afb047aed710e7d0cc319091d32f}{position\_keys\_}},\ \mbox{\hyperlink{class_sequence_object_a4f45891d5addc4b63e558a0634bbb9ad}{position\_values\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00161}00161\ \ \ \ \ SortVectors<float3>(\mbox{\hyperlink{class_sequence_object_a6173662c8759ab64aca41f2fae68f2f1}{rotation\_keys\_}},\ \mbox{\hyperlink{class_sequence_object_a615da167e660f27edae0851f09d81609}{rotation\_values\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00162}00162\ \ \ \ \ SortVectors<float3>(\mbox{\hyperlink{class_sequence_object_a526b0d4e8e1cbd090aaa5c55bbb51720}{scale\_keys\_}},\ \mbox{\hyperlink{class_sequence_object_a51e52dbc6b8d5d8b1f6c41f8857701fa}{scale\_values\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00163}00163\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00164}00164\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00165}00165\ \textcolor{comment}{//!\ @brief\ シーケンサ内部オブジェクトの更新}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00166}00166\ \textcolor{comment}{//!\ @param\ playing\ 実行中か}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00167}00167\ \textcolor{comment}{//!\ @param\ frame\ フレーム数}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00168}\mbox{\hyperlink{class_sequence_object_a4ece6d2ef1671f7680890819201ef324}{00168}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sequence_object_a4ece6d2ef1671f7680890819201ef324}{SequenceObject::Update}}(\textcolor{keywordtype}{bool}\ playing,\ \textcolor{keywordtype}{float}\ frame)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00169}00169\ \ \ \ \ \textcolor{comment}{//\ シーケンサの実行中か}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00170}00170\ \ \ \ \ \textcolor{keywordflow}{if}(playing)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 実行中の場合は、フレームによってアニメーション、エフェクトを設定する}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i\_frame\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(frame);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a7ffa6a5df0c9f86b4171963a4c0ce35f}{SetAnimationFromFrame}}(i\_frame);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a56a0a30f1dd31e78a1187c77f5c9634a}{SetEffectFromFrame}}(i\_frame);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 姿勢状態(位置・回転・スケール)の取得}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_ad3f698ca496c2a43082ede34008c0785}{object\_matrix\_}}\ =\ \mbox{\hyperlink{class_sequence_object_ab94d1ae5f3b563d6e21f2c668b359cbd}{GetTransformFromFrame}}(i\_frame);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ obj\ =\ Scene::GetObjectPtr<Object>(\mbox{\hyperlink{class_sequence_object_a5e3f2fd669f746a372c9a9eb4b11d9db}{name\_}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 名前からオブジェクトを取得してそのMatrixを更新する}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ obj-\/>SetMatrix(\mbox{\hyperlink{class_sequence_object_ad3f698ca496c2a43082ede34008c0785}{object\_matrix\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モデルを取得してアニメーションを設定する}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ component\ =\ obj-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ component-\/>PlayAnimationNoSame(\mbox{\hyperlink{class_sequence_object_a46bf3d853dbf812cfa76509c1aaf1b4a}{animation\_name\_}},\ \mbox{\hyperlink{class_sequence_object_a556f1eedd865fb56098733e03bc04895}{animation\_loop\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(fabs(frame\ -\/\ \mbox{\hyperlink{class_sequence_object_ab4a2af00d477091e1ba50e37a0f3b605}{animation\_frame\_old\_}})\ >\ 1.0f\ \&\&\ !component-\/>IsPlaying())}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ component-\/>PlayAnimation(\mbox{\hyperlink{class_sequence_object_a46bf3d853dbf812cfa76509c1aaf1b4a}{animation\_name\_}},\ \textcolor{keyword}{false},\ 0.0f,\ \mbox{\hyperlink{class_sequence_object_ab4a2af00d477091e1ba50e37a0f3b605}{animation\_frame\_old\_}}\ /\ 60.0f);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ component-\/>Update(\ (\ frame\ -\/\ animation\_frame\_old\_\ )\ /\ 60.0f}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ );}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_ab4a2af00d477091e1ba50e37a0f3b605}{animation\_frame\_old\_}}\ =\ i\_frame;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ エフェクトを設定する}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ component\ =\ obj-\/>GetComponent<\mbox{\hyperlink{class_component_effect}{ComponentEffect}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_sequence_object_a03468dc3f24635e050cea182556afdac}{effect\_change\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ component-\/>Play(\mbox{\hyperlink{class_sequence_object_a44a4bb874334e53074f648d5843fd571}{effect\_loop\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a03468dc3f24635e050cea182556afdac}{effect\_change\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00199}00199\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ fabs(\ frame\ -\/\ \mbox{\hyperlink{class_sequence_object_aa66e5ae40631852840643959e66c7b05}{effect\_frame\_old\_}}\ )\ >\ 1.0f\ \&\&\ !component-\/>IsPlaying()\ )}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ component-\/>PlayPause(\ \textcolor{keyword}{true}\ );}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00202}00202\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ delta\ =\ \mbox{\hyperlink{_system_main_8cpp_a452fbbb7d3c2ce1a51dbcfbb8274c617}{GetDeltaTime}}();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_system_main_8cpp_ad50fd4069fafde421c84c6627d405eb0}{SetDeltaTime}}((frame\ -\/\ \mbox{\hyperlink{class_sequence_object_aa66e5ae40631852840643959e66c7b05}{effect\_frame\_old\_}})\ /\ 60.0f);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ component-\/>Update();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_system_main_8cpp_ad50fd4069fafde421c84c6627d405eb0}{SetDeltaTime}}(delta);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_aa66e5ae40631852840643959e66c7b05}{effect\_frame\_old\_}}\ =\ i\_frame;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00210}00210\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00212}00212\ \ \ \ \ \mbox{\hyperlink{class_sequence_object_ad00af77d10583f4cdc9dde5c4bfc2800}{ShowGuizmo}}();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00213}00213\ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a74a0bcf64e7801dc9cdc6f4930b9bf96}{Sort}}();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00214}00214\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00215}00215\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00216}00216\ \textcolor{comment}{//!\ @brief\ GUI表示}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00217}00217\ \textcolor{comment}{//!\ @param\ start\ スタートフレーム}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00218}00218\ \textcolor{comment}{//!\ @param\ end\ 終了フレーム}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00219}\mbox{\hyperlink{class_sequence_object_a8799ef05e74459b8a020a625f45d42c0}{00219}}\ \textcolor{comment}{}\textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_sequence_object_a8799ef05e74459b8a020a625f45d42c0}{SequenceObject::GUI}}(uint32\_t\ start,\ uint32\_t\ end)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00220}00220\ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginNeoGroup(\mbox{\hyperlink{class_sequence_object_a80995113b36e23eaddbe89006edb3d30}{GetName}}().data(),\ \&\mbox{\hyperlink{class_sequence_object_aaf34da5ddfb1061dd06bdad1456f0c98}{open\_}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00221}00221\ \ \ \ \ \ \ \ \ ImGui::Dummy(\{0,\ 8\});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ ImGui::InputText(\mbox{\hyperlink{class_sequence_object_a97f3c83ac7a26bd517d3a5596fb7fa67}{GetNameLabel}}().data(),\ \&\mbox{\hyperlink{class_sequence_object_a5e3f2fd669f746a372c9a9eb4b11d9db}{name\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00225}00225\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ ImGui::Spacing();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GUI\ ポジションキーの表示}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ std::string\ pos\_name\ =\ \textcolor{stringliteral}{"{}Position\#\#pos"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginNeoTimeline<float3>(pos\_name.data(),\ \mbox{\hyperlink{class_sequence_object_a18b7afb047aed710e7d0cc319091d32f}{position\_keys\_}},\ \mbox{\hyperlink{class_sequence_object_a4f45891d5addc4b63e558a0634bbb9ad}{position\_values\_}},\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiNeoSequencerFlags\_AllowLengthChanging))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ ImGui::GetNeoKeySelected();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(index\ >=\ 0\ \&\&\ \mbox{\hyperlink{class_sequence_object_a18b7afb047aed710e7d0cc319091d32f}{position\_keys\_}}.size()\ >\ index)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_aebaada41d0072cbdaf71e13e8093a0e3}{guizmo\_index\_}}\ \ \ \ \ \ \ \ \ \ \ =\ index;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ frame\_table\ =\ \textcolor{stringliteral}{"{}Frame\#\#frame-\/pos"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragScalar(frame\_table.data(),\ ImGuiDataType\_U32,\ \&\mbox{\hyperlink{class_sequence_object_a18b7afb047aed710e7d0cc319091d32f}{position\_keys\_}}[index],\ 1,\ \&start,\ \&end);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::DragFloat3(\textcolor{stringliteral}{"{}Position"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_sequence_object_a4f45891d5addc4b63e558a0634bbb9ad}{position\_values\_}}[index],\ 0.1f))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_i_matrix_a714ba34bafae6ad18adc512a12bfd88c}{SetTranslate}}(\mbox{\hyperlink{class_sequence_object_a4f45891d5addc4b63e558a0634bbb9ad}{position\_values\_}}[index]);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a0fda2b585a734ba577881741283a4758}{guizmo\_operation\_}}\ =\ ImGuizmo::OPERATION::TRANSLATE;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_add3498385dff64f23144a00be8a8e749}{guizmo\_mode\_}}\ \ \ \ \ \ =\ ImGuizmo::MODE::WORLD;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a9aac19fa7080d9d63c05a07fa10982e9}{show\_guizmo\_}}\ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_ad3f698ca496c2a43082ede34008c0785}{object\_matrix\_}}\ \ \ \ =\ \mbox{\hyperlink{class_sequence_object_ab94d1ae5f3b563d6e21f2c668b359cbd}{GetTransformFromFrame}}(\mbox{\hyperlink{class_sequence_object_a18b7afb047aed710e7d0cc319091d32f}{position\_keys\_}}[index]);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndNeoTimeLine();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00248}00248\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00249}00249\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GUI\ ローテーションキーの表示}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ std::string\ rot\_name\ =\ \textcolor{stringliteral}{"{}Rotation\#\#rot"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00252}00252\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginNeoTimeline<float3>(rot\_name.data(),\ \mbox{\hyperlink{class_sequence_object_a6173662c8759ab64aca41f2fae68f2f1}{rotation\_keys\_}},\ \mbox{\hyperlink{class_sequence_object_a615da167e660f27edae0851f09d81609}{rotation\_values\_}},\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiNeoSequencerFlags\_AllowLengthChanging))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ ImGui::GetNeoKeySelected();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(index\ >=\ 0\ \&\&\ \mbox{\hyperlink{class_sequence_object_a6173662c8759ab64aca41f2fae68f2f1}{rotation\_keys\_}}.size()\ >\ index)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_aebaada41d0072cbdaf71e13e8093a0e3}{guizmo\_index\_}}\ \ \ \ \ \ \ \ \ \ \ =\ index;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ frame\_table\ =\ \textcolor{stringliteral}{"{}Frame\#\#frame-\/rot"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragScalar(frame\_table.data(),\ ImGuiDataType\_U32,\ \&\mbox{\hyperlink{class_sequence_object_a6173662c8759ab64aca41f2fae68f2f1}{rotation\_keys\_}}[index],\ 1,\ \&start,\ \&end);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::DragFloat3(\textcolor{stringliteral}{"{}Rotation"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_sequence_object_a615da167e660f27edae0851f09d81609}{rotation\_values\_}}[index],\ 0.1f))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_i_matrix_a79080df693fc6ca32a4d0cf00d277bf1}{SetRotationAxisXYZ}}(\mbox{\hyperlink{class_sequence_object_a615da167e660f27edae0851f09d81609}{rotation\_values\_}}[index]);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a0fda2b585a734ba577881741283a4758}{guizmo\_operation\_}}\ =\ ImGuizmo::OPERATION::ROTATE;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_add3498385dff64f23144a00be8a8e749}{guizmo\_mode\_}}\ \ \ \ \ \ =\ ImGuizmo::MODE::LOCAL;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a9aac19fa7080d9d63c05a07fa10982e9}{show\_guizmo\_}}\ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_ad3f698ca496c2a43082ede34008c0785}{object\_matrix\_}}\ \ \ \ =\ \mbox{\hyperlink{class_sequence_object_ab94d1ae5f3b563d6e21f2c668b359cbd}{GetTransformFromFrame}}(\mbox{\hyperlink{class_sequence_object_a6173662c8759ab64aca41f2fae68f2f1}{rotation\_keys\_}}[index]);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00268}00268\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndNeoTimeLine();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00270}00270\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00272}00272\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GUI\ スケールキーの表示}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00273}00273\ \ \ \ \ \ \ \ \ std::string\ scale\_name\ =\ \textcolor{stringliteral}{"{}Scale\#\#scale"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00274}00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginNeoTimeline<float3>(scale\_name.data(),\ \mbox{\hyperlink{class_sequence_object_a526b0d4e8e1cbd090aaa5c55bbb51720}{scale\_keys\_}},\ \mbox{\hyperlink{class_sequence_object_a51e52dbc6b8d5d8b1f6c41f8857701fa}{scale\_values\_}},\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiNeoSequencerFlags\_AllowLengthChanging))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ ImGui::GetNeoKeySelected();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(index\ >=\ 0\ \&\&\ \mbox{\hyperlink{class_sequence_object_a526b0d4e8e1cbd090aaa5c55bbb51720}{scale\_keys\_}}.size()\ >\ index)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_aebaada41d0072cbdaf71e13e8093a0e3}{guizmo\_index\_}}\ \ \ \ \ \ \ \ \ \ \ =\ index;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ frame\_table\ =\ \textcolor{stringliteral}{"{}Frame\#\#frame-\/scale"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragScalar(frame\_table.data(),\ ImGuiDataType\_U32,\ \&\mbox{\hyperlink{class_sequence_object_a526b0d4e8e1cbd090aaa5c55bbb51720}{scale\_keys\_}}[index],\ 1,\ \&start,\ \&end);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00281}00281\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::DragFloat3(\textcolor{stringliteral}{"{}Scale"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_sequence_object_a51e52dbc6b8d5d8b1f6c41f8857701fa}{scale\_values\_}}[index],\ 0.1f))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_i_matrix_a1bf7f616a7fe4c9dfc975cf0a2748304}{SetScaleAxisXYZ}}(\mbox{\hyperlink{class_sequence_object_a51e52dbc6b8d5d8b1f6c41f8857701fa}{scale\_values\_}}[index]);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a0fda2b585a734ba577881741283a4758}{guizmo\_operation\_}}\ =\ ImGuizmo::OPERATION::SCALE;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_add3498385dff64f23144a00be8a8e749}{guizmo\_mode\_}}\ \ \ \ \ \ =\ ImGuizmo::MODE::LOCAL;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a9aac19fa7080d9d63c05a07fa10982e9}{show\_guizmo\_}}\ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_ad3f698ca496c2a43082ede34008c0785}{object\_matrix\_}}\ \ \ \ =\ \mbox{\hyperlink{class_sequence_object_ab94d1ae5f3b563d6e21f2c668b359cbd}{GetTransformFromFrame}}(\mbox{\hyperlink{class_sequence_object_a526b0d4e8e1cbd090aaa5c55bbb51720}{scale\_keys\_}}[index]);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndNeoTimeLine();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00292}00292\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00294}00294\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GUI\ アニメーションキーの表示}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00295}00295\ \ \ \ \ \ \ \ \ std::string\ anm\_name\ =\ \textcolor{stringliteral}{"{}Animation\#\#anm"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00296}00296\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginNeoTimeline<AnimObject>(anm\_name.data(),\ \mbox{\hyperlink{class_sequence_object_a5bb8e7b00281dcee237c1805464294dd}{animation\_keys\_}},\ \mbox{\hyperlink{class_sequence_object_a8f8bb0071bec2ec980bd9945b8f5b11c}{animation\_values\_}},\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiNeoSequencerFlags\_AllowLengthChanging))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ ImGui::GetNeoKeySelected();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00299}00299\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(index\ >=\ 0\ \&\&\ \mbox{\hyperlink{class_sequence_object_a5bb8e7b00281dcee237c1805464294dd}{animation\_keys\_}}.size()\ >\ index)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00300}00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_aebaada41d0072cbdaf71e13e8093a0e3}{guizmo\_index\_}}\ \ \ \ \ \ \ \ \ \ =\ index;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ frame\_name\ =\ \textcolor{stringliteral}{"{}Frame\#\#frame-\/anm"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragScalar(frame\_name.data(),\ ImGuiDataType\_U32,\ \&\mbox{\hyperlink{class_sequence_object_a5bb8e7b00281dcee237c1805464294dd}{animation\_keys\_}}[index],\ 1,\ \&start,\ \&end);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ check\_name\ =\ \textcolor{stringliteral}{"{}Loop\#\#checkbox-\/anm"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00304}00304\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Checkbox(check\_name.data(),\ \&\mbox{\hyperlink{class_sequence_object_a8f8bb0071bec2ec980bd9945b8f5b11c}{animation\_values\_}}[index].loop\_);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00305}00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::InputText(\textcolor{stringliteral}{"{}Animation"{}},\ \&\mbox{\hyperlink{class_sequence_object_a8f8bb0071bec2ec980bd9945b8f5b11c}{animation\_values\_}}[index].\mbox{\hyperlink{class_sequence_object_a5e3f2fd669f746a372c9a9eb4b11d9db}{name\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00306}00306\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a9aac19fa7080d9d63c05a07fa10982e9}{show\_guizmo\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndNeoTimeLine();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00310}00310\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00312}00312\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GUI\ エフェクトキーの表示}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00313}00313\ \ \ \ \ \ \ \ \ std::string\ eff\_name\ =\ \textcolor{stringliteral}{"{}Effect\#\#effect"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00314}00314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginNeoTimeline<AnimObject>(eff\_name.data(),\ \mbox{\hyperlink{class_sequence_object_ad903315ca5d33b52d07bb95531b7362c}{effect\_keys\_}},\ \mbox{\hyperlink{class_sequence_object_a07bd5b91178717390c908700d3edcefc}{effect\_values\_}},\ \textcolor{keyword}{nullptr},}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiNeoSequencerFlags\_AllowLengthChanging))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00316}00316\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ ImGui::GetNeoKeySelected();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(index\ >=\ 0\ \&\&\ \mbox{\hyperlink{class_sequence_object_ad903315ca5d33b52d07bb95531b7362c}{effect\_keys\_}}.size()\ >\ index)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00318}00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_aebaada41d0072cbdaf71e13e8093a0e3}{guizmo\_index\_}}\ \ \ \ \ \ \ \ \ \ =\ index;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ frame\_name\ =\ \textcolor{stringliteral}{"{}Frame\#\#frame-\/eff"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragScalar(frame\_name.data(),\ ImGuiDataType\_U32,\ \&\mbox{\hyperlink{class_sequence_object_ad903315ca5d33b52d07bb95531b7362c}{effect\_keys\_}}[index],\ 1,\ \&start,\ \&end);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ check\_name\ =\ \textcolor{stringliteral}{"{}Loop\#\#checkbox-\/eff"{}}\ +\ std::to\_string(\textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\textcolor{keyword}{this}));}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Checkbox(check\_name.data(),\ \&\mbox{\hyperlink{class_sequence_object_a07bd5b91178717390c908700d3edcefc}{effect\_values\_}}[index].loop\_);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ImGui::InputText(\ "{}Effect"{},\ \&effect\_values\_[\ index\ ].name\_\ );}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00324}00324\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00325}00325\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_sequence_object_a9aac19fa7080d9d63c05a07fa10982e9}{show\_guizmo\_}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00326}00326\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndNeoTimeLine();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00328}00328\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00329}00329\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00330}00330\ \ \ \ \ \ \ \ \ ImGui::EndNeoGroup();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00331}00331\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00332}00332\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00334}\mbox{\hyperlink{_component_sequencer_8cpp_a6206d4ae55d18f556ae5fbc1965a8fb4}{00334}}\ \mbox{\hyperlink{_component_8h_acb5da28bae949d7ba8d6a74c97e1e394}{BP\_COMPONENT\_IMPL}}(\mbox{\hyperlink{class_component_sequencer}{ComponentSequencer}},\ \mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Sequencer機能クラス"{}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00335}00335\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00336}\mbox{\hyperlink{class_component_sequencer_a11ea980d096f47b1a99888ae453726ef}{00336}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_sequencer_a11ea980d096f47b1a99888ae453726ef}{ComponentSequencer::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00337}00337\ \ \ \ \ \_\_super::Init();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00338}00338\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00340}\mbox{\hyperlink{class_component_sequencer_aa588bbaf976326565de93e10845940df}{00340}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_sequencer_aa588bbaf976326565de93e10845940df}{ComponentSequencer::Update}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00341}00341\ \ \ \ \ \_\_super::Update();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00342}00342\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00343}00343\ \ \ \ \ \textcolor{keywordtype}{float}\ delta\_seconds\ =\ \mbox{\hyperlink{_system_main_8cpp_a452fbbb7d3c2ce1a51dbcfbb8274c617}{GetDeltaTime}}();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00344}00344\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00345}00345\ \ \ \ \ \textcolor{keywordtype}{bool}\ step\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00346}00346\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00347}00347\ \ \ \ \ ImGui::Begin(\textcolor{stringliteral}{"{}Sequencer\#\#\_\_SequencerID\_\_"{}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00348}00348\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00349}00349\ \ \ \ \ \ \ \ \ uint32\_t\ frame\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\mbox{\hyperlink{class_component_sequencer_a9c5df71ea86541bbd46f5eb53063c209}{current\_frame\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00350}00350\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::BeginNeoSequencer(\textcolor{stringliteral}{"{}Sequencer"{}},\ \&frame,\ \&\mbox{\hyperlink{class_component_sequencer_a055357d95e33d69afa0ffcfe8a6cda8d}{start\_frame\_}},\ \&\mbox{\hyperlink{class_component_sequencer_af9fc70cf5c4dc52e46d5e56c9b4ddf61}{end\_frame\_}},\ \{0,\ 0\},}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGuiNeoSequencerFlags\_AllowLengthChanging))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(frame\ !=\ \textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(\mbox{\hyperlink{class_component_sequencer_a9c5df71ea86541bbd46f5eb53063c209}{current\_frame\_}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_a9c5df71ea86541bbd46f5eb53063c209}{current\_frame\_}}\ =\ (float)frame;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ step\ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00356}00356\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ プレイ中出ない場合、Playボタンで再生を実行します}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_component_sequencer_ae2b005137d7dde0188ac6e129110f51f}{GetSequencerStatus}}(\mbox{\hyperlink{class_component_sequencer_ae0b56c7ae48b96a827e131bbb06c2b8dac9dbb2b7c84159b632d71e512eba8428}{SequencerBit::Playing}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\textcolor{stringliteral}{"{}Play"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_a4d6bf52aba94be2986286bef6a6ee1a9}{Play}}();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ プレイ中の場合はストップする}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\textcolor{stringliteral}{"{}Stop"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_a79ba0af0cdfa08fa6e9ce21e4640fc62}{Stop}}();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00368}00368\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}オブジェクト追加"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00370}00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_aa5c7075967cb2384292135246161b911}{objects\_}}.push\_back(std::make\_shared<SequenceObject>());}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00372}00372\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ (\textcolor{keywordtype}{int})\mbox{\hyperlink{class_component_sequencer_aa5c7075967cb2384292135246161b911}{objects\_}}.size()\ -\/\ 1;\ i\ >=\ 0;\ -\/-\/i)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ seq\_obj\ =\ \mbox{\hyperlink{class_component_sequencer_aa5c7075967cb2384292135246161b911}{objects\_}}[i];}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::IsSelectedNeoGroup(seq\_obj-\/>GetName().data()))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00376}00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::SameLine();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00377}00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}オブジェクト削除"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_aa5c7075967cb2384292135246161b911}{objects\_}}.erase(\mbox{\hyperlink{class_component_sequencer_aa5c7075967cb2384292135246161b911}{objects\_}}.begin()\ +\ i);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00383}00383\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ スタートと終了はメモリが既に存在しているので用意しない}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00384}00384\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ start\_frame\_name\ =\ \textcolor{stringliteral}{"{}StartFrame\#\#startframe"{}}\ +\ std::to\_string(\ \textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\ \textcolor{keyword}{this}\ )\ );}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragScalar(\ start\_frame\_name.data(),\ ImGuiDataType\_U32,\ \&SequenceObject::start\_frame,\ 1,\ 0,\ \&SequenceObject::end\_frame\ );}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ end\_frame\_name\ =\ \textcolor{stringliteral}{"{}EndFrame\#\#endframe"{}}\ +\ std::to\_string(\ \textcolor{keyword}{reinterpret\_cast<}uint64\_t\textcolor{keyword}{>}(\ \textcolor{keyword}{this}\ )\ );}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragScalar(\ end\_frame\_name.data(),\ ImGuiDataType\_U32,\ \&SequenceObject::end\_frame,\ 1,\ \&SequenceObject::start\_frame\ );}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00389}00389\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ オブジェクトの情報の描画}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ seq\_obj:\ \mbox{\hyperlink{class_component_sequencer_aa5c7075967cb2384292135246161b911}{objects\_}})}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ seq\_obj-\/>GUI(\mbox{\hyperlink{class_component_sequencer_a055357d95e33d69afa0ffcfe8a6cda8d}{start\_frame\_}},\ \mbox{\hyperlink{class_component_sequencer_af9fc70cf5c4dc52e46d5e56c9b4ddf61}{end\_frame\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00393}00393\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00394}00394\ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndNeoSequencer();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00395}00395\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00396}00396\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00397}00397\ \ \ \ \ ImGui::End();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00398}00398\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00399}00399\ \ \ \ \ \textcolor{comment}{//\ プレイ中}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00400}00400\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_sequencer_ae2b005137d7dde0188ac6e129110f51f}{GetSequencerStatus}}(\mbox{\hyperlink{class_component_sequencer_ae0b56c7ae48b96a827e131bbb06c2b8dac9dbb2b7c84159b632d71e512eba8428}{SequencerBit::Playing}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00401}00401\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_a9c5df71ea86541bbd46f5eb53063c209}{current\_frame\_}}\ +=\ delta\_seconds\ /\ (1.0f\ /\ 60.0f);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00402}00402\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_sequencer_a9c5df71ea86541bbd46f5eb53063c209}{current\_frame\_}}\ >=\ (\textcolor{keywordtype}{float})\mbox{\hyperlink{class_component_sequencer_af9fc70cf5c4dc52e46d5e56c9b4ddf61}{end\_frame\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_sequencer_ae2b005137d7dde0188ac6e129110f51f}{GetSequencerStatus}}(\mbox{\hyperlink{class_component_sequencer_ae0b56c7ae48b96a827e131bbb06c2b8da89d7b10cb4238977d2b523dfd9ea7745}{SequencerBit::Loop}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_a9c5df71ea86541bbd46f5eb53063c209}{current\_frame\_}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_a3c1b17b9145f381bbb35c0a8908d2ec0}{SetSequencerStatus}}(\mbox{\hyperlink{class_component_sequencer_ae0b56c7ae48b96a827e131bbb06c2b8dac9dbb2b7c84159b632d71e512eba8428}{SequencerBit::Playing}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00407}00407\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00408}00408\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00409}00409\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00410}00410\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00411}00411\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ seq\_obj:\ \mbox{\hyperlink{class_component_sequencer_aa5c7075967cb2384292135246161b911}{objects\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00412}00412\ \ \ \ \ \ \ \ \ seq\_obj-\/>Update(\mbox{\hyperlink{class_component_sequencer_ae2b005137d7dde0188ac6e129110f51f}{GetSequencerStatus}}(\mbox{\hyperlink{class_component_sequencer_ae0b56c7ae48b96a827e131bbb06c2b8dac9dbb2b7c84159b632d71e512eba8428}{SequencerBit::Playing}})\ ||\ step,\ \mbox{\hyperlink{class_component_sequencer_a9c5df71ea86541bbd46f5eb53063c209}{current\_frame\_}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00413}00413\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00414}00414\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00415}00415\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00416}\mbox{\hyperlink{class_component_sequencer_ad7ccf81389e8713fb08d41aa1f9ef0bd}{00416}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_sequencer_ad7ccf81389e8713fb08d41aa1f9ef0bd}{ComponentSequencer::PostUpdate}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00417}00417\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00418}00418\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00419}00419\ \textcolor{comment}{//!\ デバッグ表示}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00420}00420\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00421}\mbox{\hyperlink{class_component_sequencer_a28a5c0d6d76016cc43b807ef596e5868}{00421}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_sequencer_a28a5c0d6d76016cc43b807ef596e5868}{ComponentSequencer::Draw}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00422}00422\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00423}00423\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00424}00424\ \textcolor{comment}{//!\ カメラ終了処理}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00425}00425\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00426}\mbox{\hyperlink{class_component_sequencer_ab45c7d3a5d48fdb62e6d4af03fcedd6b}{00426}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_sequencer_ab45c7d3a5d48fdb62e6d4af03fcedd6b}{ComponentSequencer::Exit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00427}00427\ \ \ \ \ \_\_super::Exit();}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00428}00428\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00429}00429\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00430}00430\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00431}00431\ \textcolor{comment}{//!\ GUI処理}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00432}00432\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00433}\mbox{\hyperlink{class_component_sequencer_a461d5194489fb2a7f58027fee0ec784d}{00433}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_sequencer_a461d5194489fb2a7f58027fee0ec784d}{ComponentSequencer::GUI}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00434}00434\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00435}00435\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00436}00436\ \textcolor{comment}{//!\ @brief\ 再生処理}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00437}00437\ \textcolor{comment}{//!\ @param\ start\_frame\ スタートフレーム}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00438}00438\ \textcolor{comment}{//!\ @param\ loop\ 終了フレーム}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00439}00439\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00440}\mbox{\hyperlink{class_component_sequencer_a4d6bf52aba94be2986286bef6a6ee1a9}{00440}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_sequencer_a4d6bf52aba94be2986286bef6a6ee1a9}{ComponentSequencer::Play}}(\textcolor{keywordtype}{int}\ start\_frame,\ \textcolor{keywordtype}{bool}\ loop)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00441}00441\ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_a3c1b17b9145f381bbb35c0a8908d2ec0}{SetSequencerStatus}}(\mbox{\hyperlink{class_component_sequencer_ae0b56c7ae48b96a827e131bbb06c2b8dac9dbb2b7c84159b632d71e512eba8428}{SequencerBit::Playing}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00442}00442\ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_a3c1b17b9145f381bbb35c0a8908d2ec0}{SetSequencerStatus}}(\mbox{\hyperlink{class_component_sequencer_ae0b56c7ae48b96a827e131bbb06c2b8da89d7b10cb4238977d2b523dfd9ea7745}{SequencerBit::Loop}},\ loop);}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00443}00443\ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_a9c5df71ea86541bbd46f5eb53063c209}{current\_frame\_}}\ =\ (float)start\_frame;}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00444}00444\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00445}00445\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00446}00446\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00447}00447\ \textcolor{comment}{//!\ @brief\ 再生停止}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00448}00448\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00449}\mbox{\hyperlink{class_component_sequencer_a79ba0af0cdfa08fa6e9ce21e4640fc62}{00449}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_sequencer_a79ba0af0cdfa08fa6e9ce21e4640fc62}{ComponentSequencer::Stop}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00450}00450\ \ \ \ \ \mbox{\hyperlink{class_component_sequencer_a3c1b17b9145f381bbb35c0a8908d2ec0}{SetSequencerStatus}}(\mbox{\hyperlink{class_component_sequencer_ae0b56c7ae48b96a827e131bbb06c2b8dac9dbb2b7c84159b632d71e512eba8428}{SequencerBit::Playing}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00451}00451\ \}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00452}00452\ }
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00453}00453\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00454}00454\ \textcolor{comment}{//!\ @brief\ 再生中かチェック}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00455}00455\ \textcolor{comment}{//!\ @retval\ true\ \ 再生中}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00456}00456\ \textcolor{comment}{//!\ @retval\ false\ 再生中ではない}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00457}00457\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00458}\mbox{\hyperlink{class_component_sequencer_a5890312a79596f0a0865bd0223d6cdec}{00458}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_sequencer_a5890312a79596f0a0865bd0223d6cdec}{ComponentSequencer::IsPlaying}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00459}00459\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_sequencer_ae2b005137d7dde0188ac6e129110f51f}{GetSequencerStatus}}(\mbox{\hyperlink{class_component_sequencer_ae0b56c7ae48b96a827e131bbb06c2b8dac9dbb2b7c84159b632d71e512eba8428}{SequencerBit::Playing}});}
+\DoxyCodeLine{\Hypertarget{_component_sequencer_8cpp_source_l00460}00460\ \}}
+
+\end{DoxyCode}

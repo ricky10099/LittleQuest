@@ -1,0 +1,290 @@
+\hypertarget{classphysics_1_1_engine}{}\doxysection{physics\+::Engine クラス}
+\label{classphysics_1_1_engine}\index{physics::Engine@{physics::Engine}}
+
+
+{\ttfamily \#include $<$Physics\+Engine.\+h$>$}
+
+
+
+physics\+::Engine の継承関係図
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{d1/ddb/classphysics_1_1_engine__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classphysics_1_1_engine_a9de3345e6bce21c52b45b47d7f9a60c0}{$\sim$\+Engine}} ()=default
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_engine_a96a24878ea8a67f35ebfef84e804f1cf}{update}} (\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}} dt)=0
+\item 
+virtual bool \mbox{\hyperlink{classphysics_1_1_engine_ad87d160a08543e440af348a00be309cd}{cast\+Ray}} (const \mbox{\hyperlink{class_ray}{Ray}} \&ray, \mbox{\hyperlink{structphysics_1_1_ray_cast_result}{Ray\+Cast\+Result}} \&result)=0
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_engine_abbc4494b9eca276c577867230d10b304}{optimize}} ()=0
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_engine_a4ed415ef1b0a43a39bc75eab7d9e83b2}{set\+Layer\+Alias}} (const std\+::pair$<$ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267ba}{physics\+::\+Object\+Layers}}, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} $>$ $\ast$layers, size\+\_\+t layer\+Count)=0
+\item 
+virtual void \mbox{\hyperlink{classphysics_1_1_engine_ad67bc7551d7da8b923967e983260af0d}{override\+Layer\+Collide}} (std\+::function$<$ bool(\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})$>$ callback)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{静的公開メンバ関数}
+\begin{Indent}\textbf{ Jolt\+Physics用のネイティブ情報取得インターフェイス}\par
+\begin{DoxyCompactItemize}
+\item 
+static JPH\+::\+Physics\+System $\ast$ \mbox{\hyperlink{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}{physics\+System}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} Physicsシステムを取得 \end{DoxyCompactList}\item 
+static JPH\+::\+Body\+Interface $\ast$ \mbox{\hyperlink{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}{body\+Interface}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} ボディインターフェイスを取得 \end{DoxyCompactList}\item 
+static JPH\+::\+Temp\+Allocator $\ast$ \mbox{\hyperlink{classphysics_1_1_engine_a55570741b680677c849770aa20c832cc}{temp\+Allocator}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} テンポラリアロケーターを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsection*{限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classphysics_1_1_engine_a08b42b6b3fc88a1a8afd47efde3823cb}{Engine}} ()=default
+\begin{DoxyCompactList}\small\item\em デフォルトコンストラクタ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{参照}
+\begin{DoxyCompactItemize}
+\item 
+virtual float3 \mbox{\hyperlink{classphysics_1_1_engine_af553ad1f2213303c889854b95e3b2a75}{gravity}} () const =0
+\begin{DoxyCompactList}\small\item\em 重力を取得 \end{DoxyCompactList}\item 
+virtual bool \mbox{\hyperlink{classphysics_1_1_engine_a7b10220f9e53630cb19fc6da12cf0317}{is\+Valid}} () const =0
+\begin{DoxyCompactList}\small\item\em 正常に初期化されているかどうかを取得 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{classphysics_1_1_engine}{Engine}} $\ast$ \mbox{\hyperlink{classphysics_1_1_engine_ac114076717c5b5e26c9e740c76f3f058}{instance}} ()
+\begin{DoxyCompactList}\small\item\em Physicsインスタンスを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+
+
+ \mbox{\hyperlink{_physics_engine_8h_source}{Physics\+Engine.\+h}} の \mbox{\hyperlink{_physics_engine_8h_source_l00035}{35}} 行目に定義があります。
+
+
+
+\doxysubsection{構築子と解体子}
+\mbox{\Hypertarget{classphysics_1_1_engine_a08b42b6b3fc88a1a8afd47efde3823cb}\label{classphysics_1_1_engine_a08b42b6b3fc88a1a8afd47efde3823cb}} 
+\index{physics::Engine@{physics::Engine}!Engine@{Engine}}
+\index{Engine@{Engine}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{Engine()}{Engine()}}
+{\footnotesize\ttfamily physics\+::\+Engine\+::\+Engine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [default]}}
+
+
+
+デフォルトコンストラクタ 
+
+\mbox{\Hypertarget{classphysics_1_1_engine_a9de3345e6bce21c52b45b47d7f9a60c0}\label{classphysics_1_1_engine_a9de3345e6bce21c52b45b47d7f9a60c0}} 
+\index{physics::Engine@{physics::Engine}!````~Engine@{$\sim$Engine}}
+\index{````~Engine@{$\sim$Engine}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{$\sim$Engine()}{~Engine()}}
+{\footnotesize\ttfamily virtual physics\+::\+Engine\+::$\sim$\+Engine (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+デストラクタ 
+
+
+
+\doxysubsection{関数詳解}
+\mbox{\Hypertarget{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}\label{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}} 
+\index{physics::Engine@{physics::Engine}!bodyInterface@{bodyInterface}}
+\index{bodyInterface@{bodyInterface}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{bodyInterface()}{bodyInterface()}}
+{\footnotesize\ttfamily JPH\+::\+Body\+Interface $\ast$ physics\+::\+Engine\+::body\+Interface (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} ボディインターフェイスを取得 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00683}{683}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00651}{physics\+::\+Engine\+Impl\+::body\+Interface()}}.
+
+
+
+参照元 \mbox{\hyperlink{_rigid_body_8cpp_source_l00256}{physics\+::\+Rigid\+Body\+Impl\+::add\+Angular\+Impulse()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00218}{physics\+::\+Rigid\+Body\+Impl\+::add\+Force()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00243}{physics\+::\+Rigid\+Body\+Impl\+::add\+Impulse()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00189}{physics\+::\+Rigid\+Body\+Impl\+::add\+Linear\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00231}{physics\+::\+Rigid\+Body\+Impl\+::add\+Torque()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00200}{physics\+::\+Rigid\+Body\+Impl\+::angular\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00127}{physics\+::\+Rigid\+Body\+Impl\+::center\+Of\+Mass\+Position()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00154}{physics\+::\+Rigid\+Body\+Impl\+::center\+Of\+Mass\+Transform()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00290}{physics\+::\+Rigid\+Body\+Impl\+::friction()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00307}{physics\+::\+Rigid\+Body\+Impl\+::gravity\+Factor()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00323}{physics\+::\+Rigid\+Body\+Impl\+::inverse\+Inertia()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00101}{physics\+::\+Rigid\+Body\+Impl\+::layer()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00183}{physics\+::\+Rigid\+Body\+Impl\+::linear\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00170}{physics\+::\+Rigid\+Body\+Impl\+::move\+Kinematic()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00206}{physics\+::\+Rigid\+Body\+Impl\+::point\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00121}{physics\+::\+Rigid\+Body\+Impl\+::position()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00273}{physics\+::\+Rigid\+Body\+Impl\+::restitution()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00048}{physics\+::\+Rigid\+Body\+Impl\+::\+Rigid\+Body\+Impl()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00143}{physics\+::\+Rigid\+Body\+Impl\+::rotation()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00195}{physics\+::\+Rigid\+Body\+Impl\+::set\+Angular\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00285}{physics\+::\+Rigid\+Body\+Impl\+::set\+Friction()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00302}{physics\+::\+Rigid\+Body\+Impl\+::set\+Gravity\+Factor()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00096}{physics\+::\+Rigid\+Body\+Impl\+::set\+Layer()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00178}{physics\+::\+Rigid\+Body\+Impl\+::set\+Linear\+Velocity()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00317}{physics\+::\+Rigid\+Body\+Impl\+::set\+Motion\+Type()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00115}{physics\+::\+Rigid\+Body\+Impl\+::set\+Position()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00268}{physics\+::\+Rigid\+Body\+Impl\+::set\+Restitution()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00136}{physics\+::\+Rigid\+Body\+Impl\+::set\+Rotation()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00149}{physics\+::\+Rigid\+Body\+Impl\+::world\+Matrix()}}, \mbox{\hyperlink{_rigid_body_8cpp_source_l00081}{physics\+::\+Rigid\+Body\+Impl\+::$\sim$\+Rigid\+Body\+Impl()}} (計30項目).
+
+\mbox{\Hypertarget{classphysics_1_1_engine_ad87d160a08543e440af348a00be309cd}\label{classphysics_1_1_engine_ad87d160a08543e440af348a00be309cd}} 
+\index{physics::Engine@{physics::Engine}!castRay@{castRay}}
+\index{castRay@{castRay}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{castRay()}{castRay()}}
+{\footnotesize\ttfamily virtual bool physics\+::\+Engine\+::cast\+Ray (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_ray}{Ray}} \&}]{ray,  }\item[{\mbox{\hyperlink{structphysics_1_1_ray_cast_result}{Ray\+Cast\+Result}} \&}]{result }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em ray} & シーンに飛ばすレイ \\
+\hline
+\mbox{\texttt{ out}}  & {\em result} & 衝突結果 \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 衝突あり。resultに結果が格納されています \\
+\hline
+{\em false} & 衝突なし。結果は無効 \\
+\hline
+\end{DoxyRetVals}
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_impl_a8e6b0779be2000bf896478f321651db0}{physics\+::\+Engine\+Impl}}で実装されています。
+
+\mbox{\Hypertarget{classphysics_1_1_engine_af553ad1f2213303c889854b95e3b2a75}\label{classphysics_1_1_engine_af553ad1f2213303c889854b95e3b2a75}} 
+\index{physics::Engine@{physics::Engine}!gravity@{gravity}}
+\index{gravity@{gravity}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{gravity()}{gravity()}}
+{\footnotesize\ttfamily virtual float3 physics\+::\+Engine\+::gravity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+重力を取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_impl_a10e74653eb3601d227af50459d57ae9b}{physics\+::\+Engine\+Impl}}で実装されています。
+
+\mbox{\Hypertarget{classphysics_1_1_engine_ac114076717c5b5e26c9e740c76f3f058}\label{classphysics_1_1_engine_ac114076717c5b5e26c9e740c76f3f058}} 
+\index{physics::Engine@{physics::Engine}!instance@{instance}}
+\index{instance@{instance}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{instance()}{instance()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classphysics_1_1_engine}{physics\+::\+Engine}} $\ast$ physics\+::\+Engine\+::instance (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Physicsインスタンスを取得 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00669}{669}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_collision_capsule_8cpp_source_l00043}{Component\+Collision\+Capsule\+::\+Pre\+Physics()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_a7b10220f9e53630cb19fc6da12cf0317}\label{classphysics_1_1_engine_a7b10220f9e53630cb19fc6da12cf0317}} 
+\index{physics::Engine@{physics::Engine}!isValid@{isValid}}
+\index{isValid@{isValid}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{isValid()}{isValid()}}
+{\footnotesize\ttfamily virtual bool physics\+::\+Engine\+::is\+Valid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+正常に初期化されているかどうかを取得 
+
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_impl_a5a2e75e62a0b850646f27bad6f2f578e}{physics\+::\+Engine\+Impl}}で実装されています。
+
+\mbox{\Hypertarget{classphysics_1_1_engine_abbc4494b9eca276c577867230d10b304}\label{classphysics_1_1_engine_abbc4494b9eca276c577867230d10b304}} 
+\index{physics::Engine@{physics::Engine}!optimize@{optimize}}
+\index{optimize@{optimize}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{optimize()}{optimize()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Engine\+::optimize (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+シーン最適化を実行
+
+これによって衝突検出のパフォーマンスが向上します \begin{DoxyAttention}{注意}
+かなり重い処理のため、毎フレームまたは新しいレベルセクションのストリーミング時などには 
+
+絶対に呼び出さない方がよいでしょう。 
+\end{DoxyAttention}
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_impl_aef0e6c3fbd88d0009481d6458abbfd39}{physics\+::\+Engine\+Impl}}で実装されています。
+
+\mbox{\Hypertarget{classphysics_1_1_engine_ad67bc7551d7da8b923967e983260af0d}\label{classphysics_1_1_engine_ad67bc7551d7da8b923967e983260af0d}} 
+\index{physics::Engine@{physics::Engine}!overrideLayerCollide@{overrideLayerCollide}}
+\index{overrideLayerCollide@{overrideLayerCollide}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{overrideLayerCollide()}{overrideLayerCollide()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Engine\+::override\+Layer\+Collide (\begin{DoxyParamCaption}\item[{std\+::function$<$ bool(\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})$>$}]{callback }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+オブジェクトレイヤー同士が衝突するかどうかをカスタマイズ コールバック関数の \mbox{[}第1引数\mbox{]} 対象のレイヤー \mbox{[}第2引数\mbox{]} 相手のレイヤー \mbox{[}戻り値\mbox{]} true\+:衝突する false\+:衝突しない 
+
+\mbox{\hyperlink{classphysics_1_1_engine_impl_ae8672d13a73cf098703076cfebdc5c4d}{physics\+::\+Engine\+Impl}}で実装されています。
+
+\mbox{\Hypertarget{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}\label{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}} 
+\index{physics::Engine@{physics::Engine}!physicsSystem@{physicsSystem}}
+\index{physicsSystem@{physicsSystem}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{physicsSystem()}{physicsSystem()}}
+{\footnotesize\ttfamily JPH\+::\+Physics\+System $\ast$ physics\+::\+Engine\+::physics\+System (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} Physicsシステムを取得 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00676}{676}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00644}{physics\+::\+Engine\+Impl\+::physics\+System()}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_engine_8cpp_source_l00542}{physics\+::\+Engine\+Impl\+::cast\+Ray()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00225}{physics\+::\+Character\+Impl\+::\+Character\+Impl()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00482}{physics\+::\+Character\+Impl\+::reflesh\+Contacts()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00493}{physics\+::\+Character\+Impl\+::set\+Shape()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00362}{physics\+::\+Character\+Impl\+::update()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00467}{physics\+::\+Character\+Impl\+::walk\+Stairs()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_a4ed415ef1b0a43a39bc75eab7d9e83b2}\label{classphysics_1_1_engine_a4ed415ef1b0a43a39bc75eab7d9e83b2}} 
+\index{physics::Engine@{physics::Engine}!setLayerAlias@{setLayerAlias}}
+\index{setLayerAlias@{setLayerAlias}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{setLayerAlias()}{setLayerAlias()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Engine\+::set\+Layer\+Alias (\begin{DoxyParamCaption}\item[{const std\+::pair$<$ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267ba}{physics\+::\+Object\+Layers}}, \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}} $>$ $\ast$}]{layers,  }\item[{size\+\_\+t}]{layer\+Count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+オブジェクトレイヤーをカスタム設定 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em layers} & 自前レイヤーとphysics\+::\+Object\+Layersが対応するペアの配列先頭(nullptrで解除) \\
+\hline
+\mbox{\texttt{ in}}  & {\em layer\+Count} & 配列数 \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_impl_a861a1a3f769f9b1ed99adee826f3a211}{physics\+::\+Engine\+Impl}}で実装されています。
+
+\mbox{\Hypertarget{classphysics_1_1_engine_a55570741b680677c849770aa20c832cc}\label{classphysics_1_1_engine_a55570741b680677c849770aa20c832cc}} 
+\index{physics::Engine@{physics::Engine}!tempAllocator@{tempAllocator}}
+\index{tempAllocator@{tempAllocator}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{tempAllocator()}{tempAllocator()}}
+{\footnotesize\ttfamily JPH\+::\+Temp\+Allocator $\ast$ physics\+::\+Engine\+::temp\+Allocator (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+\mbox{[}\mbox{\hyperlink{namespace_j_p_h}{JPH}}\mbox{]} テンポラリアロケーターを取得 
+
+
+
+ \mbox{\hyperlink{_physics_engine_8cpp_source}{Physics\+Engine.\+cpp}} の \mbox{\hyperlink{_physics_engine_8cpp_source_l00690}{690}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_physics_engine_8cpp_source_l00658}{physics\+::\+Engine\+Impl\+::temp\+Allocator()}}.
+
+
+
+参照元 \mbox{\hyperlink{_physics_character_8cpp_source_l00482}{physics\+::\+Character\+Impl\+::reflesh\+Contacts()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00493}{physics\+::\+Character\+Impl\+::set\+Shape()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00362}{physics\+::\+Character\+Impl\+::update()}}, \mbox{\hyperlink{_physics_character_8cpp_source_l00467}{physics\+::\+Character\+Impl\+::walk\+Stairs()}}.
+
+\mbox{\Hypertarget{classphysics_1_1_engine_a96a24878ea8a67f35ebfef84e804f1cf}\label{classphysics_1_1_engine_a96a24878ea8a67f35ebfef84e804f1cf}} 
+\index{physics::Engine@{physics::Engine}!update@{update}}
+\index{update@{update}!physics::Engine@{physics::Engine}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily virtual void physics\+::\+Engine\+::update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_ad34d88453d37b65a09797bad37f2f527}{f32}}}]{dt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+更新 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{ in}}  & {\em dt} & 経過時間⊿t \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{classphysics_1_1_engine_impl_a18b77240bc274de55e3efa1b26e595d1}{physics\+::\+Engine\+Impl}}で実装されています。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_physics_engine_8h}{Physics\+Engine.\+h}}\item 
+\mbox{\hyperlink{_physics_engine_8cpp}{Physics\+Engine.\+cpp}}\end{DoxyCompactItemize}

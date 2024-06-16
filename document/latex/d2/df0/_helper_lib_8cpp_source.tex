@@ -1,0 +1,278 @@
+\hypertarget{_helper_lib_8cpp_source}{}\doxysection{Helper\+Lib.\+cpp}
+\label{_helper_lib_8cpp_source}\index{HelperLib.cpp@{HelperLib.cpp}}
+\mbox{\hyperlink{_helper_lib_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ HelperLib.cpp}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ ヘルパーライブラリ}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_helper_lib_8h}{HelperLib.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <VersionHelpers.h>}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <sstream>}\ \ \ \ \textcolor{comment}{//\ std::stringstream}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <istream>}\ \ \ \ \textcolor{comment}{//\ std::getline}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <filesystem>}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <cassert>}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00015}\mbox{\hyperlink{namespace_helper_lib}{00015}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_helper_lib_1_1_file}{HelperLib::File}}\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00016}00016\ \textcolor{keyword}{namespace\ }fs\ =\ std::filesystem;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00017}00017\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00018}00018\ \textcolor{comment}{//!\ @brief\ FilePathからディレクトリ部分を取得する}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00019}00019\ \textcolor{comment}{//!\ @param\ filepath\ FilePath}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00020}00020\ \textcolor{comment}{//!\ @return\ ディレクトリ部分}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00021}\mbox{\hyperlink{namespace_helper_lib_1_1_file_a8d5ddfc5f4310ed807a9ef150b36775d}{00021}}\ \textcolor{comment}{}std::string\ \mbox{\hyperlink{namespace_helper_lib_1_1_file_a8d5ddfc5f4310ed807a9ef150b36775d}{GetDirectory}}(std::string\_view\ filepath)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00022}00022\ \ \ \ \ fs::path\ p\{filepath\};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{keywordflow}{return}\ p.parent\_path().string();}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00024}00024\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00025}00025\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00026}00026\ \textcolor{comment}{//!\ @brief\ FilePathからエクステンション部分を取得する}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00027}00027\ \textcolor{comment}{//!\ @param\ filepath\ FilePath}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00028}00028\ \textcolor{comment}{//!\ @return\ エクステンション部分}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00029}\mbox{\hyperlink{namespace_helper_lib_1_1_file_a68cedc20ccd27e7ebebc55865fadacfb}{00029}}\ \textcolor{comment}{}std::string\ \mbox{\hyperlink{namespace_helper_lib_1_1_file_a68cedc20ccd27e7ebebc55865fadacfb}{GetFileExtension}}(std::string\_view\ filepath)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00030}00030\ \ \ \ \ fs::path\ p\{filepath\};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{return}\ p.extension().string();}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00032}00032\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00033}00033\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00034}00034\ \textcolor{comment}{//!\ @brief\ FilePathからファイル名部分を取得する}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00035}00035\ \textcolor{comment}{//!\ @param\ filepath\ FilePath}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00036}00036\ \textcolor{comment}{//!\ @return\ ファイル名部分}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00037}\mbox{\hyperlink{namespace_helper_lib_1_1_file_a7c3d59b9d8e4b313ac97a2d43ccf8f71}{00037}}\ \textcolor{comment}{}std::string\ \mbox{\hyperlink{namespace_helper_lib_1_1_file_a7c3d59b9d8e4b313ac97a2d43ccf8f71}{GetOnlyFileName}}(std::string\_view\ filepath)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00038}00038\ \ \ \ \ fs::path\ p\{filepath\};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00039}00039\ \ \ \ \ \textcolor{keywordflow}{return}\ p.filename().string();}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00040}00040\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00041}00041\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00042}00042\ \textcolor{comment}{//!\ @brief\ FilePathからファイル名部分を取得する}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00043}00043\ \textcolor{comment}{//!\ @param\ filepath\ FilePath}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00044}00044\ \textcolor{comment}{//!\ @return\ ファイル名部分}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00045}\mbox{\hyperlink{namespace_helper_lib_1_1_file_adc88fd8307af14c6e7b5565dda878033}{00045}}\ \textcolor{comment}{}std::string\ \mbox{\hyperlink{namespace_helper_lib_1_1_file_adc88fd8307af14c6e7b5565dda878033}{GetOnlyFileNameWithoutExtension}}(std::string\_view\ filepath)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00046}00046\ \ \ \ \ fs::path\ p\{filepath\};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{return}\ p.stem().string();}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00048}00048\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00049}00049\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00050}00050\ \textcolor{comment}{//!\ @brief\ ディレクトリパスのファイルを列挙します}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00051}00051\ \textcolor{comment}{//!\ @param\ dirname\ ディレクトリパス}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00052}00052\ \textcolor{comment}{//!\ @param\ ext\ 列挙する拡張子(ディフォルトは無視)\ 例:"{}.png"{}\ "{}.jpg/.png/.bmp"{}}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00053}00053\ \textcolor{comment}{//!\ など}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00054}00054\ \textcolor{comment}{//!\ @return\ ディレクトリに存在するファイル}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00055}\mbox{\hyperlink{namespace_helper_lib_1_1_file_aeb85c0328f41b02917543979dd9c89b2}{00055}}\ \textcolor{comment}{}\mbox{\hyperlink{namespace_helper_lib_1_1_file_a3f06a43ca606223bb06d8cd6d3bd49c9}{Files\_t}}\ \mbox{\hyperlink{namespace_helper_lib_1_1_file_aeb85c0328f41b02917543979dd9c89b2}{GetFilesFromDirectory}}(std::string\_view\ dirname,\ std::string\_view\ ext)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00056}00056\ \ \ \ \ \mbox{\hyperlink{namespace_helper_lib_1_1_file_a3f06a43ca606223bb06d8cd6d3bd49c9}{Files\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vfiles;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00057}00057\ \ \ \ \ fs::recursive\_directory\_iterator\ files(dirname);}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{keyword}{auto}\ exts\ =\ \mbox{\hyperlink{namespace_helper_lib_1_1_string_a40e53f61b9e15b3b9208da4f438c432f}{String::Split}}(ext,\ \textcolor{charliteral}{'/'});}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ f:\ files)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ path\ =\ f.path();}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ext\ ==\ \textcolor{stringliteral}{"{}"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ vfiles.push\_back(f.path().string());}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\ e:\ exts)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(path.extension().string()\ ==\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vfiles.push\_back(f.path().string());}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00074}00074\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{return}\ vfiles;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00077}00077\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00078}00078\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00079}00079\ \textcolor{comment}{//!\ @brief\ ファイルの存在チェック}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00080}00080\ \textcolor{comment}{//!\ @param\ path\ ファイルパス}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00081}00081\ \textcolor{comment}{//!\ @retval\ true\ \ 存在する}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00082}00082\ \textcolor{comment}{//!\ @retval\ false\ 存在しない}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00083}\mbox{\hyperlink{namespace_helper_lib_1_1_file_ac03dcd4f8590d144b37f62bb2e2c2a16}{00083}}\ \textcolor{comment}{}\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_helper_lib_1_1_file_ac03dcd4f8590d144b37f62bb2e2c2a16}{CheckFileExistence}}(std::string\_view\ path)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00084}00084\ \ \ \ \ \textcolor{keywordflow}{return}\ fs::exists(path)\ \&\&\ fs::is\_regular\_file(path);}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00085}00085\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00086}00086\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00087}00087\ \textcolor{comment}{//!\ @brief\ フォルダの作成}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00088}00088\ \textcolor{comment}{//!\ @param\ path\ パス\ (途中も作成する)}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00089}00089\ \textcolor{comment}{//!\ @retval\ true\ 作成した場合}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00090}00090\ \textcolor{comment}{//!\ @retval\ false\ 作成しなかった場合(すでに存在)}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00091}\mbox{\hyperlink{namespace_helper_lib_1_1_file_a1a2e4a862222e186f0c4e53facb8c50c}{00091}}\ \textcolor{comment}{}\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_helper_lib_1_1_file_a1a2e4a862222e186f0c4e53facb8c50c}{CreateFolder}}(std::string\_view\ path)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ fs::create\_directories(path);}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00094}00094\ \ \ \ \ \}\ \textcolor{keywordflow}{catch}(std::filesystem::filesystem\_error\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ assert(!\textcolor{stringliteral}{"{}ホルダアクセスできません"{}});}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00097}00097\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00098}00098\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00099}00099\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ HelperLib::File}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00101}\mbox{\hyperlink{namespace_helper_lib_1_1_string}{00101}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_helper_lib_1_1_string}{HelperLib::String}}\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00102}00102\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00103}00103\ \textcolor{comment}{//!\ @brief\ @brief\ stringからwstringに変換します}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00104}00104\ \textcolor{comment}{//!\ @param\ string\ string文字列}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00105}00105\ \textcolor{comment}{//!\ @return\ string文字列}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00106}00106\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00107}\mbox{\hyperlink{namespace_helper_lib_1_1_string_adac3e13ba867e58c5b5d83da01d1d365}{00107}}\ std::wstring\ \mbox{\hyperlink{namespace_helper_lib_1_1_string_adac3e13ba867e58c5b5d83da01d1d365}{ToWString}}(std::string\_view\ \textcolor{keywordtype}{string})\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00108}00108\ \ \ \ \ \textcolor{comment}{//\ 受け側の必要サイズを取得}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00109}00109\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ size\ =\ MultiByteToWideChar(CP\_ACP,\ 0,\ \textcolor{keywordtype}{string}.data(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\textcolor{keywordtype}{string}.length()),\ \textcolor{keyword}{nullptr},\ 0);}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00111}00111\ \ \ \ \ \textcolor{comment}{//\ バッファの取得}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00112}00112\ \ \ \ \ std::wstring\ wstring;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00113}00113\ \ \ \ \ wstring.resize(size);}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00115}00115\ \ \ \ \ \textcolor{comment}{//\ 変換}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00116}00116\ \ \ \ \ MultiByteToWideChar(CP\_ACP,\ 0,\ \textcolor{keywordtype}{string}.data(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\textcolor{keywordtype}{string}.length()),\ wstring.data(),}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(wstring.size()));}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00119}00119\ \ \ \ \ \textcolor{keywordflow}{return}\ wstring;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00120}00120\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00122}00122\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00123}00123\ \textcolor{comment}{//!\ @brief\ wstringからstringに変換します}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00124}00124\ \textcolor{comment}{//!\ @param\ wstring\ wstring文字列}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00125}00125\ \textcolor{comment}{//!\ @return\ string文字列}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00126}00126\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00127}\mbox{\hyperlink{namespace_helper_lib_1_1_string_acf4de5b36a2cad8f3a6c4089b25ce625}{00127}}\ std::string\ \mbox{\hyperlink{namespace_helper_lib_1_1_string_acf4de5b36a2cad8f3a6c4089b25ce625}{ToString}}(std::wstring\_view\ wstring)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00128}00128\ \ \ \ \ \textcolor{comment}{//\ 受け側の必要サイズを取得}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00129}00129\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ size\ =\ WideCharToMultiByte(CP\_ACP,\ 0,\ wstring.data(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(wstring.length()),\ \textcolor{keyword}{nullptr},\ 0,\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00131}00131\ \ \ \ \ \textcolor{comment}{//\ バッファの取得}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00132}00132\ \ \ \ \ std::string\ string;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00133}00133\ \ \ \ \ \textcolor{keywordtype}{string}.resize(size);}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00135}00135\ \ \ \ \ \textcolor{comment}{//\ 変換}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00136}00136\ \ \ \ \ WideCharToMultiByte(CP\_ACP,\ 0,\ wstring.data(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(wstring.length()),\ \textcolor{keywordtype}{string}.data(),}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(\textcolor{keywordtype}{string}.size()),\ \textcolor{keyword}{nullptr},\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00139}00139\ \ \ \ \ \textcolor{keywordflow}{return}\ string;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00140}00140\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00142}00142\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00143}00143\ \textcolor{comment}{//!\ @brief\ wstringをu16stringに変換します}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00144}00144\ \textcolor{comment}{//!\ @param\ wstring\ wstring文字列}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00145}00145\ \textcolor{comment}{//!\ @return\ u16string文字列}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00146}00146\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00147}\mbox{\hyperlink{namespace_helper_lib_1_1_string_afbf71f87bf8f12504f02e2dc2e4b84d2}{00147}}\ std::u16string\ \mbox{\hyperlink{namespace_helper_lib_1_1_string_afbf71f87bf8f12504f02e2dc2e4b84d2}{To16Str}}(std::wstring\_view\ wstring)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00148}00148\ \ \ \ \ \textcolor{comment}{//\ 処理系のバイトサイズが一致しているかチェック}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00149}00149\ \ \ \ \ \textcolor{keyword}{static\_assert}(\textcolor{keyword}{sizeof}(std::wstring::value\_type)\ ==\ \textcolor{keyword}{sizeof}(std::u16string::value\_type),\ \textcolor{stringliteral}{"{}size\ doesnt'\ match."{}});}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00151}00151\ \ \ \ \ \textcolor{keywordflow}{return}\ std::u16string\{wstring.begin(),\ wstring.end()\};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00152}00152\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00154}00154\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00155}00155\ \textcolor{comment}{//!\ @brief\ stringをあるセパレート文字で分解します}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00156}00156\ \textcolor{comment}{//!\ @param\ string\ 分解したい文字列}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00157}00157\ \textcolor{comment}{//!\ @param\ separator\ 区切り文字}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00158}00158\ \textcolor{comment}{//!\ @return\ 分解した文字列のリスト}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00159}00159\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00160}\mbox{\hyperlink{namespace_helper_lib_1_1_string_a40e53f61b9e15b3b9208da4f438c432f}{00160}}\ std::vector<std::string>\ \mbox{\hyperlink{namespace_helper_lib_1_1_string_a40e53f61b9e15b3b9208da4f438c432f}{Split}}(std::string\_view\ \textcolor{keywordtype}{string},\ \textcolor{keywordtype}{char}\ separator)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00161}00161\ \ \ \ \ std::stringstream\ stream;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00162}00162\ \ \ \ \ stream\ <<\ string;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00164}00164\ \ \ \ \ std::vector<std::string>\ result;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00166}00166\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00167}00167\ \ \ \ \ \textcolor{keywordflow}{while}(std::getline(stream,\ line,\ separator))\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ result.emplace\_back(std::move(line));}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ line.clear();}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00170}00170\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00172}00172\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00173}00173\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00174}00174\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00175}00175\ \textcolor{comment}{//!\ @brief\ 文字列から、指定文字を排除します}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00176}00176\ \textcolor{comment}{//!\ @param\ str\ 加工したい文字列}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00177}00177\ \textcolor{comment}{//!\ @param\ chars\ 文字(複数OK)\ defaultは空白を削除する}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00178}\mbox{\hyperlink{namespace_helper_lib_1_1_string_a3fe600a79908c6163af864ba09287372}{00178}}\ \textcolor{comment}{}std::string\ \mbox{\hyperlink{namespace_helper_lib_1_1_string_a3fe600a79908c6163af864ba09287372}{Trim}}(std::string\_view\ str,\ std::string\_view\ chars)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00179}00179\ \ \ \ \ \textcolor{keyword}{auto}\ s\ =\ (std::string)str;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00180}00180\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{char}\ c:\ chars)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00181}00181\ \ \ \ \ \ \ \ \ s.erase(std::remove(s.begin(),\ s.end(),\ c),\ s.end());}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00182}00182\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00183}00183\ \ \ \ \ \textcolor{keywordflow}{return}\ s;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00184}00184\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00185}00185\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00186}00186\ \textcolor{comment}{//!\ @brief\ 文字列に「特定の文字列」が存在するかチェックする}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00187}00187\ \textcolor{comment}{//!\ @param\ str\ 文字列}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00188}00188\ \textcolor{comment}{//!\ @param\ v\ 含まれる可能性がある「特定の文字列」}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00189}00189\ \textcolor{comment}{//!\ @retval\ true\ :\ 含まれている}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00190}\mbox{\hyperlink{namespace_helper_lib_1_1_string_a7ecad05a289dfafafd7ea24abc1e9333}{00190}}\ \textcolor{comment}{}\textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_helper_lib_1_1_string_a7ecad05a289dfafafd7ea24abc1e9333}{IsContains}}(std::string\ str,\ std::string\_view\ v)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00191}00191\ \ \ \ \ \textcolor{keywordflow}{if}(str.find(v)\ !=\ std::string::npos)}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00194}00194\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00195}00195\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00197}00197\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ HelperLib::String}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00198}00198\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00199}\mbox{\hyperlink{namespace_helper_lib_1_1_o_s}{00199}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_helper_lib_1_1_o_s}{HelperLib::OS}}\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00200}00200\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00201}00201\ \ \ \ \ std::string\ GetRegString(HKEY\ hkey,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ sub\_key,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ value\_name)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ DWORD\ key\_type\ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ DWORD\ data\_size\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ERROR\_SUCCESS\ ==}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ RegGetValue(hkey,\ (PCHAR)sub\_key,\ (PCHAR)value\_name,\ RRF\_RT\_REG\_SZ,\ \&key\_type,\ \textcolor{keyword}{nullptr},\ \&data\_size))\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ text;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ text.resize(data\_size);}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ERROR\_SUCCESS\ ==}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RegGetValue(hkey,\ (PCHAR)sub\_key,\ (PCHAR)value\_name,\ RRF\_RT\_REG\_SZ,\ \&key\_type,\ (PVOID)text.data(),\ \&data\_size))\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ text;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00213}00213\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00214}00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::string();}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00215}00215\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00216}00216\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00218}\mbox{\hyperlink{namespace_helper_lib_1_1_o_s_aefe65a5aec2ea9725253c82d6c3aeccd}{00218}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_helper_lib_1_1_o_s_aefe65a5aec2ea9725253c82d6c3aeccd}{IsWindows11}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00219}00219\ \ \ \ \ \textcolor{keyword}{auto}\ reg\ =\ GetRegString(HKEY\_LOCAL\_MACHINE,\ \textcolor{stringliteral}{"{}SOFTWARE\(\backslash\)\(\backslash\)Microsoft\(\backslash\)\(\backslash\)Windows\ NT\(\backslash\)\(\backslash\)CurrentVersion"{}},\ \textcolor{stringliteral}{"{}CurrentBuild"{}});}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00221}00221\ \ \ \ \ \textcolor{keywordtype}{int}\ value\ =\ std::stoi(reg);}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00222}00222\ \ \ \ \ \textcolor{keywordflow}{if}(value\ >=\ 22000)}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00224}00224\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00225}00225\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00226}00226\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00228}\mbox{\hyperlink{namespace_helper_lib_1_1_o_s_a92b78a300cfb10149743b5cc8cc776d7}{00228}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_helper_lib_1_1_o_s_a92b78a300cfb10149743b5cc8cc776d7}{IsWindows10OrGreater}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00229}00229\ \ \ \ \ std::string\ reg\ =\ GetRegString(HKEY\_LOCAL\_MACHINE,\ \textcolor{stringliteral}{"{}SOFTWARE\(\backslash\)\(\backslash\)Microsoft\(\backslash\)\(\backslash\)Windows\ NT\(\backslash\)\(\backslash\)CurrentVersion"{}},\ \textcolor{stringliteral}{"{}ProductName"{}});}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00231}00231\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespace_helper_lib_1_1_string_a7ecad05a289dfafafd7ea24abc1e9333}{String::IsContains}}(reg,\ \textcolor{stringliteral}{"{}Windows\ 10"{}}))}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00234}00234\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00235}00235\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00236}00236\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ HelperLib::OS}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00238}\mbox{\hyperlink{namespace_helper_lib_1_1_math}{00238}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_helper_lib_1_1_math}{HelperLib::Math}}\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00239}\mbox{\hyperlink{namespace_helper_lib_1_1_math_aabd062a1600edfb36769494ffcb377d6}{00239}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{namespace_helper_lib_1_1_math_aabd062a1600edfb36769494ffcb377d6}{NearlyEqual}}(\textcolor{keywordtype}{float}\ f1,\ \textcolor{keywordtype}{float}\ f2)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00240}00240\ \ \ \ \ \textcolor{keywordflow}{if}(fabs(f1\ -\/\ f2)\ <=\ FLT\_EPSILON)}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00242}00242\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00243}00243\ \ \ \ \ \textcolor{keywordflow}{return}\ fabs(f1\ -\/\ f2)\ <=\ FLT\_EPSILON\ *\ std::max(fabs(f1),\ fabs(f2));}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00244}00244\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00246}\mbox{\hyperlink{namespace_helper_lib_1_1_math_a5fdeef4fc76f0323e735a35a17da818b}{00246}}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{namespace_helper_lib_1_1_math_a5fdeef4fc76f0323e735a35a17da818b}{CreateMatrixByFrontVector}}(float3\ front,\ float3\ up,\ \textcolor{keywordtype}{bool}\ upremake)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00247}00247\ \ \ \ \ float3\ n\_front\ =\ normalize(front);}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00248}00248\ \ \ \ \ float3\ n\_up\ \ \ \ =\ normalize(up);}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00249}00249\ \ \ \ \ float3\ n\_right\ =\ normalize(cross(n\_up,\ n\_front));}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00250}00250\ \ \ \ \ float3\ n\_pos\ \ \ =\ \{0,\ 0,\ 0\};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00252}00252\ \ \ \ \ \textcolor{keywordflow}{if}(upremake)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ n\_up\ =\ normalize(cross(n\_front,\ n\_right));}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00254}00254\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00255}00255\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00256}00256\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ mat\{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \{n\_right,\ 0\},\ \textcolor{comment}{//<\ X軸}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \{\ \ \ n\_up,\ 0\},\ \textcolor{comment}{//<\ Y軸}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \{n\_front,\ 0\},\ \textcolor{comment}{//<\ Z軸}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00260}00260\ \ \ \ \ \ \ \ \ \{\ \ n\_pos,\ 1\},\ \textcolor{comment}{//<\ POS}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00261}00261\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00262}00262\ \ \ \ \ \textcolor{keywordflow}{return}\ mat;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00263}00263\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00265}\mbox{\hyperlink{namespace_helper_lib_1_1_math_ad0fd680cdd5bb3319db49ae6b4179b8c}{00265}}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{namespace_helper_lib_1_1_math_ad0fd680cdd5bb3319db49ae6b4179b8c}{LookAtMatrixForObject}}(float3\ my\_object\_pos,\ float3\ target\_object\_pos)\ \{}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00266}00266\ \ \ \ \ \textcolor{keyword}{auto}\ mat\ \ \ \ \ \ =\ \mbox{\hyperlink{namespace_helper_lib_1_1_math_a5fdeef4fc76f0323e735a35a17da818b}{CreateMatrixByFrontVector}}(target\_object\_pos\ -\/\ my\_object\_pos);}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00267}00267\ \ \ \ \ mat.\_41\_42\_43\ =\ my\_object\_pos;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00269}00269\ \ \ \ \ \textcolor{keywordflow}{return}\ mat;}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00270}00270\ \}}
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{_helper_lib_8cpp_source_l00272}00272\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ HelperLib::Math}}
+
+\end{DoxyCode}

@@ -1,0 +1,628 @@
+\hypertarget{_player_8cpp_source}{}\doxysection{Player.\+cpp}
+\label{_player_8cpp_source}\index{Player.cpp@{Player.cpp}}
+\mbox{\hyperlink{_player_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_player_8h}{Player.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_enemy_8h}{Enemy.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_boss_8h}{Boss.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_camera_8h}{Camera.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_component_h_p_8h}{LittleQuest/Components/ComponentHP.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_component_combo_8h}{LittleQuest/Components/ComponentCombo.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_game_over_scene_8h}{LittleQuest/Scenes/GameOverScene.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_stage01_8h}{LittleQuest/Scenes/Stage01.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentAttachModel.h>}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCamera.h>}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionCapsule.h>}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionModel.h>}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionSphere.h>}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentModel.h>}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentSpringArm.h>}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00018}00018\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_little_quest}{LittleQuest}}\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00020}\mbox{\hyperlink{namespace_little_quest_a862d55dd23cbc72214ab46a2816d9f77}{00020}}\ \mbox{\hyperlink{namespace_little_quest_a4f4793ee72ca4c547385306dfeb36b35}{BP\_OBJECT\_IMPL}}(\mbox{\hyperlink{class_little_quest_1_1_player}{Player}},\ \textcolor{stringliteral}{"{}LittleQuest/Player"{}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00022}\mbox{\hyperlink{class_little_quest_1_1_player_a5b939a2e4bae5ee71c6b73160bce357c}{00022}}\ PlayerPtr\ \mbox{\hyperlink{class_little_quest_1_1_player_a5b939a2e4bae5ee71c6b73160bce357c}{Player::Create}}(\textcolor{keyword}{const}\ float3\&\ pos)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{keyword}{auto}\ player\ =\ Scene::CreateObjectPtr<Player>();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00025}00025\ \ \ \ \ player-\/>SetName(\textcolor{stringliteral}{"{}Player"{}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00026}00026\ \ \ \ \ player-\/>SetTranslate(pos);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00028}00028\ \ \ \ \ \textcolor{keywordflow}{return}\ player;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00029}00029\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00031}\mbox{\hyperlink{class_little_quest_1_1_player_a1cfb8589ee147e93b4eae0d635a0403f}{00031}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_little_quest_1_1_player_a1cfb8589ee147e93b4eae0d635a0403f}{Player::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00032}00032\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}\ =\ AddComponent<ComponentModel>(\textcolor{stringliteral}{"{}data/LittleQuest/Model/Kachujin/Kachujin.mv1"{}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00033}00033\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>SetScaleAxisXYZ(\{0.05f\});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00034}00034\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>SetRotationAxisXYZ(\{0,\ -\/90,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00035}00035\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>SetAnimation(\{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \{\ \ \ \ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}{PlayerState::IDLE}}),\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/AxeSet/AxeIdle.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \{\ \ \ \ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa0e98f4210e28fd7cbf55d5ae8eb53f4f}{PlayerState::ROLL}}),\ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/KachujinSet/ForwardRoll.mv1"{}},\ 0,\ 5.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \{\ \ \ \ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efacfa52b895cd4fab6a1052484b9990144}{PlayerState::WALK}}),\ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/AxeSet/AxeRunForward.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \{\ \ \ \ \ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa5e9383496c2082cabfd4d6b729a10317}{PlayerState::RUN}}),\ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/AxeSet/AxeRunForward.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abfa508abe850e4c6684fa3b69529727b}{Combo::NORMAL\_COMBO1}}),\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/AxeSet/AxeCombo1.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a68d3c9ba96ebe0c745c53fc77bfa7d4a}{Combo::NORMAL\_COMBO2}}),\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/AxeSet/AxeCombo2.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a4c5d3b77c6d0f9ae224999488a668991}{Combo::NORMAL\_COMBO3}}),\ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/AxeSet/AxeAttackDownward.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a59a2eed715e6b7ada859a87e9d550c9a}{Combo::NORMAL\_COMBO4}}),\ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/AxeSet/AxeAttackBackhand.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{Combo::SPECIAL\_ATTACK}}),\ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/AxeSet/AxeAttack360H.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abd69fad9a5ad921b4c08e59d8dbf417d}{Combo::SPECIAL\_CHARGE}}),\ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/AxeSet/AxeAttack360L.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa46320c7dfdfeeaa7ac64c1fb160d30c4}{PlayerState::GET\_HIT}}),\ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/KachujinSet/HitToBody.mv1"{}},\ 0,\ 3.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \{\ \ \ \ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efaaa059bf2a631dac2d0da38295c26e6ab}{PlayerState::DEAD}}),\ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/KachujinSet/SwordDeath.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00048}00048\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00049}00049\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>PlayAnimationNoSame(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}{PlayerState::IDLE}}),\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00051}00051\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a85136589199668228ff87555f55ae832}{SetAnimInfo}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00052}00052\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a67b07b312261acd1d91b7caa8d9d8d25}{SetComboList}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00054}00054\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1045e19132abc80d0b3cdbbfe1217200}{m\_pSword}}\ \ \ =\ Scene::CreateObjectPtr<Object>(\textcolor{stringliteral}{"{}Katana"{}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ model\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a1045e19132abc80d0b3cdbbfe1217200}{m\_pSword}}.lock()-\/>AddComponent<ComponentModel>();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ model-\/>Load(\textcolor{stringliteral}{"{}data/LittleQuest/Model/Katana/Katana.mv1"{}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ model-\/>SetRotationAxisXYZ(\{0,\ -\/10,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ model-\/>SetScaleAxisXYZ(\{3.5f,\ 4.5f,\ 4.5f\});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ attach\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a1045e19132abc80d0b3cdbbfe1217200}{m\_pSword}}.lock()-\/>AddComponent<ComponentAttachModel>();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ attach-\/>SetAttachObject(shared\_from\_this(),\ \textcolor{stringliteral}{"{}mixamorig:RightHand"{}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ attach-\/>SetAttachRotate(\{175,\ 0,\ -\/90\});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ attach-\/>SetAttachOffset(\{-\/65,\ 13,\ -\/4\});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00066}00066\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adc2e0591ef6fc8b646fa8f2acc47b41b}{m\_pHP}}\ =\ AddComponent<ComponentHP>();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00067}00067\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adc2e0591ef6fc8b646fa8f2acc47b41b}{m\_pHP}}.lock()-\/>SetType(\mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947a2669923c9a2a3bf1507617ea920906c2}{ComponentHP::HP\_TYPE::PLAYER}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00068}00068\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adc2e0591ef6fc8b646fa8f2acc47b41b}{m\_pHP}}.lock()-\/>SetHP(\mbox{\hyperlink{class_little_quest_1_1_player_a5a41f4fd744564294211b900d8326f0c}{MAX\_HP}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00070}00070\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}{m\_pCombo}}\ =\ AddComponent<ComponentCombo>();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00072}00072\ \ \ \ \ \textcolor{keyword}{auto}\ colCap\ =\ AddComponent<ComponentCollisionCapsule>();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00073}00073\ \ \ \ \ colCap-\/>SetTranslate(\{0,\ 0.5f,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00074}00074\ \ \ \ \ colCap-\/>SetRadius(1.1f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00075}00075\ \ \ \ \ colCap-\/>SetHeight(10.5);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00076}00076\ \ \ \ \ colCap-\/>UseGravity();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00077}00077\ \ \ \ \ colCap-\/>SetCollisionGroup(ComponentCollision::CollisionGroup::PLAYER);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00079}00079\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}\ =\ AddComponent<ComponentCollisionCapsule>();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00080}00080\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>AttachToModel(\textcolor{stringliteral}{"{}mixamorig:RightHand"{}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00081}00081\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>SetTranslate(\{10,\ 13,\ -\/4\});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>SetRotationAxisXYZ(\{0,\ 0,\ -\/92\});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00083}00083\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>SetRadius(0.2f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00084}00084\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>SetHeight(10.0f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00085}00085\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00086}00086\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00087}00087\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00089}00089\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a73587f4bd71f2c97c513042187bee23a}{m\_hitEffect}}\ \ \ \ \ \ =\ LoadEffekseerEffect(\textcolor{stringliteral}{"{}data/LittleQuest/Effect/LossOfBlood.efk"{}},\ 0.5f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00090}00090\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a2e3884a5605ebcf43556ce0761b85044}{m\_slashEffect1}}\ \ \ =\ LoadEffekseerEffect(\textcolor{stringliteral}{"{}data/LittleQuest/Effect/SwordSlashSprite1.efk"{}},\ 5.0f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00091}00091\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_afcb7c0b1cffdaef9d455b71e1ffd4512}{m\_slashEffect2}}\ \ \ =\ LoadEffekseerEffect(\textcolor{stringliteral}{"{}data/LittleQuest/Effect/SwordSlashSprite2.efk"{}},\ 5.0f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00092}00092\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_afba2e38df7153300690aa15a7f499f08}{m\_slashEffect3}}\ \ \ =\ LoadEffekseerEffect(\textcolor{stringliteral}{"{}data/LittleQuest/Effect/SwordSlashSprite3.efk"{}},\ 5.0f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00093}00093\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a2c0d3bf8f480f2ff9c89690d61ec7de8}{m\_pEffectList}}\ \ \ \ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{int}[3]\{\mbox{\hyperlink{class_little_quest_1_1_player_a2e3884a5605ebcf43556ce0761b85044}{m\_slashEffect1}},\ \mbox{\hyperlink{class_little_quest_1_1_player_afcb7c0b1cffdaef9d455b71e1ffd4512}{m\_slashEffect2}},\ \mbox{\hyperlink{class_little_quest_1_1_player_afba2e38df7153300690aa15a7f499f08}{m\_slashEffect3}}\};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00094}00094\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4400bc044dd056a49b5a9cb13e5d3031}{m\_chargingEffect}}\ =\ LoadEffekseerEffect(\textcolor{stringliteral}{"{}data/LittleQuest/Effect/Charging.efk"{}},\ 2.5f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00095}00095\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aa56c8dd35ee7e6fc5ad158e1e87f7291}{m\_chargedEffect}}\ \ =\ LoadEffekseerEffect(\textcolor{stringliteral}{"{}data/LittleQuest/Effect/Charged.efk"{}},\ 2.5f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00096}00096\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1f7de0cbb94c87a0a849844d5bc38d8c}{m\_pChargeList}}\ \ \ \ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{int}[2]\{\mbox{\hyperlink{class_little_quest_1_1_player_a4400bc044dd056a49b5a9cb13e5d3031}{m\_chargingEffect}},\ \mbox{\hyperlink{class_little_quest_1_1_player_aa56c8dd35ee7e6fc5ad158e1e87f7291}{m\_chargedEffect}}\};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00098}00098\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a86d4b309763b52970009bd3ce917dbb1}{m\_selfMatrix}}\ \ =\ GetMatrix();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00099}00099\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a9fae4a5ee8f8296c23fd643d0cd96dd0}{m\_speedFactor}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a6490b0e4cebad930eea03a0afedb32af}{RUN\_SPEED}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00101}00101\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}}\ \ \ \ =\ LoadSoundMem(\textcolor{stringliteral}{"{}data/LittleQuest/Audio/SE/sword-\/swipes-\/2-\/quick.mp3"{}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00102}00102\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a7330b6913fdf77a01d04567833e75a2d}{m\_swordHitSE}}\ =\ LoadSoundMem(\textcolor{stringliteral}{"{}data/LittleQuest/Audio/SE/SwordHit.wav"{}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{return}\ Super::Init();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00105}00105\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00107}\mbox{\hyperlink{class_little_quest_1_1_player_ac774419b99a0b098a0972086f08cb69f}{00107}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_ac774419b99a0b098a0972086f08cb69f}{Player::Update}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00108}00108\ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{class_little_quest_1_1_player_ab5c6f05a8097a3e3e57f48185040925d}{m\_sceneState}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{case}\ Scene::SceneState::TRANS\_IN:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{case}\ Scene::SceneState::GAME:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a69cd9bb60dc05f2a2d5afb0d484d1b0d}{GameAction}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00114}00114\ \ \ \ \ \textcolor{keywordflow}{case}\ Scene::SceneState::TRANS\_OUT:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a374235ae9beb2b2c8c4a212397213c04}{TransOutAction}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00117}00117\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00118}00118\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00120}\mbox{\hyperlink{class_little_quest_1_1_player_a69cd9bb60dc05f2a2d5afb0d484d1b0d}{00120}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a69cd9bb60dc05f2a2d5afb0d484d1b0d}{Player::GameAction}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00121}00121\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ =\ float3(0,\ 0,\ 0);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00122}00122\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1422ff88e323b926b5ec6c9221a30a6e}{m\_hitTimer}}\ -\/=\ GetDeltaTime60();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00123}00123\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1422ff88e323b926b5ec6c9221a30a6e}{m\_hitTimer}}\ =\ std::max(0.0f,\ \mbox{\hyperlink{class_little_quest_1_1_player_a1422ff88e323b926b5ec6c9221a30a6e}{m\_hitTimer}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_a1422ff88e323b926b5ec6c9221a30a6e}{m\_hitTimer}}\ <=\ 0\ \&\&\ \mbox{\hyperlink{class_little_quest_1_1_player_abf1fa63a7d307aff383c8d3b292b5730}{m\_isHit}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_abf1fa63a7d307aff383c8d3b292b5730}{m\_isHit}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00127}00127\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00129}00129\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_player_aefdafbcc9bc5402b1be586d15b39245e}{m\_pCamera}}.lock())\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aefdafbcc9bc5402b1be586d15b39245e}{m\_pCamera}}\ \ \ \ \ \ =\ Scene::GetObjectPtr<Camera>(\textcolor{stringliteral}{"{}PlayerCamera"{}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a30baebe408dea092bb80a41a436f86d8}{m\_cameraLength}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_aefdafbcc9bc5402b1be586d15b39245e}{m\_pCamera}}.lock()-\/>GetComponent<ComponentSpringArm>()-\/>GetSpringArmLength();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00132}00132\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ float3\ v\ \ \ \ \ =\ \mbox{\hyperlink{class_little_quest_1_1_player_aefdafbcc9bc5402b1be586d15b39245e}{m\_pCamera}}.lock()-\/>CameraForward();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a86d4b309763b52970009bd3ce917dbb1}{m\_selfMatrix}}\ =\ HelperLib::Math::CreateMatrixByFrontVector(v);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00135}00135\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00137}00137\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aff05d6d82acb90bd41149ecc91677216}{InputHandle}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00139}00139\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ !=\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo::NO\_COMBO}}\ \&\&\ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ !=\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa0e98f4210e28fd7cbf55d5ae8eb53f4f}{PlayerState::ROLL}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efac312ee127e0b5d577f36c3e8f3338c07}{PlayerState::ATTACK}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00141}00141\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00143}00143\ \ \ \ \ \textcolor{keywordflow}{if}(IsFloat3Zero(\mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}})\ \&\&\ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ !=\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa46320c7dfdfeeaa7ac64c1fb160d30c4}{PlayerState::GET\_HIT}}\ \&\&\ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ !=\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efac312ee127e0b5d577f36c3e8f3338c07}{PlayerState::ATTACK}}\ \&\&}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ !=\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa0e98f4210e28fd7cbf55d5ae8eb53f4f}{PlayerState::ROLL}}\ \&\&\ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ !=\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efaaa059bf2a631dac2d0da38295c26e6ab}{PlayerState::DEAD}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}{PlayerState::IDLE}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00146}00146\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00148}00148\ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00149}00149\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa46320c7dfdfeeaa7ac64c1fb160d30c4}{PlayerState::GET\_HIT}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>IsPlaying())\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}{PlayerState::IDLE}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00154}00154\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efac312ee127e0b5d577f36c3e8f3338c07}{PlayerState::ATTACK}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aff07df83c11362188d36c01a7cd3085c}{Attack}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00157}00157\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa0e98f4210e28fd7cbf55d5ae8eb53f4f}{PlayerState::ROLL}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>PlayAnimationNoSame(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa0e98f4210e28fd7cbf55d5ae8eb53f4f}{PlayerState::ROLL}}));}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo::NO\_COMBO}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>IsPlaying())\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ \ \ \ \ =\ \{\};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1a6f45a037401c9127183c30eaea5aa1}{m\_isInvincible}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ vec\ \ \ \ \ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>GetMatrix().axisZ();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ vec.y\ \ \ \ \ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ +=\ -\/vec;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ *=\ 15.0f\ *\ GetDeltaTime60();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ AddTranslate(\mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1a6f45a037401c9127183c30eaea5aa1}{m\_isInvincible}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ \ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}{PlayerState::IDLE}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00174}00174\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efacfa52b895cd4fab6a1052484b9990144}{PlayerState::WALK}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_ae42b64577ebf05020fb9253f9b5875f5}{Walk}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00177}00177\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efaaa059bf2a631dac2d0da38295c26e6ab}{PlayerState::DEAD}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a38ff1219b39bf1a33e3a677176302d36}{Die}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00179}00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00180}00180\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00181}00181\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a9004c431e0c6e198cc0c5fe429912406}{Idle}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00183}00183\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00184}00184\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00186}\mbox{\hyperlink{class_little_quest_1_1_player_a374235ae9beb2b2c8c4a212397213c04}{00186}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a374235ae9beb2b2c8c4a212397213c04}{Player::TransOutAction}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00187}00187\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>SetRotationAxisXYZ(\{0,\ -\/90,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00188}00188\ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00189}00189\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efaaa059bf2a631dac2d0da38295c26e6ab}{PlayerState::DEAD}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a38ff1219b39bf1a33e3a677176302d36}{Die}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00192}00192\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a9004c431e0c6e198cc0c5fe429912406}{Idle}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00195}00195\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00196}00196\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00197}00197\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00198}\mbox{\hyperlink{class_little_quest_1_1_player_a84f4a2e72aafbf056dff3a384e4355c0}{00198}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a84f4a2e72aafbf056dff3a384e4355c0}{Player::LateDraw}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00199}00199\ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{class_little_quest_1_1_player_ab5c6f05a8097a3e3e57f48185040925d}{m\_sceneState}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00200}00200\ \ \ \ \ \textcolor{keywordflow}{case}\ Scene::SceneState::TRANS\_IN:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00202}00202\ \ \ \ \ \textcolor{keywordflow}{case}\ Scene::SceneState::GAME:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adc2e0591ef6fc8b646fa8f2acc47b41b}{m\_pHP}}.lock()-\/>DrawHPBar();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}{m\_pCombo}}.lock()-\/>DrawComboBar();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00206}00206\ \ \ \ \ \textcolor{keywordflow}{case}\ Scene::SceneState::TRANS\_OUT:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00207}00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00208}00208\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00209}00209\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00211}\mbox{\hyperlink{class_little_quest_1_1_player_a1686bb2709f80113d9ef1066190e1eb0}{00211}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a1686bb2709f80113d9ef1066190e1eb0}{Player::GUI}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00212}00212\ \ \ \ \ Super::GUI();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00213}00213\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00215}\mbox{\hyperlink{class_little_quest_1_1_player_a2b8aa0ba8b710e7c05797f18f8dbc2f5}{00215}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a2b8aa0ba8b710e7c05797f18f8dbc2f5}{Player::OnHit}}([[maybe\_unused]]\ \textcolor{keyword}{const}\ ComponentCollision::HitInfo\&\ hitInfo)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00216}00216\ \ \ \ \ \textcolor{keywordflow}{if}((u32)hitInfo.collision\_-\/>GetCollisionGroup()\ \&\ (u32)ComponentCollision::CollisionGroup::WEAPON)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ owner\ =\ hitInfo.hit\_collision\_-\/>GetOwner();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00219}00219\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_boss}{Boss}}*\ boss;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((boss\ =\ \textcolor{keyword}{dynamic\_cast<}\mbox{\hyperlink{class_little_quest_1_1_boss}{Boss}}*\textcolor{keyword}{>}(owner))\ \&\&\ \mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ !=\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo::NO\_COMBO}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ inList\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_little_quest_1_1_player_ab82f181b8a13785bae10ca3d29f4d6d6}{m\_attackList}}.size();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_ab82f181b8a13785bae10ca3d29f4d6d6}{m\_attackList}}[i]\ ==\ boss-\/>GetName().data())\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inList\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!inList)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_ab82f181b8a13785bae10ca3d29f4d6d6}{m\_attackList}}.push\_back(boss-\/>GetName().data());}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boss-\/>\mbox{\hyperlink{class_little_quest_1_1_boss_a582a981f4e258eaa8d68cf2e60930ae5}{GetHit}}((\textcolor{keywordtype}{int})(this-\/>\mbox{\hyperlink{class_little_quest_1_1_player_adc008057e202fd575903069cd5c7be8d}{BASE\_ATK}}\ *\ \mbox{\hyperlink{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}{m\_comboList}}[\mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}]\ *\ \mbox{\hyperlink{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}{m\_pCombo}}.lock()-\/>ComboBuff()));}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_abf1fa63a7d307aff383c8d3b292b5730}{m\_isHit}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1422ff88e323b926b5ec6c9221a30a6e}{m\_hitTimer}}\ +=\ \mbox{\hyperlink{class_little_quest_1_1_player_a003215a8c776b404a07253280e6d785f}{HIT\_PAUSE}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}{m\_pCombo}}.lock()-\/>AddCombo(\mbox{\hyperlink{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}{m\_comboList}}[\mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}]);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}}\ =\ PlayEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a73587f4bd71f2c97c513042187bee23a}{m\_hitEffect}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlaySoundMem(\mbox{\hyperlink{class_little_quest_1_1_player_a7330b6913fdf77a01d04567833e75a2d}{m\_swordHitSE}},\ DX\_PLAYTYPE\_BACK);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChangeVolumeSoundMem((\textcolor{keywordtype}{int})(\mbox{\hyperlink{class_little_quest_1_1_player_ab2525176e682159b6ce2d7853153f1d1}{MAX\_VOLUME}}\ *\ (Scene::GetSEVolume()\ /\ 100.0f)),\ \mbox{\hyperlink{class_little_quest_1_1_player_a7330b6913fdf77a01d04567833e75a2d}{m\_swordHitSE}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetPosPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ hitInfo.hit\_position\_.x,\ hitInfo.hit\_position\_.y,}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hitInfo.hit\_position\_.z);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00242}00242\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00243}00243\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00244}00244\ \ \ \ \ Super::OnHit(hitInfo);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00245}00245\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00247}\mbox{\hyperlink{class_little_quest_1_1_player_a7c997c5f6be629d2a618e6da8d7e1181}{00247}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a7c997c5f6be629d2a618e6da8d7e1181}{Player::GetHit}}(\textcolor{keywordtype}{int}\ damage)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00248}00248\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_a1a6f45a037401c9127183c30eaea5aa1}{m\_isInvincible}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00250}00250\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00252}00252\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adc2e0591ef6fc8b646fa8f2acc47b41b}{m\_pHP}}.lock()-\/>TakeDamage(damage);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00253}00253\ \ \ \ \ StartJoypadVibration(DX\_INPUT\_PAD1,\ 250,\ 500,\ -\/1);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00254}00254\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00255}00255\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_adc2e0591ef6fc8b646fa8f2acc47b41b}{m\_pHP}}.lock()-\/>GetHP()\ <=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efaaa059bf2a631dac2d0da38295c26e6ab}{PlayerState::DEAD}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00258}00258\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00260}00260\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>PlayAnimation(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa46320c7dfdfeeaa7ac64c1fb160d30c4}{PlayerState::GET\_HIT}}));}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00261}00261\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00262}00262\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa46320c7dfdfeeaa7ac64c1fb160d30c4}{PlayerState::GET\_HIT}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00263}00263\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ \ \ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo::NO\_COMBO}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00264}00264\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aee6d3ce45c4227b37a9ca509b73effac}{m\_chargeTime}}\ \ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00265}00265\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00266}00266\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00267}\mbox{\hyperlink{class_little_quest_1_1_player_aff05d6d82acb90bd41149ecc91677216}{00267}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_aff05d6d82acb90bd41149ecc91677216}{Player::InputHandle}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00268}00268\ \ \ \ \ DINPUT\_JOYSTATE\ DInputState;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00269}00269\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a30baebe408dea092bb80a41a436f86d8}{m\_cameraLength}}\ -\/=\ GetMouseWheelRotVol()\ *\ 3;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00270}00270\ \ \ \ \ \textcolor{keywordflow}{if}(IsPadRepeat(PAD\_ID::PAD\_5,\ DX\_PADTYPE\_DUAL\_SENSE))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00271}00271\ \ \ \ \ \ \ \ \ ++\mbox{\hyperlink{class_little_quest_1_1_player_a30baebe408dea092bb80a41a436f86d8}{m\_cameraLength}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00272}00272\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00273}00273\ \ \ \ \ \textcolor{keywordflow}{if}(IsPadRepeat(PAD\_ID::PAD\_6,\ DX\_PADTYPE\_DUAL\_SENSE))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00274}00274\ \ \ \ \ \ \ \ \ -\/-\/\mbox{\hyperlink{class_little_quest_1_1_player_a30baebe408dea092bb80a41a436f86d8}{m\_cameraLength}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00275}00275\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00276}00276\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a30baebe408dea092bb80a41a436f86d8}{m\_cameraLength}}\ =\ std::min((std::max(\mbox{\hyperlink{class_little_quest_1_1_player_a30baebe408dea092bb80a41a436f86d8}{m\_cameraLength}},\ 10.0f)),\ 100.0f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00277}00277\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aefdafbcc9bc5402b1be586d15b39245e}{m\_pCamera}}.lock()-\/>SetCameraLength(\mbox{\hyperlink{class_little_quest_1_1_player_a30baebe408dea092bb80a41a436f86d8}{m\_cameraLength}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00278}00278\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ !=\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa0e98f4210e28fd7cbf55d5ae8eb53f4f}{PlayerState::ROLL}}\ \&\&\ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ !=\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa46320c7dfdfeeaa7ac64c1fb160d30c4}{PlayerState::GET\_HIT}}\ \&\&\ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ !=\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efaaa059bf2a631dac2d0da38295c26e6ab}{PlayerState::DEAD}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00279}00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsKeyRepeat(KEY\_INPUT\_LSHIFT))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a9fae4a5ee8f8296c23fd643d0cd96dd0}{m\_speedFactor}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a58d85fd4ddb3d57ed0fea0dbfbf0323c}{WALK\_SPEED}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00281}00281\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a9fae4a5ee8f8296c23fd643d0cd96dd0}{m\_speedFactor}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a6490b0e4cebad930eea03a0afedb32af}{RUN\_SPEED}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00283}00283\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00284}00284\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00285}00285\ \ \ \ \ \ \ \ \ GetJoypadDirectInputState(DX\_INPUT\_PAD1,\ \&DInputState);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00286}00286\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(GetJoypadType(DX\_INPUT\_PAD1))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00287}00287\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DX\_PADTYPE\_DUAL\_SENSE:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ +=\ float3\{-\/DInputState.X,\ 0,\ DInputState.Y\};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ =\ mul(float4\{\mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}},\ 1.0f\},\ \mbox{\hyperlink{class_little_quest_1_1_player_a86d4b309763b52970009bd3ce917dbb1}{m\_selfMatrix}}).xyz;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00291}00291\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00293}00293\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00294}00294\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00295}00295\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsKeyRepeat(KEY\_INPUT\_W))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ vec\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a86d4b309763b52970009bd3ce917dbb1}{m\_selfMatrix}}.axisZ();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ vec.y\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ +=\ -\/vec;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00299}00299\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00300}00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsKeyRepeat(KEY\_INPUT\_D))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00301}00301\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ vec\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a86d4b309763b52970009bd3ce917dbb1}{m\_selfMatrix}}.axisX();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ \ vec.y\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ +=\ -\/vec;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00304}00304\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00305}00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsKeyRepeat(KEY\_INPUT\_S))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ vec\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a86d4b309763b52970009bd3ce917dbb1}{m\_selfMatrix}}.axisZ();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00307}00307\ \ \ \ \ \ \ \ \ \ \ \ \ vec.y\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00308}00308\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ +=\ vec;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00309}00309\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00310}00310\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsKeyRepeat(KEY\_INPUT\_A))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00311}00311\ \ \ \ \ \ \ \ \ \ \ \ \ float3\ vec\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a86d4b309763b52970009bd3ce917dbb1}{m\_selfMatrix}}.axisX();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ \ \ vec.y\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00313}00313\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ +=\ vec;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00314}00314\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00315}00315\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00316}00316\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsMouseDown(MOUSE\_INPUT\_LEFT)\ ||\ IsPadDown(PAD\_ID::PAD\_4,\ DX\_PADTYPE\_DUAL\_SENSE))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00317}00317\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efac312ee127e0b5d577f36c3e8f3338c07}{PlayerState::ATTACK}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00318}00318\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ ==\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo::NO\_COMBO}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abfa508abe850e4c6684fa3b69529727b}{Combo::NORMAL\_COMBO1}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ !=\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{Combo::SPECIAL\_ATTACK}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a021eb71d1aacf3c4065db032e1053940}{m\_isCombo}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00324}00324\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00325}00325\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00326}00326\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsMouseRepeat(MOUSE\_INPUT\_RIGHT,\ 1)\ ||\ IsPadRepeat(PAD\_ID::PAD\_3,\ DX\_PADTYPE\_DUAL\_SENSE))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aee6d3ce45c4227b37a9ca509b73effac}{m\_chargeTime}}\ +=\ GetDeltaTime60();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aee6d3ce45c4227b37a9ca509b73effac}{m\_chargeTime}}\ >=\ \mbox{\hyperlink{class_little_quest_1_1_player_a45f8cf24aa271e39fea405eac903af92}{SPECIAL\_CHARGE\_TIME}}\ \&\&\ !\mbox{\hyperlink{class_little_quest_1_1_player_a81f8fb7951958af95a9cb8db0d31d419}{m\_charged}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00329}00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ StopEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a7e41fa5bcc4f5e77b35d8f411b5e4f99}{m\_playingChargeEffect}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a81f8fb7951958af95a9cb8db0d31d419}{m\_charged}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsEffekseer3DEffectPlaying(\mbox{\hyperlink{class_little_quest_1_1_player_a7e41fa5bcc4f5e77b35d8f411b5e4f99}{m\_playingChargeEffect}})\ ==\ -\/1)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a7e41fa5bcc4f5e77b35d8f411b5e4f99}{m\_playingChargeEffect}}\ =\ PlayEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a1f7de0cbb94c87a0a849844d5bc38d8c}{m\_pChargeList}}[(\mbox{\hyperlink{class_little_quest_1_1_player_aee6d3ce45c4227b37a9ca509b73effac}{m\_chargeTime}}\ >=\ \mbox{\hyperlink{class_little_quest_1_1_player_a45f8cf24aa271e39fea405eac903af92}{SPECIAL\_CHARGE\_TIME}})]);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00335}00335\ \ \ \ \ \ \ \ \ \ \ \ \ SetPosPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a7e41fa5bcc4f5e77b35d8f411b5e4f99}{m\_playingChargeEffect}},\ GetTranslate().x,\ GetTranslate().y\ +\ 7,\ GetTranslate().z);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a9fae4a5ee8f8296c23fd643d0cd96dd0}{m\_speedFactor}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a58d85fd4ddb3d57ed0fea0dbfbf0323c}{WALK\_SPEED}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00337}00337\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aee6d3ce45c4227b37a9ca509b73effac}{m\_chargeTime}}\ >\ 0\ \&\&\ \mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ ==\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo::NO\_COMBO}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ StopEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a7e41fa5bcc4f5e77b35d8f411b5e4f99}{m\_playingChargeEffect}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aee6d3ce45c4227b37a9ca509b73effac}{m\_chargeTime}}\ >=\ \mbox{\hyperlink{class_little_quest_1_1_player_a45f8cf24aa271e39fea405eac903af92}{SPECIAL\_CHARGE\_TIME}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a021eb71d1aacf3c4065db032e1053940}{m\_isCombo}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a81f8fb7951958af95a9cb8db0d31d419}{m\_charged}}\ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efac312ee127e0b5d577f36c3e8f3338c07}{PlayerState::ATTACK}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00344}00344\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ \ \ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{Combo::SPECIAL\_ATTACK}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aee6d3ce45c4227b37a9ca509b73effac}{m\_chargeTime}}\ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a9fae4a5ee8f8296c23fd643d0cd96dd0}{m\_speedFactor}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a6490b0e4cebad930eea03a0afedb32af}{RUN\_SPEED}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00347}00347\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00348}00348\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00349}00349\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!IsFloat3Zero(\mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00350}00350\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efacfa52b895cd4fab6a1052484b9990144}{PlayerState::WALK}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00351}00351\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00352}00352\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(IsKeyDown(KEY\_INPUT\_SPACE)\ ||\ IsPadDown(PAD\_ID::PAD\_2,\ DX\_PADTYPE\_DUAL\_SENSE))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aee6d3ce45c4227b37a9ca509b73effac}{m\_chargeTime}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a81f8fb7951958af95a9cb8db0d31d419}{m\_charged}}\ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ StopEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a7e41fa5bcc4f5e77b35d8f411b5e4f99}{m\_playingChargeEffect}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00356}00356\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efa0e98f4210e28fd7cbf55d5ae8eb53f4f}{PlayerState::ROLL}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_little_quest_1_1_player_a3994c58739555998a67002c8b6d214bf}{SetModelRotation}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00358}00358\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00359}00359\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00360}00360\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00362}\mbox{\hyperlink{class_little_quest_1_1_player_a9004c431e0c6e198cc0c5fe429912406}{00362}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a9004c431e0c6e198cc0c5fe429912406}{Player::Idle}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00363}00363\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>PlayAnimationNoSame(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}{PlayerState::IDLE}}),\ \textcolor{keyword}{true},\ 0.5f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00364}00364\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00365}00365\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00366}\mbox{\hyperlink{class_little_quest_1_1_player_ae42b64577ebf05020fb9253f9b5875f5}{00366}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_ae42b64577ebf05020fb9253f9b5875f5}{Player::Walk}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00367}00367\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ =\ normalize(\mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00368}00368\ \ \ \ \ this-\/>\mbox{\hyperlink{class_little_quest_1_1_player_a3994c58739555998a67002c8b6d214bf}{SetModelRotation}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00369}00369\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}\ *=\ \mbox{\hyperlink{class_little_quest_1_1_player_a06342bfcdf65a1e543d3345a84e00369}{BASE\_SPEED}}\ *\ \mbox{\hyperlink{class_little_quest_1_1_player_a9fae4a5ee8f8296c23fd643d0cd96dd0}{m\_speedFactor}}\ *\ GetDeltaTime();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00370}00370\ \ \ \ \ AddTranslate(\mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00371}00371\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00372}00372\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>PlayAnimationNoSame(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efacfa52b895cd4fab6a1052484b9990144}{PlayerState::WALK}}),\ \textcolor{keyword}{true},\ 0.2f,\ 14.0f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00373}00373\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>SetAnimationSpeed(GetDistance(\mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}})\ *\ 5.0f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00374}00374\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00376}\mbox{\hyperlink{class_little_quest_1_1_player_a4518a9031a2833ef0fecb2969437dcf6}{00376}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a4518a9031a2833ef0fecb2969437dcf6}{Player::Jump}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00377}00377\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00378}\mbox{\hyperlink{class_little_quest_1_1_player_aff07df83c11362188d36c01a7cd3085c}{00378}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_aff07df83c11362188d36c01a7cd3085c}{Player::Attack}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00379}00379\ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00380}00380\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abfa508abe850e4c6684fa3b69529727b}{Combo::NORMAL\_COMBO1}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00381}00381\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}{AttackAnimation}}(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abfa508abe850e4c6684fa3b69529727b}{Combo::NORMAL\_COMBO1}}),\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abfa508abe850e4c6684fa3b69529727b}{Combo::NORMAL\_COMBO1}})],\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a68d3c9ba96ebe0c745c53fc77bfa7d4a}{Combo::NORMAL\_COMBO2}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00382}00382\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}{m\_currAnimTime}}\ >\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abfa508abe850e4c6684fa3b69529727b}{Combo::NORMAL\_COMBO1}})].triggerStartTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00383}00383\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}}\ =\ PlayEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a2c0d3bf8f480f2ff9c89690d61ec7de8}{m\_pEffectList}}[(\textcolor{keywordtype}{int})\mbox{\hyperlink{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}{m\_pCombo}}.lock()-\/>ComboBuff()\ -\/\ 1]);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetPosPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ GetTranslate().x,\ GetTranslate().y\ +\ 6,\ GetTranslate().z);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetRotationPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ 0,\ (\mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>GetRotationAxisXYZ().y)\ *\ DegToRad,}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00388}00388\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlaySoundMem(\mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}},\ DX\_PLAYTYPE\_BACK);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChangeVolumeSoundMem((\textcolor{keywordtype}{int})(\mbox{\hyperlink{class_little_quest_1_1_player_ab2525176e682159b6ce2d7853153f1d1}{MAX\_VOLUME}}\ *\ (Scene::GetSEVolume()\ /\ 100.0f)),\ \mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00392}00392\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00393}00393\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00394}00394\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00395}00395\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a68d3c9ba96ebe0c745c53fc77bfa7d4a}{Combo::NORMAL\_COMBO2}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00396}00396\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}{AttackAnimation}}(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a68d3c9ba96ebe0c745c53fc77bfa7d4a}{Combo::NORMAL\_COMBO2}}),\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a68d3c9ba96ebe0c745c53fc77bfa7d4a}{Combo::NORMAL\_COMBO2}})],\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a4c5d3b77c6d0f9ae224999488a668991}{Combo::NORMAL\_COMBO3}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00397}00397\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}{m\_currAnimTime}}\ >\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a68d3c9ba96ebe0c745c53fc77bfa7d4a}{Combo::NORMAL\_COMBO2}})].triggerStartTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}}\ =\ PlayEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a2c0d3bf8f480f2ff9c89690d61ec7de8}{m\_pEffectList}}[(\textcolor{keywordtype}{int})\mbox{\hyperlink{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}{m\_pCombo}}.lock()-\/>ComboBuff()\ -\/\ 1]);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00400}00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetPosPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ GetTranslate().x,\ GetTranslate().y\ +\ 6,\ GetTranslate().z);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00401}00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetRotationPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ 0,\ (\mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>GetRotationAxisXYZ().y)\ *\ DegToRad,}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00402}00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 180\ *\ DegToRad);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00403}00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlaySoundMem(\mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}},\ DX\_PLAYTYPE\_BACK);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00404}00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChangeVolumeSoundMem((\textcolor{keywordtype}{int})(\mbox{\hyperlink{class_little_quest_1_1_player_ab2525176e682159b6ce2d7853153f1d1}{MAX\_VOLUME}}\ *\ (Scene::GetSEVolume()\ /\ 100.0f)),\ \mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00405}00405\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00406}00406\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00407}00407\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00408}00408\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00409}00409\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a4c5d3b77c6d0f9ae224999488a668991}{Combo::NORMAL\_COMBO3}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00410}00410\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}{AttackAnimation}}(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a4c5d3b77c6d0f9ae224999488a668991}{Combo::NORMAL\_COMBO3}}),\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a4c5d3b77c6d0f9ae224999488a668991}{Combo::NORMAL\_COMBO3}})],\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a59a2eed715e6b7ada859a87e9d550c9a}{Combo::NORMAL\_COMBO4}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00411}00411\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}{m\_currAnimTime}}\ >\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a4c5d3b77c6d0f9ae224999488a668991}{Combo::NORMAL\_COMBO3}})].triggerStartTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}}\ =\ PlayEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a2c0d3bf8f480f2ff9c89690d61ec7de8}{m\_pEffectList}}[(\textcolor{keywordtype}{int})\mbox{\hyperlink{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}{m\_pCombo}}.lock()-\/>ComboBuff()\ -\/\ 1]);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00414}00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetPosPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ GetTranslate().x,\ GetTranslate().y\ +\ 6,\ GetTranslate().z);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00415}00415\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetRotationPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ 0,\ (\mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>GetRotationAxisXYZ().y)\ *\ DegToRad,}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00416}00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/50\ *\ DegToRad);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00417}00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlaySoundMem(\mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}},\ DX\_PLAYTYPE\_BACK);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00418}00418\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChangeVolumeSoundMem((\textcolor{keywordtype}{int})(\mbox{\hyperlink{class_little_quest_1_1_player_ab2525176e682159b6ce2d7853153f1d1}{MAX\_VOLUME}}\ *\ (Scene::GetSEVolume()\ /\ 100.0f)),\ \mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00419}00419\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00420}00420\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00421}00421\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00422}00422\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00423}00423\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a59a2eed715e6b7ada859a87e9d550c9a}{Combo::NORMAL\_COMBO4}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00424}00424\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}{AttackAnimation}}(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a59a2eed715e6b7ada859a87e9d550c9a}{Combo::NORMAL\_COMBO4}}),\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a59a2eed715e6b7ada859a87e9d550c9a}{Combo::NORMAL\_COMBO4}})]);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00425}00425\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}{m\_currAnimTime}}\ >\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a59a2eed715e6b7ada859a87e9d550c9a}{Combo::NORMAL\_COMBO4}})].triggerStartTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00426}00426\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00427}00427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}}\ =\ PlayEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a2c0d3bf8f480f2ff9c89690d61ec7de8}{m\_pEffectList}}[(\textcolor{keywordtype}{int})\mbox{\hyperlink{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}{m\_pCombo}}.lock()-\/>ComboBuff()\ -\/\ 1]);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00428}00428\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetPosPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ GetTranslate().x,\ GetTranslate().y\ +\ 6,\ GetTranslate().z);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetRotationPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ 0,\ (\mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>GetRotationAxisXYZ().y)\ *\ DegToRad,}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 52\ *\ DegToRad);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlaySoundMem(\mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}},\ DX\_PLAYTYPE\_BACK);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChangeVolumeSoundMem((\textcolor{keywordtype}{int})(\mbox{\hyperlink{class_little_quest_1_1_player_ab2525176e682159b6ce2d7853153f1d1}{MAX\_VOLUME}}\ *\ (Scene::GetSEVolume()\ /\ 100.0f)),\ \mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00434}00434\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00435}00435\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00436}00436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00437}00437\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{Combo::SPECIAL\_ATTACK}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00438}00438\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_a021eb71d1aacf3c4065db032e1053940}{m\_isCombo}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00439}00439\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}{AttackAnimation}}(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{Combo::SPECIAL\_ATTACK}}),\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{Combo::SPECIAL\_ATTACK}})],\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abd69fad9a5ad921b4c08e59d8dbf417d}{Combo::SPECIAL\_CHARGE}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00440}00440\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00441}00441\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}{AttackAnimation}}(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{Combo::SPECIAL\_ATTACK}}),\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{Combo::SPECIAL\_ATTACK}})]);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00442}00442\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00443}00443\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}{m\_currAnimTime}}\ >\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{Combo::SPECIAL\_ATTACK}})].triggerStartTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00444}00444\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00445}00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}}\ =\ PlayEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a2c0d3bf8f480f2ff9c89690d61ec7de8}{m\_pEffectList}}[(\textcolor{keywordtype}{int})\mbox{\hyperlink{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}{m\_pCombo}}.lock()-\/>ComboBuff()\ -\/\ 1]);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00446}00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetPosPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ GetTranslate().x,\ GetTranslate().y\ +\ 6,\ GetTranslate().z);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00447}00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetRotationPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ 0,\ (\mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>GetRotationAxisXYZ().y)\ *\ DegToRad,}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00448}00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 180\ *\ DegToRad);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00449}00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlaySoundMem(\mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}},\ DX\_PLAYTYPE\_BACK);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00450}00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChangeVolumeSoundMem((\textcolor{keywordtype}{int})(\mbox{\hyperlink{class_little_quest_1_1_player_ab2525176e682159b6ce2d7853153f1d1}{MAX\_VOLUME}}\ *\ (Scene::GetSEVolume()\ /\ 100.0f)),\ \mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00451}00451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00452}00452\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00453}00453\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00454}00454\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00455}00455\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abd69fad9a5ad921b4c08e59d8dbf417d}{Combo::SPECIAL\_CHARGE}}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00456}00456\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}{AttackAnimation}}(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abd69fad9a5ad921b4c08e59d8dbf417d}{Combo::SPECIAL\_CHARGE}}),\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abd69fad9a5ad921b4c08e59d8dbf417d}{Combo::SPECIAL\_CHARGE}})]);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00457}00457\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}{m\_currAnimTime}}\ >\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abd69fad9a5ad921b4c08e59d8dbf417d}{Combo::SPECIAL\_CHARGE}})].triggerStartTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00458}00458\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00459}00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}}\ =\ PlayEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a2c0d3bf8f480f2ff9c89690d61ec7de8}{m\_pEffectList}}[(\textcolor{keywordtype}{int})\mbox{\hyperlink{class_little_quest_1_1_player_aae119060e83691cd0608264bfe61ba68}{m\_pCombo}}.lock()-\/>ComboBuff()\ -\/\ 1]);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00460}00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetPosPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ GetTranslate().x\ +\ 3.5f,\ GetTranslate().y\ +\ 6,}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00461}00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GetTranslate().z);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00462}00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetRotationPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a160f4e3412a5742bd4b27419255bfccb}{m\_playingEffect}},\ -\/20\ *\ DegToRad,}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00463}00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>GetRotationAxisXYZ().y)\ *\ DegToRad,\ 180\ *\ DegToRad);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00464}00464\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PlaySoundMem(\mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}},\ DX\_PLAYTYPE\_BACK);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00465}00465\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ChangeVolumeSoundMem((\textcolor{keywordtype}{int})(\mbox{\hyperlink{class_little_quest_1_1_player_ab2525176e682159b6ce2d7853153f1d1}{MAX\_VOLUME}}\ *\ (Scene::GetSEVolume()\ /\ 100.0f)),\ \mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00466}00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00467}00467\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00468}00468\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00469}00469\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00470}00470\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00471}00471\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}{PlayerState::IDLE}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00472}00472\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ \ \ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo::NO\_COMBO}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00473}00473\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00474}00474\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00475}00475\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00476}00476\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00477}\mbox{\hyperlink{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}{00477}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_adea6e3c559e36ee27be3413f4923ec07}{Player::AttackAnimation}}(std::string\ animName,\ AnimInfo\ animInfo,\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596}{Combo}}\ nextCombo)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00478}00478\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>GetPlayAnimationName()\ !=\ animName)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00479}00479\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_little_quest_1_1_player_a3994c58739555998a67002c8b6d214bf}{SetModelRotation}}();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00480}00480\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>PlayAnimationNoSame(animName,\ \textcolor{keyword}{false},\ 0.2F,\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[animName].animStartTime);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00481}00481\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>SetAnimationSpeed(animInfo.animStartSpeed);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00482}00482\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_ab82f181b8a13785bae10ca3d29f4d6d6}{m\_attackList}}.clear();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00483}00483\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4f75dbba521d1318e105584dc4957a41}{m\_playedFX}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00484}00484\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00485}00485\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}{m\_currAnimTime}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>GetAnimationPlayTime();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00486}00486\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}{m\_currAnimTime}}\ >\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[animName].triggerStartTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00487}00487\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_abf1fa63a7d307aff383c8d3b292b5730}{m\_isHit}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00488}00488\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>SetAnimationSpeed(animInfo.animSpeed\ *\ 0.05f);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00489}00489\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00490}00490\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>SetAnimationSpeed(animInfo.animSpeed);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00491}00491\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00492}00492\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00493}00493\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00494}00494\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}{m\_currAnimTime}}\ >\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[animName].triggerEndTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00495}00495\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a432bc487030deaa16b5e6ba02e6f3400}{m\_pWeapon}}.lock()-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00496}00496\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00497}00497\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_aafc0c88d9570145cc9e047733c789bd7}{m\_currAnimTime}}\ >\ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[animName].animCutInTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00498}00498\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a087795b6405a82c121b9fe9fdda41fc6}{Combo::NO\_COMBO}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00499}00499\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_player_a021eb71d1aacf3c4065db032e1053940}{m\_isCombo}})\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00500}00500\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_ae639f962610dbab2c80adb0134a43757}{m\_currCombo}}\ =\ nextCombo;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00501}00501\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a021eb71d1aacf3c4065db032e1053940}{m\_isCombo}}\ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00502}00502\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00503}00503\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00504}00504\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00505}00505\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00506}\mbox{\hyperlink{class_little_quest_1_1_player_a38ff1219b39bf1a33e3a677176302d36}{00506}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a38ff1219b39bf1a33e3a677176302d36}{Player::Die}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00507}00507\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>PlayAnimationNoSame(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efaaa059bf2a631dac2d0da38295c26e6ab}{PlayerState::DEAD}}));}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00508}00508\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00509}00509\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00510}\mbox{\hyperlink{class_little_quest_1_1_player_aaff9bbcefc9d2739e5b4ec9cdcc2ca9c}{00510}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_little_quest_1_1_player_aaff9bbcefc9d2739e5b4ec9cdcc2ca9c}{Player::IsDead}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00511}00511\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_little_quest_1_1_player_adc2e0591ef6fc8b646fa8f2acc47b41b}{m\_pHP}}.lock()-\/>GetHP()\ <=\ 0;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00512}00512\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00513}00513\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00514}\mbox{\hyperlink{class_little_quest_1_1_player_ac0aec20fcc1659a5f13b541a260c6dc2}{00514}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_ac0aec20fcc1659a5f13b541a260c6dc2}{Player::PlayDead}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00515}00515\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efaaa059bf2a631dac2d0da38295c26e6ab}{PlayerState::DEAD}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00516}00516\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00517}00517\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00518}\mbox{\hyperlink{class_little_quest_1_1_player_a3994c58739555998a67002c8b6d214bf}{00518}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a3994c58739555998a67002c8b6d214bf}{Player::SetModelRotation}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00519}00519\ \ \ \ \ \textcolor{keywordflow}{if}(IsFloat3Zero(\mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00520}00520\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00521}00521\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00522}00522\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00523}00523\ \ \ \ \ \textcolor{keywordtype}{float}\ x\ \ \ \ \ =\ -\/\mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}.x;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00524}00524\ \ \ \ \ \textcolor{keywordtype}{float}\ z\ \ \ \ \ =\ -\/\mbox{\hyperlink{class_little_quest_1_1_player_a04d08eeb6f7e4c4209a4ee21da71cf17}{m\_movement}}.z;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00525}00525\ \ \ \ \ \textcolor{keywordtype}{float}\ theta\ =\ atan2(x,\ z)\ *\ RadToDeg;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00526}00526\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4bd15fdec4e0ee005a9b70ec83a4d375}{m\_pModel}}.lock()-\/>SetRotationAxisXYZ(\{0,\ theta,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00527}00527\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00528}00528\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00529}\mbox{\hyperlink{class_little_quest_1_1_player_a9190427e7b1a6d42f0c9a57ebaf610cc}{00529}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a9190427e7b1a6d42f0c9a57ebaf610cc}{Player::SetSceneState}}(Scene::SceneState\ state)\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00530}00530\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_ab5c6f05a8097a3e3e57f48185040925d}{m\_sceneState}}\ \ =\ state;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00531}00531\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a71d3b65d4560c1ecc4f86bb4664fe6cd}{m\_playerState}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_player_ab147932effadd1fa9bda0d2f88c2b8efae82d7c7b31cdc05216a84fdcfcd6e70c}{PlayerState::IDLE}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00532}00532\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00533}00533\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00534}\mbox{\hyperlink{class_little_quest_1_1_player_a85136589199668228ff87555f55ae832}{00534}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a85136589199668228ff87555f55ae832}{Player::SetAnimInfo}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00535}00535\ \ \ \ \ AnimInfo\ info\ \ \ \ \ \ \ \ \ =\ \{\};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00536}00536\ \ \ \ \ info.animStartTime\ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00537}00537\ \ \ \ \ info.triggerStartTime\ =\ 56;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00538}00538\ \ \ \ \ info.triggerEndTime\ \ \ =\ 66;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00539}00539\ \ \ \ \ info.animCutInTime\ \ \ \ =\ 82;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00540}00540\ \ \ \ \ info.animStartSpeed\ \ \ =\ 3.5f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00541}00541\ \ \ \ \ info.animSpeed\ \ \ \ \ \ \ \ =\ 3.5f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00542}00542\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00543}00543\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abfa508abe850e4c6684fa3b69529727b}{Combo::NORMAL\_COMBO1}})]\ =\ info;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00544}00544\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00545}00545\ \ \ \ \ info\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{\};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00546}00546\ \ \ \ \ info.animStartTime\ \ \ \ =\ 8;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00547}00547\ \ \ \ \ info.triggerStartTime\ =\ 20;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00548}00548\ \ \ \ \ info.triggerEndTime\ \ \ =\ 35;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00549}00549\ \ \ \ \ info.animCutInTime\ \ \ \ =\ 43;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00550}00550\ \ \ \ \ info.animStartSpeed\ \ \ =\ 3.5f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00551}00551\ \ \ \ \ info.animSpeed\ \ \ \ \ \ \ \ =\ 3.5f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00552}00552\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00553}00553\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a68d3c9ba96ebe0c745c53fc77bfa7d4a}{Combo::NORMAL\_COMBO2}})]\ =\ info;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00554}00554\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00555}00555\ \ \ \ \ info\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{\};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00556}00556\ \ \ \ \ info.animStartTime\ \ \ \ =\ 33;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00557}00557\ \ \ \ \ info.triggerStartTime\ =\ 45;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00558}00558\ \ \ \ \ info.triggerEndTime\ \ \ =\ 58;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00559}00559\ \ \ \ \ info.animCutInTime\ \ \ \ =\ 82;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00560}00560\ \ \ \ \ info.animStartSpeed\ \ \ =\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00561}00561\ \ \ \ \ info.animSpeed\ \ \ \ \ \ \ \ =\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00562}00562\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00563}00563\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a4c5d3b77c6d0f9ae224999488a668991}{Combo::NORMAL\_COMBO3}})]\ =\ info;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00564}00564\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00565}00565\ \ \ \ \ info\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{\};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00566}00566\ \ \ \ \ info.animStartTime\ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00567}00567\ \ \ \ \ info.triggerStartTime\ =\ 55;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00568}00568\ \ \ \ \ info.triggerEndTime\ \ \ =\ 68;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00569}00569\ \ \ \ \ info.animCutInTime\ \ \ \ =\ 88;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00570}00570\ \ \ \ \ info.animStartSpeed\ \ \ =\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00571}00571\ \ \ \ \ info.animSpeed\ \ \ \ \ \ \ \ =\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00572}00572\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00573}00573\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a59a2eed715e6b7ada859a87e9d550c9a}{Combo::NORMAL\_COMBO4}})]\ =\ info;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00574}00574\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00575}00575\ \ \ \ \ info\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{\};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00576}00576\ \ \ \ \ info.triggerStartTime\ =\ 55;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00577}00577\ \ \ \ \ info.triggerEndTime\ \ \ =\ 72;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00578}00578\ \ \ \ \ info.animCutInTime\ \ \ \ =\ 75;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00579}00579\ \ \ \ \ info.animStartSpeed\ \ \ =\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00580}00580\ \ \ \ \ info.animSpeed\ \ \ \ \ \ \ \ =\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00581}00581\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00582}00582\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{Combo::SPECIAL\_ATTACK}})]\ =\ info;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00583}00583\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00584}00584\ \ \ \ \ info\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{\};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00585}00585\ \ \ \ \ info.animStartTime\ \ \ \ =\ 12;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00586}00586\ \ \ \ \ info.triggerStartTime\ =\ 55;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00587}00587\ \ \ \ \ info.triggerEndTime\ \ \ =\ 65;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00588}00588\ \ \ \ \ info.animCutInTime\ \ \ \ =\ 80;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00589}00589\ \ \ \ \ info.animStartSpeed\ \ \ =\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00590}00590\ \ \ \ \ info.animSpeed\ \ \ \ \ \ \ \ =\ 3.0f;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00591}00591\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00592}00592\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abd69fad9a5ad921b4c08e59d8dbf417d}{Combo::SPECIAL\_CHARGE}})]\ =\ info;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00593}00593\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00594}00594\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00595}\mbox{\hyperlink{class_little_quest_1_1_player_a67b07b312261acd1d91b7caa8d9d8d25}{00595}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_a67b07b312261acd1d91b7caa8d9d8d25}{Player::SetComboList}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00596}00596\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}{m\_comboList}}[\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abfa508abe850e4c6684fa3b69529727b}{Combo::NORMAL\_COMBO1}}]\ \ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00597}00597\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}{m\_comboList}}[\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a68d3c9ba96ebe0c745c53fc77bfa7d4a}{Combo::NORMAL\_COMBO2}}]\ \ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00598}00598\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}{m\_comboList}}[\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a4c5d3b77c6d0f9ae224999488a668991}{Combo::NORMAL\_COMBO3}}]\ \ =\ 2;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00599}00599\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}{m\_comboList}}[\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a59a2eed715e6b7ada859a87e9d550c9a}{Combo::NORMAL\_COMBO4}}]\ \ =\ 4;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00600}00600\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}{m\_comboList}}[\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596a787f90645586bf07f2e6c5a39708d607}{Combo::SPECIAL\_ATTACK}}]\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00601}00601\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}{m\_comboList}}[\mbox{\hyperlink{class_little_quest_1_1_player_a60b4a288392c65ba41f167ccd1986596abd69fad9a5ad921b4c08e59d8dbf417d}{Combo::SPECIAL\_CHARGE}}]\ =\ 6;}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00602}00602\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00603}00603\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00604}\mbox{\hyperlink{class_little_quest_1_1_player_adb90d638bbb4c14b16afe946a77dc70a}{00604}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_player_adb90d638bbb4c14b16afe946a77dc70a}{Player::Exit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00605}00605\ \ \ \ \ \textcolor{keyword}{delete}[]\ \mbox{\hyperlink{class_little_quest_1_1_player_a2c0d3bf8f480f2ff9c89690d61ec7de8}{m\_pEffectList}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00606}00606\ \ \ \ \ \textcolor{keyword}{delete}[]\ \mbox{\hyperlink{class_little_quest_1_1_player_a1f7de0cbb94c87a0a849844d5bc38d8c}{m\_pChargeList}};}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00607}00607\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00608}00608\ \ \ \ \ DeleteSoundMem(\mbox{\hyperlink{class_little_quest_1_1_player_a3ce954706c32403f30e786bda76f8642}{m\_swordSE}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00609}00609\ \ \ \ \ DeleteSoundMem(\mbox{\hyperlink{class_little_quest_1_1_player_a7330b6913fdf77a01d04567833e75a2d}{m\_swordHitSE}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00610}00610\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00611}00611\ \ \ \ \ DeleteEffekseerEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a2e3884a5605ebcf43556ce0761b85044}{m\_slashEffect1}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00612}00612\ \ \ \ \ DeleteEffekseerEffect(\mbox{\hyperlink{class_little_quest_1_1_player_afcb7c0b1cffdaef9d455b71e1ffd4512}{m\_slashEffect2}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00613}00613\ \ \ \ \ DeleteEffekseerEffect(\mbox{\hyperlink{class_little_quest_1_1_player_afba2e38df7153300690aa15a7f499f08}{m\_slashEffect3}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00614}00614\ \ \ \ \ DeleteEffekseerEffect(\mbox{\hyperlink{class_little_quest_1_1_player_a73587f4bd71f2c97c513042187bee23a}{m\_hitEffect}});}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00615}00615\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00616}00616\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a4869e76c38706e055e5c0a72cd2bf96a}{m\_animList}}.clear();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00617}00617\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_player_a1001b6a4b77c74adee21b31729f3f008}{m\_comboList}}.clear();}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00618}00618\ \}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00619}00619\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ LittleQuest}}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00620}00620\ }
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00621}00621\ CEREAL\_REGISTER\_TYPE(\mbox{\hyperlink{class_little_quest_1_1_player}{LittleQuest::Player}})}
+\DoxyCodeLine{\Hypertarget{_player_8cpp_source_l00622}00622\ CEREAL\_REGISTER\_POLYMORPHIC\_RELATION(Object,\ \mbox{\hyperlink{class_little_quest_1_1_player}{LittleQuest::Player}})}
+
+\end{DoxyCode}

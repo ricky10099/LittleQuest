@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: Shape.cpp ソースファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.9.6 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('../../',true,false,'search.php','検索');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="../../dir_ef68f1e1f5148ff8ef7fb1c955106c3c.html">System</a></li><li class="navelem"><a class="el" href="../../dir_d03dc9e14809aca1458b1cae58a8e37f.html">Physics</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle"><div class="title">Shape.cpp</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="../../d9/dcb/_shape_8cpp.html">[詳解]</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="comment">//---------------------------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">//! @file   Shape.cpp</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//! @brief  形状</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"></span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/d05/_shape_8h.html">Shape.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="../../da/ded/_model_8h.html">System/Graphics/Model.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="../../d0/dfb/_resource_model_8h.html">System/Graphics/ResourceModel.h</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="../../d1/d7c/_model_cache_8h.html">System/Graphics/ModelCache.h</a>&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="../../d3/d55/namespaceshape.html">shape</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">//===========================================================================</span><span class="comment"></span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//! 凸形状 ConvexHull</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"></span><span class="comment">//===========================================================================</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">//---------------------------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">//! コンストラクタ</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"></span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="../../d3/d12/classshape_1_1_convex_hull.html#a211c4c2d2d1d869c206cb840e24998b6">   19</a></span><a class="code hl_function" href="../../d3/d12/classshape_1_1_convex_hull.html#a211c4c2d2d1d869c206cb840e24998b6">ConvexHull::ConvexHull</a>(<a class="code hl_class" href="../../d0/de3/class_model.html">Model</a>* model): <a class="code hl_namespace" href="../../d3/d55/namespaceshape.html">shape</a>::<a class="code hl_class" href="../../de/d7c/classshape_1_1_base.html">Base</a>(<a class="code hl_namespace" href="../../d3/d55/namespaceshape.html">shape</a>::<a class="code hl_class" href="../../d8/df6/class_type.html">Type</a>::<a class="code hl_class" href="../../d3/d12/classshape_1_1_convex_hull.html">ConvexHull</a>) {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">auto</span>* resource_model = model-&gt;<a class="code hl_function" href="../../d0/de3/class_model.html#ace0fbe89210f733a1aeb5c583316e9df">resource</a>();</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">auto</span>* model_cache    = resource_model-&gt;<a class="code hl_function" href="../../dd/d17/class_resource_model.html#ad917d1ee8b36e5c6cd548558d642941d">modelCache</a>();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">// リソースがロード中の場合は読み込みが終わるまで待つ</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    resource_model-&gt;waitForReadFinish();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="comment">// モデルキャッシュから頂点配列とインデックス配列を取得</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="comment">// この配列は既にリダクションされたジオメトリです</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="comment">// 頂点配列</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keyword">auto</span>&amp; varray = model_cache-&gt;<a class="code hl_function" href="../../d4/df8/class_model_cache.html#ae3ba53ee3f87c339f6816b934318af7f">vertices</a>();</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; v: varray) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <a class="code hl_variable" href="../../d3/d12/classshape_1_1_convex_hull.html#a42f128d53d823df440ef6795016473b7">vertices_</a>.push_back(<a class="code hl_function" href="../../de/d57/_vector_math_8h.html#acaf43804f3b1a2e96e58f2ccbbeaab76">cast</a>(v));    <span class="comment">// DxLib::VECTOR→float3にキャストしながらコピー</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="comment">//===========================================================================</span><span class="comment"></span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="comment">//! メッシュ Mesh</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="comment"></span><span class="comment">//===========================================================================</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="comment">//---------------------------------------------------------------------------</span><span class="comment"></span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">//! コンストラクタ</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment"></span><span class="comment">//---------------------------------------------------------------------------</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="../../de/d0d/classshape_1_1_mesh.html#a667955c63db978d73722260df32dcf4f">   44</a></span><a class="code hl_function" href="../../de/d0d/classshape_1_1_mesh.html#a667955c63db978d73722260df32dcf4f">Mesh::Mesh</a>(<a class="code hl_class" href="../../d0/de3/class_model.html">Model</a>* model, <a class="code hl_typedef" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> scale): <a class="code hl_namespace" href="../../d3/d55/namespaceshape.html">shape</a>::<a class="code hl_class" href="../../de/d7c/classshape_1_1_base.html">Base</a>(<a class="code hl_namespace" href="../../d3/d55/namespaceshape.html">shape</a>::<a class="code hl_class" href="../../d8/df6/class_type.html">Type</a>::<a class="code hl_class" href="../../de/d0d/classshape_1_1_mesh.html">Mesh</a>) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">auto</span>* resource_model = model-&gt;<a class="code hl_function" href="../../d0/de3/class_model.html#ace0fbe89210f733a1aeb5c583316e9df">resource</a>();</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">auto</span>* model_cache    = resource_model-&gt;<a class="code hl_function" href="../../dd/d17/class_resource_model.html#ad917d1ee8b36e5c6cd548558d642941d">modelCache</a>();</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="comment">// モデルキャッシュが有効ではない場合は読み込みが終わるまで待つ</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">if</span>(model_cache-&gt;isValid() == <span class="keyword">false</span>) {</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        resource_model-&gt;waitForReadFinish();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// モデルキャッシュから頂点配列とインデックス配列を取得</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="comment">// この配列は既にリダクションされたジオメトリです</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="comment">//----------------------------------------------------------</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="comment">// 頂点配列</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keyword">auto</span>&amp; varray = model_cache-&gt;<a class="code hl_function" href="../../d4/df8/class_model_cache.html#ae3ba53ee3f87c339f6816b934318af7f">vertices</a>();</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; v: varray) {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <a class="code hl_variable" href="../../de/d0d/classshape_1_1_mesh.html#ac33ce2433e59d084ecc254359f63e67e">vertices_</a>.push_back(<a class="code hl_function" href="../../de/d57/_vector_math_8h.html#acaf43804f3b1a2e96e58f2ccbbeaab76">cast</a>(v) * scale);    <span class="comment">// DxLib::VECTOR→float3にキャストしながらコピー</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="comment">// インデックス配列</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <a class="code hl_variable" href="../../de/d0d/classshape_1_1_mesh.html#a76e421a84989ed7a63e7a5f63266d713">indices_</a> = model_cache-&gt;indices();</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>}</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>}    <span class="comment">// namespace shape</span></div>
+<div class="ttc" id="a_model_8h_html"><div class="ttname"><a href="../../da/ded/_model_8h.html">Model.h</a></div><div class="ttdoc">3Dモデル</div></div>
+<div class="ttc" id="a_model_cache_8h_html"><div class="ttname"><a href="../../d1/d7c/_model_cache_8h.html">ModelCache.h</a></div><div class="ttdoc">3Dモデルキャッシュ</div></div>
+<div class="ttc" id="a_resource_model_8h_html"><div class="ttname"><a href="../../d0/dfb/_resource_model_8h.html">ResourceModel.h</a></div><div class="ttdoc">3Dモデルリソース</div></div>
+<div class="ttc" id="a_shape_8h_html"><div class="ttname"><a href="../../da/d05/_shape_8h.html">Shape.h</a></div><div class="ttdoc">形状</div></div>
+<div class="ttc" id="a_typedef_8h_html_ad34d88453d37b65a09797bad37f2f527"><div class="ttname"><a href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></div><div class="ttdeci">float f32</div><div class="ttdoc">単精度浮動小数点数</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/db9/_typedef_8h_source.html#l00025">Typedef.h:25</a></div></div>
+<div class="ttc" id="a_vector_math_8h_html_acaf43804f3b1a2e96e58f2ccbbeaab76"><div class="ttname"><a href="../../de/d57/_vector_math_8h.html#acaf43804f3b1a2e96e58f2ccbbeaab76">cast</a></div><div class="ttdeci">DxLib::FLOAT2 cast(const float2 &amp;v)</div><div class="ttdoc">DxLib::FLOAT2へキャスト</div><div class="ttdef"><b>Definition:</b> <a href="../../de/d57/_vector_math_8h_source.html#l00013">VectorMath.h:13</a></div></div>
+<div class="ttc" id="aclass_model_cache_html_ae3ba53ee3f87c339f6816b934318af7f"><div class="ttname"><a href="../../d4/df8/class_model_cache.html#ae3ba53ee3f87c339f6816b934318af7f">ModelCache::vertices</a></div><div class="ttdeci">const std::vector&lt; VECTOR &gt; &amp; vertices() const</div><div class="ttdoc">頂点配列を取得</div><div class="ttdef"><b>Definition:</b> <a href="../../d5/d0e/_model_cache_8cpp_source.html#l00315">ModelCache.cpp:315</a></div></div>
+<div class="ttc" id="aclass_model_html"><div class="ttname"><a href="../../d0/de3/class_model.html">Model</a></div><div class="ttdoc">3Dモデル</div><div class="ttdef"><b>Definition:</b> <a href="../../da/ded/_model_8h_source.html#l00014">Model.h:14</a></div></div>
+<div class="ttc" id="aclass_model_html_ace0fbe89210f733a1aeb5c583316e9df"><div class="ttname"><a href="../../d0/de3/class_model.html#ace0fbe89210f733a1aeb5c583316e9df">Model::resource</a></div><div class="ttdeci">ResourceModel * resource() const</div><div class="ttdoc">モデルリソースを取得</div><div class="ttdef"><b>Definition:</b> <a href="../../d2/d31/_model_8cpp_source.html#l00342">Model.cpp:342</a></div></div>
+<div class="ttc" id="aclass_resource_model_html_ad917d1ee8b36e5c6cd548558d642941d"><div class="ttname"><a href="../../dd/d17/class_resource_model.html#ad917d1ee8b36e5c6cd548558d642941d">ResourceModel::modelCache</a></div><div class="ttdeci">ModelCache * modelCache() const</div><div class="ttdoc">モデルキャッシュを取得</div><div class="ttdef"><b>Definition:</b> <a href="../../d1/d45/_resource_model_8cpp_source.html#l00081">ResourceModel.cpp:81</a></div></div>
+<div class="ttc" id="aclass_type_html"><div class="ttname"><a href="../../d8/df6/class_type.html">Type</a></div><div class="ttdoc">型情報基底</div><div class="ttdef"><b>Definition:</b> <a href="../../d7/d4e/_type_info_8h_source.html#l00010">TypeInfo.h:10</a></div></div>
+<div class="ttc" id="aclassshape_1_1_base_html"><div class="ttname"><a href="../../de/d7c/classshape_1_1_base.html">shape::Base</a></div><div class="ttdoc">形状基底</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d05/_shape_8h_source.html#l00025">Shape.h:25</a></div></div>
+<div class="ttc" id="aclassshape_1_1_convex_hull_html"><div class="ttname"><a href="../../d3/d12/classshape_1_1_convex_hull.html">shape::ConvexHull</a></div><div class="ttdoc">凸形状 ConvexHull</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d05/_shape_8h_source.html#l00089">Shape.h:89</a></div></div>
+<div class="ttc" id="aclassshape_1_1_convex_hull_html_a211c4c2d2d1d869c206cb840e24998b6"><div class="ttname"><a href="../../d3/d12/classshape_1_1_convex_hull.html#a211c4c2d2d1d869c206cb840e24998b6">shape::ConvexHull::ConvexHull</a></div><div class="ttdeci">ConvexHull(Model *model)</div><div class="ttdoc">コンストラクタ</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/dcb/_shape_8cpp_source.html#l00019">Shape.cpp:19</a></div></div>
+<div class="ttc" id="aclassshape_1_1_convex_hull_html_a42f128d53d823df440ef6795016473b7"><div class="ttname"><a href="../../d3/d12/classshape_1_1_convex_hull.html#a42f128d53d823df440ef6795016473b7">shape::ConvexHull::vertices_</a></div><div class="ttdeci">std::vector&lt; float3 &gt; vertices_</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d05/_shape_8h_source.html#l00091">Shape.h:91</a></div></div>
+<div class="ttc" id="aclassshape_1_1_mesh_html"><div class="ttname"><a href="../../de/d0d/classshape_1_1_mesh.html">shape::Mesh</a></div><div class="ttdoc">メッシュ Mesh</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d05/_shape_8h_source.html#l00100">Shape.h:100</a></div></div>
+<div class="ttc" id="aclassshape_1_1_mesh_html_a667955c63db978d73722260df32dcf4f"><div class="ttname"><a href="../../de/d0d/classshape_1_1_mesh.html#a667955c63db978d73722260df32dcf4f">shape::Mesh::Mesh</a></div><div class="ttdeci">Mesh(Model *model, f32 scale=1.0f)</div><div class="ttdoc">メッシュ Mesh</div><div class="ttdef"><b>Definition:</b> <a href="../../d9/dcb/_shape_8cpp_source.html#l00044">Shape.cpp:44</a></div></div>
+<div class="ttc" id="aclassshape_1_1_mesh_html_a76e421a84989ed7a63e7a5f63266d713"><div class="ttname"><a href="../../de/d0d/classshape_1_1_mesh.html#a76e421a84989ed7a63e7a5f63266d713">shape::Mesh::indices_</a></div><div class="ttdeci">std::vector&lt; u32 &gt; indices_</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d05/_shape_8h_source.html#l00103">Shape.h:103</a></div></div>
+<div class="ttc" id="aclassshape_1_1_mesh_html_ac33ce2433e59d084ecc254359f63e67e"><div class="ttname"><a href="../../de/d0d/classshape_1_1_mesh.html#ac33ce2433e59d084ecc254359f63e67e">shape::Mesh::vertices_</a></div><div class="ttdeci">std::vector&lt; float3 &gt; vertices_</div><div class="ttdef"><b>Definition:</b> <a href="../../da/d05/_shape_8h_source.html#l00102">Shape.h:102</a></div></div>
+<div class="ttc" id="anamespaceshape_html"><div class="ttname"><a href="../../d3/d55/namespaceshape.html">shape</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d1/da6/_physics_character_8h_source.html#l00007">PhysicsCharacter.h:7</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+</small></address>
+</body>
+</html>
