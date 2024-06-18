@@ -96,6 +96,10 @@ bool Boss::Init() {
 }
 
 void Boss::Update() {
+#ifdef _DEBUG
+    return;
+#endif    // _DEBUG
+
     switch(m_sceneState) {
     case Scene::SceneState::TRANS_IN:
         TransInAction();

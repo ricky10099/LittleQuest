@@ -30,6 +30,10 @@ class Camera: public Object {
     //------------------------------------------------------------
     void Update() override;
 
+    void LateDraw() override;
+
+    void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
+
     //------------------------------------------------------------
     //! @brief カメラの前ベクトルを取得します。
     //!
@@ -54,6 +58,10 @@ class Camera: public Object {
     //------------------------------------------------------------
     void SetCurrentCamera();
 
+    inline void SetCameraPosition(float3 pos) {
+        this->SetTranslate(pos);
+    }
+
    private:
     //! カメラの回転
     float3        m_rot{-20, -90, 0};
@@ -64,6 +72,8 @@ class Camera: public Object {
     std::weak_ptr<ComponentCamera>    m_pCamera;
     //! スプリングアームコンポーネント
     std::weak_ptr<ComponentSpringArm> m_pSpringArm;
+
+    //std::weak_ptr<ComponentCollisionLine> m_pCorrectionLine;
 };
 }    // namespace LittleQuest
 #endif

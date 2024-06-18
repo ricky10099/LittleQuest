@@ -166,7 +166,9 @@ void Stage01::Update() {
         }
         break;
     case Scene::SceneState::GAME:
+#ifndef _DEBUG
         m_second -= GetDeltaTime();
+#endif    // !_DEBUG
         if(m_second <= 0) {
             if(m_minute <= 0) {
                 m_isLose = true;

@@ -58,6 +58,7 @@ class ComponentCollision: public Component {
     //! @details 当たった回数分ここに来ます
     virtual void OnHit(const HitInfo& hitInfo);
 
+    virtual void ExitHit(const HitInfo& hitInfo);
 #if 0    // 通常コンポーネントへ移動
     void SetName(std::string_view name);
 

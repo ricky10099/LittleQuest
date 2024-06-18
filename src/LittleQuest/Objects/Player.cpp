@@ -9,13 +9,16 @@
 #include <System/Component/ComponentAttachModel.h>
 #include <System/Component/ComponentCamera.h>
 #include <System/Component/ComponentCollisionCapsule.h>
+#include <System/Component/ComponentCollisionLine.h>
 #include <System/Component/ComponentCollisionModel.h>
 #include <System/Component/ComponentCollisionSphere.h>
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
 
 namespace LittleQuest {
-PlayerPtr Player::Create(const float3& pos) {
+
+static std::string_view colName = "";
+PlayerPtr               Player::Create(const float3& pos) {
     auto player = Scene::CreateObjectPtr<Player>();
 
     player->SetName("Player");
@@ -97,6 +100,26 @@ bool Player::Init() {
     m_swordSE    = LoadSoundMem("data/LittleQuest/Audio/SE/sword-swipes-2-quick.mp3");
     m_swordHitSE = LoadSoundMem("data/LittleQuest/Audio/SE/SwordHit.wav");
 
+    //m_pCameraCorrection = AddComponent<ComponentCollisionLine>();
+    ////m_pCameraCorrection.lock()->AttachToModel("mixamorig:Spine2");
+    //m_pCameraCorrection.lock()->SetTranslate({0, 0, 0});
+    //m_pCameraCorrection.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND);
+    ////m_pCameraCorrection.lock()->SetOverlapCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND);
+    //m_pCameraCorrection.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
+    //m_pCameraCorrection.lock()->SetName("CamCor");
+    //m_pCameraCorrection.lock()->ShowInGame(false);
+
+    m_pCameraCorrection = AddComponent<ComponentCollisionCapsule>();
+    //m_pCameraCorrection.lock()->AttachToModel("mixamorig:Spine2");
+    m_pCameraCorrection.lock()->SetTranslate({0, 5, 0});
+    m_pWeapon.lock()->SetRadius(0.02f);
+    m_pWeapon.lock()->SetHeight(10.0f);
+    m_pCameraCorrection.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND);
+    m_pCameraCorrection.lock()->SetOverlapCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND);
+    m_pCameraCorrection.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
+    m_pCameraCorrection.lock()->SetName("CamCor");
+    m_pCameraCorrection.lock()->ShowInGame(true);
+
     return Super::Init();
 }
 
@@ -128,6 +151,16 @@ void Player::GameAction() {
     } else {
         float3 v     = m_pCamera.lock()->CameraForward();
         m_selfMatrix = HelperLib::Math::CreateMatrixByFrontVector(v);
+
+        m_pCameraCorrection.lock()->SetHeight(m_cameraLength);
+        float3 dir   = normalize(m_pCamera.lock()->GetTranslate() - this->GetTranslate());
+        float  dorrr = dot({0, 0, 1}, dir);
+        float  angle = acosf(dorrr);
+        float3 cro   = cross({0, 0, 1}, dir);
+        float3 rot   = {cro.x * sinf(angle / 2), cro.y * sinf(angle / 2), cro.z * sinf(angle / 2)};
+        //float x = cosf(m_pCamera.lock()->GetTranslate().x - this->GetTranslate().x) * RadToDeg;
+        m_pCameraCorrection.lock()->SetRotationAxisXYZ(rot);
+        //m_pCameraCorrection.lock()->SetLine({0, 5, 0}, m_pCamera.lock()->GetTranslate() - this->GetTranslate());
     }
 
     InputHandle();
@@ -192,6 +225,15 @@ void Player::TransOutAction() {
 }
 
 void Player::LateDraw() {
+#if _DEBUG
+    if(Scene::IsEdit()) {
+        if(m_pCamera.lock()) {
+            //float3 dir = m_pCamera.lock()->GetTranslate() - this->GetTranslate() - float3{0, 0, 0};
+            //printfDx("player camera vector3: x: %f y: %f z: %f\n", (float)dir.x, (float)dir.y, (float)dir.z);
+            printfDx("camera len: %f\n", m_cameraLength);
+        }
+    }
+#endif
     switch(m_sceneState) {
     case Scene::SceneState::TRANS_IN:
         break;
@@ -232,8 +274,52 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
             }
         }
     }
-
+    if(m_pCamera.lock()) {
+        //if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::CAMERA) {
+        //    float dis       = GetDistance(this->GetTranslate(), hitInfo.hit_position_, true);
+        //    m_cameraBlocked = true;
+        //    printfDx("col dis: %f", dis);
+        //    if(GetDistance(this->GetTranslate(), hitInfo.hit_position_, true) <
+        //       /*GetDistance(this->GetTranslate(), m_pCamera.lock()->GetTranslate())*/
+        //       m_cameraLength) {
+        //        m_pCamera.lock()->SetCameraLength(GetDistance(this->GetTranslate(), hitInfo.hit_position_, true));
+        //        //m_pCamera.lock()->OnHit(hitInfo);
+        //        //m_pCamera.lock()->SetCameraPosition(hitInfo.hit_position_);
+        //    } else {
+        //        m_cameraBlocked = false;
+        //    }
+        //}
+        if(hitInfo.collision_->GetName() == "CamCor") {
+            if(hitInfo.hit_) {
+                if(GetDistance(this->GetTranslate(), hitInfo.hit_position_, true) <
+                   /*GetDistance(this->GetTranslate(), m_pCamera.lock()->GetTranslate())*/
+                   m_cameraLength) {
+                    m_cameraBlocked = true;
+                    colName         = hitInfo.hit_collision_->GetOwner()->GetName();
+                    m_pCamera.lock()->SetCameraLength(GetDistance(this->GetTranslate(), hitInfo.hit_position_, true) - 5);
+                    //m_pCamera.lock()->OnHit(hitInfo);
+                    m_pCamera.lock()->SetCameraPosition(hitInfo.hit_position_);
+                }
+            } else {
+                m_cameraBlocked = false;
+            }
+            /*        m_pCamera.lock()->SetCameraLength(m_cameraLength);*/
+        }
+    }
     Super::OnHit(hitInfo);
+}
+
+void Player::ExitHit(const ComponentCollision::HitInfo& hitInfo) {
+    if(m_pCamera.lock()) {
+        if(((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::CAMERA) &&
+           (hitInfo.hit_collision_->GetOwner()->GetName() == colName)) {
+            if(!hitInfo.hit_) {
+                m_cameraBlocked = false;
+            }
+            /*        m_pCamera.lock()->SetCameraLength(m_cameraLength);*/
+        }
+    }
+    Super::ExitHit(hitInfo);
 }
 
 void Player::GetHit(int damage) {
@@ -266,7 +352,9 @@ void Player::InputHandle() {
     //    --m_cameraLength;
     //}
     m_cameraLength = std::min((std::max(m_cameraLength, 10.0f)), 100.0f);
-    m_pCamera.lock()->SetCameraLength(m_cameraLength);
+    if(!m_cameraBlocked) {
+        m_pCamera.lock()->SetCameraLength(m_cameraLength);
+    }
     if(m_playerState != PlayerState::ROLL && m_playerState != PlayerState::GET_HIT && m_playerState != PlayerState::DEAD) {
         if(IsKeyRepeat(KEY_INPUT_LSHIFT)) {
             m_speedFactor = WALK_SPEED;
@@ -475,7 +563,7 @@ void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo next
     m_currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
     if(m_currAnimTime > m_animList[animName].triggerStartTime) {
         if(m_isHit) {
-            m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0.05f);
+            m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0 /*.05f*/);
         } else {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
         }

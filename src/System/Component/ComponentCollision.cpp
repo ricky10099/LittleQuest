@@ -77,6 +77,11 @@ void ComponentCollision::OnHit(const HitInfo& hitInfo) {
     obj->OnHit(hitInfo);
 }
 
+void ComponentCollision::ExitHit(const HitInfo& hitInfo) {
+    auto obj = GetOwner();
+    obj->ExitHit(hitInfo);
+}
+
 #if 0
 void ComponentCollision::SetName(std::string_view name)
 {
@@ -1069,7 +1074,9 @@ ComponentCollision::HitInfo ComponentCollision::isHit(ComponentCollisionLinePtr 
 
     // MV1とラインのチェック関数を呼び出す
     hit_poly = MV1CollCheck_Line(model->GetModel(), -1, cast(line[0]), cast(line[1]));
-
+    if(hit_poly.HitFlag == FALSE) {
+        int a = 0;
+    }
     // 当たったかどうかのフラグを設定し、当たった位置も入れておく
     info.hit_          = hit_poly.HitFlag;
     info.hit_position_ = float3(hit_poly.HitPosition.x, hit_poly.HitPosition.y, hit_poly.HitPosition.z);

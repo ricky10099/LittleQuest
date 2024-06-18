@@ -316,6 +316,8 @@ class Object
 #pragma warning(default: 26813)
     }
 
+    virtual void ExitHit([[maybe_unused]] const ComponentCollision::HitInfo& hit_info) {}
+
     //! @brief コンポーネントのヒットコールバック
     //! @param hitInfo ヒット情報
     virtual void OnHitPhysics([[maybe_unused]] const ComponentPhysics::HitInfo& hit_info) {}

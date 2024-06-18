@@ -28,7 +28,7 @@ bool scene_edit = false;    //!< エディター状態
 #ifdef _DEBUG
 bool scene_fps = true;    //!< FPS状態
 #else
-bool scene_fps = false;    //!< FPS状態
+bool scene_fps  = false;    //!< FPS状態
 #endif
 bool  scene_pause   = false;    //!< ポーズ中
 bool  scene_step    = false;    //!< 1フレームスキップ
@@ -1575,6 +1575,13 @@ void Scene::CheckComponentCollisions() {
                             hitInfo.hit_collision_ = col_1;
                             hitInfo.push_          = other_push;
                             col_2->OnHit(hitInfo);
+                        } else if(!hitInfo.hit_) {
+                            hitInfo.collision_     = col_1;
+                            hitInfo.hit_collision_ = col_2;
+                            col_1->ExitHit(hitInfo);
+                            hitInfo.collision_     = col_2;
+                            hitInfo.hit_collision_ = col_1;
+                            col_2->ExitHit(hitInfo);
                         }
                     }
                 }

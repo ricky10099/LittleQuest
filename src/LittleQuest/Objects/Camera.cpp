@@ -1,6 +1,7 @@
 ﻿#include "Camera.h"
 
 #include <System/Component/ComponentCollisionSphere.h>
+#include <System/Component/ComponentCollisionLine.h>
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentSpringArm.h>
 
@@ -27,6 +28,15 @@ bool Camera::Init() {
     m_pSpringArm.lock()->SetSpringArmLength(50);
     m_pSpringArm.lock()->SetSpringArmOffset({0, 5, 0});
 
+    //    m_pCorrectionLine = AddComponent<ComponentCollisionLine>();
+    //    m_pCorrectionLine.lock()->SetTranslate({0, 0, 0});
+    //    m_pCorrectionLine.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
+    //    m_pCorrectionLine.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ETC);
+    //    m_pCorrectionLine.lock()->SetOverlapCollisionGroup((u32)ComponentCollision::CollisionGroup::ETC);
+    //#if _DEBUG
+    //    m_pCorrectionLine.lock()->ShowInGame(true);
+    //#endif
+
     return Super::Init();
 }
 
@@ -44,7 +54,31 @@ void Camera::Update() {
         m_rot += {-GetMouseMoveY() * 0.1f, GetMouseMoveX() * 0.1f, 0};
         m_rot.x = max(min(m_rot.x, 40.0f), -70.0f);
         m_pSpringArm.lock()->SetSpringArmRotate(m_rot);
+
+        if(m_pTarget.lock() != nullptr) {
+            float3 objPos = m_pSpringArm.lock()->GetSpringArmObject().lock()->GetTranslate();
+            float3 dir    = {1, objPos.y - this->GetTranslate().y, 1};
+            float3 dir2   = dir + float3{0, 100, 0};
+            //m_pCorrectionLine.lock()->SetLine({0, 0, 0},dir);
+            //m_pSpringArm.lock()->GetSpringArmObject().lock()->GetTranslate() - this->GetTranslate());
+        }
     }
+}
+
+void Camera::LateDraw() {
+#if _DEBUG
+    if(Scene::IsEdit()) {
+        //float3 dir =
+        //    float3{0, 0, 0} - (this->GetTranslate() - m_pSpringArm.lock()->GetSpringArmObject().lock()->GetTranslate());
+        //printfDx("camera player vector3: x: %f y: %f z: %f\n", (float)dir.x, (float)dir.y, (float)dir.z);
+        //printfDx("camera player vector3: x: %f y: %f z: %f\n", (float)dir.x, (float)dir.y, (float)dir.z);
+        printfDx("camera length: %f\n", m_pSpringArm.lock()->GetSpringArmLength());
+    }
+#endif
+}
+
+void Camera::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
+    Super::OnHit(hitInfo);
 }
 
 const float3 Camera::CameraForward() {
