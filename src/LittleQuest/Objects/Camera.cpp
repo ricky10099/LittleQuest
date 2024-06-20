@@ -41,7 +41,7 @@ bool Camera::Init() {
 }
 
 void Camera::Update() {
-    if(m_pCamera.lock()->GetCurrentCamera().lock() == m_pCamera.lock()) {
+    if(m_pCamera.lock()->GetCurrentCamera().lock() == m_pCamera.lock() && !m_isLockOn) {
         DINPUT_JOYSTATE DInputState;
         switch(GetJoypadType(DX_INPUT_PAD1)) {
         case DX_PADTYPE_DUAL_SENSE:
@@ -62,6 +62,7 @@ void Camera::Update() {
             //m_pCorrectionLine.lock()->SetLine({0, 0, 0},dir);
             //m_pSpringArm.lock()->GetSpringArmObject().lock()->GetTranslate() - this->GetTranslate());
         }
+    } else if(m_isLockOn) {
     }
 }
 
@@ -95,5 +96,12 @@ void Camera::SetCameraLength(float length) {
 
 void Camera::SetCurrentCamera() {
     m_pCamera.lock()->SetCurrentCamera();
+}
+
+float3 Camera::SetLockOnTarget(ObjectWeakPtr pTarget) {
+    m_isLockOn = true;
+    float3 dir = -(pTarget.lock()->GetTranslate() - m_pTarget.lock()->GetTranslate());
+    dir += m_pTarget.lock()->GetTranslate();
+    this->SetTranslate(dir);
 }
 }    // namespace LittleQuest

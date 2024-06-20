@@ -100,30 +100,23 @@ bool Player::Init() {
     m_swordSE    = LoadSoundMem("data/LittleQuest/Audio/SE/sword-swipes-2-quick.mp3");
     m_swordHitSE = LoadSoundMem("data/LittleQuest/Audio/SE/SwordHit.wav");
 
-    //m_pCameraCorrection = AddComponent<ComponentCollisionLine>();
-    ////m_pCameraCorrection.lock()->AttachToModel("mixamorig:Spine2");
-    //m_pCameraCorrection.lock()->SetTranslate({0, 0, 0});
-    //m_pCameraCorrection.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND);
-    ////m_pCameraCorrection.lock()->SetOverlapCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND);
-    //m_pCameraCorrection.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
-    //m_pCameraCorrection.lock()->SetName("CamCor");
-    //m_pCameraCorrection.lock()->ShowInGame(false);
-
-    m_pCameraCorrection = AddComponent<ComponentCollisionCapsule>();
-    //m_pCameraCorrection.lock()->AttachToModel("mixamorig:Spine2");
-    m_pCameraCorrection.lock()->SetTranslate({0, 5, 0});
-    m_pWeapon.lock()->SetRadius(0.02f);
-    m_pWeapon.lock()->SetHeight(10.0f);
+    m_pCameraCorrection = AddComponent<ComponentCollisionLine>();
+    m_pCameraCorrection.lock()->SetTranslate({0, 0, 0});
     m_pCameraCorrection.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND);
-    m_pCameraCorrection.lock()->SetOverlapCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND);
     m_pCameraCorrection.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
     m_pCameraCorrection.lock()->SetName("CamCor");
     m_pCameraCorrection.lock()->ShowInGame(true);
+
+    m_pBoss = Scene::GetObjectPtr<Boss>("Boss");
 
     return Super::Init();
 }
 
 void Player::Update() {
+    if(!m_pBoss.lock()) {
+        m_pBoss = Scene::GetObjectPtr<Boss>("Boss");
+    }
+
     switch(m_sceneState) {
     case Scene::SceneState::TRANS_IN:
         break;
@@ -151,19 +144,21 @@ void Player::GameAction() {
     } else {
         float3 v     = m_pCamera.lock()->CameraForward();
         m_selfMatrix = HelperLib::Math::CreateMatrixByFrontVector(v);
-
-        m_pCameraCorrection.lock()->SetHeight(m_cameraLength);
-        float3 dir   = normalize(m_pCamera.lock()->GetTranslate() - this->GetTranslate());
-        float  dorrr = dot({0, 0, 1}, dir);
-        float  angle = acosf(dorrr);
-        float3 cro   = cross({0, 0, 1}, dir);
-        float3 rot   = {cro.x * sinf(angle / 2), cro.y * sinf(angle / 2), cro.z * sinf(angle / 2)};
-        //float x = cosf(m_pCamera.lock()->GetTranslate().x - this->GetTranslate().x) * RadToDeg;
-        m_pCameraCorrection.lock()->SetRotationAxisXYZ(rot);
-        //m_pCameraCorrection.lock()->SetLine({0, 5, 0}, m_pCamera.lock()->GetTranslate() - this->GetTranslate());
+        m_pCameraCorrection.lock()->SetLine({0, 5, 0}, m_pCamera.lock()->GetTranslate() - this->GetTranslate());
     }
 
     InputHandle();
+
+    if(m_lockOn) {
+        //float3 dir = -(m_pBoss.lock()->GetTranslate() - this->GetTranslate());
+        ////dir = normalize(dir);
+        //float3 cameraPos =  this->GetTranslate() + dir;
+        //m_pCamera.lock()->SetCameraLookTarget(m_pBoss.lock());
+        //m_pCamera.lock()->SetCameraPosition(dir);
+
+    } else {
+        //m_pCamera.lock()->SetCameraLookTarget(weak_from_this());
+    }
 
     if(m_currCombo != Combo::NO_COMBO && m_playerState != PlayerState::ROLL) {
         m_playerState = PlayerState::ATTACK;
@@ -275,35 +270,17 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
         }
     }
     if(m_pCamera.lock()) {
-        //if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::CAMERA) {
-        //    float dis       = GetDistance(this->GetTranslate(), hitInfo.hit_position_, true);
-        //    m_cameraBlocked = true;
-        //    printfDx("col dis: %f", dis);
-        //    if(GetDistance(this->GetTranslate(), hitInfo.hit_position_, true) <
-        //       /*GetDistance(this->GetTranslate(), m_pCamera.lock()->GetTranslate())*/
-        //       m_cameraLength) {
-        //        m_pCamera.lock()->SetCameraLength(GetDistance(this->GetTranslate(), hitInfo.hit_position_, true));
-        //        //m_pCamera.lock()->OnHit(hitInfo);
-        //        //m_pCamera.lock()->SetCameraPosition(hitInfo.hit_position_);
-        //    } else {
-        //        m_cameraBlocked = false;
-        //    }
-        //}
         if(hitInfo.collision_->GetName() == "CamCor") {
             if(hitInfo.hit_) {
-                if(GetDistance(this->GetTranslate(), hitInfo.hit_position_, true) <
-                   /*GetDistance(this->GetTranslate(), m_pCamera.lock()->GetTranslate())*/
-                   m_cameraLength) {
+                if(GetDistance(this->GetTranslate(), hitInfo.hit_position_, true) < m_cameraLength) {
                     m_cameraBlocked = true;
                     colName         = hitInfo.hit_collision_->GetOwner()->GetName();
                     m_pCamera.lock()->SetCameraLength(GetDistance(this->GetTranslate(), hitInfo.hit_position_, true) - 5);
-                    //m_pCamera.lock()->OnHit(hitInfo);
                     m_pCamera.lock()->SetCameraPosition(hitInfo.hit_position_);
                 }
             } else {
                 m_cameraBlocked = false;
             }
-            /*        m_pCamera.lock()->SetCameraLength(m_cameraLength);*/
         }
     }
     Super::OnHit(hitInfo);
@@ -316,7 +293,6 @@ void Player::ExitHit(const ComponentCollision::HitInfo& hitInfo) {
             if(!hitInfo.hit_) {
                 m_cameraBlocked = false;
             }
-            /*        m_pCamera.lock()->SetCameraLength(m_cameraLength);*/
         }
     }
     Super::ExitHit(hitInfo);
@@ -355,6 +331,12 @@ void Player::InputHandle() {
     if(!m_cameraBlocked) {
         m_pCamera.lock()->SetCameraLength(m_cameraLength);
     }
+
+    if(IsKeyOn(KEY_INPUT_TAB)) {
+        m_lockOn = !m_lockOn;
+        m_pCamera.lock()->SetLockOnTarget(m_pBoss.lock());
+    }
+
     if(m_playerState != PlayerState::ROLL && m_playerState != PlayerState::GET_HIT && m_playerState != PlayerState::DEAD) {
         if(IsKeyRepeat(KEY_INPUT_LSHIFT)) {
             m_speedFactor = WALK_SPEED;
@@ -438,6 +420,8 @@ void Player::InputHandle() {
         }
     }
 }
+
+void Player::LockOnCamera() {}
 
 void Player::Idle() {
     m_pModel.lock()->PlayAnimationNoSame(STR(PlayerState::IDLE), true, 0.5f);

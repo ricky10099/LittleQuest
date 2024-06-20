@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Enemy.h"
+#include "Boss.h"
 #include "LittleQuest/Tool.h"
 
 #include <System/Scene.h>
@@ -118,6 +118,8 @@ class Player: public Object {
     //! 現在のコンボ
     Combo m_currCombo = Combo::NO_COMBO;
 
+    ObjectWeakPtr m_pBoss;
+
     //! アニメーション名とアニメーション情報のマップ
     std::unordered_map<std::string, AnimInfo> m_animList;
     //! 攻撃方法と攻撃力のマップ
@@ -135,8 +137,8 @@ class Player: public Object {
     //! 武器のコリションボックス
     std::weak_ptr<ComponentCollisionCapsule>  m_pWeapon;
     //! カメラ修正用
-    //std::weak_ptr<ComponentCollisionLine>     m_pCameraCorrection;
-    std::weak_ptr<ComponentCollisionCapsule>  m_pCameraCorrection;
+    std::weak_ptr<ComponentCollisionLine>     m_pCameraCorrection;
+    //std::weak_ptr<ComponentCollisionCapsule>  m_pCameraCorrection;
 
     //! 現在のシーン行動
     Scene::SceneState m_sceneState = Scene::SceneState::GAME;
@@ -170,7 +172,10 @@ class Player: public Object {
     //! チャージしていたのか
     bool   m_charged       = false;
 
-    bool m_cameraBlocked       = false;
+    bool m_cameraBlocked = false;
+
+    bool m_lockOn = false;
+
     //! 攻撃当たるエフェクト
     int  m_hitEffect           = -1;
     //! 再生しているエフェクト
@@ -200,6 +205,11 @@ class Player: public Object {
     //! @brief 入力処理を行います。
     //------------------------------------------------------------
     void InputHandle();
+
+    //------------------------------------------------------------
+    //! @brief カメラロックオンを行います。
+    //------------------------------------------------------------
+    void LockOnCamera();
     //------------------------------------------------------------
     //! @brief プレイ中の行動。
     //------------------------------------------------------------

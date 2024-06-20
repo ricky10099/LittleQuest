@@ -47,12 +47,14 @@ class Camera: public Object {
     //! @param length カメラの距離
     //------------------------------------------------------------
     void SetCameraLength(float length);
+
     //------------------------------------------------------------
     //! @brief カメラの目標を設定します。
     //!
     //! @param pTarget 目標ポインター
     //------------------------------------------------------------
     void SetCameraLookTarget(ObjectWeakPtr pTarget);
+
     //------------------------------------------------------------
     //! @brief メインカメラに設定します。
     //------------------------------------------------------------
@@ -61,6 +63,12 @@ class Camera: public Object {
     inline void SetCameraPosition(float3 pos) {
         this->SetTranslate(pos);
     }
+
+    inline void SetCameraPositionAndTarget(float3 position, float3 target) {
+        m_pCamera.lock()->SetPositionAndTarget(position, target);
+    }
+
+    float3 SetLockOnTarget(ObjectWeakPtr pTarget);
 
    private:
     //! カメラの回転
@@ -72,6 +80,8 @@ class Camera: public Object {
     std::weak_ptr<ComponentCamera>    m_pCamera;
     //! スプリングアームコンポーネント
     std::weak_ptr<ComponentSpringArm> m_pSpringArm;
+
+    bool m_isLockOn = false;
 
     //std::weak_ptr<ComponentCollisionLine> m_pCorrectionLine;
 };
