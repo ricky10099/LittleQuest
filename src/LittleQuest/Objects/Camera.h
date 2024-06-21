@@ -68,13 +68,26 @@ class Camera: public Object {
         m_pCamera.lock()->SetPositionAndTarget(position, target);
     }
 
-    float3 SetLockOnTarget(ObjectWeakPtr pTarget);
+    float3 SetLockOnTarget(ObjectWeakPtr pTarget, bool isLockOn);
+
+    void SetCameraShake(float duration, float magnitude);
+
+    void ShakeCamera();
 
    private:
     //! カメラの回転
-    float3        m_rot{-20, -90, 0};
+    float3 m_rot{-20, -90, 0};
+
+    float3        m_lockOnPosition;
     //! カメラの目標
     ObjectWeakPtr m_pTarget;
+
+    ObjectWeakPtr m_pLockOnTarget;
+
+    float  shakeDuration  = 0.0f;
+    float  shakeMagnitude = 0.0f;
+    float  shakeTimer     = 0.0f;
+    float3 originalCameraPos;
 
     //! カメラコンポーネント
     std::weak_ptr<ComponentCamera>    m_pCamera;

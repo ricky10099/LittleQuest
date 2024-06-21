@@ -28,7 +28,7 @@ bool scene_edit = false;    //!< エディター状態
 #ifdef _DEBUG
 bool scene_fps = true;    //!< FPS状態
 #else
-bool scene_fps  = false;    //!< FPS状態
+bool scene_fps = false;    //!< FPS状態
 #endif
 bool  scene_pause   = false;    //!< ポーズ中
 bool  scene_step    = false;    //!< 1フレームスキップ

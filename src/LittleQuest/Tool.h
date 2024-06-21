@@ -38,6 +38,35 @@ bool IsFloat3Zero(float3 vector) {
     return vector.x == 0 && vector.y == 0 && vector.z == 0;
 }
 
+float DotProdcut(float2 u, float2 v) {
+    //float rtn = 0;
+
+    //for (int i = 0; i < 2; ++i){
+    //    rtn += u[i] * v[i];
+    //}
+
+    return (u.x * v.x) + (u.y * v.y);
+}
+
+float DotProdcut(float3 u, float3 v) {
+    float rtn = 0;
+
+    for(int i = 0; i < 3; ++i) {
+        rtn += u[i] * v[i];
+    }
+
+    return rtn;
+}
+
+float DotProdcut(float4 u, float4 v) {
+    float rtn = 0;
+
+    for(int i = 0; i < 4; ++i) {
+        rtn += u[i] * v[i];
+    }
+
+    return rtn;
+}
 //------------------------------------------------------------
 //! @brief アニメーション情報の構造体。
 //------------------------------------------------------------

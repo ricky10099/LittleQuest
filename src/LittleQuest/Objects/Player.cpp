@@ -334,7 +334,7 @@ void Player::InputHandle() {
 
     if(IsKeyOn(KEY_INPUT_TAB)) {
         m_lockOn = !m_lockOn;
-        m_pCamera.lock()->SetLockOnTarget(m_pBoss.lock());
+        m_pCamera.lock()->SetLockOnTarget(m_pBoss.lock(), m_lockOn);
     }
 
     if(m_playerState != PlayerState::ROLL && m_playerState != PlayerState::GET_HIT && m_playerState != PlayerState::DEAD) {
@@ -548,8 +548,10 @@ void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo next
     if(m_currAnimTime > m_animList[animName].triggerStartTime) {
         if(m_isHit) {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0 /*.05f*/);
+            //SetSpeedPlayingEffekseer3DEffect(m_playingEffect, 0.001f);
         } else {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
+            //SetSpeedPlayingEffekseer3DEffect(m_playingEffect, 1);
         }
         m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
     }

@@ -26,16 +26,10 @@ bool Camera::Init() {
     m_pSpringArm.lock()->SetSpringArmObject(m_pTarget.lock());
     m_pSpringArm.lock()->SetSpringArmRotate(m_rot);
     m_pSpringArm.lock()->SetSpringArmLength(50);
-    m_pSpringArm.lock()->SetSpringArmOffset({0, 5, 0});
+    m_pSpringArm.lock()->SetSpringArmOffset({0, 10, 0});
+    m_pSpringArm.lock()->SetSpringArmVector({1, 1, 1});
 
-    //    m_pCorrectionLine = AddComponent<ComponentCollisionLine>();
-    //    m_pCorrectionLine.lock()->SetTranslate({0, 0, 0});
-    //    m_pCorrectionLine.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
-    //    m_pCorrectionLine.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ETC);
-    //    m_pCorrectionLine.lock()->SetOverlapCollisionGroup((u32)ComponentCollision::CollisionGroup::ETC);
-    //#if _DEBUG
-    //    m_pCorrectionLine.lock()->ShowInGame(true);
-    //#endif
+    srand(static_cast<unsigned int>(time(nullptr)));
 
     return Super::Init();
 }
@@ -55,15 +49,41 @@ void Camera::Update() {
         m_rot.x = max(min(m_rot.x, 40.0f), -70.0f);
         m_pSpringArm.lock()->SetSpringArmRotate(m_rot);
 
-        if(m_pTarget.lock() != nullptr) {
-            float3 objPos = m_pSpringArm.lock()->GetSpringArmObject().lock()->GetTranslate();
-            float3 dir    = {1, objPos.y - this->GetTranslate().y, 1};
-            float3 dir2   = dir + float3{0, 100, 0};
-            //m_pCorrectionLine.lock()->SetLine({0, 0, 0},dir);
-            //m_pSpringArm.lock()->GetSpringArmObject().lock()->GetTranslate() - this->GetTranslate());
-        }
     } else if(m_isLockOn) {
+        float3 dir   = (m_pLockOnTarget.lock()->GetTranslate() - m_pTarget.lock()->GetTranslate());
+        float  dx    = m_pLockOnTarget.lock()->GetTranslate().x - m_pTarget.lock()->GetTranslate().x;
+        float  dz    = m_pLockOnTarget.lock()->GetTranslate().z - m_pTarget.lock()->GetTranslate().z;
+        float  angle = atan2(dz, dx);
+        angle *= RadToDeg;
+
+        float3 new_rot = {-10, -100 - angle, m_rot.z};
+        m_pSpringArm.lock()->SetSpringArmRotate(new_rot);
+        m_pSpringArm.lock()->SetSpringArmOffset({5, 5, 0});
+        m_pSpringArm.lock()->SetSpringArmLength(30);
+
+        printfDx("angle: %f\n", angle);
+        printfDx("y - angle: %f\n", m_rot.y - angle);
     }
+
+#ifdef _DEBUG
+    static float fff = 1;
+    if(IsKeyOn(KEY_INPUT_P)) {
+        SetCameraShake(600, 100);
+    }
+
+    /* if (IsKeyOn(KEY_INPUT_PERIOD)) {
+        fff++;
+    }
+    if (IsKeyOn(KEY_INPUT_COMMA)) {
+        fff--;
+    }
+    m_pSpringArm.lock()->SetSpringArmVector({1, fff, 1});*/
+
+#endif    //  _DEBUG
+          //
+          //
+    ShakeCamera();
+    //    this->SetTranslate({10, 100, 10});
 }
 
 void Camera::LateDraw() {
@@ -73,7 +93,14 @@ void Camera::LateDraw() {
         //    float3{0, 0, 0} - (this->GetTranslate() - m_pSpringArm.lock()->GetSpringArmObject().lock()->GetTranslate());
         //printfDx("camera player vector3: x: %f y: %f z: %f\n", (float)dir.x, (float)dir.y, (float)dir.z);
         //printfDx("camera player vector3: x: %f y: %f z: %f\n", (float)dir.x, (float)dir.y, (float)dir.z);
-        printfDx("camera length: %f\n", m_pSpringArm.lock()->GetSpringArmLength());
+        printfDx("player pos: x:%f y:%f z:%f\n", (float)m_pTarget.lock()->GetTranslate().x,
+                 (float)m_pTarget.lock()->GetTranslate().y, (float)m_pTarget.lock()->GetTranslate().z);
+        if(m_pLockOnTarget.lock()) {
+            printfDx("target pos: x:%f y:%f z:%f\n", (float)m_pLockOnTarget.lock()->GetTranslate().x,
+                     (float)m_pLockOnTarget.lock()->GetTranslate().y, (float)m_pLockOnTarget.lock()->GetTranslate().z);
+            float3 dis = m_pLockOnTarget.lock()->GetTranslate() - m_pTarget.lock()->GetTranslate();
+            printfDx("target pos: x:%f y:%f z:%f\n", (float)dis.x, (float)dis.y, (float)dis.z);
+        }
     }
 #endif
 }
@@ -91,17 +118,54 @@ void Camera::SetCameraLookTarget(ObjectWeakPtr pTarget) {
 }
 
 void Camera::SetCameraLength(float length) {
-    m_pSpringArm.lock()->SetSpringArmLength(length);
+    if(m_pSpringArm.lock()) {
+        m_pSpringArm.lock()->SetSpringArmLength(length);
+    }
 }
 
 void Camera::SetCurrentCamera() {
     m_pCamera.lock()->SetCurrentCamera();
 }
 
-float3 Camera::SetLockOnTarget(ObjectWeakPtr pTarget) {
-    m_isLockOn = true;
-    float3 dir = -(pTarget.lock()->GetTranslate() - m_pTarget.lock()->GetTranslate());
-    dir += m_pTarget.lock()->GetTranslate();
-    this->SetTranslate(dir);
+float3 Camera::SetLockOnTarget(ObjectWeakPtr pTarget, bool isLockOn) {
+    m_isLockOn       = isLockOn;
+    m_pLockOnTarget  = pTarget;
+    m_lockOnPosition = pTarget.lock()->GetTranslate();
+    m_pSpringArm.lock()->SetSpringArmOffset({0, 5, 0});
+
+    return pTarget.lock()->GetTranslate();
+}
+
+void Camera::SetCameraShake(float duration, float magnitude) {
+    shakeDuration     = duration;
+    shakeMagnitude    = magnitude;
+    shakeTimer        = duration;
+    originalCameraPos = m_pTarget.lock()->GetTranslate() - this->GetTranslate();
+}
+
+void Camera::ShakeCamera() {
+    if(shakeTimer > 0.0f) {
+        shakeTimer -= GetDeltaTime60();    // Assuming GetDeltaTime() gives the time elapsed since the last frame
+
+        // Calculate random offset for shake
+        float offsetX = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * shakeMagnitude;
+        float offsetY = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * shakeMagnitude;
+        float offsetZ = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * shakeMagnitude;
+
+        // Apply offset to camera position
+        float3 shakePos = originalCameraPos + float3{offsetX, offsetY, offsetZ};
+        /*m_pCamera.lock()->SetPositionAndTarget(shakePos, originalCameraPos);*/
+        m_pSpringArm.lock()->SetSpringArmVector(shakePos);
+        //this->SetTranslate({10, 100, 10});
+
+        // Gradually decrease shake magnitude
+        shakeMagnitude *= 0.9f;
+
+        // Check if the shake duration has ended
+        if(shakeTimer <= 0.0f) {
+            // Reset the camera to its original position
+            m_pSpringArm.lock()->SetSpringArmVector(originalCameraPos);
+        }
+    }
 }
 }    // namespace LittleQuest
