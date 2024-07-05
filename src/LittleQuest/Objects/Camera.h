@@ -75,6 +75,8 @@ class Camera: public Object {
     void ShakeCamera();
 
    private:
+    const std::string_view COLLISION_NAME = "CollisionSphere";
+
     //! カメラの回転
     float3 m_rot{-20, -90, 0};
 
@@ -93,6 +95,8 @@ class Camera: public Object {
     std::weak_ptr<ComponentCamera>    m_pCamera;
     //! スプリングアームコンポーネント
     std::weak_ptr<ComponentSpringArm> m_pSpringArm;
+
+    std::weak_ptr<ComponentCollisionSphere> m_pCollision;
 
     bool m_isLockOn = false;
     bool m_isOnHit  = false;

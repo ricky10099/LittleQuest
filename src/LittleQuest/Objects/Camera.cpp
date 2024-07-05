@@ -16,11 +16,13 @@ bool Camera::Init() {
     m_pCamera = AddComponent<ComponentCamera>();
     m_pCamera.lock()->SetPositionAndTarget({0, 0, -1}, {0, 0, 0});
 
-    auto col = AddComponent<ComponentCollisionSphere>();
-    col->SetRadius(1.0f);
-    col->SetMass(0.0f);
-    col->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
-    col->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND | (u32)ComponentCollision::CollisionGroup::WALL);
+    m_pCollision = AddComponent<ComponentCollisionSphere>();
+    m_pCollision.lock()->SetRadius(1.0f);
+    m_pCollision.lock()->SetMass(0.0f);
+    m_pCollision.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
+    m_pCollision.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND |
+                                              (u32)ComponentCollision::CollisionGroup::WALL);
+    m_pCollision.lock()->SetName(COLLISION_NAME);
 
     m_pSpringArm = AddComponent<ComponentSpringArm>();
     m_pSpringArm.lock()->SetSpringArmObject(m_pTarget.lock());
@@ -35,6 +37,8 @@ bool Camera::Init() {
 }
 
 void Camera::Update() {
+    m_pCollision.lock()->SetTranslate(m_pCamera.lock()->GetLocalPosition());
+
     if(m_pCamera.lock()->GetCurrentCamera().lock() == m_pCamera.lock() && !m_isLockOn) {
         DINPUT_JOYSTATE DInputState;
         switch(GetJoypadType(DX_INPUT_PAD1)) {

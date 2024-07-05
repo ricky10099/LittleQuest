@@ -277,8 +277,9 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
                 if(GetDistance(this->GetTranslate(), hitInfo.hit_position_, true) < m_cameraLength) {
                     m_cameraBlocked = true;
                     colName         = hitInfo.hit_collision_->GetOwner()->GetName();
-                    m_pCamera.lock()->SetCameraLength(GetDistance(this->GetTranslate(), hitInfo.hit_position_, true) - 5);
-                    m_pCamera.lock()->SetCameraPosition(hitInfo.hit_position_);
+                    m_pCamera.lock()->SetCameraPositionAndTarget(
+                        {0, 0, GetDistance(this->GetTranslate(), hitInfo.hit_position_, true) - 1}, {0, 0, m_cameraLength});
+                    //m_pCamera.lock()->SetCameraPosition(hitInfo.hit_position_);
                 }
             } else {
                 m_cameraBlocked = false;
@@ -293,7 +294,8 @@ void Player::ExitHit(const ComponentCollision::HitInfo& hitInfo) {
         if(((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::CAMERA) &&
            (hitInfo.hit_collision_->GetOwner()->GetName() == colName)) {
             if(!hitInfo.hit_) {
-                m_pCamera.lock()->SetCameraLength(m_cameraLength);
+                //m_pCamera.lock()->SetCameraLength(m_cameraLength);
+                m_pCamera.lock()->SetCameraPositionAndTarget({0, 0, -1}, {0, 0, m_cameraLength});
                 m_cameraBlocked = false;
             }
         }
