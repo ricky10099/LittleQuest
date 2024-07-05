@@ -79,8 +79,8 @@ void Camera::Update() {
     }
     m_pSpringArm.lock()->SetSpringArmVector({1, fff, 1});*/
 
-#endif    //  _DEBUG
-          //
+#endif    //  _DEBUG \
+          //         \
           //
     ShakeCamera();
     //    this->SetTranslate({10, 100, 10});
@@ -140,7 +140,7 @@ void Camera::SetCameraShake(float duration, float magnitude) {
     shakeDuration     = duration;
     shakeMagnitude    = magnitude;
     shakeTimer        = duration;
-    originalCameraPos = m_pTarget.lock()->GetTranslate() - this->GetTranslate();
+    originalCameraPos = m_pCamera.lock()->GetLocalPosition();
 }
 
 void Camera::ShakeCamera() {
@@ -150,12 +150,12 @@ void Camera::ShakeCamera() {
         // Calculate random offset for shake
         float offsetX = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * shakeMagnitude;
         float offsetY = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * shakeMagnitude;
-        float offsetZ = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * shakeMagnitude;
+        //float offsetZ = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * shakeMagnitude;
 
         // Apply offset to camera position
-        float3 shakePos = originalCameraPos + float3{offsetX, offsetY, offsetZ};
+        float3 shakePos = originalCameraPos + float3{offsetX, offsetY, 0};
         /*m_pCamera.lock()->SetPositionAndTarget(shakePos, originalCameraPos);*/
-        m_pSpringArm.lock()->SetSpringArmVector(shakePos);
+        m_pCamera.lock()->SetPositionAndTarget(shakePos, {0, 0, 0});
         //this->SetTranslate({10, 100, 10});
 
         // Gradually decrease shake magnitude

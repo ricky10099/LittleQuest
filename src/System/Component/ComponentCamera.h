@@ -90,6 +90,12 @@ class ComponentCamera: public Component {
     //! @return カメラ位置
     float3 GetPosition() const;
 
+#pragma region customized
+    inline float3 GetLocalPosition() const {
+        return position_;
+    }
+#pragma endregion
+
     //! @brief カメラターゲットの取得
     //! @return カメラターゲット
     float3 GetTarget() const;

@@ -77,10 +77,12 @@ void ComponentCollision::OnHit(const HitInfo& hitInfo) {
     obj->OnHit(hitInfo);
 }
 
-void ComponentCollision::ExitHit(const HitInfo& hitInfo) {
+#pragma region customized
+void           ComponentCollision::ExitHit(const HitInfo& hitInfo) {
     auto obj = GetOwner();
     obj->ExitHit(hitInfo);
 }
+#pragma endregion
 
 #if 0
 void ComponentCollision::SetName(std::string_view name)

@@ -144,7 +144,9 @@ void Player::GameAction() {
     } else {
         float3 v     = m_pCamera.lock()->CameraForward();
         m_selfMatrix = HelperLib::Math::CreateMatrixByFrontVector(v);
-        m_pCameraCorrection.lock()->SetLine({0, 5, 0}, m_pCamera.lock()->GetTranslate() - this->GetTranslate());
+        float3 dir   = m_pCamera.lock()->GetTranslate() - this->GetTranslate();
+        dir          = normalize(dir);
+        m_pCameraCorrection.lock()->SetLine({0, 5, 0}, dir * m_cameraLength);
     }
 
     InputHandle();
@@ -291,6 +293,7 @@ void Player::ExitHit(const ComponentCollision::HitInfo& hitInfo) {
         if(((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::CAMERA) &&
            (hitInfo.hit_collision_->GetOwner()->GetName() == colName)) {
             if(!hitInfo.hit_) {
+                m_pCamera.lock()->SetCameraLength(m_cameraLength);
                 m_cameraBlocked = false;
             }
         }

@@ -95,7 +95,7 @@ class Camera: public Object {
     std::weak_ptr<ComponentSpringArm> m_pSpringArm;
 
     bool m_isLockOn = false;
-
+    bool m_isOnHit  = false;
     //std::weak_ptr<ComponentCollisionLine> m_pCorrectionLine;
 };
 }    // namespace LittleQuest

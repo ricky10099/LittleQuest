@@ -1517,7 +1517,7 @@ void Scene::ExitApp() {
 #pragma endregion
 
 //! @brief ComponentCollisionの当たり判定を行う
-void Scene::CheckComponentCollisions() {
+void           Scene::CheckComponentCollisions() {
     // オブジェの数を取得
     int obj_num = (int)current_scene_->GetObjectPtrVec().size();
     for(int obj_index = 0; obj_index < obj_num; obj_index++) {
@@ -1575,14 +1575,17 @@ void Scene::CheckComponentCollisions() {
                             hitInfo.hit_collision_ = col_1;
                             hitInfo.push_          = other_push;
                             col_2->OnHit(hitInfo);
-                        } else if(!hitInfo.hit_) {
+                        }
+#pragma region customized
+                        else if(!hitInfo.hit_) {
                             hitInfo.collision_     = col_1;
                             hitInfo.hit_collision_ = col_2;
                             col_1->ExitHit(hitInfo);
-                            hitInfo.collision_     = col_2;
-                            hitInfo.hit_collision_ = col_1;
-                            col_2->ExitHit(hitInfo);
+                            //hitInfo.collision_     = col_2;
+                            //hitInfo.hit_collision_ = col_1;
+                            //col_2->ExitHit(hitInfo);
                         }
+#pragma endregion
                     }
                 }
             }

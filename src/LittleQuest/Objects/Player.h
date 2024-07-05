@@ -138,6 +138,7 @@ class Player: public Object {
     std::weak_ptr<ComponentCollisionCapsule>  m_pWeapon;
     //! カメラ修正用
     std::weak_ptr<ComponentCollisionLine>     m_pCameraCorrection;
+    ObjectWeakPtr                             m_pCameraHitObject;
     //std::weak_ptr<ComponentCollisionCapsule>  m_pCameraCorrection;
 
     //! 現在のシーン行動
