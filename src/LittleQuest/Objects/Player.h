@@ -160,22 +160,26 @@ class Player: public Object {
     float  m_currAnimTime  = 0.0f;
     //! チャージしているタイマー
     float  m_chargeTime    = 0.0f;
+
+    float m_blockedDistance = 0.0f;
     //! コンボ中なのか
-    bool   m_isCombo       = false;
+    bool  m_isCombo         = false;
     //! 次のコンボ受けるのか
-    bool   m_waitForCombo  = false;
+    bool  m_waitForCombo    = false;
     //! 攻撃が当たっているのか
-    bool   m_isHit         = false;
+    bool  m_isHit           = false;
     //! 無敵中なのか
-    bool   m_isInvincible  = false;
+    bool  m_isInvincible    = false;
     //! サウンドエフェクトが再生したのか
-    bool   m_playedFX      = false;
+    bool  m_playedFX        = false;
     //! チャージしていたのか
-    bool   m_charged       = false;
+    bool  m_charged         = false;
 
     bool m_cameraBlocked = false;
 
     bool m_lockOn = false;
+
+    std::string_view m_blockedName = "";
 
     //! 攻撃当たるエフェクト
     int  m_hitEffect           = -1;

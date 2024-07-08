@@ -29,7 +29,7 @@ class Camera: public Object {
     //! @brief 更新処理を行います。
     //------------------------------------------------------------
     void Update() override;
-
+    void PostUpdate() override;
     void LateDraw() override;
 
     void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
@@ -74,8 +74,16 @@ class Camera: public Object {
 
     void ShakeCamera();
 
+    inline std::string_view GetCameraCollisionName() const {
+        return COLLISION_NAME;
+    }
+    inline std::string_view GetAnchorCollisionName() const {
+        return ANCHOR_NAME;
+    }
+
    private:
     const std::string_view COLLISION_NAME = "CollisionSphere";
+    const std::string_view ANCHOR_NAME    = "AnchorSphere";
 
     //! カメラの回転
     float3 m_rot{-20, -90, 0};
@@ -90,15 +98,18 @@ class Camera: public Object {
     float  shakeMagnitude = 0.0f;
     float  shakeTimer     = 0.0f;
     float3 originalCameraPos;
+    float3 originalCameraTarget;
 
     //! カメラコンポーネント
     std::weak_ptr<ComponentCamera>    m_pCamera;
     //! スプリングアームコンポーネント
     std::weak_ptr<ComponentSpringArm> m_pSpringArm;
 
-    std::weak_ptr<ComponentCollisionSphere> m_pCollision;
+    std::weak_ptr<ComponentCollisionSphere> m_pCameraCollision;
+    std::weak_ptr<ComponentCollisionSphere> m_pAnchorCollision;
 
     bool m_isLockOn = false;
+    bool m_isShake  = false;
     bool m_isOnHit  = false;
     //std::weak_ptr<ComponentCollisionLine> m_pCorrectionLine;
 };

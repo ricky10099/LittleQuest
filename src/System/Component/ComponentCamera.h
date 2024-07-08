@@ -56,6 +56,14 @@ class ComponentCamera: public Component {
         return std::dynamic_pointer_cast<ComponentCamera>(shared_from_this());
     }
 
+#pragma region customize
+    std::shared_ptr<ComponentCamera> SetPosition(float3 position) {
+        position_ = position;
+
+        return std::dynamic_pointer_cast<ComponentCamera>(shared_from_this());
+    }
+#pragma endregion
+
     //! @brief Near/Farの設定
     //! @param near_z   近クリップ面のZ値
     //! @param far_z    遠クリップ面のZ値
@@ -90,9 +98,13 @@ class ComponentCamera: public Component {
     //! @return カメラ位置
     float3 GetPosition() const;
 
-#pragma region customized
+#pragma region customize
     inline float3 GetLocalPosition() const {
         return position_;
+    }
+
+    inline float3 GetLocalTarget() const {
+        return look_at_;
     }
 #pragma endregion
 

@@ -14,15 +14,24 @@ CameraPtr Camera::Create(ObjectPtr obj) {
 
 bool Camera::Init() {
     m_pCamera = AddComponent<ComponentCamera>();
-    m_pCamera.lock()->SetPositionAndTarget({0, 0, -1}, {0, 0, 0});
+    m_pCamera.lock()->SetPositionAndTarget({0, 0, 0}, {0, 0, 50});
 
-    m_pCollision = AddComponent<ComponentCollisionSphere>();
-    m_pCollision.lock()->SetRadius(1.0f);
-    m_pCollision.lock()->SetMass(0.0f);
-    m_pCollision.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
-    m_pCollision.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND |
-                                              (u32)ComponentCollision::CollisionGroup::WALL);
-    m_pCollision.lock()->SetName(COLLISION_NAME);
+    m_pCameraCollision = AddComponent<ComponentCollisionSphere>();
+    m_pCameraCollision.lock()->SetRadius(1.0f);
+    m_pCameraCollision.lock()->SetMass(0.0f);
+    m_pCameraCollision.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
+    m_pCameraCollision.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND |
+                                                    (u32)ComponentCollision::CollisionGroup::WALL);
+    m_pCameraCollision.lock()->SetName(COLLISION_NAME);
+
+    m_pAnchorCollision = AddComponent<ComponentCollisionSphere>();
+    m_pAnchorCollision.lock()->SetRadius(1.0f);
+    m_pAnchorCollision.lock()->SetMass(0.0f);
+    m_pAnchorCollision.lock()->SetTranslate({0, 0, 0});
+    m_pAnchorCollision.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);
+    m_pAnchorCollision.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ETC);
+    m_pAnchorCollision.lock()->SetOverlapCollisionGroup((u32)ComponentCollision::CollisionGroup::ETC);
+    m_pAnchorCollision.lock()->SetName(ANCHOR_NAME);
 
     m_pSpringArm = AddComponent<ComponentSpringArm>();
     m_pSpringArm.lock()->SetSpringArmObject(m_pTarget.lock());
@@ -37,7 +46,7 @@ bool Camera::Init() {
 }
 
 void Camera::Update() {
-    m_pCollision.lock()->SetTranslate(m_pCamera.lock()->GetLocalPosition());
+    m_pCameraCollision.lock()->SetTranslate(m_pCamera.lock()->GetLocalPosition());
 
     if(m_pCamera.lock()->GetCurrentCamera().lock() == m_pCamera.lock() && !m_isLockOn) {
         DINPUT_JOYSTATE DInputState;
@@ -72,7 +81,7 @@ void Camera::Update() {
 #ifdef _DEBUG
     static float fff = 1;
     if(IsKeyOn(KEY_INPUT_P)) {
-        SetCameraShake(600, 100);
+        SetCameraShake(60, 50);
     }
 
     /* if (IsKeyOn(KEY_INPUT_PERIOD)) {
@@ -86,8 +95,13 @@ void Camera::Update() {
 #endif    //  _DEBUG \
           //         \
           //
+
     ShakeCamera();
     //    this->SetTranslate({10, 100, 10});
+}
+
+void Camera::PostUpdate() {
+    //ShakeCamera();
 }
 
 void Camera::LateDraw() {
@@ -145,9 +159,15 @@ void Camera::SetCameraShake(float duration, float magnitude) {
     shakeMagnitude    = magnitude;
     shakeTimer        = duration;
     originalCameraPos = m_pCamera.lock()->GetLocalPosition();
+    //originalCameraTarget = m_pCamera.lock()->GetLocalTarget();
+    m_isShake         = true;
 }
 
 void Camera::ShakeCamera() {
+    if(!m_isShake) {
+        return;
+    }
+
     if(shakeTimer > 0.0f) {
         shakeTimer -= GetDeltaTime60();    // Assuming GetDeltaTime() gives the time elapsed since the last frame
 
@@ -158,9 +178,8 @@ void Camera::ShakeCamera() {
 
         // Apply offset to camera position
         float3 shakePos = originalCameraPos + float3{offsetX, offsetY, 0};
-        /*m_pCamera.lock()->SetPositionAndTarget(shakePos, originalCameraPos);*/
-        m_pCamera.lock()->SetPositionAndTarget(shakePos, {0, 0, 0});
-        //this->SetTranslate({10, 100, 10});
+
+        m_pCamera.lock()->SetPosition(shakePos);
 
         // Gradually decrease shake magnitude
         shakeMagnitude *= 0.9f;
@@ -168,7 +187,9 @@ void Camera::ShakeCamera() {
         // Check if the shake duration has ended
         if(shakeTimer <= 0.0f) {
             // Reset the camera to its original position
-            m_pSpringArm.lock()->SetSpringArmVector(originalCameraPos);
+            //m_pSpringArm.lock()->SetSpringArmVector(originalCameraPos);
+            m_pCamera.lock()->SetPosition(originalCameraPos);
+            m_isShake = false;
         }
     }
 }
