@@ -79,25 +79,11 @@ void Camera::Update() {
     }
 
 #ifdef _DEBUG
-    static float fff = 1;
     if(IsKeyOn(KEY_INPUT_P)) {
         SetCameraShake(60, 50);
     }
-
-    /* if (IsKeyOn(KEY_INPUT_PERIOD)) {
-        fff++;
-    }
-    if (IsKeyOn(KEY_INPUT_COMMA)) {
-        fff--;
-    }
-    m_pSpringArm.lock()->SetSpringArmVector({1, fff, 1});*/
-
-#endif    //  _DEBUG \
-          //         \
-          //
-
+#endif    //  _DEBUG
     ShakeCamera();
-    //    this->SetTranslate({10, 100, 10});
 }
 
 void Camera::PostUpdate() {
@@ -107,10 +93,6 @@ void Camera::PostUpdate() {
 void Camera::LateDraw() {
 #if _DEBUG
     if(Scene::IsEdit()) {
-        //float3 dir =
-        //    float3{0, 0, 0} - (this->GetTranslate() - m_pSpringArm.lock()->GetSpringArmObject().lock()->GetTranslate());
-        //printfDx("camera player vector3: x: %f y: %f z: %f\n", (float)dir.x, (float)dir.y, (float)dir.z);
-        //printfDx("camera player vector3: x: %f y: %f z: %f\n", (float)dir.x, (float)dir.y, (float)dir.z);
         printfDx("player pos: x:%f y:%f z:%f\n", (float)m_pTarget.lock()->GetTranslate().x,
                  (float)m_pTarget.lock()->GetTranslate().y, (float)m_pTarget.lock()->GetTranslate().z);
         if(m_pLockOnTarget.lock()) {
@@ -174,7 +156,6 @@ void Camera::ShakeCamera() {
         // Calculate random offset for shake
         float offsetX = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * shakeMagnitude;
         float offsetY = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * shakeMagnitude;
-        //float offsetZ = (static_cast<float>(rand()) / RAND_MAX - 0.5f) * shakeMagnitude;
 
         // Apply offset to camera position
         float3 shakePos = originalCameraPos + float3{offsetX, offsetY, 0};
@@ -187,7 +168,6 @@ void Camera::ShakeCamera() {
         // Check if the shake duration has ended
         if(shakeTimer <= 0.0f) {
             // Reset the camera to its original position
-            //m_pSpringArm.lock()->SetSpringArmVector(originalCameraPos);
             m_pCamera.lock()->SetPosition(originalCameraPos);
             m_isShake = false;
         }

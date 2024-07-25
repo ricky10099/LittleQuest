@@ -64,6 +64,10 @@ class Camera: public Object {
         this->SetTranslate(pos);
     }
 
+    inline float3 GetCameraLocalPosition() const {
+        return m_pCamera.lock()->GetLocalPosition();
+    }
+
     inline void SetCameraPositionAndTarget(float3 position, float3 target) {
         m_pCamera.lock()->SetPositionAndTarget(position, target);
     }
@@ -111,7 +115,6 @@ class Camera: public Object {
     bool m_isLockOn = false;
     bool m_isShake  = false;
     bool m_isOnHit  = false;
-    //std::weak_ptr<ComponentCollisionLine> m_pCorrectionLine;
 };
 }    // namespace LittleQuest
 #endif

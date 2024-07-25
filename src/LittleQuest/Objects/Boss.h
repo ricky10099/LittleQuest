@@ -129,6 +129,9 @@ class Boss: public Object {
         COMBO5,            //! ５連撃
         BACKFLIP_PUNCH,    //! バク転突進
         CHARGE_PUNCH,      //! チャージ突進
+        RANGED_ATTACK,
+        CHARGE_EXPLODE,
+        BIG_EXPLODE,
 
         NONE,    //! コンボしていない
     };
@@ -146,6 +149,9 @@ class Boss: public Object {
         CHARGE,          //! チャージ
         TAUNT_ANIM,      //! 挑発する
         ANGRY_AURA,      //! 怒り爆発
+        RANGED_SHOT,
+        EXPLODE_CHARGE,
+        EXPLODE,
     };
     //! ボス現在のアニメーション
     BossAnim m_anim = BossAnim::TAUNT_ANIM;
@@ -218,6 +224,8 @@ class Boss: public Object {
     bool   m_isAngry     = false;
     //! サウンドエフェクトが再生しているのか
     bool   m_playedSE    = false;
+
+    bool m_bigExplode = false;
 
     //------------------------------------------------------------
     //! @brief プレイ中の行動

@@ -96,7 +96,7 @@ bool Boss::Init() {
 }
 
 void Boss::Update() {
-#ifdef _DEBUG
+#ifdef 0
     return;
 #endif    // _DEBUG
 
@@ -288,8 +288,7 @@ void Boss::SelectAction() {
     } else if(distance < CLOSE_DISTANCE && angle < FRONT_ANGLE) {
         ChangeState(BossState::ATTACK);
         if(random <= 30) {
-            SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 50);
-            m_bossCombo = BossCombo::COMBO5;
+            m_bossCombo = BossCombo::CHARGE_EXPLODE;
         } else if(random <= 90) {
             SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 30);
             m_bossCombo = BossCombo::SWIP;
@@ -317,9 +316,17 @@ void Boss::SelectAction() {
         ChangeState(BossState::CHASE);
     } else if(distance > FAR_DISTANCE) {
         ChangeState(BossState::ATTACK);
-        SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
-        m_bossCombo = BossCombo::CHARGE_PUNCH;
-        m_combo     = 1;
+        if(random <= 70) {
+            SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
+            m_bossCombo = BossCombo::RANGED_ATTACK;
+            m_combo     = 1;
+        } else if(random <= 90) {
+            SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
+            m_bossCombo = BossCombo::CHARGE_PUNCH;
+            m_combo     = 1;
+        } else {
+            ChangeState(BossState::CHASE);
+        }
     }
 }
 
@@ -356,9 +363,11 @@ void Boss::SelectAngryAction() {
         m_combo = 1;
     } else if(distance < CLOSE_DISTANCE && angle < FRONT_ANGLE) {
         ChangeState(BossState::ATTACK);
-        if(random <= 75) {
+        if(random <= 45) {
             SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 50);
             m_bossCombo = BossCombo::COMBO5;
+        } else if(random <= 75) {
+            m_bossCombo = BossCombo::CHARGE_EXPLODE;
         } else {
             if(dotPlayer < 0) {
                 ChangeState(BossState::TURN_RIGHT);
@@ -383,8 +392,23 @@ void Boss::SelectAngryAction() {
         ChangeState(BossState::CHASE);
     } else if(distance > FAR_DISTANCE) {
         ChangeState(BossState::ATTACK);
+        if(random <= 30) {
+            SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
+            m_bossCombo = BossCombo::RANGED_ATTACK;
+            m_combo     = 1;
+        } else if(random <= 90) {
+            SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
+            m_bossCombo = BossCombo::CHARGE_PUNCH;
+            m_combo     = 1;
+        } else {
+            ChangeState(BossState::CHASE);
+        }
+    }
+
+    if(m_pHP.lock()->GetHPRate() < 15.0f && !m_bigExplode) {
+        ChangeState(BossState::ATTACK);
         SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
-        m_bossCombo = BossCombo::CHARGE_PUNCH;
+        m_bossCombo = BossCombo::BIG_EXPLODE;
         m_combo     = 1;
     }
 }
