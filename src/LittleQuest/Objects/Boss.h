@@ -123,15 +123,27 @@ class Boss: public Object {
     //! ボス現在の状態
     BossState m_state = BossState::IDLE;
 
+    const char* bs[10] = {
+        "IDLE",          //! 待機
+        "WAIT",          //! 待っている
+        "CHASE",         //! 追いかけ
+        "ATTACK",        //! 攻撃
+        "TURN_LEFT",     //! 左回転
+        "TURN_RIGHT",    //! 右回転
+        "GET_HIT",       //! 攻撃された
+        "ANGRY",         //! 怒っている
+        "TAUNT",         //! 挑発している
+        "DEAD",          //! 倒れだ
+    };
+
     //! ボスのコンボの列挙型
     enum BossCombo {
         SWIP,              //! 拳を振る
         COMBO5,            //! ５連撃
         BACKFLIP_PUNCH,    //! バク転突進
         CHARGE_PUNCH,      //! チャージ突進
-        RANGED_ATTACK,
-        CHARGE_EXPLODE,
-        BIG_EXPLODE,
+        RANGED_ATTACK,     //! 遠距離攻撃
+        CHARGE_EXPLODE,    //! 大爆発チャージ
 
         NONE,    //! コンボしていない
     };
@@ -140,18 +152,18 @@ class Boss: public Object {
 
     //! ボスの攻撃アニメーションの列挙型
     enum BossAnim {
-        SWIP_ATTACK,     //! 右拳を振る
-        QUICK_SWIP,      //! 速い右拳を振る
-        PUNCH,           //! 左拳を振る
-        QUICK_PUNCH,     //! 速い左拳を振る
-        BACKFLIP,        //! バク転
-        DOUBLE_PUNCH,    //! 両手パンチ
-        CHARGE,          //! チャージ
-        TAUNT_ANIM,      //! 挑発する
-        ANGRY_AURA,      //! 怒り爆発
-        RANGED_SHOT,
-        EXPLODE_CHARGE,
-        EXPLODE,
+        SWIP_ATTACK,       //! 右拳を振る
+        QUICK_SWIP,        //! 速い右拳を振る
+        PUNCH,             //! 左拳を振る
+        QUICK_PUNCH,       //! 速い左拳を振る
+        BACKFLIP,          //! バク転
+        DOUBLE_PUNCH,      //! 両手パンチ
+        CHARGE,            //! チャージ
+        TAUNT_ANIM,        //! 挑発する
+        ANGRY_AURA,        //! 怒り爆発
+        RANGED_SHOT,       //! 遠距離攻撃
+        EXPLODE_CHARGE,    //! 大爆発チャージ
+        EXPLODE,           //! 大爆発
     };
     //! ボス現在のアニメーション
     BossAnim m_anim = BossAnim::TAUNT_ANIM;
@@ -297,6 +309,14 @@ class Boss: public Object {
     //! @brief 拳を振る
     //------------------------------------------------------------
     void Swip();
+    //------------------------------------------------------------
+    //! @brief 遠距離攻撃
+    //------------------------------------------------------------
+    void RangedShot();
+    //------------------------------------------------------------
+    //! @brief 大爆発
+    //------------------------------------------------------------
+    void ChargeExplode();
     //------------------------------------------------------------
     //! @brief 強化（怒る）
     //------------------------------------------------------------

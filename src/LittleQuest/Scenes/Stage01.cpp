@@ -95,6 +95,7 @@ bool Stage01::Init() {
 
     m_pPlayerCamera = Camera::Create(m_pPlayer.lock());
     m_pPlayerCamera.lock()->SetName("PlayerCamera");
+    m_pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
 
     m_pBoss = Boss::Create(BOSS_SPAWN_POS);
     m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
@@ -136,9 +137,11 @@ void Stage01::Update() {
     case Scene::SceneState::TRANS_IN:
         if(FadeIn()) {
             m_pBoss.lock()->PlayTaunt();
+            m_pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
         }
 
         if(m_pBoss.lock()->IsPlayedTaunt()) {
+            m_pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
             m_cutSceneTimer -= GetDeltaTime60();
             m_cutSceneTimer = std::max(0.0f, m_cutSceneTimer);
             t               = abs(1 - (m_cutSceneTimer / START_CUT_SCENE_TIME));
@@ -147,6 +150,7 @@ void Stage01::Update() {
                 lerp(m_pBoss.lock()->GetTranslate() + float3{0, 20, 0}, m_pPlayer.lock()->GetTranslate() + float3{0, 5, 0}, t);
             newFOV = lerp(float1(FOV_INTRO), FOV_ORG, t);
             m_pCamera.lock()->SetPositionAndTarget(newCamPos, newCamTarget);
+
             m_pCamera.lock()->SetPerspective(newFOV);
         }
 
@@ -166,9 +170,9 @@ void Stage01::Update() {
         }
         break;
     case Scene::SceneState::GAME:
-#ifndef _DEBUG
-        m_second -= GetDeltaTime();
-#endif    // !_DEBUG
+        //#ifndef _DEBUG
+        //        m_second -= GetDeltaTime();
+        //#endif    // !_DEBUG
         if(m_second <= 0) {
             if(m_minute <= 0) {
                 m_isLose = true;

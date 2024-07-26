@@ -107,7 +107,6 @@ bool Player::Init() {
                                                      (u32)ComponentCollision::CollisionGroup::CAMERA);
     m_pCameraCorrection.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ETC);
     m_pCameraCorrection.lock()->SetName("CamCor");
-    //m_pCameraCorrection.lock()->ShowInGame(true);
 
     m_pBoss = Scene::GetObjectPtr<Boss>("Boss");
 
@@ -153,16 +152,16 @@ void Player::GameAction() {
 
     InputHandle();
 
-    if(m_lockOn) {
-        //float3 dir = -(m_pBoss.lock()->GetTranslate() - this->GetTranslate());
-        ////dir = normalize(dir);
-        //float3 cameraPos =  this->GetTranslate() + dir;
-        //m_pCamera.lock()->SetCameraLookTarget(m_pBoss.lock());
-        //m_pCamera.lock()->SetCameraPosition(dir);
+    //if(m_lockOn) {
+    //    //float3 dir = -(m_pBoss.lock()->GetTranslate() - this->GetTranslate());
+    //    ////dir = normalize(dir);
+    //    //float3 cameraPos =  this->GetTranslate() + dir;
+    //    //m_pCamera.lock()->SetCameraLookTarget(m_pBoss.lock());
+    //    //m_pCamera.lock()->SetCameraPosition(dir);
 
-    } else {
-        //m_pCamera.lock()->SetCameraLookTarget(weak_from_this());
-    }
+    //} else {
+    //    //m_pCamera.lock()->SetCameraLookTarget(weak_from_this());
+    //}
 
     if(m_currCombo != Combo::NO_COMBO && m_playerState != PlayerState::ROLL) {
         m_playerState = PlayerState::ATTACK;

@@ -46,9 +46,8 @@ bool Camera::Init() {
 }
 
 void Camera::Update() {
-    m_pCameraCollision.lock()->SetTranslate(m_pCamera.lock()->GetLocalPosition());
-
     if(m_pCamera.lock()->GetCurrentCamera().lock() == m_pCamera.lock() && !m_isLockOn) {
+        m_pCameraCollision.lock()->SetTranslate(m_pCamera.lock()->GetLocalPosition());
         DINPUT_JOYSTATE DInputState;
         switch(GetJoypadType(DX_INPUT_PAD1)) {
         case DX_PADTYPE_DUAL_SENSE:
@@ -77,12 +76,12 @@ void Camera::Update() {
         printfDx("angle: %f\n", angle);
         printfDx("y - angle: %f\n", m_rot.y - angle);
     }
-
 #ifdef _DEBUG
     if(IsKeyOn(KEY_INPUT_P)) {
         SetCameraShake(60, 50);
     }
 #endif    //  _DEBUG
+
     ShakeCamera();
 }
 

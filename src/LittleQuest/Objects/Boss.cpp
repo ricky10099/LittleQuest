@@ -96,7 +96,7 @@ bool Boss::Init() {
 }
 
 void Boss::Update() {
-#ifdef 0
+#if 0
     return;
 #endif    // _DEBUG
 
@@ -201,9 +201,14 @@ void Boss::LateDraw() {
         break;
     case Scene::SceneState::GAME:
         m_pHP.lock()->DrawHPBar();
+
         break;
     case Scene::SceneState::TRANS_OUT:
         break;
+    }
+
+    if(Scene::IsEdit()) {
+        printfDx("Boss State: %s\n", bs[(int)m_state]);
     }
 }
 
@@ -427,6 +432,12 @@ void Boss::Attack() {
     case BossCombo::SWIP:
         Swip();
         break;
+    case BossCombo::RANGED_ATTACK:
+        RangedShot();
+        break;
+    case BossCombo::CHARGE_EXPLODE:
+        ChargeExplode();
+        break;
     }
 }
 
@@ -608,6 +619,30 @@ void Boss::Swip() {
         } else {
             m_combo++;
         }
+        break;
+    default:
+        ChangeState(BossState::WAIT);
+        m_waitFor = m_waitTime;
+        break;
+    }
+}
+
+void Boss::RangedShot() {
+    switch(m_combo) {
+    case 1:
+        m_combo++;
+        break;
+    default:
+        ChangeState(BossState::WAIT);
+        m_waitFor = m_waitTime;
+        break;
+    }
+}
+
+void Boss::ChargeExplode() {
+    switch(m_combo) {
+    case 1:
+        m_combo++;
         break;
     default:
         ChangeState(BossState::WAIT);
