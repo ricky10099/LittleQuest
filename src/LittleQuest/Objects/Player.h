@@ -74,6 +74,14 @@ class Player: public Object {
     //------------------------------------------------------------
     void PlayDead();
 
+    void SlowMo();
+
+    void EndSlowMo();
+
+    inline void SetHideUI(bool isHide) {
+        m_hideUI = isHide;
+    }
+
    private:
     //! 基礎の移動速度
     const float BASE_SPEED          = 40.0f;
@@ -179,7 +187,12 @@ class Player: public Object {
 
     bool m_lockOn = false;
 
-    std::string_view m_blockedName = "";
+    bool m_slowMo = false;
+
+    bool m_hideUI = false;
+
+    std::string_view m_blockedName  = "";
+    std::string      m_currAnimName = "";
 
     //! 攻撃当たるエフェクト
     int  m_hitEffect           = -1;

@@ -73,8 +73,8 @@ void Camera::Update() {
         m_pSpringArm.lock()->SetSpringArmOffset({5, 5, 0});
         m_pSpringArm.lock()->SetSpringArmLength(30);
 
-        printfDx("angle: %f\n", angle);
-        printfDx("y - angle: %f\n", m_rot.y - angle);
+        //printfDx("angle: %f\n", angle);
+        //printfDx("y - angle: %f\n", m_rot.y - angle);
     }
 #ifdef _DEBUG
     if(IsKeyOn(KEY_INPUT_P)) {

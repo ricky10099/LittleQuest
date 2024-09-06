@@ -237,8 +237,10 @@ void Player::LateDraw() {
     case Scene::SceneState::TRANS_IN:
         break;
     case Scene::SceneState::GAME:
-        m_pHP.lock()->DrawHPBar();
-        m_pCombo.lock()->DrawComboBar();
+        if(!m_hideUI) {
+            m_pHP.lock()->DrawHPBar();
+            m_pCombo.lock()->DrawComboBar();
+        }
         break;
     case Scene::SceneState::TRANS_OUT:
         break;
@@ -275,8 +277,11 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
     }
     if(m_pCamera.lock()) {
         if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::ETC) {
+#ifdef DEBUG
             printfDx("col owner: %s\n", hitInfo.hit_collision_->GetOwner()->GetName().data());
             printfDx("col: %s\n", hitInfo.hit_collision_->GetName().data());
+#endif    // DEBUG
+
             if(hitInfo.hit_) {
                 m_blockedDistance = GetDistance(this->GetTranslate(), hitInfo.hit_position_, true);
                 if(m_blockedDistance < m_cameraLength &&
@@ -558,6 +563,7 @@ void Player::Attack() {
 
 void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo nextCombo) {
     if(m_pModel.lock()->GetPlayAnimationName() != animName) {
+        m_currAnimName = animName;
         this->SetModelRotation();
         m_pModel.lock()->PlayAnimationNoSame(animName, false, 0.2F, m_animList[animName].animStartTime);
         m_pModel.lock()->SetAnimationSpeed(animInfo.animStartSpeed);
@@ -569,6 +575,8 @@ void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo next
         if(m_isHit) {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0 /*.05f*/);
             //SetSpeedPlayingEffekseer3DEffect(m_playingEffect, 0.001f);
+        } else if(m_slowMo) {
+            m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0.01f /*.05f*/);
         } else {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
             //SetSpeedPlayingEffekseer3DEffect(m_playingEffect, 1);
@@ -597,6 +605,15 @@ bool Player::IsDead() {
 
 void Player::PlayDead() {
     m_playerState = PlayerState::DEAD;
+}
+
+void Player::SlowMo() {
+    m_slowMo = true;
+    m_pModel.lock()->SetAnimationSpeed(m_pModel.lock()->GetAnimationSpeed() * 0.0001f);
+}
+
+void Player::EndSlowMo() {
+    m_slowMo = false;
 }
 
 void Player::SetModelRotation() {

@@ -80,6 +80,14 @@ class Boss: public Object {
     //------------------------------------------------------------
     bool IsDead();
 
+    void SlowMo();
+
+    void EndSlowMo();
+
+    inline void SetHideUI(bool isHideUI) {
+        m_hideUI = isHideUI;
+    }
+
    protected:
     //! 移動スピード
     const float WALK_SPEED         = 0.5f;
@@ -104,11 +112,11 @@ class Boss: public Object {
     //! ダメージ溜まるキャップ
     const int   DAMAGE_CAP         = int(MAX_HP * 0.15f);
     //! 最大HP
-    const int   MAX_HP             = 500;
+    const int   MAX_HP             = 10;
     const int   MAX_VOLUME         = 255;
 
     //! ボスの状態の列挙型
-    enum BossState {
+    enum class BossState {
         IDLE,          //! 待機
         WAIT,          //! 待っている
         CHASE,         //! 追いかけ
@@ -137,7 +145,7 @@ class Boss: public Object {
     };
 
     //! ボスのコンボの列挙型
-    enum BossCombo {
+    enum class BossCombo {
         SWIP,              //! 拳を振る
         COMBO5,            //! ５連撃
         BACKFLIP_PUNCH,    //! バク転突進
@@ -151,7 +159,7 @@ class Boss: public Object {
     BossCombo m_bossCombo = BossCombo::NONE;
 
     //! ボスの攻撃アニメーションの列挙型
-    enum BossAnim {
+    enum class BossAnim {
         SWIP_ATTACK,       //! 右拳を振る
         QUICK_SWIP,        //! 速い右拳を振る
         PUNCH,             //! 左拳を振る
@@ -238,6 +246,10 @@ class Boss: public Object {
     bool   m_playedSE    = false;
 
     bool m_bigExplode = false;
+
+    bool m_slowMo = false;
+
+    bool m_hideUI = false;
 
     //------------------------------------------------------------
     //! @brief プレイ中の行動

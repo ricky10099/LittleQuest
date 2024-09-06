@@ -140,7 +140,10 @@ void Stage01::Update() {
             m_pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
         }
 
+        ShowBlackBar();
+
         if(m_pBoss.lock()->IsPlayedTaunt()) {
+            m_slideBlackBar = true;
             m_pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
             m_cutSceneTimer -= GetDeltaTime60();
             m_cutSceneTimer = std::max(0.0f, m_cutSceneTimer);
@@ -170,9 +173,11 @@ void Stage01::Update() {
         }
         break;
     case Scene::SceneState::GAME:
+
         //#ifndef _DEBUG
-        //        m_second -= GetDeltaTime();
+        m_second -= GetDeltaTime();
         //#endif    // !_DEBUG
+        m_showBlackBar = false;
         if(m_second <= 0) {
             if(m_minute <= 0) {
                 m_isLose = true;
@@ -183,16 +188,44 @@ void Stage01::Update() {
             m_minute--;
             m_minute = std::max(0, m_minute);
         }
-        if((m_pBoss.lock()->IsDead() || m_pPlayer.lock()->IsDead() || m_isLose) && FadeOut()) {
+        if(m_pBoss.lock()->IsDead() || m_pPlayer.lock()->IsDead() || m_isLose) {
+            m_showBlackBar  = true;
+            m_slideBlackBar = false;
+            if(m_cutSceneTimer == START_CUT_SCENE_TIME) {
+                m_pPlayer.lock()->SlowMo();
+                m_pBoss.lock()->SlowMo();
+            }
+            m_cutSceneTimer -= GetDeltaTime60();
+            m_cutSceneTimer = std::max(0.0f, m_cutSceneTimer);
+            m_pCamera.lock()->SetCurrentCamera();
+            if(m_cutSceneTimer > 120.0f) {
+                m_pCamera.lock()->SetPositionAndTarget(m_pPlayer.lock()->GetTranslate() + float3{20, 15, 20},
+                                                       m_pPlayer.lock()->GetTranslate() + float3{0, 5, 0});
+            } else {
+                m_pCamera.lock()->SetPositionAndTarget(m_pBoss.lock()->GetTranslate() + float3{-40, 15, -40},
+                                                       m_pBoss.lock()->GetTranslate() + float3{0, 5, 0});
+            }
+
+            m_pPlayer.lock()->SetHideUI(true);
+            m_pBoss.lock()->SetHideUI(true);
+
+        } else {
+            m_cutSceneTimer = START_CUT_SCENE_TIME;
+        }
+
+        if(m_cutSceneTimer <= 0 && FadeOut()) {
             scene_state = Scene::SceneState::TRANS_OUT;
             m_pPlayer.lock()->SetSceneState(scene_state);
             m_pBoss.lock()->SetSceneState(scene_state);
             m_pPlayer.lock()->SetTranslate(PLAYER_SPAWN_POS);
             m_pBoss.lock()->SetTranslate(BOSS_SPAWN_POS);
             m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
+            m_pPlayer.lock()->EndSlowMo();
+            m_pBoss.lock()->EndSlowMo();
         }
         break;
     case Scene::SceneState::TRANS_OUT:
+        m_showBlackBar = false;
         Scene::SetCanPause(false);
         m_endingTimer -= GetDeltaTime60();
 
@@ -217,6 +250,16 @@ void Stage01::LateDraw() {
     int screen_width, screen_height;
     GetScreenState(&screen_width, &screen_height, NULL);
 
+    float blackbarY = 1.0f;
+    if(m_slideBlackBar) {
+        blackbarY = (m_cutSceneTimer / START_CUT_SCENE_TIME);
+    }
+
+    if(m_showBlackBar) {
+        DrawBoxAA(0, 0, screen_width, screen_height * 0.15 * blackbarY, 0u, TRUE);
+        DrawBoxAA(0, screen_height - screen_height * 0.15 * blackbarY, screen_width, screen_height, 0u, TRUE);
+    }
+
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)m_alpha);
     DrawBox(0, 0, screen_width, screen_height, 0u, TRUE);
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
@@ -229,8 +272,10 @@ void Stage01::LateDraw() {
     case Scene::SceneState::TRANS_IN:
         break;
     case Scene::SceneState::GAME:
-        DrawFormatStringToHandle((int)((screen_width * 0.9f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.1), timerColor,
-                                 m_timerFontHandle, "%02i:%06.3f", m_minute, m_second);
+        if(!(m_pBoss.lock()->IsDead() || m_pPlayer.lock()->IsDead())) {
+            DrawFormatStringToHandle((int)((screen_width * 0.9f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.1),
+                                     timerColor, m_timerFontHandle, "%02i:%06.3f", m_minute, m_second);
+        }
         break;
     case Scene::SceneState::TRANS_OUT:
         if(FadeIn()) {
@@ -290,6 +335,10 @@ bool Stage01::FadeOut() {
     }
 
     return m_fadeTimer >= FADE_TIME;
+}
+
+void Stage01::ShowBlackBar() {
+    m_showBlackBar = true;
 }
 
 bool Stage01::ShowMessage() {

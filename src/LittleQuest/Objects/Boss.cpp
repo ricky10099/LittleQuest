@@ -33,14 +33,15 @@ bool Boss::Init() {
         { STR(BossState::TURN_RIGHT),      "data/LittleQuest/Anim/MutantSet/MutantRightTurn.mv1", 0, 2.0f},
         { STR(BossAnim::SWIP_ATTACK),        "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
         {       STR(BossAnim::PUNCH),          "data/LittleQuest/Anim/MutantSet/MutantPunch.mv1", 0, 1.0f},
-        { STR(BossAnim::JUMP_ATTACK),     "data/LittleQuest/Anim/MutantSet/MutantJumpAttack.mv1", 0, 1.0f},
+ //{ STR(BossAnim::JUMP_ATTACK),     "data/LittleQuest/Anim/MutantSet/MutantJumpAttack.mv1", 0, 1.0f},
         {    STR(BossAnim::BACKFLIP),                       "data/LittleQuest/Anim/Backflip.mv1", 0, 1.0f},
         {STR(BossAnim::DOUBLE_PUNCH), "data/LittleQuest/Anim/MutantSet/MutantFlexingMuscles.mv1", 0, 1.0f},
         {      STR(BossAnim::CHARGE),            "data/LittleQuest/Anim/MutantSet/Battlecry.mv1", 0, 1.0f},
-        {        STR(BossAnim::ROAR),        "data/LittleQuest/Anim/MutantSet/MutantRoaring.mv1", 0, 1.0f},
+ //{        STR(BossAnim::ROAR),        "data/LittleQuest/Anim/MutantSet/MutantRoaring.mv1", 0, 1.0f},
         {  STR(BossAnim::TAUNT_ANIM),                "data/LittleQuest/Anim/MutantSet/Taunt.mv1", 0, 1.0f},
+        {     STR(BossAnim::EXPLODE),             "data/LittleQuest/Anim/Boss/ChargeExplode.mv1", 0, 1.0f},
         {    STR(BossState::GET_HIT),             "data/LittleQuest/Anim/MutantSet/HeavyHit.mv1", 0, 1.0f},
-        {       STR(BossState::DEAD),          "data/LittleQuest/Anim/MutantSet/ZombieDeath.mv1", 0, 1.0f}
+        {       STR(BossState::DEAD),          "data/LittleQuest/Anim/MutantSet/ZombieDeath.mv1", 0, 1.0f},
     });
     m_pModel.lock()->PlayAnimation(STR(BossState::IDLE), true);
 
@@ -200,8 +201,9 @@ void Boss::LateDraw() {
     case Scene::SceneState::TRANS_IN:
         break;
     case Scene::SceneState::GAME:
-        m_pHP.lock()->DrawHPBar();
-
+        if(!m_hideUI) {
+            m_pHP.lock()->DrawHPBar();
+        }
         break;
     case Scene::SceneState::TRANS_OUT:
         break;
@@ -413,7 +415,7 @@ void Boss::SelectAngryAction() {
     if(m_pHP.lock()->GetHPRate() < 15.0f && !m_bigExplode) {
         ChangeState(BossState::ATTACK);
         SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
-        m_bossCombo = BossCombo::BIG_EXPLODE;
+        m_bossCombo = BossCombo::CHARGE_EXPLODE;
         m_combo     = 1;
     }
 }
@@ -450,7 +452,11 @@ void Boss::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector
     }
     m_currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
     if(m_currAnimTime >= animInfo.triggerStartTime) {
-        m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
+        if(m_slowMo) {
+            m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0.01f);
+        } else {
+            m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
+        }
         for(int i = 0; i < atkCol.size(); i++) {
             atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
         }
@@ -642,7 +648,7 @@ void Boss::RangedShot() {
 void Boss::ChargeExplode() {
     switch(m_combo) {
     case 1:
-        m_combo++;
+        AttackAnimation(STR(BossAnim::EXPLODE_CHARGE), m_animList[STR(BossAnim::EXPLODE_CHARGE)], {m_pLeftHandBox.lock()});
         break;
     default:
         ChangeState(BossState::WAIT);
@@ -739,6 +745,12 @@ void Boss::Damaging() {
 
 void Boss::Die() {
     m_pModel.lock()->PlayAnimationNoSame(STR(BossState::DEAD));
+    if(m_slowMo) {
+        m_pModel.lock()->SetAnimationSpeed(0.1f);
+    } else {
+        m_pModel.lock()->SetAnimationSpeed(1.0f);
+    }
+
     if(m_pBodyBox.lock()) {
         RemoveComponent(m_pBodyBox.lock());
         m_pBodyBox.reset();
@@ -771,13 +783,22 @@ bool Boss::IsDead() {
     return m_pHP.lock()->GetHP() <= 0;
 }
 
+void Boss::SlowMo() {
+    m_slowMo = true;
+    //m_pModel.lock()->SetAnimationSpeed(m_pModel.lock()->GetAnimationSpeed() * 0.01f);
+}
+
+void Boss::EndSlowMo() {
+    m_slowMo = false;
+}
+
 void Boss::ChangeState(BossState state) {
     this->m_state = state;
 }
 
 void Boss::SetSceneState(Scene::SceneState state) {
     m_sceneState = state;
-    ChangeState(IDLE);
+    ChangeState(BossState::IDLE);
 }
 
 void Boss::Exit() {
@@ -848,12 +869,19 @@ void Boss::SetAnimList() {
     m_animList[STR(BossAnim::CHARGE)] = info;
 
     info                  = {};
-    info.animStartTime    = 0;
-    info.triggerStartTime = 102;
-    info.triggerEndTime   = 171;
-    info.animCutInTime    = 172;
+    info.triggerStartTime = 205;
+    info.animStartSpeed   = 0.5f;
+    info.animSpeed        = 1.0f;
 
-    m_animList[STR(BossAnim::ROAR)] = info;
+    m_animList[STR(BossAnim::EXPLODE_CHARGE)] = info;
+
+    //info                  = {};
+    //info.animStartTime    = 0;
+    //info.triggerStartTime = 102;
+    //info.triggerEndTime   = 171;
+    //info.animCutInTime    = 172;
+
+    //m_animList[STR(BossAnim::ROAR)] = info;
 
     info                  = {};
     info.triggerStartTime = 27;
@@ -881,6 +909,7 @@ void Boss::SetComboList() {
     m_comboList[BossCombo::COMBO5]         = 0.7f;
     m_comboList[BossCombo::BACKFLIP_PUNCH] = 1;
     m_comboList[BossCombo::CHARGE_PUNCH]   = 2;
+    m_comboList[BossCombo::CHARGE_EXPLODE] = 5;
 }
 }    // namespace LittleQuest
 

@@ -136,6 +136,10 @@ class Stage01: public Scene::Base {
     //! 負けるのか
     bool  m_isLose          = false;
 
+    bool m_showBlackBar = false;
+
+    bool m_slideBlackBar = false;
+
     //! プレイヤー
     std::weak_ptr<Player>             m_pPlayer;
     //! ボス
@@ -165,6 +169,8 @@ class Stage01: public Scene::Base {
     //! @retval false フェイドアウトしていない
     //------------------------------------------------------------
     bool FadeOut();
+
+    void ShowBlackBar();
     //------------------------------------------------------------
     //! @brief 終了画像を表示します。
     //!
