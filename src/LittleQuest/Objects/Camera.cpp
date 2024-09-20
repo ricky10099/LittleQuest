@@ -91,16 +91,16 @@ void Camera::PostUpdate() {
 
 void Camera::LateDraw() {
 #if _DEBUG
-    if(Scene::IsEdit()) {
-        printfDx("player pos: x:%f y:%f z:%f\n", (float)m_pTarget.lock()->GetTranslate().x,
-                 (float)m_pTarget.lock()->GetTranslate().y, (float)m_pTarget.lock()->GetTranslate().z);
-        if(m_pLockOnTarget.lock()) {
-            printfDx("target pos: x:%f y:%f z:%f\n", (float)m_pLockOnTarget.lock()->GetTranslate().x,
-                     (float)m_pLockOnTarget.lock()->GetTranslate().y, (float)m_pLockOnTarget.lock()->GetTranslate().z);
-            float3 dis = m_pLockOnTarget.lock()->GetTranslate() - m_pTarget.lock()->GetTranslate();
-            printfDx("target pos: x:%f y:%f z:%f\n", (float)dis.x, (float)dis.y, (float)dis.z);
-        }
-    }
+    //if(Scene::IsEdit()) {
+    //    printfDx("player pos: x:%f y:%f z:%f\n", (float)m_pTarget.lock()->GetTranslate().x,
+    //             (float)m_pTarget.lock()->GetTranslate().y, (float)m_pTarget.lock()->GetTranslate().z);
+    //    if(m_pLockOnTarget.lock()) {
+    //        printfDx("target pos: x:%f y:%f z:%f\n", (float)m_pLockOnTarget.lock()->GetTranslate().x,
+    //                 (float)m_pLockOnTarget.lock()->GetTranslate().y, (float)m_pLockOnTarget.lock()->GetTranslate().z);
+    //        float3 dis = m_pLockOnTarget.lock()->GetTranslate() - m_pTarget.lock()->GetTranslate();
+    //        printfDx("target pos: x:%f y:%f z:%f\n", (float)dis.x, (float)dis.y, (float)dis.z);
+    //    }
+    //}
 #endif
 }
 

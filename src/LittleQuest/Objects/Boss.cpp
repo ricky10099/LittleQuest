@@ -34,7 +34,7 @@ bool Boss::Init() {
         { STR(BossAnim::SWIP_ATTACK),        "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
         {       STR(BossAnim::PUNCH),          "data/LittleQuest/Anim/MutantSet/MutantPunch.mv1", 0, 1.0f},
  //{ STR(BossAnim::JUMP_ATTACK),     "data/LittleQuest/Anim/MutantSet/MutantJumpAttack.mv1", 0, 1.0f},
-        {    STR(BossAnim::BACKFLIP),                       "data/LittleQuest/Anim/Backflip.mv1", 0, 1.0f},
+        {    STR(BossAnim::BACKFLIP),                  "data/LittleQuest/Anim/Boss/Backflip.mv1", 0, 1.0f},
         {STR(BossAnim::DOUBLE_PUNCH), "data/LittleQuest/Anim/MutantSet/MutantFlexingMuscles.mv1", 0, 1.0f},
         {      STR(BossAnim::CHARGE),            "data/LittleQuest/Anim/MutantSet/Battlecry.mv1", 0, 1.0f},
  //{        STR(BossAnim::ROAR),        "data/LittleQuest/Anim/MutantSet/MutantRoaring.mv1", 0, 1.0f},
@@ -209,9 +209,9 @@ void Boss::LateDraw() {
         break;
     }
 
-    if(Scene::IsEdit()) {
-        printfDx("Boss State: %s\n", bs[(int)m_state]);
-    }
+    //if(Scene::IsEdit()) {
+    //    printfDx("Boss State: %s\n", bs[(int)m_state]);
+    //}
 }
 
 void Boss::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
@@ -323,11 +323,12 @@ void Boss::SelectAction() {
         ChangeState(BossState::CHASE);
     } else if(distance > FAR_DISTANCE) {
         ChangeState(BossState::ATTACK);
-        if(random <= 70) {
+        /*if(random <= 70) {
             SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
             m_bossCombo = BossCombo::RANGED_ATTACK;
             m_combo     = 1;
-        } else if(random <= 90) {
+        } else */
+        if(random <= 90) {
             SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
             m_bossCombo = BossCombo::CHARGE_PUNCH;
             m_combo     = 1;
@@ -399,11 +400,12 @@ void Boss::SelectAngryAction() {
         ChangeState(BossState::CHASE);
     } else if(distance > FAR_DISTANCE) {
         ChangeState(BossState::ATTACK);
-        if(random <= 30) {
+        /* if(random <= 30) {
             SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
             m_bossCombo = BossCombo::RANGED_ATTACK;
             m_combo     = 1;
-        } else if(random <= 90) {
+        } else */
+        if(random <= 90) {
             SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
             m_bossCombo = BossCombo::CHARGE_PUNCH;
             m_combo     = 1;
@@ -434,9 +436,9 @@ void Boss::Attack() {
     case BossCombo::SWIP:
         Swip();
         break;
-    case BossCombo::RANGED_ATTACK:
-        RangedShot();
-        break;
+    //case BossCombo::RANGED_ATTACK:
+    //    RangedShot();
+    //break;
     case BossCombo::CHARGE_EXPLODE:
         ChargeExplode();
         break;

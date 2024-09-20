@@ -112,7 +112,7 @@ class Boss: public Object {
     //! ダメージ溜まるキャップ
     const int   DAMAGE_CAP         = int(MAX_HP * 0.15f);
     //! 最大HP
-    const int   MAX_HP             = 10;
+    const int   MAX_HP             = 50;
     const int   MAX_VOLUME         = 255;
 
     //! ボスの状態の列挙型

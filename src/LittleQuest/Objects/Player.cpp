@@ -224,14 +224,14 @@ void Player::TransOutAction() {
 
 void Player::LateDraw() {
 #if _DEBUG
-    if(Scene::IsEdit()) {
-        if(m_pCamera.lock()) {
-            //float3 dir = m_pCamera.lock()->GetTranslate() - this->GetTranslate() - float3{0, 0, 0};
-            //printfDx("player camera vector3: x: %f y: %f z: %f\n", (float)dir.x, (float)dir.y, (float)dir.z);
-            printfDx("camera len: %f\n", m_cameraLength);
-        }
-        printfDx("col name: %s\n", m_blockedName.data());
-    }
+    //if(Scene::IsEdit()) {
+    //    if(m_pCamera.lock()) {
+    //        //float3 dir = m_pCamera.lock()->GetTranslate() - this->GetTranslate() - float3{0, 0, 0};
+    //        //printfDx("player camera vector3: x: %f y: %f z: %f\n", (float)dir.x, (float)dir.y, (float)dir.z);
+    //        printfDx("camera len: %f\n", m_cameraLength);
+    //    }
+    //    printfDx("col name: %s\n", m_blockedName.data());
+    //}
 #endif
     switch(m_sceneState) {
     case Scene::SceneState::TRANS_IN:
@@ -272,14 +272,18 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
                 ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), m_swordHitSE);
                 SetPosPlayingEffekseer3DEffect(m_playingEffect, hitInfo.hit_position_.x, hitInfo.hit_position_.y,
                                                hitInfo.hit_position_.z);
+                m_pCamera.lock()->SetCameraShake(15, 5);
+                m_pCamera.lock()->ShakeCamera();
             }
         }
     }
     if(m_pCamera.lock()) {
         if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::ETC) {
 #ifdef DEBUG
-            printfDx("col owner: %s\n", hitInfo.hit_collision_->GetOwner()->GetName().data());
-            printfDx("col: %s\n", hitInfo.hit_collision_->GetName().data());
+            //if(Scene::IsEdit()) {
+            //    printfDx("col owner: %s\n", hitInfo.hit_collision_->GetOwner()->GetName().data());
+            //    printfDx("col: %s\n", hitInfo.hit_collision_->GetName().data());
+            //}
 #endif    // DEBUG
 
             if(hitInfo.hit_) {
@@ -288,7 +292,9 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
                    hitInfo.hit_collision_->GetName() != m_pCamera.lock()->GetAnchorCollisionName()) {
                     m_cameraBlocked = true;
                     m_blockedName   = hitInfo.hit_collision_->GetOwner()->GetName().data();
-                    printfDx("block: %f\n", m_blockedDistance);
+                    //if(Scene::IsEdit()) {
+                    //    printfDx("block: %f\n", m_blockedDistance);
+                    //}
 
                     m_pCamera.lock()->SetCameraPositionAndTarget(
                         {m_pCamera.lock()->GetCameraLocalPosition().x, m_pCamera.lock()->GetCameraLocalPosition().y,
