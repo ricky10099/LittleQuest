@@ -317,18 +317,7 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
     Super::OnHit(hitInfo);
 }
 
-void Player::ExitHit(const ComponentCollision::HitInfo& hitInfo) {
-    if(m_pCamera.lock()) {
-        if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::ETC) {
-            if(!hitInfo.hit_) {
-                //m_pCamera.lock()->SetCameraLength(m_cameraLength);
-                //m_pCamera.lock()->SetCameraPositionAndTarget({0, 0, -1}, {0, 0, m_cameraLength});
-                //m_cameraBlocked = false;
-            }
-        }
-    }
-    Super::ExitHit(hitInfo);
-}
+void Player::ExitHit(const ComponentCollision::HitInfo& hitInfo) {}
 
 void Player::GetHit(int damage) {
     if(m_isInvincible) {
@@ -581,7 +570,7 @@ void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo next
         if(m_isHit) {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0 /*.05f*/);
             //SetSpeedPlayingEffekseer3DEffect(m_playingEffect, 0.001f);
-        } else if(m_slowMo) {
+        } else if(m_slowMotion) {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0.01f /*.05f*/);
         } else {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
@@ -613,13 +602,13 @@ void Player::PlayDead() {
     m_playerState = PlayerState::DEAD;
 }
 
-void Player::SlowMo() {
-    m_slowMo = true;
+void Player::SlowMotion() {
+    m_slowMotion = true;
     m_pModel.lock()->SetAnimationSpeed(m_pModel.lock()->GetAnimationSpeed() * 0.0001f);
 }
 
-void Player::EndSlowMo() {
-    m_slowMo = false;
+void Player::EndSlowMotion() {
+    m_slowMotion = false;
 }
 
 void Player::SetModelRotation() {

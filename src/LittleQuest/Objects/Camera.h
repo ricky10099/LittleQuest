@@ -60,9 +60,9 @@ class Camera: public Object {
     //------------------------------------------------------------
     void SetCurrentCamera();
 
-    inline void SetCameraPosition(float3 pos) {
-        this->SetTranslate(pos);
-    }
+    //inline void SetCameraPosition(float3 pos) {
+    //    this->SetTranslate(pos);
+    //}
 
     inline float3 GetCameraLocalPosition() const {
         return m_pCamera.lock()->GetLocalPosition();

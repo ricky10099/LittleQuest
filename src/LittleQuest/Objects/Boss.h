@@ -79,10 +79,14 @@ class Boss: public Object {
     //! @retval false 倒されていない
     //------------------------------------------------------------
     bool IsDead();
-
-    void SlowMo();
-
-    void EndSlowMo();
+    //------------------------------------------------------------
+    //! @brief スローモーションを開始します。
+    //------------------------------------------------------------
+    void SlowMotion();
+    //------------------------------------------------------------
+    //! @brief スローモーションを終了します。
+    //------------------------------------------------------------
+    void EndSlowMotion();
 
     inline void SetHideUI(bool isHideUI) {
         m_hideUI = isHideUI;
@@ -109,10 +113,10 @@ class Boss: public Object {
     const float BACK_ANGLE         = 140.0f;
     //! ダメージ溜まる時間
     const float DAMAGE_TIME        = 420.0f;
-    //! ダメージ溜まるキャップ
-    const int   DAMAGE_CAP         = int(MAX_HP * 0.15f);
     //! 最大HP
     const int   MAX_HP             = 50;
+    //! ダメージ溜まるキャップ
+    const float DAMAGE_CAP         = (float)MAX_HP * 0.5f;
     const int   MAX_VOLUME         = 255;
 
     //! ボスの状態の列挙型
@@ -245,9 +249,9 @@ class Boss: public Object {
     //! サウンドエフェクトが再生しているのか
     bool   m_playedSE    = false;
 
-    bool m_bigExplode = false;
-
-    bool m_slowMo = false;
+    //bool m_bigExplode = false;
+    //! スローモーション
+    bool m_slowMotion = false;
 
     bool m_hideUI = false;
 

@@ -73,10 +73,14 @@ class Player: public Object {
     //! @brief 死亡動画を再生します。
     //------------------------------------------------------------
     void PlayDead();
-
-    void SlowMo();
-
-    void EndSlowMo();
+    //------------------------------------------------------------
+    //! @brief スローモーションを行います。
+    //------------------------------------------------------------
+    void SlowMotion();
+    //------------------------------------------------------------
+    //! @brief スローモーションを終了します。
+    //------------------------------------------------------------
+    void EndSlowMotion();
 
     inline void SetHideUI(bool isHide) {
         m_hideUI = isHide;
@@ -187,7 +191,7 @@ class Player: public Object {
 
     bool m_lockOn = false;
 
-    bool m_slowMo = false;
+    bool m_slowMotion = false;
 
     bool m_hideUI = false;
 

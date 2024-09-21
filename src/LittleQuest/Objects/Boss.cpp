@@ -294,9 +294,10 @@ void Boss::SelectAction() {
         m_combo = 1;
     } else if(distance < CLOSE_DISTANCE && angle < FRONT_ANGLE) {
         ChangeState(BossState::ATTACK);
-        if(random <= 30) {
+        /*    if(random <= 30) {
             m_bossCombo = BossCombo::CHARGE_EXPLODE;
-        } else if(random <= 90) {
+        } else*/
+        if(random <= 90) {
             SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 30);
             m_bossCombo = BossCombo::SWIP;
         } else {
@@ -374,9 +375,10 @@ void Boss::SelectAngryAction() {
         if(random <= 45) {
             SetRotationToPositionWithLimit(m_pPlayer.lock()->GetTranslate(), 50);
             m_bossCombo = BossCombo::COMBO5;
-        } else if(random <= 75) {
+        } /* else if(random <= 75) {
             m_bossCombo = BossCombo::CHARGE_EXPLODE;
-        } else {
+        }*/
+        else {
             if(dotPlayer < 0) {
                 ChangeState(BossState::TURN_RIGHT);
             } else {
@@ -414,12 +416,12 @@ void Boss::SelectAngryAction() {
         }
     }
 
-    if(m_pHP.lock()->GetHPRate() < 15.0f && !m_bigExplode) {
-        ChangeState(BossState::ATTACK);
-        SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
-        m_bossCombo = BossCombo::CHARGE_EXPLODE;
-        m_combo     = 1;
-    }
+    //if(m_pHP.lock()->GetHPRate() < 15.0f && !m_bigExplode) {
+    //    ChangeState(BossState::ATTACK);
+    //    SetRotationToPosition(m_pPlayer.lock()->GetTranslate());
+    //    m_bossCombo = BossCombo::CHARGE_EXPLODE;
+    //    m_combo     = 1;
+    //}
 }
 
 void Boss::Attack() {
@@ -436,12 +438,12 @@ void Boss::Attack() {
     case BossCombo::SWIP:
         Swip();
         break;
-    //case BossCombo::RANGED_ATTACK:
-    //    RangedShot();
-    //break;
-    case BossCombo::CHARGE_EXPLODE:
-        ChargeExplode();
-        break;
+        //case BossCombo::RANGED_ATTACK:
+        //    RangedShot();
+        //break;
+        //case BossCombo::CHARGE_EXPLODE:
+        //    ChargeExplode();
+        //    break;
     }
 }
 
@@ -454,7 +456,7 @@ void Boss::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector
     }
     m_currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
     if(m_currAnimTime >= animInfo.triggerStartTime) {
-        if(m_slowMo) {
+        if(m_slowMotion) {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0.01f);
         } else {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
@@ -747,7 +749,7 @@ void Boss::Damaging() {
 
 void Boss::Die() {
     m_pModel.lock()->PlayAnimationNoSame(STR(BossState::DEAD));
-    if(m_slowMo) {
+    if(m_slowMotion) {
         m_pModel.lock()->SetAnimationSpeed(0.1f);
     } else {
         m_pModel.lock()->SetAnimationSpeed(1.0f);
@@ -785,13 +787,13 @@ bool Boss::IsDead() {
     return m_pHP.lock()->GetHP() <= 0;
 }
 
-void Boss::SlowMo() {
-    m_slowMo = true;
+void Boss::SlowMotion() {
+    m_slowMotion = true;
     //m_pModel.lock()->SetAnimationSpeed(m_pModel.lock()->GetAnimationSpeed() * 0.01f);
 }
 
-void Boss::EndSlowMo() {
-    m_slowMo = false;
+void Boss::EndSlowMotion() {
+    m_slowMotion = false;
 }
 
 void Boss::ChangeState(BossState state) {

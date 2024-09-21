@@ -192,8 +192,8 @@ void Stage01::Update() {
             m_showBlackBar  = true;
             m_slideBlackBar = false;
             if(m_cutSceneTimer == START_CUT_SCENE_TIME) {
-                m_pPlayer.lock()->SlowMo();
-                m_pBoss.lock()->SlowMo();
+                m_pPlayer.lock()->SlowMotion();
+                m_pBoss.lock()->SlowMotion();
             }
             m_cutSceneTimer -= GetDeltaTime60();
             m_cutSceneTimer = std::max(0.0f, m_cutSceneTimer);
@@ -220,8 +220,8 @@ void Stage01::Update() {
             m_pPlayer.lock()->SetTranslate(PLAYER_SPAWN_POS);
             m_pBoss.lock()->SetTranslate(BOSS_SPAWN_POS);
             m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
-            m_pPlayer.lock()->EndSlowMo();
-            m_pBoss.lock()->EndSlowMo();
+            m_pPlayer.lock()->EndSlowMotion();
+            m_pBoss.lock()->EndSlowMotion();
         }
         break;
     case Scene::SceneState::TRANS_OUT:
@@ -256,8 +256,8 @@ void Stage01::LateDraw() {
     }
 
     if(m_showBlackBar) {
-        DrawBoxAA(0, 0, screen_width, screen_height * 0.15 * blackbarY, 0u, TRUE);
-        DrawBoxAA(0, screen_height - screen_height * 0.15 * blackbarY, screen_width, screen_height, 0u, TRUE);
+        DrawBoxAA(0, 0, screen_width, screen_height * 0.15f * blackbarY, 0u, TRUE);
+        DrawBoxAA(0, screen_height - screen_height * 0.15f * blackbarY, screen_width, screen_height, 0u, TRUE);
     }
 
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)m_alpha);
