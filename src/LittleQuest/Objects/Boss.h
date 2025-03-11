@@ -114,9 +114,7 @@ class Boss: public Object {
     //! ダメージ溜まる時間
     const float DAMAGE_TIME        = 420.0f;
     //! 最大HP
-    const int   MAX_HP             = 50;
-    //! ダメージ溜まるキャップ
-    const float DAMAGE_CAP         = (float)MAX_HP * 0.5f;
+    const int   MAX_HP             = 200;
     const int   MAX_VOLUME         = 255;
 
     //! ボスの状態の列挙型
@@ -218,6 +216,8 @@ class Boss: public Object {
     float  m_currAnimTime           = 0.0f;
     //! ダメージ溜まるタイマー
     float  m_damageTimer            = 0;
+    //! ダメージ溜まるキャップ
+    float  m_damegeCap              = (float)MAX_HP * 0.1f;
     //! 現在のコンボ数
     int    m_combo                  = 0;
     //! 怒り爆発のエフェクト

@@ -26,7 +26,6 @@ bool GameTitleScene::Init() {
         auto skyboxObj = Scene::CreateObjectPtr<Object>()->SetName("Skybox");
         skyboxObj->SetTranslate({0, 0, 0});
         skyboxObj->SetRotationAxisXYZ({0, 180, 0});
-        //skyboxObj->AddComponent<ComponentModel>("data/LittleQuest/Model/Skybox.mv1")->SetScaleAxisXYZ(100.0f);
         skyboxObj->AddComponent<ComponentModel>("data/Skybox.mv1")->SetScaleAxisXYZ(100.0f);
     }
     {
@@ -80,7 +79,7 @@ void GameTitleScene::Update() {
 #ifndef _DEBUG
            || IsMouseDown(MOUSE_INPUT_1)
 #endif    // !_DEBUG
-           /*|| IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) || IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)*/) {
+           || IsPadOn(PAD_ID::PAD_R_PUSH) || IsPadOn(PAD_ID::PAD_B)) {
             scene_state = Scene::SceneState::TRANS_OUT;
         }
         break;

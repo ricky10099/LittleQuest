@@ -152,17 +152,6 @@ void Player::GameAction() {
 
     InputHandle();
 
-    //if(m_lockOn) {
-    //    //float3 dir = -(m_pBoss.lock()->GetTranslate() - this->GetTranslate());
-    //    ////dir = normalize(dir);
-    //    //float3 cameraPos =  this->GetTranslate() + dir;
-    //    //m_pCamera.lock()->SetCameraLookTarget(m_pBoss.lock());
-    //    //m_pCamera.lock()->SetCameraPosition(dir);
-
-    //} else {
-    //    //m_pCamera.lock()->SetCameraLookTarget(weak_from_this());
-    //}
-
     if(m_currCombo != Combo::NO_COMBO && m_playerState != PlayerState::ROLL) {
         m_playerState = PlayerState::ATTACK;
     }
@@ -223,16 +212,6 @@ void Player::TransOutAction() {
 }
 
 void Player::LateDraw() {
-#if _DEBUG
-    //if(Scene::IsEdit()) {
-    //    if(m_pCamera.lock()) {
-    //        //float3 dir = m_pCamera.lock()->GetTranslate() - this->GetTranslate() - float3{0, 0, 0};
-    //        //printfDx("player camera vector3: x: %f y: %f z: %f\n", (float)dir.x, (float)dir.y, (float)dir.z);
-    //        printfDx("camera len: %f\n", m_cameraLength);
-    //    }
-    //    printfDx("col name: %s\n", m_blockedName.data());
-    //}
-#endif
     switch(m_sceneState) {
     case Scene::SceneState::TRANS_IN:
         break;
@@ -279,23 +258,12 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
     }
     if(m_pCamera.lock()) {
         if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::ETC) {
-#ifdef DEBUG
-            //if(Scene::IsEdit()) {
-            //    printfDx("col owner: %s\n", hitInfo.hit_collision_->GetOwner()->GetName().data());
-            //    printfDx("col: %s\n", hitInfo.hit_collision_->GetName().data());
-            //}
-#endif    // DEBUG
-
             if(hitInfo.hit_) {
                 m_blockedDistance = GetDistance(this->GetTranslate(), hitInfo.hit_position_, true);
                 if(m_blockedDistance < m_cameraLength &&
                    hitInfo.hit_collision_->GetName() != m_pCamera.lock()->GetAnchorCollisionName()) {
                     m_cameraBlocked = true;
                     m_blockedName   = hitInfo.hit_collision_->GetOwner()->GetName().data();
-                    //if(Scene::IsEdit()) {
-                    //    printfDx("block: %f\n", m_blockedDistance);
-                    //}
-
                     m_pCamera.lock()->SetCameraPositionAndTarget(
                         {m_pCamera.lock()->GetCameraLocalPosition().x, m_pCamera.lock()->GetCameraLocalPosition().y,
                          m_cameraLength - m_blockedDistance},
@@ -342,17 +310,17 @@ void Player::GetHit(int damage) {
 void Player::InputHandle() {
     DINPUT_JOYSTATE DInputState;
     m_cameraLength -= GetMouseWheelRotVol() * 3;
-    //if(IsPadRepeat(PAD_ID::PAD_5, DX_PADTYPE_DUAL_SENSE)) {
-    //    ++m_cameraLength;
-    //}
-    //if(IsPadRepeat(PAD_ID::PAD_6, DX_PADTYPE_DUAL_SENSE)) {
-    //    --m_cameraLength;
-    //}
+    if(IsPadRepeat(PAD_ID::PAD_R)) {
+        ++m_cameraLength;
+    }
+    if(IsPadRepeat(PAD_ID::PAD_L)) {
+        --m_cameraLength;
+    }
     m_cameraLength = std::min((std::max(m_cameraLength, 10.0f)), 100.0f);
     //if(!m_cameraBlocked)
     { m_pCamera.lock()->SetCameraLength(m_cameraLength); }
 
-    if(IsKeyOn(KEY_INPUT_TAB)) {
+    if(IsKeyOn(KEY_INPUT_TAB) || IsPadOn(PAD_ID::PAD_Z)) {
         m_lockOn = !m_lockOn;
         m_pCamera.lock()->SetLockOnTarget(m_pBoss.lock(), m_lockOn);
     }
@@ -395,7 +363,7 @@ void Player::InputHandle() {
             m_movement += vec;
         }
 
-        if(IsMouseDown(MOUSE_INPUT_LEFT) /* || IsPadDown(PAD_ID::PAD_4, DX_PADTYPE_DUAL_SENSE)*/) {
+        if(IsMouseDown(MOUSE_INPUT_LEFT) || IsPadOn(PAD_ID::PAD_A)) {
             m_playerState = PlayerState::ATTACK;
 
             if(m_currCombo == Combo::NO_COMBO) {
@@ -405,7 +373,7 @@ void Player::InputHandle() {
             }
         }
 
-        if(IsMouseRepeat(MOUSE_INPUT_RIGHT, 1) /* || IsPadRepeat(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)*/) {
+        if(IsMouseRepeat(MOUSE_INPUT_RIGHT, 1) || IsPadRepeat(PAD_ID::PAD_Y)) {
             m_chargeTime += GetDeltaTime60();
             if(m_chargeTime >= SPECIAL_CHARGE_TIME && !m_charged) {
                 StopEffekseer3DEffect(m_playingChargeEffect);
@@ -431,7 +399,7 @@ void Player::InputHandle() {
         if(!IsFloat3Zero(m_movement)) {
             m_playerState = PlayerState::WALK;
         }
-        if(IsKeyDown(KEY_INPUT_SPACE) /* || IsPadDown(PAD_ID::PAD_2, DX_PADTYPE_DUAL_SENSE)*/) {
+        if(IsKeyDown(KEY_INPUT_SPACE) || IsPadOn(PAD_ID::PAD_B)) {
             m_chargeTime = 0;
             m_charged    = false;
             StopEffekseer3DEffect(m_playingChargeEffect);
@@ -568,13 +536,11 @@ void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo next
     m_currAnimTime = m_pModel.lock()->GetAnimationPlayTime();
     if(m_currAnimTime > m_animList[animName].triggerStartTime) {
         if(m_isHit) {
-            m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0 /*.05f*/);
-            //SetSpeedPlayingEffekseer3DEffect(m_playingEffect, 0.001f);
+            m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0);
         } else if(m_slowMotion) {
-            m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0.01f /*.05f*/);
+            m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed * 0.01f);
         } else {
             m_pModel.lock()->SetAnimationSpeed(animInfo.animSpeed);
-            //SetSpeedPlayingEffekseer3DEffect(m_playingEffect, 1);
         }
         m_pWeapon.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
     }

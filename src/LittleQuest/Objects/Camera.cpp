@@ -72,9 +72,6 @@ void Camera::Update() {
         m_pSpringArm.lock()->SetSpringArmRotate(new_rot);
         m_pSpringArm.lock()->SetSpringArmOffset({5, 5, 0});
         m_pSpringArm.lock()->SetSpringArmLength(30);
-
-        //printfDx("angle: %f\n", angle);
-        //printfDx("y - angle: %f\n", m_rot.y - angle);
     }
 #ifdef _DEBUG
     if(IsKeyOn(KEY_INPUT_P)) {
@@ -85,24 +82,9 @@ void Camera::Update() {
     ShakeCamera();
 }
 
-void Camera::PostUpdate() {
-    //ShakeCamera();
-}
+void Camera::PostUpdate() {}
 
-void Camera::LateDraw() {
-#if _DEBUG
-    //if(Scene::IsEdit()) {
-    //    printfDx("player pos: x:%f y:%f z:%f\n", (float)m_pTarget.lock()->GetTranslate().x,
-    //             (float)m_pTarget.lock()->GetTranslate().y, (float)m_pTarget.lock()->GetTranslate().z);
-    //    if(m_pLockOnTarget.lock()) {
-    //        printfDx("target pos: x:%f y:%f z:%f\n", (float)m_pLockOnTarget.lock()->GetTranslate().x,
-    //                 (float)m_pLockOnTarget.lock()->GetTranslate().y, (float)m_pLockOnTarget.lock()->GetTranslate().z);
-    //        float3 dis = m_pLockOnTarget.lock()->GetTranslate() - m_pTarget.lock()->GetTranslate();
-    //        printfDx("target pos: x:%f y:%f z:%f\n", (float)dis.x, (float)dis.y, (float)dis.z);
-    //    }
-    //}
-#endif
-}
+void Camera::LateDraw() {}
 
 void Camera::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
     Super::OnHit(hitInfo);
@@ -140,7 +122,6 @@ void Camera::SetCameraShake(float duration, float magnitude) {
     shakeMagnitude    = magnitude;
     shakeTimer        = duration;
     originalCameraPos = m_pCamera.lock()->GetLocalPosition();
-    //originalCameraTarget = m_pCamera.lock()->GetLocalTarget();
     m_isShake         = true;
 }
 

@@ -1025,17 +1025,17 @@ void Scene::Update() {
     f32 delta = GetDeltaTime();
 
 #pragma region customized
-    if((/*IsPadDown(PAD_ID::PAD_10, DX_PADTYPE_DUAL_SENSE) || */ IsKeyDown(KEY_INPUT_ESCAPE)) && scene_can_pause) {
+    if((IsPadOn(PAD_ID::PAD_R_PUSH) || IsKeyDown(KEY_INPUT_ESCAPE)) && scene_can_pause) {
         Pause();
         select_num = 0;
     }
 
     if(scene_draw_menu) {
         HideMouse(false);
-        if(IsKeyDown(KEY_INPUT_UP) /* || IsPadDown(PAD_ID::PAD_UP, DX_PADTYPE_DUAL_SENSE)*/) {
+        if(IsKeyDown(KEY_INPUT_UP) || IsPadOn(PAD_ID::PAD_D_UP)) {
             --select_num;
         }
-        if(IsKeyDown(KEY_INPUT_DOWN) /* || IsPadDown(PAD_ID::PAD_DOWN, DX_PADTYPE_DUAL_SENSE)*/) {
+        if(IsKeyDown(KEY_INPUT_DOWN) || IsPadOn(PAD_ID::PAD_D_DOWN)) {
             ++select_num;
         }
 
@@ -1053,13 +1053,13 @@ void Scene::Update() {
             break;
         }
 
-        if(IsKeyDown(KEY_INPUT_RETURN) /* || IsPadDown(PAD_ID::PAD_3, DX_PADTYPE_DUAL_SENSE)*/) {
+        if(IsKeyDown(KEY_INPUT_RETURN) || IsPadOn(PAD_ID::PAD_B)) {
             menu_function[select_num]();
         }
 
-        /*if(IsPadDown(PAD_ID::PAD_2, DX_PADTYPE_DUAL_SENSE)) {
+        if(IsPadOn(PAD_ID::PAD_X)) {
             Pause();
-        }*/
+        }
     }
 
     bool next_bgm_exist = (int)(bgm_list.size() - 1) > bgm_index;
@@ -1474,10 +1474,10 @@ void Scene::SetSceneBGMList(std::vector<BGMInfo> bgmList) {
 }
 
 void Scene::SetBGMVolume() {
-    if(IsKeyDown(KEY_INPUT_LEFT) /* || IsPadDown(PAD_ID::PAD_LEFT, DX_PADTYPE_DUAL_SENSE)*/) {
+    if(IsKeyDown(KEY_INPUT_LEFT) || IsPadOn(PAD_ID::PAD_D_LEFT)) {
         audio[0] -= 5;
     }
-    if(IsKeyDown(KEY_INPUT_RIGHT) /*|| IsPadDown(PAD_ID::PAD_RIGHT, DX_PADTYPE_DUAL_SENSE)*/) {
+    if(IsKeyDown(KEY_INPUT_RIGHT) || IsPadOn(PAD_ID::PAD_D_RIGHT)) {
         audio[0] += 5;
     }
     audio[0] = std::max(0, std::min(100, audio[0]));
@@ -1485,10 +1485,10 @@ void Scene::SetBGMVolume() {
 }
 
 void Scene::SetSEVolume() {
-    if(IsKeyDown(KEY_INPUT_LEFT) /* || IsPadDown(PAD_ID::PAD_LEFT, DX_PADTYPE_DUAL_SENSE)*/) {
+    if(IsKeyDown(KEY_INPUT_LEFT) || IsPadOn(PAD_ID::PAD_D_LEFT)) {
         audio[1] -= 5;
     }
-    if(IsKeyDown(KEY_INPUT_RIGHT) /*|| IsPadDown(PAD_ID::PAD_RIGHT, DX_PADTYPE_DUAL_SENSE)*/) {
+    if(IsKeyDown(KEY_INPUT_RIGHT) || IsPadOn(PAD_ID::PAD_D_RIGHT)) {
         audio[1] += 5;
     }
     audio[1] = std::max(0, std::min(100, audio[1]));

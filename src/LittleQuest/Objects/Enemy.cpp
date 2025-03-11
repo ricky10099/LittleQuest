@@ -59,7 +59,6 @@ void Enemy::Update() {
     case EnemyState::GET_HIT:
         if(!pModel.lock()->IsPlaying()) {
             ChangeState(EnemyState::IDLE);
-            //isBusy    = false;
         }
         break;
     case EnemyState::GIVE_UP:
@@ -114,8 +113,6 @@ void Enemy::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
 }
 
 void Enemy::Idle() {
-    // prevState = state;
-    // state     = EnemyState::IDLE;
     ChangeState(EnemyState::IDLE);
     if(auto modelPtr = GetComponent<ComponentModel>()) {
         modelPtr->PlayAnimationNoSame("idle", true);
@@ -188,8 +185,6 @@ void Enemy::Waiting(float deltaTime) {
 
     if(waitTime <= 0.0f) {
         ChangeState(EnemyState::IDLE);
-        //animCheck = AnimCheck::NONE;
-        //isBusy    = false;
     }
 }
 
@@ -199,7 +194,6 @@ void Enemy::ChasePlayer(float3& move) {
 
     if(GetDistance(move) < 6.0f) {
         ChangeState(EnemyState::ATTACK);
-        //isBusy = true;
         move = {0, 0, 0};
         return;
     }
@@ -220,37 +214,11 @@ void Enemy::ChasePlayer(float3& move) {
 
 void Enemy::Attack() {
     pModel.lock()->PlayAnimationNoSame("attack", false, 0.5f);
-    //animCheck = AnimCheck::ATTACKING;
     if(!pModel.lock()->IsPlaying()) {
         isHitPlayer = false;
         Wait(.5f);
     }
 }
-
-//bool Enemy::CheckAnimation() {
-//    switch(animCheck) {
-//   /* case AnimCheck::GETTING_HIT:
-//        if(!pModel.lock()->IsPlaying()) {
-//            ChangeState(EnemyState::IDLE);
-//            animCheck = AnimCheck::NONE;
-//            isBusy    = false;
-//            return true;
-//        }
-//        break;*/
-//    case AnimCheck::ATTACKING:
-//        if(!pModel.lock()->IsPlaying()) {
-//            isAttack    = false;
-//            isHitPlayer = false;
-//            Wait(.5f);
-//            return true;
-//        }
-//        break;
-//    default:
-//        return true;
-//    }
-//
-//    return false;
-//}
 
 void Enemy::GetHit(int damage) {
     pHP.lock()->TakeDamage(damage);
@@ -258,8 +226,6 @@ void Enemy::GetHit(int damage) {
     if(pHP.lock()->GetHP() > 0) {
         pModel.lock()->PlayAnimation("getHit", false, 0.25f);
         ChangeState(EnemyState::GET_HIT);
-        //animCheck = AnimCheck::GETTING_HIT;
-        //isBusy    = true;
     } else {
         this->Die();
     }

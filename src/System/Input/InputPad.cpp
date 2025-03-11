@@ -11,8 +11,7 @@ constexpr unsigned int MAX_PAD_TYPE =
 constexpr unsigned int MIN_PAD_TYPE = static_cast<unsigned int>(PAD_ID::PAD_A);    //<! 上下左右/A B C X Y Z L R START Mボタン
 constexpr unsigned int MAX_PAD_DIRECT_NUM     = 4;                                 //<! 方向キーの方向最大値
 constexpr float        MAX_ANALOG_INPUT_VALUE = 1000.0f;    //<! アナログスティックの入力値の最大値
-constexpr unsigned int PAD_BUTTON_NUM =
-    static_cast<unsigned int>(PAD_ID::PAD_R_PUSH) - static_cast<unsigned int>(PAD_ID::PAD_A) + 1;
+constexpr unsigned int PAD_BUTTON_NUM = static_cast<unsigned int>(PAD_ID::PAD_M) - static_cast<unsigned int>(PAD_ID::PAD_A) + 1;
 
 std::vector<DINPUT_JOYSTATE>  pad_input_states;    //<! 詳細なパッドの状態の取得
 std::array<bool, MAX_PAD_NUM> use_pads;            //<! 使用しているパッドの状態を管理
@@ -282,7 +281,8 @@ bool IsPadOn(PAD_ID pad_id, PAD_NO pad_no) {
     case PAD_ID::PAD_C:
     case PAD_ID::PAD_Z:
     case PAD_ID::PAD_M:
-        return false;
+        //return false;
+        return pad_buttons[pad_index][id_index] == 1;
     }
 
     // ここに入ることはない

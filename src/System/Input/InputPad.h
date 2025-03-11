@@ -24,16 +24,20 @@ enum class PAD_NO : unsigned int {
 //---------------------------------------------------------------------------
 //@{
 enum class PAD_ID : unsigned int {
-    PAD_A = 0,     // Aキー
-    PAD_B,         // Bキー
-    PAD_X,         // Xキー
-    PAD_Y,         // Yキー
+    PAD_A = 0,     // Aキー □
+    PAD_B,         // Bキー　×
+    PAD_X,         // Xキー　〇
+    PAD_Y,         // Yキー　△
     PAD_L,         // LBボタン（左人差し指側）
     PAD_R,         // RBボタン（右人差し指側）
-    PAD_START,     // STARTボタン
-    PAD_BACK,      // BACKボタン
-    PAD_L_PUSH,    // 左アナログスティック押し込み
-    PAD_R_PUSH,    // 右アナログスティック押し込み
+    PAD_START,     // STARTボタン L2
+    PAD_BACK,      // BACKボタン R2
+    PAD_L_PUSH,    // 左アナログスティック押し込み　share
+    PAD_R_PUSH,    // 右アナログスティック押し込み option
+    // 場所不明
+    PAD_C,    // 対応キーなし
+    PAD_Z,    // 対応キーなし
+    PAD_M,    // 対応キーなし
 
     // 左アナログスティック
     PAD_UP,       // 上
@@ -56,10 +60,10 @@ enum class PAD_ID : unsigned int {
 
     PAD_ID_MAX,
 
-    // 場所不明
-    PAD_C,    // 対応キーなし
-    PAD_Z,    // 対応キーなし
-    PAD_M,    // 対応キーなし
+    //// 場所不明
+    //PAD_C,    // 対応キーなし
+    //PAD_Z,    // 対応キーなし
+    //PAD_M,    // 対応キーなし
 };
 
 //@}
