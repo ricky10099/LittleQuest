@@ -283,7 +283,7 @@ bool Animation::isActive() const {
 //---------------------------------------------------------------------------
 //! アニメーションの再生フレームを取得
 //---------------------------------------------------------------------------
-float          Animation::GetAnimationPlayTime() const {
+float Animation::GetAnimationPlayTime() const {
     return contexts_[0].play_time_;
 }
 

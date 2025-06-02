@@ -1,25 +1,26 @@
 ﻿#pragma once
 
-#include "player.h"
 #include "LittleQuest/Tool.h"
 
 #include <System/Scene.h>
 #include <System/Component/ComponentModel.h>
+#include <LittleQuest/Objects/Enemy.h>
 
 namespace LittleQuest {
-USING_PTR(Boss);
+USING_PTR(MawJLaygo);
 
 class ComponentHP;
+class Player;
 //////////////////////////////////////////////////////////////
 //! @brief ボスクラス
 //////////////////////////////////////////////////////////////
-class Boss: public Object {
+class MawJLaygo: public Enemy {
    public:
-    BP_OBJECT_DECL(Boss, "LittleQuest/Boss");
+    BP_OBJECT_DECL(MawJLaygo, "LittleQuest/MawJLaygo");
     //------------------------------------------------------------
     //! @brief ボスを生成します。
     //------------------------------------------------------------
-    static BossPtr Create(const float3& pos);
+    static MawJLaygoPtr Create(const float3& pos);
 
     //------------------------------------------------------------
     //! @brief 初期化処理を行います。
@@ -27,69 +28,69 @@ class Boss: public Object {
     //! @retval true 初期化成功
     //! @retval false 初期化失敗
     //------------------------------------------------------------
-    bool Init() override;
+    virtual bool Init() override;
     //------------------------------------------------------------
     //! @brief 更新処理を行います。
     //------------------------------------------------------------
-    void Update() override;
+    virtual void Update() override;
     //------------------------------------------------------------
     //! @brief 遅い描画の処理を行います。
     //------------------------------------------------------------
-    void LateDraw() override;
+    virtual void LateDraw() override;
     //------------------------------------------------------------
     //! @brief 当たりのコールバック
     //!
     //! @param hitInfo　当たったコリジョンのヒット情報
     //------------------------------------------------------------
-    void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
+    virtual void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
     //------------------------------------------------------------
     //! @brief 終了処理を行います。
     //------------------------------------------------------------
-    void Exit() override;
+    virtual void Exit() override;
 
     //------------------------------------------------------------
     //! @brief 攻撃される処理を行います。
     //!
     //! @param damage 受けるダメージ
     //------------------------------------------------------------
-    void GetHit(int damage);
+    virtual void GetHit(int damage) override;
     //------------------------------------------------------------
     //! @brief シーンの行動を設定します。
     //------------------------------------------------------------
-    void SetSceneState(Scene::SceneState state);
+    virtual void SetSceneState(Scene::SceneState state) override;
     //------------------------------------------------------------
     //! @brief 挑発動画を再生します。
     //------------------------------------------------------------
-    void PlayTaunt();
+    void         PlayTaunt();
     //------------------------------------------------------------
     //! @brief 死亡動画を再生します。
     //------------------------------------------------------------
-    void PlayDead();
+    void         PlayDead();
     //------------------------------------------------------------
     //! @brief 挑発動画が再生したのか。
     //!
     //! @retval true 再生した
     //! @retval false 再生していない
     //------------------------------------------------------------
-    bool IsPlayedTaunt();
+    bool         IsPlayedTaunt();
     //------------------------------------------------------------
     //! @brief ボスが倒されたのか。
     //!
     //! @retval true 倒された
     //! @retval false 倒されていない
     //------------------------------------------------------------
-    bool IsDead();
+    virtual bool IsDead() override;
     //------------------------------------------------------------
     //! @brief スローモーションを開始します。
     //------------------------------------------------------------
-    void SlowMotion();
+    virtual void SlowMotion() override;
     //------------------------------------------------------------
     //! @brief スローモーションを終了します。
     //------------------------------------------------------------
-    void EndSlowMotion();
+    virtual void EndSlowMotion() override;
 
     inline void SetHideUI(bool isHideUI) {
-        m_hideUI = isHideUI;
+        _hideUI = isHideUI;
     }
 
    protected:
@@ -118,7 +119,7 @@ class Boss: public Object {
     const int   MAX_VOLUME         = 255;
 
     //! ボスの状態の列挙型
-    enum class BossState {
+    enum class MawJLaygoState {
         IDLE,          //! 待機
         WAIT,          //! 待っている
         CHASE,         //! 追いかけ
@@ -131,23 +132,23 @@ class Boss: public Object {
         DEAD,          //! 倒れだ
     };
     //! ボス現在の状態
-    BossState m_state = BossState::IDLE;
+    MawJLaygoState _state = MawJLaygoState::IDLE;
 
-    const char* bs[10] = {
-        "IDLE",          //! 待機
-        "WAIT",          //! 待っている
-        "CHASE",         //! 追いかけ
-        "ATTACK",        //! 攻撃
-        "TURN_LEFT",     //! 左回転
-        "TURN_RIGHT",    //! 右回転
-        "GET_HIT",       //! 攻撃された
-        "ANGRY",         //! 怒っている
-        "TAUNT",         //! 挑発している
-        "DEAD",          //! 倒れだ
-    };
+    //const char* bs[10] = {
+    //    "IDLE",          //! 待機
+    //    "WAIT",          //! 待っている
+    //    "CHASE",         //! 追いかけ
+    //    "ATTACK",        //! 攻撃
+    //    "TURN_LEFT",     //! 左回転
+    //    "TURN_RIGHT",    //! 右回転
+    //    "GET_HIT",       //! 攻撃された
+    //    "ANGRY",         //! 怒っている
+    //    "TAUNT",         //! 挑発している
+    //    "DEAD",          //! 倒れだ
+    //};
 
     //! ボスのコンボの列挙型
-    enum class BossCombo {
+    enum class MawJLaygoCombo {
         SWIP,              //! 拳を振る
         COMBO5,            //! ５連撃
         BACKFLIP_PUNCH,    //! バク転突進
@@ -158,10 +159,10 @@ class Boss: public Object {
         NONE,    //! コンボしていない
     };
     //! ボス現在のコンボ
-    BossCombo m_bossCombo = BossCombo::NONE;
+    MawJLaygoCombo _MawJLaygoCombo = MawJLaygoCombo::NONE;
 
     //! ボスの攻撃アニメーションの列挙型
-    enum class BossAnim {
+    enum class MawJLaygoAnim {
         SWIP_ATTACK,       //! 右拳を振る
         QUICK_SWIP,        //! 速い右拳を振る
         PUNCH,             //! 左拳を振る
@@ -176,121 +177,109 @@ class Boss: public Object {
         EXPLODE,           //! 大爆発
     };
     //! ボス現在のアニメーション
-    BossAnim m_anim = BossAnim::TAUNT_ANIM;
+    MawJLaygoAnim _anim = MawJLaygoAnim::TAUNT_ANIM;
 
-    //! プレイヤー
-    ObjectWeakPtr                             m_pPlayer;
-    //! モデル
-    std::weak_ptr<ComponentModel>             m_pModel;
+    ////! プレイヤー
+    //ObjectWeakPtr                             _player;
+    ////! モデル
+    //std::weak_ptr<ComponentModel>             _model;
     //! HPコンポーネント
-    std::weak_ptr<ComponentHP>                m_pHP;
+    //std::weak_ptr<ComponentHP>                _componentHP;
     //! 体のコリションボックス
-    std::weak_ptr<ComponentCollisionCapsule>  m_pBodyBox;
+    std::weak_ptr<ComponentCollisionCapsule>  _bodyBox;
     //! 左手のコリションボックス
-    std::weak_ptr<ComponentCollisionCapsule>  m_pLeftHandBox;
+    std::weak_ptr<ComponentCollisionCapsule>  _leftHandBox;
     //! 右手のコリションボックス
-    std::weak_ptr<ComponentCollisionCapsule>  m_pRightHandBox;
+    std::weak_ptr<ComponentCollisionCapsule>  _rightHandBox;
     //! 怒り爆発のコリションボックス
-    std::weak_ptr<ComponentCollisionSphere>   m_pAngryBox;
+    std::weak_ptr<ComponentCollisionSphere>   _angryBox;
     //! アニメーション名とアニメーション情報のマップ
-    std::unordered_map<std::string, AnimInfo> m_animList;
+    std::unordered_map<std::string, AnimInfo> _animList;
     //! 攻撃方法と攻撃力のマップ
-    std::unordered_map<BossCombo, float>      m_comboList;
+    std::unordered_map<MawJLaygoCombo, float> _comboList;
 
     //! 現在のシーン行動
-    Scene::SceneState m_sceneState = Scene::SceneState::GAME;
+    Scene::SceneState _sceneState = Scene::SceneState::GAME;
 
-    //! 移動ベクトル
-    float3 m_move                   = {0, 0, 0};
-    //! 待つ時間タイマー
-    float  m_waitFor                = 0.0f;
-    //! 待つ時間の長さ
-    float  m_waitTime               = NORMAL_WAIT;
     //! プレイヤーとの角度
-    float  m_degree                 = 0.0f;
-    //! 移動倍数
-    float  m_speedFactor            = 1.0f;
-    //!
-    //float  m_destroyTimer           = 5.0f;
-    //! 現在のアニメーションの時間（フレーム）
-    float  m_currAnimTime           = 0.0f;
+    float _degree                 = 0.0f;
     //! ダメージ溜まるタイマー
-    float  m_damageTimer            = 0;
+    float _damageTimer            = 0;
     //! ダメージ溜まるキャップ
-    float  m_damegeCap              = (float)MAX_HP * 0.1f;
+    float _damegeCap              = (float)MAX_HP * 0.1f;
     //! 現在のコンボ数
-    int    m_combo                  = 0;
+    int   _combo                  = 0;
     //! 怒り爆発のエフェクト
-    int    m_powerUpEffect          = -1;
+    int   _powerUpEffect          = -1;
     //! パンチのエフェクト
-    int    m_punchEffect            = -1;
+    int   _punchEffect            = -1;
     //! 怒っているパンチのエフェクト
-    int    m_powerPunchEffect       = -1;
+    int   _powerPunchEffect       = -1;
     //! 両手パンチのエフェクト
-    int    m_doublePunchEffect      = -1;
+    int   _doublePunchEffect      = -1;
     //! 怒っている両手パンチのエフェクト
-    int    m_powerDoublePunchEffect = -1;
+    int   _powerDoublePunchEffect = -1;
     //! 再生しているエフェクト
-    int    m_playingEffect          = -1;
+    int   _playingEffect          = -1;
     //! 攻撃のサウンドエフェクト
-    int    m_attackSE               = -1;
+    int   _attackSE               = -1;
     //! 溜まっているダメージ
-    int    m_damageCount            = 0;
+    int   _damageCount            = 0;
     //! 基礎攻撃力
-    int    m_attackVal              = 10;
+    int   _attackVal              = 10;
     //! エフェクトのリスト
-    int*   m_pEffectList;
+    int*  _pEffectList;
     //! プレイヤー当たったのか
-    bool   m_isHitPlayer = false;
+    bool  _isHitPlayer = false;
     //! 倒されたのか
-    bool   m_isDead      = false;
+    bool  _isDead      = false;
     //! 怒っているのか
-    bool   m_isAngry     = false;
+    bool  _isAngry     = false;
     //! サウンドエフェクトが再生しているのか
-    bool   m_playedSE    = false;
+    bool  _playedSE    = false;
 
-    //bool m_bigExplode = false;
+    //bool _bigExplode = false;
     //! スローモーション
-    bool m_slowMotion = false;
+    bool _slowMotion = false;
 
-    bool m_hideUI = false;
+    bool _hideUI = false;
 
     //------------------------------------------------------------
     //! @brief プレイ中の行動
     //------------------------------------------------------------
-    void GameAction();
+    virtual void GameAction() override;
     //------------------------------------------------------------
     //! @brief シーンイントロの行動
     //------------------------------------------------------------
-    void TransInAction();
+    virtual void TransInAction() override;
     //------------------------------------------------------------
     //! @brief シーン終了の行動
     //------------------------------------------------------------
-    void TransOutAction();
+    virtual void TransOutAction() override;
     //------------------------------------------------------------
     //! @brief 待機
     //------------------------------------------------------------
-    void Idle();
+    virtual void Idle() override;
     //------------------------------------------------------------
     //! @brief 待つ
     //------------------------------------------------------------
-    void Wait();
+    virtual void Wait() override;
     //------------------------------------------------------------
     //! @brief プレイヤーを追いかける
     //------------------------------------------------------------
-    void ChasePlayer();
+    virtual void ChasePlayer() override;
     //------------------------------------------------------------
     //! @brief 行動を選択する（一般）
     //------------------------------------------------------------
-    void SelectAction();
+    void         SelectAction();
     //------------------------------------------------------------
     //! @brief 行動を選択する（怒る）
     //------------------------------------------------------------
-    void SelectAngryAction();
+    void         SelectAngryAction();
     //------------------------------------------------------------
     //! @brief 攻撃する
     //------------------------------------------------------------
-    void Attack();
+    virtual void Attack() override;
     //------------------------------------------------------------
     //! @brief 攻撃のアニメーション
     //!
@@ -348,18 +337,18 @@ class Boss: public Object {
     //------------------------------------------------------------
     //! @brief 倒された
     //------------------------------------------------------------
-    void Die();
+    virtual void Die() override;
     //------------------------------------------------------------
     //! @brief 状態変換
     //------------------------------------------------------------
-    void ChangeState(BossState state);
+    void         ChangeState(MawJLaygoState state);
     //------------------------------------------------------------
     //! @brief アニメーションマップを設定します
     //------------------------------------------------------------
-    void SetAnimList();
+    void         SetAnimList();
     //------------------------------------------------------------
     //! @brief コンボマップを設定します
     //------------------------------------------------------------
-    void SetComboList();
+    void         SetComboList();
 };
 }    // namespace LittleQuest

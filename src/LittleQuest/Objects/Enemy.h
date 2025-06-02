@@ -1,79 +1,55 @@
 ﻿#pragma once
 
-#include "player.h"
+#include "LittleQuest/Tool.h"
 
 #include <System/Scene.h>
+#include <vector>
 #include <System/Component/ComponentModel.h>
+#include <LittleQuest/Objects/Character.h>
 
 namespace LittleQuest {
 USING_PTR(Enemy);
-
 class ComponentHP;
-class Enemy: public Object {
+//////////////////////////////////////////////////////////////
+//! @brief エネミークラス
+//////////////////////////////////////////////////////////////
+class Enemy: public Character {
    public:
     BP_OBJECT_DECL(Enemy, "LittleQuest/Enemy");
-    static EnemyPtr Create(const float3& pos, bool isPatrol = true, bool isBoss = false);
 
-    bool Init() override;
-    void Update() override;
-    void LateDraw() override;
-    void GUI() override;
-    void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
+    enum class EnemyType {
+        Mob,
+        Boss,
+    };
 
-    virtual void GetHit(int damage);
-    float        getDestroyTimer();
+    virtual bool IsBoss() {
+        return _type == EnemyType::Boss;
+    }
 
    protected:
-    enum class EnemyState : unsigned int {
-        IDLE,
-        PATROL,
-        GIVE_UP,
-        WAIT,
-        CHASING,
-        ATTACK,
-        GET_HIT,
-        DEAD,
-    };
-    EnemyState state;
-    EnemyState prevState;
-    EnemyState initialState;
-    void       ChangeState(EnemyState state);
+    const float DEFAULT_WAIT_TIME = 120.0f;
 
-    virtual void Idle();
-    virtual void Die();
+    EnemyType                  _type = EnemyType::Mob;
+    //! プレイヤー
+    ObjectWeakPtr              _player;
+    std::weak_ptr<ComponentHP> _componentHP;
 
-    virtual void BackToInitialPosition(float3& move);
-    virtual void Patrol(float3& move);
+    //! 待つ時間タイマー
+    float _waitFor  = 0.0f;
+    //! 待つ時間の長さ
+    float _waitTime = DEFAULT_WAIT_TIME;
 
-    virtual void Wait(float time);
-    virtual void Waiting(float deltaTime);
-
-    virtual bool FindPlayer();
-    virtual void ChasePlayer(float3& move);
-    virtual void Attack();
-
-    float3              spawnPos;
-    float3              goal;
-    bool                isPatrol;
-    std::vector<float3> patrolPoint;
-    int                 patrolIndex;
-    float               waitTime;
-
-    bool  isAttack = false;
-    bool  isHitPlayer;
-    bool  isFoundPlayer;
-    float degree;
-
-    const float speedBase   = 0.3f;
-    const float walkVal     = 0.5f;
-    const float runVal      = 1.f;
-    float       speedFactor = 1.0f;
-
-    bool  isDead       = false;
-    float destroyTimer = 5;
-
-    ObjectWeakPtr                 pPlayer;
-    std::weak_ptr<ComponentModel> pModel;
-    std::weak_ptr<ComponentHP>    pHP;
+    //------------------------------------------------------------
+    //! @brief 待つ
+    //------------------------------------------------------------
+    virtual void Wait() {}
+    //------------------------------------------------------------
+    //! @brief プレイヤーを追いかける
+    //------------------------------------------------------------
+    virtual void ChasePlayer() {}
+    //------------------------------------------------------------
+    //! @brief 攻撃する
+    //------------------------------------------------------------
+    virtual void Attack() {}
 };
 }    // namespace LittleQuest

@@ -363,11 +363,11 @@ class EngineImpl final: public physics::Engine {
     //@}
 
    private:
-    std::unique_ptr<JPH::Factory>             jph_factory_;           //!< Factoryクラス
-    std::unique_ptr<JPH::JobSystemThreadPool> job_system_;            //!< ジョブシステム
-    std::unique_ptr<JPH::PhysicsSystem>       jph_physics_system_;    //!< Physicsシステム
-    static inline JPH::PhysicsSystem* physics_system_ = nullptr;      //!< Physicsシステムのstaticアクセス用の参照
-    static inline JPH::BodyInterface* body_interface_ = nullptr;      //!< ボディインターフェイス参照
+    std::unique_ptr<JPH::Factory>             jph_factory_;                 //!< Factoryクラス
+    std::unique_ptr<JPH::JobSystemThreadPool> job_system_;                  //!< ジョブシステム
+    std::unique_ptr<JPH::PhysicsSystem>       jph_physics_system_;          //!< Physicsシステム
+    static inline JPH::PhysicsSystem*         physics_system_ = nullptr;    //!< Physicsシステムのstaticアクセス用の参照
+    static inline JPH::BodyInterface*         body_interface_ = nullptr;    //!< ボディインターフェイス参照
     static inline JPH::TempAllocator* temp_allocator_ = nullptr;    //!< ! テンポラリアロケーターのstaticアクセス用の参照
 
     //! テンポラリアロケーター

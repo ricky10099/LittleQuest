@@ -70,19 +70,19 @@ class ClassComponentType: public ComponentTypeInfo {
 //!         BP_COMPONENT_DECL(B, u8"コンポーネント");
 //! @endcode
 //---------------------------------------------------------------------------
-#define BP_COMPONENT_DECL(CLASS, ...)                                                                                                                   \
-    using Super = ComponentClass; /*! 親クラスの型 : 上のクラス階層で定義されているClassを使うことで親クラスを定義 */ \
-    using ComponentClass = CLASS; /*! 自クラスの型 : これ以降は親クラスではなく自クラスを指す */                              \
-                                                                                                                                                        \
-    /*! 型情報 */                                                                                                                                    \
-    static inline ClassComponentType<CLASS> Type = ClassComponentType<CLASS>(#CLASS, &Super::Type, __VA_ARGS__);                                        \
-                                                                                                                                                        \
-    /*! 型情報を取得 */                                                                                                                           \
-    virtual const ComponentTypeInfo* typeInfo() const {                                                                                                 \
-        return &Type;                                                                                                                                   \
-    }                                                                                                                                                   \
-    void* createComponentPtr(const ObjectPtr& obj) {                                                                                                    \
-        return Type.createComponentPtr(obj);                                                                                                            \
+#define BP_COMPONENT_DECL(CLASS, ...)                                                                                          \
+    using Super          = ComponentClass; /*! 親クラスの型 : 上のクラス階層で定義されているClassを使うことで親クラスを定義 */ \
+    using ComponentClass = CLASS;          /*! 自クラスの型 : これ以降は親クラスではなく自クラスを指す */                      \
+                                                                                                                               \
+    /*! 型情報 */                                                                                                              \
+    static inline ClassComponentType<CLASS> Type = ClassComponentType<CLASS>(#CLASS, &Super::Type, __VA_ARGS__);               \
+                                                                                                                               \
+    /*! 型情報を取得 */                                                                                                        \
+    virtual const ComponentTypeInfo* typeInfo() const {                                                                        \
+        return &Type;                                                                                                          \
+    }                                                                                                                          \
+    void* createComponentPtr(const ObjectPtr& obj) {                                                                           \
+        return Type.createComponentPtr(obj);                                                                                   \
     }
 
 //***************************************************************************
@@ -102,14 +102,13 @@ class ClassComponentType: public ComponentTypeInfo {
 //! @endcode
 //---------------------------------------------------------------------------
 #define BP_COMPONENT_BASE_TYPE(CLASS)                                                                                                                                           \
-    using MyClass = CLASS; /*! 自クラスの型 */                                                                                                                            \
+    using MyClass = CLASS; /*! 自クラスの型 */                                                                                                                                  \
                                                                                                                                                                                 \
-    /*! 型情報 */                                                                                                                                                            \
+    /*! 型情報 */                                                                                                                                                               \
     [[deprecated("BP_COMPONENT_TYPE() と BP_COMPONENT_BASE_TYPE() は古い宣言です。BP_COMPONENT_DECL(クラス名, u8\"解説文\") に置換してください。")]] static ClassComponentType< \
-        CLASS>                                                                                                                                                                  \
-        Type;                                                                                                                                                                   \
+        CLASS> Type;                                                                                                                                                            \
                                                                                                                                                                                 \
-    /*! 型情報を取得 */                                                                                                                                                   \
+    /*! 型情報を取得 */                                                                                                                                                         \
     virtual const ComponentTypeInfo* typeInfo() const {                                                                                                                         \
         return &Type;                                                                                                                                                           \
     }
@@ -125,7 +124,7 @@ class ClassComponentType: public ComponentTypeInfo {
 //!         BP_COMPONENT_TYPE(B, A);
 //! @endcode
 //---------------------------------------------------------------------------
-#define BP_COMPONENT_TYPE(CLASS, PARENT_CLASS)           \
+#define BP_COMPONENT_TYPE(CLASS, PARENT_CLASS)     \
     using Super = PARENT_CLASS; /* 親クラスの型 */ \
     BP_COMPONENT_BASE_TYPE(CLASS);
 
@@ -137,11 +136,11 @@ class ClassComponentType: public ComponentTypeInfo {
 //! @endcode
 //---------------------------------------------------------------------------
 #define BP_COMPONENT_BASE_IMPL(CLASS, DESC_NAME) \
-    /*! 型情報の実体 */                    \
+    /*! 型情報の実体 */                          \
     ClassComponentType<CLASS> CLASS::Type(#CLASS, sizeof(CLASS), nullptr, DESC_NAME);
 
 #define BP_COMPONENT_IMPL(CLASS, DESC_NAME) \
-    /*! 型情報の実体 */               \
+    /*! 型情報の実体 */                     \
     ClassComponentType<CLASS> CLASS::Type(#CLASS, &Super::Type, DESC_NAME);
 //ClassComponentType<CLASS> CLASS::Type(#CLASS, sizeof(CLASS), &Super::Type, DESC_NAME);
 

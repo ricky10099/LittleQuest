@@ -540,7 +540,7 @@ const float ComponentModel::GetAnimationTime() {
 }
 
 #pragma region customized
-const float    ComponentModel::GetAnimationPlayTime() {
+const float ComponentModel::GetAnimationPlayTime() {
     if(IsPlaying())
         return animation_->GetAnimationPlayTime();
 

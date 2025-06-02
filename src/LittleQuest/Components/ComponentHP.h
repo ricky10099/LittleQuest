@@ -18,6 +18,8 @@ class ComponentHP: public Component {
     enum HP_TYPE {
         PLAYER,    //!< プレイヤー
         BOSS,      //!< ボス
+        MOB,       //!< 雑魚
+        NONE,
     };
 
     //------------------------------------------------------------
@@ -70,19 +72,19 @@ class ComponentHP: public Component {
     const float DAMAGE_TIME = 60.0f;
 
     //! HPゲージのタイプ
-    HP_TYPE m_type        = HP_TYPE::PLAYER;
+    HP_TYPE _type        = HP_TYPE::NONE;
     //! ゲージを描画する座標
-    VECTOR  m_pos2D       = {0, 0, 0};
+    VECTOR  _pos2D       = {0, 0, 0};
     //! 最大HP量
-    int     m_maxHP       = 100;
+    int     _maxHP       = 100;
     //! 現在のHP量
-    int     m_currHP      = m_maxHP;
+    int     _currHP      = _maxHP;
     //! ゲージ裏のHP量（ダメージアニメーション）
-    float   m_backHP      = (float)m_maxHP;
+    float   _backHP      = (float)_maxHP;
     //! ダメージアニメーションのタイマー
-    float   m_damageTimer = 0;
+    float   _damageTimer = 0;
     //! アニメーション中なのか
-    bool    m_decreasing  = false;
+    bool    _decreasing  = false;
 
     //--------------------------------------------------------------------
     //! @name Cereal処理

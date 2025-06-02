@@ -10,10 +10,10 @@
 #include <algorithm>
 
 #pragma region customized
-extern bool    exit_app;
-extern int     bgm_volume;
-extern int     se_volume;
-extern int     audio[2];
+extern bool exit_app;
+extern int  bgm_volume;
+extern int  se_volume;
+extern int  audio[2];
 #pragma endregion
 
 //=============================================================
@@ -46,9 +46,9 @@ std::string                 sel_item = "";
 std::string debug_scene_name;
 
 #pragma region customized
-bool           scene_can_pause = false;
-bool           scene_draw_menu = false;
-bool           stop_pause      = false;
+bool scene_can_pause = false;
+bool scene_draw_menu = false;
+bool stop_pause      = false;
 
 int           font_handle         = -1;
 int           bgm_handle          = -1;
@@ -812,7 +812,7 @@ void Scene::ChangeNextScene() {
 }
 
 #pragma region customized
-void           Scene::QueueScene(BasePtr scene) {
+void Scene::QueueScene(BasePtr scene) {
     queue_scene_ = scene;
 }
 
@@ -827,7 +827,7 @@ Scene::Base* Scene::GetCurrentScene() {
 }
 
 //! 初期化処理
-void           Scene::Init() {
+void Scene::Init() {
     // ここではObjはInitしない
     // Worldが出来上がり、その後、
     // 個別にオブジェクトは作成されるため
@@ -835,8 +835,8 @@ void           Scene::Init() {
 #pragma region customized
     scene_can_pause = false;
     scene_draw_menu = false;
-    font_handle = CreateFontToHandle("M PLUS Code Latin", 50, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
-    bgm_index   = -1;
+    font_handle     = CreateFontToHandle("M PLUS Code Latin", 50, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
+    bgm_index       = -1;
 
     menu_function.emplace_back(SetBGMVolume);
     menu_function.emplace_back(SetSEVolume);
@@ -1460,7 +1460,7 @@ float Scene::GetTime() {
 }
 
 #pragma region customized
-void           Scene::Pause() {
+void Scene::Pause() {
     scene_pause     = !IsPause();
     scene_draw_menu = !scene_draw_menu;
 }
@@ -1517,7 +1517,7 @@ void Scene::ExitApp() {
 #pragma endregion
 
 //! @brief ComponentCollisionの当たり判定を行う
-void           Scene::CheckComponentCollisions() {
+void Scene::CheckComponentCollisions() {
     // オブジェの数を取得
     int obj_num = (int)current_scene_->GetObjectPtrVec().size();
     for(int obj_index = 0; obj_index < obj_num; obj_index++) {

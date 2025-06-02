@@ -97,7 +97,7 @@ bool Stage01::Init() {
     m_pPlayerCamera.lock()->SetName("PlayerCamera");
     m_pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
 
-    m_pBoss = Boss::Create(BOSS_SPAWN_POS);
+    m_pBoss = MawJLaygo::Create(BOSS_SPAWN_POS);
     m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
     m_pBoss.lock()->SetSceneState(scene_state);
 

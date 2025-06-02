@@ -3,7 +3,7 @@
 //! @brief  Stage01シーン
 //---------------------------------------------------------------------------
 #include <LittleQuest/Objects/Player.h>
-#include <LittleQuest/Objects/Boss.h>
+#include <LittleQuest/Objects/MawJLaygo.h>
 #include <LittleQuest/Components/ComponentTexture.h>
 
 #include <vector>
@@ -143,7 +143,7 @@ class Stage01: public Scene::Base {
     //! プレイヤー
     std::weak_ptr<Player>             m_pPlayer;
     //! ボス
-    std::weak_ptr<Boss>               m_pBoss;
+    std::weak_ptr<MawJLaygo>          m_pBoss;
     //! プレイヤーカメラ
     std::weak_ptr<Camera>             m_pPlayerCamera;
     //! シーンカメラ

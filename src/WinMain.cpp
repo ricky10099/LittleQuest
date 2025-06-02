@@ -7,17 +7,17 @@ s32 WINDOW_W = 1280;
 s32 WINDOW_H = 720;
 
 #pragma region customized
-bool           exit_app   = false;
-int            bgm_volume = 30;
-int            se_volume  = 75;
-int            audio[2]   = {bgm_volume, se_volume};
+bool exit_app   = false;
+int  bgm_volume = 30;
+int  se_volume  = 75;
+int  audio[2]   = {bgm_volume, se_volume};
 #pragma endregion
 
 //---------------------------------------------------------------------------
 //! アプリケーションエントリーポイント
 //---------------------------------------------------------------------------
-int WINAPI     WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_unused]] HINSTANCE hPrevInstance,
-                       _In_ [[maybe_unused]] LPSTR lpCmdLine, _In_ [[maybe_unused]] int nShowCmd) {
+int WINAPI WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[maybe_unused]] HINSTANCE hPrevInstance,
+                   _In_ [[maybe_unused]] LPSTR lpCmdLine, _In_ [[maybe_unused]] int nShowCmd) {
     // 高DPI対応
     SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
 
@@ -106,7 +106,7 @@ int WINAPI     WinMain(_In_ [[maybe_unused]] HINSTANCE hInstance, _In_opt_ [[may
     // メインループ
     //----------------------------------------------------------
 #pragma region customized
-#if defined    _DEBUG
+#if defined _DEBUG
     while(ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0 && !IsProcEnd()) {
 #else
     while(ProcessMessage() == 0 && !IsProcEnd()) {

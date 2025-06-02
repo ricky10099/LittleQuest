@@ -78,7 +78,7 @@ void ComponentCollision::OnHit(const HitInfo& hitInfo) {
 }
 
 #pragma region customized
-void           ComponentCollision::ExitHit(const HitInfo& hitInfo) {
+void ComponentCollision::ExitHit(const HitInfo& hitInfo) {
     auto obj = GetOwner();
     obj->ExitHit(hitInfo);
 }
