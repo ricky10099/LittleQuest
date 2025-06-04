@@ -99,6 +99,8 @@ void ComponentHP::DrawHPBar() {
         DrawFillBox((int)_pos2D.x - 100, (int)_pos2D.y, (int)(_pos2D.x - 100 + ((_currHP / (float)_maxHP) * 200)),
                     (int)_pos2D.y + 10, GetColor(255, 255, 0));
         break;
+    default:
+        break;
     }
 }
 }    // namespace LittleQuest

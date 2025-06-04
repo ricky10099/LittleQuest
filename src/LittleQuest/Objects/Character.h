@@ -15,11 +15,6 @@ USING_PTR(Character);
 class Character: public Object {
    public:
     BP_OBJECT_DECL(Character, "LittleQuest/Character");
-    ////------------------------------------------------------------
-    ////! @brief プレイヤーを生成します。
-    ////------------------------------------------------------------
-    //static CharacterPtr Create(const float3& pos);
-
     //------------------------------------------------------------
     //! @brief 攻撃される処理を行います。
     //!

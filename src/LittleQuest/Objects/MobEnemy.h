@@ -17,6 +17,10 @@ class MobEnemy: public Enemy {
     virtual bool Init() override;
     virtual void Update() override;
     virtual void Idle() override;
+    virtual void LateDraw() override;
+
+    virtual void SetSpawnPoint(float3 spawnPoint);
+
     virtual void GetHit(int damage) override;
     float        GetDestroyTimer();
 
@@ -26,27 +30,16 @@ class MobEnemy: public Enemy {
         PATROL,
         GIVE_UP,
         WAIT,
-        CHASING,
+        CHASE,
         ATTACK,
         GET_HIT,
         DEAD,
     };
     MobEnemyState _initialState = MobEnemyState::IDLE;
     MobEnemyState _state        = _initialState;
-    MobEnemyState _prevState    = _initialState;
-    void          ChangeState(MobEnemyState state);
+    //MobEnemyState _prevState = _initialState;
 
-    virtual void BackToInitialPosition(float3& move);
-    virtual void Patrol(float3& move);
-
-    //virtual void Wait(/*float time*/);
-    //virtual void Waiting(float deltaTime);
-
-    virtual bool FindPlayer();
-    virtual void ChasePlayer(/*float3& move*/) override;
-    virtual void Wait() override;
-    virtual void Attack() override;
-    virtual void Die() override;
+    bool _hideUI = false;
 
     float3              _spawnPos;
     float3              _goal;
@@ -68,8 +61,18 @@ class MobEnemy: public Enemy {
     bool  _isDead       = false;
     float _destroyTimer = 5;
 
-    //ObjectWeakPtr                 pPlayer;
-    //std::weak_ptr<ComponentModel> pModel;
-    //std::weak_ptr<ComponentHP>    pHP;
+    virtual void ChangeState(MobEnemyState state);
+
+    virtual void BackToInitialPosition(/*float3& move*/);
+    virtual void Patrol(/*float3& move*/);
+
+    //virtual void Wait(/*float time*/);
+    //virtual void Waiting(float deltaTime);
+
+    virtual bool FindPlayer();
+    virtual void ChasePlayer(/*float3& move*/) override;
+    virtual void Wait() override;
+    virtual void Attack() override;
+    virtual void Die() override;
 };
 }    // namespace LittleQuest

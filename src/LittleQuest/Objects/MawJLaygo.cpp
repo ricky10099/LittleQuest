@@ -29,7 +29,7 @@ bool MawJLaygo::Init() {
     _model.lock()->SetScaleAxisXYZ({0.15f});
     _model.lock()->SetAnimation({
         {       STR(MawJLaygoState::IDLE),           "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
-        {                          "Walk",        "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 1.0f},
+        {      STR(MawJLaygoState::CHASE),        "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 2.5f},
         {  STR(MawJLaygoState::TURN_LEFT),       "data/LittleQuest/Anim/MutantSet/MutantLeftTurn.mv1", 0, 2.0f},
         { STR(MawJLaygoState::TURN_RIGHT),      "data/LittleQuest/Anim/MutantSet/MutantRightTurn.mv1", 0, 2.0f},
         { STR(MawJLaygoAnim::SWIP_ATTACK),        "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 1.0f},
@@ -99,7 +99,7 @@ bool MawJLaygo::Init() {
 
 void MawJLaygo::Update() {
 #if 0
-    return;
+		return;
 #endif    // _DEBUG
 
     switch(_sceneState) {
@@ -244,7 +244,7 @@ void MawJLaygo::ChasePlayer() {
     float3 move     = _player.lock()->GetTranslate() - this->GetTranslate();
     float  distance = GetDistance(move);
 
-    _model.lock()->PlayAnimationNoSame("Walk", true);
+    _model.lock()->PlayAnimationNoSame(STR(MawJLaygoState::CHASE), true);
 
     if(distance > 0) {
         move = normalize(move);

@@ -101,6 +101,11 @@ bool Stage01::Init() {
     m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
     m_pBoss.lock()->SetSceneState(scene_state);
 
+    m_pMob = Mutant::Create(MOB_SPAWN_POS);
+    m_pMob.lock()->SetSpawnPoint(MOB_SPAWN_POS);
+    m_pMob.lock()->SetRotationAxisXYZ({0, 90, 0});
+    m_pMob.lock()->SetSceneState(scene_state);
+
     auto obj  = Scene::CreateObjectPtr<Object>()->SetName("CutSceneCamera");
     m_pCamera = obj->AddComponent<ComponentCamera>();
     m_pCamera.lock()->SetCurrentCamera();

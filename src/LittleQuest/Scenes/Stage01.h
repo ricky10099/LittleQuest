@@ -4,6 +4,7 @@
 //---------------------------------------------------------------------------
 #include <LittleQuest/Objects/Player.h>
 #include <LittleQuest/Objects/MawJLaygo.h>
+#include <LittleQuest/Objects/Mutant.h>
 #include <LittleQuest/Components/ComponentTexture.h>
 
 #include <vector>
@@ -40,7 +41,7 @@ class Stage01: public Scene::Base {
     void Exit() override;
 
     //! シーンのイントロ中なのか
-    bool M_IsCutScene = true;
+    bool IsCutScene = true;
 
    private:
     //! シーンのイントロの時間
@@ -61,6 +62,7 @@ class Stage01: public Scene::Base {
     const float3 PLAYER_SPAWN_POS     = {-50, 1, -50};
     //! ボス生成位置
     const float3 BOSS_SPAWN_POS       = {140, 1, -50};
+    const float3 MOB_SPAWN_POS        = {100, 1, -50};
     //! プレイヤー負けたカメラの位置
     const float3 PLAYER_DEATH_CAM     = {-40, 20, -50};
     //! ボス倒されたカメラの位置
@@ -144,6 +146,7 @@ class Stage01: public Scene::Base {
     std::weak_ptr<Player>             m_pPlayer;
     //! ボス
     std::weak_ptr<MawJLaygo>          m_pBoss;
+    std::weak_ptr<Mutant>             m_pMob;
     //! プレイヤーカメラ
     std::weak_ptr<Camera>             m_pPlayerCamera;
     //! シーンカメラ

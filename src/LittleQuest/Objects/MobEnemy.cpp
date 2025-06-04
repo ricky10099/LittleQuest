@@ -16,11 +16,11 @@
 
 namespace LittleQuest {
 bool MobEnemy::Init() {
-    _prevState = _state = MobEnemyState::IDLE;
+    //_prevState = _state = MobEnemyState::IDLE;
 
     if(_isPatrol) {
         _patrolPoint.push_back(this->GetTranslate() + float3{-50, 0, 0});
-        _patrolPoint.push_back(this->GetTranslate() + float3{50, 0, 0});
+        _patrolPoint.push_back(this->GetTranslate() + float3{0, 0, 50});
     }
 
     if(!_patrolPoint.empty()) {
@@ -29,7 +29,7 @@ bool MobEnemy::Init() {
         _state       = MobEnemyState::PATROL;
     }
 
-    _initialState = _state;
+    _initialState = _state = MobEnemyState::IDLE;
 
     _player = Scene::GetObjectPtr<Player>("Player");
 
@@ -54,7 +54,7 @@ void MobEnemy::Update() {
         }
     }
 
-    float3 move;
+    //float3 move;
 
     switch(_state) {
     case MobEnemyState::GET_HIT:
@@ -63,9 +63,9 @@ void MobEnemy::Update() {
         }
         break;
     case MobEnemyState::GIVE_UP:
-        BackToInitialPosition(move);
+        BackToInitialPosition(/*move*/);
         break;
-    case MobEnemyState::CHASING:
+    case MobEnemyState::CHASE:
         ChasePlayer(/*move*/);
         break;
     case MobEnemyState::ATTACK:
@@ -76,35 +76,38 @@ void MobEnemy::Update() {
         Wait();
         break;
     case MobEnemyState::PATROL:
-        Patrol(move);
+        Patrol(/*move*/);
         break;
     case MobEnemyState::IDLE:
         Idle();
         break;
     }
 
-    move *= _speedBase * _speedFactor * GetDeltaTime60();
-    AddTranslate(move);
+    _movement *= _speedBase * _speedFactor * GetDeltaTime60();
+    AddTranslate(_movement);
 }
-//
-//// 基本描画の後に処理します
-//void MobEnemy::LateDraw() {
-//    if(Scene::IsEdit()) {
-//        printfDx("\n%s state: %i", this->GetName().data(), state);
-//        if(auto modelPtr = GetComponent<ComponentModel>()) {
-//            printfDx("\n%s %s Animation Time:%f", this->GetName().data(), modelPtr->GetPlayAnimationName().data(),
-//                     modelPtr->GetAnimationTime());
-//        }
-//        printfDx("\ncurpoint: %i", patrolIndex);
-//        printfDx("\nx distance: %f", float3(goal - GetTranslate())[0]);
-//        printfDx("\nz distance: %f", float3(goal - GetTranslate())[2]);
-//        printfDx("\nf(distance): %f", GetDistance(GetTranslate(), goal));
-//        printfDx("\nisFound: %i", isFoundPlayer);
-//        printfDx("\ntargetDegree: %f", GetDegreeToPosition(pPlayer.lock()->GetTranslate()));
-//        printfDx("\ndie timer: %f", destroyTimer);
-//    }
-//    pHP.lock()->DrawHPBar();
-//}
+
+// 基本描画の後に処理します
+void MobEnemy::LateDraw() {
+    if(Scene::IsEdit()) {
+        printfDx("\n%s state: %i", this->GetName().data(), _state);
+        if(auto modelPtr = GetComponent<ComponentModel>()) {
+            printfDx("\n%s %s Animation Time:%f", this->GetName().data(), modelPtr->GetPlayAnimationName().data(),
+                     modelPtr->GetAnimationTime());
+        }
+        printfDx("\ncurpoint: %i", _patrolIndex);
+        printfDx("\nx distance: %f", float3(_goal - GetTranslate())[0]);
+        printfDx("\nz distance: %f", float3(_goal - GetTranslate())[2]);
+        printfDx("\ny distance: %f", float3(_goal - GetTranslate())[1]);
+        printfDx("\nf(distance): %f", GetDistance(GetTranslate(), _goal));
+        printfDx("\nisFound: %i", _isFoundPlayer);
+        printfDx("\ntargetDegree: %f", GetDegreeToPosition(_player.lock()->GetTranslate()));
+        printfDx("\ndie timer: %f", _destroyTimer);
+    }
+    if(!_hideUI) {
+        _componentHP.lock()->DrawHPBar();
+    }
+}
 
 //void MobEnemy::GUI() {
 //    Super::GUI();
@@ -121,26 +124,31 @@ void MobEnemy::Idle() {
     //}
 }
 
+void MobEnemy::SetSpawnPoint(float3 spawnPoint) {
+    _spawnPos = spawnPoint;
+}
+
 bool MobEnemy::FindPlayer() {
     float distance = GetDistance(_player.lock()->GetTranslate(), this->GetTranslate());
     if(distance < 50 && GetDegreeToPosition(_player.lock()->GetTranslate()) < 50) {
-        ChangeState(MobEnemyState::CHASING);
+        ChangeState(MobEnemyState::CHASE);
         return true;
-    } else if(_prevState == MobEnemyState::CHASING) {
+    } else if(_state == MobEnemyState::CHASE) {
         ChangeState(MobEnemyState::GIVE_UP);
     }
     return false;
 }
 
-void MobEnemy::BackToInitialPosition(float3& move) {
-    auto pos = this->GetTranslate();
-    pos.y    = 0;
-    move     = _spawnPos - pos;
-    if(GetDistance(move) > 0.5f) {
-        move = normalize(move);
+void MobEnemy::BackToInitialPosition(/*float3& move*/) {
+    auto pos    = this->GetTranslate();
+    //pos.y    = 0;
+    _movement   = _spawnPos - pos;
+    _movement.y = 0;
+    if(GetDistance(_movement) > 0.5f) {
+        _movement = normalize(_movement);
 
-        float x     = -move.x;
-        float z     = -move.z;
+        float x     = -_movement.x;
+        float z     = -_movement.z;
         float theta = atan2(x, z) * RadToDeg;
 
         this->SetRotationAxisXYZ({0, theta, 0});
@@ -150,11 +158,11 @@ void MobEnemy::BackToInitialPosition(float3& move) {
     }
 }
 
-void MobEnemy::Patrol(float3& move) {
+void MobEnemy::Patrol(/*float3& _movement*/) {
     auto pos        = GetTranslate();
-    move            = _goal - pos;
-    move.y          = 0;
-    float moveValue = GetDistance(move);
+    _movement       = _goal - pos;
+    _movement.y     = 0;
+    float moveValue = GetDistance(_movement);
 
     if(moveValue < 5.0f) {
         _patrolIndex++;
@@ -165,10 +173,10 @@ void MobEnemy::Patrol(float3& move) {
     }
 
     if(moveValue > 1.0f) {
-        move = normalize(move);
+        _movement = normalize(_movement);
 
-        float x     = -move.x;
-        float z     = -move.z;
+        float x     = -_movement.x;
+        float z     = -_movement.z;
         float theta = atan2(x, z) * RadToDeg;
 
         SetRotationAxisXYZ({0, theta, 0});
@@ -234,7 +242,7 @@ void MobEnemy::GetHit(int damage) {
 }
 
 void MobEnemy::ChangeState(MobEnemyState state) {
-    _prevState   = this->_state;
+    //_prevState   = this->_state;
     this->_state = state;
 }
 

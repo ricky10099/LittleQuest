@@ -7,10 +7,10 @@
 namespace {
 constexpr unsigned int MAX_PAD_NUM = static_cast<unsigned int>(PAD_NO::PAD_NO_MAX);    //<! PAD接続最大数
 constexpr unsigned int MAX_PAD_TYPE =
-    static_cast<unsigned int>(PAD_ID::PAD_ID_MAX);                                 //<! 上下左右/A B C X Y Z L R START Mボタン
+    static_cast<unsigned int>(PAD_ID::PAD_ID_MAX);    //<! 上下左右/A B C X Y Z L R START Mボタン
 constexpr unsigned int MIN_PAD_TYPE = static_cast<unsigned int>(PAD_ID::PAD_A);    //<! 上下左右/A B C X Y Z L R START Mボタン
 constexpr unsigned int MAX_PAD_DIRECT_NUM     = 4;                                 //<! 方向キーの方向最大値
-constexpr float        MAX_ANALOG_INPUT_VALUE = 1000.0f;                           //<! アナログスティックの入力値の最大値
+constexpr float        MAX_ANALOG_INPUT_VALUE = 1000.0f;    //<! アナログスティックの入力値の最大値
 constexpr unsigned int PAD_BUTTON_NUM = static_cast<unsigned int>(PAD_ID::PAD_M) - static_cast<unsigned int>(PAD_ID::PAD_A) + 1;
 
 std::vector<DINPUT_JOYSTATE>  pad_input_states;    //<! 詳細なパッドの状態の取得
