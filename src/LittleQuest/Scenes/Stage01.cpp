@@ -167,6 +167,7 @@ void Stage01::Update() {
             scene_state = Scene::SceneState::GAME;
             m_pPlayer.lock()->SetSceneState(scene_state);
             m_pBoss.lock()->SetSceneState(scene_state);
+            m_pMob.lock()->SetSceneState(scene_state);
         }
 
         if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
@@ -222,6 +223,7 @@ void Stage01::Update() {
             scene_state = Scene::SceneState::TRANS_OUT;
             m_pPlayer.lock()->SetSceneState(scene_state);
             m_pBoss.lock()->SetSceneState(scene_state);
+            m_pMob.lock()->SetSceneState(scene_state);
             m_pPlayer.lock()->SetTranslate(PLAYER_SPAWN_POS);
             m_pBoss.lock()->SetTranslate(BOSS_SPAWN_POS);
             m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});

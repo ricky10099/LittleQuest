@@ -143,7 +143,7 @@ class Model final
     std::wstring                          path_;                               //!< ファイルパス
     bool                                  use_shader_ = true;                  //!< シェーダーを使うかどうか
     matrix                                mat_world_  = matrix::identity();    //!< ワールド行列
-    Animation*                            animation_  = nullptr;    //!< 関連付けられているアニメーション
+    Animation*                            animation_  = nullptr;               //!< 関連付けられているアニメーション
 
     bool need_initialize_ = true;    //!< 初期化要求フラグ true:初期化が必要 false:初期化済または完了で不要
 
@@ -155,15 +155,15 @@ class Model final
     //----------------------------------------------------------
     //@{
 
-    static inline u32                       ref_counter_ = 0;                 //!< 参照カウンター
-    static inline std::shared_ptr<ShaderVs> shader_vs_;                       //!< 頂点シェーダー
-    static inline std::shared_ptr<ShaderPs> shader_ps_;                       //!< ピクセルシェーダー
-    static inline std::shared_ptr<ShaderGs> shader_gs_streamout_position_;    //!< ジオメトリシェーダー(頂点出力)
-    static inline std::shared_ptr<ShaderGs> shader_gs_composite_prev_position_;    //!< ジオメトリシェーダー(頂点合成)
-    Microsoft::WRL::ComPtr<ID3D11GeometryShader> d3d_shader_gs_streamout_position_;    //!< [D3D11]ストリーム出力用 (頂点出力)
-    static inline std::shared_ptr<Texture> tex_null_white_;                            //!< 白Nullテクスチャ (1,1,1,1)
-    static inline std::shared_ptr<Texture> tex_null_black_;                            //!< 黒Nullテクスチャ (0,0,0,1)
-    static inline std::shared_ptr<Texture> tex_null_normal_;                           //!< 法線Nullテクスチャ
+    static inline u32                            ref_counter_ = 0;                      //!< 参照カウンター
+    static inline std::shared_ptr<ShaderVs>      shader_vs_;                            //!< 頂点シェーダー
+    static inline std::shared_ptr<ShaderPs>      shader_ps_;                            //!< ピクセルシェーダー
+    static inline std::shared_ptr<ShaderGs>      shader_gs_streamout_position_;         //!< ジオメトリシェーダー(頂点出力)
+    static inline std::shared_ptr<ShaderGs>      shader_gs_composite_prev_position_;    //!< ジオメトリシェーダー(頂点合成)
+    Microsoft::WRL::ComPtr<ID3D11GeometryShader> d3d_shader_gs_streamout_position_;     //!< [D3D11]ストリーム出力用 (頂点出力)
+    static inline std::shared_ptr<Texture>       tex_null_white_;                       //!< 白Nullテクスチャ (1,1,1,1)
+    static inline std::shared_ptr<Texture>       tex_null_black_;                       //!< 黒Nullテクスチャ (0,0,0,1)
+    static inline std::shared_ptr<Texture>       tex_null_normal_;                      //!< 法線Nullテクスチャ
 
     //@}
 };

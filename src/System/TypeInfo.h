@@ -130,21 +130,21 @@ class CreateInstance<T, true> {
 //!         BP_CLASS_TYPE(B, u8"オブジェクト");
 //! @endcode
 //---------------------------------------------------------------------------
-#define BP_CLASS_DECL(CLASS, ...)                                                                                                              \
+#define BP_CLASS_DECL(CLASS, ...)                                                                            \
     using Super = Class; /*! 親クラスの型 : 上のクラス階層で定義されているClassを使うことで親クラスを定義 */ \
-    using Class = CLASS; /*! 自クラスの型 : これ以降は親クラスではなく自クラスを指す */                              \
-                                                                                                                                               \
-    /*! 型情報 */                                                                                                                           \
-    static inline ClassTypeInfo<CLASS> Type = ClassTypeInfo<CLASS>(#CLASS, &Super::Type, __VA_ARGS__);                                         \
-                                                                                                                                               \
-    /*! 型情報を取得 */                                                                                                                  \
-    virtual TypeInfo* typeInfo() const {                                                                                                       \
-        return &Type;                                                                                                                          \
-    }                                                                                                                                          \
-                                                                                                                                               \
-    /*! インスタンスを作成(クラスをnewしてポインタを返す)*/                                                              \
-    static void* createInstance() {                                                                                                            \
-        return CreateInstance<CLASS>()();                                                                                                      \
+    using Class = CLASS; /*! 自クラスの型 : これ以降は親クラスではなく自クラスを指す */                      \
+                                                                                                             \
+    /*! 型情報 */                                                                                            \
+    static inline ClassTypeInfo<CLASS> Type = ClassTypeInfo<CLASS>(#CLASS, &Super::Type, __VA_ARGS__);       \
+                                                                                                             \
+    /*! 型情報を取得 */                                                                                      \
+    virtual TypeInfo* typeInfo() const {                                                                     \
+        return &Type;                                                                                        \
+    }                                                                                                        \
+                                                                                                             \
+    /*! インスタンスを作成(クラスをnewしてポインタを返す)*/                                                  \
+    static void* createInstance() {                                                                          \
+        return CreateInstance<CLASS>()();                                                                    \
     }
 
 //***************************************************************************
@@ -164,18 +164,18 @@ class CreateInstance<T, true> {
 //! @endcode
 //---------------------------------------------------------------------------
 #define BP_BASE_TYPE(CLASS)                                                                                                                                \
-    using MyClass = CLASS; /*! 自クラスの型 */                                                                                                       \
+    using MyClass = CLASS; /*! 自クラスの型 */                                                                                                             \
                                                                                                                                                            \
-    /*! 型情報 */                                                                                                                                       \
+    /*! 型情報 */                                                                                                                                          \
     [[deprecated("BP_BASE_TYPE() と BP_CLASS_TYPE() は廃止されました。BP_CLASS_DECL(クラス名, u8\"解説文\") に置換してください。")]] static ClassTypeInfo< \
         CLASS> Type;                                                                                                                                       \
                                                                                                                                                            \
-    /*! 型情報を取得 */                                                                                                                              \
+    /*! 型情報を取得 */                                                                                                                                    \
     virtual const TypeInfo* typeInfo() const {                                                                                                             \
         return &Type;                                                                                                                                      \
     }                                                                                                                                                      \
                                                                                                                                                            \
-    /*! インスタンスを作成(クラスをnewしてポインタを返す)*/                                                                          \
+    /*! インスタンスを作成(クラスをnewしてポインタを返す)*/                                                                                                \
     static void* createInstance();
 
 //---------------------------------------------------------------------------
@@ -189,7 +189,7 @@ class CreateInstance<T, true> {
 //!         BP_CLASS_TYPE(B, A);
 //! @endcode
 //---------------------------------------------------------------------------
-#define BP_CLASS_TYPE(CLASS, PARENT_CLASS)               \
+#define BP_CLASS_TYPE(CLASS, PARENT_CLASS)         \
     using Super = PARENT_CLASS; /* 親クラスの型 */ \
     BP_BASE_TYPE(CLASS);
 
@@ -201,7 +201,7 @@ class CreateInstance<T, true> {
 //! @endcode
 //---------------------------------------------------------------------------
 #define BP_CLASS_IMPL(CLASS, DESC_NAME)                                                                                                                                                                                                                                 \
-    /*! 型情報の実体 */                                                                                                                                                                                                                                           \
+    /*! 型情報の実体 */                                                                                                                                                                                                                                                 \
     namespace {                                                                                                                                                                                                                                                         \
         [[deprecated(                                                                                                                                                                                                                                                   \
             "BP_CLASS_IMPL() は廃止されました。cppに定義する必要がなくなりましたので削除してください。\n    代わりにヘッダーのBP_CLASS_TYPE(クラス名, 親クラス名)を BP_CLASS_DECL(クラス名, u8\"解説文\") に置換してください。親クラス指定も不要になりました。")]] void \
@@ -222,7 +222,7 @@ class CreateInstance<T, true> {
 //! @endcode
 //---------------------------------------------------------------------------
 #define BP_BASE_IMPL(CLASS, DESC_NAME)                                                                                                                                                                                                                    \
-    /*! 型情報の実体 */                                                                                                                                                                                                                             \
+    /*! 型情報の実体 */                                                                                                                                                                                                                                   \
     ClassTypeInfo<CLASS> CLASS::Type(#CLASS, nullptr, DESC_NAME);                                                                                                                                                                                         \
     namespace {                                                                                                                                                                                                                                           \
         [[deprecated(                                                                                                                                                                                                                                     \
@@ -237,7 +237,7 @@ class CreateInstance<T, true> {
 
 // 抽象クラス用カスタム
 #define BP_BASE_IMPL_ABSOLUTE(CLASS, DESC_NAME)                                                                                                                                                                                                                    \
-    /*! 型情報の実体 */                                                                                                                                                                                                                                      \
+    /*! 型情報の実体 */                                                                                                                                                                                                                                            \
     ClassTypeInfo<CLASS> CLASS::Type(#CLASS, nullptr, DESC_NAME);                                                                                                                                                                                                  \
     namespace {                                                                                                                                                                                                                                                    \
         [[deprecated(                                                                                                                                                                                                                                              \

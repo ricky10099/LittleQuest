@@ -16,8 +16,6 @@
 
 namespace LittleQuest {
 bool MobEnemy::Init() {
-    //_prevState = _state = MobEnemyState::IDLE;
-
     if(_isPatrol) {
         _patrolPoint.push_back(this->GetTranslate() + float3{-50, 0, 0});
         _patrolPoint.push_back(this->GetTranslate() + float3{0, 0, 50});
@@ -54,8 +52,6 @@ void MobEnemy::Update() {
         }
     }
 
-    //float3 move;
-
     switch(_state) {
     case MobEnemyState::GET_HIT:
         if(!_model.lock()->IsPlaying()) {
@@ -63,10 +59,10 @@ void MobEnemy::Update() {
         }
         break;
     case MobEnemyState::GIVE_UP:
-        BackToInitialPosition(/*move*/);
+        BackToInitialPosition();
         break;
     case MobEnemyState::CHASE:
-        ChasePlayer(/*move*/);
+        ChasePlayer();
         break;
     case MobEnemyState::ATTACK:
         Attack();
@@ -104,8 +100,16 @@ void MobEnemy::LateDraw() {
         printfDx("\ntargetDegree: %f", GetDegreeToPosition(_player.lock()->GetTranslate()));
         printfDx("\ndie timer: %f", _destroyTimer);
     }
-    if(!_hideUI) {
-        _componentHP.lock()->DrawHPBar();
+    switch(_sceneState) {
+    case Scene::SceneState::TRANS_IN:
+        break;
+    case Scene::SceneState::GAME:
+        if(!_hideUI) {
+            _componentHP.lock()->DrawHPBar();
+        }
+        break;
+    case Scene::SceneState::TRANS_OUT:
+        break;
     }
 }
 
@@ -122,6 +126,11 @@ void MobEnemy::Idle() {
     //if(auto modelPtr = GetComponent<ComponentModel>()) {
     _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::IDLE), true);
     //}
+}
+
+void MobEnemy::SetSceneState(Scene::SceneState state) {
+    _sceneState = state;
+    ChangeState(MobEnemyState::IDLE);
 }
 
 void MobEnemy::SetSpawnPoint(float3 spawnPoint) {
@@ -167,7 +176,8 @@ void MobEnemy::Patrol(/*float3& _movement*/) {
     if(moveValue < 5.0f) {
         _patrolIndex++;
         _patrolIndex %= _patrolPoint.size();
-        _goal = _patrolPoint[_patrolIndex];
+        _goal    = _patrolPoint[_patrolIndex];
+        _waitFor = _waitTime;
         Wait(/*2.0f*/);
         return;
     }
@@ -188,6 +198,11 @@ void MobEnemy::Wait(/*float time*/) {
     ChangeState(MobEnemyState::WAIT);
     _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::IDLE), true, 0.3f);
     //_waitTime = time;
+    _waitFor -= GetDeltaTime60();
+
+    if(_waitFor <= 0.0f) {
+        ChangeState(MobEnemyState::IDLE);
+    }
 }
 
 //void MobEnemy::Waiting(float deltaTime) {

@@ -18,7 +18,10 @@ class MobEnemy: public Enemy {
     virtual void Update() override;
     virtual void Idle() override;
     virtual void LateDraw() override;
-
+    //------------------------------------------------------------
+    //! @brief シーンの行動を設定します。
+    //------------------------------------------------------------
+    virtual void SetSceneState(Scene::SceneState state) override;
     virtual void SetSpawnPoint(float3 spawnPoint);
 
     virtual void GetHit(int damage) override;
@@ -46,7 +49,7 @@ class MobEnemy: public Enemy {
     bool                _isPatrol;
     std::vector<float3> _patrolPoint;
     int                 _patrolIndex;
-    float               _waitTime;
+    float               _waitTime = 1.0f;
 
     bool  _isAttack = false;
     bool  _isHitPlayer;
