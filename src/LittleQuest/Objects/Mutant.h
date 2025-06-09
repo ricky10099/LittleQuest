@@ -2,6 +2,8 @@
 
 //#include "player.h"
 #include <LittleQuest/Objects/MobEnemy.h>
+#include "LittleQuest/Tool.h"
+
 #include <System/Scene.h>
 #include <System/Component/ComponentModel.h>
 
@@ -19,13 +21,20 @@ class Mutant: public MobEnemy {
     //virtual void Idle() override;
     //virtual void GetHit(int damage) override;
     //float        GetDestroyTimer();
-    inline void  SetHideUI(bool isHideUI) {
+    virtual void LateDraw() override;
+
+    inline void SetHideUI(bool isHideUI) {
         _hideUI = isHideUI;
     }
 
    protected:
     const int MAX_HP  = 50;
     bool      _hideUI = false;
+
+    //! 体のコリションボックス
+    std::weak_ptr<ComponentCollisionCapsule> _bodyBox;
+    //! 左手のコリションボックス
+    std::weak_ptr<ComponentCollisionCapsule> _leftHandBox;
     //virtual void ChangeState(MobEnemyState state) override;
 
     //virtual void BackToInitialPosition(float3& move) override;
@@ -37,7 +46,9 @@ class Mutant: public MobEnemy {
     //virtual bool FindPlayer() override;
     //virtual void ChasePlayer(/*float3& move*/) override;
     //virtual void Wait() override;
-    //virtual void Attack() override;
+    virtual void Attack() override;
+    void AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol = {},
+                         bool playSE = true);
     //virtual void Die() override;
 
     //float3              _spawnPos;

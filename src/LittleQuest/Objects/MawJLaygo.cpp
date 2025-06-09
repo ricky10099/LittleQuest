@@ -98,8 +98,8 @@ bool MawJLaygo::Init() {
 }
 
 void MawJLaygo::Update() {
-#if 0
-		return;
+#if _DEBUG && 1
+    return;
 #endif    // _DEBUG
 
     switch(_sceneState) {
@@ -418,7 +418,7 @@ void MawJLaygo::Attack() {
 void MawJLaygo::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol,
                                 bool playSE) {
     if(_model.lock()->GetPlayAnimationName() != animName) {
-        _model.lock()->PlayAnimationNoSame(animName, false, 0.2F, animInfo.animStartTime);
+        _model.lock()->PlayAnimationNoSame(animName, false, 0.2f, animInfo.animStartTime);
         _model.lock()->SetAnimationSpeed(animInfo.animStartSpeed);
         _playedSE = false;
     }

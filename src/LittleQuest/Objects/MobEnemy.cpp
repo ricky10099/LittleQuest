@@ -128,6 +128,20 @@ void MobEnemy::Idle() {
     //}
 }
 
+void MobEnemy::OnHit(const ComponentCollision::HitInfo& hitInfo) {
+    if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::ENEMY_WEAPON) {
+        auto* owner = hitInfo.hit_collision_->GetOwner();
+        if(auto player = dynamic_cast<Player*>(owner)) {
+            if(!_isHitPlayer) {
+                _isHitPlayer = true;
+                player->GetHit((int)_attackVal);
+            }
+        }
+    }
+
+    Super::OnHit(hitInfo);
+}
+
 void MobEnemy::SetSceneState(Scene::SceneState state) {
     _sceneState = state;
     ChangeState(MobEnemyState::IDLE);
@@ -135,6 +149,10 @@ void MobEnemy::SetSceneState(Scene::SceneState state) {
 
 void MobEnemy::SetSpawnPoint(float3 spawnPoint) {
     _spawnPos = spawnPoint;
+}
+
+float MobEnemy::GetDestroyTimer() {
+    return _destroyTimer;
 }
 
 bool MobEnemy::FindPlayer() {
@@ -237,14 +255,6 @@ void MobEnemy::ChasePlayer(/*float3& move*/) {
     }
 }
 
-void MobEnemy::Attack() {
-    _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::ATTACK), false, 0.5f);
-    if(!_model.lock()->IsPlaying()) {
-        _isHitPlayer = false;
-        Wait(/*.5f*/);
-    }
-}
-
 void MobEnemy::GetHit(int damage) {
     _componentHP.lock()->TakeDamage(damage);
 
@@ -267,9 +277,17 @@ void MobEnemy::Die() {
     this->_isDead = true;
 }
 
-float MobEnemy::GetDestroyTimer() {
-    return _destroyTimer;
+void MobEnemy::SetAnimList() {
+    AnimInfo info         = {};
+    info.triggerStartTime = 75;
+    info.triggerEndTime   = 83;
+    info.animCutInTime    = 83;
+    info.animSpeed        = 1.2f;
+    info.animStartSpeed   = 2.0f;
+
+    _animList[STR(MobEnemyState::ATTACK)] = info;
 }
+
 }    // namespace LittleQuest
 
 CEREAL_REGISTER_TYPE(LittleQuest::MobEnemy)

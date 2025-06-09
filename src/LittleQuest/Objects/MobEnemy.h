@@ -19,6 +19,12 @@ class MobEnemy: public Enemy {
     virtual void Idle() override;
     virtual void LateDraw() override;
     //------------------------------------------------------------
+    //! @brief 当たりのコールバック
+    //!
+    //! @param hitInfo　当たったコリジョンのヒット情報
+    //------------------------------------------------------------
+    virtual void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
+    //------------------------------------------------------------
     //! @brief シーンの行動を設定します。
     //------------------------------------------------------------
     virtual void SetSceneState(Scene::SceneState state) override;
@@ -60,6 +66,7 @@ class MobEnemy: public Enemy {
     const float _walkVal     = 0.5f;
     const float _runVal      = 1.f;
     float       _speedFactor = 1.0f;
+    float       _attackVal   = 20.0f;
 
     bool  _isDead       = false;
     float _destroyTimer = 5;
@@ -75,7 +82,22 @@ class MobEnemy: public Enemy {
     virtual bool FindPlayer();
     virtual void ChasePlayer(/*float3& move*/) override;
     virtual void Wait() override;
-    virtual void Attack() override;
     virtual void Die() override;
+
+    //------------------------------------------------------------
+    //! @brief 攻撃のアニメーション
+    //!
+    //! @param animName アニメーション名
+    //! @param animInfo アニメーション情報
+    //! @param atkCol 攻撃を判定するコリション
+    //! @param playSE サウンドエフェクトを再生するか
+    //------------------------------------------------------------
+    /* virtual void AttackAnimation(std::string animName, AnimInfo& animInfo,
+                                 std::vector<ComponentCollisionCapsulePtr> atkCol = {}, bool playSE = true) {}*/
+
+    //------------------------------------------------------------
+    //! @brief アニメーションマップを設定します
+    //------------------------------------------------------------
+    void SetAnimList();
 };
 }    // namespace LittleQuest
