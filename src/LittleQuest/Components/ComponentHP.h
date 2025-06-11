@@ -67,6 +67,8 @@ class ComponentHP: public Component {
     //------------------------------------------------------------
     void DrawHPBar();
 
+    void SetHPBarOffsetY(float offsetY);
+
    private:
     //! ダメージアニメーションを表示する時間
     const float DAMAGE_TIME = 60.0f;
@@ -85,6 +87,8 @@ class ComponentHP: public Component {
     float   _damageTimer = 0;
     //! アニメーション中なのか
     bool    _decreasing  = false;
+
+    float _OffsetY = 0.0f;
 
     //--------------------------------------------------------------------
     //! @name Cereal処理

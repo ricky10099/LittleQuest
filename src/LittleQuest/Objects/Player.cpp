@@ -230,19 +230,19 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
     if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::WEAPON) {
         auto* owner = hitInfo.hit_collision_->GetOwner();
 
-        MawJLaygo* boss;
-        if((boss = dynamic_cast<MawJLaygo*>(owner)) && _currCombo != Combo::NO_COMBO) {
+        Enemy* enemy;
+        if((enemy = dynamic_cast<Enemy*>(owner)) && _currCombo != Combo::NO_COMBO) {
             bool inList = false;
             for(int i = 0; i < _attackList.size(); i++) {
-                if(_attackList[i] == boss->GetName().data()) {
+                if(_attackList[i] == enemy->GetName().data()) {
                     inList = true;
                     break;
                 }
             }
 
             if(!inList) {
-                _attackList.push_back(boss->GetName().data());
-                boss->GetHit((int)(this->BASE_ATK * _comboList[_currCombo] * _componentCombo.lock()->ComboBuff()));
+                _attackList.push_back(enemy->GetName().data());
+                enemy->GetHit((int)(this->BASE_ATK * _comboList[_currCombo] * _componentCombo.lock()->ComboBuff()));
                 _isHit = true;
                 _hitTimer += HIT_PAUSE;
                 _componentCombo.lock()->AddCombo(_comboList[_currCombo]);

@@ -9,7 +9,7 @@ void ComponentHP::Update() {
 
     auto   owner    = GetOwner();
     VECTOR worldVec = cast(owner->GetTranslate());
-    worldVec.y += 11;
+    worldVec.y += _OffsetY;
     _pos2D = ConvWorldPosToScreenPos(worldVec);
 
     if(_damageTimer > 0.0f) {
@@ -77,15 +77,20 @@ void ComponentHP::DrawHPBar() {
 
     switch(_type) {
     case HP_TYPE::PLAYER:
+        // 画面の左上に設定する
         posX1 = screenWidth * 0.05f;
         posY1 = screenHeight * 0.05f;
         posX2 = screenWidth * 0.3f;
         posY2 = screenHeight * 0.065f;
+        // 体力バーの枠線
         DrawBoxAA(posX1 - 2.0f, posY1 - 2.0f, posX2 + 2.0f, posY2 + 2.0f, GetColor(255, 255, 255), FALSE, 2.0f);
+        // 体力の赤アニメション
         DrawBoxAA(posX1, posY1, (posX1 + ((_backHP / (float)_maxHP) * (posX2 - posX1))), posY2, GetColor(100, 0, 0), TRUE);
+        // 体力
         DrawBoxAA(posX1, posY1, (posX1 + ((_currHP / (float)_maxHP) * (posX2 - posX1))), posY2, GetColor(0, 255, 0), TRUE);
         break;
     case HP_TYPE::BOSS:
+        // 画面の中央下に設定する
         posX1 = screenWidth * 0.15f;
         posY1 = screenHeight * 0.9f;
         posX2 = screenWidth * 0.85f;
@@ -95,12 +100,17 @@ void ComponentHP::DrawHPBar() {
         DrawBoxAA(posX1, posY1, (posX1 + ((_currHP / (float)_maxHP) * (posX2 - posX1))), posY2, GetColor(255, 0, 0), TRUE);
         break;
     case HP_TYPE::MOB:
-        DrawFillBox((int)_pos2D.x - 101, (int)_pos2D.y - 1, (int)_pos2D.x + 101, (int)_pos2D.y + 11, GetColor(255, 0, 0));
-        DrawFillBox((int)_pos2D.x - 100, (int)_pos2D.y, (int)(_pos2D.x - 100 + ((_currHP / (float)_maxHP) * 200)),
-                    (int)_pos2D.y + 10, GetColor(255, 255, 0));
+        DrawFillBox((int)_pos2D.x - _maxHP / 2, (int)_pos2D.y - 1, (int)_pos2D.x + _maxHP / 2, (int)_pos2D.y + 11,
+                    GetColor(0, 0, 0));
+        DrawFillBox((int)_pos2D.x - _maxHP / 2, (int)_pos2D.y,
+                    (int)(_pos2D.x - _maxHP / 2 + ((_currHP / (float)_maxHP) * _maxHP)), (int)_pos2D.y + 10,
+                    GetColor(255, 0, 0));
         break;
     default:
         break;
     }
+}
+void ComponentHP::SetHPBarOffsetY(float offsetY) {
+    _OffsetY = offsetY;
 }
 }    // namespace LittleQuest

@@ -27,6 +27,7 @@ class MobEnemy: public Enemy {
     //------------------------------------------------------------
     //! @brief シーンの行動を設定します。
     //------------------------------------------------------------
+    virtual void Spawn();
     virtual void SetSceneState(Scene::SceneState state) override;
     virtual void SetSpawnPoint(float3 spawnPoint);
 
@@ -35,6 +36,7 @@ class MobEnemy: public Enemy {
 
    protected:
     enum class MobEnemyState {
+        SPAWN,
         IDLE,
         PATROL,
         GIVE_UP,
@@ -48,6 +50,10 @@ class MobEnemy: public Enemy {
     MobEnemyState _state        = _initialState;
     //MobEnemyState _prevState = _initialState;
 
+    const float BASE_SPEED  = 0.5f;
+    const float WALK_FACTOR = 1.0f;
+    const float RUN_FACTOR  = 2.0f;
+
     bool _hideUI = false;
 
     float3              _spawnPos;
@@ -55,21 +61,31 @@ class MobEnemy: public Enemy {
     bool                _isPatrol;
     std::vector<float3> _patrolPoint;
     int                 _patrolIndex;
-    float               _waitTime = 1.0f;
 
     bool  _isAttack = false;
     bool  _isHitPlayer;
     bool  _isFoundPlayer;
     float _degree;
+    float _waitTime = 1.0f;
 
-    const float _speedBase   = 0.3f;
-    const float _walkVal     = 0.5f;
-    const float _runVal      = 1.f;
-    float       _speedFactor = 1.0f;
-    float       _attackVal   = 20.0f;
+    float _speedFactor = 1.0f;
+    float _attackVal   = 20.0f;
 
     bool  _isDead       = false;
     float _destroyTimer = 5;
+
+    //------------------------------------------------------------
+    //! @brief プレイ中の行動
+    //------------------------------------------------------------
+    virtual void GameAction() override;
+    //------------------------------------------------------------
+    //! @brief シーンイントロの行動
+    //------------------------------------------------------------
+    virtual void TransInAction() override;
+    //------------------------------------------------------------
+    //! @brief シーン終了の行動
+    //------------------------------------------------------------
+    virtual void TransOutAction() override;
 
     virtual void ChangeState(MobEnemyState state);
 
@@ -78,6 +94,8 @@ class MobEnemy: public Enemy {
 
     //virtual void Wait(/*float time*/);
     //virtual void Waiting(float deltaTime);
+
+    virtual void SpawnAction() {};
 
     virtual bool FindPlayer();
     virtual void ChasePlayer(/*float3& move*/) override;

@@ -16,20 +16,21 @@
 
 namespace LittleQuest {
 MutantPtr Mutant::Create(const float3& pos, bool isPatrol) {
-    auto pMutatn = Scene::CreateObjectDelayInitialize<Mutant>();
-    pMutatn->SetName("Mutant");
-    pMutatn->SetMatrix(HelperLib::Math::CreateMatrixByFrontVector({0, 0, 1}));
-    pMutatn->SetTranslate(pos);
+    auto pMutant = Scene::CreateObjectDelayInitialize<Mutant>();
+    pMutant->SetName("Mutant");
+    pMutant->SetMatrix(HelperLib::Math::CreateMatrixByFrontVector({0, 0, 1}));
+    pMutant->SetTranslate(pos);
 
-    return pMutatn;
+    return pMutant;
 }
 
 bool Mutant::Init() {
     _model = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
     _model.lock()->SetScaleAxisXYZ({0.08f});
     _model.lock()->SetAnimation({
+        {  STR(MobEnemyState::SPAWN),         "data/LittleQuest/Anim/MutantSet/Climb.mv1", 0, 1.0f},
         {   STR(MobEnemyState::IDLE),    "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
-        {                      "Run",     "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
+        {  STR(MobEnemyState::CHASE),     "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
         { STR(MobEnemyState::ATTACK), "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 2.0f},
         {STR(MobEnemyState::GET_HIT),      "data/LittleQuest/Anim/MutantSet/HeavyHit.mv1", 0, 1.0f},
         {   STR(MobEnemyState::DEAD),   "data/LittleQuest/Anim/MutantSet/ZombieDeath.mv1", 0, 1.0f},
@@ -39,6 +40,7 @@ bool Mutant::Init() {
     _componentHP = AddComponent<ComponentHP>();
     _componentHP.lock()->SetType(ComponentHP::HP_TYPE::MOB);
     _componentHP.lock()->SetHP(MAX_HP);
+    _componentHP.lock()->SetHPBarOffsetY(15.0f);
 
     _bodyBox = AddComponent<ComponentCollisionCapsule>();
     _bodyBox.lock()->SetTranslate({0, 0, -1});
@@ -57,8 +59,17 @@ bool Mutant::Init() {
     _leftHandBox.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
     _leftHandBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
 
+    _waitTime = 60.0f;
+
+    SetAnimList();
+
     return Super::Init();
 }
+
+void Mutant::SpawnAction() {
+    _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::SPAWN), true, 0.3f);
+}
+
 void Mutant::Attack() {
     AttackAnimation(STR(MobEnemyState::ATTACK), _animList[STR(MobEnemyState::ATTACK)], {_leftHandBox.lock()});
     if(!_model.lock()->IsPlaying()) {
@@ -102,7 +113,17 @@ void Mutant::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vect
         _isHitPlayer = false;
     }
 }
+void Mutant::SetAnimList() {
+    AnimInfo info         = {};
+    info.triggerStartTime = 75;
+    info.triggerEndTime   = 83;
+    info.animCutInTime    = 83;
+    info.animSpeed        = 1.2f;
+    info.animStartSpeed   = 2.0f;
+
+    _animList[STR(MobEnemyState::ATTACK)] = info;
+}
 }    // namespace LittleQuest
 
-CEREAL_REGISTER_TYPE(LittleQuest::MobEnemy)
-CEREAL_REGISTER_POLYMORPHIC_RELATION(Object, LittleQuest::MobEnemy)
+CEREAL_REGISTER_TYPE(LittleQuest::Mutant)
+CEREAL_REGISTER_POLYMORPHIC_RELATION(Object, LittleQuest::Mutant)

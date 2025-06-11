@@ -21,7 +21,7 @@ class Mutant: public MobEnemy {
     //virtual void Idle() override;
     //virtual void GetHit(int damage) override;
     //float        GetDestroyTimer();
-    virtual void LateDraw() override;
+    //virtual void LateDraw() override;
 
     inline void SetHideUI(bool isHideUI) {
         _hideUI = isHideUI;
@@ -37,6 +37,8 @@ class Mutant: public MobEnemy {
     std::weak_ptr<ComponentCollisionCapsule> _leftHandBox;
     //virtual void ChangeState(MobEnemyState state) override;
 
+    virtual void SpawnAction() override;
+
     //virtual void BackToInitialPosition(float3& move) override;
     //virtual void Patrol(float3& move) override;
 
@@ -49,6 +51,10 @@ class Mutant: public MobEnemy {
     virtual void Attack() override;
     void AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol = {},
                          bool playSE = true);
+    //------------------------------------------------------------
+    //! @brief アニメーションマップを設定します
+    //------------------------------------------------------------
+    void SetAnimList();
     //virtual void Die() override;
 
     //float3              _spawnPos;
