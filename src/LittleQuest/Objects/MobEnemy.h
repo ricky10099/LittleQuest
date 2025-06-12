@@ -24,10 +24,11 @@ class MobEnemy: public Enemy {
     //! @param hitInfo　当たったコリジョンのヒット情報
     //------------------------------------------------------------
     virtual void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
+
+    virtual void SetToSpawnState();
     //------------------------------------------------------------
     //! @brief シーンの行動を設定します。
     //------------------------------------------------------------
-    virtual void Spawn();
     virtual void SetSceneState(Scene::SceneState state) override;
     virtual void SetSpawnPoint(float3 spawnPoint);
 
@@ -48,13 +49,22 @@ class MobEnemy: public Enemy {
     };
     MobEnemyState _initialState = MobEnemyState::IDLE;
     MobEnemyState _state        = _initialState;
-    //MobEnemyState _prevState = _initialState;
+    MobEnemyState _prevState    = _initialState;
 
-    const float BASE_SPEED  = 0.5f;
-    const float WALK_FACTOR = 1.0f;
-    const float RUN_FACTOR  = 2.0f;
+    const float PATROL_WAIT_TIME = 60.0f;
+
+    const float TRIGGER_POINT_DISTANCE  = 0.5f;
+    const float DEFAULT_DETECT_DISTANCE = 100.0f;
+    const float DEFAULT_DETECT_ANGLE    = 90.0f;
+    const float ATTACKING_DETECT_ANGLE  = 360.0f;
+
+    const float ATTACK_DISTANCE = 15.0f;
 
     bool _hideUI = false;
+
+    float _baseSpeed  = 0.2f;
+    float _walkFactor = 0.5f;
+    float _runFactor  = 2.0f;
 
     float3              _spawnPos;
     float3              _goal;
@@ -62,11 +72,13 @@ class MobEnemy: public Enemy {
     std::vector<float3> _patrolPoint;
     int                 _patrolIndex;
 
+    float _detectDistance = DEFAULT_DETECT_DISTANCE;
+    float _detectAngle    = DEFAULT_DETECT_ANGLE;
+
     bool  _isAttack = false;
     bool  _isHitPlayer;
     bool  _isFoundPlayer;
     float _degree;
-    float _waitTime = 1.0f;
 
     float _speedFactor = 1.0f;
     float _attackVal   = 20.0f;
@@ -89,16 +101,11 @@ class MobEnemy: public Enemy {
 
     virtual void ChangeState(MobEnemyState state);
 
-    virtual void BackToInitialPosition(/*float3& move*/);
-    virtual void Patrol(/*float3& move*/);
-
-    //virtual void Wait(/*float time*/);
-    //virtual void Waiting(float deltaTime);
-
+    virtual void BackToInitialPosition();
+    virtual void Patrol();
     virtual void SpawnAction() {};
-
     virtual bool FindPlayer();
-    virtual void ChasePlayer(/*float3& move*/) override;
+    virtual void ChasePlayer() override;
     virtual void Wait() override;
     virtual void Die() override;
 

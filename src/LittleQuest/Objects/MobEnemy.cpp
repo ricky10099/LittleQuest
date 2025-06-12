@@ -16,9 +16,12 @@
 
 namespace LittleQuest {
 bool MobEnemy::Init() {
+    _initialState = _state = MobEnemyState::IDLE;
+
     if(_isPatrol) {
         _patrolPoint.push_back(this->GetTranslate() + float3{-50, 0, 0});
         _patrolPoint.push_back(this->GetTranslate() + float3{0, 0, 50});
+        _initialState = MobEnemyState::PATROL;
     }
 
     if(!_patrolPoint.empty()) {
@@ -26,8 +29,6 @@ bool MobEnemy::Init() {
         _goal        = _patrolPoint[_patrolIndex];
         _state       = MobEnemyState::PATROL;
     }
-
-    _initialState = _state = MobEnemyState::IDLE;
 
     _player = Scene::GetObjectPtr<Player>("Player");
 
@@ -57,6 +58,7 @@ void MobEnemy::LateDraw() {
                      modelPtr->GetAnimationTime());
         }
         printfDx("\ncurpoint: %i", _patrolIndex);
+        printfDx("\npoint: %i", _patrolPoint.size());
         printfDx("\nx distance: %f", float3(_goal - GetTranslate())[0]);
         printfDx("\nz distance: %f", float3(_goal - GetTranslate())[2]);
         printfDx("\ny distance: %f", float3(_goal - GetTranslate())[1]);
@@ -82,15 +84,8 @@ void MobEnemy::LateDraw() {
 //    Super::GUI();
 //}
 
-//void MobEnemy::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
-//    Super::OnHit(hitInfo);
-//}
-
 void MobEnemy::Idle() {
-    //ChangeState(MobEnemyState::IDLE);
-    //if(auto modelPtr = GetComponent<ComponentModel>()) {
     _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::IDLE), true);
-    //}
 }
 
 void MobEnemy::OnHit(const ComponentCollision::HitInfo& hitInfo) {
@@ -107,13 +102,13 @@ void MobEnemy::OnHit(const ComponentCollision::HitInfo& hitInfo) {
     Super::OnHit(hitInfo);
 }
 
-void MobEnemy::Spawn() {
+void MobEnemy::SetToSpawnState() {
     ChangeState(MobEnemyState::SPAWN);
 }
 
 void MobEnemy::SetSceneState(Scene::SceneState state) {
     _sceneState = state;
-    ChangeState(MobEnemyState::IDLE);
+    ChangeState(_initialState);
 }
 
 void MobEnemy::SetSpawnPoint(float3 spawnPoint) {
@@ -126,18 +121,17 @@ float MobEnemy::GetDestroyTimer() {
 
 bool MobEnemy::FindPlayer() {
     float distance = GetDistance(_player.lock()->GetTranslate(), this->GetTranslate());
-    if(distance < 50 && GetDegreeToPosition(_player.lock()->GetTranslate()) < 50) {
+    if(distance < _detectDistance && GetDegreeToPosition(_player.lock()->GetTranslate()) < _detectAngle) {
         ChangeState(MobEnemyState::CHASE);
         return true;
-    } else if(_state == MobEnemyState::CHASE) {
+    } else if(_state == MobEnemyState::CHASE && _isPatrol) {
         ChangeState(MobEnemyState::GIVE_UP);
     }
     return false;
 }
 
-void MobEnemy::BackToInitialPosition(/*float3& move*/) {
+void MobEnemy::BackToInitialPosition() {
     auto pos    = this->GetTranslate();
-    //pos.y    = 0;
     _movement   = _spawnPos - pos;
     _movement.y = 0;
     if(GetDistance(_movement) > 0.5f) {
@@ -148,7 +142,7 @@ void MobEnemy::BackToInitialPosition(/*float3& move*/) {
         float theta = atan2(x, z) * RadToDeg;
 
         this->SetRotationAxisXYZ({0, theta, 0});
-        _speedFactor = RUN_FACTOR;
+        _speedFactor = _runFactor;
     } else {
         this->ChangeState(_initialState);
     }
@@ -160,68 +154,56 @@ void MobEnemy::Patrol() {
     _movement.y     = 0;
     float moveValue = GetDistance(_movement);
 
-    if(moveValue < 5.0f) {
+    if(moveValue <= TRIGGER_POINT_DISTANCE) {
         _patrolIndex++;
         _patrolIndex %= _patrolPoint.size();
         _goal    = _patrolPoint[_patrolIndex];
-        _waitFor = _waitTime;
-        Wait(/*2.0f*/);
+        _waitFor = PATROL_WAIT_TIME;
+        ChangeState(MobEnemyState::WAIT);
         return;
     }
 
-    if(moveValue > 1.0f) {
+    if(moveValue > TRIGGER_POINT_DISTANCE) {
         _movement = normalize(_movement);
 
         float x     = -_movement.x;
         float z     = -_movement.z;
         float theta = atan2(x, z) * RadToDeg;
-
         SetRotationAxisXYZ({0, theta, 0});
-        _speedFactor = WALK_FACTOR;
+        _speedFactor = _walkFactor;
+        _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::PATROL), true);
     }
 }
 
-void MobEnemy::Wait(/*float time*/) {
-    ChangeState(MobEnemyState::WAIT);
+void MobEnemy::Wait() {
     _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::IDLE), true, 0.3f);
-    //_waitTime = time;
     _waitFor -= GetDeltaTime60();
 
     if(_waitFor <= 0.0f) {
-        ChangeState(MobEnemyState::IDLE);
+        ChangeState(_prevState);
     }
 }
 
-//void MobEnemy::Waiting(float deltaTime) {
-//    waitTime -= deltaTime;
-//
-//    if(waitTime <= 0.0f) {
-//        ChangeState(MobEnemyState::IDLE);
-//    }
-//}
+void MobEnemy::ChasePlayer() {
+    auto pos        = GetTranslate();
+    _movement       = _player.lock()->GetTranslate() - pos;
+    float moveValue = GetDistance(_movement);
 
-void MobEnemy::ChasePlayer(/*float3& move*/) {
-    auto pos  = GetTranslate();
-    _movement = _player.lock()->GetTranslate() - pos;
-
-    if(GetDistance(_movement) < 6.0f) {
+    if(moveValue < ATTACK_DISTANCE) {
         ChangeState(MobEnemyState::ATTACK);
-        _movement = {0, 0, 0};
-        return;
+        _detectAngle = ATTACKING_DETECT_ANGLE;
     }
 
-    _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::CHASE), true);
-
-    if(GetDistance(_movement) > 0) {
-        _movement = normalize(_movement);
-
-        float x     = -_movement.x;
-        float z     = -_movement.z;
-        float theta = atan2(x, z) * RadToDeg;
-
-        SetRotationAxisXYZ({0, theta, 0});
-        _speedFactor = RUN_FACTOR;
+    if(moveValue > 0) {
+        _speedFactor = _runFactor;
+        _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::CHASE), true);
     }
+
+    _movement   = normalize(_movement);
+    float x     = -_movement.x;
+    float z     = -_movement.z;
+    float theta = atan2(x, z) * RadToDeg;
+    SetRotationAxisXYZ({0, theta, 0});
 }
 
 void MobEnemy::GetHit(int damage) {
@@ -236,51 +218,36 @@ void MobEnemy::GetHit(int damage) {
 }
 
 void MobEnemy::GameAction() {
-    float deltaTime = GetDeltaTime();
-
-    if(_isDead) {
-        _destroyTimer -= deltaTime;
-        return;
-    }
-
-    if(_state == MobEnemyState::IDLE /*&& _state != MobEnemyState::GET_HIT*/) {
-        if(!FindPlayer() && _state != MobEnemyState::GIVE_UP && _state != MobEnemyState::WAIT) {
-            if(!_patrolPoint.empty()) {
-                ChangeState(MobEnemyState::PATROL);
-            } else {
-                ChangeState(MobEnemyState::IDLE);
-            }
-        }
-    }
-
     switch(_state) {
     case MobEnemyState::GET_HIT:
         if(!_model.lock()->IsPlaying()) {
-            ChangeState(MobEnemyState::IDLE);
+            ChangeState(MobEnemyState::CHASE);
         }
         break;
     case MobEnemyState::GIVE_UP:
         BackToInitialPosition();
         break;
     case MobEnemyState::CHASE:
+        FindPlayer();
         ChasePlayer();
         break;
     case MobEnemyState::ATTACK:
         Attack();
         break;
     case MobEnemyState::WAIT:
-        //Waiting(deltaTime);
         Wait();
         break;
     case MobEnemyState::PATROL:
-        Patrol(/*move*/);
+        Patrol();
+        FindPlayer();
         break;
     case MobEnemyState::IDLE:
         Idle();
+        FindPlayer();
         break;
     }
 
-    _movement *= BASE_SPEED * _speedFactor * GetDeltaTime60();
+    _movement *= _baseSpeed * _speedFactor * GetDeltaTime60();
     AddTranslate(_movement);
 }
 
@@ -300,12 +267,12 @@ void MobEnemy::TransOutAction() {
 }
 
 void MobEnemy::ChangeState(MobEnemyState state) {
-    this->_state = state;
+    this->_prevState = _state;
+    this->_state     = state;
 }
 
 void MobEnemy::Die() {
     _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::DEAD));
-    RemoveComponent<ComponentCollisionCapsule>();
     this->_isDead = true;
     _componentHP.lock()->SetType(ComponentHP::HP_TYPE::NONE);
 }
@@ -320,7 +287,6 @@ void MobEnemy::SetAnimList() {
 
     _animList[STR(MobEnemyState::ATTACK)] = info;
 }
-
 }    // namespace LittleQuest
 
 CEREAL_REGISTER_TYPE(LittleQuest::MobEnemy)

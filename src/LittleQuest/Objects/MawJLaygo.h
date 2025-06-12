@@ -96,9 +96,9 @@ class MawJLaygo: public Enemy {
    protected:
     //! 移動スピード
     const float WALK_SPEED         = 0.5f;
-    //! 怒っていない時の待つ時間
+    //! 怒っていない時の待つ時間(フレーム)
     const float NORMAL_WAIT        = 120.f;
-    //! 怒っている時の待つ時間
+    //! 怒っている時の待つ時間(フレーム)
     const float ANGRY_WAIT         = 30.f;
     //! 超近距離
     const float TOO_CLOSE_DISTANCE = 15.0f;

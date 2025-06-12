@@ -88,8 +88,8 @@ class ComponentHP: public Component {
     //! アニメーション中なのか
     bool    _decreasing  = false;
 
-    float _OffsetY = 0.0f;
-
+    float _offsetY          = 0.0f;
+    float _outlineThickness = 2.0f;
     //--------------------------------------------------------------------
     //! @name Cereal処理
     //--------------------------------------------------------------------

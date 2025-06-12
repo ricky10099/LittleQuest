@@ -320,10 +320,10 @@ void Player::InputHandle() {
     //if(!_cameraBlocked)
     { _camera.lock()->SetCameraLength(_cameraLength); }
 
-    if(IsKeyOn(KEY_INPUT_TAB) || IsPadOn(PAD_ID::PAD_Z)) {
-        _lockOn = !_lockOn;
-        _camera.lock()->SetLockOnTarget(_boss.lock(), _lockOn);
-    }
+    //if(IsKeyOn(KEY_INPUT_TAB) || IsPadOn(PAD_ID::PAD_Z)) {
+    //    _lockOn = !_lockOn;
+    //    _camera.lock()->SetLockOnTarget(_boss.lock(), _lockOn);
+    //}
 
     if(_playerState != PlayerState::ROLL && _playerState != PlayerState::GET_HIT && _playerState != PlayerState::DEAD) {
         _speedFactor = IsKeyRepeat(KEY_INPUT_LSHIFT) ? RUN_MULTIPLIER : 1.0f;

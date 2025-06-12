@@ -14,22 +14,21 @@ class ComponentHP;
 class Mutant: public MobEnemy {
    public:
     BP_OBJECT_DECL(Mutant, "LittleQuest/Mutant");
-    static MutantPtr Create(const float3& pos, bool isPatrol = true);
+    static MutantPtr Create(const float3& pos, bool isPatrol = false);
 
     virtual bool Init() override;
-    //virtual void Update() override;
-    //virtual void Idle() override;
-    //virtual void GetHit(int damage) override;
-    //float        GetDestroyTimer();
-    //virtual void LateDraw() override;
+
+    virtual void SetToSpawnState() override;
 
     inline void SetHideUI(bool isHideUI) {
         _hideUI = isHideUI;
     }
 
    protected:
-    const int MAX_HP  = 50;
-    bool      _hideUI = false;
+    // 攻撃間の待つ時間(フレーム)
+    const float ATTACK_WAIT_TIME = 60.0f;
+    const int   MAX_HP           = 20;
+    bool        _hideUI          = false;
 
     //! 体のコリションボックス
     std::weak_ptr<ComponentCollisionCapsule> _bodyBox;
@@ -39,6 +38,7 @@ class Mutant: public MobEnemy {
 
     virtual void SpawnAction() override;
 
+    virtual void GameAction() override;
     //virtual void BackToInitialPosition(float3& move) override;
     //virtual void Patrol(float3& move) override;
 
@@ -51,11 +51,11 @@ class Mutant: public MobEnemy {
     virtual void Attack() override;
     void AttackAnimation(std::string animName, AnimInfo& animInfo, std::vector<ComponentCollisionCapsulePtr> atkCol = {},
                          bool playSE = true);
+    virtual void Die() override;
     //------------------------------------------------------------
     //! @brief アニメーションマップを設定します
     //------------------------------------------------------------
-    void SetAnimList();
-    //virtual void Die() override;
+    void         SetAnimList();
 
     //float3              _spawnPos;
     //float3              _goal;

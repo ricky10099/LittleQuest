@@ -20,7 +20,7 @@ MutantPtr Mutant::Create(const float3& pos, bool isPatrol) {
     pMutant->SetName("Mutant");
     pMutant->SetMatrix(HelperLib::Math::CreateMatrixByFrontVector({0, 0, 1}));
     pMutant->SetTranslate(pos);
-
+    pMutant->_isPatrol = isPatrol;
     return pMutant;
 }
 
@@ -30,10 +30,11 @@ bool Mutant::Init() {
     _model.lock()->SetAnimation({
         {  STR(MobEnemyState::SPAWN),         "data/LittleQuest/Anim/MutantSet/Climb.mv1", 0, 1.0f},
         {   STR(MobEnemyState::IDLE),    "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
+        { STR(MobEnemyState::PATROL), "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 1.0f},
         {  STR(MobEnemyState::CHASE),     "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
         { STR(MobEnemyState::ATTACK), "data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1", 0, 2.0f},
-        {STR(MobEnemyState::GET_HIT),      "data/LittleQuest/Anim/MutantSet/HeavyHit.mv1", 0, 1.0f},
-        {   STR(MobEnemyState::DEAD),   "data/LittleQuest/Anim/MutantSet/ZombieDeath.mv1", 0, 1.0f},
+        {STR(MobEnemyState::GET_HIT),      "data/LittleQuest/Anim/MutantSet/HeavyHit.mv1", 0, 2.0f},
+        {   STR(MobEnemyState::DEAD),   "data/LittleQuest/Anim/MutantSet/ZombieDeath.mv1", 0, 2.0f},
     });
     _model.lock()->PlayAnimation(STR(MobEnemyState::IDLE), true);
 
@@ -59,23 +60,37 @@ bool Mutant::Init() {
     _leftHandBox.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
     _leftHandBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
 
-    _waitTime = 60.0f;
-
     SetAnimList();
 
     return Super::Init();
 }
 
+void Mutant::SetToSpawnState() {
+    _bodyBox.lock()->UseGravity(false);
+}
+
 void Mutant::SpawnAction() {
     _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::SPAWN), true, 0.3f);
+    if(!_model.lock()->IsPlaying()) {
+        ChangeState(MobEnemyState::IDLE);
+    }
+}
+
+void Mutant::GameAction() {
+    if(!_bodyBox.lock()->IsUseGravity()) {
+        _bodyBox.lock()->UseGravity();
+    }
+
+    Super::GameAction();
 }
 
 void Mutant::Attack() {
     AttackAnimation(STR(MobEnemyState::ATTACK), _animList[STR(MobEnemyState::ATTACK)], {_leftHandBox.lock()});
     if(!_model.lock()->IsPlaying()) {
         _isHitPlayer = false;
-        _waitFor     = _waitTime;
-        Wait(/*.5f*/);
+        ChangeState(MobEnemyState::CHASE);
+        _waitFor = ATTACK_WAIT_TIME;
+        ChangeState(MobEnemyState::WAIT);
     }
 }
 
@@ -109,10 +124,18 @@ void Mutant::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vect
         }
     }
     if(_currAnimTime >= animInfo.animCutInTime) {
-        //_combo++;
         _isHitPlayer = false;
     }
 }
+
+void Mutant::Die() {
+    if(_bodyBox.lock()) {
+        RemoveComponent(_bodyBox.lock());
+        _bodyBox.reset();
+    }
+    Super::Die();
+}
+
 void Mutant::SetAnimList() {
     AnimInfo info         = {};
     info.triggerStartTime = 75;

@@ -9,7 +9,7 @@ void ComponentHP::Update() {
 
     auto   owner    = GetOwner();
     VECTOR worldVec = cast(owner->GetTranslate());
-    worldVec.y += _OffsetY;
+    worldVec.y += _offsetY;
     _pos2D = ConvWorldPosToScreenPos(worldVec);
 
     if(_damageTimer > 0.0f) {
@@ -83,7 +83,8 @@ void ComponentHP::DrawHPBar() {
         posX2 = screenWidth * 0.3f;
         posY2 = screenHeight * 0.065f;
         // 体力バーの枠線
-        DrawBoxAA(posX1 - 2.0f, posY1 - 2.0f, posX2 + 2.0f, posY2 + 2.0f, GetColor(255, 255, 255), FALSE, 2.0f);
+        DrawBoxAA(posX1 - _outlineThickness, posY1 - _outlineThickness, posX2 + _outlineThickness, posY2 + _outlineThickness,
+                  GetColor(255, 255, 255), FALSE, _outlineThickness);
         // 体力の赤アニメション
         DrawBoxAA(posX1, posY1, (posX1 + ((_backHP / (float)_maxHP) * (posX2 - posX1))), posY2, GetColor(100, 0, 0), TRUE);
         // 体力
@@ -95,15 +96,16 @@ void ComponentHP::DrawHPBar() {
         posY1 = screenHeight * 0.9f;
         posX2 = screenWidth * 0.85f;
         posY2 = screenHeight * 0.92f;
-        DrawBoxAA(posX1 - 2.0f, posY1 - 2.0f, posX2 + 2.0f, posY2 + 2.0f, GetColor(0, 0, 0), FALSE, 2.0f);
+        DrawBoxAA(posX1 - _outlineThickness, posY1 - _outlineThickness, posX2 + _outlineThickness, posY2 + _outlineThickness,
+                  GetColor(0, 0, 0), FALSE, _outlineThickness);
         DrawBoxAA(posX1, posY1, (posX1 + ((_backHP / (float)_maxHP) * (posX2 - posX1))), posY2, GetColor(100, 0, 0), TRUE);
         DrawBoxAA(posX1, posY1, (posX1 + ((_currHP / (float)_maxHP) * (posX2 - posX1))), posY2, GetColor(255, 0, 0), TRUE);
         break;
     case HP_TYPE::MOB:
-        DrawFillBox((int)_pos2D.x - _maxHP / 2, (int)_pos2D.y - 1, (int)_pos2D.x + _maxHP / 2, (int)_pos2D.y + 11,
+        DrawFillBox((int)_pos2D.x - _maxHP / 2, (int)_pos2D.y - 1, (int)_pos2D.x + _maxHP / 2, (int)_pos2D.y + 6,
                     GetColor(0, 0, 0));
         DrawFillBox((int)_pos2D.x - _maxHP / 2, (int)_pos2D.y,
-                    (int)(_pos2D.x - _maxHP / 2 + ((_currHP / (float)_maxHP) * _maxHP)), (int)_pos2D.y + 10,
+                    (int)(_pos2D.x - _maxHP / 2 + ((_currHP / (float)_maxHP) * _maxHP)), (int)_pos2D.y + 5,
                     GetColor(255, 0, 0));
         break;
     default:
@@ -111,6 +113,6 @@ void ComponentHP::DrawHPBar() {
     }
 }
 void ComponentHP::SetHPBarOffsetY(float offsetY) {
-    _OffsetY = offsetY;
+    _offsetY = offsetY;
 }
 }    // namespace LittleQuest
