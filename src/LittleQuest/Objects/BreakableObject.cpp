@@ -8,7 +8,7 @@ bool BreakableObject::Init() {
     _componentHP.lock()->SetType(ComponentHP::HP_TYPE::NONE);
     _componentHP.lock()->SetHP(_maxHP);
 
-    _breakEffect = LoadEffekseerEffect("data/LittleQuest/Effect/ObjectBreak.efk", 1.0f);
+    _breakEffect = LoadEffekseerEffect("data/LittleQuest/Effect/ObjectBreak.efk", 5.0f);
 
     return Super::Init();
 }

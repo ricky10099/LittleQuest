@@ -17,7 +17,7 @@
 #include <System/Component/ComponentCollisionModel.h>
 #include <System/Component/ComponentModel.h>
 
-extern int bgm_volume;
+extern int bg_volume;
 
 namespace LittleQuest {
 //===========================================================================
@@ -28,18 +28,18 @@ namespace LittleQuest {
 //! 初期化
 //---------------------------------------------------------------------------
 bool Stage01::Init() {
-    m_fontHandle = CreateFontToHandle("M PLUS Code Latin", 55, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 3);
-    GetDrawStringSizeToHandle(&m_stringWidth, &m_stringHeight, NULL, "Press any key back to Title", -1, m_fontHandle);
-    m_timerFontHandle = CreateFontToHandle("M PLUS Code Latin", 80, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
-    GetDrawStringSizeToHandle(&m_timerWidth, &m_timerHeight, NULL, "88:88.888", -1, m_timerFontHandle);
+    _fontHandle = CreateFontToHandle("M PLUS Code Latin", 55, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 3);
+    GetDrawStringSizeToHandle(&_stringWidth, &_stringHeight, NULL, "Press any key back to Title", -1, _fontHandle);
+    _timerFontHandle = CreateFontToHandle("M PLUS Code Latin", 80, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
+    GetDrawStringSizeToHandle(&_timerWidth, &_timerHeight, NULL, "88:88.888", -1, _timerFontHandle);
 
     {
         auto clearObj = Scene::CreateObjectPtr<Object>()->SetName("ClearTexture");
-        m_pClearImage = clearObj->AddComponent<ComponentTexture2D>("data/LittleQuest/Image/Clear.png");
+        _pClearImage  = clearObj->AddComponent<ComponentTexture2D>("data/LittleQuest/Image/Clear.png");
     }
     {
         auto failObj = Scene::CreateObjectPtr<Object>()->SetName("FailTexture");
-        m_pFailImage = failObj->AddComponent<ComponentTexture2D>("data/LittleQuest/Image/Failure.png");
+        _pFailImage  = failObj->AddComponent<ComponentTexture2D>("data/LittleQuest/Image/Failure.png");
     }
     scene_state = Scene::SceneState::TRANS_IN;
 
@@ -90,52 +90,49 @@ bool Stage01::Init() {
         }
     }
 
-    m_pPlayer = Player::Create(PLAYER_SPAWN_POS);
-    m_pPlayer.lock()->SetSceneState(scene_state);
+    _pPlayer = Player::Create(PLAYER_SPAWN_POS);
+    _pPlayer.lock()->SetSceneState(scene_state);
 
-    m_pPlayerCamera = Camera::Create(m_pPlayer.lock());
-    m_pPlayerCamera.lock()->SetName("PlayerCamera");
-    m_pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
+    _pPlayerCamera = Camera::Create(_pPlayer.lock());
+    _pPlayerCamera.lock()->SetName("PlayerCamera");
+    _pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
 
-    m_pBoss = MawJLaygo::Create(BOSS_SPAWN_POS);
-    m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
-    m_pBoss.lock()->SetSceneState(scene_state);
+    _pBoss = MawJLaygo::Create(BOSS_SPAWN_POS);
+    _pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
+    _pBoss.lock()->SetSceneState(scene_state);
 
-    //for(auto& mob: m_pMob) {
+    //for(auto& mob: _pMob) {
     //    mob = Mutant::Create(MOB_SPAWN_POS, false);
     //    mob.lock()->SetSpawnPoint(MOB_SPAWN_POS);
     //    mob.lock()->SetRotationAxisXYZ({0, 90, 0});
     //    mob.lock()->SetSceneState(scene_state);
     //}
     for(int i = 0; i < 4; ++i) {
-        m_pMob[i] = Mutant::Create(MOB_POS[i], false);
-        m_pMob[i].lock()->SetSpawnPoint(MOB_POS[i]);
-        m_pMob[i].lock()->SetRotationAxisXYZ({0, 90, 0});
-        m_pMob[i].lock()->SetSceneState(scene_state);
+        _pMob[i] = Mutant::Create(MOB_POS[i], false);
+        _pMob[i].lock()->SetSpawnPoint(MOB_POS[i]);
+        _pMob[i].lock()->SetRotationAxisXYZ({0, 90, 0});
+        _pMob[i].lock()->SetSceneState(scene_state);
+        _pMob[i].lock()->SetDetectDistance(200);
     }
 
-    auto obj  = Scene::CreateObjectPtr<Object>()->SetName("CutSceneCamera");
-    m_pCamera = obj->AddComponent<ComponentCamera>();
-    m_pCamera.lock()->SetCurrentCamera();
-    m_pCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_START, m_pBoss.lock()->GetTranslate() + float3{0, 20, 0});
-    m_pCamera.lock()->SetPerspective(FOV_INTRO);
+    auto obj = Scene::CreateObjectPtr<Object>()->SetName("CutSceneCamera");
+    _pCamera = obj->AddComponent<ComponentCamera>();
+    _pCamera.lock()->SetCurrentCamera();
+    _pCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_START, _pBoss.lock()->GetTranslate() + float3{0, 20, 0});
+    _pCamera.lock()->SetPerspective(FOV_INTRO);
 
-    m_introBGM = LoadSoundMem("data/LittleQuest/Audio/BGM/IntroBGM_long.mp3");
-    m_BGM      = LoadSoundMem("data/LittleQuest/Audio/BGM/Thunder_of_God.mp3");
+    _introBGM = LoadSoundMem("data/LittleQuest/Audio/BGM/IntroBG_long.mp3");
+    _BGM      = LoadSoundMem("data/LittleQuest/Audio/BGM/Thunder_of_God.mp3");
 
     Scene::SetSceneBGMList({
-        {m_introBGM, DX_PLAYTYPE_BACK},
-        {     m_BGM, DX_PLAYTYPE_LOOP}
+        {_introBGM, DX_PLAYTYPE_BACK},
+        {     _BGM, DX_PLAYTYPE_LOOP}
     });
     Scene::QueueScene(Scene::GetScene<GameTitleScene>());
     Scene::SetCanPause(true);
     return true;
 }
 
-//---------------------------------------------------------------------------
-//! 更新
-//! @param  [in]    delta   経過時間
-//---------------------------------------------------------------------------
 void Stage01::Update() {
     float  t;
     float3 newCamPos;
@@ -149,124 +146,127 @@ void Stage01::Update() {
     switch(scene_state) {
     case Scene::SceneState::TRANS_IN:
         if(FadeIn()) {
-            m_pBoss.lock()->PlayTaunt();
-            m_pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
+            _pBoss.lock()->PlayTaunt();
+            _pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
         }
 
         ShowBlackBar();
 
-        if(m_pBoss.lock()->IsPlayedTaunt()) {
-            //_isSpawnMob = true;
-            for(auto& mob: m_pMob) {
-                mob.lock()->SetToSpawnState();
+        if(_pBoss.lock()->IsPlayedTaunt()) {
+            for(auto& mob: _pMob) {
+                if(!mob.lock()->GetIsReady()) {
+                    mob.lock()->SetToSpawnState();
+                }
             }
-
-            m_pCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_MOB, CUT_SCENE_TARGET_MOB);
+            _mobSpawnTimer -= GetDeltaTime60();
+            if(_mobSpawnTimer <= 0) {
+                _isMobSpawned = true;
+            }
+            _pCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_MOB, CUT_SCENE_TARGET_MOB);
         }
 
-        if(_isSpawnMob) {
-            m_slideBlackBar = true;
-            m_pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
-            m_cutSceneTimer -= GetDeltaTime60();
-            m_cutSceneTimer = std::max(0.0f, m_cutSceneTimer);
-            t               = abs(1 - (m_cutSceneTimer / START_CUT_SCENE_TIME));
-            newCamPos       = lerp(CUT_SCENE_POS_START, m_pPlayerCamera.lock()->GetTranslate(), t);
-            newCamTarget =
-                lerp(m_pBoss.lock()->GetTranslate() + float3{0, 20, 0}, m_pPlayer.lock()->GetTranslate() + float3{0, 5, 0}, t);
-            newFOV = lerp(float1(FOV_INTRO), FOV_ORG, t);
-            m_pCamera.lock()->SetPositionAndTarget(newCamPos, newCamTarget);
+        if(_isMobSpawned) {
+            _slideBlackBar = true;
+            _pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
+            _cutSceneTimer -= GetDeltaTime60();
+            _cutSceneTimer = std::max(0.0f, _cutSceneTimer);
+            t              = abs(1 - (_cutSceneTimer / START_CUT_SCENE_TIME));
+            newCamPos      = lerp(CUT_SCENE_POS_MOB, _pPlayerCamera.lock()->GetTranslate(), t);
+            newCamTarget   = lerp(CUT_SCENE_TARGET_MOB, _pPlayer.lock()->GetTranslate(), t);
+            newFOV         = lerp(float1(FOV_INTRO), FOV_ORG, t);
+            _pCamera.lock()->SetPositionAndTarget(newCamPos, newCamTarget);
 
-            m_pCamera.lock()->SetPerspective(newFOV);
+            _pCamera.lock()->SetPerspective(newFOV);
         }
 
-        if(m_cutSceneTimer <= 0) {
-            m_pPlayerCamera.lock()->SetCurrentCamera();
+        if(_cutSceneTimer <= 0) {
+            _pPlayerCamera.lock()->SetCurrentCamera();
             scene_state = Scene::SceneState::GAME;
-            m_pPlayer.lock()->SetSceneState(scene_state);
-            m_pBoss.lock()->SetSceneState(scene_state);
-            for(auto& mob: m_pMob) {
+            _pPlayer.lock()->SetSceneState(scene_state);
+            _pBoss.lock()->SetSceneState(scene_state);
+            for(auto& mob: _pMob) {
                 mob.lock()->SetSceneState(scene_state);
             }
         }
 
         if(IsKeyDown(KEY_INPUT_RETURN) /*|| IsMouseDown(MOUSE_INPUT_1)*/ || IsKeyDown(KEY_INPUT_SPACE) ||
            IsPadOn(PAD_ID::PAD_L_PUSH) || IsPadOn(PAD_ID::PAD_B)) {
-            m_fadeTimer     = 0;
-            m_alpha         = 0;
-            m_cutSceneTimer = 0;
-            m_pCamera.lock()->SetPerspective(FOV_ORG);
+            _fadeTimer     = 0;
+            _alpha         = 0;
+            _cutSceneTimer = 0;
+            _pCamera.lock()->SetPerspective(FOV_ORG);
         }
         break;
     case Scene::SceneState::GAME:
 
         //#ifndef _DEBUG
-        m_second -= GetDeltaTime();
+        _second -= GetDeltaTime();
         //#endif    // !_DEBUG
-        m_showBlackBar = false;
-        if(m_second <= 0) {
-            if(m_minute <= 0) {
-                m_isLose = true;
-                m_second = 0.0f;
+        _showBlackBar = false;
+        if(_second <= 0) {
+            if(_minute <= 0) {
+                _isLose = true;
+                _second = 0.0f;
             } else {
-                m_second = 59.99f;
+                _second = 59.99f;
             }
-            m_minute--;
-            m_minute = std::max(0, m_minute);
+            _minute--;
+            _minute = std::max(0, _minute);
         }
-        if(m_pBoss.lock()->IsDead() || m_pPlayer.lock()->IsDead() || m_isLose) {
-            m_showBlackBar  = true;
-            m_slideBlackBar = false;
-            if(m_cutSceneTimer == START_CUT_SCENE_TIME) {
-                m_pPlayer.lock()->SlowMotion();
-                m_pBoss.lock()->SlowMotion();
+        if(_pBoss.lock()->IsDead() || _pPlayer.lock()->IsDead() || _isLose) {
+            _showBlackBar  = true;
+            _slideBlackBar = false;
+            if(_cutSceneTimer == START_CUT_SCENE_TIME) {
+                _pPlayer.lock()->SlowMotion();
+                _pBoss.lock()->SlowMotion();
             }
-            m_cutSceneTimer -= GetDeltaTime60();
-            m_cutSceneTimer = std::max(0.0f, m_cutSceneTimer);
-            m_pCamera.lock()->SetCurrentCamera();
-            if(m_cutSceneTimer > 120.0f) {
-                m_pCamera.lock()->SetPositionAndTarget(m_pPlayer.lock()->GetTranslate() + float3{20, 15, 20},
-                                                       m_pPlayer.lock()->GetTranslate() + float3{0, 5, 0});
+            _cutSceneTimer -= GetDeltaTime60();
+            _cutSceneTimer = std::max(0.0f, _cutSceneTimer);
+            _pCamera.lock()->SetCurrentCamera();
+            if(_cutSceneTimer > 120.0f) {
+                _pCamera.lock()->SetPositionAndTarget(_pPlayer.lock()->GetTranslate() + float3{20, 15, 20},
+                                                      _pPlayer.lock()->GetTranslate() + float3{0, 5, 0});
             } else {
-                m_pCamera.lock()->SetPositionAndTarget(m_pBoss.lock()->GetTranslate() + float3{-40, 15, -40},
-                                                       m_pBoss.lock()->GetTranslate() + float3{0, 5, 0});
+                _pCamera.lock()->SetPositionAndTarget(_pBoss.lock()->GetTranslate() + float3{-40, 15, -40},
+                                                      _pBoss.lock()->GetTranslate() + float3{0, 5, 0});
             }
 
-            m_pPlayer.lock()->SetHideUI(true);
-            m_pBoss.lock()->SetHideUI(true);
+            _pPlayer.lock()->SetHideUI(true);
+            _pBoss.lock()->SetHideUI(true);
 
         } else {
-            m_cutSceneTimer = START_CUT_SCENE_TIME;
+            _cutSceneTimer = START_CUT_SCENE_TIME;
         }
 
-        if(m_cutSceneTimer <= 0 && FadeOut()) {
+        if(_cutSceneTimer <= 0 && FadeOut()) {
             scene_state = Scene::SceneState::TRANS_OUT;
-            m_pPlayer.lock()->SetSceneState(scene_state);
-            m_pBoss.lock()->SetSceneState(scene_state);
-            //m_pMob.lock()->SetSceneState(scene_state);
-            m_pPlayer.lock()->SetTranslate(PLAYER_SPAWN_POS);
-            m_pBoss.lock()->SetTranslate(BOSS_SPAWN_POS);
-            m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
-            m_pPlayer.lock()->EndSlowMotion();
-            m_pBoss.lock()->EndSlowMotion();
+            _pPlayer.lock()->SetSceneState(scene_state);
+            _pBoss.lock()->SetSceneState(scene_state);
+            //_pMob.lock()->SetSceneState(scene_state);
+            _pPlayer.lock()->SetTranslate(PLAYER_SPAWN_POS);
+            _pBoss.lock()->SetTranslate(BOSS_SPAWN_POS);
+            _pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
+            _pPlayer.lock()->EndSlowMotion();
+            _pBoss.lock()->EndSlowMotion();
         }
         break;
     case Scene::SceneState::TRANS_OUT:
-        m_showBlackBar = false;
+        _showBlackBar = false;
         Scene::SetCanPause(false);
-        m_endingTimer -= GetDeltaTime60();
+        _endingTimer -= GetDeltaTime60();
 
-        StopSoundMem(m_BGM);
-        StopSoundMem(m_introBGM);
-        m_pBoss.lock()->PlayDead();
-        m_pPlayer.lock()->PlayDead();
+        StopSoundMem(_BGM);
+        StopSoundMem(_introBGM);
+        _pBoss.lock()->PlayDead();
+        _pPlayer.lock()->PlayDead();
 
-        m_pCamera.lock()->SetCurrentCamera();
-        if(m_pBoss.lock()->IsDead()) {
-            m_pCamera.lock()->SetPositionAndTarget(BOSS_DEATH_CAM, m_pBoss.lock()->GetTranslate() + float3{0, 15, 0});
-            m_pShowImage = m_pClearImage.lock();
+        _pCamera.lock()->SetCurrentCamera();
+        if(_pBoss.lock()->IsDead()) {
+            _pCamera.lock()->SetPositionAndTarget(BOSS_DEATH_CAM, _pBoss.lock()->GetTranslate() + float3{0, 15, 0});
+            _pShowImage = _pClearImage.lock();
         } else {
-            m_pCamera.lock()->SetPositionAndTarget(PLAYER_DEATH_CAM, m_pPlayer.lock()->GetTranslate() + float3{0, 10, 0});
-            m_pShowImage = m_pFailImage.lock();
+            _pCamera.lock()->SetPositionAndTarget(PLAYER_DEATH_CAM, _pPlayer.lock()->GetTranslate() + float3{0, 10, 0});
+            _pShowImage = _pFailImage.lock();
         }
         break;
     }
@@ -277,20 +277,20 @@ void Stage01::LateDraw() {
     GetScreenState(&screen_width, &screen_height, NULL);
 
     float blackbarY = 1.0f;
-    if(m_slideBlackBar) {
-        blackbarY = (m_cutSceneTimer / START_CUT_SCENE_TIME);
+    if(_slideBlackBar) {
+        blackbarY = (_cutSceneTimer / START_CUT_SCENE_TIME);
     }
 
-    if(m_showBlackBar) {
+    if(_showBlackBar) {
         DrawBoxAA(0, 0, screen_width, screen_height * 0.15f * blackbarY, 0u, TRUE);
         DrawBoxAA(0, screen_height - screen_height * 0.15f * blackbarY, screen_width, screen_height, 0u, TRUE);
     }
 
-    SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)m_alpha);
+    SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)_alpha);
     DrawBox(0, 0, screen_width, screen_height, 0u, TRUE);
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
     int timerColor = 0xffffff;
-    if(m_minute <= 0) {
+    if(_minute <= 0) {
         timerColor = 0xff0000;
     }
 
@@ -298,30 +298,30 @@ void Stage01::LateDraw() {
     case Scene::SceneState::TRANS_IN:
         break;
     case Scene::SceneState::GAME:
-        if(!(m_pBoss.lock()->IsDead() || m_pPlayer.lock()->IsDead())) {
-            DrawFormatStringToHandle((int)((screen_width * 0.9f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.1),
-                                     timerColor, m_timerFontHandle, "%02i:%06.3f", m_minute, m_second);
+        if(!(_pBoss.lock()->IsDead() || _pPlayer.lock()->IsDead())) {
+            DrawFormatStringToHandle((int)((screen_width * 0.9f) - (_stringWidth * 0.5f)), (int)(screen_height * 0.1),
+                                     timerColor, _timerFontHandle, "%02i:%06.3f", _minute, _second);
         }
         break;
     case Scene::SceneState::TRANS_OUT:
         if(FadeIn()) {
             if(ShowMessage()) {
-                DrawStringToHandle((int)((screen_width * 0.5f) - (m_stringWidth * 0.5f)), (int)(screen_height * 0.8),
-                                   "Press any key back to Title", 0xffee42, m_fontHandle, 0xffaf3f);
+                DrawStringToHandle((int)((screen_width * 0.5f) - (_stringWidth * 0.5f)), (int)(screen_height * 0.8),
+                                   "Press any key back to Title", 0xffee42, _fontHandle, 0xffaf3f);
                 if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
-                   IsKeyDown(KEY_INPUT_ESCAPE) || IsPadOn(PAD_ID::PAD_R_PUSH) || IsPadOn(PAD_ID::PAD_B) || m_endingTimer <= 0) {
+                   IsKeyDown(KEY_INPUT_ESCAPE) || IsPadOn(PAD_ID::PAD_R_PUSH) || IsPadOn(PAD_ID::PAD_B) || _endingTimer <= 0) {
                     Scene::Change(Scene::GetScene<GameTitleScene>());
                 }
             } else {
                 if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
                    IsKeyDown(KEY_INPUT_ESCAPE) || IsPadOn(PAD_ID::PAD_R_PUSH) || IsPadOn(PAD_ID::PAD_B)) {
-                    m_shrinkTimer = SHRINK_TIME;
+                    _shrinkTimer = SHRINK_TIME;
                 }
             }
-            m_pShowImage.lock()->SetPosition(
-                (screen_width * 0.2f), (screen_height * (0.0f + (0.4f * (m_shrinkTimer / SHRINK_TIME)))), (screen_width * 0.8f),
-                (screen_height * (1.0f - (0.4f * (m_shrinkTimer / SHRINK_TIME)))));
-            m_pShowImage.lock()->DrawTexture();
+            _pShowImage.lock()->SetPosition(
+                (screen_width * 0.2f), (screen_height * (0.0f + (0.4f * (_shrinkTimer / SHRINK_TIME)))), (screen_width * 0.8f),
+                (screen_height * (1.0f - (0.4f * (_shrinkTimer / SHRINK_TIME)))));
+            _pShowImage.lock()->DrawTexture();
         }
         break;
     }
@@ -331,43 +331,43 @@ void Stage01::LateDraw() {
 //! 終了
 //---------------------------------------------------------------------------
 void Stage01::Exit() {
-    if(CheckSoundMem(m_introBGM)) {
-        StopSoundMem(m_introBGM);
+    if(CheckSoundMem(_introBGM)) {
+        StopSoundMem(_introBGM);
     }
-    if(CheckSoundMem(m_BGM)) {
-        StopSoundMem(m_BGM);
+    if(CheckSoundMem(_BGM)) {
+        StopSoundMem(_BGM);
     }
 
-    DeleteSoundMem(m_introBGM);
-    DeleteSoundMem(m_BGM);
+    DeleteSoundMem(_introBGM);
+    DeleteSoundMem(_BGM);
 }
 
 bool Stage01::FadeIn() {
-    if(m_fadeTimer > 0) {
-        m_fadeTimer -= GetDeltaTime60();
-        m_alpha = abs(m_fadeTimer / FADE_TIME) * 255;
+    if(_fadeTimer > 0) {
+        _fadeTimer -= GetDeltaTime60();
+        _alpha = abs(_fadeTimer / FADE_TIME) * 255;
     }
 
-    return m_fadeTimer <= 0;
+    return _fadeTimer <= 0;
 }
 
 bool Stage01::FadeOut() {
-    if(m_fadeTimer < FADE_TIME) {
-        m_fadeTimer += GetDeltaTime60();
-        m_alpha = abs(m_fadeTimer / FADE_TIME) * 255;
+    if(_fadeTimer < FADE_TIME) {
+        _fadeTimer += GetDeltaTime60();
+        _alpha = abs(_fadeTimer / FADE_TIME) * 255;
     }
 
-    return m_fadeTimer >= FADE_TIME;
+    return _fadeTimer >= FADE_TIME;
 }
 
 void Stage01::ShowBlackBar() {
-    m_showBlackBar = true;
+    _showBlackBar = true;
 }
 
 bool Stage01::ShowMessage() {
-    if(m_shrinkTimer < SHRINK_TIME) {
-        m_shrinkTimer += GetDeltaTime60();
+    if(_shrinkTimer < SHRINK_TIME) {
+        _shrinkTimer += GetDeltaTime60();
     }
-    return m_shrinkTimer >= SHRINK_TIME;
+    return _shrinkTimer >= SHRINK_TIME;
 }
 }    // namespace LittleQuest

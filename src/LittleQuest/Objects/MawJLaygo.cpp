@@ -127,7 +127,6 @@ void MawJLaygo::TransInAction() {
 }
 
 void MawJLaygo::GameAction() {
-    return;
     if(_damageTimer > 0) {
         _damageTimer -= GetDeltaTime60();
     } else {

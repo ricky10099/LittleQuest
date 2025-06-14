@@ -24,9 +24,8 @@ class BreakableObject: public Object {
     bool _isBroke       = false;
     int  _playingEffect = -1;
 
-    //! モデルコリジョンボックス
-    ObjectPtr                  _collisionBox;
-    std::weak_ptr<ComponentHP> _componentHP;
+    std::weak_ptr<ComponentCollisionModel> _collisionBox;
+    std::weak_ptr<ComponentHP>             _componentHP;
 
     virtual void Break();
 };

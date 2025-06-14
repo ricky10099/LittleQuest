@@ -229,7 +229,8 @@ void Player::LateDraw() {
 
 void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {
     if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::WEAPON) {
-        auto* owner = hitInfo.hit_collision_->GetOwner();
+        auto* owner     = hitInfo.hit_collision_->GetOwner();
+        auto  owner_ptr = hitInfo.hit_collision_->GetOwnerPtr();
 
         Enemy* enemy;
         if((enemy = dynamic_cast<Enemy*>(owner)) && _currCombo != Combo::NO_COMBO) {
@@ -258,11 +259,10 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
         }
 
         BreakableObject* breakableObject;
-        breakableObject = dynamic_cast<BreakableObject*>(owner);
-        if((breakableObject /* = dynamic_cast<BreakableObject*>(owner)*/) && _currCombo != Combo::NO_COMBO) {
+        if((breakableObject = dynamic_cast<BreakableObject*>(owner)) && _currCombo != Combo::NO_COMBO) {
             bool inList = false;
             for(int i = 0; i < _attackList.size(); i++) {
-                if(_attackList[i] == enemy->GetName().data()) {
+                if(_attackList[i] == breakableObject->GetName().data()) {
                     inList = true;
                     break;
                 }

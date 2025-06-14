@@ -1,23 +1,25 @@
 ﻿#pragma once
 
 #include <System/Scene.h>
+#include <LittleQuest/Objects/BreakableObject.h>
 
 namespace LittleQuest {
 USING_PTR(DestroyedHouse);
 //////////////////////////////////////////////////////////////
 //! @brief 破壊された家クラス
 //////////////////////////////////////////////////////////////
-class DestroyedHouse: public Object {
+class DestroyedHouse: public BreakableObject {
    public:
     BP_OBJECT_DECL(DestroyedHouse, "LittleQuest/DestroyedHouse");
     static DestroyedHousePtr Create(std::string name = "DestroyedHouse", const float3& pos = {0, 0, 0});
 
+    virtual bool Init() override;
     //------------------------------------------------------------
     //! @brief 更新処理を行います。
     //------------------------------------------------------------
-    void Update() override;
+    virtual void Update() override;
    private:
-    //! モデルコリジョンボックス
-    ObjectPtr m_pBox;
+    std::weak_ptr<ComponentModel> _collisionModel;
+    std::weak_ptr<ComponentModel> _model;
 };
 }    // namespace LittleQuest

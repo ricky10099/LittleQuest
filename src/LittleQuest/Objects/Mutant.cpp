@@ -28,7 +28,7 @@ bool Mutant::Init() {
     _model = AddComponent<ComponentModel>("data/LittleQuest/Model/Mutant/Mutant.mv1");
     _model.lock()->SetScaleAxisXYZ({0.08f});
     _model.lock()->SetAnimation({
-        {  STR(MobEnemyState::SPAWN),         "data/LittleQuest/Anim/MutantSet/Climb.mv1", 0, 1.0f},
+        {  STR(MobEnemyState::SPAWN),         "data/LittleQuest/Anim/MutantSet/Climb.mv1", 0, 2.0f},
         {   STR(MobEnemyState::IDLE),    "data/LittleQuest/Anim/MutantSet/MutantIdle.mv1", 0, 1.0f},
         { STR(MobEnemyState::PATROL), "data/LittleQuest/Anim/MutantSet/MutantWalking.mv1", 0, 1.0f},
         {  STR(MobEnemyState::CHASE),     "data/LittleQuest/Anim/MutantSet/MutantRun.mv1", 0, 1.0f},
@@ -45,11 +45,12 @@ bool Mutant::Init() {
 
     _bodyBox = AddComponent<ComponentCollisionCapsule>();
     _bodyBox.lock()->SetTranslate({0, 0, -1});
-    _bodyBox.lock()->UseGravity();
+    _bodyBox.lock()->UseGravity(false);
     _bodyBox.lock()->SetHeight(13);
     _bodyBox.lock()->SetRadius(2.5);
     _bodyBox.lock()->SetMass(100.0f);
     _bodyBox.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY);
+    _bodyBox.lock()->Overlap((u32)ComponentCollision::CollisionGroup::GROUND);
 
     _leftHandBox = AddComponent<ComponentCollisionCapsule>();
     _leftHandBox.lock()->AttachToModel("mixamorig:LeftHand");
@@ -67,21 +68,37 @@ bool Mutant::Init() {
 
 void Mutant::SetToSpawnState() {
     _bodyBox.lock()->UseGravity(false);
+    Super::SetToSpawnState();
+}
+
+void Mutant::SetSceneState(Scene::SceneState state) {
+    Super::SetSceneState(state);
+    switch(state) {
+    case Scene::SceneState::TRANS_IN:
+        _isReady = false;
+        break;
+    case Scene::SceneState::GAME:
+        if(!_isReady) {
+            ChangeState(MobEnemyState::IDLE);
+            _bodyBox.lock()->Overlap((u32)ComponentCollision::CollisionGroup::NONE);
+            _bodyBox.lock()->UseGravity();
+            AddTranslate({0, 18, 0});
+            _isReady = true;
+        }
+        break;
+    }
 }
 
 void Mutant::SpawnAction() {
-    _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::SPAWN), true, 0.3f);
+    _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::SPAWN), false, 0.3f);
     if(!_model.lock()->IsPlaying()) {
+        _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::IDLE), true, 0.0f);
         ChangeState(MobEnemyState::IDLE);
-    }
-}
-
-void Mutant::GameAction() {
-    if(_bodyBox.lock() && !_bodyBox.lock()->IsUseGravity()) {
+        _bodyBox.lock()->Overlap((u32)ComponentCollision::CollisionGroup::NONE);
         _bodyBox.lock()->UseGravity();
+        AddTranslate({0, 18, 0});
+        _isReady = true;
     }
-
-    Super::GameAction();
 }
 
 void Mutant::Attack() {

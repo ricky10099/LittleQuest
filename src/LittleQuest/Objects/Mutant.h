@@ -19,6 +19,10 @@ class Mutant: public MobEnemy {
     virtual bool Init() override;
 
     virtual void SetToSpawnState() override;
+    //------------------------------------------------------------
+    //! @brief シーンの行動を設定します。
+    //------------------------------------------------------------
+    virtual void SetSceneState(Scene::SceneState state) override;
 
     inline void SetHideUI(bool isHideUI) {
         _hideUI = isHideUI;
@@ -38,7 +42,7 @@ class Mutant: public MobEnemy {
 
     virtual void SpawnAction() override;
 
-    virtual void GameAction() override;
+    //virtual void GameAction() override;
     //virtual void BackToInitialPosition(float3& move) override;
     //virtual void Patrol(float3& move) override;
 

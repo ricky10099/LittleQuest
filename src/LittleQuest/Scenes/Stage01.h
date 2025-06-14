@@ -106,73 +106,72 @@ class Stage01: public Scene::Base {
         { 51, 0.6f, 175},
         {-23, 2.5f, 175},
     };
-
-    //! 放棄された家の座標
+    //! 初期雑魚の座標
     const float3 MOB_POS[4] = {
-        {100, 0, -30},
-        {120, 0, -15},
-        {100, 0, -70},
-        {120, 0, -85},
+        {100, -18, -30},
+        {120, -18, -15},
+        {100, -18, -70},
+        {120, -18, -85},
     };
 
     //! フェイドタイマー
-    float m_fadeTimer       = FADE_TIME;
+    float _fadeTimer       = FADE_TIME;
     //! 縮小タイマー
-    float m_shrinkTimer     = 0;
+    float _shrinkTimer     = 0;
     //! 雑魚モンスター出現タイマー
-    float _mobSpawnTimer    = MOB_SPAWN_TIME;
+    float _mobSpawnTimer   = MOB_SPAWN_TIME;
     //! シーンのイントロタイマー
-    float m_cutSceneTimer   = START_CUT_SCENE_TIME;
+    float _cutSceneTimer   = START_CUT_SCENE_TIME;
     //! フェイドアルファ
-    float m_alpha           = 255;
+    float _alpha           = 255;
     //! ゲームタイマーの秒数
-    float m_second          = 0.0f;
+    float _second          = 0.0f;
     //! ゲーム経過時間
-    float m_elapsed         = 0;
+    float _elapsed         = 0;
     //! ゲーム終わりタイトルに戻るタイマー
-    float m_endingTimer     = 600;
+    float _endingTimer     = 600;
     //! フォントハンドル
-    int   m_fontHandle      = -1;
+    int   _fontHandle      = -1;
     //! タイマーフォントハンドル
-    int   m_timerFontHandle = -1;
+    int   _timerFontHandle = -1;
     //! イントロのBGM
-    int   m_introBGM        = -1;
+    int   _introBGM        = -1;
     //! ゲームのBGM
-    int   m_BGM             = -1;
+    int   _BGM             = -1;
     //! 文字の幅
-    int   m_stringWidth     = 0;
+    int   _stringWidth     = 0;
     //! 文字の高さ
-    int   m_stringHeight    = 0;
+    int   _stringHeight    = 0;
     //! ゲームタイマーの幅
-    int   m_timerWidth      = 0;
+    int   _timerWidth      = 0;
     //! ゲームタイマーの高さ
-    int   m_timerHeight     = 0;
+    int   _timerHeight     = 0;
     //! ゲームタイマーの分
-    int   m_minute          = 3;
+    int   _minute          = 3;
     //! 負けるのか
-    bool  m_isLose          = false;
+    bool  _isLose          = false;
 
-    bool _isSpawnMob = false;
+    bool _isMobSpawned = false;
 
-    bool m_showBlackBar = false;
+    bool _showBlackBar = false;
 
-    bool m_slideBlackBar = false;
+    bool _slideBlackBar = false;
 
     //! プレイヤー
-    std::weak_ptr<Player>                m_pPlayer;
+    std::weak_ptr<Player>                _pPlayer;
     //! ボス
-    std::weak_ptr<MawJLaygo>             m_pBoss;
-    std::array<std::weak_ptr<Mutant>, 4> m_pMob;
+    std::weak_ptr<MawJLaygo>             _pBoss;
+    std::array<std::weak_ptr<Mutant>, 4> _pMob;
     //! プレイヤーカメラ
-    std::weak_ptr<Camera>                m_pPlayerCamera;
+    std::weak_ptr<Camera>                _pPlayerCamera;
     //! シーンカメラ
-    std::weak_ptr<ComponentCamera>       m_pCamera;
+    std::weak_ptr<ComponentCamera>       _pCamera;
     //! 勝利画像
-    std::weak_ptr<ComponentTexture2D>    m_pClearImage;
+    std::weak_ptr<ComponentTexture2D>    _pClearImage;
     //! 失敗画像
-    std::weak_ptr<ComponentTexture2D>    m_pFailImage;
+    std::weak_ptr<ComponentTexture2D>    _pFailImage;
     //! 表示する座標
-    std::weak_ptr<ComponentTexture2D>    m_pShowImage;
+    std::weak_ptr<ComponentTexture2D>    _pShowImage;
 
     //------------------------------------------------------------
     //! @brief フェイドインを行います。

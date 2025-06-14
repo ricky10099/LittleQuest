@@ -108,11 +108,23 @@ void MobEnemy::SetToSpawnState() {
 
 void MobEnemy::SetSceneState(Scene::SceneState state) {
     _sceneState = state;
-    ChangeState(_initialState);
+    switch(state) {
+    case Scene::SceneState::GAME:
+        ChangeState(_initialState);
+        break;
+    }
 }
 
 void MobEnemy::SetSpawnPoint(float3 spawnPoint) {
     _spawnPos = spawnPoint;
+}
+
+void MobEnemy::SetDetectDistance(float detectDistance) {
+    _detectDistance = detectDistance;
+}
+
+void MobEnemy::SetDetectAngle(float detectAngle) {
+    _detectAngle = detectAngle;
 }
 
 float MobEnemy::GetDestroyTimer() {
@@ -215,6 +227,10 @@ void MobEnemy::GetHit(int damage) {
     } else {
         this->Die();
     }
+}
+
+bool MobEnemy::GetIsReady() {
+    return _isReady;
 }
 
 void MobEnemy::GameAction() {

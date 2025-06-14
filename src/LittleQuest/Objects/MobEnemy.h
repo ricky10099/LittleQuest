@@ -31,8 +31,11 @@ class MobEnemy: public Enemy {
     //------------------------------------------------------------
     virtual void SetSceneState(Scene::SceneState state) override;
     virtual void SetSpawnPoint(float3 spawnPoint);
+    virtual void SetDetectDistance(float detectDistance);
+    virtual void SetDetectAngle(float detectAngle);
 
     virtual void GetHit(int damage) override;
+    virtual bool GetIsReady();
     float        GetDestroyTimer();
 
    protected:
@@ -75,6 +78,7 @@ class MobEnemy: public Enemy {
     float _detectDistance = DEFAULT_DETECT_DISTANCE;
     float _detectAngle    = DEFAULT_DETECT_ANGLE;
 
+    bool  _isReady  = true;
     bool  _isAttack = false;
     bool  _isHitPlayer;
     bool  _isFoundPlayer;

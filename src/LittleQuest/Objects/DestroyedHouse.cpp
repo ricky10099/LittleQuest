@@ -9,21 +9,27 @@ DestroyedHousePtr DestroyedHouse::Create(std::string name, const float3& pos) {
     auto obj = Scene::CreateObjectPtr<DestroyedHouse>();
     obj->SetName(name);
     obj->SetTranslate(pos);
-    obj->AddComponent<ComponentModel>("data/LittleQuest/Model/DestroyedHouse/DestroyedHouse.mv1");
-
-    obj->m_pBox = Scene::CreateObjectPtr<Object>("DestroyedHouseBox");
-    obj->m_pBox->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
-    obj->m_pBox->SetTranslate(pos + float3{-6, 0, -2});
-    obj->m_pBox->SetRotationAxisXYZ({0, 90, 0});
-    obj->m_pBox->SetScaleAxisXYZ({0.9, 1, 12});
-    obj->m_pBox->AddComponent<ComponentCollisionModel>()->AttachToModel();
 
     return obj;
 }
 
+bool DestroyedHouse::Init() {
+    _collisionModel = AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
+    _collisionModel.lock()->SetTranslate(float3{0.9, 0, -2.3});
+    _collisionModel.lock()->SetScaleAxisXYZ({0.045, 0.07, 0.5});
+    _collisionBox = AddComponent<ComponentCollisionModel>()->SetCollisionGroup(ComponentCollision::CollisionGroup::ITEM);
+    _collisionBox.lock()->AttachToModel();
+    _model = AddComponent<ComponentModel>("data/LittleQuest/Model/DestroyedHouse/DestroyedHouse.mv1");
+    return Super::Init();
+}
+
 void DestroyedHouse::Update() {
-    if(!m_pBox->GetStatus(StatusBit::NoDraw)) {
-        m_pBox->SetStatus(StatusBit::NoDraw, true);
+    if(!_collisionModel.lock()->GetStatus(Component::StatusBit::NoDraw)) {
+        _collisionModel.lock()->SetStatus(Component::StatusBit::NoDraw, true);
+    }
+    if(_isBroke) {
+        _model.lock()->SetStatus(Component::StatusBit::NoDraw, true);
+        RemoveComponent(_collisionBox.lock());
     }
 }
 }    // namespace LittleQuest
