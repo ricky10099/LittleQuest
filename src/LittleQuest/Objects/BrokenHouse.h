@@ -1,13 +1,14 @@
 ﻿#pragma once
 
 #include <System/Scene.h>
+#include <LittleQuest/Objects/BreakableObject.h>
 
 namespace LittleQuest {
 USING_PTR(BrokenHouse);
 //////////////////////////////////////////////////////////////
 //! @brief 壊れた家クラス
 //////////////////////////////////////////////////////////////
-class BrokenHouse: public Object {
+class BrokenHouse: public BreakableObject {
    public:
     BP_OBJECT_DECL(BrokenHouse, "LittleQuest/BrokenHouse");
     static BrokenHousePtr Create(std::string name = "BrokenHouse", const float3& pos = {0, 0, 0});
@@ -15,9 +16,9 @@ class BrokenHouse: public Object {
     //------------------------------------------------------------
     //! @brief 更新処理を行います。
     //------------------------------------------------------------
-    void Update() override;
-   private:
-    //! モデルコリジョンボックス
-    ObjectPtr m_pBox;
+    virtual void Update() override;
+
+   protected:
+    virtual void Break() override;
 };
 }    // namespace LittleQuest

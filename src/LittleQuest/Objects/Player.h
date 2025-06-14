@@ -129,7 +129,7 @@ class Player: public Character {
     //! 現在のコンボ
     Combo _currCombo = Combo::NO_COMBO;
 
-    ObjectWeakPtr _boss;
+    //ObjectWeakPtr _boss;
 
     //! 攻撃方法と攻撃力のマップ
     std::unordered_map<Combo, int>           _comboList;

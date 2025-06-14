@@ -101,15 +101,23 @@ bool Stage01::Init() {
     m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
     m_pBoss.lock()->SetSceneState(scene_state);
 
-    m_pMob = Mutant::Create(MOB_SPAWN_POS, false);
-    m_pMob.lock()->SetSpawnPoint(MOB_SPAWN_POS);
-    m_pMob.lock()->SetRotationAxisXYZ({0, 90, 0});
-    m_pMob.lock()->SetSceneState(scene_state);
+    //for(auto& mob: m_pMob) {
+    //    mob = Mutant::Create(MOB_SPAWN_POS, false);
+    //    mob.lock()->SetSpawnPoint(MOB_SPAWN_POS);
+    //    mob.lock()->SetRotationAxisXYZ({0, 90, 0});
+    //    mob.lock()->SetSceneState(scene_state);
+    //}
+    for(int i = 0; i < 4; ++i) {
+        m_pMob[i] = Mutant::Create(MOB_POS[i], false);
+        m_pMob[i].lock()->SetSpawnPoint(MOB_POS[i]);
+        m_pMob[i].lock()->SetRotationAxisXYZ({0, 90, 0});
+        m_pMob[i].lock()->SetSceneState(scene_state);
+    }
 
     auto obj  = Scene::CreateObjectPtr<Object>()->SetName("CutSceneCamera");
     m_pCamera = obj->AddComponent<ComponentCamera>();
     m_pCamera.lock()->SetCurrentCamera();
-    m_pCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_1, m_pBoss.lock()->GetTranslate() + float3{0, 20, 0});
+    m_pCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_START, m_pBoss.lock()->GetTranslate() + float3{0, 20, 0});
     m_pCamera.lock()->SetPerspective(FOV_INTRO);
 
     m_introBGM = LoadSoundMem("data/LittleQuest/Audio/BGM/IntroBGM_long.mp3");
@@ -148,12 +156,21 @@ void Stage01::Update() {
         ShowBlackBar();
 
         if(m_pBoss.lock()->IsPlayedTaunt()) {
+            //_isSpawnMob = true;
+            for(auto& mob: m_pMob) {
+                mob.lock()->SetToSpawnState();
+            }
+
+            m_pCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_MOB, CUT_SCENE_TARGET_MOB);
+        }
+
+        if(_isSpawnMob) {
             m_slideBlackBar = true;
             m_pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
             m_cutSceneTimer -= GetDeltaTime60();
             m_cutSceneTimer = std::max(0.0f, m_cutSceneTimer);
             t               = abs(1 - (m_cutSceneTimer / START_CUT_SCENE_TIME));
-            newCamPos       = lerp(CUT_SCENE_POS_1, m_pPlayerCamera.lock()->GetTranslate(), t);
+            newCamPos       = lerp(CUT_SCENE_POS_START, m_pPlayerCamera.lock()->GetTranslate(), t);
             newCamTarget =
                 lerp(m_pBoss.lock()->GetTranslate() + float3{0, 20, 0}, m_pPlayer.lock()->GetTranslate() + float3{0, 5, 0}, t);
             newFOV = lerp(float1(FOV_INTRO), FOV_ORG, t);
@@ -167,10 +184,12 @@ void Stage01::Update() {
             scene_state = Scene::SceneState::GAME;
             m_pPlayer.lock()->SetSceneState(scene_state);
             m_pBoss.lock()->SetSceneState(scene_state);
-            m_pMob.lock()->SetSceneState(scene_state);
+            for(auto& mob: m_pMob) {
+                mob.lock()->SetSceneState(scene_state);
+            }
         }
 
-        if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
+        if(IsKeyDown(KEY_INPUT_RETURN) /*|| IsMouseDown(MOUSE_INPUT_1)*/ || IsKeyDown(KEY_INPUT_SPACE) ||
            IsPadOn(PAD_ID::PAD_L_PUSH) || IsPadOn(PAD_ID::PAD_B)) {
             m_fadeTimer     = 0;
             m_alpha         = 0;
@@ -223,7 +242,7 @@ void Stage01::Update() {
             scene_state = Scene::SceneState::TRANS_OUT;
             m_pPlayer.lock()->SetSceneState(scene_state);
             m_pBoss.lock()->SetSceneState(scene_state);
-            m_pMob.lock()->SetSceneState(scene_state);
+            //m_pMob.lock()->SetSceneState(scene_state);
             m_pPlayer.lock()->SetTranslate(PLAYER_SPAWN_POS);
             m_pBoss.lock()->SetTranslate(BOSS_SPAWN_POS);
             m_pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});

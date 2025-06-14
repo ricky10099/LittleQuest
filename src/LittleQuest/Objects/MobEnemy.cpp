@@ -218,6 +218,10 @@ void MobEnemy::GetHit(int damage) {
 }
 
 void MobEnemy::GameAction() {
+    if(_isDead) {
+        return;
+    }
+
     switch(_state) {
     case MobEnemyState::GET_HIT:
         if(!_model.lock()->IsPlaying()) {

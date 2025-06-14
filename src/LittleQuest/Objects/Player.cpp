@@ -1,10 +1,10 @@
 ﻿#include "Player.h"
 #include "Enemy.h"
-#include "MawJLaygo.h"
 #include "Camera.h"
 #include "LittleQuest/Components/ComponentHP.h"
 #include "LittleQuest/Components/ComponentCombo.h"
 #include "LittleQuest/Scenes/Stage01.h"
+#include "LittleQuest/Objects/BreakableObject.h"
 
 #include <System/Component/ComponentAttachModel.h>
 #include <System/Component/ComponentCamera.h>
@@ -83,7 +83,8 @@ bool Player::Init() {
     _weaponCollision.lock()->SetHeight(10.0f);
     _weaponCollision.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);
     _weaponCollision.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
-    _weaponCollision.lock()->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
+    _weaponCollision.lock()->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY |
+                                     (u32)ComponentCollision::CollisionGroup::ITEM);
 
     _hitEffect      = LoadEffekseerEffect("data/LittleQuest/Effect/LossOfBlood.efk", 0.5f);
     _slashEffect1   = LoadEffekseerEffect("data/LittleQuest/Effect/SwordSlashSprite1.efk", 5.0f);
@@ -102,21 +103,21 @@ bool Player::Init() {
 
     _cameraCorrection = AddComponent<ComponentCollisionLine>();
     _cameraCorrection.lock()->SetTranslate({0, 0, 0});
-    _cameraCorrection.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND |
-                                                   (u32)ComponentCollision::CollisionGroup::WALL |
-                                                   (u32)ComponentCollision::CollisionGroup::CAMERA);
+    _cameraCorrection.lock()->SetHitCollisionGroup(
+        (u32)ComponentCollision::CollisionGroup::GROUND | (u32)ComponentCollision::CollisionGroup::WALL |
+        (u32)ComponentCollision::CollisionGroup::ITEM | (u32)ComponentCollision::CollisionGroup::CAMERA);
     _cameraCorrection.lock()->SetCollisionGroup(ComponentCollision::CollisionGroup::ETC);
-    _cameraCorrection.lock()->SetName("CamCor");
+    _cameraCorrection.lock()->SetName("CamCorrection");
 
-    _boss = Scene::GetObjectPtr<MawJLaygo>("Boss");
+    //_boss = Scene::GetObjectPtr<MawJLaygo>("Boss");
 
     return Super::Init();
 }
 
 void Player::Update() {
-    if(!_boss.lock()) {
-        _boss = Scene::GetObjectPtr<MawJLaygo>("Boss");
-    }
+    //if(!_boss.lock()) {
+    //    _boss = Scene::GetObjectPtr<MawJLaygo>("Boss");
+    //}
 
     switch(_sceneState) {
     case Scene::SceneState::TRANS_IN:
@@ -253,6 +254,24 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
                                                hitInfo.hit_position_.z);
                 _camera.lock()->SetCameraShake(15, 5);
                 _camera.lock()->ShakeCamera();
+            }
+        }
+
+        BreakableObject* breakableObject;
+        breakableObject = dynamic_cast<BreakableObject*>(owner);
+        if((breakableObject /* = dynamic_cast<BreakableObject*>(owner)*/) && _currCombo != Combo::NO_COMBO) {
+            bool inList = false;
+            for(int i = 0; i < _attackList.size(); i++) {
+                if(_attackList[i] == enemy->GetName().data()) {
+                    inList = true;
+                    break;
+                }
+            }
+
+            if(!inList) {
+                _attackList.push_back(breakableObject->GetName().data());
+                breakableObject->GetHit();
+                _isHit = true;
             }
         }
     }
@@ -536,7 +555,8 @@ void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo next
         } else {
             _model.lock()->SetAnimationSpeed(animInfo.animSpeed);
         }
-        _weaponCollision.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY);
+        _weaponCollision.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY |
+                                                      (u32)ComponentCollision::CollisionGroup::ITEM);
     }
     if(_currAnimTime > _animList[animName].triggerEndTime) {
         _weaponCollision.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);

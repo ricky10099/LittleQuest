@@ -46,16 +46,20 @@ class Stage01: public Scene::Base {
    private:
     //! シーンのイントロの時間
     const float  START_CUT_SCENE_TIME = 240.0f;
+    const float  MOB_SPAWN_TIME       = 240.0f;
     //! フェイドの時間
     const float  FADE_TIME            = 30.0f;
     //! ゲーム終了画像縮小する時間
     const float  SHRINK_TIME          = 120.0f;
     //! シーンのイントロカメラの初期位置
-    const float3 CUT_SCENE_POS_1      = {130, 21, -50};
+    const float3 CUT_SCENE_POS_START  = {100, 21, -50};
+    const float3 CUT_SCENE_POS_MOB    = {70, 21, -50};
+    const float3 CUT_SCENE_TARGET_MOB = {120, 0, -30};
     //! シーンのイントロカメラの終了位置
-    const float3 CUT_SCENE_POS_2      = {-97, 17, -50};
+    const float3 CUT_SCENE_POS_FINAL  = {-97, 17, -50};
     //! シーンのイントロカメラの初期画角
-    const float  FOV_INTRO            = 140.0f;
+    //const float  FOV_INTRO            = 140.0f;
+    const float  FOV_INTRO            = 45.0f;
     //! 標準画角
     const float  FOV_ORG              = 45.0f;
     //! プレイヤー生成位置
@@ -103,10 +107,20 @@ class Stage01: public Scene::Base {
         {-23, 2.5f, 175},
     };
 
+    //! 放棄された家の座標
+    const float3 MOB_POS[4] = {
+        {100, 0, -30},
+        {120, 0, -15},
+        {100, 0, -70},
+        {120, 0, -85},
+    };
+
     //! フェイドタイマー
     float m_fadeTimer       = FADE_TIME;
     //! 縮小タイマー
     float m_shrinkTimer     = 0;
+    //! 雑魚モンスター出現タイマー
+    float _mobSpawnTimer    = MOB_SPAWN_TIME;
     //! シーンのイントロタイマー
     float m_cutSceneTimer   = START_CUT_SCENE_TIME;
     //! フェイドアルファ
@@ -138,25 +152,27 @@ class Stage01: public Scene::Base {
     //! 負けるのか
     bool  m_isLose          = false;
 
+    bool _isSpawnMob = false;
+
     bool m_showBlackBar = false;
 
     bool m_slideBlackBar = false;
 
     //! プレイヤー
-    std::weak_ptr<Player>             m_pPlayer;
+    std::weak_ptr<Player>                m_pPlayer;
     //! ボス
-    std::weak_ptr<MawJLaygo>          m_pBoss;
-    std::weak_ptr<Mutant>             m_pMob;
+    std::weak_ptr<MawJLaygo>             m_pBoss;
+    std::array<std::weak_ptr<Mutant>, 4> m_pMob;
     //! プレイヤーカメラ
-    std::weak_ptr<Camera>             m_pPlayerCamera;
+    std::weak_ptr<Camera>                m_pPlayerCamera;
     //! シーンカメラ
-    std::weak_ptr<ComponentCamera>    m_pCamera;
+    std::weak_ptr<ComponentCamera>       m_pCamera;
     //! 勝利画像
-    std::weak_ptr<ComponentTexture2D> m_pClearImage;
+    std::weak_ptr<ComponentTexture2D>    m_pClearImage;
     //! 失敗画像
-    std::weak_ptr<ComponentTexture2D> m_pFailImage;
+    std::weak_ptr<ComponentTexture2D>    m_pFailImage;
     //! 表示する座標
-    std::weak_ptr<ComponentTexture2D> m_pShowImage;
+    std::weak_ptr<ComponentTexture2D>    m_pShowImage;
 
     //------------------------------------------------------------
     //! @brief フェイドインを行います。

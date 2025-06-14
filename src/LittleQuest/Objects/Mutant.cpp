@@ -77,7 +77,7 @@ void Mutant::SpawnAction() {
 }
 
 void Mutant::GameAction() {
-    if(!_bodyBox.lock()->IsUseGravity()) {
+    if(_bodyBox.lock() && !_bodyBox.lock()->IsUseGravity()) {
         _bodyBox.lock()->UseGravity();
     }
 

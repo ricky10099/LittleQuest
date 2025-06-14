@@ -11,19 +11,24 @@ BrokenHousePtr BrokenHouse::Create(std::string name, const float3& pos) {
     obj->SetTranslate(pos);
     obj->AddComponent<ComponentModel>("data/LittleQuest/Model/BrokenHouse/BrokenHouse.mv1");
 
-    obj->m_pBox = Scene::CreateObjectPtr<Object>("BrokenHouseBox");
-    obj->m_pBox->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
-    obj->m_pBox->SetTranslate(pos + float3{-3, 0, 0});
-    obj->m_pBox->SetRotationAxisXYZ({0, 90, 0});
-    obj->m_pBox->SetScaleAxisXYZ({1, 1, 16});
-    obj->m_pBox->AddComponent<ComponentCollisionModel>()->AttachToModel();
+    obj->_collisionBox = Scene::CreateObjectPtr<Object>("BrokenHouseBox");
+    obj->_collisionBox->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
+    obj->_collisionBox->SetTranslate(pos + float3{-3, 0, 0});
+    obj->_collisionBox->SetRotationAxisXYZ({0, 90, 0});
+    obj->_collisionBox->SetScaleAxisXYZ({1, 1, 16});
+    obj->_collisionBox->AddComponent<ComponentCollisionModel>()
+        ->SetCollisionGroup(ComponentCollision::CollisionGroup::ITEM)
+        ->AttachToModel();
 
     return obj;
 }
 void BrokenHouse::Update() {
-    if(!m_pBox->GetStatus(StatusBit::NoDraw)) {
-        m_pBox->SetStatus(StatusBit::NoDraw, true);
+    if(!_collisionBox->GetStatus(StatusBit::NoDraw)) {
+        _collisionBox->SetStatus(StatusBit::NoDraw, true);
     }
+}
+void BrokenHouse::Break() {
+    RemoveAllComponents();
 }
 }    // namespace LittleQuest
 

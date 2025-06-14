@@ -86,10 +86,10 @@ struct Variant {
         Microsoft::WRL::ComPtr<ID3DBlob> byte_code = nullptr;
         Microsoft::WRL::ComPtr<ID3DBlob> errors;
 
-        auto hr = D3DCompile(source_code.data(),                   // [in]  ソースコードのメモリ上のアドレス
-                             source_code.size(),                   // [in]  ソースコードサイズ
-                             convertTo(source_path).c_str(),       // [in]  ソースコードのファイルパス(使用しない場合はnullptr)
-                             defines,                              // [in]  プリプロセッサマクロ定義
+        auto hr = D3DCompile(source_code.data(),    // [in]  ソースコードのメモリ上のアドレス
+                             source_code.size(),    // [in]  ソースコードサイズ
+                             convertTo(source_path).c_str(),    // [in]  ソースコードのファイルパス(使用しない場合はnullptr)
+                             defines,                           // [in]  プリプロセッサマクロ定義
                              D3D_COMPILE_STANDARD_FILE_INCLUDE,    // [in]  カスタムインクルード処理
                              "main",                               // [in]  関数名
                              target_names[dxlib_shader_type],      // [in]  シェーダーモデル名
@@ -118,8 +118,8 @@ struct Variant {
         //------------------------------------------------------
         // [DxLib] シェーダーを作成
         //------------------------------------------------------
-        const void* shader_bytecode = byte_code->GetBufferPointer();                   // シェーダーバイトコードの先頭アドレス
-        auto        shader_size     = static_cast<int>(byte_code->GetBufferSize());    // シェーダーバイトコードのサイズ
+        const void* shader_bytecode = byte_code->GetBufferPointer();    // シェーダーバイトコードの先頭アドレス
+        auto shader_size = static_cast<int>(byte_code->GetBufferSize());    // シェーダーバイトコードのサイズ
 
         // シェーダーバイトコードを保存
         shader_bytecode_.resize(shader_size);
