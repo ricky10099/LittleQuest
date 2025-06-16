@@ -1,6 +1,6 @@
 ﻿#include "Mutant.h"
 #include "Camera.h"
-#include "LittleQuest/Components/ComponentHP.h"
+//#include "LittleQuest/Components/ComponentHP.h"
 #include "LittleQuest/Tool.h"
 #include "LittleQuest/Objects/Player.h"
 
@@ -37,6 +37,8 @@ bool Mutant::Init() {
         {   STR(MobEnemyState::DEAD),   "data/LittleQuest/Anim/MutantSet/ZombieDeath.mv1", 0, 2.0f},
     });
     _model.lock()->PlayAnimation(STR(MobEnemyState::IDLE), true);
+
+    _spawnEffect = LoadEffekseerEffect("data/LittleQuest/Effect/MobSpawn.efk", 2.0f);
 
     _componentHP = AddComponent<ComponentHP>();
     _componentHP.lock()->SetType(ComponentHP::HP_TYPE::MOB);
@@ -91,7 +93,10 @@ void Mutant::SetSceneState(Scene::SceneState state) {
 
 void Mutant::SpawnAction() {
     _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::SPAWN), false, 0.3f);
+    _playingEffect = PlayEffekseer3DEffect(_spawnEffect);
+    SetPosPlayingEffekseer3DEffect(_playingEffect, GetTranslate().x, GetTranslate().y + 18, GetTranslate().z);
     if(!_model.lock()->IsPlaying()) {
+        _playingEffect = StopEffekseer3DEffect(_playingEffect);
         _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::IDLE), true, 0.0f);
         ChangeState(MobEnemyState::IDLE);
         _bodyBox.lock()->Overlap((u32)ComponentCollision::CollisionGroup::NONE);

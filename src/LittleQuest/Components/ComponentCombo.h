@@ -38,6 +38,8 @@ class ComponentCombo: public Component {
     //------------------------------------------------------------
     float ComboBuff();
 
+    bool IsFullCharge();
+
    private:
     //! コンボ維持する時間
     const float COMBO_TIMER  = 180;

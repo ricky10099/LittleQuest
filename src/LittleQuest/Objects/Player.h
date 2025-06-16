@@ -83,9 +83,9 @@ class Player: public Character {
     //------------------------------------------------------------
     virtual void EndSlowMotion();
 
-    inline void SetHideUI(bool isHide) {
-        _hideUI = isHide;
-    }
+    //inline void SetHideUI(bool isHide) {
+    //    _hideUI = isHide;
+    //}
 
    private:
     //! 基礎の移動速度
@@ -93,7 +93,7 @@ class Player: public Character {
     //! 走るときの倍速
     const float RUN_MULTIPLIER      = 2.0f;
     //! ヒットストップの時間
-    const float HIT_PAUSE           = 20;
+    const float HIT_PAUSE           = 10.0f;
     //! チャージ必要の時間
     const float SPECIAL_CHARGE_TIME = 75.0f;
     //! 基礎の攻撃力
@@ -136,7 +136,7 @@ class Player: public Character {
     //! プレイヤーカメラ
     std::weak_ptr<Camera>                    _camera;
     //! HPコンポーネント
-    std::weak_ptr<ComponentHP>               _componentHP;
+    //std::weak_ptr<ComponentHP>               _componentHP;
     //! コンボコンポーネント
     std::weak_ptr<ComponentCombo>            _componentCombo;
     //! 武器のコリションボックス
@@ -165,9 +165,9 @@ class Player: public Character {
 
     bool _cameraBlocked = false;
 
-    bool _lockOn = false;
+    //bool _lockOn = false;
 
-    bool _hideUI = false;
+    //bool _hideUI = false;
 
     std::string_view _blockedName = "";
 

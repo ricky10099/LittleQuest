@@ -89,10 +89,6 @@ class MawJLaygo: public Enemy {
     //------------------------------------------------------------
     virtual void EndSlowMotion() override;
 
-    inline void SetHideUI(bool isHideUI) {
-        _hideUI = isHideUI;
-    }
-
    protected:
     //! 移動スピード
     const float WALK_SPEED         = 0.5f;
@@ -242,7 +238,7 @@ class MawJLaygo: public Enemy {
     //! スローモーション
     bool _slowMotion = false;
 
-    bool _hideUI = false;
+    //bool _hideUI = false;
 
     //------------------------------------------------------------
     //! @brief プレイ中の行動

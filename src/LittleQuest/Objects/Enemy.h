@@ -22,17 +22,24 @@ class Enemy: public Character {
         Boss,
     };
 
-    virtual bool IsBoss() {
+    virtual
+
+        virtual bool
+        IsBoss() {
         return _type == EnemyType::Boss;
     }
+
 
    protected:
     const float DEFAULT_WAIT_TIME = 120.0f;
 
-    EnemyType                  _type = EnemyType::Mob;
+    EnemyType     _type = EnemyType::Mob;
     //! プレイヤー
-    ObjectWeakPtr              _player;
-    std::weak_ptr<ComponentHP> _componentHP;
+    ObjectWeakPtr _player;
+
+    //std::weak_ptr<ComponentHP> _componentHP;
+
+    //bool _isHideHP = false;
 
     //! 待つ時間タイマー
     float _waitFor  = 0.0f;

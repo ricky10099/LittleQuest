@@ -7,13 +7,13 @@ namespace LittleQuest {
 void ComponentCombo::Update() {
     Super::Update();
 
-    if(m_comboTimer > 0) {
-        m_comboTimer -= GetDeltaTime60();
-    } else {
-        m_currCombo -= GetDeltaTime60();
-    }
+    //if(m_comboTimer > 0) {
+    //    m_comboTimer -= GetDeltaTime60();
+    //} else {
+    //    m_currCombo -= GetDeltaTime60();
+    //}
 
-    m_currCombo = std::max(0.0f, m_currCombo);
+    //m_currCombo = std::max(0.0f, m_currCombo);
 
     if(m_currCombo < 10) {
         m_comboColor = COMBO_BUFF_0;
@@ -67,5 +67,8 @@ float ComponentCombo::ComboBuff() {
     }
 
     return 1.0f;
+}
+bool ComponentCombo::IsFullCharge() {
+    return m_currCombo == MAX_COMBO;
 }
 }    // namespace LittleQuest

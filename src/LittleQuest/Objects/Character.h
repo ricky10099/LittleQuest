@@ -5,6 +5,7 @@
 #include <System/Scene.h>
 #include <vector>
 #include <System/Component/ComponentModel.h>
+#include <LittleQuest/Components/ComponentHP.h>
 
 namespace LittleQuest {
 USING_PTR(Character);
@@ -15,6 +16,11 @@ USING_PTR(Character);
 class Character: public Object {
    public:
     BP_OBJECT_DECL(Character, "LittleQuest/Character");
+    virtual void LateDraw() override {
+        if(_componentHP.lock() && !_isHideHP) {
+            _componentHP.lock()->DrawHPBar();
+        }
+    }
     //------------------------------------------------------------
     //! @brief 攻撃される処理を行います。
     //!
@@ -22,9 +28,21 @@ class Character: public Object {
     //------------------------------------------------------------
     virtual void GetHit(int damage) {}
     //------------------------------------------------------------
+    //! @brief スローモーションを行います。
+    //------------------------------------------------------------
+    virtual void SlowMotion() {}
+    //------------------------------------------------------------
+    //! @brief スローモーションを終了します。
+    //------------------------------------------------------------
+    virtual void EndSlowMotion() {}
+    //------------------------------------------------------------
     //! @brief シーンの行動を設定します。
     //------------------------------------------------------------
     virtual void SetSceneState(Scene::SceneState state) {}
+
+    virtual void SetHideHP(bool isHideHP) {
+        _isHideHP = isHideHP;
+    }
     //------------------------------------------------------------
     //! @brief プレイヤーが倒されたのか。
     //!
@@ -34,25 +52,20 @@ class Character: public Object {
     virtual bool IsDead() {
         return false;
     }
-    //------------------------------------------------------------
-    //! @brief スローモーションを行います。
-    //------------------------------------------------------------
-    virtual void SlowMotion() {}
-    //------------------------------------------------------------
-    //! @brief スローモーションを終了します。
-    //------------------------------------------------------------
-    virtual void EndSlowMotion() {}
 
    protected:
+    //! 現在のシーン行動
+    Scene::SceneState                         _sceneState = Scene::SceneState::GAME;
     //! アニメーション名とアニメーション情報のマップ
     std::unordered_map<std::string, AnimInfo> _animList;
     //! 攻撃した敵のリスト
     std::vector<std::string_view>             _attackList;
     //! モデル
     std::weak_ptr<ComponentModel>             _model;
-
-    //! 現在のシーン行動
-    Scene::SceneState _sceneState = Scene::SceneState::GAME;
+    //! 体力コンポーネント
+    std::weak_ptr<ComponentHP>                _componentHP;
+    //! 体力コンポーネントを描画するかどうか
+    bool                                      _isHideHP = false;
 
     //! 自身マトリクス
     matrix _selfMatrix    = {};

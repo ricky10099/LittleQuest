@@ -61,8 +61,8 @@ float         volume_list[2]      = {bgm_volume / 100.0f, se_volume / 100.0f};
 
 std::vector<std::function<void()>> menu_function;
 std::vector<Scene::BGMInfo>        bgm_list;
-
-int bgm_index = -1;
+bool                               isBGMPlaying = false;
+int                                bgm_index    = -1;
 //std::vector<BGMInfo> bgm_list;
 #pragma endregion
 
@@ -842,6 +842,10 @@ void Scene::Init() {
     menu_function.emplace_back(SetSEVolume);
     menu_function.emplace_back(Pause);
     menu_function.emplace_back(NextScene);
+
+    for(int i = 0; i < bgm_list.size(); ++i) {
+        StopSoundMem(bgm_list[i].bgm_handle);
+    }
 #pragma endregion
 
     debug_scene_name = current_scene_->typeInfo()->className();
@@ -1063,7 +1067,7 @@ void Scene::Update() {
     }
 
     bool next_bgm_exist = (int)(bgm_list.size() - 1) > bgm_index;
-    bool no_bgm;
+    bool no_bgm         = true;
 
     for(int i = 0; i < bgm_list.size(); ++i) {
         no_bgm = (CheckSoundMem(bgm_list[i].bgm_handle) == 0);

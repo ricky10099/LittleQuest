@@ -24,15 +24,13 @@ class Mutant: public MobEnemy {
     //------------------------------------------------------------
     virtual void SetSceneState(Scene::SceneState state) override;
 
-    inline void SetHideUI(bool isHideUI) {
-        _hideUI = isHideUI;
-    }
-
    protected:
     // 攻撃間の待つ時間(フレーム)
     const float ATTACK_WAIT_TIME = 60.0f;
     const int   MAX_HP           = 20;
-    bool        _hideUI          = false;
+
+    int _spawnEffect   = -1;
+    int _playingEffect = -1;
 
     //! 体のコリションボックス
     std::weak_ptr<ComponentCollisionCapsule> _bodyBox;

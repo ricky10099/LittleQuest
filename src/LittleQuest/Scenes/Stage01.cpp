@@ -101,12 +101,6 @@ bool Stage01::Init() {
     _pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
     _pBoss.lock()->SetSceneState(scene_state);
 
-    //for(auto& mob: _pMob) {
-    //    mob = Mutant::Create(MOB_SPAWN_POS, false);
-    //    mob.lock()->SetSpawnPoint(MOB_SPAWN_POS);
-    //    mob.lock()->SetRotationAxisXYZ({0, 90, 0});
-    //    mob.lock()->SetSceneState(scene_state);
-    //}
     for(int i = 0; i < 4; ++i) {
         _pMob[i] = Mutant::Create(MOB_POS[i], false);
         _pMob[i].lock()->SetSpawnPoint(MOB_POS[i]);
@@ -145,6 +139,12 @@ void Stage01::Update() {
 
     switch(scene_state) {
     case Scene::SceneState::TRANS_IN:
+        _pPlayer.lock()->SetHideHP(true);
+        _pBoss.lock()->SetHideHP(true);
+        for(auto& mob: _pMob) {
+            mob.lock()->SetHideHP(true);
+        }
+
         if(FadeIn()) {
             _pBoss.lock()->PlayTaunt();
             _pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
@@ -179,16 +179,6 @@ void Stage01::Update() {
             _pCamera.lock()->SetPerspective(newFOV);
         }
 
-        if(_cutSceneTimer <= 0) {
-            _pPlayerCamera.lock()->SetCurrentCamera();
-            scene_state = Scene::SceneState::GAME;
-            _pPlayer.lock()->SetSceneState(scene_state);
-            _pBoss.lock()->SetSceneState(scene_state);
-            for(auto& mob: _pMob) {
-                mob.lock()->SetSceneState(scene_state);
-            }
-        }
-
         if(IsKeyDown(KEY_INPUT_RETURN) /*|| IsMouseDown(MOUSE_INPUT_1)*/ || IsKeyDown(KEY_INPUT_SPACE) ||
            IsPadOn(PAD_ID::PAD_L_PUSH) || IsPadOn(PAD_ID::PAD_B)) {
             _fadeTimer     = 0;
@@ -196,12 +186,22 @@ void Stage01::Update() {
             _cutSceneTimer = 0;
             _pCamera.lock()->SetPerspective(FOV_ORG);
         }
+
+        if(_cutSceneTimer <= 0) {
+            _pPlayerCamera.lock()->SetCurrentCamera();
+            scene_state = Scene::SceneState::GAME;
+            _pPlayer.lock()->SetSceneState(scene_state);
+            _pPlayer.lock()->SetHideHP(false);
+            _pBoss.lock()->SetSceneState(scene_state);
+            _pBoss.lock()->SetHideHP(false);
+            for(auto& mob: _pMob) {
+                mob.lock()->SetSceneState(scene_state);
+                mob.lock()->SetHideHP(false);
+            }
+        }
         break;
     case Scene::SceneState::GAME:
-
-        //#ifndef _DEBUG
         _second -= GetDeltaTime();
-        //#endif    // !_DEBUG
         _showBlackBar = false;
         if(_second <= 0) {
             if(_minute <= 0) {
@@ -231,9 +231,11 @@ void Stage01::Update() {
                                                       _pBoss.lock()->GetTranslate() + float3{0, 5, 0});
             }
 
-            _pPlayer.lock()->SetHideUI(true);
-            _pBoss.lock()->SetHideUI(true);
-
+            _pPlayer.lock()->SetHideHP(true);
+            _pBoss.lock()->SetHideHP(true);
+            for(auto& mob: _pMob) {
+                mob.lock()->SetHideHP(true);
+            }
         } else {
             _cutSceneTimer = START_CUT_SCENE_TIME;
         }
@@ -242,7 +244,6 @@ void Stage01::Update() {
             scene_state = Scene::SceneState::TRANS_OUT;
             _pPlayer.lock()->SetSceneState(scene_state);
             _pBoss.lock()->SetSceneState(scene_state);
-            //_pMob.lock()->SetSceneState(scene_state);
             _pPlayer.lock()->SetTranslate(PLAYER_SPAWN_POS);
             _pBoss.lock()->SetTranslate(BOSS_SPAWN_POS);
             _pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});

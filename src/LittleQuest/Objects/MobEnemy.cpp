@@ -1,6 +1,6 @@
 ﻿#include "MobEnemy.h"
 #include "Camera.h"
-#include "LittleQuest/Components/ComponentHP.h"
+//#include "LittleQuest/Components/ComponentHP.h"
 #include "LittleQuest/Tool.h"
 #include "LittleQuest/Objects/Player.h"
 
@@ -67,17 +67,18 @@ void MobEnemy::LateDraw() {
         printfDx("\ntargetDegree: %f", GetDegreeToPosition(_player.lock()->GetTranslate()));
         printfDx("\ndie timer: %f", _destroyTimer);*/
     }
-    switch(_sceneState) {
-    case Scene::SceneState::TRANS_IN:
-        break;
-    case Scene::SceneState::GAME:
-        if(!_hideUI) {
-            _componentHP.lock()->DrawHPBar();
-        }
-        break;
-    case Scene::SceneState::TRANS_OUT:
-        break;
-    }
+    //switch(_sceneState) {
+    //case Scene::SceneState::TRANS_IN:
+    //    break;
+    //case Scene::SceneState::GAME:
+    //    if(!_hideUI) {
+    //        _componentHP.lock()->DrawHPBar();
+    //    }
+    //    break;
+    //case Scene::SceneState::TRANS_OUT:
+    //    break;
+    //}
+    Super::LateDraw();
 }
 
 //void MobEnemy::GUI() {
@@ -127,7 +128,7 @@ void MobEnemy::SetDetectAngle(float detectAngle) {
     _detectAngle = detectAngle;
 }
 
-float MobEnemy::GetDestroyTimer() {
+float MobEnemy::GetDestroyTimer() const {
     return _destroyTimer;
 }
 

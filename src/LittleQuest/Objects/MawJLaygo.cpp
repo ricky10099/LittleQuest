@@ -1,6 +1,6 @@
 ﻿#include "MawJLaygo.h"
 #include "Camera.h"
-#include "LittleQuest/Components/ComponentHP.h"
+//#include "LittleQuest/Components/ComponentHP.h"
 #include "LittleQuest/Tool.h"
 #include "player.h"
 
@@ -87,6 +87,7 @@ bool MawJLaygo::Init() {
     _MawJLaygoCombo = MawJLaygoCombo::NONE;
     _state          = MawJLaygoState::IDLE;
     _player         = Scene::GetObjectPtr<Player>("Player");
+    _type           = EnemyType::Boss;
 
     _attackSE = LoadSoundMem("data/LittleQuest/Audio/SE/MawJLaygoAttack.wav");
 
@@ -198,17 +199,18 @@ void MawJLaygo::TransOutAction() {
 
 void MawJLaygo::LateDraw() {
     if(Scene::IsEdit()) {}
-    switch(_sceneState) {
-    case Scene::SceneState::TRANS_IN:
-        break;
-    case Scene::SceneState::GAME:
-        if(!_hideUI) {
-            _componentHP.lock()->DrawHPBar();
-        }
-        break;
-    case Scene::SceneState::TRANS_OUT:
-        break;
-    }
+    Super::LateDraw();
+    //switch(_sceneState) {
+    //case Scene::SceneState::TRANS_IN:
+    //    break;
+    //case Scene::SceneState::GAME:
+    //    if(!_hideUI) {
+    //        _componentHP.lock()->DrawHPBar();
+    //    }
+    //    break;
+    //case Scene::SceneState::TRANS_OUT:
+    //    break;
+    //}
 }
 
 void MawJLaygo::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {

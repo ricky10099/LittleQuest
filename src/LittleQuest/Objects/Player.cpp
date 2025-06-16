@@ -1,7 +1,7 @@
 ﻿#include "Player.h"
 #include "Enemy.h"
 #include "Camera.h"
-#include "LittleQuest/Components/ComponentHP.h"
+//#include "LittleQuest/Components/ComponentHP.h"
 #include "LittleQuest/Components/ComponentCombo.h"
 #include "LittleQuest/Scenes/Stage01.h"
 #include "LittleQuest/Objects/BreakableObject.h"
@@ -213,12 +213,14 @@ void Player::TransOutAction() {
 }
 
 void Player::LateDraw() {
+    Super::LateDraw();
+
     switch(_sceneState) {
     case Scene::SceneState::TRANS_IN:
         break;
     case Scene::SceneState::GAME:
-        if(!_hideUI) {
-            _componentHP.lock()->DrawHPBar();
+        if(!_isHideHP) {
+            //_componentHP.lock()->DrawHPBar();
             _componentCombo.lock()->DrawComboBar();
         }
         break;

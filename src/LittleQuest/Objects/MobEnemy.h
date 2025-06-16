@@ -33,10 +33,11 @@ class MobEnemy: public Enemy {
     virtual void SetSpawnPoint(float3 spawnPoint);
     virtual void SetDetectDistance(float detectDistance);
     virtual void SetDetectAngle(float detectAngle);
+    //virtual void SetHideUI(bool isHide);
 
     virtual void GetHit(int damage) override;
     virtual bool GetIsReady();
-    float        GetDestroyTimer();
+    float        GetDestroyTimer() const;
 
    protected:
     enum class MobEnemyState {
@@ -63,7 +64,7 @@ class MobEnemy: public Enemy {
 
     const float ATTACK_DISTANCE = 15.0f;
 
-    bool _hideUI = false;
+    //bool _hideUI = false;
 
     float _baseSpeed  = 0.2f;
     float _walkFactor = 0.5f;
