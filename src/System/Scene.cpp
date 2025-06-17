@@ -4,6 +4,7 @@
 #include <System/Object.h>
 #include <System/Component/ComponentModel.h>
 #include <System/Component/ComponentCollision.h>
+#include <LittleQuest/Components/ComponentTexture.h>
 #include <System/Debug/DebugCamera.h>
 #include <System/SystemMain.h>    // ResetDeltaTime
 
@@ -49,21 +50,26 @@ std::string debug_scene_name;
 bool scene_can_pause = false;
 bool scene_draw_menu = false;
 bool stop_pause      = false;
+bool draw_tutorial   = false;
 
 int           font_handle         = -1;
 int           bgm_handle          = -1;
 constexpr int MENU_MAX            = 4;
 int           select_num          = 0;
+constexpr int TUTORIAL_MAX        = 3;
+int           tutorial_page       = 0;
 float         menu_x[MENU_MAX]    = {0.4f, 0.4f, 0.5f, 0.5f};
 float         menu_y[MENU_MAX]    = {0.32f, 0.42f, 0.52f, 0.62f};
 const char*   menu_text[MENU_MAX] = {"BGM", "SE", "Resume", "Back to Title"};
 float         volume_list[2]      = {bgm_volume / 100.0f, se_volume / 100.0f};
 
+std::vector<int> _tutorialImages;
+//int _tutorialImage0Handle, _tutorialImage1Handle;
+
 std::vector<std::function<void()>> menu_function;
 std::vector<Scene::BGMInfo>        bgm_list;
 bool                               isBGMPlaying = false;
 int                                bgm_index    = -1;
-//std::vector<BGMInfo> bgm_list;
 #pragma endregion
 
 //auto BindObjectUpdate( ProcTiming proc, ObjectPtr obj )
@@ -835,13 +841,23 @@ void Scene::Init() {
 #pragma region customized
     scene_can_pause = false;
     scene_draw_menu = false;
-    font_handle     = CreateFontToHandle("M PLUS Code Latin", 50, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
-    bgm_index       = -1;
+    if(font_handle == -1) {
+        font_handle = CreateFontToHandle("M PLUS Code Latin", 50, 4, DX_FONTTYPE_ANTIALIASING_EDGE, DX_CHARSET_UTF8, 1);
+    }
+    bgm_index = -1;
 
-    menu_function.emplace_back(SetBGMVolume);
-    menu_function.emplace_back(SetSEVolume);
-    menu_function.emplace_back(Pause);
-    menu_function.emplace_back(NextScene);
+    if(_tutorialImages.empty()) {
+        _tutorialImages.emplace_back(LoadGraph("data/LittleQuest/Image/Tutorial0.png"));
+        _tutorialImages.emplace_back(LoadGraph("data/LittleQuest/Image/Tutorial1.png"));
+        _tutorialImages.emplace_back(LoadGraph("data/LittleQuest/Image/Tutorial2.png"));
+    }
+
+    if(menu_function.empty()) {
+        menu_function.emplace_back(SetBGMVolume);
+        menu_function.emplace_back(SetSEVolume);
+        menu_function.emplace_back(Pause);
+        menu_function.emplace_back(NextScene);
+    }
 
     for(int i = 0; i < bgm_list.size(); ++i) {
         StopSoundMem(bgm_list[i].bgm_handle);
@@ -1034,6 +1050,16 @@ void Scene::Update() {
         select_num = 0;
     }
 
+    if(draw_tutorial) {
+        if(IsMouseDown(MOUSE_INPUT_LEFT) || IsKeyDown(KEY_INPUT_RETURN)) {
+            tutorial_page++;
+        }
+        if(IsMouseDown(MOUSE_INPUT_RIGHT) || IsKeyDown(KEY_INPUT_BACK)) {
+            tutorial_page--;
+            tutorial_page = std::max(0, tutorial_page);
+        }
+    }
+
     if(scene_draw_menu) {
         HideMouse(false);
         if(IsKeyDown(KEY_INPUT_UP) || IsPadOn(PAD_ID::PAD_D_UP)) {
@@ -1142,7 +1168,24 @@ void Scene::Draw() {
     current_scene_->GetSignals(ProcTiming::LateDraw)();
 
 #pragma region customized
-    if(scene_draw_menu) {
+    if(draw_tutorial) {
+        int screen_width, screen_height;
+        GetScreenState(&screen_width, &screen_height, NULL);
+        int   string_width, string_height;
+        float x1, x2, y1, y2;
+        SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+        DrawBoxAA(screen_width * 0.1f, screen_height * 0.2f, screen_width * 0.9f, screen_height * 0.8f, 0u, TRUE);
+        SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
+
+        if(tutorial_page < _tutorialImages.size()) {
+            DrawExtendGraphF(screen_width * 0.2f, screen_height * 0.3f, screen_width * 0.8f, screen_height * 0.7f,
+                             _tutorialImages[tutorial_page], FALSE);
+        } else {
+            ShowTutorial();
+        }
+    }
+
+    if(scene_draw_menu && !draw_tutorial) {
         int screen_width, screen_height;
         GetScreenState(&screen_width, &screen_height, NULL);
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
@@ -1465,8 +1508,18 @@ float Scene::GetTime() {
 
 #pragma region customized
 void Scene::Pause() {
-    scene_pause     = !IsPause();
+    scene_pause = !IsPause();
+}
+
+void Scene::CallMenu() {
+    Pause();
     scene_draw_menu = !scene_draw_menu;
+}
+
+void Scene::ShowTutorial() {
+    Pause();
+    draw_tutorial = !draw_tutorial;
+    tutorial_page = 0;
 }
 
 void Scene::SetCanPause(bool canPause) {

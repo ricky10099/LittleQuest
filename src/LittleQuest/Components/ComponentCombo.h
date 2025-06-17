@@ -38,6 +38,8 @@ class ComponentCombo: public Component {
     //------------------------------------------------------------
     float ComboBuff();
 
+    void ClearCombo();
+
     bool IsFullCharge();
 
    private:

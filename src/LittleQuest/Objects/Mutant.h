@@ -28,9 +28,12 @@ class Mutant: public MobEnemy {
     // 攻撃間の待つ時間(フレーム)
     const float ATTACK_WAIT_TIME = 60.0f;
     const int   MAX_HP           = 20;
+    const int   MAX_VOLUME       = 255;
 
-    int _spawnEffect   = -1;
-    int _playingEffect = -1;
+    int  _spawnEffect   = -1;
+    int  _playingEffect = -1;
+    int  _attackSE      = -1;
+    bool _playedSE      = false;
 
     //! 体のコリションボックス
     std::weak_ptr<ComponentCollisionCapsule> _bodyBox;

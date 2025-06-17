@@ -63,6 +63,8 @@ bool Mutant::Init() {
     _leftHandBox.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
     _leftHandBox.lock()->Overlap(~(u32)ComponentCollision::CollisionGroup::NONE);
 
+    _attackSE = LoadSoundMem("data/LittleQuest/Audio/SE/EnemyAttack.wav");
+
     SetAnimList();
 
     return Super::Init();
@@ -121,7 +123,7 @@ void Mutant::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vect
     if(_model.lock()->GetPlayAnimationName() != animName) {
         _model.lock()->PlayAnimationNoSame(animName, false, 0.2f, animInfo.animStartTime);
         _model.lock()->SetAnimationSpeed(animInfo.animStartSpeed);
-        //_playedSE = false;
+        _playedSE = false;
     }
     _currAnimTime = _model.lock()->GetAnimationPlayTime();
     if(_currAnimTime >= animInfo.triggerStartTime) {
@@ -134,11 +136,11 @@ void Mutant::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vect
             atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
         }
 
-        //if(!_playedSE && playSE) {
-        //    PlaySoundMem(_attackSE, DX_PLAYTYPE_BACK);
-        //    ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), _attackSE);
-        //    _playedSE = true;
-        //}
+        if(!_playedSE && playSE) {
+            PlaySoundMem(_attackSE, DX_PLAYTYPE_BACK);
+            ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), _attackSE);
+            _playedSE = true;
+        }
     }
     if(_currAnimTime >= animInfo.triggerEndTime) {
         for(int i = 0; i < atkCol.size(); i++) {

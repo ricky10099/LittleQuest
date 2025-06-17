@@ -83,25 +83,25 @@ class Player: public Character {
     //------------------------------------------------------------
     virtual void EndSlowMotion();
 
-    //inline void SetHideUI(bool isHide) {
-    //    _hideUI = isHide;
-    //}
+    virtual bool IsPlayingEXSkill();
 
    private:
     //! 基礎の移動速度
-    const float BASE_SPEED          = 40.0f;
-    //! 走るときの倍速
-    const float RUN_MULTIPLIER      = 2.0f;
+    const float  BASE_SPEED                   = 40.0f;
+    //! 走るときの倍速'
+    const float  RUN_MULTIPLIER               = 2.0f;
     //! ヒットストップの時間
-    const float HIT_PAUSE           = 10.0f;
+    const float  HIT_PAUSE                    = 10.0f;
     //! チャージ必要の時間
-    const float SPECIAL_CHARGE_TIME = 75.0f;
+    const float  SPECIAL_CHARGE_TIME          = 75.0f;
+    const float  EXSKILL_PLAY_TIME            = 12.0;
     //! 基礎の攻撃力
-    const int   BASE_ATK            = 3;
+    const int    BASE_ATK                     = 3;
     //! 最大HP
-    const int   MAX_HP              = 200;
+    const int    MAX_HP                       = 200;
     //! 最大音量
-    const int   MAX_VOLUME          = 255;
+    const int    MAX_VOLUME                   = 255;
+    const float3 EXSKILL_CAMERA_TARGET_OFFSET = {0, 8, 0};
 
     //! プレイヤーの状態の列挙型
     enum PlayerState {
@@ -125,6 +125,8 @@ class Player: public Character {
         NORMAL_COMBO4,     //! 普通攻撃４段
         SPECIAL_ATTACK,    //! 特別攻撃
         SPECIAL_CHARGE,    //! チャージ攻撃
+        EXSKILL_0,         //! チャージ攻撃
+        EXSKILL_1,         //! チャージ攻撃
     };
     //! 現在のコンボ
     Combo _currCombo = Combo::NO_COMBO;
@@ -135,33 +137,34 @@ class Player: public Character {
     std::unordered_map<Combo, int>           _comboList;
     //! プレイヤーカメラ
     std::weak_ptr<Camera>                    _camera;
-    //! HPコンポーネント
-    //std::weak_ptr<ComponentHP>               _componentHP;
+    std::weak_ptr<ComponentCamera>           _exSkillCamera;
     //! コンボコンポーネント
     std::weak_ptr<ComponentCombo>            _componentCombo;
     //! 武器のコリションボックス
     std::weak_ptr<ComponentCollisionCapsule> _weaponCollision;
+    std::weak_ptr<ComponentCollisionSphere>  _exSkillCollision;
     //! カメラ修正用
     std::weak_ptr<ComponentCollisionLine>    _cameraCorrection;
     ObjectWeakPtr                            _cameraHitObject;
-    //std::weak_ptr<ComponentCollisionCapsule>  _pCameraCorrection;
 
     //! カメラ距離
-    float _cameraLength = 10.0f;
+    float  _cameraLength = 10.0f;
     //! チャージしているタイマー
-    float _chargeTime   = 0.0f;
-
-    float _blockedDistance = 0.0f;
+    float  _chargeTime   = 0.0f;
+    float  _exSkillTimer = EXSKILL_PLAY_TIME;
+    float3 _exSkillPosition;
+    float  _blockedDistance  = 0.0f;
     //! コンボ中なのか
-    bool  _isCombo         = false;
+    bool   _isCombo          = false;
     //! 次のコンボ受けるのか
-    bool  _waitForCombo    = false;
+    bool   _waitForCombo     = false;
     //! 無敵中なのか
-    bool  _isInvincible    = false;
+    bool   _isInvincible     = false;
     //! サウンドエフェクトが再生したのか
-    bool  _playedFX        = false;
+    bool   _playedFX         = false;
+    bool   _isPlayingEXSkill = false;
     //! チャージしていたのか
-    bool  _charged         = false;
+    bool   _charged          = false;
 
     bool _cameraBlocked = false;
 
@@ -173,6 +176,7 @@ class Player: public Character {
 
     //! 攻撃当たるエフェクト
     int  _hitEffect           = -1;
+    int  _hitBuildingEffect   = -1;
     //! 再生しているエフェクト
     int  _playingEffect       = -1;
     //! 攻撃エフェクト（コンボ１段）
@@ -185,12 +189,16 @@ class Player: public Character {
     int  _chargingEffect      = -1;
     //! チャージしたエフェクト
     int  _chargedEffect       = -1;
+    int  _exSkillEffect       = -1;
     //! チャージエフェクト再生ハンドル
     int  _playingChargeEffect = -1;
     //! 攻撃のサウドエフェクト
     int  _swordSE             = -1;
     //! 攻撃当たるサウンドエフェクト
     int  _swordHitSE          = -1;
+    int  _swordHitBuildingSE  = -1;
+    int  _exSkill0SE          = -1;
+    int  _exSkill1SE          = -1;
     //! 攻撃エフェクトリスト
     int* _pEffectList;
     //! チャージエフェクトリスト
@@ -235,7 +243,10 @@ class Player: public Character {
     //! @param animInfo アニメーション情報
     //! @param nextCombo 次のコンボ
     //------------------------------------------------------------
-    void         AttackAnimation(std::string animName, AnimInfo animInfo, Combo nextCombo = Combo::NO_COMBO);
+    void AttackAnimation(std::string animName, AnimInfo animInfo, Combo nextCombo = Combo::NO_COMBO, bool isEXSkill = false);
+    //------------------------------------------------------------
+    //------------------------------------------------------------
+    void PlayAttackFX(int effect, float3 position, float3 rotation, int soundEffect = -1);
     //------------------------------------------------------------
     //! @brief モデルの回転を設定します。
     //------------------------------------------------------------

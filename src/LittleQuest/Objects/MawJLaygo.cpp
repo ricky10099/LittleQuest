@@ -89,7 +89,7 @@ bool MawJLaygo::Init() {
     _player         = Scene::GetObjectPtr<Player>("Player");
     _type           = EnemyType::Boss;
 
-    _attackSE = LoadSoundMem("data/LittleQuest/Audio/SE/MawJLaygoAttack.wav");
+    _attackSE = LoadSoundMem("data/LittleQuest/Audio/SE/EnemyAttack.wav");
 
     _waitTime = NORMAL_WAIT;
 
@@ -99,7 +99,7 @@ bool MawJLaygo::Init() {
 }
 
 void MawJLaygo::Update() {
-#if _DEBUG && 0
+#if _DEBUG && 1
     return;
 #endif    // _DEBUG
 
@@ -200,17 +200,6 @@ void MawJLaygo::TransOutAction() {
 void MawJLaygo::LateDraw() {
     if(Scene::IsEdit()) {}
     Super::LateDraw();
-    //switch(_sceneState) {
-    //case Scene::SceneState::TRANS_IN:
-    //    break;
-    //case Scene::SceneState::GAME:
-    //    if(!_hideUI) {
-    //        _componentHP.lock()->DrawHPBar();
-    //    }
-    //    break;
-    //case Scene::SceneState::TRANS_OUT:
-    //    break;
-    //}
 }
 
 void MawJLaygo::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) {

@@ -5,6 +5,9 @@
 #include <System/Component/ComponentModel.h>
 
 namespace LittleQuest {
+//------------------------------------------------------------
+// オブジェクトを生成します。
+//------------------------------------------------------------
 BrokenHousePtr BrokenHouse::Create(std::string name, const float3& pos) {
     auto obj = Scene::CreateObjectPtr<BrokenHouse>();
     obj->SetName(name);

@@ -67,6 +67,35 @@ float DotProdcut(float4 u, float4 v) {
 
     return rtn;
 }
+
+float3 Slerp(float3 startPos, float3 endPos, float t) {
+    // Compute angle between start and end
+    float dotProduct = clamp(dot(normalize(startPos), normalize(endPos)), -1.0f, 1.0f);
+    float omega      = acos(dotProduct);    // angle in radians
+
+    // If angle is very small, fallback to Lerp
+    if(abs(omega) < 1e-5f) {
+        return lerp(startPos, endPos, t);
+    }
+
+    // Slerp formula
+    float sinOmega = sin(omega);
+    float scale0   = sin((1.0f - t) * omega) / sinOmega;
+    float scale1   = sin(t * omega) / sinOmega;
+
+    return scale0 * startPos + scale1 * endPos;
+}
+
+float3 SlerpWithCenter(float3 center, float3 startPos, float3 endPos, float t) {
+    // Convert positions to relative vectors from the center
+    float3 from = startPos - center;
+    float3 to   = endPos - center;
+
+    float3 slerpedDir = Slerp(from, to, t);
+
+    // Reconstruct world-space position by adding the center back
+    return center + slerpedDir;
+}
 //------------------------------------------------------------
 //! @brief アニメーション情報の構造体。
 //------------------------------------------------------------

@@ -20,6 +20,5 @@ class BrokenHouse: public BreakableObject {
     virtual void Update() override;
    protected:
     std::weak_ptr<ComponentModel> _collisionModel;
-    std::weak_ptr<ComponentModel> _model;
 };
 }    // namespace LittleQuest

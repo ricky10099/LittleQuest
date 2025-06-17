@@ -36,6 +36,10 @@ bool MobEnemy::Init() {
 }
 
 void MobEnemy::Update() {
+#ifdef _DEBUG && 1
+    return;
+#endif    //  _DEBUG && 1
+
     switch(_sceneState) {
     case Scene::SceneState::TRANS_IN:
         TransInAction();
@@ -51,39 +55,9 @@ void MobEnemy::Update() {
 
 // 基本描画の後に処理します
 void MobEnemy::LateDraw() {
-    if(Scene::IsEdit()) {
-        /*printfDx("\n%s state: %i", this->GetName().data(), _state);
-        if(auto modelPtr = GetComponent<ComponentModel>()) {
-            printfDx("\n%s %s Animation Time:%f", this->GetName().data(), modelPtr->GetPlayAnimationName().data(),
-                     modelPtr->GetAnimationTime());
-        }
-        printfDx("\ncurpoint: %i", _patrolIndex);
-        printfDx("\npoint: %i", _patrolPoint.size());
-        printfDx("\nx distance: %f", float3(_goal - GetTranslate())[0]);
-        printfDx("\nz distance: %f", float3(_goal - GetTranslate())[2]);
-        printfDx("\ny distance: %f", float3(_goal - GetTranslate())[1]);
-        printfDx("\nf(distance): %f", GetDistance(GetTranslate(), _goal));
-        printfDx("\nisFound: %i", _isFoundPlayer);
-        printfDx("\ntargetDegree: %f", GetDegreeToPosition(_player.lock()->GetTranslate()));
-        printfDx("\ndie timer: %f", _destroyTimer);*/
-    }
-    //switch(_sceneState) {
-    //case Scene::SceneState::TRANS_IN:
-    //    break;
-    //case Scene::SceneState::GAME:
-    //    if(!_hideUI) {
-    //        _componentHP.lock()->DrawHPBar();
-    //    }
-    //    break;
-    //case Scene::SceneState::TRANS_OUT:
-    //    break;
-    //}
+    if(Scene::IsEdit()) {}
     Super::LateDraw();
 }
-
-//void MobEnemy::GUI() {
-//    Super::GUI();
-//}
 
 void MobEnemy::Idle() {
     _model.lock()->PlayAnimationNoSame(STR(MobEnemyState::IDLE), true);

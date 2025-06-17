@@ -68,6 +68,11 @@ float ComponentCombo::ComboBuff() {
 
     return 1.0f;
 }
+
+void ComponentCombo::ClearCombo() {
+    m_currCombo = 0;
+}
+
 bool ComponentCombo::IsFullCharge() {
     return m_currCombo == MAX_COMBO;
 }

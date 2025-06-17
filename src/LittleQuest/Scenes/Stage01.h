@@ -46,6 +46,7 @@ class Stage01: public Scene::Base {
    private:
     //! シーンのイントロの時間
     const float  START_CUT_SCENE_TIME = 240.0f;
+    const float  PLAYER_EXSKILL_TIME  = 90.0f;
     const float  MOB_SPAWN_TIME       = 240.0f;
     //! フェイドの時間
     const float  FADE_TIME            = 30.0f;
@@ -157,21 +158,24 @@ class Stage01: public Scene::Base {
 
     bool _slideBlackBar = false;
 
+    bool _isShowedTutorial = false;
+
     //! プレイヤー
-    std::weak_ptr<Player>                _pPlayer;
+    std::weak_ptr<Player>                _player;
     //! ボス
-    std::weak_ptr<MawJLaygo>             _pBoss;
-    std::array<std::weak_ptr<Mutant>, 4> _pMob;
+    std::weak_ptr<MawJLaygo>             _boss;
+    //! 雑魚
+    std::array<std::weak_ptr<Mutant>, 4> _mob;
     //! プレイヤーカメラ
-    std::weak_ptr<Camera>                _pPlayerCamera;
+    std::weak_ptr<Camera>                _playerCamera;
     //! シーンカメラ
-    std::weak_ptr<ComponentCamera>       _pCamera;
+    std::weak_ptr<ComponentCamera>       _scenarioCamera;
     //! 勝利画像
-    std::weak_ptr<ComponentTexture2D>    _pClearImage;
+    std::weak_ptr<ComponentTexture2D>    _clearImage;
     //! 失敗画像
-    std::weak_ptr<ComponentTexture2D>    _pFailImage;
+    std::weak_ptr<ComponentTexture2D>    _failImage;
     //! 表示する座標
-    std::weak_ptr<ComponentTexture2D>    _pShowImage;
+    std::weak_ptr<ComponentTexture2D>    _showImage;
 
     //------------------------------------------------------------
     //! @brief フェイドインを行います。

@@ -12,24 +12,30 @@ AbandonHousePtr AbandonHouse::Create(std::string name, const float3& pos) {
     auto obj = Scene::CreateObjectPtr<AbandonHouse>();
     obj->SetName(name);
     obj->SetTranslate(pos);
-    obj->AddComponent<ComponentModel>("data/LittleQuest/Model/AbandonHouse/AbandonHouse.mv1");
-
-    obj->m_pBox = Scene::CreateObjectPtr<Object>("AbandonHouseBox");
-    obj->m_pBox->AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
-    obj->m_pBox->SetTranslate(pos + float3{-5, 0, -5});
-    obj->m_pBox->SetRotationAxisXYZ({0, 90, 0});
-    obj->m_pBox->SetScaleAxisXYZ({1, 1, 19});
-    obj->m_pBox->AddComponent<ComponentCollisionModel>()->AttachToModel();
 
     return obj;
+}
+
+bool AbandonHouse::Init() {
+    _collisionModel = AddComponent<ComponentModel>("data/Sample/SwordBout/Stage/Stage_Obj009_c.mv1");
+    _collisionModel.lock()->SetTranslate(float3{1.6, 0, -2});
+    _collisionModel.lock()->SetScaleAxisXYZ({0.04, 0.05, 0.7});
+    _collisionBox = AddComponent<ComponentCollisionModel>()->SetCollisionGroup(ComponentCollision::CollisionGroup::ITEM);
+    _collisionBox.lock()->AttachToModel();
+    _model = AddComponent<ComponentModel>("data/LittleQuest/Model/AbandonHouse/AbandonHouse.mv1");
+    return Super::Init();
 }
 
 //------------------------------------------------------------
 // 更新処理を行います。
 //------------------------------------------------------------
 void AbandonHouse::Update() {
-    if(!m_pBox->GetStatus(StatusBit::NoDraw)) {
-        m_pBox->SetStatus(StatusBit::NoDraw, true);
+    if(!_collisionModel.lock()->GetStatus(Component::StatusBit::NoDraw)) {
+        _collisionModel.lock()->SetStatus(Component::StatusBit::NoDraw, true);
+    }
+    if(_isBroke) {
+        _model.lock()->SetStatus(Component::StatusBit::NoDraw, true);
+        RemoveComponent(_collisionBox.lock());
     }
 }
 }    // namespace LittleQuest

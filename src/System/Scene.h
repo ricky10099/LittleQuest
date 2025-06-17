@@ -526,6 +526,9 @@ class Scene {
 #pragma region customized
     static void Pause();
 
+    static void CallMenu();
+    static void ShowTutorial();
+
     static void SetCanPause(bool canPause);
 
     static void SetSceneBGMList(std::vector<BGMInfo> bgmList);

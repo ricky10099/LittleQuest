@@ -17,8 +17,6 @@
 #include <System/Component/ComponentCollisionModel.h>
 #include <System/Component/ComponentModel.h>
 
-extern int bg_volume;
-
 namespace LittleQuest {
 //===========================================================================
 //  Stage01シーン
@@ -35,11 +33,11 @@ bool Stage01::Init() {
 
     {
         auto clearObj = Scene::CreateObjectPtr<Object>()->SetName("ClearTexture");
-        _pClearImage  = clearObj->AddComponent<ComponentTexture2D>("data/LittleQuest/Image/Clear.png");
+        _clearImage   = clearObj->AddComponent<ComponentTexture2D>("data/LittleQuest/Image/Clear.png");
     }
     {
         auto failObj = Scene::CreateObjectPtr<Object>()->SetName("FailTexture");
-        _pFailImage  = failObj->AddComponent<ComponentTexture2D>("data/LittleQuest/Image/Failure.png");
+        _failImage   = failObj->AddComponent<ComponentTexture2D>("data/LittleQuest/Image/Failure.png");
     }
     scene_state = Scene::SceneState::TRANS_IN;
 
@@ -90,32 +88,32 @@ bool Stage01::Init() {
         }
     }
 
-    _pPlayer = Player::Create(PLAYER_SPAWN_POS);
-    _pPlayer.lock()->SetSceneState(scene_state);
+    _player = Player::Create(PLAYER_SPAWN_POS);
+    _player.lock()->SetSceneState(scene_state);
 
-    _pPlayerCamera = Camera::Create(_pPlayer.lock());
-    _pPlayerCamera.lock()->SetName("PlayerCamera");
-    _pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
+    _playerCamera = Camera::Create(_player.lock());
+    _playerCamera.lock()->SetName("PlayerCamera");
+    _playerCamera.lock()->SetTranslate({-97, 17, -50});
 
-    _pBoss = MawJLaygo::Create(BOSS_SPAWN_POS);
-    _pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
-    _pBoss.lock()->SetSceneState(scene_state);
+    _boss = MawJLaygo::Create(BOSS_SPAWN_POS);
+    _boss.lock()->SetRotationAxisXYZ({0, 90, 0});
+    _boss.lock()->SetSceneState(scene_state);
 
     for(int i = 0; i < 4; ++i) {
-        _pMob[i] = Mutant::Create(MOB_POS[i], false);
-        _pMob[i].lock()->SetSpawnPoint(MOB_POS[i]);
-        _pMob[i].lock()->SetRotationAxisXYZ({0, 90, 0});
-        _pMob[i].lock()->SetSceneState(scene_state);
-        _pMob[i].lock()->SetDetectDistance(200);
+        _mob[i] = Mutant::Create(MOB_POS[i], false);
+        _mob[i].lock()->SetSpawnPoint(MOB_POS[i]);
+        _mob[i].lock()->SetRotationAxisXYZ({0, 90, 0});
+        _mob[i].lock()->SetSceneState(scene_state);
+        _mob[i].lock()->SetDetectDistance(200);
     }
 
-    auto obj = Scene::CreateObjectPtr<Object>()->SetName("CutSceneCamera");
-    _pCamera = obj->AddComponent<ComponentCamera>();
-    _pCamera.lock()->SetCurrentCamera();
-    _pCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_START, _pBoss.lock()->GetTranslate() + float3{0, 20, 0});
-    _pCamera.lock()->SetPerspective(FOV_INTRO);
+    auto obj        = Scene::CreateObjectPtr<Object>()->SetName("ScenarioCamera");
+    _scenarioCamera = obj->AddComponent<ComponentCamera>();
+    _scenarioCamera.lock()->SetCurrentCamera();
+    _scenarioCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_START, _boss.lock()->GetTranslate() + float3{0, 20, 0});
+    _scenarioCamera.lock()->SetPerspective(FOV_INTRO);
 
-    _introBGM = LoadSoundMem("data/LittleQuest/Audio/BGM/IntroBG_long.mp3");
+    _introBGM = LoadSoundMem("data/LittleQuest/Audio/BGM/IntroBGM_long.mp3");
     _BGM      = LoadSoundMem("data/LittleQuest/Audio/BGM/Thunder_of_God.mp3");
 
     Scene::SetSceneBGMList({
@@ -139,21 +137,21 @@ void Stage01::Update() {
 
     switch(scene_state) {
     case Scene::SceneState::TRANS_IN:
-        _pPlayer.lock()->SetHideHP(true);
-        _pBoss.lock()->SetHideHP(true);
-        for(auto& mob: _pMob) {
+        _player.lock()->SetHideHP(true);
+        _boss.lock()->SetHideHP(true);
+        for(auto& mob: _mob) {
             mob.lock()->SetHideHP(true);
         }
 
         if(FadeIn()) {
-            _pBoss.lock()->PlayTaunt();
-            _pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
+            _boss.lock()->PlayTaunt();
+            _playerCamera.lock()->SetTranslate({-97, 17, -50});
         }
 
         ShowBlackBar();
 
-        if(_pBoss.lock()->IsPlayedTaunt()) {
-            for(auto& mob: _pMob) {
+        if(_boss.lock()->IsPlayedTaunt()) {
+            for(auto& mob: _mob) {
                 if(!mob.lock()->GetIsReady()) {
                     mob.lock()->SetToSpawnState();
                 }
@@ -162,21 +160,21 @@ void Stage01::Update() {
             if(_mobSpawnTimer <= 0) {
                 _isMobSpawned = true;
             }
-            _pCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_MOB, CUT_SCENE_TARGET_MOB);
+            _scenarioCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_MOB, CUT_SCENE_TARGET_MOB);
         }
 
         if(_isMobSpawned) {
             _slideBlackBar = true;
-            _pPlayerCamera.lock()->SetTranslate({-97, 17, -50});
+            _playerCamera.lock()->SetTranslate({-97, 17, -50});
             _cutSceneTimer -= GetDeltaTime60();
             _cutSceneTimer = std::max(0.0f, _cutSceneTimer);
             t              = abs(1 - (_cutSceneTimer / START_CUT_SCENE_TIME));
-            newCamPos      = lerp(CUT_SCENE_POS_MOB, _pPlayerCamera.lock()->GetTranslate(), t);
-            newCamTarget   = lerp(CUT_SCENE_TARGET_MOB, _pPlayer.lock()->GetTranslate(), t);
+            newCamPos      = lerp(CUT_SCENE_POS_MOB, _playerCamera.lock()->GetTranslate(), t);
+            newCamTarget   = lerp(CUT_SCENE_TARGET_MOB, _player.lock()->GetTranslate(), t);
             newFOV         = lerp(float1(FOV_INTRO), FOV_ORG, t);
-            _pCamera.lock()->SetPositionAndTarget(newCamPos, newCamTarget);
+            _scenarioCamera.lock()->SetPositionAndTarget(newCamPos, newCamTarget);
 
-            _pCamera.lock()->SetPerspective(newFOV);
+            _scenarioCamera.lock()->SetPerspective(newFOV);
         }
 
         if(IsKeyDown(KEY_INPUT_RETURN) /*|| IsMouseDown(MOUSE_INPUT_1)*/ || IsKeyDown(KEY_INPUT_SPACE) ||
@@ -184,23 +182,28 @@ void Stage01::Update() {
             _fadeTimer     = 0;
             _alpha         = 0;
             _cutSceneTimer = 0;
-            _pCamera.lock()->SetPerspective(FOV_ORG);
+            _scenarioCamera.lock()->SetPerspective(FOV_ORG);
         }
 
         if(_cutSceneTimer <= 0) {
-            _pPlayerCamera.lock()->SetCurrentCamera();
+            _playerCamera.lock()->SetCurrentCamera();
             scene_state = Scene::SceneState::GAME;
-            _pPlayer.lock()->SetSceneState(scene_state);
-            _pPlayer.lock()->SetHideHP(false);
-            _pBoss.lock()->SetSceneState(scene_state);
-            _pBoss.lock()->SetHideHP(false);
-            for(auto& mob: _pMob) {
+            _player.lock()->SetSceneState(scene_state);
+            _player.lock()->SetHideHP(false);
+            _boss.lock()->SetSceneState(scene_state);
+            _boss.lock()->SetHideHP(false);
+            for(auto& mob: _mob) {
                 mob.lock()->SetSceneState(scene_state);
                 mob.lock()->SetHideHP(false);
             }
         }
         break;
     case Scene::SceneState::GAME:
+        if(!_isShowedTutorial) {
+            Scene::ShowTutorial();
+            _isShowedTutorial = true;
+        }
+
         _second -= GetDeltaTime();
         _showBlackBar = false;
         if(_second <= 0) {
@@ -213,27 +216,42 @@ void Stage01::Update() {
             _minute--;
             _minute = std::max(0, _minute);
         }
-        if(_pBoss.lock()->IsDead() || _pPlayer.lock()->IsDead() || _isLose) {
+
+        if(_player.lock()->IsPlayingEXSkill()) {
+            _player.lock()->SetHideHP(true);
+            _boss.lock()->SetHideHP(true);
+            for(auto& mob: _mob) {
+                mob.lock()->SetHideHP(true);
+            }
+        } else {
+            _player.lock()->SetHideHP(false);
+            _boss.lock()->SetHideHP(false);
+            for(auto& mob: _mob) {
+                mob.lock()->SetHideHP(false);
+            }
+        }
+
+        if(_boss.lock()->IsDead() || _player.lock()->IsDead() || _isLose) {
             _showBlackBar  = true;
             _slideBlackBar = false;
             if(_cutSceneTimer == START_CUT_SCENE_TIME) {
-                _pPlayer.lock()->SlowMotion();
-                _pBoss.lock()->SlowMotion();
+                _player.lock()->SlowMotion();
+                _boss.lock()->SlowMotion();
             }
             _cutSceneTimer -= GetDeltaTime60();
             _cutSceneTimer = std::max(0.0f, _cutSceneTimer);
-            _pCamera.lock()->SetCurrentCamera();
+            _scenarioCamera.lock()->SetCurrentCamera();
             if(_cutSceneTimer > 120.0f) {
-                _pCamera.lock()->SetPositionAndTarget(_pPlayer.lock()->GetTranslate() + float3{20, 15, 20},
-                                                      _pPlayer.lock()->GetTranslate() + float3{0, 5, 0});
+                _scenarioCamera.lock()->SetPositionAndTarget(_player.lock()->GetTranslate() + float3{20, 15, 20},
+                                                             _player.lock()->GetTranslate() + float3{0, 5, 0});
             } else {
-                _pCamera.lock()->SetPositionAndTarget(_pBoss.lock()->GetTranslate() + float3{-40, 15, -40},
-                                                      _pBoss.lock()->GetTranslate() + float3{0, 5, 0});
+                _scenarioCamera.lock()->SetPositionAndTarget(_boss.lock()->GetTranslate() + float3{-40, 15, -40},
+                                                             _boss.lock()->GetTranslate() + float3{0, 5, 0});
             }
 
-            _pPlayer.lock()->SetHideHP(true);
-            _pBoss.lock()->SetHideHP(true);
-            for(auto& mob: _pMob) {
+            _player.lock()->SetHideHP(true);
+            _boss.lock()->SetHideHP(true);
+            for(auto& mob: _mob) {
                 mob.lock()->SetHideHP(true);
             }
         } else {
@@ -242,13 +260,13 @@ void Stage01::Update() {
 
         if(_cutSceneTimer <= 0 && FadeOut()) {
             scene_state = Scene::SceneState::TRANS_OUT;
-            _pPlayer.lock()->SetSceneState(scene_state);
-            _pBoss.lock()->SetSceneState(scene_state);
-            _pPlayer.lock()->SetTranslate(PLAYER_SPAWN_POS);
-            _pBoss.lock()->SetTranslate(BOSS_SPAWN_POS);
-            _pBoss.lock()->SetRotationAxisXYZ({0, 90, 0});
-            _pPlayer.lock()->EndSlowMotion();
-            _pBoss.lock()->EndSlowMotion();
+            _player.lock()->SetSceneState(scene_state);
+            _boss.lock()->SetSceneState(scene_state);
+            _player.lock()->SetTranslate(PLAYER_SPAWN_POS);
+            _boss.lock()->SetTranslate(BOSS_SPAWN_POS);
+            _boss.lock()->SetRotationAxisXYZ({0, 90, 0});
+            _player.lock()->EndSlowMotion();
+            _boss.lock()->EndSlowMotion();
         }
         break;
     case Scene::SceneState::TRANS_OUT:
@@ -258,16 +276,16 @@ void Stage01::Update() {
 
         StopSoundMem(_BGM);
         StopSoundMem(_introBGM);
-        _pBoss.lock()->PlayDead();
-        _pPlayer.lock()->PlayDead();
+        _boss.lock()->PlayDead();
+        _player.lock()->PlayDead();
 
-        _pCamera.lock()->SetCurrentCamera();
-        if(_pBoss.lock()->IsDead()) {
-            _pCamera.lock()->SetPositionAndTarget(BOSS_DEATH_CAM, _pBoss.lock()->GetTranslate() + float3{0, 15, 0});
-            _pShowImage = _pClearImage.lock();
+        _scenarioCamera.lock()->SetCurrentCamera();
+        if(_boss.lock()->IsDead()) {
+            _scenarioCamera.lock()->SetPositionAndTarget(BOSS_DEATH_CAM, _boss.lock()->GetTranslate() + float3{0, 15, 0});
+            _showImage = _clearImage.lock();
         } else {
-            _pCamera.lock()->SetPositionAndTarget(PLAYER_DEATH_CAM, _pPlayer.lock()->GetTranslate() + float3{0, 10, 0});
-            _pShowImage = _pFailImage.lock();
+            _scenarioCamera.lock()->SetPositionAndTarget(PLAYER_DEATH_CAM, _player.lock()->GetTranslate() + float3{0, 10, 0});
+            _showImage = _failImage.lock();
         }
         break;
     }
@@ -299,7 +317,7 @@ void Stage01::LateDraw() {
     case Scene::SceneState::TRANS_IN:
         break;
     case Scene::SceneState::GAME:
-        if(!(_pBoss.lock()->IsDead() || _pPlayer.lock()->IsDead())) {
+        if(!(_boss.lock()->IsDead() || _player.lock()->IsDead() || _player.lock()->IsPlayingEXSkill())) {
             DrawFormatStringToHandle((int)((screen_width * 0.9f) - (_stringWidth * 0.5f)), (int)(screen_height * 0.1),
                                      timerColor, _timerFontHandle, "%02i:%06.3f", _minute, _second);
         }
@@ -319,10 +337,10 @@ void Stage01::LateDraw() {
                     _shrinkTimer = SHRINK_TIME;
                 }
             }
-            _pShowImage.lock()->SetPosition(
+            _showImage.lock()->SetPosition(
                 (screen_width * 0.2f), (screen_height * (0.0f + (0.4f * (_shrinkTimer / SHRINK_TIME)))), (screen_width * 0.8f),
                 (screen_height * (1.0f - (0.4f * (_shrinkTimer / SHRINK_TIME)))));
-            _pShowImage.lock()->DrawTexture();
+            _showImage.lock()->DrawTexture();
         }
         break;
     }

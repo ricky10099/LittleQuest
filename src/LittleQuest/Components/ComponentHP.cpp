@@ -102,11 +102,15 @@ void ComponentHP::DrawHPBar() {
         DrawBoxAA(posX1, posY1, (posX1 + ((_currHP / (float)_maxHP) * (posX2 - posX1))), posY2, GetColor(255, 0, 0), TRUE);
         break;
     case HP_TYPE::MOB:
-        DrawFillBox((int)_pos2D.x - _maxHP / 2, (int)_pos2D.y - 1, (int)_pos2D.x + _maxHP / 2, (int)_pos2D.y + 6,
-                    GetColor(0, 0, 0));
-        DrawFillBox((int)_pos2D.x - _maxHP / 2, (int)_pos2D.y,
-                    (int)(_pos2D.x - _maxHP / 2 + ((_currHP / (float)_maxHP) * _maxHP)), (int)_pos2D.y + 5,
-                    GetColor(255, 0, 0));
+        // ワールド座標についていく
+        if(_pos2D.z > 0.0f && _pos2D.z < 1.0f) {
+            DrawFillBox((int)_pos2D.x - _maxHP / 2, (int)_pos2D.y - 1, (int)_pos2D.x + _maxHP / 2, (int)_pos2D.y + 6,
+                        GetColor(0, 0, 0));
+
+            DrawFillBox((int)_pos2D.x - _maxHP / 2, (int)_pos2D.y,
+                        (int)(_pos2D.x - _maxHP / 2 + ((_currHP / (float)_maxHP) * _maxHP)), (int)_pos2D.y + 5,
+                        GetColor(255, 0, 0));
+        }
         break;
     default:
         break;
