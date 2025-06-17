@@ -175,12 +175,6 @@ class MawJLaygo: public Enemy {
     //! ボス現在のアニメーション
     MawJLaygoAnim _anim = MawJLaygoAnim::TAUNT_ANIM;
 
-    ////! プレイヤー
-    //ObjectWeakPtr                             _player;
-    ////! モデル
-    //std::weak_ptr<ComponentModel>             _model;
-    //! HPコンポーネント
-    //std::weak_ptr<ComponentHP>                _componentHP;
     //! 体のコリションボックス
     std::weak_ptr<ComponentCollisionCapsule>  _bodyBox;
     //! 左手のコリションボックス
@@ -227,6 +221,8 @@ class MawJLaygo: public Enemy {
     int*  _pEffectList;
     //! プレイヤー当たったのか
     bool  _isHitPlayer = false;
+    //! 破壊できるアイテム当たったのか
+    bool  _isHitItem   = false;
     //! 倒されたのか
     bool  _isDead      = false;
     //! 怒っているのか

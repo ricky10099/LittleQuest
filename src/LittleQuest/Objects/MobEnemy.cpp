@@ -3,6 +3,7 @@
 //#include "LittleQuest/Components/ComponentHP.h"
 #include "LittleQuest/Tool.h"
 #include "LittleQuest/Objects/Player.h"
+#include "LittleQuest/Objects/BreakableObject.h"
 
 #include <System/Component/Component.h>
 #include <System/Component/ComponentAttachModel.h>
@@ -36,10 +37,6 @@ bool MobEnemy::Init() {
 }
 
 void MobEnemy::Update() {
-#ifdef _DEBUG && 1
-    return;
-#endif    //  _DEBUG && 1
-
     switch(_sceneState) {
     case Scene::SceneState::TRANS_IN:
         TransInAction();
@@ -70,6 +67,13 @@ void MobEnemy::OnHit(const ComponentCollision::HitInfo& hitInfo) {
             if(!_isHitPlayer) {
                 _isHitPlayer = true;
                 player->GetHit((int)_attackVal);
+            }
+        }
+
+        if(auto breakableObject = dynamic_cast<BreakableObject*>(owner)) {
+            if(!_isHitItem) {
+                _isHitItem = true;
+                breakableObject->GetHit();
             }
         }
     }

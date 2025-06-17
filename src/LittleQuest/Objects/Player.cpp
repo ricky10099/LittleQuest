@@ -1,7 +1,6 @@
 ﻿#include "Player.h"
 #include "Enemy.h"
 #include "Camera.h"
-//#include "LittleQuest/Components/ComponentHP.h"
 #include "LittleQuest/Components/ComponentCombo.h"
 #include "LittleQuest/Scenes/Stage01.h"
 #include "LittleQuest/Objects/BreakableObject.h"
@@ -111,7 +110,6 @@ bool Player::Init() {
     _swordHitSE = LoadSoundMem("data/LittleQuest/Audio/SE/SwordHit.wav");
     _exSkill0SE = LoadSoundMem("data/LittleQuest/Audio/SE/EXSkill_0.mp3");
     _exSkill1SE = LoadSoundMem("data/LittleQuest/Audio/SE/EXSkill_1.mp3");
-    //_swordHitBuildingSE = LoadSoundMem("data/LittleQuest/Audio/SE/BuildingDamaged.mp3");
 
     _cameraCorrection = AddComponent<ComponentCollisionLine>();
     _cameraCorrection.lock()->SetTranslate({0, 0, 0});
@@ -127,6 +125,7 @@ bool Player::Init() {
     return Super::Init();
 }
 
+// ゲーム中と演出の行動を分ける
 void Player::Update() {
     switch(_sceneState) {
     case Scene::SceneState::TRANS_IN:
@@ -288,8 +287,6 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
                 }
                 _isHit = true;
                 _componentCombo.lock()->AddCombo(1);
-                PlaySoundMem(_swordHitBuildingSE, DX_PLAYTYPE_BACK);
-                ChangeVolumeSoundMem((int)(MAX_VOLUME * (Scene::GetSEVolume() / 100.0f)), _swordHitBuildingSE);
                 _playingEffect = PlayEffekseer3DEffect(_hitBuildingEffect);
                 SetPosPlayingEffekseer3DEffect(_playingEffect, hitInfo.hit_position_.x, hitInfo.hit_position_.y,
                                                hitInfo.hit_position_.z);
@@ -298,6 +295,7 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
             }
         }
     }
+
     if(_camera.lock()) {
         if((u32)hitInfo.collision_->GetCollisionGroup() & (u32)ComponentCollision::CollisionGroup::ETC) {
             if(hitInfo.hit_) {
@@ -324,10 +322,9 @@ void Player::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInfo) 
             _cameraBlocked = false;
         }
     }
+
     Super::OnHit(hitInfo);
 }
-
-void Player::ExitHit(const ComponentCollision::HitInfo& hitInfo) {}
 
 void Player::GetHit(int damage) {
     if(_isInvincible) {
@@ -398,6 +395,8 @@ void Player::InputHandle() {
         if(IsMouseDown(MOUSE_INPUT_LEFT) || IsPadOn(PAD_ID::PAD_A)) {
             _playerState = PlayerState::ATTACK;
 
+            // もし攻撃してない場合はコンボ１に行く
+            // 攻撃しているかつチャージ攻撃ではないならコンボ中に判断する
             if(_currCombo == Combo::NO_COMBO) {
                 _currCombo = Combo::NORMAL_COMBO1;
             } else if(_currCombo != Combo::SPECIAL_ATTACK) {
@@ -405,12 +404,14 @@ void Player::InputHandle() {
             }
         }
 
+        // 右クリック長押ししたらチャージ攻撃
         if(IsMouseRepeat(MOUSE_INPUT_RIGHT, 1) || IsPadRepeat(PAD_ID::PAD_Y)) {
             _chargeTime += GetDeltaTime60();
             if(_chargeTime >= SPECIAL_CHARGE_TIME && !_charged) {
                 StopEffekseer3DEffect(_playingChargeEffect);
                 _charged = true;
             }
+            // チャージ時間によってチャージエフェクトが変わる
             if(IsEffekseer3DEffectPlaying(_playingChargeEffect) == -1) {
                 _playingChargeEffect = PlayEffekseer3DEffect(_pChargeList[(_chargeTime >= SPECIAL_CHARGE_TIME)]);
             }
@@ -439,6 +440,8 @@ void Player::InputHandle() {
         if(!IsFloat3Zero(_movement)) {
             _playerState = PlayerState::WALK;
         }
+
+        // 必殺技途中は回避できない
         if((IsKeyDown(KEY_INPUT_SPACE) || IsPadOn(PAD_ID::PAD_B)) && _currCombo != Combo::EXSKILL_0 &&
            _currCombo != Combo::EXSKILL_1) {
             _chargeTime = 0;
@@ -511,6 +514,7 @@ void Player::Attack() {
         }
         break;
     case Combo::SPECIAL_ATTACK:
+        // チャージ完成したら２段攻撃になる
         if(_isCombo) {
             AttackAnimation(STR(Combo::SPECIAL_ATTACK), _animList[STR(Combo::SPECIAL_ATTACK)], Combo::SPECIAL_CHARGE);
         } else {
@@ -544,6 +548,7 @@ void Player::Attack() {
             _isInvincible     = true;
         }
 
+        // 必殺技演出
         _exSkillTimer -= GetDeltaTime60();
         _exSkillTimer          = std::max(0.0f, _exSkillTimer);
         float  t               = abs(1 - (_exSkillTimer / EXSKILL_PLAY_TIME));
@@ -553,6 +558,7 @@ void Player::Attack() {
         float  offsetZ         = cosf(yawRad) * distanceInFront;
         float  offsetY         = 8.0f;
         float3 targetCamPos    = {GetTranslate().x + offsetX, GetTranslate().y + offsetY, GetTranslate().z + offsetZ};
+        // 補間でアクションカメラの位置から正面に移る
         float3 newCamPos       = SlerpWithCenter(GetTranslate(), _camera.lock()->GetTranslate(), targetCamPos, t);
         _exSkillCamera.lock()->SetCurrentCamera();
         _exSkillCamera.lock()->SetPositionAndTarget(newCamPos, GetTranslate() + EXSKILL_CAMERA_TARGET_OFFSET);
@@ -565,13 +571,12 @@ void Player::Attack() {
         if(!_playedFX) {
             float3 fxRotation = {0, (_model.lock()->GetRotationAxisXYZ().y) * DegToRad, 0};
             PlayAttackFX(_exSkillEffect, GetTranslate(), fxRotation, _exSkill0SE);
-            _playedFX = true;
+            _playingEffect = SetSpeedPlayingEffekseer3DEffect(_playingEffect, 0.5f);
+            _playedFX      = true;
         }
         break;
     }
     case Combo::EXSKILL_1:
-        _exSkillCollision.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ENEMY |
-                                                       (u32)ComponentCollision::CollisionGroup::ITEM);
         AttackAnimation(STR(Combo::EXSKILL_1), _animList[STR(Combo::EXSKILL_1)], Combo::NO_COMBO, true);
         _playingEffect = SetSpeedPlayingEffekseer3DEffect(_playingEffect, 2.0f);
         if(!_playedFX) {
@@ -601,7 +606,10 @@ void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo next
         _playedFX = false;
     }
     _currAnimTime = _model.lock()->GetAnimationPlayTime();
+
+    // 指定のフレームに着いたら攻撃判定が有効にする
     if(_currAnimTime > _animList[animName].triggerStartTime) {
+        // 敵に当たったらヒットストップが発生する
         if(_isHit) {
             _model.lock()->SetAnimationSpeed(animInfo.animSpeed * 0);
         } else if(_slowMotion) {
@@ -620,6 +628,8 @@ void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo next
                                                           (u32)ComponentCollision::CollisionGroup::ITEM);
         }
     }
+
+    // 指定のフレームに着いたら攻撃判定が無効にする
     if(_currAnimTime > _animList[animName].triggerEndTime) {
         _weaponCollision.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
         _exSkillCollision.lock()->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);
@@ -629,6 +639,8 @@ void Player::AttackAnimation(std::string animName, AnimInfo animInfo, Combo next
             _exSkillCollision.lock()->Overlap((u32)ComponentCollision::CollisionGroup::ENEMY);
         }
     }
+
+    // 指定のフレームに着いたら入力次第アニメションが中断する
     if(_currAnimTime > _animList[animName].animCutInTime) {
         _currCombo = Combo::NO_COMBO;
         if(_isCombo) {
@@ -689,6 +701,7 @@ void Player::SetSceneState(Scene::SceneState state) {
     _playerState = PlayerState::IDLE;
 }
 
+// アニメションのキーオーフレームと速度を設定する
 void Player::SetAnimInfo() {
     AnimInfo info         = {};
     info.animStartTime    = 0;
@@ -751,7 +764,7 @@ void Player::SetAnimInfo() {
 
     info                             = {};
     info.animStartTime               = 20;
-    info.triggerStartTime            = 150;
+    info.triggerStartTime            = 70;
     info.triggerEndTime              = 170;
     info.animCutInTime               = 190;
     info.animStartSpeed              = 3.0f;
@@ -759,6 +772,7 @@ void Player::SetAnimInfo() {
     _animList[STR(Combo::EXSKILL_1)] = info;
 }
 
+// コンボゲージの溜まる値を攻撃ごとに設定する
 void Player::SetComboList() {
     _comboList[Combo::NORMAL_COMBO1]  = 1;
     _comboList[Combo::NORMAL_COMBO2]  = 1;
@@ -780,6 +794,8 @@ void Player::Exit() {
     DeleteEffekseerEffect(_slashEffect2);
     DeleteEffekseerEffect(_slashEffect3);
     DeleteEffekseerEffect(_hitEffect);
+    DeleteEffekseerEffect(_hitBuildingEffect);
+    DeleteEffekseerEffect(_exSkillEffect);
 
     _animList.clear();
     _comboList.clear();

@@ -1,6 +1,6 @@
 ﻿#include "MawJLaygo.h"
 #include "Camera.h"
-//#include "LittleQuest/Components/ComponentHP.h"
+#include "LittleQuest/Objects/BreakableObject.h"
 #include "LittleQuest/Tool.h"
 #include "player.h"
 
@@ -99,10 +99,6 @@ bool MawJLaygo::Init() {
 }
 
 void MawJLaygo::Update() {
-#if _DEBUG && 1
-    return;
-#endif    // _DEBUG
-
     switch(_sceneState) {
     case Scene::SceneState::TRANS_IN:
         TransInAction();
@@ -209,6 +205,13 @@ void MawJLaygo::OnHit([[maybe_unused]] const ComponentCollision::HitInfo& hitInf
             if(!_isHitPlayer) {
                 _isHitPlayer = true;
                 player->GetHit((int)(_comboList[_MawJLaygoCombo] * _attackVal * (1 + _isAngry)));
+            }
+        }
+
+        if(auto breakableObject = dynamic_cast<BreakableObject*>(owner)) {
+            if(!_isHitItem) {
+                _isHitItem = true;
+                breakableObject->GetHit();
             }
         }
     }
@@ -421,7 +424,8 @@ void MawJLaygo::AttackAnimation(std::string animName, AnimInfo& animInfo, std::v
             _model.lock()->SetAnimationSpeed(animInfo.animSpeed);
         }
         for(int i = 0; i < atkCol.size(); i++) {
-            atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
+            atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER |
+                                            (u32)ComponentCollision::CollisionGroup::ITEM);
         }
 
         if(!_playedSE && playSE) {
@@ -438,6 +442,7 @@ void MawJLaygo::AttackAnimation(std::string animName, AnimInfo& animInfo, std::v
     if(_currAnimTime >= animInfo.animCutInTime) {
         _combo++;
         _isHitPlayer = false;
+        _isHitItem   = false;
     }
 }
 
@@ -662,6 +667,7 @@ void MawJLaygo::PowerUp() {
     if(_currAnimTime > _animList[STR(MawJLaygoAnim::ANGRY_AURA)].animCutInTime) {
         _combo++;
         _isHitPlayer = false;
+        _isHitItem   = false;
     }
 
     _waitTime = ANGRY_WAIT;

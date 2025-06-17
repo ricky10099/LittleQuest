@@ -54,13 +54,13 @@ bool draw_tutorial   = false;
 
 int           font_handle         = -1;
 int           bgm_handle          = -1;
-constexpr int MENU_MAX            = 4;
+constexpr int MENU_MAX            = 5;
 int           select_num          = 0;
 constexpr int TUTORIAL_MAX        = 3;
 int           tutorial_page       = 0;
-float         menu_x[MENU_MAX]    = {0.4f, 0.4f, 0.5f, 0.5f};
-float         menu_y[MENU_MAX]    = {0.32f, 0.42f, 0.52f, 0.62f};
-const char*   menu_text[MENU_MAX] = {"BGM", "SE", "Resume", "Back to Title"};
+float         menu_x[MENU_MAX]    = {0.4f, 0.4f, 0.5f, 0.5f, 0.5f};
+float         menu_y[MENU_MAX]    = {0.27f, 0.37f, 0.47f, 0.57f, 0.67f};
+const char*   menu_text[MENU_MAX] = {"BGM", "SE", "Tutorial", "Resume", "Back to Title"};
 float         volume_list[2]      = {bgm_volume / 100.0f, se_volume / 100.0f};
 
 std::vector<int> _tutorialImages;
@@ -855,7 +855,8 @@ void Scene::Init() {
     if(menu_function.empty()) {
         menu_function.emplace_back(SetBGMVolume);
         menu_function.emplace_back(SetSEVolume);
-        menu_function.emplace_back(Pause);
+        menu_function.emplace_back(ShowTutorial);
+        menu_function.emplace_back(CallMenu);
         menu_function.emplace_back(NextScene);
     }
 
@@ -1047,6 +1048,7 @@ void Scene::Update() {
 #pragma region customized
     if((IsPadOn(PAD_ID::PAD_R_PUSH) || IsKeyDown(KEY_INPUT_ESCAPE)) && scene_can_pause) {
         Pause();
+        CallMenu();
         select_num = 0;
     }
 
@@ -1058,9 +1060,7 @@ void Scene::Update() {
             tutorial_page--;
             tutorial_page = std::max(0, tutorial_page);
         }
-    }
-
-    if(scene_draw_menu) {
+    } else if(scene_draw_menu) {
         HideMouse(false);
         if(IsKeyDown(KEY_INPUT_UP) || IsPadOn(PAD_ID::PAD_D_UP)) {
             --select_num;
@@ -1090,6 +1090,8 @@ void Scene::Update() {
         if(IsPadOn(PAD_ID::PAD_X)) {
             Pause();
         }
+    } else {
+        scene_pause = false;
     }
 
     bool next_bgm_exist = (int)(bgm_list.size() - 1) > bgm_index;
@@ -1189,7 +1191,7 @@ void Scene::Draw() {
         int screen_width, screen_height;
         GetScreenState(&screen_width, &screen_height, NULL);
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
-        DrawBoxAA(screen_width * 0.3f, screen_height * 0.3f, screen_width * 0.7f, screen_height * 0.7f, 0u, TRUE);
+        DrawBoxAA(screen_width * 0.2f, screen_height * 0.2f, screen_width * 0.8f, screen_height * 0.8f, 0u, TRUE);
         SetDrawBlendMode(DX_BLENDMODE_NOBLEND, NULL);
 
         int mouseX, mouseY;
@@ -1512,12 +1514,11 @@ void Scene::Pause() {
 }
 
 void Scene::CallMenu() {
-    Pause();
+    //Pause();
     scene_draw_menu = !scene_draw_menu;
 }
 
 void Scene::ShowTutorial() {
-    Pause();
     draw_tutorial = !draw_tutorial;
     tutorial_page = 0;
 }

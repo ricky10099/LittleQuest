@@ -24,66 +24,64 @@ class Player: public Character {
     //! @brief プレイヤーを生成します。
     //------------------------------------------------------------
     static PlayerPtr Create(const float3& pos);
-
     //------------------------------------------------------------
     //! @brief プレイヤーを初期化します。
     //!
     //! @retval true 初期化成功
     //! @retval false 初期化失敗
     //------------------------------------------------------------
-    virtual bool Init() override;
+    virtual bool     Init() override;
     //------------------------------------------------------------
     //! @brief 更新処理を行います。
     //------------------------------------------------------------
-    virtual void Update() override;
+    virtual void     Update() override;
     //------------------------------------------------------------
     //! @brief 遅い描画の処理を行います。
     //------------------------------------------------------------
-    virtual void LateDraw() override;
+    virtual void     LateDraw() override;
     //------------------------------------------------------------
     //! @brief 当たりのコールバック
     //!
     //! @param hitInfo　当たったコリジョンのヒット情報
     //------------------------------------------------------------
-    virtual void OnHit(const ComponentCollision::HitInfo& hitInfo) override;
-
-    virtual void ExitHit(const ComponentCollision::HitInfo& hitInfo) override;
+    virtual void     OnHit(const ComponentCollision::HitInfo& hitInfo) override;
     //------------------------------------------------------------
     //! @brief 終了処理を行います。
     //------------------------------------------------------------
-    virtual void Exit() override;
-
+    virtual void     Exit() override;
     //------------------------------------------------------------
     //! @brief 攻撃される処理を行います。
     //!
     //! @param damage 受けるダメージ
     //------------------------------------------------------------
-    virtual void GetHit(int damage) override;
+    virtual void     GetHit(int damage) override;
     //------------------------------------------------------------
     //! @brief シーンの行動を設定します。
     //------------------------------------------------------------
-    virtual void SetSceneState(Scene::SceneState state);
+    virtual void     SetSceneState(Scene::SceneState state);
     //------------------------------------------------------------
     //! @brief プレイヤーが倒されたのか。
     //!
     //! @retval true 倒された
     //! @retval false 倒されていない
     //------------------------------------------------------------
-    virtual bool IsDead();
+    virtual bool     IsDead();
     //------------------------------------------------------------
     //! @brief 死亡動画を再生します。
     //------------------------------------------------------------
-    virtual void PlayDead();
+    virtual void     PlayDead();
     //------------------------------------------------------------
     //! @brief スローモーションを行います。
     //------------------------------------------------------------
-    virtual void SlowMotion();
+    virtual void     SlowMotion();
     //------------------------------------------------------------
     //! @brief スローモーションを終了します。
     //------------------------------------------------------------
-    virtual void EndSlowMotion();
-
-    virtual bool IsPlayingEXSkill();
+    virtual void     EndSlowMotion();
+    //------------------------------------------------------------
+    //! @brief 必殺技演出しているのか。
+    //------------------------------------------------------------
+    virtual bool     IsPlayingEXSkill();
 
    private:
     //! 基礎の移動速度
@@ -94,7 +92,7 @@ class Player: public Character {
     const float  HIT_PAUSE                    = 10.0f;
     //! チャージ必要の時間
     const float  SPECIAL_CHARGE_TIME          = 75.0f;
-    const float  EXSKILL_PLAY_TIME            = 12.0;
+    const float  EXSKILL_PLAY_TIME            = 6.0;
     //! 基礎の攻撃力
     const int    BASE_ATK                     = 3;
     //! 最大HP
@@ -131,8 +129,6 @@ class Player: public Character {
     //! 現在のコンボ
     Combo _currCombo = Combo::NO_COMBO;
 
-    //ObjectWeakPtr _boss;
-
     //! 攻撃方法と攻撃力のマップ
     std::unordered_map<Combo, int>           _comboList;
     //! プレイヤーカメラ
@@ -148,34 +144,31 @@ class Player: public Character {
     ObjectWeakPtr                            _cameraHitObject;
 
     //! カメラ距離
-    float  _cameraLength = 10.0f;
+    float            _cameraLength     = 10.0f;
     //! チャージしているタイマー
-    float  _chargeTime   = 0.0f;
-    float  _exSkillTimer = EXSKILL_PLAY_TIME;
-    float3 _exSkillPosition;
-    float  _blockedDistance  = 0.0f;
+    float            _chargeTime       = 0.0f;
+    //! 必殺技演出タイマー
+    float            _exSkillTimer     = EXSKILL_PLAY_TIME;
+    //! カメラ補正距離
+    float            _blockedDistance  = 0.0f;
+    //! カメラ補正検束
+    bool             _cameraBlocked    = false;
+    std::string_view _blockedName      = "";
     //! コンボ中なのか
-    bool   _isCombo          = false;
+    bool             _isCombo          = false;
     //! 次のコンボ受けるのか
-    bool   _waitForCombo     = false;
+    bool             _waitForCombo     = false;
     //! 無敵中なのか
-    bool   _isInvincible     = false;
+    bool             _isInvincible     = false;
     //! サウンドエフェクトが再生したのか
-    bool   _playedFX         = false;
-    bool   _isPlayingEXSkill = false;
+    bool             _playedFX         = false;
+    bool             _isPlayingEXSkill = false;
     //! チャージしていたのか
-    bool   _charged          = false;
-
-    bool _cameraBlocked = false;
-
-    //bool _lockOn = false;
-
-    //bool _hideUI = false;
-
-    std::string_view _blockedName = "";
+    bool             _charged          = false;
 
     //! 攻撃当たるエフェクト
     int  _hitEffect           = -1;
+    //! 攻撃が建物に当たるエフェクト
     int  _hitBuildingEffect   = -1;
     //! 再生しているエフェクト
     int  _playingEffect       = -1;
@@ -189,6 +182,7 @@ class Player: public Character {
     int  _chargingEffect      = -1;
     //! チャージしたエフェクト
     int  _chargedEffect       = -1;
+    //! 必殺技エフェクト
     int  _exSkillEffect       = -1;
     //! チャージエフェクト再生ハンドル
     int  _playingChargeEffect = -1;
@@ -196,8 +190,9 @@ class Player: public Character {
     int  _swordSE             = -1;
     //! 攻撃当たるサウンドエフェクト
     int  _swordHitSE          = -1;
-    int  _swordHitBuildingSE  = -1;
+    //! 必殺技サウンドエフェクト
     int  _exSkill0SE          = -1;
+    //! 必殺技２段のサウンドエフェクト
     int  _exSkill1SE          = -1;
     //! 攻撃エフェクトリスト
     int* _pEffectList;
@@ -208,10 +203,6 @@ class Player: public Character {
     //! @brief 入力処理を行います。
     //------------------------------------------------------------
     void         InputHandle();
-    //------------------------------------------------------------
-    //! @brief カメラロックオンを行います。
-    //------------------------------------------------------------
-    void         LockOnCamera();
     //------------------------------------------------------------
     //! @brief プレイ中の行動。
     //------------------------------------------------------------
@@ -242,9 +233,16 @@ class Player: public Character {
     //! @param animName アニメーション名
     //! @param animInfo アニメーション情報
     //! @param nextCombo 次のコンボ
+    //! @param isEXSkill 必殺技の攻撃判定ために分ける
     //------------------------------------------------------------
     void AttackAnimation(std::string animName, AnimInfo animInfo, Combo nextCombo = Combo::NO_COMBO, bool isEXSkill = false);
     //------------------------------------------------------------
+    //! @brief 攻撃動画を再生します。
+    //!
+    //! @param effect Effekseerハンドル
+    //! @param position エフェクト再生位置
+    //! @param rotation　エフェクトの回転
+    //! @param soundEffect　一緒に再生するサウンドエフェクト
     //------------------------------------------------------------
     void PlayAttackFX(int effect, float3 position, float3 rotation, int soundEffect = -1);
     //------------------------------------------------------------
@@ -255,7 +253,9 @@ class Player: public Character {
     //! @brief アニメーションマップを設定します
     //------------------------------------------------------------
     virtual void SetAnimInfo() override;
-
-    void SetComboList();
+    //------------------------------------------------------------
+    //! @brief コンボゲージの溜まる値を設定します
+    //------------------------------------------------------------
+    void         SetComboList();
 };
 }    // namespace LittleQuest

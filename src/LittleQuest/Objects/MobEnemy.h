@@ -64,24 +64,29 @@ class MobEnemy: public Enemy {
 
     const float ATTACK_DISTANCE = 15.0f;
 
-    //bool _hideUI = false;
-
     float _baseSpeed  = 0.2f;
     float _walkFactor = 0.5f;
     float _runFactor  = 2.0f;
 
+    //! 生成する位置
     float3              _spawnPos;
+    //! パトロールの次目的地
     float3              _goal;
+    //! パトロールするか
     bool                _isPatrol;
+    //! パトロールの全部目的地
     std::vector<float3> _patrolPoint;
     int                 _patrolIndex;
 
+    //! プレイヤーを検測する距離
     float _detectDistance = DEFAULT_DETECT_DISTANCE;
+    //! プレイヤーを検測する範囲
     float _detectAngle    = DEFAULT_DETECT_ANGLE;
 
     bool  _isReady  = true;
     bool  _isAttack = false;
     bool  _isHitPlayer;
+    bool  _isHitItem;
     bool  _isFoundPlayer;
     float _degree;
 
@@ -113,21 +118,9 @@ class MobEnemy: public Enemy {
     virtual void ChasePlayer() override;
     virtual void Wait() override;
     virtual void Die() override;
-
-    //------------------------------------------------------------
-    //! @brief 攻撃のアニメーション
-    //!
-    //! @param animName アニメーション名
-    //! @param animInfo アニメーション情報
-    //! @param atkCol 攻撃を判定するコリション
-    //! @param playSE サウンドエフェクトを再生するか
-    //------------------------------------------------------------
-    /* virtual void AttackAnimation(std::string animName, AnimInfo& animInfo,
-                                 std::vector<ComponentCollisionCapsulePtr> atkCol = {}, bool playSE = true) {}*/
-
     //------------------------------------------------------------
     //! @brief アニメーションマップを設定します
     //------------------------------------------------------------
-    void SetAnimList();
+    void         SetAnimList();
 };
 }    // namespace LittleQuest

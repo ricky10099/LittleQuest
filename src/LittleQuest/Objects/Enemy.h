@@ -22,10 +22,7 @@ class Enemy: public Character {
         Boss,
     };
 
-    virtual
-
-        virtual bool
-        IsBoss() {
+    virtual bool IsBoss() {
         return _type == EnemyType::Boss;
     }
 

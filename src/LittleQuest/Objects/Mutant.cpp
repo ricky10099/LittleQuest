@@ -112,6 +112,7 @@ void Mutant::Attack() {
     AttackAnimation(STR(MobEnemyState::ATTACK), _animList[STR(MobEnemyState::ATTACK)], {_leftHandBox.lock()});
     if(!_model.lock()->IsPlaying()) {
         _isHitPlayer = false;
+        _isHitItem   = false;
         ChangeState(MobEnemyState::CHASE);
         _waitFor = ATTACK_WAIT_TIME;
         ChangeState(MobEnemyState::WAIT);
@@ -133,7 +134,8 @@ void Mutant::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vect
             _model.lock()->SetAnimationSpeed(animInfo.animSpeed);
         }
         for(int i = 0; i < atkCol.size(); i++) {
-            atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);
+            atkCol[i]->SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER |
+                                            (u32)ComponentCollision::CollisionGroup::ITEM);
         }
 
         if(!_playedSE && playSE) {
@@ -149,6 +151,7 @@ void Mutant::AttackAnimation(std::string animName, AnimInfo& animInfo, std::vect
     }
     if(_currAnimTime >= animInfo.animCutInTime) {
         _isHitPlayer = false;
+        _isHitItem   = false;
     }
 }
 

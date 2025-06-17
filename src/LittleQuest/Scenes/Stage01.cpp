@@ -148,8 +148,10 @@ void Stage01::Update() {
             _playerCamera.lock()->SetTranslate({-97, 17, -50});
         }
 
+        // 映画ぽっくする
         ShowBlackBar();
 
+        // ボスにイントロアニメションが終わったら雑魚エネミーを湧く
         if(_boss.lock()->IsPlayedTaunt()) {
             for(auto& mob: _mob) {
                 if(!mob.lock()->GetIsReady()) {
@@ -163,6 +165,7 @@ void Stage01::Update() {
             _scenarioCamera.lock()->SetPositionAndTarget(CUT_SCENE_POS_MOB, CUT_SCENE_TARGET_MOB);
         }
 
+        // 雑魚エネミー湧いたらゲーム始まる
         if(_isMobSpawned) {
             _slideBlackBar = true;
             _playerCamera.lock()->SetTranslate({-97, 17, -50});
@@ -177,7 +180,8 @@ void Stage01::Update() {
             _scenarioCamera.lock()->SetPerspective(newFOV);
         }
 
-        if(IsKeyDown(KEY_INPUT_RETURN) /*|| IsMouseDown(MOUSE_INPUT_1)*/ || IsKeyDown(KEY_INPUT_SPACE) ||
+        // イントロ演出をスキップ
+        if(IsKeyDown(KEY_INPUT_RETURN) || IsMouseDown(MOUSE_INPUT_1) || IsKeyDown(KEY_INPUT_SPACE) ||
            IsPadOn(PAD_ID::PAD_L_PUSH) || IsPadOn(PAD_ID::PAD_B)) {
             _fadeTimer     = 0;
             _alpha         = 0;
@@ -185,6 +189,7 @@ void Stage01::Update() {
             _scenarioCamera.lock()->SetPerspective(FOV_ORG);
         }
 
+        // 演出終わったらUIを表示する
         if(_cutSceneTimer <= 0) {
             _playerCamera.lock()->SetCurrentCamera();
             scene_state = Scene::SceneState::GAME;
@@ -199,7 +204,9 @@ void Stage01::Update() {
         }
         break;
     case Scene::SceneState::GAME:
+        // もしチュートリアル表示してないならチュートリアル表示する
         if(!_isShowedTutorial) {
+            Scene::Pause();
             Scene::ShowTutorial();
             _isShowedTutorial = true;
         }
@@ -217,6 +224,7 @@ void Stage01::Update() {
             _minute = std::max(0, _minute);
         }
 
+        // 必殺技演出中にUIを隠す
         if(_player.lock()->IsPlayingEXSkill()) {
             _player.lock()->SetHideHP(true);
             _boss.lock()->SetHideHP(true);
@@ -231,6 +239,7 @@ void Stage01::Update() {
             }
         }
 
+        // プレイヤーかボスどちらか倒されたらフィニッシュ演出開始します
         if(_boss.lock()->IsDead() || _player.lock()->IsDead() || _isLose) {
             _showBlackBar  = true;
             _slideBlackBar = false;
