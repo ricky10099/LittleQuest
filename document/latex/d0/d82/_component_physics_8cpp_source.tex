@@ -1,0 +1,1031 @@
+\doxysection{Component\+Physics.\+cpp}
+\hypertarget{_component_physics_8cpp_source}{}\label{_component_physics_8cpp_source}\index{ComponentPhysics.cpp@{ComponentPhysics.cpp}}
+\mbox{\hyperlink{_component_physics_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ ComponentPhysics.cpp}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ Physicsコンポーネント}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00004}00004\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_scene_8h}{System/Scene.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_physics_8h}{System/Component/ComponentPhysics.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_model_8h}{System/Component/ComponentModel.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <Jolt/Jolt.h>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/ContactListener.h>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/PhysicsSystem.h>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Body/Body.h>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_physics_engine_8h}{System/Physics/PhysicsEngine.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00016}00016\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_physics_layer_8h}{System/Physics/PhysicsLayer.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00017}00017\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_rigid_body_8h}{System/Physics/RigidBody.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00018}00018\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_shape_8h}{System/Physics/Shape.h}}>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00019}00019\ \textcolor{preprocessor}{\#include\ <Jolt/Renderer/DebugRenderer.h>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00020}00020\ \textcolor{preprocessor}{\#include\ <Jolt/Renderer/DebugRendererRecorder.h>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00021}00021\ \textcolor{preprocessor}{\#include\ <Jolt/Renderer/DebugRendererPlayback.h>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00022}00022\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Body/MotionType.h>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00024}00024\ \textcolor{preprocessor}{\#include\ <Jolt/Physics/Collision/CollideShape.h>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00026}00026\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00028}00028\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00029}00029\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ items[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00030}00030\ \ \ \ \ \textcolor{stringliteral}{"{}NONE"{}},\ \textcolor{stringliteral}{"{}BOX"{}},\ \textcolor{stringliteral}{"{}SPHERE"{}},\ \textcolor{stringliteral}{"{}CAPSULE"{}},\ \textcolor{stringliteral}{"{}CYLINDER"{}},\ \textcolor{stringliteral}{"{}MESH"{}},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00031}00031\ \};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00032}00032\ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ col\_types[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00033}00033\ \ \ \ \ \textcolor{stringliteral}{"{}WALL"{}},\ \ \ \ \textcolor{stringliteral}{"{}GROUND"{}},\ \textcolor{stringliteral}{"{}PLAYER"{}},\ \textcolor{stringliteral}{"{}ENEMY"{}},\ \textcolor{stringliteral}{"{}WEAPON"{}},\ \textcolor{stringliteral}{"{}ITEM"{}},\ \ \textcolor{stringliteral}{"{}CAMERA"{}},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00035}00035\ \ \ \ \ \textcolor{stringliteral}{"{}ETC(\_0)"{}},\ \textcolor{stringliteral}{"{}ETC\_1"{}},\ \ \textcolor{stringliteral}{"{}ETC\_2"{}},\ \ \textcolor{stringliteral}{"{}ETC\_3"{}},\ \textcolor{stringliteral}{"{}ETC\_4"{}},\ \ \textcolor{stringliteral}{"{}ETC\_5"{}},\ \textcolor{stringliteral}{"{}ETC\_6"{}},\ \ \textcolor{stringliteral}{"{}ETC\_7"{}},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00036}00036\ \ \ \ \ \textcolor{stringliteral}{"{}NOHIT"{}},\ \ \ \ \textcolor{comment}{//!<\ これがあると強制的に当たらなくなる}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00037}00037\ \};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00039}00039\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ physics\_color\ =\ GetColor(64,\ 64,\ 192);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00041}00041\ \textcolor{keywordtype}{bool}\ initialized\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00043}00043\ \textcolor{comment}{//\ 共通の設定}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00044}00044\ \textcolor{preprocessor}{\#if\ 0\ \ \ \ }\textcolor{comment}{//\ 内部のbroad\_phase\_layer\_interface\_設定が変更できないため、これが使えない…。}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \_layerSettings()}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00046}00046\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//physics::Engine::instance()-\/>setLayerAlias(\ myLayerTable\_,\ std::size(\ myLayerTable\_\ )\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_ac114076717c5b5e26c9e740c76f3f058}{physics::Engine::instance}}()-\/>\mbox{\hyperlink{classphysics_1_1_engine_ad67bc7551d7da8b923967e983260af0d}{overrideLayerCollide}}(\ [](\ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ o1,\ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ o2\ )\ -\/>\ \textcolor{keywordtype}{bool}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 当たる場合trueで返す}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{class_component_physics_a34eb32c6bc2cbff1d522cbfd1be7d46e}{ComponentPhysics::GetHitCollision}}(\ (\mbox{\hyperlink{class_component_physics_a8811519de345041279f31fbfedf8e024}{ComponentPhysics::CollisionType}})o1\ )\ \&\ (\ 1\ <<\ o2\ )\ )}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \}\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00055}00055\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00056}00056\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00058}00058\ \textcolor{keyword}{class\ }CPContactListener:\ \textcolor{keyword}{public}\ JPH::ContactListener\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00059}00059\ \ \ \ \textcolor{keyword}{public}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00060}00060\ \textcolor{comment}{\ \ \ \ //!\ コンタクトを有効にするかどうかの判定}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{keyword}{virtual}\ JPH::ValidateResult\ OnContactValidate([[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::Body\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ body1,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::Body\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ body2,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ JPH::RVec3Arg\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ baseOffset,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [[maybe\_unused]]\ \textcolor{keyword}{const}\ JPH::CollideShapeResult\&\ collision\_result)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ std::cout\ <<\ "{}コールバックが有効か確認."{}\ <<\ std::endl;}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ ComponentPhysics*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pd1\ =\ (ComponentPhysics*)body1.GetUserData();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ ComponentPhysics*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pd2\ =\ (ComponentPhysics*)body2.GetUserData();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a8811519de345041279f31fbfedf8e024}{ComponentPhysics::CollisionType}}\ ct1\ =\ pd1-\/>\mbox{\hyperlink{class_component_physics_ab649226cc70a90ac4cb37a5d56bdafad}{GetCollisionType}}();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a8811519de345041279f31fbfedf8e024}{ComponentPhysics::CollisionType}}\ ct2\ =\ pd2-\/>\mbox{\hyperlink{class_component_physics_ab649226cc70a90ac4cb37a5d56bdafad}{GetCollisionType}}();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{//broad\_phase\_layer\_interfaceでやるべきことをここで行う\ todo\ broad\_phase\_layer\_interfaceの変更}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!(\mbox{\hyperlink{class_component_physics_a34eb32c6bc2cbff1d522cbfd1be7d46e}{ComponentPhysics::GetHitCollision}}(ct1)\ \&\ (\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})ct2)\ ||\ !(\mbox{\hyperlink{class_component_physics_a34eb32c6bc2cbff1d522cbfd1be7d46e}{ComponentPhysics::GetHitCollision}}(ct2)\ \&\ (\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})ct1))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ヒットしない}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::ValidateResult::RejectAllContactsForThisBodyPair;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ ComponentPhysics::HitInfo\ info;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ info.\mbox{\hyperlink{struct_component_physics_1_1_hit_info_ae1ae33e512713c597a8c911266caa3b7}{hit\_}}\ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ info.\mbox{\hyperlink{struct_component_physics_1_1_hit_info_ad4d24c499f53a06194332fd2ccbcb619}{collision\_}}\ \ \ \ \ =\ pd1;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ info.\mbox{\hyperlink{struct_component_physics_1_1_hit_info_a3280073a750931ebc2b0c9741511d49f}{hit\_collision\_}}\ =\ pd2;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ pd1-\/>\mbox{\hyperlink{class_component_physics_a64d0b241b6b8a0f5f4f0b517c3015642}{OnHit}}(info);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ info.\mbox{\hyperlink{struct_component_physics_1_1_hit_info_ae1ae33e512713c597a8c911266caa3b7}{hit\_}}\ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ info.\mbox{\hyperlink{struct_component_physics_1_1_hit_info_ad4d24c499f53a06194332fd2ccbcb619}{collision\_}}\ \ \ \ \ =\ pd2;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ info.\mbox{\hyperlink{struct_component_physics_1_1_hit_info_a3280073a750931ebc2b0c9741511d49f}{hit\_collision\_}}\ =\ pd1;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ pd2-\/>\mbox{\hyperlink{class_component_physics_a64d0b241b6b8a0f5f4f0b517c3015642}{OnHit}}(info);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ どちらかの指定でオーバーラップするか?}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(pd1-\/>\mbox{\hyperlink{class_component_physics_a6c81e9948c13e4c20e9d26bc08397348}{GetOverlapCollision}}()\ \&\ (\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})ct2\ ||\ pd2-\/>\mbox{\hyperlink{class_component_physics_a6c81e9948c13e4c20e9d26bc08397348}{GetOverlapCollision}}()\ \&\ (\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})ct1)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::ValidateResult::RejectAllContactsForThisBodyPair;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::ValidateResult::AcceptAllContactsForThisBodyPair;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00094}00094\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00095}00095\ \};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00096}00096\ CPContactListener\ \_contactlistener;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00098}00098\ \textcolor{keywordtype}{void}\ DrawBox3D(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\&\ world,\ float3\ size)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00099}00099\ \ \ \ \ std::vector<float4>\ vertex\ =\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \{\ size.x,\ \ size.y,\ -\/size.z,\ 1\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \{\ size.x,\ -\/size.y,\ -\/size.z,\ 1\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \{-\/size.x,\ -\/size.y,\ -\/size.z,\ 1\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \{-\/size.x,\ \ size.y,\ -\/size.z,\ 1\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \{\ size.x,\ \ size.y,\ \ size.z,\ 1\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \{\ size.x,\ -\/size.y,\ \ size.z,\ 1\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \{-\/size.x,\ -\/size.y,\ \ size.z,\ 1\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \{-\/size.x,\ \ size.y,\ \ size.z,\ 1\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00108}00108\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00109}00109\ \ \ \ \ \textcolor{keyword}{static}\ std::vector<int4>\ index\ =\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \{3,\ 2,\ 1,\ 0\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \{5,\ 6,\ 7,\ 4\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \{1,\ 5,\ 4,\ 0\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \{2,\ 6,\ 5,\ 1\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \{3,\ 7,\ 6,\ 2\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \{7,\ 3,\ 0,\ 4\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00116}00116\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00118}00118\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ index.size();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ix\ \ =\ index[i];}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pt1\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(vertex[ix.x],\ world);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pt2\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(vertex[ix.y],\ world);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pt3\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(vertex[ix.z],\ world);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pt4\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(vertex[ix.w],\ world);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ DrawLine3D(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pt1.xyz),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pt2.xyz),\ physics\_color);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ DrawLine3D(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pt2.xyz),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pt3.xyz),\ physics\_color);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ DrawLine3D(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pt3.xyz),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pt4.xyz),\ physics\_color);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ DrawLine3D(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pt4.xyz),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(pt1.xyz),\ physics\_color);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00129}00129\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00130}00130\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00132}00132\ JPH::BodyID\ GetBodyID(\textcolor{keyword}{const}\ std::shared\_ptr<physics::RigidBody>\&\ body)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00133}00133\ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::BodyID((\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}})body-\/>bodyID());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00134}00134\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00135}00135\ \textcolor{preprocessor}{\#if\ 1}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00137}00137\ \textcolor{keyword}{class\ }JPH\_DEBUG\_RENDERER\_EXPORT\ BPDebugRenderer\ final:\ \textcolor{keyword}{public}\ JPH::DebugRenderer\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00138}00138\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00139}00139\ \ \ \ \ \textcolor{comment}{/*\ JPH\_OVERRIDE\_NEW\_DELETE\ */}\ \ \ \ \textcolor{comment}{//\ ワーニングが出るため展開}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00140}00140\ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{operator}\ \textcolor{keyword}{new}(\textcolor{keywordtype}{size\_t}\ inCount)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::Allocate(inCount);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00142}00142\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00143}00143\ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}(\textcolor{keywordtype}{void}*\ inPointer)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ JPH::Free(inPointer);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00145}00145\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00146}00146\ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{operator}\ \textcolor{keyword}{new}[](\textcolor{keywordtype}{size\_t}\ inCount)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::Allocate(inCount);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00148}00148\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00149}00149\ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}[](\textcolor{keywordtype}{void}*\ inPointer)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ JPH::Free(inPointer);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00151}00151\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00152}00152\ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{operator}\ \textcolor{keyword}{new}(\textcolor{keywordtype}{size\_t}\ inCount,\ std::align\_val\_t\ inAlignment)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::AlignedAllocate(inCount,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(inAlignment));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00154}00154\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00155}00155\ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}(\textcolor{keywordtype}{void}*\ inPointer,\ std::align\_val\_t\ inAlignment)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ inAlignment;\ \ \ \ \textcolor{comment}{//\ no\ use...}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ JPH::AlignedFree(inPointer);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00158}00158\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00159}00159\ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{operator}\ \textcolor{keyword}{new}[](\textcolor{keywordtype}{size\_t}\ inCount,\ std::align\_val\_t\ inAlignment)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::AlignedAllocate(inCount,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(inAlignment));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00161}00161\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00162}00162\ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}[](\textcolor{keywordtype}{void}*\ inPointer,\ std::align\_val\_t\ inAlignment)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ inAlignment;\ \ \ \ \textcolor{comment}{//\ no\ use...}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ JPH::AlignedFree(inPointer);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00165}00165\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00167}00167\ \ \ \ \ \textcolor{keyword}{struct\ }PolygonData\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ VERTEX3D*\ \ \ vertex\ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ JPH::uint32\ vertex\_count\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}*\ \ \ \ \ \ \ \ index\ \ \ \ \ \ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ JPH::uint32\ index\_count\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ PolygonData()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ PolygonData(\textcolor{keyword}{const}\ Vertex*\ vtx,\ \textcolor{keywordtype}{int}\ size)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ vertex\ \ \ \ \ \ \ =\ \textcolor{keyword}{new}\ VERTEX3D[size];}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ vertex\_count\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ size;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(\&vertex[i].pos,\ \&vtx[i].mPosition,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})\ *\ 3);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(\&vertex[i].norm,\ \&vtx[i].mNormal,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})\ *\ 3);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(\&vertex[i].dif,\ \&vtx[i].mColor,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})\ *\ 4);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].u\ =\ vtx[i].mUV.x;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].v\ =\ vtx[i].mUV.y;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].spc.r\ =\ BYTE(0xFF\ *\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].spc.g\ =\ BYTE(0xFF\ *\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].spc.b\ =\ BYTE(0xFF\ *\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].spc.a\ =\ BYTE(0xFF\ *\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].su\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].sv\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ PolygonData(\textcolor{keyword}{const}\ Vertex*\ vtx,\ \textcolor{keywordtype}{int}\ vertex\_size,\ \textcolor{keyword}{const}\ JPH::uint*\ idx,\ \textcolor{keywordtype}{int}\ index\_size)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ vertex\ \ \ \ \ \ \ =\ \textcolor{keyword}{new}\ VERTEX3D[vertex\_size];}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ vertex\_count\ =\ vertex\_size;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ index\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}[index\_size];}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ index\_count\ \ =\ index\_size;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ vertex\_size;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(\&vertex[i].pos,\ \&vtx[i].mPosition,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})\ *\ 3);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(\&vertex[i].norm,\ \&vtx[i].mNormal,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{float})\ *\ 3);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memcpy(\&vertex[i].dif,\ \&vtx[i].mColor,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char})\ *\ 4);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].u\ =\ vtx[i].mUV.x;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].v\ =\ vtx[i].mUV.y;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].spc.r\ =\ BYTE(0xFF\ *\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].spc.g\ =\ BYTE(0xFF\ *\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].spc.b\ =\ BYTE(0xFF\ *\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].spc.a\ =\ BYTE(0xFF\ *\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].su\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex[i].sv\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ index\_size;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index[i]\ =\ (\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})idx[i];}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \string~PolygonData()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(vertex)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ vertex;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vertex\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(index)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}[]\ index;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00232}00232\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00234}00234\ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00235}00235\ \ \ \ \ JPH::Mutex\ mMutex;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00236}00236\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \ \ \ \ \ \ \ mNextBatchID;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00237}00237\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00238}00238\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00239}00239\ \ \ \ \ \textcolor{keyword}{class\ }BatchImpl:\ \textcolor{keyword}{public}\ JPH::RefTargetVirtual\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ JPH\_OVERRIDE\_NEW\_DELETE\ */}\ \ \ \ \textcolor{comment}{//\ ワーニングが出るため展開}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{operator}\ \textcolor{keyword}{new}(\textcolor{keywordtype}{size\_t}\ inCount)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::Allocate(inCount);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}(\textcolor{keywordtype}{void}*\ inPointer)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ JPH::Free(inPointer);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00248}00248\ \ \ \ \ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{operator}\ \textcolor{keyword}{new}[](\textcolor{keywordtype}{size\_t}\ inCount)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::Allocate(inCount);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}[](\textcolor{keywordtype}{void}*\ inPointer)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ JPH::Free(inPointer);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{operator}\ \textcolor{keyword}{new}(\textcolor{keywordtype}{size\_t}\ inCount,\ std::align\_val\_t\ inAlignment)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::AlignedAllocate(inCount,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(inAlignment));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}(\textcolor{keywordtype}{void}*\ inPointer,\ std::align\_val\_t\ inAlignment)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ inAlignment;\ \ \ \ \textcolor{comment}{//\ no\ use...}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ JPH::AlignedFree(inPointer);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00260}00260\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}*\ \textcolor{keyword}{operator}\ \textcolor{keyword}{new}[](\textcolor{keywordtype}{size\_t}\ inCount,\ std::align\_val\_t\ inAlignment)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ JPH::AlignedAllocate(inCount,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(inAlignment));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ JPH\_INLINE\ \textcolor{keywordtype}{void}\ \textcolor{keyword}{operator}\ \textcolor{keyword}{delete}[](\textcolor{keywordtype}{void}*\ inPointer,\ std::align\_val\_t\ inAlignment)\ \textcolor{keyword}{noexcept}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ inAlignment;\ \ \ \ \textcolor{comment}{//\ no\ use...}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ JPH::AlignedFree(inPointer);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00267}00267\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00269}00269\ \ \ \ \ \ \ \ \ BatchImpl()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00270}00270\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00271}00271\ \ \ \ \ \ \ \ \ BatchImpl(\textcolor{keyword}{const}\ Triangle*\ inTriangles,\ \textcolor{keywordtype}{int}\ inTriangleCount)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inTriangles\ ==\ \textcolor{keyword}{nullptr}\ ||\ inTriangleCount\ <=\ 0)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00274}00274\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ polygons\ =\ \textcolor{keyword}{new}\ PolygonData((\textcolor{keyword}{const}\ Vertex*)inTriangles,\ inTriangleCount\ *\ 3);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//memcpy(\ polygons-\/>vertex,\ inTriangles,\ sizeof(\ Triangle\ )\ *\ inTriangleCount\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00277}00277\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00278}00278\ \ \ \ \ \ \ \ \ BatchImpl(\textcolor{keyword}{const}\ Vertex*\ inVertices,\ \textcolor{keywordtype}{int}\ inVertexCount,\ \textcolor{keyword}{const}\ JPH::uint32*\ inIndices,\ \textcolor{keywordtype}{int}\ inIndexCount)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inVertices\ ==\ \textcolor{keyword}{nullptr}\ ||\ inIndices\ ==\ \textcolor{keyword}{nullptr}\ ||\ inVertexCount\ <=\ 0\ ||\ inIndexCount\ <=\ 0)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00281}00281\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ polygons\ =\ \textcolor{keyword}{new}\ PolygonData(inVertices,\ inVertexCount,\ inIndices,\ inIndexCount);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//memcpy(\ polygons-\/>vertex,\ inVertices,\ sizeof(\ Vertex\ )\ *\ inVertexCount\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//memcpy(\ polygons-\/>index,\ inIndices,\ sizeof(\ JPH::uint\ )\ *\ inIndexCount\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00285}00285\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00286}00286\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \string~BatchImpl()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(polygons\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ polygons;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ polygons\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00291}00291\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00292}00292\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00293}00293\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ AddRef()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ ++mRefCount;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00295}00295\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00296}00296\ \ \ \ \ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ Release()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(-\/-\/mRefCount\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00298}00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \textcolor{keyword}{this};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00299}00299\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00300}00300\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00301}00301\ \ \ \ \ \ \ \ \ PolygonData*\ GetPolygons()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00302}00302\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ polygons;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00303}00303\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00305}00305\ \ \ \ \ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00306}00306\ \ \ \ \ \ \ \ \ JPH::atomic<JPH::uint32>\ mRefCount\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00308}00308\ \ \ \ \ \ \ \ \ PolygonData*\ polygons\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00309}00309\ \ \ \ \ \ \ \ \ JPH::uint\ \ \ \ index\ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00310}00310\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00312}00312\ \ \ \ \ BPDebugRenderer()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00313}00313\ \ \ \ \ \ \ \ \ Initialize();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00314}00314\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00315}00315\ \ \ \ \ \textcolor{keyword}{virtual}\ \string~BPDebugRenderer()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00316}00316\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00317}00317\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawLine(JPH::RVec3Arg\ inFrom,\ JPH::RVec3Arg\ inTo,\ JPH::ColorArg\ inColor)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00318}00318\ \ \ \ \ \ \ \ \ DrawLine3D(\{inFrom.GetX(),\ inFrom.GetY(),\ inFrom.GetZ()\},\ \{inTo.GetX(),\ inTo.GetY(),\ inTo.GetZ()\},\ inColor.GetUInt32());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00319}00319\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00320}00320\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawTriangle(JPH::RVec3Arg\ inV1,\ JPH::RVec3Arg\ inV2,\ JPH::RVec3Arg\ inV3,\ JPH::ColorArg\ inColor)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00321}00321\ \ \ \ \ \ \ \ \ DrawLine3D(\{inV1.GetX(),\ inV1.GetY(),\ inV1.GetZ()\},\ \{inV2.GetX(),\ inV2.GetY(),\ inV2.GetZ()\},\ inColor.GetUInt32());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00322}00322\ \ \ \ \ \ \ \ \ DrawLine3D(\{inV2.GetX(),\ inV2.GetY(),\ inV2.GetZ()\},\ \{inV3.GetX(),\ inV3.GetY(),\ inV3.GetZ()\},\ inColor.GetUInt32());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00323}00323\ \ \ \ \ \ \ \ \ DrawLine3D(\{inV3.GetX(),\ inV3.GetY(),\ inV3.GetZ()\},\ \{inV1.GetX(),\ inV1.GetY(),\ inV1.GetZ()\},\ inColor.GetUInt32());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00324}00324\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00325}00325\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00326}00326\ \ \ \ \ Batch\ CreateTriangleBatch(\textcolor{keyword}{const}\ Triangle*\ inTriangles,\ \textcolor{keywordtype}{int}\ inTriangleCount)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00327}00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inTriangles\ ==\ \textcolor{keyword}{nullptr}\ ||\ inTriangleCount\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00329}00329\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00330}00330\ \ \ \ \ \ \ \ \ JPH::lock\_guard\ lock(mMutex);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00331}00331\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00332}00332\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 解放は受取先で行っている}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00333}00333\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ BatchImpl(inTriangles,\ inTriangleCount);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00334}00334\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00335}00335\ \ \ \ \ Batch\ CreateTriangleBatch(\textcolor{keyword}{const}\ Vertex*\ inVertices,\ \textcolor{keywordtype}{int}\ inVertexCount,\ \textcolor{keyword}{const}\ JPH::uint32*\ inIndices,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ inIndexCount)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00337}00337\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inVertices\ ==\ \textcolor{keyword}{nullptr}\ ||\ inVertexCount\ <=\ 0\ ||\ inIndices\ ==\ \textcolor{keyword}{nullptr}\ ||\ inIndexCount\ <=\ 0)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00340}00340\ \ \ \ \ \ \ \ \ JPH::lock\_guard\ lock(mMutex);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00341}00341\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00342}00342\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 解放は受取先で行っている}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00343}00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{new}\ BatchImpl(inVertices,\ inVertexCount,\ inIndices,\ inIndexCount);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00344}00344\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00345}00345\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00346}00346\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawGeometry(JPH::RMat44Arg\ inModelMatrix,\ \textcolor{keyword}{const}\ JPH::AABox\&\ inWorldSpaceBounds,\ \textcolor{keywordtype}{float}\ inLODScaleSq,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::ColorArg\ inModelColor,\ \textcolor{keyword}{const}\ GeometryRef\&\ inGeometry,\ ECullMode\ inCullMode\ =\ ECullMode::CullBackFace,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00348}00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ECastShadow\ inCastShadow\ =\ ECastShadow::On,\ EDrawMode\ inDrawMode\ =\ EDrawMode::Solid)\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00349}00349\ \ \ \ \ \ \ \ \ inCastShadow;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no\ use...}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00350}00350\ \ \ \ \ \ \ \ \ inLODScaleSq;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ no\ use...}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00351}00351\ \ \ \ \ \ \ \ \ inWorldSpaceBounds;\ \ \ \ \textcolor{comment}{//\ no\ use...}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00353}00353\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ p:\ inGeometry-\/>mLODs)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \ \ BatchImpl*\ \ \ bat\ =\ (BatchImpl*)p.mTriangleBatch.GetPtr();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ PolygonData*\ dat\ =\ bat-\/>GetPolygons();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00356}00356\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dat-\/>index\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ mat\ =\ DxLib::GetCameraViewMatrix();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00359}00359\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ x\ =\ inModelMatrix.GetAxisX();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ y\ =\ inModelMatrix.GetAxisY();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ z\ =\ inModelMatrix.GetAxisZ();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ w\ =\ inModelMatrix.GetTranslation();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00364}00364\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ type\ \ \ \ \ \ =\ inDrawMode\ ==\ EDrawMode::Wireframe\ ?\ DX\_PRIMTYPE\_LINELIST\ :\ DX\_PRIMTYPE\_TRIANGLELIST;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cull\_type\ =\ DX\_CULLING\_NONE;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(inCullMode\ ==\ ECullMode::CullBackFace)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cull\_type\ =\ DX\_CULLING\_LEFT;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(inCullMode\ ==\ ECullMode::CullFrontFace)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00370}00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cull\_type\ =\ DX\_CULLING\_RIGHT;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00372}00372\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::SetUseZBuffer3D(TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MATRIX\ mm\ =\ matrix(*(float4*)\&x,\ *(float4*)\&y,\ *(float4*)\&z,\ *(float4*)\&w);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//mm\ \ \ \ \ \ \ \ \ \ =\ MScale(\ mm,\ inLODScaleSq\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00376}00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mm\ \ \ \ \ \ \ \ =\ MMult(mm,\ mat);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00377}00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cull\ =\ DxLib::GetUseBackCulling();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::SetUseBackCulling(cull\_type);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00379}00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::SetUseLighting(FALSE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::SetCameraViewMatrix(mm);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00381}00381\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00382}00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetDrawAddColor(-\/(255\ -\/\ inModelColor.b),\ -\/(255\ -\/\ inModelColor.g),\ -\/(255\ -\/\ inModelColor.r));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00383}00383\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00384}00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::DrawPrimitiveIndexed3D(dat-\/>vertex,\ dat-\/>vertex\_count,\ dat-\/>index,\ dat-\/>index\_count,\ type,\ DX\_NONE\_GRAPH,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ FALSE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::SetCameraViewMatrix(mat);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::SetUseLighting(TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00388}00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::SetUseBackCulling(cull);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00389}00389\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SetDrawAddColor(0,\ 0,\ 0);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00392}00392\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00393}00393\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00394}00394\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00395}00395\ \textcolor{comment}{\ \ \ \ ///\ Draw\ text}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00396}00396\ \ \ \ \ \textcolor{keywordtype}{void}\ DrawText3D(JPH::RVec3Arg\ inPosition,\ \textcolor{keyword}{const}\ JPH::string\_view\&\ inString,\ JPH::ColorArg\ inColor\ =\ JPH::Color::sWhite,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ inHeight\ =\ 0.5f)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00398}00398\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ todo\ 実装}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00399}00399\ \ \ \ \ \ \ \ \ inPosition;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00400}00400\ \ \ \ \ \ \ \ \ inString;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00401}00401\ \ \ \ \ \ \ \ \ inColor;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00402}00402\ \ \ \ \ \ \ \ \ inHeight;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00403}00403\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00404}00404\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00405}00405\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00406}00406\ \};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00407}00407\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00408}00408\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00409}00409\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00410}\mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{00410}}\ BPDebugRenderer*\ \mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}}\ \ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00411}\mbox{\hyperlink{_component_physics_8cpp_a1ce199e542d41f7da69ad9eed0294322}{00411}}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_physics_8cpp_a1ce199e542d41f7da69ad9eed0294322}{debug\_ref\_count}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00412}00412\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00413}00413\ \mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}}\ \mbox{\hyperlink{class_component_physics_af41c36449d583f52cab1181640d1c942}{ComponentPhysics::hit\_status\_}}[CollisionTypeSize]\ =\ \{\};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00414}00414\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00415}\mbox{\hyperlink{class_component_physics_a6689df737de9f90e85adf8f6f1fb5a1b}{00415}}\ \mbox{\hyperlink{class_component_physics_a6689df737de9f90e85adf8f6f1fb5a1b}{ComponentPhysics::\string~ComponentPhysics}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00416}00416\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00417}00417\ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}}\ )}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00418}00418\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00419}00419\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}{physics::Engine::physicsSystem}}()-\/>RemoveConstraint(\ \mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}}\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00420}00420\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00421}00421\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00422}00422\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00423}00423\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00424}00424\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00425}\mbox{\hyperlink{class_component_physics_a1bfcdd13e7b7136efb26825b965ad720}{00425}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_physics_a1bfcdd13e7b7136efb26825b965ad720}{ComponentPhysics::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00426}00426\ \ \ \ \ \textcolor{comment}{//\ 一旦すべてに当たるように設定する}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00427}00427\ \ \ \ \ \textcolor{keywordflow}{if}(!initialized)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00428}00428\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_component_physics_a9edfbcf9d194427f0eeb4cdca7c0794a}{CollisionTypeSize}};\ ++i)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_af41c36449d583f52cab1181640d1c942}{hit\_status\_}}[i]\ =\ 0xffff;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00430}00430\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00431}00431\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}}\ ==\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}}\ =\ \textcolor{keyword}{new}\ BPDebugRenderer();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00433}00433\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00434}00434\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00435}00435\ \ \ \ \ \mbox{\hyperlink{_component_physics_8cpp_a1ce199e542d41f7da69ad9eed0294322}{debug\_ref\_count}}++;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00436}00436\ \ \ \ \ initialized\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00437}00437\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00438}00438\ \ \ \ \ Super::Init();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00439}00439\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00440}00440\ \ \ \ \ \textcolor{comment}{//shape\_data.box\_size\ =\ \{\ 1,\ 1,\ 1\ \};}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00441}00441\ \ \ \ \ \textcolor{comment}{//CreateBox(\ \{\ 1,\ 1,\ 1\ \}\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00442}00442\ \ \ \ \ \textcolor{comment}{//SetCollisionType(\ CollisionType::ETC\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00443}00443\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00444}00444\ \ \ \ \ \textcolor{keyword}{auto}\ sys\ =\ \mbox{\hyperlink{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}{physics::Engine::physicsSystem}}();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00445}00445\ \ \ \ \ sys-\/>SetContactListener(\&\_contactlistener);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00446}00446\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00447}00447\ \ \ \ \ \textcolor{comment}{//\_layerSettings();}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00448}00448\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00449}00449\ \ \ \ \ \textcolor{keywordtype}{bool}\ active\ =\ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\ \mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919aaddeb3b16cd9ee10bd748be723744135}{PhysicsBit::Actived}}\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00450}00450\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00451}00451\ \ \ \ \ \textcolor{keywordflow}{if}(\ active\ )}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00452}00452\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00453}00453\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setGravityFactor(\ \mbox{\hyperlink{class_component_physics_ad1674ada2bc2902f797a6a97fa37974d}{gravity\_factor\_}}\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00454}00454\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}{physics::Engine::bodyInterface}}()-\/>ActivateBody(\ GetBodyID(\ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}\ )\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00455}00455\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00456}00456\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00457}00457\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00458}00458\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setGravityFactor(\ 0\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00459}00459\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}{physics::Engine::bodyInterface}}()-\/>DeactivateBody(\ GetBodyID(\ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}\ )\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00460}00460\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00461}00461\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00462}00462\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setFriction(\ 100.0f\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00463}00463\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setRestitution(\ 0.0f\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00464}00464\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00465}00465\ \ \ \ \ \textcolor{comment}{//\ モデルの姿勢が完了した後実行したい}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00466}00466\ \ \ \ \ \textcolor{comment}{//Scene::GetCurrentScene()-\/>SetPriority(\ shared\_from\_this(),\ ProcTiming::PostUpdate,\ (Priority)((int)Priority::HIGHEST+100)\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00467}00467\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00468}00468\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00469}\mbox{\hyperlink{class_component_physics_a358622a73835512d01d043ccdd78599e}{00469}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_physics_a358622a73835512d01d043ccdd78599e}{ComponentPhysics::PrePhysics}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00470}00470\ \ \ \ \ Super::PrePhysics();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00471}00471\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00472}00472\ \ \ \ \ \textcolor{comment}{//\ 一フレーム前の情報を確保しておく}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00473}00473\ \ \ \ \ \mbox{\hyperlink{class_component_physics_ac05a862c01533b3649b61168a25257b4}{physics\_transform\_old\_}}\ =\ \mbox{\hyperlink{class_component_physics_adce91d2c0c370e01123605c5ef522dbd}{physics\_transform\_}};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00474}00474\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a57d771e0e8c78a2bc609f60bbc5648b9}{world\_old\_}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{class_component_physics_a107d98f890ce7e817efd81734b38d991}{GetWorldMatrix}}();\ \ \ \ \textcolor{comment}{//body\_-\/>worldMatrix();}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00475}00475\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00476}00476\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00477}\mbox{\hyperlink{class_component_physics_a62693c9bc66af23430595adce1bc4b95}{00477}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_physics_a62693c9bc66af23430595adce1bc4b95}{ComponentPhysics::PostPhysics}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00478}00478\ \ \ \ \ Super::PostPhysics();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00479}00479\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00480}00480\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}})}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00481}00481\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00482}00482\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00483}00483\ \ \ \ \ \textcolor{comment}{//\ 回転を整える}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00484}00484\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ mat\ =\ \mbox{\hyperlink{classmatrix}{matrix}}(\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>worldMatrix());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00485}00485\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00486}00486\ \ \ \ \ \textcolor{comment}{//\ y軸固定}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00487}00487\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00488}00488\ \ \ \ \ \ \ \ \ float3\ vz\ =\ mat.\mbox{\hyperlink{classmatrix_ab76eb4b005f28f1db5e3dfb3b8a4ad15}{axisZ}}();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00489}00489\ \ \ \ \ \ \ \ \ vz.y\ \ \ \ \ \ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00490}00490\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ m\ =\ \mbox{\hyperlink{namespace_helper_lib_1_1_math_a5fdeef4fc76f0323e735a35a17da818b}{HelperLib::Math::CreateMatrixByFrontVector}}(\ vz,\ \{\ 0,\ 1,\ 0\ \},\ false\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00491}00491\ \ \ \ \ \ \ \ \ mat[\ 0\ ]\ =\ m[\ 0\ ];}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00492}00492\ \ \ \ \ \ \ \ \ mat[\ 1\ ]\ =\ m[\ 1\ ];}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00493}00493\ \ \ \ \ \ \ \ \ mat[\ 2\ ]\ =\ m[\ 2\ ];}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00494}00494\ \ \ \ \ \ \ \ \ quaternion\ q(\ (float3x3)m\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00495}00495\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setRotation(\ q\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00496}00496\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00497}00497\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00498}00498\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00499}00499\ \ \ \ \ \textcolor{comment}{//\ 物理位置からphysics分を差し引いたものをObject位置とする}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00500}00500\ \ \ \ \ \textcolor{comment}{//auto\ mat\ =\ mul(\ inverse(\ physics\_transform\_\ ),\ body\_-\/>worldMatrix()\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00501}00501\ \ \ \ \ mat\ =\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(inverse(\mbox{\hyperlink{class_component_physics_adce91d2c0c370e01123605c5ef522dbd}{physics\_transform\_}}),\ mat);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00502}00502\ \ \ \ \ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_i_matrix_a76fdee0594b93555b078e7182923e17e}{SetMatrix}}(mat);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00503}00503\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00504}00504\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00505}\mbox{\hyperlink{class_component_physics_a2c833811a3606aeb7a4d33c8b551750c}{00505}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_physics_a2c833811a3606aeb7a4d33c8b551750c}{ComponentPhysics::Draw}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00506}00506\ \ \ \ \ Super::Draw();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00507}00507\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00508}00508\ \ \ \ \ \textcolor{comment}{//\ Debugコリジョン表示}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00509}00509\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{_system_main_8cpp_a7fef4433a1be2515e02ad473b0a51d3c}{IsShowDebug}}())}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00510}00510\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00511}00511\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00512}00512\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}})}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00513}00513\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00514}00514\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00515}00515\ \ \ \ \ \textcolor{keyword}{auto}\ pos\ =\ \mbox{\hyperlink{class_component_physics_a942b74bd2d93580caca6b1b7af8cc331}{GetPhysicsMatrix}}().\mbox{\hyperlink{classmatrix_af2b5677c2f4ae2e615b4bab101e2c358}{translate}}();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00516}00516\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00517}00517\ \ \ \ \ \textcolor{keyword}{auto}\ ref\ \ \ =\ \mbox{\hyperlink{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}{physics::Engine::bodyInterface}}()-\/>GetShape(GetBodyID(\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00518}00518\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \mbox{\hyperlink{namespaceshape}{shape}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00519}00519\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00520}00520\ \ \ \ \ \textcolor{keywordflow}{if}(ref)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00521}00521\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceshape}{shape}}\ =\ (int)ref-\/>GetSubType();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00522}00522\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00523}00523\ \ \ \ \ \mbox{\hyperlink{classmatrix}{matrix}}\ \ \ \ \ \ \_mat\ =\ \mbox{\hyperlink{class_component_physics_a942b74bd2d93580caca6b1b7af8cc331}{GetPhysicsMatrix}}();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00524}00524\ \ \ \ \ JPH::RMat44\ mat\ \ =\ JPH::RMat44(*(JPH::Vec4*)\&\_mat[0],\ *(JPH::Vec4*)\&\_mat[1],\ *(JPH::Vec4*)\&\_mat[2],\ *(JPH::Vec4*)\&\_mat[3]);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00525}00525\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00526}00526\ \ \ \ \ DxLib::SetLightEnable(FALSE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00527}00527\ \ \ \ \ DxLib::SetUseLighting(FALSE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00528}00528\ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{namespaceshape}{shape}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00529}00529\ \ \ \ \ \textcolor{comment}{//\ Convex\ shapes}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00530}00530\ \ \ \ \ \textcolor{keywordflow}{case}(\textcolor{keywordtype}{int})JPH::EShapeSubType::Box:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00531}00531\ \ \ \ \ \ \ \ \ \textcolor{comment}{//DrawBox3D(\ GetPhysicsMatrix(),\ shape\_data.box\_size\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00532}00532\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}})}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}}-\/>DrawWireBox(}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00534}00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mat,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00535}00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::AABox(JPH::Vec3\{-\/\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size.x,\ -\/\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size.y,\ -\/\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size.z\},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00536}00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::Vec3\{\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size.x,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size.y,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size.z\}),}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00537}00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::Color(physics\_color));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00538}00538\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00539}00539\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00540}00540\ \ \ \ \ \textcolor{keywordflow}{case}(\textcolor{keywordtype}{int})JPH::EShapeSubType::Sphere:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00541}00541\ \ \ \ \ \ \ \ \ pos\ +=\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_center;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00542}00542\ \ \ \ \ \ \ \ \ \textcolor{comment}{//DrawSphere3D(\ cast(\ pos\ ),\ shape\_data.sphere\_radius,\ 8,\ physics\_color,\ GetColor(\ 0,\ 0,\ 0\ ),\ FALSE\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00543}00543\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}})}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00544}00544\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}}-\/>DrawWireSphere(\{pos.x,\ pos.y,\ pos.z\},\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_radius,\ JPH::Color(physics\_color));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00545}00545\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00546}00546\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00547}00547\ \ \ \ \ \textcolor{keywordflow}{case}(\textcolor{keywordtype}{int})JPH::EShapeSubType::Capsule:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00548}00548\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}})}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00549}00549\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}}-\/>DrawCapsule(mat,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_half\_height,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_radius,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00550}00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::Color(physics\_color),\ JPH::DebugRenderer::ECastShadow::Off,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00551}00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::DebugRenderer::EDrawMode::Wireframe);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00552}00552\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00553}00553\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00554}00554\ \ \ \ \ \textcolor{keywordflow}{case}(\textcolor{keywordtype}{int})JPH::EShapeSubType::Cylinder:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00555}00555\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}})}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00556}00556\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}}-\/>DrawCylinder(mat,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_half\_height,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_radius,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00557}00557\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::Color(physics\_color),\ JPH::DebugRenderer::ECastShadow::Off,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::DebugRenderer::EDrawMode::Wireframe);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00559}00559\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00560}00560\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00561}00561\ \ \ \ \ \textcolor{keywordflow}{case}(\textcolor{keywordtype}{int})JPH::EShapeSubType::Mesh:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00562}00562\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ mesh}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00563}00563\ \textcolor{preprocessor}{\#if\ 1}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00564}00564\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_physics_a7c6d19d492813986aad11e77c419be1a}{ref\_model\_}}\ <\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00565}00565\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ mdl\ \ \ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_add95fa4e83d85e3b8a0932ea04082aa2}{GetComponent}}<\mbox{\hyperlink{class_component_model}{ComponentModel}}>();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00566}00566\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a7c6d19d492813986aad11e77c419be1a}{ref\_model\_}}\ =\ mdl-\/>GetModel();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00567}00567\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00568}00568\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00569}00569\ \ \ \ \ \ \ \ \ \ \ \ \ MV1RefreshReferenceMesh(\mbox{\hyperlink{class_component_physics_a7c6d19d492813986aad11e77c419be1a}{ref\_model\_}},\ -\/1,\ TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00570}00570\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//MV1RefreshCollInfo(\ ref\_model\_\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00571}00571\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a0abbcd46e129a257fab247d786461f12}{ref\_poly\_}}\ =\ MV1GetReferenceMesh(\mbox{\hyperlink{class_component_physics_a7c6d19d492813986aad11e77c419be1a}{ref\_model\_}},\ -\/1,\ TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00572}00572\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00573}00573\ \ \ \ \ \ \ \ \ \ \ \ \ SetUseLighting(FALSE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00574}00574\ \ \ \ \ \ \ \ \ \ \ \ \ SetLightEnable(FALSE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00575}00575\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00576}00576\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ポリゴンの数だけ繰り返し}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00577}00577\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_component_physics_a0abbcd46e129a257fab247d786461f12}{ref\_poly\_}}.PolygonNum;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00578}00578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ p0\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\mbox{\hyperlink{class_component_physics_a0abbcd46e129a257fab247d786461f12}{ref\_poly\_}}.Vertexs[\mbox{\hyperlink{class_component_physics_a0abbcd46e129a257fab247d786461f12}{ref\_poly\_}}.Polygons[i].VIndex[0]].Position);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00579}00579\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ p1\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\mbox{\hyperlink{class_component_physics_a0abbcd46e129a257fab247d786461f12}{ref\_poly\_}}.Vertexs[\mbox{\hyperlink{class_component_physics_a0abbcd46e129a257fab247d786461f12}{ref\_poly\_}}.Polygons[i].VIndex[1]].Position);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00580}00580\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ p2\ =\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(\mbox{\hyperlink{class_component_physics_a0abbcd46e129a257fab247d786461f12}{ref\_poly\_}}.Vertexs[\mbox{\hyperlink{class_component_physics_a0abbcd46e129a257fab247d786461f12}{ref\_poly\_}}.Polygons[i].VIndex[2]].Position);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00581}00581\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00582}00582\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ポリゴンを形成する三頂点を使用してワイヤーフレームを描画する}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00583}00583\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLine3D(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p0),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p1),\ physics\_color);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00584}00584\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLine3D(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p1),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p2),\ physics\_color);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00585}00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DrawLine3D(\mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p2),\ \mbox{\hyperlink{_vector_math_8h_acaf43804f3b1a2e96e58f2ccbbeaab76}{cast}}(p0),\ physics\_color);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00586}00586\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00587}00587\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00588}00588\ \ \ \ \ \ \ \ \ \ \ \ \ SetLightEnable(TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00589}00589\ \ \ \ \ \ \ \ \ \ \ \ \ SetUseLighting(TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00590}00590\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00591}00591\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00592}00592\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00593}00593\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00594}00594\ \ \ \ \ DxLib::SetLightEnable(TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00595}00595\ \ \ \ \ DxLib::SetUseLighting(TRUE);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00596}00596\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00597}00597\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00598}\mbox{\hyperlink{class_component_physics_aa7cb7b2988efeba3124f0c056345861d}{00598}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_physics_aa7cb7b2988efeba3124f0c056345861d}{ComponentPhysics::Exit}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00599}00599\ \ \ \ \ Super::Exit();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00600}00600\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00601}00601\ \ \ \ \ \mbox{\hyperlink{_component_physics_8cpp_a1ce199e542d41f7da69ad9eed0294322}{debug\_ref\_count}}-\/-\/;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00602}00602\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_component_physics_8cpp_a1ce199e542d41f7da69ad9eed0294322}{debug\_ref\_count}}\ <=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00603}00603\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00604}00604\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{delete}\ \mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00605}00605\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_physics_8cpp_af593e88037d6949975da87f1eb366e31}{debug\_renderer}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00606}00606\ \ \ \ \ \ \ \ \ \ \ \ \ initialized\ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00607}00607\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00608}00608\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00609}00609\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00610}00610\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00611}\mbox{\hyperlink{class_component_physics_a6abaa9dbe850e597e7fefa2b641601b7}{00611}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_physics_a6abaa9dbe850e597e7fefa2b641601b7}{ComponentPhysics::GUI}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00612}00612\ \ \ \ \ \textcolor{keyword}{auto}\ obj\_name\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_a1b62160fcfdc36e88ed94d99334d99c8}{GetName}}();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00613}00613\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00614}00614\ \ \ \ \ ImGui::Begin(obj\_name.data());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00615}00615\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00616}00616\ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::TreeNode(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Physics"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00617}00617\ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00618}00618\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00619}00619\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}削除"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00620}00620\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_object_ac38b3442d6f6e93af4cdb35a9be08dbc}{RemoveComponent}}(shared\_from\_this());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00621}00621\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00622}00622\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00623}00623\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 形状}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00624}00624\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00625}00625\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{namespaceshape}{shape}}\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00626}00626\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00627}00627\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ref\ =\ \mbox{\hyperlink{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}{physics::Engine::bodyInterface}}()-\/>GetShape(GetBodyID(\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00628}00628\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ref)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00629}00629\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceshape}{shape}}\ =\ (int)ref-\/>GetSubType();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00630}00630\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00631}00631\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00632}00632\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ shape\_old\ =\ \mbox{\hyperlink{namespaceshape}{shape}};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00633}00633\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00634}00634\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{namespaceshape}{shape}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00635}00635\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00636}00636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceshape}{shape}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00637}00637\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00638}00638\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convex\ shapes}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00639}00639\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}(\textcolor{keywordtype}{int})JPH::EShapeSubType::Box:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00640}00640\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceshape}{shape}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00641}00641\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00642}00642\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}(\textcolor{keywordtype}{int})JPH::EShapeSubType::Sphere:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00643}00643\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceshape}{shape}}\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00644}00644\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00645}00645\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}(\textcolor{keywordtype}{int})JPH::EShapeSubType::Capsule:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00646}00646\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceshape}{shape}}\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00647}00647\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00648}00648\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}(\textcolor{keywordtype}{int})JPH::EShapeSubType::Cylinder:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00649}00649\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceshape}{shape}}\ =\ 4;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00650}00650\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00651}00651\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}(\textcolor{keywordtype}{int})JPH::EShapeSubType::Mesh:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00652}00652\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespaceshape}{shape}}\ =\ 5;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00653}00653\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00654}00654\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00655}00655\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00656}00656\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ shape\_data\_old\ =\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00657}00657\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00658}00658\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ owner\ =\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00659}00659\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00660}00660\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Combo(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}型(Shape)"{}},\ \&\mbox{\hyperlink{namespaceshape}{shape}},\ items,\ 6))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00661}00661\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ タイプが異なる場合は値もリセットする}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00662}00662\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{namespaceshape}{shape}}\ !=\ shape\_old)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00663}00663\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{namespaceshape}{shape}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00664}00664\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00665}00665\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ NONE}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00666}00666\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00667}00667\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}})}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00668}00668\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}{physics::Engine::physicsSystem}}()-\/>RemoveConstraint(\mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00669}00669\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00670}00670\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00671}00671\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00672}00672\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00673}00673\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ BOX}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00674}00674\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size\ =\ \{1,\ 1,\ 1\};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00675}00675\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a060dd3147056f28cc904ffb0a435a4f1}{CreateBox}}(\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size,\ \mbox{\hyperlink{class_component_physics_a34bac5d3b85f4ac6f29b9b82a40c91a6}{density\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00676}00676\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00677}00677\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00678}00678\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ Sphere}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00679}00679\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_center\ =\ \{0,\ 0,\ 0\};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00680}00680\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_radius\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00681}00681\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ab549f17c15a6bfcb89c29d09aecec596}{CreateSphere}}(\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_center,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_radius,\ \mbox{\hyperlink{class_component_physics_a34bac5d3b85f4ac6f29b9b82a40c91a6}{density\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00682}00682\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00683}00683\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00684}00684\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ Capsule}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00685}00685\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_half\_height\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00686}00686\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_radius\ \ \ \ \ \ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00687}00687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a2ac3f978081390886140267ba8876ec5}{CreateCapsule}}(\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_half\_height,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_radius,\ \mbox{\hyperlink{class_component_physics_a34bac5d3b85f4ac6f29b9b82a40c91a6}{density\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00688}00688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00689}00689\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00690}00690\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ Cylinder}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00691}00691\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_half\_height\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00692}00692\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_radius\ \ \ \ \ \ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00693}00693\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_aa330707dbe40be4537548a3eb8d42317}{CreateCylinder}}(\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_half\_height,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_radius,\ \mbox{\hyperlink{class_component_physics_a34bac5d3b85f4ac6f29b9b82a40c91a6}{density\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00694}00694\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00695}00695\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00696}00696\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ Model}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00697}00697\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ mdl\ =\ owner-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00698}00698\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_abb514dd4ae5897a6bf5acaa5eca45604}{CreateMesh}}(mdl,\ 1.0f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00699}00699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00700}00700\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00701}00701\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00702}00702\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00703}00703\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00704}00704\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00705}00705\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ col\_type\ =\ (int)log2((\textcolor{keywordtype}{int})\mbox{\hyperlink{class_component_physics_a73bd0b31c5b74b182c85d203ec872cd9}{type\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00706}00706\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Combo(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}タイプ(type)"{}},\ \&col\_type,\ col\_types,\ 16))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00707}00707\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//SetCollisionType(\ (CollisionType)(\ 1\ <<\ col\_type\ )\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00708}00708\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a73bd0b31c5b74b182c85d203ec872cd9}{type\_}}\ =\ (\mbox{\hyperlink{class_component_physics_a8811519de345041279f31fbfedf8e024}{CollisionType}})(1\ <<\ col\_type);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00709}00709\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00710}00710\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::TreeNode(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Hit"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00711}00711\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_component_physics_a9edfbcf9d194427f0eeb4cdca7c0794a}{CollisionTypeSize}};\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00712}00712\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::TreeNode(col\_types[i]))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00713}00713\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ hit\_status\_int\ =\ \mbox{\hyperlink{class_component_physics_af41c36449d583f52cab1181640d1c942}{hit\_status\_}}[i];}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00714}00714\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}*\ bit\ \ \ \ \ \ \ \ \ \ \ \ =\ \&hit\_status\_int;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00715}00715\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ \mbox{\hyperlink{class_component_physics_a9edfbcf9d194427f0eeb4cdca7c0794a}{CollisionTypeSize}};\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00716}00716\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::CheckboxFlags(col\_types[j],\ bit,\ 1\ <<\ j))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00717}00717\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_af41c36449d583f52cab1181640d1c942}{hit\_status\_}}[i]\ =\ (\mbox{\hyperlink{_typedef_8h_a6dbf9516e516c901604625282c174aa4}{u16}})hit\_status\_int;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00718}00718\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00719}00719\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00720}00720\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::TreePop();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00721}00721\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00722}00722\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00723}00723\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::TreePop();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00724}00724\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00725}00725\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00726}00726\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00727}00727\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00728}00728\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 値が変わっているか確認し、違う場合は作り直し}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00729}00729\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ change\ =\ (\ type\ ==\ 1\ \&\&}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00730}00730\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size.x\ !=\ shape\_data\_old.box\_size.x\ ||\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00731}00731\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size.y\ !=\ shape\_data\_old.box\_size.y\ ||\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00732}00732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size.z\ !=\ shape\_data\_old.box\_size.z\ )\ )\ ||}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00733}00733\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ type\ ==\ 2\ \&\&}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00734}00734\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_center.x\ !=\ shape\_data\_old.sphere\_center.x\ ||\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00735}00735\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_center.y\ !=\ shape\_data\_old.sphere\_center.y\ ||\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00736}00736\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_center.z\ !=\ shape\_data\_old.sphere\_center.z\ ||}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00737}00737\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_radius\ !=\ shape\_data\_old.sphere\_radius\ )\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00738}00738\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00739}00739\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00740}00740\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ value\_change\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00741}00741\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_change\ |=\ ImGui::DragFloat(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}質量(density)"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_component_physics_a34bac5d3b85f4ac6f29b9b82a40c91a6}{density\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00742}00742\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00743}00743\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{namespaceshape}{shape}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00744}00744\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00745}00745\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ NONE}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00746}00746\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00747}00747\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00748}00748\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00749}00749\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ BOX}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00750}00750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_change\ |=\ ImGui::DragFloat3(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}大きさ(XYZ\ size)"{}},\ (\textcolor{keywordtype}{float}*)\&\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size,\ 0.5f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00751}00751\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00752}00752\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(value\_change)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00753}00753\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a060dd3147056f28cc904ffb0a435a4f1}{CreateBox}}(\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.box\_size,\ \mbox{\hyperlink{class_component_physics_a34bac5d3b85f4ac6f29b9b82a40c91a6}{density\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00754}00754\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00755}00755\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00756}00756\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00757}00757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ Sphere}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00758}00758\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_change\ |=}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00759}00759\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{comment}{/*\ ImGui::DragFloat3(\ "{}sphere\ center"{},\ (float*)\&shape\_data.sphere\_center,\ 0.1f\ )\ ||\ */}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00760}00760\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}半径(radius)"{}},\ \&\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_radius,\ 0.1f,\ 0.1f,\ 100.0f,\ \textcolor{stringliteral}{"{}\%.01f"{}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00761}00761\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(value\_change)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00762}00762\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_ab549f17c15a6bfcb89c29d09aecec596}{CreateSphere}}(\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_center,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.sphere\_radius,\ \mbox{\hyperlink{class_component_physics_a34bac5d3b85f4ac6f29b9b82a40c91a6}{density\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00763}00763\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00764}00764\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00765}00765\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00766}00766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ Capsule}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00767}00767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_change\ |=}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00768}00768\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ImGui::DragFloat(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}高さ(half\ height)"{}},\ \&\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_half\_height,\ 0.1f,\ 0.1f,\ 100.0f,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00769}00769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\%.01f"{}})\ ||}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00770}00770\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}半径(radius)"{}},\ \&\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_radius,\ 0.1f,\ 0.1f,\ 100.0f,\ \textcolor{stringliteral}{"{}\%.01f"{}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00771}00771\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(value\_change)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00772}00772\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a2ac3f978081390886140267ba8876ec5}{CreateCapsule}}(\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_half\_height,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_radius,\ \mbox{\hyperlink{class_component_physics_a34bac5d3b85f4ac6f29b9b82a40c91a6}{density\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00773}00773\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00774}00774\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00775}00775\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00776}00776\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ Cylinder}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00777}00777\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ value\_change\ |=}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00778}00778\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (ImGui::DragFloat(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}高さ(half\ height)"{}},\ \&\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_half\_height,\ 0.1f,\ 0.1f,\ 100.0f,}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00779}00779\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\%.01f"{}})\ ||}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00780}00780\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}半径(radius)"{}},\ \&\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_radius,\ 0.1f,\ 0.1f,\ 100.0f,\ \textcolor{stringliteral}{"{}\%.01f"{}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00781}00781\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(value\_change)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00782}00782\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_aa330707dbe40be4537548a3eb8d42317}{CreateCylinder}}(\mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_half\_height,\ \mbox{\hyperlink{class_component_physics_ae80127297cf0a73309de3677c4cf536a}{shape\_data}}.cylinder\_radius,\ \mbox{\hyperlink{class_component_physics_a34bac5d3b85f4ac6f29b9b82a40c91a6}{density\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00783}00783\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00784}00784\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00785}00785\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00786}00786\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ Model}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00787}00787\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \textcolor{keyword}{auto}\ mdl\ =\ owner-\/>GetComponent<\mbox{\hyperlink{class_component_model}{ComponentModel}}>()\ )}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00788}00788\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00789}00789\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_abb514dd4ae5897a6bf5acaa5eca45604}{CreateMesh}}(\ mdl,\ 1.0f\ );}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00790}00790\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00791}00791\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00792}00792\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00793}00793\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00794}00794\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00795}00795\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00796}00796\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00797}00797\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モデルコンポーネント表示}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00798}00798\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00799}00799\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ モデル姿勢}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00800}00800\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::TreeNode(\mbox{\hyperlink{_component_8h_a117fd7d8dc0e8a462119907dec50616a}{UNIQUE\_TEXT}}(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}物理姿勢(matrix)"{}})))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00801}00801\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat4(\mbox{\hyperlink{_component_8h_a117fd7d8dc0e8a462119907dec50616a}{UNIQUE\_TEXT}}(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Ｘ軸"{}}),\ \mbox{\hyperlink{class_component_physics_adce91d2c0c370e01123605c5ef522dbd}{physics\_transform\_}}.f32\_128\_0,\ 0.01f,\ -\/10000.0f,\ 10000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00802}00802\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat4(\mbox{\hyperlink{_component_8h_a117fd7d8dc0e8a462119907dec50616a}{UNIQUE\_TEXT}}(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Ｙ軸"{}}),\ \mbox{\hyperlink{class_component_physics_adce91d2c0c370e01123605c5ef522dbd}{physics\_transform\_}}.f32\_128\_1,\ 0.01f,\ -\/10000.0f,\ 10000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00803}00803\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat4(\mbox{\hyperlink{_component_8h_a117fd7d8dc0e8a462119907dec50616a}{UNIQUE\_TEXT}}(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Ｚ軸"{}}),\ \mbox{\hyperlink{class_component_physics_adce91d2c0c370e01123605c5ef522dbd}{physics\_transform\_}}.f32\_128\_2,\ 0.01f,\ -\/10000.0f,\ 10000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00804}00804\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat4(\mbox{\hyperlink{_component_8h_a117fd7d8dc0e8a462119907dec50616a}{UNIQUE\_TEXT}}(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}座標"{}}),\ \mbox{\hyperlink{class_component_physics_adce91d2c0c370e01123605c5ef522dbd}{physics\_transform\_}}.f32\_128\_3,\ 0.01f,\ -\/10000.0f,\ 10000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00805}00805\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Separator();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00806}00806\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::TreePop();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00807}00807\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00808}00808\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00809}00809\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 姿勢を\ TRSで変更できるように設定}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00810}00810\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}*\ mat\ =\ \mbox{\hyperlink{class_component_physics_adce91d2c0c370e01123605c5ef522dbd}{physics\_transform\_}}.f32\_128\_0;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00811}00811\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ matrixTranslation[3],\ matrixRotation[3],\ matrixScale[3];}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00812}00812\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_a6d9d86eb5b39827e671616046aef46d8}{DecomposeMatrixToComponents}}(mat,\ matrixTranslation,\ matrixRotation,\ matrixScale);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00813}00813\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat3(\mbox{\hyperlink{_component_8h_a117fd7d8dc0e8a462119907dec50616a}{UNIQUE\_TEXT}}(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}座標(T)"{}}),\ matrixTranslation,\ 0.01f,\ -\/100000.00f,\ 100000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00814}00814\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat3(\mbox{\hyperlink{_component_8h_a117fd7d8dc0e8a462119907dec50616a}{UNIQUE\_TEXT}}(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}回転(R)"{}}),\ matrixRotation,\ 0.1f,\ -\/360.0f,\ 360.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00815}00815\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::DragFloat3(\mbox{\hyperlink{_component_8h_a117fd7d8dc0e8a462119907dec50616a}{UNIQUE\_TEXT}}(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}スケール(S)"{}}),\ matrixScale,\ 0.01f,\ 0.00f,\ 1000.0f,\ \textcolor{stringliteral}{"{}\%.2f"{}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00816}00816\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_component_transform_8cpp_abe00c8be42f2761185a0ccfca2ded81a}{RecomposeMatrixFromComponents}}(matrixTranslation,\ matrixRotation,\ matrixScale,\ mat);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00817}00817\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00818}00818\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//body\_-\/>setPosition(\ physics\_transform\_.translate()\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00819}00819\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//body\_-\/>setRotation(\ quaternion(\ float3x3(\ physics\_transform\_\ )\ )\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00820}00820\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00821}00821\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00822}00822\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Physics有効}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00823}00823\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00824}00824\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ float3\ linear\ =\ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>linearVelocity();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00825}00825\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::DragFloat3(\mbox{\hyperlink{_component_8h_a117fd7d8dc0e8a462119907dec50616a}{UNIQUE\_TEXT}}(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}移動方向(LinearVelocity)"{}}),\ (\textcolor{keywordtype}{float}*)\&linear,\ 0.1f))}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00826}00826\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setLinearVelocity(linear);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00827}00827\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00828}00828\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::Button(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}動作リセット"{}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00829}00829\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setAngularVelocity(\{0,\ 0,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00830}00830\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setLinearVelocity(\{0,\ -\/0.01f,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00831}00831\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setPosition(\{0,\ 20,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00832}00832\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setRotation(\{0,\ 0,\ 0,\ 1\},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00833}00833\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ owner-\/>SetTranslate(\{0,\ 20,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00834}00834\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00835}00835\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00836}00836\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ref\ \ \ \ \ \ \ =\ \mbox{\hyperlink{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}{physics::Engine::bodyInterface}}()-\/>GetShape(GetBodyID(\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00837}00837\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ JPH::EShapeSubType\ body\_type\ =\ JPH::EShapeSubType::User1;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00838}00838\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ref)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00839}00839\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ body\_type\ =\ ref-\/>GetSubType();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00840}00840\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00841}00841\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(body\_type\ ==\ JPH::EShapeSubType::Mesh)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00842}00842\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::BeginDisabled();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00843}00843\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00844}00844\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::DragFloat(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}重力係数(gravityFactor)"{}},\ \&\mbox{\hyperlink{class_component_physics_ad1674ada2bc2902f797a6a97fa37974d}{gravity\_factor\_}},\ 0.05f,\ 0.0f,\ 5.0f))}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00845}00845\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setGravityFactor(\mbox{\hyperlink{class_component_physics_ad1674ada2bc2902f797a6a97fa37974d}{gravity\_factor\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00846}00846\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00847}00847\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ active\ =\ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919aaddeb3b16cd9ee10bd748be723744135}{PhysicsBit::Actived}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00848}00848\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::Checkbox(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}重力有効(Active)"{}},\ \&active);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00849}00849\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(active)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00850}00850\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setGravityFactor(\mbox{\hyperlink{class_component_physics_ad1674ada2bc2902f797a6a97fa37974d}{gravity\_factor\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00851}00851\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}{physics::Engine::bodyInterface}}()-\/>ActivateBody(GetBodyID(\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00852}00852\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00853}00853\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setGravityFactor(0);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00854}00854\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}{physics::Engine::bodyInterface}}()-\/>DeactivateBody(GetBodyID(\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00855}00855\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00856}00856\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00857}00857\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(body\_type\ ==\ JPH::EShapeSubType::Mesh)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00858}00858\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImGui::EndDisabled();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00859}00859\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00860}00860\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a88aa04b289008612934d31030e7eca08}{SetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919aaddeb3b16cd9ee10bd748be723744135}{PhysicsBit::Actived}},\ active);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00861}00861\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00862}00862\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ friction\ =\ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>friction();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00863}00863\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::DragFloat(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}摩擦力(Friction)"{}},\ \&friction,\ 0.05f,\ 0.0f,\ 1000.0f))}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00864}00864\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setFriction(friction);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00865}00865\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00866}00866\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ restitution\ =\ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>restitution();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00867}00867\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ImGui::DragFloat(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}跳返り係数(Restitution)"{}},\ \&restitution,\ 0.05f,\ 0.0f,\ 1.0f))}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00868}00868\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setRestitution(restitution);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00869}00869\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00870}00870\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}*\ bit\ =\ \&\mbox{\hyperlink{class_component_physics_a9e9d211f221bb8e68d38c4a859827ee6}{physics\_status\_}}.get();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00871}00871\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00872}00872\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//ImGui::CheckboxFlags(\ u8"{}初期化済"{},\ \&val,\ 1\ <<\ (int)PhysicsBit::Initialized\ );}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00873}00873\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ refresh\ =\ ImGui::CheckboxFlags(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}X軸回転禁止"{}},\ bit,\ 1\ <<\ (\textcolor{keywordtype}{int})\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919ae6062085887ac5b83b2e43c1ec7be507}{PhysicsBit::LockRotX}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00874}00874\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ refresh\ |=\ ImGui::CheckboxFlags(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Y軸回転禁止"{}},\ bit,\ 1\ <<\ (\textcolor{keywordtype}{int})\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a0fb70ad77c6f1f7983dbdd2585427e86}{PhysicsBit::LockRotY}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00875}00875\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ refresh\ |=\ ImGui::CheckboxFlags(\mbox{\hyperlink{_typedef_8h_a987e4d6cf789cb59dbb390728271e4d6}{u8}}\textcolor{stringliteral}{"{}Z軸回転禁止"{}},\ bit,\ 1\ <<\ (\textcolor{keywordtype}{int})\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a18bf112e8a2c9298785d5216fbd5ae86}{PhysicsBit::LockRotZ}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00876}00876\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00877}00877\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(refresh)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00878}00878\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_aaea7cc94d13cc370cf37b4898f0f14ee}{LockRotateAxis}}(\mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919ae6062085887ac5b83b2e43c1ec7be507}{PhysicsBit::LockRotX}}),\ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a0fb70ad77c6f1f7983dbdd2585427e86}{PhysicsBit::LockRotY}}),}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00879}00879\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a18bf112e8a2c9298785d5216fbd5ae86}{PhysicsBit::LockRotZ}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00880}00880\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00881}00881\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00882}00882\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00883}00883\ \ \ \ \ \ \ \ \ ImGui::TreePop();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00884}00884\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00885}00885\ \ \ \ \ ImGui::End();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00886}00886\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00887}00887\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00888}\mbox{\hyperlink{class_component_physics_a60d56aa5edec581c27b99842b09f5a91}{00888}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_physics_a60d56aa5edec581c27b99842b09f5a91}{ComponentPhysics::MoveTo}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\&\ mat)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00889}00889\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ body\ =\ \mbox{\hyperlink{class_component_physics_a8fd5d90e94908a0aeb915ece95f5daaa}{GetRigidBody}}())\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00890}00890\ \ \ \ \ \ \ \ \ body-\/>moveKinematic(mat.\mbox{\hyperlink{classmatrix_af2b5677c2f4ae2e615b4bab101e2c358}{translate}}(),\ quaternion(float3x3(mat)),\ \mbox{\hyperlink{_system_main_8cpp_a452fbbb7d3c2ce1a51dbcfbb8274c617}{GetDeltaTime}}());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00891}00891\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00892}00892\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00893}00893\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00894}\mbox{\hyperlink{class_component_physics_ad1054d430a8d1cd4bbcf60afb563f223}{00894}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_physics_ad1054d430a8d1cd4bbcf60afb563f223}{ComponentPhysics::MoveToWorldMatrix}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00895}00895\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a60d56aa5edec581c27b99842b09f5a91}{MoveTo}}(\mbox{\hyperlink{class_component_physics_a107d98f890ce7e817efd81734b38d991}{GetWorldMatrix}}());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00896}00896\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00897}00897\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00898}\mbox{\hyperlink{class_component_physics_aaea7cc94d13cc370cf37b4898f0f14ee}{00898}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_physics_aaea7cc94d13cc370cf37b4898f0f14ee}{ComponentPhysics::LockRotateAxis}}(\textcolor{keywordtype}{bool}\ x,\ \textcolor{keywordtype}{bool}\ y,\ \textcolor{keywordtype}{bool}\ z)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00899}00899\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}})}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00900}00900\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}{physics::Engine::physicsSystem}}()-\/>RemoveConstraint(\mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00901}00901\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00902}00902\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a394b43eda19e6c0bac8f422e2e3638be}{sSettings}}\ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{new}\ JPH::SixDOFConstraintSettings();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00903}00903\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a394b43eda19e6c0bac8f422e2e3638be}{sSettings}}-\/>mSpace\ =\ JPH::EConstraintSpace::LocalToBodyCOM;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00904}00904\ \ \ \ \ \textcolor{keywordflow}{if}(x)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00905}00905\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a394b43eda19e6c0bac8f422e2e3638be}{sSettings}}-\/>MakeFixedAxis(JPH::SixDOFConstraintSettings::EAxis::RotationX);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00906}00906\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00907}00907\ \ \ \ \ \textcolor{keywordflow}{if}(y)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00908}00908\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a394b43eda19e6c0bac8f422e2e3638be}{sSettings}}-\/>MakeFixedAxis(JPH::SixDOFConstraintSettings::EAxis::RotationY);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00909}00909\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00910}00910\ \ \ \ \ \textcolor{keywordflow}{if}(z)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00911}00911\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a394b43eda19e6c0bac8f422e2e3638be}{sSettings}}-\/>MakeFixedAxis(JPH::SixDOFConstraintSettings::EAxis::RotationZ);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00912}00912\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00913}00913\ \ \ \ \ \mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}}\ =\ (JPH::SixDOFConstraint*)\mbox{\hyperlink{classphysics_1_1_engine_a0f453db48ce04c25b0bb10ad583e6bf3}{physics::Engine::bodyInterface}}()-\/>CreateConstraint(}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00914}00914\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a394b43eda19e6c0bac8f422e2e3638be}{sSettings}},\ JPH::Body::sFixedToWorld.GetID(),\ GetBodyID(\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00915}00915\ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}{physics::Engine::physicsSystem}}()-\/>AddConstraint(\mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00916}00916\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00917}00917\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00918}\mbox{\hyperlink{class_component_physics_a060dd3147056f28cc904ffb0a435a4f1}{00918}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_physics_a060dd3147056f28cc904ffb0a435a4f1}{ComponentPhysics::CreateBox}}(float3\ size,\ \textcolor{keywordtype}{float}\ density)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00919}00919\ \ \ \ \ size.x\ =\ std::max((\textcolor{keywordtype}{float})size.x,\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00920}00920\ \ \ \ \ size.y\ =\ std::max((\textcolor{keywordtype}{float})size.y,\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00921}00921\ \ \ \ \ size.z\ =\ std::max((\textcolor{keywordtype}{float})size.z,\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00922}00922\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00923}00923\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}\ =\ \mbox{\hyperlink{namespacephysics_aa5e57a152c736407f24070bb7946c1e5}{physics::createRigidBody}}(\mbox{\hyperlink{classshape_1_1_box}{shape::Box}}\{size\},\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{physics::ObjectLayers::MOVING}},\ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}{physics::MotionType::Dynamic}},\ density);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00924}00924\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setData((intptr\_t)\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00925}00925\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00926}00926\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a88aa04b289008612934d31030e7eca08}{SetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a84a8921b25f505d0d2077aeb5db4bc16}{ComponentPhysics::PhysicsBit::Static}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00927}00927\ \ \ \ \ \mbox{\hyperlink{class_component_physics_abedac8d18f9aa0b16955b42ff6cc3b3c}{SetPhysicsMatrix}}(\mbox{\hyperlink{class_component_physics_a107d98f890ce7e817efd81734b38d991}{GetWorldMatrix}}());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00928}00928\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00929}00929\ \ \ \ \ \mbox{\hyperlink{class_component_physics_aaea7cc94d13cc370cf37b4898f0f14ee}{LockRotateAxis}}(\mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919ae6062085887ac5b83b2e43c1ec7be507}{PhysicsBit::LockRotX}}),\ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a0fb70ad77c6f1f7983dbdd2585427e86}{PhysicsBit::LockRotY}}),}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00930}00930\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a18bf112e8a2c9298785d5216fbd5ae86}{PhysicsBit::LockRotZ}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00931}00931\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00932}00932\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00933}00933\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00934}00934\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00935}\mbox{\hyperlink{class_component_physics_ab549f17c15a6bfcb89c29d09aecec596}{00935}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_physics_ab549f17c15a6bfcb89c29d09aecec596}{ComponentPhysics::CreateSphere}}(float3\ center,\ \textcolor{keywordtype}{float}\ radius,\ \textcolor{keywordtype}{float}\ density)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00936}00936\ \ \ \ \ radius\ =\ std::max(radius,\ 0.1f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00937}00937\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00938}00938\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}\ =\ \mbox{\hyperlink{namespacephysics_aa5e57a152c736407f24070bb7946c1e5}{physics::createRigidBody}}(\mbox{\hyperlink{classshape_1_1_sphere}{shape::Sphere}}\{center,\ radius\},\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{physics::ObjectLayers::MOVING}},\ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}{physics::MotionType::Dynamic}},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00939}00939\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ density);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00940}00940\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setData((intptr\_t)\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00941}00941\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00942}00942\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a88aa04b289008612934d31030e7eca08}{SetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a84a8921b25f505d0d2077aeb5db4bc16}{ComponentPhysics::PhysicsBit::Static}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00943}00943\ \ \ \ \ \mbox{\hyperlink{class_component_physics_abedac8d18f9aa0b16955b42ff6cc3b3c}{SetPhysicsMatrix}}(\mbox{\hyperlink{class_component_physics_a107d98f890ce7e817efd81734b38d991}{GetWorldMatrix}}());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00944}00944\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00945}00945\ \ \ \ \ \mbox{\hyperlink{class_component_physics_aaea7cc94d13cc370cf37b4898f0f14ee}{LockRotateAxis}}(\mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919ae6062085887ac5b83b2e43c1ec7be507}{PhysicsBit::LockRotX}}),\ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a0fb70ad77c6f1f7983dbdd2585427e86}{PhysicsBit::LockRotY}}),}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00946}00946\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a18bf112e8a2c9298785d5216fbd5ae86}{PhysicsBit::LockRotZ}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00947}00947\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00948}00948\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00949}00949\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00950}00950\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00951}\mbox{\hyperlink{class_component_physics_a2ac3f978081390886140267ba8876ec5}{00951}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_physics_a2ac3f978081390886140267ba8876ec5}{ComponentPhysics::CreateCapsule}}(\textcolor{keywordtype}{float}\ half\_height,\ \textcolor{keywordtype}{float}\ radius,\ \textcolor{keywordtype}{float}\ density)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00952}00952\ \ \ \ \ \textcolor{keywordflow}{if}(radius\ <=\ 0.1f)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00953}00953\ \ \ \ \ \ \ \ \ radius\ =\ 0.1f;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00954}00954\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00955}00955\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}\ =\ \mbox{\hyperlink{namespacephysics_aa5e57a152c736407f24070bb7946c1e5}{physics::createRigidBody}}(\mbox{\hyperlink{classshape_1_1_capsule}{shape::Capsule}}\{half\_height,\ radius\},\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{physics::ObjectLayers::MOVING}},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00956}00956\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}{physics::MotionType::Dynamic}},\ density);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00957}00957\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setData((intptr\_t)\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00958}00958\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00959}00959\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a88aa04b289008612934d31030e7eca08}{SetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a84a8921b25f505d0d2077aeb5db4bc16}{ComponentPhysics::PhysicsBit::Static}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00960}00960\ \ \ \ \ \mbox{\hyperlink{class_component_physics_abedac8d18f9aa0b16955b42ff6cc3b3c}{SetPhysicsMatrix}}(\mbox{\hyperlink{class_component_physics_a107d98f890ce7e817efd81734b38d991}{GetWorldMatrix}}());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00961}00961\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00962}00962\ \ \ \ \ \mbox{\hyperlink{class_component_physics_aaea7cc94d13cc370cf37b4898f0f14ee}{LockRotateAxis}}(\mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919ae6062085887ac5b83b2e43c1ec7be507}{PhysicsBit::LockRotX}}),\ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a0fb70ad77c6f1f7983dbdd2585427e86}{PhysicsBit::LockRotY}}),}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00963}00963\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a18bf112e8a2c9298785d5216fbd5ae86}{PhysicsBit::LockRotZ}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00964}00964\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00965}00965\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00966}00966\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00967}\mbox{\hyperlink{class_component_physics_aa330707dbe40be4537548a3eb8d42317}{00967}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_physics_aa330707dbe40be4537548a3eb8d42317}{ComponentPhysics::CreateCylinder}}(\textcolor{keywordtype}{float}\ half\_height,\ \textcolor{keywordtype}{float}\ radius,\ \textcolor{keywordtype}{float}\ density)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00968}00968\ \ \ \ \ \textcolor{keywordflow}{if}(radius\ <=\ 0.1f)}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00969}00969\ \ \ \ \ \ \ \ \ radius\ =\ 0.1f;}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00970}00970\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00971}00971\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}\ =\ \mbox{\hyperlink{namespacephysics_aa5e57a152c736407f24070bb7946c1e5}{physics::createRigidBody}}(\mbox{\hyperlink{classshape_1_1_cylinder}{shape::Cylinder}}\{half\_height,\ radius\},\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baa2e2cc651c3814ff21219ec336a859ae1}{physics::ObjectLayers::MOVING}},}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00972}00972\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacephysics_a7664f0ec137fcd61a578e2447e866bd3a971fd8cc345d8bd9f92e9f7d88fdf20c}{physics::MotionType::Dynamic}},\ density);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00973}00973\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setData((intptr\_t)\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00974}00974\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00975}00975\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a88aa04b289008612934d31030e7eca08}{SetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a84a8921b25f505d0d2077aeb5db4bc16}{ComponentPhysics::PhysicsBit::Static}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00976}00976\ \ \ \ \ \mbox{\hyperlink{class_component_physics_abedac8d18f9aa0b16955b42ff6cc3b3c}{SetPhysicsMatrix}}(\mbox{\hyperlink{class_component_physics_a107d98f890ce7e817efd81734b38d991}{GetWorldMatrix}}());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00977}00977\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00978}00978\ \ \ \ \ \mbox{\hyperlink{class_component_physics_aaea7cc94d13cc370cf37b4898f0f14ee}{LockRotateAxis}}(\mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919ae6062085887ac5b83b2e43c1ec7be507}{PhysicsBit::LockRotX}}),\ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a0fb70ad77c6f1f7983dbdd2585427e86}{PhysicsBit::LockRotY}}),}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00979}00979\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_component_physics_a82ed0cb371f954d553ebe48805808dfa}{GetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a18bf112e8a2c9298785d5216fbd5ae86}{PhysicsBit::LockRotZ}}));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00980}00980\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00981}00981\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00982}00982\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00983}\mbox{\hyperlink{class_component_physics_abb514dd4ae5897a6bf5acaa5eca45604}{00983}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_component_physics_abb514dd4ae5897a6bf5acaa5eca45604}{ComponentPhysics::CreateMesh}}(ComponentModelPtr\ model,\ \textcolor{keywordtype}{float}\ scale)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00984}00984\ \ \ \ \ float3\ scale3\ =\ model-\/>GetScaleAxisXYZ();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00985}00985\ \ \ \ \ scale\ *=\ ((scale3.x\ +\ scale3.y\ +\ scale3.z)\ /\ 3.0f);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00986}00986\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00987}00987\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a7c6d19d492813986aad11e77c419be1a}{ref\_model\_}}\ =\ model-\/>GetModel();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00988}00988\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00989}00989\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}})}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00990}00990\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classphysics_1_1_engine_aca4ff048b8dca7af1a26055d9996289d}{physics::Engine::physicsSystem}}()-\/>RemoveConstraint(\mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00991}00991\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00992}00992\ \ \ \ \ \mbox{\hyperlink{class_component_physics_ad1d9085feb2b7c3b4428bc57fb035906}{constraint\_}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00993}00993\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00994}00994\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}\ =\ \mbox{\hyperlink{namespacephysics_aa5e57a152c736407f24070bb7946c1e5}{physics::createRigidBody}}(\mbox{\hyperlink{classshape_1_1_mesh}{shape::Mesh}}\{model-\/>GetModelClass(),\ scale\},\ \mbox{\hyperlink{namespacephysics_a8f3495d58817a58553d47f58730267baadb7efabc078fc1b67b86c709623de88a}{physics::ObjectLayers::NON\_MOVING}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00995}00995\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setData((intptr\_t)\textcolor{keyword}{this});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00996}00996\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00997}00997\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a88aa04b289008612934d31030e7eca08}{SetPhysicsStatus}}(\mbox{\hyperlink{class_component_physics_a2a434caca324c0c6b4e146d69081c919a84a8921b25f505d0d2077aeb5db4bc16}{ComponentPhysics::PhysicsBit::Static}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00998}00998\ \ \ \ \ \mbox{\hyperlink{class_component_physics_abedac8d18f9aa0b16955b42ff6cc3b3c}{SetPhysicsMatrix}}(\mbox{\hyperlink{class_component_physics_a107d98f890ce7e817efd81734b38d991}{GetWorldMatrix}}());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l00999}00999\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01000}01000\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01001}01001\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01002}01002\ \textcolor{comment}{//!\ @brief\ ワールドMatrixの取得}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01003}01003\ \textcolor{comment}{//!\ @return\ 他のコンポーネントも含めた位置}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01004}\mbox{\hyperlink{class_component_physics_a107d98f890ce7e817efd81734b38d991}{01004}}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_physics_a107d98f890ce7e817efd81734b38d991}{ComponentPhysics::GetWorldMatrix}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01005}01005\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(\mbox{\hyperlink{class_component_physics_adce91d2c0c370e01123605c5ef522dbd}{physics\_transform\_}},\ \mbox{\hyperlink{class_component_adc1b85b65e84e7b0a7b8382c90aae9ee}{GetOwner}}()-\/>\mbox{\hyperlink{class_component_physics_a107d98f890ce7e817efd81734b38d991}{GetWorldMatrix}}());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01006}01006\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01007}01007\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01008}01008\ \textcolor{comment}{//!\ @brief\ 1フレーム前のワールドMatrixの取得}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01009}01009\ \textcolor{comment}{//!\ @return\ 他のコンポーネントも含めた位置}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01010}\mbox{\hyperlink{class_component_physics_a3d88e4707affbc7635905657e6cba2b2}{01010}}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_physics_a3d88e4707affbc7635905657e6cba2b2}{ComponentPhysics::GetOldWorldMatrix}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01011}01011\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_vector_math_8h_ab151ff244ab06b4f346d5827dde650e0}{mul}}(\mbox{\hyperlink{class_component_physics_ac05a862c01533b3649b61168a25257b4}{physics\_transform\_old\_}},\ \mbox{\hyperlink{class_component_physics_a57d771e0e8c78a2bc609f60bbc5648b9}{world\_old\_}});}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01012}01012\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01013}01013\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01014}\mbox{\hyperlink{class_component_physics_abedac8d18f9aa0b16955b42ff6cc3b3c}{01014}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_component_physics_abedac8d18f9aa0b16955b42ff6cc3b3c}{ComponentPhysics::SetPhysicsMatrix}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classmatrix}{matrix}}\&\ world)\ \{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01015}01015\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}})}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01016}01016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01017}01017\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01018}01018\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setPosition(world.\mbox{\hyperlink{classmatrix_af2b5677c2f4ae2e615b4bab101e2c358}{translate}}());}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01019}01019\ \ \ \ \ \textcolor{keyword}{auto}\ q\ =\ normalize(quaternion(float3x3(world)));}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01020}01020\ \ \ \ \ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>setRotation(q);}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01021}01021\ \}}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01022}01022\ }
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01023}\mbox{\hyperlink{class_component_physics_a942b74bd2d93580caca6b1b7af8cc331}{01023}}\ \mbox{\hyperlink{classmatrix}{matrix}}\ \mbox{\hyperlink{class_component_physics_a942b74bd2d93580caca6b1b7af8cc331}{ComponentPhysics::GetPhysicsMatrix}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01024}01024\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_component_physics_a77df3a3b80e202b10d125d4a36a1dada}{body\_}}-\/>worldMatrix();}
+\DoxyCodeLine{\Hypertarget{_component_physics_8cpp_source_l01025}01025\ \}}
+
+\end{DoxyCode}

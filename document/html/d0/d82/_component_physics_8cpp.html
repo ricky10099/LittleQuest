@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.14.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Base Project: ComponentPhysics.cpp ファイル</title>
+<link href="../../tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
+<link href="../../search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../search/searchdata.js"></script>
+<script type="text/javascript" src="../../search/search.js"></script>
+<link href="../../doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">Base Project
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 構築: Doxygen 1.14.0 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "../../search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="../../menudata.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('../../',true,false,'search.php','検索',false);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">読み取り中…</div>
+<div class="SRStatus" id="Searching">検索中…</div>
+<div class="SRStatus" id="NoMatches">一致する文字列を見つけられません</div>
+</div>
+</div>
+</div>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a href="../../dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="../../dir_ef68f1e1f5148ff8ef7fb1c955106c3c.html">System</a></li><li class="navelem"><a href="../../dir_62db5b8162a41e57b9d75d02d7d318ce.html">Component</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#var-members">変数</a>  </div>
+  <div class="headertitle"><div class="title">ComponentPhysics.cpp ファイル</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Physicsコンポーネント  
+<a href="#details">[詳解]</a></p>
+<div class="textblock"><code>#include &lt;<a class="el" href="../../de/d56/_scene_8h_source.html">System/Scene.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../da/dcd/_component_physics_8h_source.html">System/Component/ComponentPhysics.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d2/da1/_component_model_8h_source.html">System/Component/ComponentModel.h</a>&gt;</code><br />
+<code>#include &lt;Jolt/Jolt.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/ContactListener.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/PhysicsSystem.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Body/Body.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../d2/d9f/_physics_engine_8h_source.html">System/Physics/PhysicsEngine.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../dd/dc7/_physics_layer_8h_source.html">System/Physics/PhysicsLayer.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../df/d1f/_rigid_body_8h_source.html">System/Physics/RigidBody.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="../../da/d05/_shape_8h_source.html">System/Physics/Shape.h</a>&gt;</code><br />
+<code>#include &lt;Jolt/Renderer/DebugRenderer.h&gt;</code><br />
+<code>#include &lt;Jolt/Renderer/DebugRendererRecorder.h&gt;</code><br />
+<code>#include &lt;Jolt/Renderer/DebugRendererPlayback.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Body/MotionType.h&gt;</code><br />
+<code>#include &lt;Jolt/Physics/Collision/CollideShape.h&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+ComponentPhysics.cpp の依存先関係図:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../de/dd7/_component_physics_8cpp__incl.png" border="0" usemap="#a_component_physics_8cpp" loading="lazy" alt=""/></div>
+</div>
+</div>
+<p><a href="../../d0/d82/_component_physics_8cpp_source.html">[ソースコード]</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+変数</h2></td></tr>
+<tr class="memitem:af593e88037d6949975da87f1eb366e31" id="r_af593e88037d6949975da87f1eb366e31"><td class="memItemLeft" align="right" valign="top">BPDebugRenderer *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af593e88037d6949975da87f1eb366e31">debug_renderer</a> = nullptr</td></tr>
+<tr class="memitem:a1ce199e542d41f7da69ad9eed0294322" id="r_a1ce199e542d41f7da69ad9eed0294322"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ce199e542d41f7da69ad9eed0294322">debug_ref_count</a> = 0</td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">詳解</h2>
+<div class="textblock"><p>Physicsコンポーネント </p>
+
+<p class="definition"> <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html">ComponentPhysics.cpp</a> に定義があります。</p>
+</div><a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">変数詳解</h2>
+<a id="a1ce199e542d41f7da69ad9eed0294322" name="a1ce199e542d41f7da69ad9eed0294322"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ce199e542d41f7da69ad9eed0294322">&#9670;&#160;</a></span>debug_ref_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int debug_ref_count = 0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition"> <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html">ComponentPhysics.cpp</a> の <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html#l00411">411</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html#l00598">ComponentPhysics::Exit()</a>, <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html#l00425">ComponentPhysics::Init()</a>.</p>
+
+</div>
+</div>
+<a id="af593e88037d6949975da87f1eb366e31" name="af593e88037d6949975da87f1eb366e31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af593e88037d6949975da87f1eb366e31">&#9670;&#160;</a></span>debug_renderer</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BPDebugRenderer* debug_renderer = nullptr</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition"> <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html">ComponentPhysics.cpp</a> の <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html#l00410">410</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html#l00505">ComponentPhysics::Draw()</a>, <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html#l00598">ComponentPhysics::Exit()</a>, <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html#l00425">ComponentPhysics::Init()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0
+</small></address>
+</div><!-- doc-content -->
+</body>
+</html>

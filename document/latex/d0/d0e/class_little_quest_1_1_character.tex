@@ -1,0 +1,636 @@
+\doxysection{Little\+Quest\+::Character クラス}
+\hypertarget{class_little_quest_1_1_character}{}\label{class_little_quest_1_1_character}\index{LittleQuest::Character@{LittleQuest::Character}}
+
+
+キャラクタークラス  
+
+
+
+
+{\ttfamily \#include $<$Character.\+h$>$}
+
+Little\+Quest\+::Character の継承関係図\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{d0/d0e/class_little_quest_1_1_character}
+\end{center}
+\end{figure}
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_little_quest_1_1_character_a668f7130a9c550233008f7d0a18d30bf}{BP\+\_\+\+OBJECT\+\_\+\+DECL}} (\mbox{\hyperlink{class_little_quest_1_1_character}{Character}}, "{}Little\+Quest/Character"{})
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_ab42a972c802e5f9982cdb556cdd9fa83}{Late\+Draw}} () override
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_a0c33efb7186e62285a6a26158cbbfe1f}{Get\+Hit}} (int damage)
+\begin{DoxyCompactList}\small\item\em 攻撃される処理を行います。 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_a4cfa2424fcccb5c9b3af9a7d6be6cbe3}{Slow\+Motion}} ()
+\begin{DoxyCompactList}\small\item\em スローモーションを行います。 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_a5be48e9a670208a97b242aa476673e42}{End\+Slow\+Motion}} ()
+\begin{DoxyCompactList}\small\item\em スローモーションを終了します。 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_a21c4ffa0dd27e786f899b4d737382eba}{Set\+Scene\+State}} (Scene\+::\+Scene\+State state)
+\begin{DoxyCompactList}\small\item\em シーンの行動を設定します。 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_a8892cce27bf24284e2a386ec1aa738db}{Set\+Hide\+HP}} (bool is\+Hide\+HP)
+\item 
+virtual bool \mbox{\hyperlink{class_little_quest_1_1_character_a07b0d41679967d1a8bb7b4edd5d06a3a}{Is\+Dead}} ()
+\begin{DoxyCompactList}\small\item\em プレイヤーが倒されたのか。 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{限定公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_aa55ed7763e85e7a7206524dea2ccb71c}{Idle}} ()
+\begin{DoxyCompactList}\small\item\em 待機 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_aad09f20daf17269720f5bba272f56398}{Die}} ()
+\begin{DoxyCompactList}\small\item\em 倒された \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_a4329d15e52375855b5d1d5f005d95ee2}{Game\+Action}} ()
+\begin{DoxyCompactList}\small\item\em プレイ中の行動。 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_a93233482141a6e829cad2df0491368e8}{Trans\+In\+Action}} ()
+\begin{DoxyCompactList}\small\item\em シーンイントロの行動 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_a6d7632f479a5e9f9ef6c33e85b6c2cd3}{Trans\+Out\+Action}} ()
+\begin{DoxyCompactList}\small\item\em シーン終了の行動。 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_a04e87590a208f133c9e459fdb571d56b}{Set\+Model\+Rotation}} ()
+\begin{DoxyCompactList}\small\item\em モデルの回転を設定します。 \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_little_quest_1_1_character_a9d27524873cc2900b12c59a0f3c3ae07}{Set\+Anim\+Info}} ()
+\begin{DoxyCompactList}\small\item\em アニメーションマップを設定します \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+Scene\+::\+Scene\+State \mbox{\hyperlink{class_little_quest_1_1_character_ab9289aa5143a35b54eed22845aaffc4e}{\+\_\+scene\+State}} = Scene\+::\+Scene\+State\+::\+GAME
+\begin{DoxyCompactList}\small\item\em 現在のシーン行動 \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ std\+::string, Anim\+Info $>$ \mbox{\hyperlink{class_little_quest_1_1_character_aa74e71b7a27f1eb13d42b922ce820dca}{\+\_\+anim\+List}}
+\begin{DoxyCompactList}\small\item\em アニメーション名とアニメーション情報のマップ \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string\+\_\+view $>$ \mbox{\hyperlink{class_little_quest_1_1_character_a40357f90fb318b2c38cb66347ac769e4}{\+\_\+attack\+List}}
+\begin{DoxyCompactList}\small\item\em 攻撃した敵のリスト \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ Component\+Model $>$ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\+\_\+model}}
+\begin{DoxyCompactList}\small\item\em モデル \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}} $>$ \mbox{\hyperlink{class_little_quest_1_1_character_a16d41ef0cc76c8f07b5ffb0dcd0c62ac}{\+\_\+component\+HP}}
+\begin{DoxyCompactList}\small\item\em 体力コンポーネント \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_character_a4fee1a3c440ecac1d70a1426e9002322}{\+\_\+is\+Hide\+HP}} = false
+\begin{DoxyCompactList}\small\item\em 体力コンポーネントを描画するかどうか \end{DoxyCompactList}\item 
+matrix \mbox{\hyperlink{class_little_quest_1_1_character_a15192de4ec78070b2049d2ba51764d41}{\+\_\+self\+Matrix}} = \{\}
+\begin{DoxyCompactList}\small\item\em 自身マトリクス \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_little_quest_1_1_character_abee4aa0101a5ff6186b64b9edd87023e}{\+\_\+movement}} = \{0, 0, 0\}
+\begin{DoxyCompactList}\small\item\em 移動ベクトル \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_little_quest_1_1_character_a85fe327664be7acc761e8f8b251df24a}{\+\_\+speed\+Factor}} = 1.\+0f
+\begin{DoxyCompactList}\small\item\em 移動倍数 \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_little_quest_1_1_character_a0ebdc8cdce44f12e2a4f410071db0fc4}{\+\_\+hit\+Timer}} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em ヒットストップのタイマー \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_little_quest_1_1_character_a447b4f6b3e9f17784530b0b65f882333}{\+\_\+curr\+Anim\+Speed}} = 1.\+0f
+\begin{DoxyCompactList}\small\item\em 現在のアニメーションの速度 \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{class_little_quest_1_1_character_a8bfb5f735884fd68e56bd2ce164990cf}{\+\_\+curr\+Anim\+Time}} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em 現在のアニメーションの時間（フレーム） \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_character_a9b5c8d03dbbf306c5cdeb50e43488d65}{\+\_\+is\+Hit}} = false
+\begin{DoxyCompactList}\small\item\em 攻撃が当たっているのか \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_character_a91502e17c89b565cef9dd2f79aab9357}{\+\_\+slow\+Motion}} = false
+\item 
+std\+::string \mbox{\hyperlink{class_little_quest_1_1_character_ab81ebe3abcbcf20cd9f5002345eb7081}{\+\_\+curr\+Anim\+Name}} = "{}"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+キャラクタークラス 
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00016}{16}} 行目に定義があります。
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_little_quest_1_1_character_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_little_quest_1_1_character_a668f7130a9c550233008f7d0a18d30bf}\index{LittleQuest::Character@{LittleQuest::Character}!BP\_OBJECT\_DECL@{BP\_OBJECT\_DECL}}
+\index{BP\_OBJECT\_DECL@{BP\_OBJECT\_DECL}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{BP\_OBJECT\_DECL()}{BP\_OBJECT\_DECL()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a668f7130a9c550233008f7d0a18d30bf} 
+Little\+Quest\+::\+Character\+::\+BP\+\_\+\+OBJECT\+\_\+\+DECL (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_character}{Character}}}]{}{, }\item[{"{}Little\+Quest/Character"{}}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_little_quest_1_1_character_aad09f20daf17269720f5bba272f56398}\index{LittleQuest::Character@{LittleQuest::Character}!Die@{Die}}
+\index{Die@{Die}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{Die()}{Die()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_aad09f20daf17269720f5bba272f56398} 
+virtual void Little\+Quest\+::\+Character\+::\+Die (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+倒された 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_maw_j_laygo_aab82578ce2f95eb7ad886105aa02aee7}{Little\+Quest\+::\+Maw\+JLaygo}}, \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_aaa45fdebb5582c73d3035056bc9d1d3f}{Little\+Quest\+::\+Mob\+Enemy}}, \mbox{\hyperlink{class_little_quest_1_1_mutant_ad0323121febbcaaa63f986a2aeca3922}{Little\+Quest\+::\+Mutant}}, \mbox{\hyperlink{class_little_quest_1_1_player_a38ff1219b39bf1a33e3a677176302d36}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00097}{97}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_character_a5be48e9a670208a97b242aa476673e42}\index{LittleQuest::Character@{LittleQuest::Character}!EndSlowMotion@{EndSlowMotion}}
+\index{EndSlowMotion@{EndSlowMotion}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{EndSlowMotion()}{EndSlowMotion()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a5be48e9a670208a97b242aa476673e42} 
+virtual void Little\+Quest\+::\+Character\+::\+End\+Slow\+Motion (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+スローモーションを終了します。 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_maw_j_laygo_a4edb6827e9ddae8ca85bab5a42c829bd}{Little\+Quest\+::\+Maw\+JLaygo}}, \mbox{\hyperlink{class_little_quest_1_1_player_a794343966b8ce2b80dfba6f626d120c1}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00037}{37}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_character_a4329d15e52375855b5d1d5f005d95ee2}\index{LittleQuest::Character@{LittleQuest::Character}!GameAction@{GameAction}}
+\index{GameAction@{GameAction}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{GameAction()}{GameAction()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a4329d15e52375855b5d1d5f005d95ee2} 
+virtual void Little\+Quest\+::\+Character\+::\+Game\+Action (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+プレイ中の行動。 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_maw_j_laygo_a1f4ecddbcfaf988d12f53dc582cccaf5}{Little\+Quest\+::\+Maw\+JLaygo}}, \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a3304e74a16481f9958c8ab3cea3fc1c6}{Little\+Quest\+::\+Mob\+Enemy}}, \mbox{\hyperlink{class_little_quest_1_1_player_a06a3674bce81965d24da8f3636ec9731}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00101}{101}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_character_a0c33efb7186e62285a6a26158cbbfe1f}\index{LittleQuest::Character@{LittleQuest::Character}!GetHit@{GetHit}}
+\index{GetHit@{GetHit}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{GetHit()}{GetHit()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a0c33efb7186e62285a6a26158cbbfe1f} 
+virtual void Little\+Quest\+::\+Character\+::\+Get\+Hit (\begin{DoxyParamCaption}\item[{int}]{damage}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+攻撃される処理を行います。 
+
+
+\begin{DoxyParams}{引数}
+{\em damage} & 受けるダメージ \\
+\hline
+\end{DoxyParams}
+
+
+\mbox{\hyperlink{class_little_quest_1_1_maw_j_laygo_a622ffc834d8fda546acf6993d8ff2c65}{Little\+Quest\+::\+Maw\+JLaygo}}, \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a842a88edd756025383e00ad9960a1013}{Little\+Quest\+::\+Mob\+Enemy}}, \mbox{\hyperlink{class_little_quest_1_1_player_a5248654af50f6873270cc5e64009d1cb}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00029}{29}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00241}{Little\+Quest\+::\+Player\+::\+On\+Hit()}}.
+
+\Hypertarget{class_little_quest_1_1_character_aa55ed7763e85e7a7206524dea2ccb71c}\index{LittleQuest::Character@{LittleQuest::Character}!Idle@{Idle}}
+\index{Idle@{Idle}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{Idle()}{Idle()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_aa55ed7763e85e7a7206524dea2ccb71c} 
+virtual void Little\+Quest\+::\+Character\+::\+Idle (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+待機 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_maw_j_laygo_ad66075d847e6251a5e8c61886f3d8548}{Little\+Quest\+::\+Maw\+JLaygo}}, \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a55e263deda3815ee6907d527f2378fa8}{Little\+Quest\+::\+Mob\+Enemy}}, \mbox{\hyperlink{class_little_quest_1_1_player_a9004c431e0c6e198cc0c5fe429912406}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00093}{93}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_character_a07b0d41679967d1a8bb7b4edd5d06a3a}\index{LittleQuest::Character@{LittleQuest::Character}!IsDead@{IsDead}}
+\index{IsDead@{IsDead}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{IsDead()}{IsDead()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a07b0d41679967d1a8bb7b4edd5d06a3a} 
+virtual bool Little\+Quest\+::\+Character\+::\+Is\+Dead (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+プレイヤーが倒されたのか。 
+
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 倒された \\
+\hline
+{\em false} & 倒されていない \\
+\hline
+\end{DoxyRetVals}
+
+
+\mbox{\hyperlink{class_little_quest_1_1_maw_j_laygo_abc3879028422d6ccb0ad0e8fa1a739fc}{Little\+Quest\+::\+Maw\+JLaygo}}, \mbox{\hyperlink{class_little_quest_1_1_player_aaff9bbcefc9d2739e5b4ec9cdcc2ca9c}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00052}{52}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_character_ab42a972c802e5f9982cdb556cdd9fa83}\index{LittleQuest::Character@{LittleQuest::Character}!LateDraw@{LateDraw}}
+\index{LateDraw@{LateDraw}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{LateDraw()}{LateDraw()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_ab42a972c802e5f9982cdb556cdd9fa83} 
+virtual void Little\+Quest\+::\+Character\+::\+Late\+Draw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_maw_j_laygo_a3f3fd896e92be69dc57a5f4b60fc01e7}{Little\+Quest\+::\+Maw\+JLaygo}}, \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a0a58ab4a0d09b2bbb7bf5318a67dc909}{Little\+Quest\+::\+Mob\+Enemy}}, \mbox{\hyperlink{class_little_quest_1_1_player_a84f4a2e72aafbf056dff3a384e4355c0}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00019}{19}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_character_8h_source_l00066}{\+\_\+component\+HP}}, \mbox{\hyperlink{_character_8h_source_l00068}{\+\_\+is\+Hide\+HP}}.
+
+\Hypertarget{class_little_quest_1_1_character_a9d27524873cc2900b12c59a0f3c3ae07}\index{LittleQuest::Character@{LittleQuest::Character}!SetAnimInfo@{SetAnimInfo}}
+\index{SetAnimInfo@{SetAnimInfo}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{SetAnimInfo()}{SetAnimInfo()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a9d27524873cc2900b12c59a0f3c3ae07} 
+virtual void Little\+Quest\+::\+Character\+::\+Set\+Anim\+Info (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+アニメーションマップを設定します 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_player_aeef094231088807c56fa19309aa4bfbc}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00117}{117}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_character_a8892cce27bf24284e2a386ec1aa738db}\index{LittleQuest::Character@{LittleQuest::Character}!SetHideHP@{SetHideHP}}
+\index{SetHideHP@{SetHideHP}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{SetHideHP()}{SetHideHP()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a8892cce27bf24284e2a386ec1aa738db} 
+virtual void Little\+Quest\+::\+Character\+::\+Set\+Hide\+HP (\begin{DoxyParamCaption}\item[{bool}]{is\+Hide\+HP}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00043}{43}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_character_8h_source_l00068}{\+\_\+is\+Hide\+HP}}.
+
+\Hypertarget{class_little_quest_1_1_character_a04e87590a208f133c9e459fdb571d56b}\index{LittleQuest::Character@{LittleQuest::Character}!SetModelRotation@{SetModelRotation}}
+\index{SetModelRotation@{SetModelRotation}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{SetModelRotation()}{SetModelRotation()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a04e87590a208f133c9e459fdb571d56b} 
+virtual void Little\+Quest\+::\+Character\+::\+Set\+Model\+Rotation (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+モデルの回転を設定します。 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_player_ab699507b2f2cfd57c2c3d890455b8e82}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00113}{113}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_character_a21c4ffa0dd27e786f899b4d737382eba}\index{LittleQuest::Character@{LittleQuest::Character}!SetSceneState@{SetSceneState}}
+\index{SetSceneState@{SetSceneState}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{SetSceneState()}{SetSceneState()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a21c4ffa0dd27e786f899b4d737382eba} 
+virtual void Little\+Quest\+::\+Character\+::\+Set\+Scene\+State (\begin{DoxyParamCaption}\item[{Scene\+::\+Scene\+State}]{state}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+シーンの行動を設定します。 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_maw_j_laygo_af5f0614b42d4596f929c949874f84552}{Little\+Quest\+::\+Maw\+JLaygo}}, \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_aec6820d4252477e78e27a7e82352ce4f}{Little\+Quest\+::\+Mob\+Enemy}}, \mbox{\hyperlink{class_little_quest_1_1_mutant_aa75f738bae8e19dbaa5e23c6ec9dc7b2}{Little\+Quest\+::\+Mutant}}, \mbox{\hyperlink{class_little_quest_1_1_player_a9190427e7b1a6d42f0c9a57ebaf610cc}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00041}{41}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_character_a4cfa2424fcccb5c9b3af9a7d6be6cbe3}\index{LittleQuest::Character@{LittleQuest::Character}!SlowMotion@{SlowMotion}}
+\index{SlowMotion@{SlowMotion}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{SlowMotion()}{SlowMotion()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a4cfa2424fcccb5c9b3af9a7d6be6cbe3} 
+virtual void Little\+Quest\+::\+Character\+::\+Slow\+Motion (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+スローモーションを行います。 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_maw_j_laygo_a51f583f4adc338a7c3912b17819c7eca}{Little\+Quest\+::\+Maw\+JLaygo}}, \mbox{\hyperlink{class_little_quest_1_1_player_ac53a51dbb770edb2fac1204c8136fe6c}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00033}{33}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_character_a93233482141a6e829cad2df0491368e8}\index{LittleQuest::Character@{LittleQuest::Character}!TransInAction@{TransInAction}}
+\index{TransInAction@{TransInAction}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{TransInAction()}{TransInAction()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a93233482141a6e829cad2df0491368e8} 
+virtual void Little\+Quest\+::\+Character\+::\+Trans\+In\+Action (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+シーンイントロの行動 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_maw_j_laygo_ab59687919a6244aa130a9cda9b6f9a8f}{Little\+Quest\+::\+Maw\+JLaygo}}, \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_aaa3d7c1ab0e621599115d525097df40b}{Little\+Quest\+::\+Mob\+Enemy}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00105}{105}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_character_a6d7632f479a5e9f9ef6c33e85b6c2cd3}\index{LittleQuest::Character@{LittleQuest::Character}!TransOutAction@{TransOutAction}}
+\index{TransOutAction@{TransOutAction}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{TransOutAction()}{TransOutAction()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a6d7632f479a5e9f9ef6c33e85b6c2cd3} 
+virtual void Little\+Quest\+::\+Character\+::\+Trans\+Out\+Action (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+シーン終了の行動。 
+
+
+
+\mbox{\hyperlink{class_little_quest_1_1_maw_j_laygo_ac264de878e5e174ff933446bf975a061}{Little\+Quest\+::\+Maw\+JLaygo}}, \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a3e95a72276231aad63f77ccb53e5c6aa}{Little\+Quest\+::\+Mob\+Enemy}}, \mbox{\hyperlink{class_little_quest_1_1_player_a3c0759828280ce3474d5466507e7606c}{Little\+Quest\+::\+Player}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00109}{109}} 行目に定義があります。
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_little_quest_1_1_character_doc-variable-members}
+\doxysubsection{メンバ詳解}
+\Hypertarget{class_little_quest_1_1_character_aa74e71b7a27f1eb13d42b922ce820dca}\index{LittleQuest::Character@{LittleQuest::Character}!\_animList@{\_animList}}
+\index{\_animList@{\_animList}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_animList}{\_animList}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_aa74e71b7a27f1eb13d42b922ce820dca} 
+std\+::unordered\+\_\+map$<$std\+::string, Anim\+Info$>$ Little\+Quest\+::\+Character\+::\+\_\+anim\+List\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+アニメーション名とアニメーション情報のマップ 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00060}{60}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_mutant_8cpp_source_l00111}{Little\+Quest\+::\+Mutant\+::\+Attack()}}, \mbox{\hyperlink{_player_8cpp_source_l00470}{Little\+Quest\+::\+Player\+::\+Attack()}}, \mbox{\hyperlink{_player_8cpp_source_l00599}{Little\+Quest\+::\+Player\+::\+Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00786}{Little\+Quest\+::\+Player\+::\+Exit()}}, \mbox{\hyperlink{_player_8cpp_source_l00705}{Little\+Quest\+::\+Player\+::\+Set\+Anim\+Info()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00279}{Little\+Quest\+::\+Mob\+Enemy\+::\+Set\+Anim\+List()}}, \mbox{\hyperlink{_mutant_8cpp_source_l00166}{Little\+Quest\+::\+Mutant\+::\+Set\+Anim\+List()}}.
+
+\Hypertarget{class_little_quest_1_1_character_a40357f90fb318b2c38cb66347ac769e4}\index{LittleQuest::Character@{LittleQuest::Character}!\_attackList@{\_attackList}}
+\index{\_attackList@{\_attackList}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_attackList}{\_attackList}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a40357f90fb318b2c38cb66347ac769e4} 
+std\+::vector$<$std\+::string\+\_\+view$>$ Little\+Quest\+::\+Character\+::\+\_\+attack\+List\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+攻撃した敵のリスト 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00062}{62}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00599}{Little\+Quest\+::\+Player\+::\+Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00241}{Little\+Quest\+::\+Player\+::\+On\+Hit()}}.
+
+\Hypertarget{class_little_quest_1_1_character_a16d41ef0cc76c8f07b5ffb0dcd0c62ac}\index{LittleQuest::Character@{LittleQuest::Character}!\_componentHP@{\_componentHP}}
+\index{\_componentHP@{\_componentHP}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_componentHP}{\_componentHP}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a16d41ef0cc76c8f07b5ffb0dcd0c62ac} 
+std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}}$>$ Little\+Quest\+::\+Character\+::\+\_\+component\+HP\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+体力コンポーネント 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00066}{66}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_mob_enemy_8cpp_source_l00273}{Little\+Quest\+::\+Mob\+Enemy\+::\+Die()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00126}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Game\+Action()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00681}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Get\+Hit()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00200}{Little\+Quest\+::\+Mob\+Enemy\+::\+Get\+Hit()}}, \mbox{\hyperlink{_player_8cpp_source_l00329}{Little\+Quest\+::\+Player\+::\+Get\+Hit()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00027}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Init()}}, \mbox{\hyperlink{_mutant_8cpp_source_l00027}{Little\+Quest\+::\+Mutant\+::\+Init()}}, \mbox{\hyperlink{_player_8cpp_source_l00029}{Little\+Quest\+::\+Player\+::\+Init()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00752}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Is\+Dead()}}, \mbox{\hyperlink{_player_8cpp_source_l00667}{Little\+Quest\+::\+Player\+::\+Is\+Dead()}}, \mbox{\hyperlink{_character_8h_source_l00019}{Late\+Draw()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00226}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Wait()}}.
+
+\Hypertarget{class_little_quest_1_1_character_ab81ebe3abcbcf20cd9f5002345eb7081}\index{LittleQuest::Character@{LittleQuest::Character}!\_currAnimName@{\_currAnimName}}
+\index{\_currAnimName@{\_currAnimName}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_currAnimName}{\_currAnimName}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_ab81ebe3abcbcf20cd9f5002345eb7081} 
+std\+::string Little\+Quest\+::\+Character\+::\+\_\+curr\+Anim\+Name = "{}"{}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00088}{88}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00599}{Little\+Quest\+::\+Player\+::\+Attack\+Animation()}}.
+
+\Hypertarget{class_little_quest_1_1_character_a447b4f6b3e9f17784530b0b65f882333}\index{LittleQuest::Character@{LittleQuest::Character}!\_currAnimSpeed@{\_currAnimSpeed}}
+\index{\_currAnimSpeed@{\_currAnimSpeed}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_currAnimSpeed}{\_currAnimSpeed}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a447b4f6b3e9f17784530b0b65f882333} 
+float Little\+Quest\+::\+Character\+::\+\_\+curr\+Anim\+Speed = 1.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+現在のアニメーションの速度 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00079}{79}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_character_a8bfb5f735884fd68e56bd2ce164990cf}\index{LittleQuest::Character@{LittleQuest::Character}!\_currAnimTime@{\_currAnimTime}}
+\index{\_currAnimTime@{\_currAnimTime}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_currAnimTime}{\_currAnimTime}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a8bfb5f735884fd68e56bd2ce164990cf} 
+float Little\+Quest\+::\+Character\+::\+\_\+curr\+Anim\+Time = 0.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+現在のアニメーションの時間（フレーム） 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00081}{81}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00470}{Little\+Quest\+::\+Player\+::\+Attack()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00412}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Attack\+Animation()}}, \mbox{\hyperlink{_mutant_8cpp_source_l00122}{Little\+Quest\+::\+Mutant\+::\+Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00599}{Little\+Quest\+::\+Player\+::\+Attack\+Animation()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00500}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Backflip\+Punch()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00538}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Charge\+Punch()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00453}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Combo5()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00640}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Power\+Up()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00569}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Swip()}}.
+
+\Hypertarget{class_little_quest_1_1_character_a0ebdc8cdce44f12e2a4f410071db0fc4}\index{LittleQuest::Character@{LittleQuest::Character}!\_hitTimer@{\_hitTimer}}
+\index{\_hitTimer@{\_hitTimer}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_hitTimer}{\_hitTimer}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a0ebdc8cdce44f12e2a4f410071db0fc4} 
+float Little\+Quest\+::\+Character\+::\+\_\+hit\+Timer = 0.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+ヒットストップのタイマー 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00077}{77}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00142}{Little\+Quest\+::\+Player\+::\+Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00241}{Little\+Quest\+::\+Player\+::\+On\+Hit()}}.
+
+\Hypertarget{class_little_quest_1_1_character_a4fee1a3c440ecac1d70a1426e9002322}\index{LittleQuest::Character@{LittleQuest::Character}!\_isHideHP@{\_isHideHP}}
+\index{\_isHideHP@{\_isHideHP}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_isHideHP}{\_isHideHP}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a4fee1a3c440ecac1d70a1426e9002322} 
+bool Little\+Quest\+::\+Character\+::\+\_\+is\+Hide\+HP = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+体力コンポーネントを描画するかどうか 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00068}{68}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_character_8h_source_l00019}{Late\+Draw()}}, \mbox{\hyperlink{_player_8cpp_source_l00225}{Little\+Quest\+::\+Player\+::\+Late\+Draw()}}, \mbox{\hyperlink{_character_8h_source_l00043}{Set\+Hide\+HP()}}.
+
+\Hypertarget{class_little_quest_1_1_character_a9b5c8d03dbbf306c5cdeb50e43488d65}\index{LittleQuest::Character@{LittleQuest::Character}!\_isHit@{\_isHit}}
+\index{\_isHit@{\_isHit}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_isHit}{\_isHit}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a9b5c8d03dbbf306c5cdeb50e43488d65} 
+bool Little\+Quest\+::\+Character\+::\+\_\+is\+Hit = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+攻撃が当たっているのか 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00084}{84}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00599}{Little\+Quest\+::\+Player\+::\+Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00142}{Little\+Quest\+::\+Player\+::\+Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00241}{Little\+Quest\+::\+Player\+::\+On\+Hit()}}.
+
+\Hypertarget{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}\index{LittleQuest::Character@{LittleQuest::Character}!\_model@{\_model}}
+\index{\_model@{\_model}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_model}{\_model}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1} 
+std\+::weak\+\_\+ptr$<$Component\+Model$>$ Little\+Quest\+::\+Character\+::\+\_\+model\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+モデル 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00064}{64}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_mutant_8cpp_source_l00111}{Little\+Quest\+::\+Mutant\+::\+Attack()}}, \mbox{\hyperlink{_player_8cpp_source_l00470}{Little\+Quest\+::\+Player\+::\+Attack()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00412}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Attack\+Animation()}}, \mbox{\hyperlink{_mutant_8cpp_source_l00122}{Little\+Quest\+::\+Mutant\+::\+Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00599}{Little\+Quest\+::\+Player\+::\+Attack\+Animation()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00237}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Chase\+Player()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00178}{Little\+Quest\+::\+Mob\+Enemy\+::\+Chase\+Player()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00716}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Die()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00273}{Little\+Quest\+::\+Mob\+Enemy\+::\+Die()}}, \mbox{\hyperlink{_player_8cpp_source_l00663}{Little\+Quest\+::\+Player\+::\+Die()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00126}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Game\+Action()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00215}{Little\+Quest\+::\+Mob\+Enemy\+::\+Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00142}{Little\+Quest\+::\+Player\+::\+Game\+Action()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00200}{Little\+Quest\+::\+Mob\+Enemy\+::\+Get\+Hit()}}, \mbox{\hyperlink{_player_8cpp_source_l00329}{Little\+Quest\+::\+Player\+::\+Get\+Hit()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00222}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Idle()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00059}{Little\+Quest\+::\+Mob\+Enemy\+::\+Idle()}}, \mbox{\hyperlink{_player_8cpp_source_l00456}{Little\+Quest\+::\+Player\+::\+Idle()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00027}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Init()}}, \mbox{\hyperlink{_mutant_8cpp_source_l00027}{Little\+Quest\+::\+Mutant\+::\+Init()}}, \mbox{\hyperlink{_player_8cpp_source_l00029}{Little\+Quest\+::\+Player\+::\+Init()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00744}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Is\+Played\+Taunt()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00142}{Little\+Quest\+::\+Mob\+Enemy\+::\+Patrol()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00640}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Power\+Up()}}, \mbox{\hyperlink{_player_8cpp_source_l00688}{Little\+Quest\+::\+Player\+::\+Set\+Model\+Rotation()}}, \mbox{\hyperlink{_player_8cpp_source_l00675}{Little\+Quest\+::\+Player\+::\+Slow\+Motion()}}, \mbox{\hyperlink{_mutant_8cpp_source_l00096}{Little\+Quest\+::\+Mutant\+::\+Spawn\+Action()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00115}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Trans\+In\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00213}{Little\+Quest\+::\+Player\+::\+Trans\+Out\+Action()}}, \mbox{\hyperlink{_maw_j_laygo_8cpp_source_l00226}{Little\+Quest\+::\+Maw\+JLaygo\+::\+Wait()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00169}{Little\+Quest\+::\+Mob\+Enemy\+::\+Wait()}}, \mbox{\hyperlink{_player_8cpp_source_l00460}{Little\+Quest\+::\+Player\+::\+Walk()}} (計32項目).
+
+\Hypertarget{class_little_quest_1_1_character_abee4aa0101a5ff6186b64b9edd87023e}\index{LittleQuest::Character@{LittleQuest::Character}!\_movement@{\_movement}}
+\index{\_movement@{\_movement}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_movement}{\_movement}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_abee4aa0101a5ff6186b64b9edd87023e} 
+float3 Little\+Quest\+::\+Character\+::\+\_\+movement = \{0, 0, 0\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+移動ベクトル 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00073}{73}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_mob_enemy_8cpp_source_l00124}{Little\+Quest\+::\+Mob\+Enemy\+::\+Back\+To\+Initial\+Position()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00178}{Little\+Quest\+::\+Mob\+Enemy\+::\+Chase\+Player()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00215}{Little\+Quest\+::\+Mob\+Enemy\+::\+Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00142}{Little\+Quest\+::\+Player\+::\+Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00349}{Little\+Quest\+::\+Player\+::\+Input\+Handle()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00142}{Little\+Quest\+::\+Mob\+Enemy\+::\+Patrol()}}, \mbox{\hyperlink{_player_8cpp_source_l00688}{Little\+Quest\+::\+Player\+::\+Set\+Model\+Rotation()}}, \mbox{\hyperlink{_player_8cpp_source_l00460}{Little\+Quest\+::\+Player\+::\+Walk()}}.
+
+\Hypertarget{class_little_quest_1_1_character_ab9289aa5143a35b54eed22845aaffc4e}\index{LittleQuest::Character@{LittleQuest::Character}!\_sceneState@{\_sceneState}}
+\index{\_sceneState@{\_sceneState}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_sceneState}{\_sceneState}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_ab9289aa5143a35b54eed22845aaffc4e} 
+Scene\+::\+Scene\+State Little\+Quest\+::\+Character\+::\+\_\+scene\+State = Scene\+::\+Scene\+State\+::\+GAME\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+現在のシーン行動 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00058}{58}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00225}{Little\+Quest\+::\+Player\+::\+Late\+Draw()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00088}{Little\+Quest\+::\+Mob\+Enemy\+::\+Set\+Scene\+State()}}, \mbox{\hyperlink{_player_8cpp_source_l00699}{Little\+Quest\+::\+Player\+::\+Set\+Scene\+State()}}, \mbox{\hyperlink{_mob_enemy_8cpp_source_l00039}{Little\+Quest\+::\+Mob\+Enemy\+::\+Update()}}, \mbox{\hyperlink{_player_8cpp_source_l00129}{Little\+Quest\+::\+Player\+::\+Update()}}.
+
+\Hypertarget{class_little_quest_1_1_character_a15192de4ec78070b2049d2ba51764d41}\index{LittleQuest::Character@{LittleQuest::Character}!\_selfMatrix@{\_selfMatrix}}
+\index{\_selfMatrix@{\_selfMatrix}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_selfMatrix}{\_selfMatrix}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a15192de4ec78070b2049d2ba51764d41} 
+matrix Little\+Quest\+::\+Character\+::\+\_\+self\+Matrix = \{\}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+自身マトリクス 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00071}{71}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00142}{Little\+Quest\+::\+Player\+::\+Game\+Action()}}, \mbox{\hyperlink{_player_8cpp_source_l00029}{Little\+Quest\+::\+Player\+::\+Init()}}, \mbox{\hyperlink{_player_8cpp_source_l00349}{Little\+Quest\+::\+Player\+::\+Input\+Handle()}}.
+
+\Hypertarget{class_little_quest_1_1_character_a91502e17c89b565cef9dd2f79aab9357}\index{LittleQuest::Character@{LittleQuest::Character}!\_slowMotion@{\_slowMotion}}
+\index{\_slowMotion@{\_slowMotion}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_slowMotion}{\_slowMotion}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a91502e17c89b565cef9dd2f79aab9357} 
+bool Little\+Quest\+::\+Character\+::\+\_\+slow\+Motion = false\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00086}{86}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_mutant_8cpp_source_l00122}{Little\+Quest\+::\+Mutant\+::\+Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00599}{Little\+Quest\+::\+Player\+::\+Attack\+Animation()}}, \mbox{\hyperlink{_player_8cpp_source_l00680}{Little\+Quest\+::\+Player\+::\+End\+Slow\+Motion()}}, \mbox{\hyperlink{_player_8cpp_source_l00675}{Little\+Quest\+::\+Player\+::\+Slow\+Motion()}}.
+
+\Hypertarget{class_little_quest_1_1_character_a85fe327664be7acc761e8f8b251df24a}\index{LittleQuest::Character@{LittleQuest::Character}!\_speedFactor@{\_speedFactor}}
+\index{\_speedFactor@{\_speedFactor}!LittleQuest::Character@{LittleQuest::Character}}
+\doxysubsubsection{\texorpdfstring{\_speedFactor}{\_speedFactor}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_character_a85fe327664be7acc761e8f8b251df24a} 
+float Little\+Quest\+::\+Character\+::\+\_\+speed\+Factor = 1.\+0f\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+移動倍数 
+
+
+
+ \mbox{\hyperlink{_character_8h_source}{Character.\+h}} の \mbox{\hyperlink{_character_8h_source_l00075}{75}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00029}{Little\+Quest\+::\+Player\+::\+Init()}}, \mbox{\hyperlink{_player_8cpp_source_l00349}{Little\+Quest\+::\+Player\+::\+Input\+Handle()}}, \mbox{\hyperlink{_player_8cpp_source_l00460}{Little\+Quest\+::\+Player\+::\+Walk()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_character_8h}{Character.\+h}}\end{DoxyCompactItemize}

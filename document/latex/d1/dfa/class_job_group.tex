@@ -1,0 +1,304 @@
+\doxysection{Job\+Group クラス}
+\hypertarget{class_job_group}{}\label{class_job_group}\index{JobGroup@{JobGroup}}
+
+
+ジョブグループ  
+
+
+
+
+{\ttfamily \#include $<$Job\+Scheduler.\+h$>$}
+
+
+
+Job\+Group の継承関係図
+% FIG 0
+
+
+Job\+Group 連携図
+% FIG 1
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_job_group_a30bbab267a7c076c7894044742bf1cf3}{execute}} ()
+\begin{DoxyCompactList}\small\item\em ジョブを一括実行します \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_job_handle}{Job\+Handle}} \mbox{\hyperlink{class_job_group_a66b72665825d66068ed3da48c65e2f3e}{register\+Job}} (const \mbox{\hyperlink{struct_priority}{Priority}} \&priority, const std\+::function$<$ void()$>$ \&func)
+\begin{DoxyCompactList}\small\item\em ジョブを登録します \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_job_group_a8b34a6d175b3e0d699716d3f300a5182}{unregister\+Job}} (const \mbox{\hyperlink{struct_job_handle}{Job\+Handle}} \&job\+\_\+handle)
+\begin{DoxyCompactList}\small\item\em ジョブを登録解除します \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_job_group_adb2845cb194e0af55549e0c4838e38dd}{enable\+Job}} (const \mbox{\hyperlink{struct_job_handle}{Job\+Handle}} \&job\+\_\+handle)
+\begin{DoxyCompactList}\small\item\em 対象のジョブを有効にする \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_job_group_ad092361ce59002d8c17ca5942111bedd}{disable\+Job}} (const \mbox{\hyperlink{struct_job_handle}{Job\+Handle}} \&job\+\_\+handle)
+\begin{DoxyCompactList}\small\item\em 対象のジョブを無効にする \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_job_group_a563c88b786e3bebe668cc242898c8ff9}{Job\+Group}} (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} job\+\_\+max\+\_\+count=10000)
+\begin{DoxyCompactList}\small\item\em コンストラクタ \end{DoxyCompactList}\item 
+virtual \mbox{\hyperlink{class_job_group_aa7fca90d8c58bd00c456c8f78b59252b}{\texorpdfstring{$\sim$}{\string~}\+Job\+Group}} ()=default
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{非公開型}
+\begin{DoxyCompactItemize}
+\item 
+using \mbox{\hyperlink{class_job_group_aa86b51f982fbafa9991ab2eff40c93d2}{Job}} = std\+::pair$<$\mbox{\hyperlink{struct_priority}{Priority}}, std\+::function$<$void()$>$$>$
+\end{DoxyCompactItemize}
+\doxysubsubsection*{非公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_job_group_aa86b51f982fbafa9991ab2eff40c93d2}{Job}} $>$ \mbox{\hyperlink{class_job_group_a4b1405e2b617426f68f7038b153d0c24}{jobs\+\_\+}}
+\begin{DoxyCompactList}\small\item\em ジョブ実体 \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} $>$ \mbox{\hyperlink{class_job_group_a12f17c619bf9d2802a03952523b6821a}{job\+\_\+free\+\_\+list\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 空いているジョブスロットの一覧 \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} $>$ \mbox{\hyperlink{class_job_group_a716faa9cc3044178ef5fffeb316b89bc}{job\+\_\+used\+\_\+list\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 使用中ジョブスロットの一覧 \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+ジョブグループ 
+
+ \mbox{\hyperlink{_job_scheduler_8h_source}{Job\+Scheduler.\+h}} の \mbox{\hyperlink{_job_scheduler_8h_source_l00019}{19}} 行目に定義があります。
+
+
+
+\label{doc-typedef-members}
+\Hypertarget{class_job_group_doc-typedef-members}
+\doxysubsection{型定義メンバ詳解}
+\Hypertarget{class_job_group_aa86b51f982fbafa9991ab2eff40c93d2}\index{JobGroup@{JobGroup}!Job@{Job}}
+\index{Job@{Job}!JobGroup@{JobGroup}}
+\doxysubsubsection{\texorpdfstring{Job}{Job}}
+{\footnotesize\ttfamily \label{class_job_group_aa86b51f982fbafa9991ab2eff40c93d2} 
+using \mbox{\hyperlink{class_job_group_aa86b51f982fbafa9991ab2eff40c93d2}{Job\+Group\+::\+Job}} = std\+::pair$<$\mbox{\hyperlink{struct_priority}{Priority}}, std\+::function$<$void()$>$$>$\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_job_scheduler_8h_source}{Job\+Scheduler.\+h}} の \mbox{\hyperlink{_job_scheduler_8h_source_l00059}{59}} 行目に定義があります。
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_job_group_doc-constructors}
+\doxysubsection{構築子と解体子}
+\Hypertarget{class_job_group_a563c88b786e3bebe668cc242898c8ff9}\index{JobGroup@{JobGroup}!JobGroup@{JobGroup}}
+\index{JobGroup@{JobGroup}!JobGroup@{JobGroup}}
+\doxysubsubsection{\texorpdfstring{JobGroup()}{JobGroup()}}
+{\footnotesize\ttfamily \label{class_job_group_a563c88b786e3bebe668cc242898c8ff9} 
+Job\+Group\+::\+Job\+Group (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{job\+\_\+max\+\_\+count}{ = {\ttfamily 10000}}\end{DoxyParamCaption})}
+
+
+
+コンストラクタ 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{in}}  & {\em job\+\_\+max\+\_\+count} & ジョブ登録最大数 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_job_scheduler_8cpp_source}{Job\+Scheduler.\+cpp}} の \mbox{\hyperlink{_job_scheduler_8cpp_source_l00128}{128}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_job_scheduler_8h_source_l00062}{job\+\_\+free\+\_\+list\+\_\+}}, \mbox{\hyperlink{_job_scheduler_8h_source_l00061}{jobs\+\_\+}}.
+
+\Hypertarget{class_job_group_aa7fca90d8c58bd00c456c8f78b59252b}\index{JobGroup@{JobGroup}!````~JobGroup@{\texorpdfstring{$\sim$}{\string~}JobGroup}}
+\index{````~JobGroup@{\texorpdfstring{$\sim$}{\string~}JobGroup}!JobGroup@{JobGroup}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}JobGroup()}{\string~JobGroup()}}
+{\footnotesize\ttfamily \label{class_job_group_aa7fca90d8c58bd00c456c8f78b59252b} 
+virtual Job\+Group\+::\texorpdfstring{$\sim$}{\string~}\+Job\+Group (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}
+
+
+
+デストラクタ 
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_job_group_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_job_group_ad092361ce59002d8c17ca5942111bedd}\index{JobGroup@{JobGroup}!disableJob@{disableJob}}
+\index{disableJob@{disableJob}!JobGroup@{JobGroup}}
+\doxysubsubsection{\texorpdfstring{disableJob()}{disableJob()}}
+{\footnotesize\ttfamily \label{class_job_group_ad092361ce59002d8c17ca5942111bedd} 
+void Job\+Group\+::disable\+Job (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_job_handle}{Job\+Handle}} \&}]{job\+\_\+handle}{}\end{DoxyParamCaption})}
+
+
+
+対象のジョブを無効にする 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{in}}  & {\em job\+\_\+handle} & ジョブハンドル \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{覚え書き}
+無効化されたジョブは登録状態のまま呼び出しが停止されます 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_job_scheduler_8cpp_source}{Job\+Scheduler.\+cpp}} の \mbox{\hyperlink{_job_scheduler_8cpp_source_l00116}{116}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_job_scheduler_8h_source_l00061}{jobs\+\_\+}}.
+
+\Hypertarget{class_job_group_adb2845cb194e0af55549e0c4838e38dd}\index{JobGroup@{JobGroup}!enableJob@{enableJob}}
+\index{enableJob@{enableJob}!JobGroup@{JobGroup}}
+\doxysubsubsection{\texorpdfstring{enableJob()}{enableJob()}}
+{\footnotesize\ttfamily \label{class_job_group_adb2845cb194e0af55549e0c4838e38dd} 
+void Job\+Group\+::enable\+Job (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_job_handle}{Job\+Handle}} \&}]{job\+\_\+handle}{}\end{DoxyParamCaption})}
+
+
+
+対象のジョブを有効にする 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{in}}  & {\em job\+\_\+handle} & ジョブハンドル \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{覚え書き}
+初期状態は「有効」になっていますが、disable\+Job()で無効化されたジョブを再び有効化できます。 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_job_scheduler_8cpp_source}{Job\+Scheduler.\+cpp}} の \mbox{\hyperlink{_job_scheduler_8cpp_source_l00104}{104}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_job_scheduler_8h_source_l00061}{jobs\+\_\+}}.
+
+\Hypertarget{class_job_group_a30bbab267a7c076c7894044742bf1cf3}\index{JobGroup@{JobGroup}!execute@{execute}}
+\index{execute@{execute}!JobGroup@{JobGroup}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{class_job_group_a30bbab267a7c076c7894044742bf1cf3} 
+void Job\+Group\+::execute (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+ジョブを一括実行します 
+
+
+
+ \mbox{\hyperlink{_job_scheduler_8cpp_source}{Job\+Scheduler.\+cpp}} の \mbox{\hyperlink{_job_scheduler_8cpp_source_l00027}{27}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_job_scheduler_8h_source_l00063}{job\+\_\+used\+\_\+list\+\_\+}}, \mbox{\hyperlink{_job_scheduler_8h_source_l00061}{jobs\+\_\+}}.
+
+\Hypertarget{class_job_group_a66b72665825d66068ed3da48c65e2f3e}\index{JobGroup@{JobGroup}!registerJob@{registerJob}}
+\index{registerJob@{registerJob}!JobGroup@{JobGroup}}
+\doxysubsubsection{\texorpdfstring{registerJob()}{registerJob()}}
+{\footnotesize\ttfamily \label{class_job_group_a66b72665825d66068ed3da48c65e2f3e} 
+\mbox{\hyperlink{struct_job_handle}{Job\+Handle}} Job\+Group\+::register\+Job (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_priority}{Priority}} \&}]{priority}{, }\item[{const std\+::function$<$ void()$>$ \&}]{func}{}\end{DoxyParamCaption})}
+
+
+
+ジョブを登録します 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{in}}  & {\em priority} & 実行優先順位 \\
+\hline
+\mbox{\texttt{in}}  & {\em func} & 実行する関数 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{戻り値}
+登録されたジョブハンドル (0なら登録失敗) 
+\end{DoxyReturn}
+\begin{DoxyNote}{覚え書き}
+一度登録状態になったジョブは常に登録されたままになります。 
+\end{DoxyNote}
+
+
+ \mbox{\hyperlink{_job_scheduler_8cpp_source}{Job\+Scheduler.\+cpp}} の \mbox{\hyperlink{_job_scheduler_8cpp_source_l00063}{63}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_job_scheduler_8h_source_l00062}{job\+\_\+free\+\_\+list\+\_\+}}, \mbox{\hyperlink{_job_scheduler_8h_source_l00063}{job\+\_\+used\+\_\+list\+\_\+}}, \mbox{\hyperlink{_job_scheduler_8h_source_l00061}{jobs\+\_\+}}.
+
+\Hypertarget{class_job_group_a8b34a6d175b3e0d699716d3f300a5182}\index{JobGroup@{JobGroup}!unregisterJob@{unregisterJob}}
+\index{unregisterJob@{unregisterJob}!JobGroup@{JobGroup}}
+\doxysubsubsection{\texorpdfstring{unregisterJob()}{unregisterJob()}}
+{\footnotesize\ttfamily \label{class_job_group_a8b34a6d175b3e0d699716d3f300a5182} 
+void Job\+Group\+::unregister\+Job (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_job_handle}{Job\+Handle}} \&}]{job\+\_\+handle}{}\end{DoxyParamCaption})}
+
+
+
+ジョブを登録解除します 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{in}}  & {\em ジョブハンドル} & \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_job_scheduler_8cpp_source}{Job\+Scheduler.\+cpp}} の \mbox{\hyperlink{_job_scheduler_8cpp_source_l00082}{82}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_job_scheduler_8h_source_l00062}{job\+\_\+free\+\_\+list\+\_\+}}, \mbox{\hyperlink{_job_scheduler_8h_source_l00063}{job\+\_\+used\+\_\+list\+\_\+}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_job_group_doc-variable-members}
+\doxysubsection{メンバ詳解}
+\Hypertarget{class_job_group_a12f17c619bf9d2802a03952523b6821a}\index{JobGroup@{JobGroup}!job\_free\_list\_@{job\_free\_list\_}}
+\index{job\_free\_list\_@{job\_free\_list\_}!JobGroup@{JobGroup}}
+\doxysubsubsection{\texorpdfstring{job\_free\_list\_}{job\_free\_list\_}}
+{\footnotesize\ttfamily \label{class_job_group_a12f17c619bf9d2802a03952523b6821a} 
+std\+::vector$<$\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}$>$ Job\+Group\+::job\+\_\+free\+\_\+list\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+空いているジョブスロットの一覧 
+
+
+
+ \mbox{\hyperlink{_job_scheduler_8h_source}{Job\+Scheduler.\+h}} の \mbox{\hyperlink{_job_scheduler_8h_source_l00062}{62}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_job_scheduler_8cpp_source_l00128}{Job\+Group()}}, \mbox{\hyperlink{_job_scheduler_8cpp_source_l00063}{register\+Job()}}, \mbox{\hyperlink{_job_scheduler_8cpp_source_l00082}{unregister\+Job()}}.
+
+\Hypertarget{class_job_group_a716faa9cc3044178ef5fffeb316b89bc}\index{JobGroup@{JobGroup}!job\_used\_list\_@{job\_used\_list\_}}
+\index{job\_used\_list\_@{job\_used\_list\_}!JobGroup@{JobGroup}}
+\doxysubsubsection{\texorpdfstring{job\_used\_list\_}{job\_used\_list\_}}
+{\footnotesize\ttfamily \label{class_job_group_a716faa9cc3044178ef5fffeb316b89bc} 
+std\+::vector$<$\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}$>$ Job\+Group\+::job\+\_\+used\+\_\+list\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+使用中ジョブスロットの一覧 
+
+
+
+ \mbox{\hyperlink{_job_scheduler_8h_source}{Job\+Scheduler.\+h}} の \mbox{\hyperlink{_job_scheduler_8h_source_l00063}{63}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_job_scheduler_8cpp_source_l00027}{execute()}}, \mbox{\hyperlink{_job_scheduler_8cpp_source_l00063}{register\+Job()}}, \mbox{\hyperlink{_job_scheduler_8cpp_source_l00082}{unregister\+Job()}}.
+
+\Hypertarget{class_job_group_a4b1405e2b617426f68f7038b153d0c24}\index{JobGroup@{JobGroup}!jobs\_@{jobs\_}}
+\index{jobs\_@{jobs\_}!JobGroup@{JobGroup}}
+\doxysubsubsection{\texorpdfstring{jobs\_}{jobs\_}}
+{\footnotesize\ttfamily \label{class_job_group_a4b1405e2b617426f68f7038b153d0c24} 
+std\+::vector$<$\mbox{\hyperlink{class_job_group_aa86b51f982fbafa9991ab2eff40c93d2}{Job}}$>$ Job\+Group\+::jobs\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ジョブ実体 
+
+
+
+ \mbox{\hyperlink{_job_scheduler_8h_source}{Job\+Scheduler.\+h}} の \mbox{\hyperlink{_job_scheduler_8h_source_l00061}{61}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_job_scheduler_8cpp_source_l00116}{disable\+Job()}}, \mbox{\hyperlink{_job_scheduler_8cpp_source_l00104}{enable\+Job()}}, \mbox{\hyperlink{_job_scheduler_8cpp_source_l00027}{execute()}}, \mbox{\hyperlink{_job_scheduler_8cpp_source_l00128}{Job\+Group()}}, \mbox{\hyperlink{_job_scheduler_8cpp_source_l00063}{register\+Job()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_job_scheduler_8h}{Job\+Scheduler.\+h}}\item 
+\mbox{\hyperlink{_job_scheduler_8cpp}{Job\+Scheduler.\+cpp}}\end{DoxyCompactItemize}

@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['close_5fdistance_0',['CLOSE_DISTANCE',['../df/ddc/class_little_quest_1_1_boss.html#a0e40093dbd4fc71d34b87c140574c386',1,'LittleQuest::Boss']]],
-  ['combo_5fbuff_5f0_1',['COMBO_BUFF_0',['../d7/def/class_little_quest_1_1_component_combo.html#aa27404e2cf80c48fae6c9501931971b6',1,'LittleQuest::ComponentCombo']]],
-  ['combo_5fbuff_5f1_2',['COMBO_BUFF_1',['../d7/def/class_little_quest_1_1_component_combo.html#a873f520ee8d547bc818f215bed166085',1,'LittleQuest::ComponentCombo']]],
-  ['combo_5fbuff_5f2_3',['COMBO_BUFF_2',['../d7/def/class_little_quest_1_1_component_combo.html#a8cb36f7c644fd0763c1536cc19c02fdc',1,'LittleQuest::ComponentCombo']]],
-  ['combo_5fbuff_5f3_4',['COMBO_BUFF_3',['../d7/def/class_little_quest_1_1_component_combo.html#a1b90c3d4491b5bfb33ec0f60b44158a3',1,'LittleQuest::ComponentCombo']]],
-  ['combo_5ftimer_5',['COMBO_TIMER',['../d7/def/class_little_quest_1_1_component_combo.html#a3c4dcf87738c6c6464c18aa7eaeb60ae',1,'LittleQuest::ComponentCombo']]],
-  ['cut_5fscene_5fpos_5f1_6',['CUT_SCENE_POS_1',['../d3/d35/class_little_quest_1_1_stage01.html#a11b9f828cff202b0c93f53f7bf6fcb8b',1,'LittleQuest::Stage01']]],
-  ['cut_5fscene_5fpos_5f2_7',['CUT_SCENE_POS_2',['../d3/d35/class_little_quest_1_1_stage01.html#a0cb215181eec99f100ba55fdb4dd8abb',1,'LittleQuest::Stage01']]]
+  ['back_5fangle_0',['BACK_ANGLE',['../de/df7/class_little_quest_1_1_maw_j_laygo.html#afddf056cbe1a84e7175861999725cfaf',1,'LittleQuest::MawJLaygo']]],
+  ['base_5fatk_1',['BASE_ATK',['../da/db1/class_little_quest_1_1_player.html#adc008057e202fd575903069cd5c7be8d',1,'LittleQuest::Player']]],
+  ['base_5fspeed_2',['BASE_SPEED',['../da/db1/class_little_quest_1_1_player.html#a06342bfcdf65a1e543d3345a84e00369',1,'LittleQuest::Player']]],
+  ['boss_5fdeath_5fcam_3',['BOSS_DEATH_CAM',['../d3/d35/class_little_quest_1_1_stage01.html#a0348a09400de1e4ff4c1f3d8f5b217f5',1,'LittleQuest::Stage01']]],
+  ['boss_5fspawn_5fpos_4',['BOSS_SPAWN_POS',['../d3/d35/class_little_quest_1_1_stage01.html#aac5473988fdcbceb3653829fb1dafdad',1,'LittleQuest::Stage01']]],
+  ['brokenhouse_5fpos_5',['BROKENHOUSE_POS',['../d3/d35/class_little_quest_1_1_stage01.html#ad178d33adb0ce09268d96149738a071f',1,'LittleQuest::Stage01']]]
 ];

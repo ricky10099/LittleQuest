@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['charge_0',['CHARGE',['../df/ddc/class_little_quest_1_1_boss.html#afbc72d92cc06c7165037bc32546b4811afa6cc2e8fb6e35947271f97b35d1d572',1,'LittleQuest::Boss']]],
-  ['charge_5fpunch_1',['CHARGE_PUNCH',['../df/ddc/class_little_quest_1_1_boss.html#a2fa4261fc567ebac14795b3ec3b1620aab17a5d6a527b956e249794380d76f031',1,'LittleQuest::Boss']]],
-  ['chase_2',['CHASE',['../df/ddc/class_little_quest_1_1_boss.html#a31a87ee38296b9bc58726ad3e120193fa60a8594d2c87f1e5e7e0f2dc77c22320',1,'LittleQuest::Boss']]],
-  ['chasing_3',['CHASING',['../db/d2a/class_little_quest_1_1_enemy.html#a911a547534f6dffb9d4b722175976db4ab1cdb24e3483650f45299987269d835e',1,'LittleQuest::Enemy']]],
-  ['combo5_4',['COMBO5',['../df/ddc/class_little_quest_1_1_boss.html#a2fa4261fc567ebac14795b3ec3b1620aa86e2c132e1414011ba463bdca990c2fd',1,'LittleQuest::Boss']]]
+  ['charge_0',['CHARGE',['../de/df7/class_little_quest_1_1_maw_j_laygo.html#ad08808f3cbc60804e0c392aaa82ef2daa0405a707a4790a264c10e6cacded18b3',1,'LittleQuest::MawJLaygo']]],
+  ['charge_5fexplode_1',['CHARGE_EXPLODE',['../de/df7/class_little_quest_1_1_maw_j_laygo.html#a3212882984a13545b270bdf78595fdd5a43213f3a18c6d3099f55dd23ad211e17',1,'LittleQuest::MawJLaygo']]],
+  ['charge_5fpunch_2',['CHARGE_PUNCH',['../de/df7/class_little_quest_1_1_maw_j_laygo.html#a3212882984a13545b270bdf78595fdd5a3e568bfbffa4978a46c14227b33ed17a',1,'LittleQuest::MawJLaygo']]],
+  ['chase_3',['CHASE',['../de/df7/class_little_quest_1_1_maw_j_laygo.html#a488520ca2d67b944b1c88996697b88b5a2f0492938095f67d986cf0fb13f02385',1,'LittleQuest::MawJLaygo::CHASE'],['../d0/d04/class_little_quest_1_1_mob_enemy.html#ab00dda322055369faef3a11c177beec4a2f0492938095f67d986cf0fb13f02385',1,'LittleQuest::MobEnemy::CHASE']]],
+  ['combo5_4',['COMBO5',['../de/df7/class_little_quest_1_1_maw_j_laygo.html#a3212882984a13545b270bdf78595fdd5a25d9a772ba69e6f7b24f4f2ae83052c9',1,'LittleQuest::MawJLaygo']]]
 ];

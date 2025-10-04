@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['angry_0',['ANGRY',['../df/ddc/class_little_quest_1_1_boss.html#a31a87ee38296b9bc58726ad3e120193fa179f3ce0442e0fc42accf422c0a4cdc9',1,'LittleQuest::Boss']]],
-  ['angry_5faura_1',['ANGRY_AURA',['../df/ddc/class_little_quest_1_1_boss.html#afbc72d92cc06c7165037bc32546b4811a41f8c3dd22f834771eb33419c4c8a273',1,'LittleQuest::Boss']]],
-  ['attack_2',['ATTACK',['../df/ddc/class_little_quest_1_1_boss.html#a31a87ee38296b9bc58726ad3e120193fa244822ef864130956c94779df2bf26e3',1,'LittleQuest::Boss::ATTACK()'],['../da/db1/class_little_quest_1_1_player.html#ab147932effadd1fa9bda0d2f88c2b8efac312ee127e0b5d577f36c3e8f3338c07',1,'LittleQuest::Player::ATTACK()'],['../db/d2a/class_little_quest_1_1_enemy.html#a911a547534f6dffb9d4b722175976db4ac6ddd0f72ff2fd344693b9ca8d483871',1,'LittleQuest::Enemy::ATTACK()']]]
+  ['angry_0',['ANGRY',['../de/df7/class_little_quest_1_1_maw_j_laygo.html#a488520ca2d67b944b1c88996697b88b5a01ea88d643afda5305eabd30ca4c33fc',1,'LittleQuest::MawJLaygo']]],
+  ['angry_5faura_1',['ANGRY_AURA',['../de/df7/class_little_quest_1_1_maw_j_laygo.html#ad08808f3cbc60804e0c392aaa82ef2daa64dc344995abd99bedc8e4df77601532',1,'LittleQuest::MawJLaygo']]],
+  ['attack_2',['ATTACK',['../da/db1/class_little_quest_1_1_player.html#ab147932effadd1fa9bda0d2f88c2b8efac312ee127e0b5d577f36c3e8f3338c07',1,'LittleQuest::Player::ATTACK'],['../de/df7/class_little_quest_1_1_maw_j_laygo.html#a488520ca2d67b944b1c88996697b88b5ac6ddd0f72ff2fd344693b9ca8d483871',1,'LittleQuest::MawJLaygo::ATTACK'],['../d0/d04/class_little_quest_1_1_mob_enemy.html#ab00dda322055369faef3a11c177beec4ac6ddd0f72ff2fd344693b9ca8d483871',1,'LittleQuest::MobEnemy::ATTACK']]]
 ];

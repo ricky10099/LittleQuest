@@ -1,138 +1,185 @@
-\hypertarget{_mutant_8cpp_source}{}\doxysection{Mutant.\+cpp}
-\label{_mutant_8cpp_source}\index{Mutant.cpp@{Mutant.cpp}}
-\mbox{\hyperlink{_mutant_8cpp}{Go to the documentation of this file.}}
+\doxysection{Mutant.\+cpp}
+\hypertarget{_mutant_8cpp_source}{}\label{_mutant_8cpp_source}\index{Mutant.cpp@{Mutant.cpp}}
+\mbox{\hyperlink{_mutant_8cpp}{\mbox{[}詳解\mbox{]}}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_mutant_8h}{Mutant.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}../Components/ComponentHP.h"{}}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00003}00003\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <System/Component/Component.h>}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentAttachModel.h>}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCamera.h>}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionCapsule.h>}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionModel.h>}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionSphere.h>}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentModel.h>}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentSpringArm.h>}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentTargetTracking.h>}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00014}00014\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_little_quest}{LittleQuest}}\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00015}\mbox{\hyperlink{namespace_little_quest_afd08af19217b786317928fc8252303e8}{00015}}\ \mbox{\hyperlink{namespace_little_quest_a4f4793ee72ca4c547385306dfeb36b35}{BP\_OBJECT\_IMPL}}(\mbox{\hyperlink{class_little_quest_1_1_mutant}{Mutant}},\ \textcolor{stringliteral}{"{}LittleQuest/Mutant"{}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_camera_8h}{Camera.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00003}00003\ \textcolor{comment}{//\#include\ "{}LittleQuest/Components/ComponentHP.h"{}}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_tool_8h}{LittleQuest/Tool.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_player_8h}{LittleQuest/Objects/Player.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <System/Component/Component.h>}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentAttachModel.h>}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCamera.h>}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionCapsule.h>}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionModel.h>}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionSphere.h>}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentModel.h>}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentSpringArm.h>}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentTargetTracking.h>}}
 \DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00016}00016\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00017}\mbox{\hyperlink{class_little_quest_1_1_mutant_a7b22801d7c3a0adf648135291e8550f3}{00017}}\ MutantPtr\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a7b22801d7c3a0adf648135291e8550f3}{Mutant::Create}}(\textcolor{keyword}{const}\ float3\&\ pos,\ \textcolor{keywordtype}{bool}\ isPatrol)\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{keyword}{auto}\ enemy\ =\ Scene::CreateObjectDelayInitialize<Mutant>();}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00019}00019\ \ \ \ \ enemy-\/>SetName(\textcolor{stringliteral}{"{}Mutant"{}});}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00020}00020\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keyword}{auto}\ mat\ =\ HelperLib::Math::CreateMatrixByFrontVector(\{0,\ 0,\ 1\});}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00022}00022\ \ \ \ \ enemy-\/>SetMatrix(mat);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00023}00023\ \ \ \ \ enemy-\/>SetTranslate(pos);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00024}00024\ \ \ \ \ enemy-\/>pHP\ =\ enemy-\/>AddComponent<\mbox{\hyperlink{class_little_quest_1_1_component_h_p}{ComponentHP}}>();}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00025}00025\ \ \ \ \ enemy-\/>pHP.lock()-\/>\mbox{\hyperlink{class_little_quest_1_1_component_h_p_aa40b3a9584bc9bad72d8c837ce902517}{SetHP}}(200);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00026}00026\ \ \ \ \ enemy-\/>spawnPos\ \ \ =\ pos;}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00027}00027\ \ \ \ \ enemy-\/>spawnPos.y\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00028}00028\ \ \ \ \ enemy-\/>isPatrol\ \ \ =\ \mbox{\hyperlink{class_little_quest_1_1_enemy_a9057aaba6ca845792990e7f4babc25fa}{isPatrol}};}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00029}00029\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00030}00030\ \ \ \ \ \textcolor{keywordflow}{return}\ enemy;}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00031}00031\ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00032}00032\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00033}\mbox{\hyperlink{class_little_quest_1_1_mutant_a53a38aebe12cc875ecc25dfc2d7943c8}{00033}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a53a38aebe12cc875ecc25dfc2d7943c8}{Mutant::Init}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00034}00034\ \ \ \ \ Super::Init();}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00035}00035\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00036}00036\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_enemy_ab91ff01a86875a75f1a577fafda2af52}{pModel}}\ =\ AddComponent<ComponentModel>(\textcolor{stringliteral}{"{}data/LittleQuest/Model/Mutant/Mutant.mv1"{}});}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00037}00037\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_enemy_ab91ff01a86875a75f1a577fafda2af52}{pModel}}.lock()-\/>SetScaleAxisXYZ(\{0.05f\});}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00038}00038\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_enemy_ab91ff01a86875a75f1a577fafda2af52}{pModel}}.lock()-\/>SetAnimation(\{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \{\ \ \textcolor{stringliteral}{"{}idle"{}},\ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/MutantIdle.mv1"{}},\ 0,\ 1.0f\},}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \{\ \ \textcolor{stringliteral}{"{}walk"{}},\ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/MutantWalking.mv1"{}},\ 0,\ 1.0f\},}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \{\ \ \ \textcolor{stringliteral}{"{}run"{}},\ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/MutantRun.mv1"{}},\ 0,\ 1.0f\},}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}attack"{}},\ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1"{}},\ 0,\ 1.0f\},}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}getHit"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/HitToBody.mv1"{}},\ 0,\ 2.0f\},}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \{\ \ \ \textcolor{stringliteral}{"{}die"{}},\ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/MutantDying.mv1"{}},\ 0,\ 1.0f\}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00045}00045\ \ \ \ \ \});}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00046}00046\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_enemy_ab91ff01a86875a75f1a577fafda2af52}{pModel}}.lock()-\/>PlayAnimation(\textcolor{stringliteral}{"{}idle"{}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00017}00017\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_little_quest}{LittleQuest}}\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00018}\mbox{\hyperlink{class_little_quest_1_1_mutant_a63eb75a8c37d702270e14d74baef156e}{00018}}\ MutantPtr\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a63eb75a8c37d702270e14d74baef156e}{Mutant::Create}}(\textcolor{keyword}{const}\ float3\&\ pos,\ \textcolor{keywordtype}{bool}\ isPatrol)\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{keyword}{auto}\ pMutant\ =\ Scene::CreateObjectDelayInitialize<Mutant>();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00020}00020\ \ \ \ \ pMutant-\/>SetName(\textcolor{stringliteral}{"{}Mutant"{}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00021}00021\ \ \ \ \ pMutant-\/>SetMatrix(HelperLib::Math::CreateMatrixByFrontVector(\{0,\ 0,\ 1\}));}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00022}00022\ \ \ \ \ pMutant-\/>SetTranslate(pos);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00023}00023\ \ \ \ \ pMutant-\/>\_isPatrol\ =\ isPatrol;}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{return}\ pMutant;}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00025}00025\ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00027}\mbox{\hyperlink{class_little_quest_1_1_mutant_a53a38aebe12cc875ecc25dfc2d7943c8}{00027}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a53a38aebe12cc875ecc25dfc2d7943c8}{Mutant::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00028}00028\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}\ =\ AddComponent<ComponentModel>(\textcolor{stringliteral}{"{}data/LittleQuest/Model/Mutant/Mutant.mv1"{}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00029}00029\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>SetScaleAxisXYZ(\{0.08f\});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00030}00030\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>SetAnimation(\{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \{\ \ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4a043c46947879f703e26fb528952786ba}{MobEnemyState::SPAWN}}),\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/Climb.mv1"{}},\ 0,\ 2.0f\},}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \{\ \ \ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4aa5daf7f2ebbba4975d61dab1c40188c7}{MobEnemyState::IDLE}}),\ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/MutantIdle.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4a5383e862b017e18e1087d61e9f2684d9}{MobEnemyState::PATROL}}),\ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/MutantWalking.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \{\ \ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4a2f0492938095f67d986cf0fb13f02385}{MobEnemyState::CHASE}}),\ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/MutantRun.mv1"{}},\ 0,\ 1.0f\},}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \{\ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4ac6ddd0f72ff2fd344693b9ca8d483871}{MobEnemyState::ATTACK}}),\ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/MutantSwiping.mv1"{}},\ 0,\ 2.0f\},}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \{\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4ab6ce6a74e5b900c9fc876ee999f4f80a}{MobEnemyState::GET\_HIT}}),\ \ \ \ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/HeavyHit.mv1"{}},\ 0,\ 2.0f\},}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \{\ \ \ \mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4abb4784231ff45108ee20bad16e4a2e8c}{MobEnemyState::DEAD}}),\ \ \ \textcolor{stringliteral}{"{}data/LittleQuest/Anim/MutantSet/ZombieDeath.mv1"{}},\ 0,\ 2.0f\},}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00038}00038\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00039}00039\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>PlayAnimation(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4aa5daf7f2ebbba4975d61dab1c40188c7}{MobEnemyState::IDLE}}),\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00041}00041\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a9fe5f88070d2a332ef500a42b349cd3a}{\_spawnEffect}}\ =\ LoadEffekseerEffect(\textcolor{stringliteral}{"{}data/LittleQuest/Effect/MobSpawn.efk"{}},\ 2.0f);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00043}00043\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_a16d41ef0cc76c8f07b5ffb0dcd0c62ac}{\_componentHP}}\ =\ AddComponent<ComponentHP>();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00044}00044\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_a16d41ef0cc76c8f07b5ffb0dcd0c62ac}{\_componentHP}}.lock()-\/>SetType(\mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947a6275260c1d44d1aedc5b49666a739815}{ComponentHP::HP\_TYPE::MOB}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00045}00045\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_a16d41ef0cc76c8f07b5ffb0dcd0c62ac}{\_componentHP}}.lock()-\/>SetHP(\mbox{\hyperlink{class_little_quest_1_1_mutant_ad861d29bb27eb0f719cad0552580181b}{MAX\_HP}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00046}00046\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_a16d41ef0cc76c8f07b5ffb0dcd0c62ac}{\_componentHP}}.lock()-\/>SetHPBarOffsetY(15.0f);}
 \DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00047}00047\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{keyword}{auto}\ col\ =\ AddComponent<ComponentCollisionCapsule>();}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00049}00049\ \ \ \ \ col-\/>SetTranslate(\{0,\ 0,\ 0\});}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00050}00050\ \ \ \ \ col-\/>SetRadius(2.5);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00051}00051\ \ \ \ \ col-\/>SetHeight(10);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00052}00052\ \ \ \ \ col-\/>SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00053}00053\ \ \ \ \ col-\/>UseGravity();}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00054}00054\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00055}00055\ \ \ \ \ \textcolor{keyword}{auto}\ colWeapon\ =\ AddComponent<ComponentCollisionCapsule>();}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00056}00056\ \ \ \ \ colWeapon-\/>AttachToModel(\textcolor{stringliteral}{"{}mixamorig:LeftHand"{}});}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00057}00057\ \ \ \ \ colWeapon-\/>SetTranslate(\{0,\ 0,\ 0\});}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00058}00058\ \ \ \ \ colWeapon-\/>SetRadius(0.5);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00059}00059\ \ \ \ \ colWeapon-\/>SetHeight(4);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00060}00060\ \ \ \ \ colWeapon-\/>SetRotationAxisXYZ(\{-\/10,\ 0,\ 20\});}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00061}00061\ \ \ \ \ colWeapon-\/>SetCollisionGroup(ComponentCollision::CollisionGroup::WEAPON);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00062}00062\ \ \ \ \ colWeapon-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00063}00063\ \ \ \ \ colWeapon-\/>Overlap((u32)ComponentCollision::CollisionGroup::PLAYER);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00064}00064\ \ \ \ \ colWeapon-\/>SetName(\textcolor{stringliteral}{"{}MutantWeapon"{}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}\ =\ AddComponent<ComponentCollisionCapsule>();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00049}00049\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>SetTranslate(\{0,\ 0,\ -\/1\});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00050}00050\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>UseGravity(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00051}00051\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>SetHeight(13);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00052}00052\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>SetRadius(2.5);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00053}00053\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>SetMass(100.0f);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00054}00054\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00055}00055\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>Overlap((u32)ComponentCollision::CollisionGroup::GROUND);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a5c2e47356ff328128a06e5c8b6c0102c}{\_leftHandBox}}\ =\ AddComponent<ComponentCollisionCapsule>();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00058}00058\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a5c2e47356ff328128a06e5c8b6c0102c}{\_leftHandBox}}.lock()-\/>AttachToModel(\textcolor{stringliteral}{"{}mixamorig:LeftHand"{}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00059}00059\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a5c2e47356ff328128a06e5c8b6c0102c}{\_leftHandBox}}.lock()-\/>SetTranslate(\{20,\ -\/30,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00060}00060\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a5c2e47356ff328128a06e5c8b6c0102c}{\_leftHandBox}}.lock()-\/>SetHeight(9.0f);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00061}00061\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a5c2e47356ff328128a06e5c8b6c0102c}{\_leftHandBox}}.lock()-\/>SetRadius(1.0f);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00062}00062\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a5c2e47356ff328128a06e5c8b6c0102c}{\_leftHandBox}}.lock()-\/>SetCollisionGroup(ComponentCollision::CollisionGroup::ENEMY\_WEAPON);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00063}00063\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a5c2e47356ff328128a06e5c8b6c0102c}{\_leftHandBox}}.lock()-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00064}00064\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a5c2e47356ff328128a06e5c8b6c0102c}{\_leftHandBox}}.lock()-\/>Overlap(\string~(u32)ComponentCollision::CollisionGroup::NONE);}
 \DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00065}00065\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00067}00067\ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00068}00068\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00069}\mbox{\hyperlink{class_little_quest_1_1_mutant_a6bac0fc4085dc288286eeb58d582f606}{00069}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a6bac0fc4085dc288286eeb58d582f606}{Mutant::Update}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00070}00070\ \ \ \ \ Super::Update();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00066}00066\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a549655352383dc079b531700f0d63786}{\_attackSE}}\ =\ LoadSoundMem(\textcolor{stringliteral}{"{}data/LittleQuest/Audio/SE/EnemyAttack.wav"{}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00068}00068\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a065c8a9ea8c74a021c8daf506bf618a8}{SetAnimList}}();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00070}00070\ \ \ \ \ \textcolor{keywordflow}{return}\ Super::Init();}
 \DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00071}00071\ \}}
 \DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00072}00072\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00073}\mbox{\hyperlink{class_little_quest_1_1_mutant_a3622022fe6e68bf655fa6d92740bbe3e}{00073}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a3622022fe6e68bf655fa6d92740bbe3e}{Mutant::LateDraw}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00074}00074\ \ \ \ \ Super::LateDraw();}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00075}00075\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_enemy_a0a458e4614dea5d7c8e617046fe7a5f9}{pHP}}.lock()-\/>DrawHPBar();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00073}\mbox{\hyperlink{class_little_quest_1_1_mutant_a1a7b020eb40279ea255e44ea460091d6}{00073}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a1a7b020eb40279ea255e44ea460091d6}{Mutant::SetToSpawnState}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00074}00074\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>UseGravity(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00075}00075\ \ \ \ \ Super::SetToSpawnState();}
 \DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00076}00076\ \}}
 \DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00077}00077\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00078}\mbox{\hyperlink{class_little_quest_1_1_mutant_aac9739a4e350db10a664b3d31b6ec249}{00078}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_aac9739a4e350db10a664b3d31b6ec249}{Mutant::GUI}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00079}00079\ \ \ \ \ Super::GUI();}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00080}00080\ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00081}00081\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00082}\mbox{\hyperlink{class_little_quest_1_1_mutant_a7f170d46d184b427e26fe6b69df7ae67}{00082}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a7f170d46d184b427e26fe6b69df7ae67}{Mutant::OnHit}}([[maybe\_unused]]\ \textcolor{keyword}{const}\ ComponentCollision::HitInfo\&\ hitInfo)\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00083}00083\ \ \ \ \ \textcolor{keywordflow}{if}(hitInfo.collision\_-\/>GetName()\ ==\ \textcolor{stringliteral}{"{}MutantWeapon"{}})\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ attack\ anim\ 1.3s\ からダメージ発生}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_enemy_ab91ff01a86875a75f1a577fafda2af52}{pModel}}.lock()-\/>GetPlayAnimationName()\ ==\ \textcolor{stringliteral}{"{}attack"{}})\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_enemy_ab91ff01a86875a75f1a577fafda2af52}{pModel}}.lock()-\/>GetAnimationTime()\ >\ 1.3f)\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_enemy_a093918fa030b0ead9206478995a4c72a}{isAttack}}\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00090}00090\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}*\ owner\ =\ hitInfo.hit\_collision\_-\/>GetOwner();}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_enemy_a093918fa030b0ead9206478995a4c72a}{isAttack}})\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ player\ =\ \textcolor{keyword}{dynamic\_cast<}\mbox{\hyperlink{class_little_quest_1_1_player}{Player}}*\textcolor{keyword}{>}(owner))\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_enemy_ad35ba27fe946cb28c1a0cddd5a131b40}{isHitPlayer}})\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_enemy_ad35ba27fe946cb28c1a0cddd5a131b40}{isHitPlayer}}\ =\ \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ player-\/>GetHit(30);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00100}00100\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00101}00101\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00102}00102\ \ \ \ \ Super::OnHit(hitInfo);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00103}00103\ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00104}00104\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00105}\mbox{\hyperlink{class_little_quest_1_1_mutant_a19383e0d48fe273e060358304ebe9bc5}{00105}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a19383e0d48fe273e060358304ebe9bc5}{Mutant::BackToInitialPosition}}(float3\&\ move)\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00106}00106\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ modelPtr\ =\ GetComponent<ComponentModel>())\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ modelPtr-\/>PlayAnimationNoSame(\textcolor{stringliteral}{"{}run"{}},\ \textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00078}\mbox{\hyperlink{class_little_quest_1_1_mutant_aa75f738bae8e19dbaa5e23c6ec9dc7b2}{00078}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_aa75f738bae8e19dbaa5e23c6ec9dc7b2}{Mutant::SetSceneState}}(Scene::SceneState\ state)\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00079}00079\ \ \ \ \ Super::SetSceneState(state);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{switch}(state)\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00081}00081\ \ \ \ \ \textcolor{keywordflow}{case}\ Scene::SceneState::TRANS\_IN:}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a7bf77f5ea2a7425c5b88728c8692ee1b}{\_isReady}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00084}00084\ \ \ \ \ \textcolor{keywordflow}{case}\ Scene::SceneState::GAME:}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a7bf77f5ea2a7425c5b88728c8692ee1b}{\_isReady}})\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a8728d8494887c5351eb40b889148503c}{ChangeState}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4aa5daf7f2ebbba4975d61dab1c40188c7}{MobEnemyState::IDLE}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>Overlap((u32)ComponentCollision::CollisionGroup::NONE);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>UseGravity();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ AddTranslate(\{0,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a7bf77f5ea2a7425c5b88728c8692ee1b}{\_isReady}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00093}00093\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00094}00094\ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00096}\mbox{\hyperlink{class_little_quest_1_1_mutant_a7bfaf0b8d99789571de073bdc8d3e75d}{00096}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a7bfaf0b8d99789571de073bdc8d3e75d}{Mutant::SpawnAction}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00097}00097\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>PlayAnimationNoSame(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4a043c46947879f703e26fb528952786ba}{MobEnemyState::SPAWN}}),\ \textcolor{keyword}{false},\ 0.3f);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00098}00098\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_ae44aa00676156286da2b5d5d987b0af6}{\_playingEffect}}\ =\ PlayEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_mutant_a9fe5f88070d2a332ef500a42b349cd3a}{\_spawnEffect}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00099}00099\ \ \ \ \ SetPosPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_mutant_ae44aa00676156286da2b5d5d987b0af6}{\_playingEffect}},\ GetTranslate().x,\ GetTranslate().y\ +\ 18,\ GetTranslate().z);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>IsPlaying())\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_ae44aa00676156286da2b5d5d987b0af6}{\_playingEffect}}\ =\ StopEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_mutant_ae44aa00676156286da2b5d5d987b0af6}{\_playingEffect}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>PlayAnimationNoSame(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4aa5daf7f2ebbba4975d61dab1c40188c7}{MobEnemyState::IDLE}}),\ \textcolor{keyword}{true},\ 0.0f);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a8728d8494887c5351eb40b889148503c}{ChangeState}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4aa5daf7f2ebbba4975d61dab1c40188c7}{MobEnemyState::IDLE}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>Overlap((u32)ComponentCollision::CollisionGroup::NONE);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock()-\/>UseGravity();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ AddTranslate(\{0,\ 18,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a7bf77f5ea2a7425c5b88728c8692ee1b}{\_isReady}}\ =\ \textcolor{keyword}{true};}
 \DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00108}00108\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00109}00109\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00110}00110\ \ \ \ \ Super::BackToInitialPosition(move);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00111}00111\ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00112}00112\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00113}\mbox{\hyperlink{class_little_quest_1_1_mutant_a6be2f9fb365012b4a113a16e43d6f319}{00113}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a6be2f9fb365012b4a113a16e43d6f319}{Mutant::Patrol}}(float3\&\ move)\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00114}00114\ \ \ \ \ \textcolor{keywordflow}{if}(\textcolor{keyword}{auto}\ modelPtr\ =\ GetComponent<ComponentModel>())\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ modelPtr-\/>PlayAnimationNoSame(\textcolor{stringliteral}{"{}walk"{}},\ \textcolor{keyword}{true});}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00116}00116\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00117}00117\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00118}00118\ \ \ \ \ Super::Patrol(move);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00119}00119\ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00120}00120\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00121}\mbox{\hyperlink{class_little_quest_1_1_mutant_a8a423d169231eb6ce768044fe5c1ae2e}{00121}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8a423d169231eb6ce768044fe5c1ae2e}{Mutant::GetHit}}(\textcolor{keywordtype}{int}\ damage)\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00122}00122\ \ \ \ \ Super::GetHit(damage);}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00123}00123\ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00124}00124\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00125}\mbox{\hyperlink{class_little_quest_1_1_mutant_ad0323121febbcaaa63f986a2aeca3922}{00125}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_ad0323121febbcaaa63f986a2aeca3922}{Mutant::Die}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00126}00126\ \ \ \ \ Super::Die();}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00127}00127\ \}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00128}00128\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00129}00129\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ LittleQuest}}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00130}00130\ }
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00131}00131\ CEREAL\_REGISTER\_TYPE(\mbox{\hyperlink{class_little_quest_1_1_mutant}{LittleQuest::Mutant}})}
-\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00132}00132\ CEREAL\_REGISTER\_POLYMORPHIC\_RELATION(Object,\ \mbox{\hyperlink{class_little_quest_1_1_mutant}{LittleQuest::Mutant}})}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00109}00109\ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00111}\mbox{\hyperlink{class_little_quest_1_1_mutant_aa05d766eaf5997a15ece3a3c5e6b51b8}{00111}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_aa05d766eaf5997a15ece3a3c5e6b51b8}{Mutant::Attack}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00112}00112\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_ad1be0a8b17810d105f5ed8255262f428}{AttackAnimation}}(\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4ac6ddd0f72ff2fd344693b9ca8d483871}{MobEnemyState::ATTACK}}),\ \mbox{\hyperlink{class_little_quest_1_1_character_aa74e71b7a27f1eb13d42b922ce820dca}{\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4ac6ddd0f72ff2fd344693b9ca8d483871}{MobEnemyState::ATTACK}})],\ \{\mbox{\hyperlink{class_little_quest_1_1_mutant_a5c2e47356ff328128a06e5c8b6c0102c}{\_leftHandBox}}.lock()\});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>IsPlaying())\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a00a6e0754d9f5c8b86b189c8be07a73f}{\_isHitPlayer}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_af3fdc98aca5ed36f7f7e396f3a1cb407}{\_isHitItem}}\ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a8728d8494887c5351eb40b889148503c}{ChangeState}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4a2f0492938095f67d986cf0fb13f02385}{MobEnemyState::CHASE}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_enemy_abecbfc86b33cc8fa5b5518f9db4dcd7c}{\_waitFor}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a003becb4c0332a3c9d8ec50b71ea77db}{ATTACK\_WAIT\_TIME}};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a8728d8494887c5351eb40b889148503c}{ChangeState}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4ad5cc6a0064b5c25ba37826aa3fda910c}{MobEnemyState::WAIT}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00119}00119\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00120}00120\ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00122}\mbox{\hyperlink{class_little_quest_1_1_mutant_ad1be0a8b17810d105f5ed8255262f428}{00122}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_ad1be0a8b17810d105f5ed8255262f428}{Mutant::AttackAnimation}}(std::string\ animName,\ AnimInfo\&\ animInfo,\ std::vector<ComponentCollisionCapsulePtr>\ atkCol,}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ playSE)\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00124}00124\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>GetPlayAnimationName()\ !=\ animName)\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>PlayAnimationNoSame(animName,\ \textcolor{keyword}{false},\ 0.2f,\ animInfo.animStartTime);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>SetAnimationSpeed(animInfo.animStartSpeed);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a119f79b3ef367bdf2a318f9e92b94a47}{\_playedSE}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00128}00128\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00129}00129\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_a8bfb5f735884fd68e56bd2ce164990cf}{\_currAnimTime}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>GetAnimationPlayTime();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00130}00130\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_character_a8bfb5f735884fd68e56bd2ce164990cf}{\_currAnimTime}}\ >=\ animInfo.triggerStartTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_character_a91502e17c89b565cef9dd2f79aab9357}{\_slowMotion}})\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>SetAnimationSpeed(animInfo.animSpeed\ *\ 0.01f);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}}.lock()-\/>SetAnimationSpeed(animInfo.animSpeed);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ atkCol.size();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ atkCol[i]-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::PLAYER\ |}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (u32)ComponentCollision::CollisionGroup::ITEM);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_mutant_a119f79b3ef367bdf2a318f9e92b94a47}{\_playedSE}}\ \&\&\ playSE)\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ PlaySoundMem(\mbox{\hyperlink{class_little_quest_1_1_mutant_a549655352383dc079b531700f0d63786}{\_attackSE}},\ DX\_PLAYTYPE\_BACK);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ ChangeVolumeSoundMem((\textcolor{keywordtype}{int})(\mbox{\hyperlink{class_little_quest_1_1_mutant_ac154ba1a3a009f87bb32584bac8fc25f}{MAX\_VOLUME}}\ *\ (Scene::GetSEVolume()\ /\ 100.0f)),\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a549655352383dc079b531700f0d63786}{\_attackSE}});}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a119f79b3ef367bdf2a318f9e92b94a47}{\_playedSE}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00146}00146\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00147}00147\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_character_a8bfb5f735884fd68e56bd2ce164990cf}{\_currAnimTime}}\ >=\ animInfo.triggerEndTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ atkCol.size();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ atkCol[i]-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::NONE);}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00151}00151\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00152}00152\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_character_a8bfb5f735884fd68e56bd2ce164990cf}{\_currAnimTime}}\ >=\ animInfo.animCutInTime)\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_a00a6e0754d9f5c8b86b189c8be07a73f}{\_isHitPlayer}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mob_enemy_af3fdc98aca5ed36f7f7e396f3a1cb407}{\_isHitItem}}\ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00155}00155\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00156}00156\ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00158}\mbox{\hyperlink{class_little_quest_1_1_mutant_ad0323121febbcaaa63f986a2aeca3922}{00158}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_ad0323121febbcaaa63f986a2aeca3922}{Mutant::Die}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00159}00159\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock())\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ RemoveComponent(\mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.lock());}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_mutant_a8d5ef61de0ad82f5fc79acd278b60f25}{\_bodyBox}}.reset();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00162}00162\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00163}00163\ \ \ \ \ Super::Die();}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00164}00164\ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00166}\mbox{\hyperlink{class_little_quest_1_1_mutant_a065c8a9ea8c74a021c8daf506bf618a8}{00166}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_mutant_a065c8a9ea8c74a021c8daf506bf618a8}{Mutant::SetAnimList}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00167}00167\ \ \ \ \ AnimInfo\ info\ \ \ \ \ \ \ \ \ =\ \{\};}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00168}00168\ \ \ \ \ info.triggerStartTime\ =\ 75;}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00169}00169\ \ \ \ \ info.triggerEndTime\ \ \ =\ 83;}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00170}00170\ \ \ \ \ info.animCutInTime\ \ \ \ =\ 83;}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00171}00171\ \ \ \ \ info.animSpeed\ \ \ \ \ \ \ \ =\ 1.2f;}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00172}00172\ \ \ \ \ info.animStartSpeed\ \ \ =\ 2.0f;}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00174}00174\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_aa74e71b7a27f1eb13d42b922ce820dca}{\_animList}}[\mbox{\hyperlink{_tool_8h_ac690285bc51765fc0dc9e5fd32fa8f0b}{STR}}(\mbox{\hyperlink{class_little_quest_1_1_mob_enemy_ab00dda322055369faef3a11c177beec4ac6ddd0f72ff2fd344693b9ca8d483871}{MobEnemyState::ATTACK}})]\ =\ info;}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00175}00175\ \}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00176}00176\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ LittleQuest}}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00178}00178\ CEREAL\_REGISTER\_TYPE(\mbox{\hyperlink{class_little_quest_1_1_mutant}{LittleQuest::Mutant}})}
+\DoxyCodeLine{\Hypertarget{_mutant_8cpp_source_l00179}00179\ CEREAL\_REGISTER\_POLYMORPHIC\_RELATION(Object,\ \mbox{\hyperlink{class_little_quest_1_1_mutant}{LittleQuest::Mutant}})}
 
 \end{DoxyCode}

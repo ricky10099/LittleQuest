@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['backflip_0',['BACKFLIP',['../df/ddc/class_little_quest_1_1_boss.html#afbc72d92cc06c7165037bc32546b4811a224897840976e08dc30ec1b85e0aef5c',1,'LittleQuest::Boss']]],
-  ['backflip_5fcharge_5fpunch_1',['BACKFLIP_CHARGE_PUNCH',['../df/ddc/class_little_quest_1_1_boss.html#a2fa4261fc567ebac14795b3ec3b1620aa270c4d40e7d73699ae358a978b6c50d2',1,'LittleQuest::Boss']]],
-  ['backflip_5fpunch_2',['BACKFLIP_PUNCH',['../df/ddc/class_little_quest_1_1_boss.html#a2fa4261fc567ebac14795b3ec3b1620aa3a752eaa1ebb18aefb49f57d4dd5c2a0',1,'LittleQuest::Boss']]],
-  ['boss_3',['BOSS',['../df/db3/class_little_quest_1_1_component_h_p.html#acb43c6ba5deafb62726668be6f01b947ae44978313da6c0af1070ef5d56bf2859',1,'LittleQuest::ComponentHP']]]
+  ['backflip_0',['BACKFLIP',['../de/df7/class_little_quest_1_1_maw_j_laygo.html#ad08808f3cbc60804e0c392aaa82ef2daa99546d39a497b3d51b221f3367666afb',1,'LittleQuest::MawJLaygo']]],
+  ['backflip_5fpunch_1',['BACKFLIP_PUNCH',['../de/df7/class_little_quest_1_1_maw_j_laygo.html#a3212882984a13545b270bdf78595fdd5a56d3364e9f85ba5bad703534b2383bb1',1,'LittleQuest::MawJLaygo']]],
+  ['boss_2',['BOSS',['../df/db3/class_little_quest_1_1_component_h_p.html#acb43c6ba5deafb62726668be6f01b947ae44978313da6c0af1070ef5d56bf2859',1,'LittleQuest::ComponentHP']]],
+  ['boss_3',['Boss',['../db/d2a/class_little_quest_1_1_enemy.html#a52d2c1724d6b3f39e73c751da9f4d8e4a5859831e2b3db23528c710b1451e13fc',1,'LittleQuest::Enemy']]]
 ];

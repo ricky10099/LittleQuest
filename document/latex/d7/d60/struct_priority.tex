@@ -1,0 +1,279 @@
+\doxysection{Priority 構造体}
+\hypertarget{struct_priority}{}\label{struct_priority}\index{Priority@{Priority}}
+
+
+{\ttfamily \#include $<$Priority.\+h$>$}
+
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_priority_af994d73e65839ca7abe25ed8211a13be}{Priority}} (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} priority=0, \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} sub\+\_\+priority=0)
+\item 
+\mbox{\hyperlink{struct_priority_a5da81511a85af62645903db5c70f817b}{Priority}} (const \mbox{\hyperlink{struct_priority}{Priority}} \&other)
+\begin{DoxyCompactList}\small\item\em コンストラクタ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_priority}{Priority}} \& \mbox{\hyperlink{struct_priority_ac1cfdc8b51503ad0cbb4c9c520caf6be}{operator=}} (const \mbox{\hyperlink{struct_priority}{Priority}} \&other)
+\begin{DoxyCompactList}\small\item\em 代入 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_priority_acf7082f7719bb64ddac681a43d497d35}{operator$<$}} (const \mbox{\hyperlink{struct_priority}{Priority}} \&other) const
+\begin{DoxyCompactList}\small\item\em 比較 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_priority_a3f20b0e7a2daaebb148e3a9af1a69242}{operator$>$}} (const \mbox{\hyperlink{struct_priority}{Priority}} \&other) const
+\begin{DoxyCompactList}\small\item\em 比較 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_priority_a5f0fe27360e4317130ceb6690697a0aa}{operator==}} (const \mbox{\hyperlink{struct_priority}{Priority}} \&other) const
+\begin{DoxyCompactList}\small\item\em 比較 \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{struct_priority_a9135d6940b97af2120f7ea4c7b1d3f41}{operator!=}} (const \mbox{\hyperlink{struct_priority}{Priority}} \&other) const
+\begin{DoxyCompactList}\small\item\em 比較 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_priority_a2acc9ef730e8505e0517df679ddae773}{operator u64}} () const
+\begin{DoxyCompactList}\small\item\em キャスト \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>struct \{\\
+\>\>\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{struct_priority_aed41870263e082af9b85698f0d983554}{sub\_priority\_}}\\
+\>\>\>{\em サブ優先度 }\\
+\>\>\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} \mbox{\hyperlink{struct_priority_a30350ca248cf7cce1f5c330f84575bfc}{priority\_}}\\
+\>\>\>{\em 優先度 }\\
+\>\} \\
+\>\mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} \mbox{\hyperlink{struct_priority_a9b6b4428818c8cbd65e2a03b9e5c39eb}{value\_}}\\
+\}; \\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+優先度 上位 priotiry 下位 sub\+\_\+priority の値を一括して扱うソート可能な値です
+
+b63 b0 +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ \texorpdfstring{$\vert$}{|} priority \texorpdfstring{$\vert$}{|} sub\+\_\+priority \texorpdfstring{$\vert$}{|} +-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/---+ \texorpdfstring{$\vert$}{|}\texorpdfstring{$<$}{<}--- value\+\_\+ -\/-\/-\/\texorpdfstring{$>$}{>}\texorpdfstring{$\vert$}{|} 
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00018}{18}} 行目に定義があります。
+
+
+
+\label{doc-constructors}
+\Hypertarget{struct_priority_doc-constructors}
+\doxysubsection{構築子と解体子}
+\Hypertarget{struct_priority_af994d73e65839ca7abe25ed8211a13be}\index{Priority@{Priority}!Priority@{Priority}}
+\index{Priority@{Priority}!Priority@{Priority}}
+\doxysubsubsection{\texorpdfstring{Priority()}{Priority()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{struct_priority_af994d73e65839ca7abe25ed8211a13be} 
+Priority\+::\+Priority (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{priority}{ = {\ttfamily 0}, }\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{sub\+\_\+priority}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+コンストラクタ 
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{in}}  & {\em priority} & 優先度 \\
+\hline
+\mbox{\texttt{in}}  & {\em sub\+\_\+priority} & サブ優先度(任意利用) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00022}{22}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_priority_8h_source_l00063}{priority\+\_\+}}, \mbox{\hyperlink{_priority_8h_source_l00062}{sub\+\_\+priority\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_priority_8h_source_l00051}{operator!=()}}, \mbox{\hyperlink{_priority_8h_source_l00036}{operator$<$()}}, \mbox{\hyperlink{_priority_8h_source_l00030}{operator=()}}, \mbox{\hyperlink{_priority_8h_source_l00046}{operator==()}}, \mbox{\hyperlink{_priority_8h_source_l00041}{operator$>$()}}, \mbox{\hyperlink{_priority_8h_source_l00025}{Priority()}}.
+
+\Hypertarget{struct_priority_a5da81511a85af62645903db5c70f817b}\index{Priority@{Priority}!Priority@{Priority}}
+\index{Priority@{Priority}!Priority@{Priority}}
+\doxysubsubsection{\texorpdfstring{Priority()}{Priority()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{struct_priority_a5da81511a85af62645903db5c70f817b} 
+Priority\+::\+Priority (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_priority}{Priority}} \&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+コンストラクタ 
+
+
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00025}{25}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_priority_8h_source_l00030}{operator=()}}, \mbox{\hyperlink{_priority_8h_source_l00022}{Priority()}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{struct_priority_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{struct_priority_a2acc9ef730e8505e0517df679ddae773}\index{Priority@{Priority}!operator u64@{operator u64}}
+\index{operator u64@{operator u64}!Priority@{Priority}}
+\doxysubsubsection{\texorpdfstring{operator u64()}{operator u64()}}
+{\footnotesize\ttfamily \label{struct_priority_a2acc9ef730e8505e0517df679ddae773} 
+Priority\+::operator \mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+キャスト 
+
+
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00056}{56}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_priority_8h_source_l00065}{value\+\_\+}}.
+
+\Hypertarget{struct_priority_a9135d6940b97af2120f7ea4c7b1d3f41}\index{Priority@{Priority}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Priority@{Priority}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily \label{struct_priority_a9135d6940b97af2120f7ea4c7b1d3f41} 
+bool Priority\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_priority}{Priority}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+比較 
+
+
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00051}{51}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_priority_8h_source_l00022}{Priority()}}, \mbox{\hyperlink{_priority_8h_source_l00065}{value\+\_\+}}.
+
+\Hypertarget{struct_priority_acf7082f7719bb64ddac681a43d497d35}\index{Priority@{Priority}!operator$<$@{operator$<$}}
+\index{operator$<$@{operator$<$}!Priority@{Priority}}
+\doxysubsubsection{\texorpdfstring{operator$<$()}{operator<()}}
+{\footnotesize\ttfamily \label{struct_priority_acf7082f7719bb64ddac681a43d497d35} 
+bool Priority\+::operator$<$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_priority}{Priority}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+比較 
+
+
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00036}{36}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_priority_8h_source_l00022}{Priority()}}, \mbox{\hyperlink{_priority_8h_source_l00065}{value\+\_\+}}.
+
+\Hypertarget{struct_priority_ac1cfdc8b51503ad0cbb4c9c520caf6be}\index{Priority@{Priority}!operator=@{operator=}}
+\index{operator=@{operator=}!Priority@{Priority}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \label{struct_priority_ac1cfdc8b51503ad0cbb4c9c520caf6be} 
+\mbox{\hyperlink{struct_priority}{Priority}} \& Priority\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_priority}{Priority}} \&}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+代入 
+
+
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00030}{30}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_priority_8h_source_l00022}{Priority()}}, \mbox{\hyperlink{_priority_8h_source_l00065}{value\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_priority_8h_source_l00025}{Priority()}}.
+
+\Hypertarget{struct_priority_a5f0fe27360e4317130ceb6690697a0aa}\index{Priority@{Priority}!operator==@{operator==}}
+\index{operator==@{operator==}!Priority@{Priority}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily \label{struct_priority_a5f0fe27360e4317130ceb6690697a0aa} 
+bool Priority\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_priority}{Priority}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+比較 
+
+
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00046}{46}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_priority_8h_source_l00022}{Priority()}}, \mbox{\hyperlink{_priority_8h_source_l00065}{value\+\_\+}}.
+
+\Hypertarget{struct_priority_a3f20b0e7a2daaebb148e3a9af1a69242}\index{Priority@{Priority}!operator$>$@{operator$>$}}
+\index{operator$>$@{operator$>$}!Priority@{Priority}}
+\doxysubsubsection{\texorpdfstring{operator$>$()}{operator>()}}
+{\footnotesize\ttfamily \label{struct_priority_a3f20b0e7a2daaebb148e3a9af1a69242} 
+bool Priority\+::operator$>$ (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{struct_priority}{Priority}} \&}]{other}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+比較 
+
+
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00041}{41}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_priority_8h_source_l00022}{Priority()}}, \mbox{\hyperlink{_priority_8h_source_l00065}{value\+\_\+}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{struct_priority_doc-variable-members}
+\doxysubsection{メンバ詳解}
+\Hypertarget{struct_priority_af26cea614f28e848651dc1e66f29d983}\doxysubsubsection{\texorpdfstring{[union]}{[union]}}
+{\footnotesize\ttfamily \label{struct_priority_af26cea614f28e848651dc1e66f29d983} 
+union  \{ ... \}  \mbox{\hyperlink{struct_priority}{Priority}}}
+
+\Hypertarget{struct_priority_a30350ca248cf7cce1f5c330f84575bfc}\index{Priority@{Priority}!priority\_@{priority\_}}
+\index{priority\_@{priority\_}!Priority@{Priority}}
+\doxysubsubsection{\texorpdfstring{priority\_}{priority\_}}
+{\footnotesize\ttfamily \label{struct_priority_a30350ca248cf7cce1f5c330f84575bfc} 
+\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} Priority\+::priority\+\_\+}
+
+
+
+優先度 
+
+
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00063}{63}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_priority_8h_source_l00022}{Priority()}}.
+
+\Hypertarget{struct_priority_aed41870263e082af9b85698f0d983554}\index{Priority@{Priority}!sub\_priority\_@{sub\_priority\_}}
+\index{sub\_priority\_@{sub\_priority\_}!Priority@{Priority}}
+\doxysubsubsection{\texorpdfstring{sub\_priority\_}{sub\_priority\_}}
+{\footnotesize\ttfamily \label{struct_priority_aed41870263e082af9b85698f0d983554} 
+\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} Priority\+::sub\+\_\+priority\+\_\+}
+
+
+
+サブ優先度 
+
+
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00062}{62}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_priority_8h_source_l00022}{Priority()}}.
+
+\Hypertarget{struct_priority_a9b6b4428818c8cbd65e2a03b9e5c39eb}\index{Priority@{Priority}!value\_@{value\_}}
+\index{value\_@{value\_}!Priority@{Priority}}
+\doxysubsubsection{\texorpdfstring{value\_}{value\_}}
+{\footnotesize\ttfamily \label{struct_priority_a9b6b4428818c8cbd65e2a03b9e5c39eb} 
+\mbox{\hyperlink{_typedef_8h_a1af9f95651e921615e75917a6dd1b574}{u64}} Priority\+::value\+\_\+}
+
+
+
+ \mbox{\hyperlink{_priority_8h_source}{Priority.\+h}} の \mbox{\hyperlink{_priority_8h_source_l00065}{65}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_priority_8h_source_l00056}{operator u64()}}, \mbox{\hyperlink{_priority_8h_source_l00051}{operator!=()}}, \mbox{\hyperlink{_priority_8h_source_l00036}{operator$<$()}}, \mbox{\hyperlink{_priority_8h_source_l00030}{operator=()}}, \mbox{\hyperlink{_priority_8h_source_l00046}{operator==()}}, \mbox{\hyperlink{_priority_8h_source_l00041}{operator$>$()}}.
+
+
+
+この構造体詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_priority_8h}{Priority.\+h}}\end{DoxyCompactItemize}

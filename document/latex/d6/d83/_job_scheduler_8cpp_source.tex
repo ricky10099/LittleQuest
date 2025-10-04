@@ -1,0 +1,139 @@
+\doxysection{Job\+Scheduler.\+cpp}
+\hypertarget{_job_scheduler_8cpp_source}{}\label{_job_scheduler_8cpp_source}\index{JobScheduler.cpp@{JobScheduler.cpp}}
+\mbox{\hyperlink{_job_scheduler_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ JobScheduler.cpp}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ ジョブスケジューラー}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00004}00004\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_job_scheduler_8h}{JobScheduler.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00007}\mbox{\hyperlink{struct_job_handle_impl}{00007}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_job_handle_impl_af91638651c66d9514a0aaac8d3699ca4}{JobHandleImpl}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{struct_job_handle}{JobHandle}}\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00008}00008\ \ \ \ \textcolor{keyword}{public}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00009}00009\ \textcolor{comment}{\ \ \ \ //!\ コンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00010}\mbox{\hyperlink{struct_job_handle_impl_af91638651c66d9514a0aaac8d3699ca4}{00010}}\ \ \ \ \ \mbox{\hyperlink{struct_job_handle_impl_af91638651c66d9514a0aaac8d3699ca4}{JobHandleImpl}}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \mbox{\hyperlink{struct_job_handle_impl_ab27ddc7cf88c2789686febc82f931e68}{value}})\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_job_handle_a1baecff277760eef8fa8f38b6bc6b16c}{value\_}}\ =\ \mbox{\hyperlink{struct_job_handle_impl_ab27ddc7cf88c2789686febc82f931e68}{value}};}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00012}00012\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00013}00013\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00014}00014\ \textcolor{comment}{\ \ \ \ //!\ ハンドル値を取得}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00015}\mbox{\hyperlink{struct_job_handle_impl_ab27ddc7cf88c2789686febc82f931e68}{00015}}\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \mbox{\hyperlink{struct_job_handle_impl_ab27ddc7cf88c2789686febc82f931e68}{value}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_job_handle_a1baecff277760eef8fa8f38b6bc6b16c}{value\_}};}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00017}00017\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00018}00018\ \};}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00020}00020\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00021}00021\ \textcolor{comment}{//\ ジョブグループ\ JobGroup}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00022}00022\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00024}00024\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00025}00025\ \textcolor{comment}{//!\ ジョブを一括実行します}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00026}00026\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00027}\mbox{\hyperlink{class_job_group_a30bbab267a7c076c7894044742bf1cf3}{00027}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_job_group_a30bbab267a7c076c7894044742bf1cf3}{JobGroup::execute}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00028}00028\ \ \ \ \ std::vector<Job>\ sorted\_job;}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00030}00030\ \ \ \ \ \textcolor{comment}{//\ 使用中リストを探索して直列に配置しなおす}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{comment}{//\ 途中に未使用領域があっても一列に詰められる}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{for}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ index:\ \mbox{\hyperlink{class_job_group_a716faa9cc3044178ef5fffeb316b89bc}{job\_used\_list\_}})\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ job\ =\ \mbox{\hyperlink{class_job_group_a4b1405e2b617426f68f7038b153d0c24}{jobs\_}}[index];}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 一時無効になっているジョブは実行しない}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(job.first.priority\_\ \&\ 0x80000000ul)\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ sorted\_job.push\_back(job);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00041}00041\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00043}00043\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00044}00044\ \ \ \ \ \textcolor{comment}{//\ ジョブを実行優先順位でソート}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00046}00046\ \ \ \ \ \textcolor{keyword}{auto}\ compare\ =\ [\&](\textcolor{keyword}{const}\ \mbox{\hyperlink{class_job_group_aa86b51f982fbafa9991ab2eff40c93d2}{Job}}\&\ a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_job_group_aa86b51f982fbafa9991ab2eff40c93d2}{Job}}\&\ b)\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (a.first\ <\ b.first);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00048}00048\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00050}00050\ \ \ \ \ std::stable\_sort(std::begin(sorted\_job),\ std::end(sorted\_job),\ compare);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00052}00052\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{comment}{//\ 実行}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00054}00054\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00055}00055\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ job:\ sorted\_job)\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ job.second();}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00057}00057\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00058}00058\ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00060}00060\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00061}00061\ \textcolor{comment}{//!\ ジョブを登録します}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00062}00062\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00063}\mbox{\hyperlink{class_job_group_a66b72665825d66068ed3da48c65e2f3e}{00063}}\ \mbox{\hyperlink{struct_job_handle}{JobHandle}}\ \mbox{\hyperlink{class_job_group_a66b72665825d66068ed3da48c65e2f3e}{JobGroup::registerJob}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_priority}{Priority}}\&\ priority,\ \textcolor{keyword}{const}\ std::function<\textcolor{keywordtype}{void}()>\&\ func)\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00064}00064\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_job_group_a12f17c619bf9d2802a03952523b6821a}{job\_free\_list\_}}.empty())\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ assert(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_job_handle_impl}{JobHandleImpl}}(0);\ \ \ \ \textcolor{comment}{//\ エラー}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00068}00068\ \ \ \ \ \textcolor{comment}{//\ アクセスする配列番号を取得\ (空き番号を取得)}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00069}00069\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ index\ =\ \mbox{\hyperlink{class_job_group_a12f17c619bf9d2802a03952523b6821a}{job\_free\_list\_}}.back();}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00070}00070\ \ \ \ \ \mbox{\hyperlink{class_job_group_a12f17c619bf9d2802a03952523b6821a}{job\_free\_list\_}}.pop\_back();}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00072}00072\ \ \ \ \ \textcolor{comment}{//\ 登録}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00073}00073\ \ \ \ \ \mbox{\hyperlink{class_job_group_a4b1405e2b617426f68f7038b153d0c24}{jobs\_}}[index]\ =\ std::move(\mbox{\hyperlink{class_job_group_aa86b51f982fbafa9991ab2eff40c93d2}{Job}}\{priority,\ func\});}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00074}00074\ \ \ \ \ \mbox{\hyperlink{class_job_group_a716faa9cc3044178ef5fffeb316b89bc}{job\_used\_list\_}}.push\_back(index);\ \ \ \ \textcolor{comment}{//\ 使用中にする}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00076}00076\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{struct_job_handle_impl}{JobHandleImpl}}(index\ |\ (0xbeef\ <<\ 16));\ \ \ \ \textcolor{comment}{//\ 上位16ビットをIDにすることで非0にする}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00077}00077\ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00079}00079\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00080}00080\ \textcolor{comment}{//!\ ジョブを登録解除します}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00081}00081\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00082}\mbox{\hyperlink{class_job_group_a8b34a6d175b3e0d699716d3f300a5182}{00082}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_job_group_a8b34a6d175b3e0d699716d3f300a5182}{JobGroup::unregisterJob}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_job_handle}{JobHandle}}\&\ job\_handle)\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00083}00083\ \ \ \ \ \textcolor{keyword}{auto}\ value\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{struct_job_handle_impl}{JobHandleImpl}}\&\textcolor{keyword}{>}(job\_handle).value();}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00085}00085\ \ \ \ \ assert((value\ >>\ 16)\ ==\ 0xbeef);\ \ \ \ \textcolor{comment}{//\ ハンドルかどうかチェック}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00086}00086\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ index\ =\ value\ \&\ 0xfffful;}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{comment}{//\ 番号がある場所を検索}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00089}00089\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ std::find(\mbox{\hyperlink{class_job_group_a716faa9cc3044178ef5fffeb316b89bc}{job\_used\_list\_}}.begin(),\ \mbox{\hyperlink{class_job_group_a716faa9cc3044178ef5fffeb316b89bc}{job\_used\_list\_}}.end(),\ index);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00090}00090\ \ \ \ \ \textcolor{keywordflow}{if}(it\ ==\ \mbox{\hyperlink{class_job_group_a716faa9cc3044178ef5fffeb316b89bc}{job\_used\_list\_}}.end())\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 使用中リスト内に見つからなかった場合（二重解放の疑いがある）}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ assert(\textcolor{keyword}{false});}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00094}00094\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00095}00095\ \ \ \ \ \mbox{\hyperlink{class_job_group_a716faa9cc3044178ef5fffeb316b89bc}{job\_used\_list\_}}.erase(it);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00097}00097\ \ \ \ \ \textcolor{comment}{//\ 返却}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00098}00098\ \ \ \ \ \mbox{\hyperlink{class_job_group_a12f17c619bf9d2802a03952523b6821a}{job\_free\_list\_}}.push\_back(index);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00099}00099\ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00101}00101\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00102}00102\ \textcolor{comment}{//!\ 対象のジョブを有効にする}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00103}00103\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00104}\mbox{\hyperlink{class_job_group_adb2845cb194e0af55549e0c4838e38dd}{00104}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_job_group_adb2845cb194e0af55549e0c4838e38dd}{JobGroup::enableJob}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_job_handle}{JobHandle}}\&\ job\_handle)\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00105}00105\ \ \ \ \ \textcolor{keyword}{auto}\ value\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{struct_job_handle_impl}{JobHandleImpl}}\&\textcolor{keyword}{>}(job\_handle).value();}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00107}00107\ \ \ \ \ assert((value\ >>\ 16)\ ==\ 0xbeef);\ \ \ \ \textcolor{comment}{//\ ハンドルかどうかチェック}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00108}00108\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ index\ =\ value\ \&\ 0xfffful;}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00110}00110\ \ \ \ \ \mbox{\hyperlink{class_job_group_a4b1405e2b617426f68f7038b153d0c24}{jobs\_}}[index].first.priority\_\ \&=\ \string~0x80000000ul;}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00111}00111\ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00113}00113\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00114}00114\ \textcolor{comment}{//!\ 対象のジョブを無効にする}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00115}00115\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00116}\mbox{\hyperlink{class_job_group_ad092361ce59002d8c17ca5942111bedd}{00116}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_job_group_ad092361ce59002d8c17ca5942111bedd}{JobGroup::disableJob}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_job_handle}{JobHandle}}\&\ job\_handle)\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00117}00117\ \ \ \ \ \textcolor{keyword}{auto}\ value\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keyword}{const\ }\mbox{\hyperlink{struct_job_handle_impl}{JobHandleImpl}}\&\textcolor{keyword}{>}(job\_handle).value();}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00119}00119\ \ \ \ \ assert((value\ >>\ 16)\ ==\ 0xbeef);\ \ \ \ \textcolor{comment}{//\ ハンドルかどうかチェック}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00120}00120\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ index\ =\ value\ \&\ 0xfffful;}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00122}00122\ \ \ \ \ \mbox{\hyperlink{class_job_group_a4b1405e2b617426f68f7038b153d0c24}{jobs\_}}[index].first.priority\_\ |=\ 0x80000000ul;}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00123}00123\ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00125}00125\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00126}00126\ \textcolor{comment}{//!\ コンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00127}00127\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00128}\mbox{\hyperlink{class_job_group_a563c88b786e3bebe668cc242898c8ff9}{00128}}\ \mbox{\hyperlink{class_job_group_a563c88b786e3bebe668cc242898c8ff9}{JobGroup::JobGroup}}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ job\_max\_count):\ \mbox{\hyperlink{class_job_group_a4b1405e2b617426f68f7038b153d0c24}{jobs\_}}(job\_max\_count)\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00129}00129\ \ \ \ \ \textcolor{comment}{//\ 未使用リストに通し番号(すべての番号)を設定しておく}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00130}00130\ \ \ \ \ \textcolor{keywordflow}{for}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ i\ =\ 0;\ i\ <\ job\_max\_count;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_job_group_a12f17c619bf9d2802a03952523b6821a}{job\_free\_list\_}}.push\_back(i);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00132}00132\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8cpp_source_l00133}00133\ \}}
+
+\end{DoxyCode}

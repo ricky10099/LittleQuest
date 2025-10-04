@@ -3,12 +3,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
-<meta name="generator" content="Doxygen 1.9.6"/>
+<meta name="generator" content="Doxygen 1.14.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Base Project: matrix クラス</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
+<script type="text/javascript" src="../../clipboard.js"></script>
+<script type="text/javascript" src="../../cookie.js"></script>
 <link href="../../search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../search/searchdata.js"></script>
 <script type="text/javascript" src="../../search/search.js"></script>
@@ -29,21 +31,20 @@
 </table>
 </div>
 <!-- end header part -->
-<!-- 構築: Doxygen 1.9.6 -->
+<!-- 構築: Doxygen 1.14.0 -->
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 var searchBox = new SearchBox("searchBox", "../../search/",'.html');
-/* @license-end */
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
 </script>
 <script type="text/javascript" src="../../menudata.js"></script>
 <script type="text/javascript" src="../../menu.js"></script>
 <script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function() {
-  initMenu('../../',true,false,'search.php','検索');
-  $(document).ready(function() { init_search(); });
+  initMenu('../../',true,false,'search.php','検索',false);
+  $(function() { init_search(); });
 });
-/* @license-end */
 </script>
 <div id="main-nav"></div>
 <!-- window showing the filter options -->
@@ -68,6 +69,7 @@ $(function() {
 </div>
 
 </div><!-- top -->
+<div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">公開メンバ関数</a> &#124;
@@ -77,121 +79,88 @@ $(function() {
 <div class="contents">
 
 <p>4x4行列  
- <a href="../../d1/d8d/classmatrix.html#details">[詳解]</a></p>
+ <a href="#details">[詳解]</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a>&gt;</code></p>
 <div class="dynheader">
 matrix の継承関係図</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d8/d3c/classmatrix__inherit__graph.png" border="0" usemap="#amatrix_inherit__map" alt="Inheritance graph"/></div>
-<map name="amatrix_inherit__map" id="amatrix_inherit__map">
-<area shape="rect" title="4x4行列" alt="" coords="9,79,68,104"/>
-<area shape="rect" title=" " alt="" coords="5,5,72,31"/>
-</map>
+<div class="center"><img src="../../d8/d3c/classmatrix__inherit__graph.png" border="0" usemap="#amatrix_inherit__map" loading="lazy" alt="Inheritance graph"/></div>
 <center><span class="legend">[<a href="../../graph_legend.html">凡例</a>]</span></center></div>
 <div class="dynheader">
 matrix 連携図</div>
 <div class="dyncontent">
-<div class="center"><img src="../../d1/d78/classmatrix__coll__graph.png" border="0" usemap="#amatrix_coll__map" alt="Collaboration graph"/></div>
-<map name="amatrix_coll__map" id="amatrix_coll__map">
-<area shape="rect" title="4x4行列" alt="" coords="9,79,68,104"/>
-<area shape="rect" title=" " alt="" coords="5,5,72,31"/>
-</map>
+<div class="center"><img src="../../d1/d78/classmatrix__coll__graph.png" border="0" usemap="#amatrix_coll__map" loading="lazy" alt="Collaboration graph"/></div>
 <center><span class="legend">[<a href="../../graph_legend.html">凡例</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 公開メンバ関数</h2></td></tr>
-<tr class="memitem:a73ef15efc56465db46f2f36986da629d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a73ef15efc56465db46f2f36986da629d">matrix</a> (const float4x4 &amp;m)</td></tr>
+<tr class="memitem:a73ef15efc56465db46f2f36986da629d" id="r_a73ef15efc56465db46f2f36986da629d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73ef15efc56465db46f2f36986da629d">matrix</a> (const float4x4 &amp;m)</td></tr>
 <tr class="memdesc:a73ef15efc56465db46f2f36986da629d"><td class="mdescLeft">&#160;</td><td class="mdescRight">コンストラクタ  <br /></td></tr>
-<tr class="separator:a73ef15efc56465db46f2f36986da629d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">要素ベクトル参照</div></td></tr>
-<tr><td colspan="2"><div class="groupText"><p>各要素へのアクセスはこのアクセサを利用します。 float4で列ベクトルfloat4で直接操作を必要とする場合は 下記メンバーを利用してください</p><ul>
+<tr id="pub-methods-0" class="groupHeader"><td colspan="2"><div class="groupHeader">要素ベクトル参照</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>各要素へのアクセスはこのアクセサを利用します。 float4で列ベクトルfloat4で直接操作を必要とする場合は 下記メンバーを利用してください</p><ul>
 <li>_11_12_13_14</li>
 <li>_21_22_23_24</li>
 <li>_31_32_33_34</li>
 <li>_41_42_43_44 </li>
 </ul>
 </div></td></tr>
-<tr class="memitem:acbc751a8985a8f5d962f3256acea59df"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#acbc751a8985a8f5d962f3256acea59df">axisX</a> () const</td></tr>
+<tr class="memitem:acbc751a8985a8f5d962f3256acea59df" id="r_acbc751a8985a8f5d962f3256acea59df"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acbc751a8985a8f5d962f3256acea59df">axisX</a> () const</td></tr>
 <tr class="memdesc:acbc751a8985a8f5d962f3256acea59df"><td class="mdescLeft">&#160;</td><td class="mdescRight">X軸ベクトルを取得  <br /></td></tr>
-<tr class="separator:acbc751a8985a8f5d962f3256acea59df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cacc60f5c84e6354664ffe9349b1257"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a8cacc60f5c84e6354664ffe9349b1257">axisY</a> () const</td></tr>
+<tr class="memitem:a8cacc60f5c84e6354664ffe9349b1257" id="r_a8cacc60f5c84e6354664ffe9349b1257"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8cacc60f5c84e6354664ffe9349b1257">axisY</a> () const</td></tr>
 <tr class="memdesc:a8cacc60f5c84e6354664ffe9349b1257"><td class="mdescLeft">&#160;</td><td class="mdescRight">Y軸ベクトルを取得  <br /></td></tr>
-<tr class="separator:a8cacc60f5c84e6354664ffe9349b1257"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab76eb4b005f28f1db5e3dfb3b8a4ad15"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#ab76eb4b005f28f1db5e3dfb3b8a4ad15">axisZ</a> () const</td></tr>
+<tr class="memitem:ab76eb4b005f28f1db5e3dfb3b8a4ad15" id="r_ab76eb4b005f28f1db5e3dfb3b8a4ad15"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab76eb4b005f28f1db5e3dfb3b8a4ad15">axisZ</a> () const</td></tr>
 <tr class="memdesc:ab76eb4b005f28f1db5e3dfb3b8a4ad15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Z軸ベクトルを取得  <br /></td></tr>
-<tr class="separator:ab76eb4b005f28f1db5e3dfb3b8a4ad15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea54cccd84b3b11f01cb54d5e448b41a"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#aea54cccd84b3b11f01cb54d5e448b41a">translate</a> () const</td></tr>
+<tr class="memitem:aea54cccd84b3b11f01cb54d5e448b41a" id="r_aea54cccd84b3b11f01cb54d5e448b41a"><td class="memItemLeft" align="right" valign="top">float3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aea54cccd84b3b11f01cb54d5e448b41a">translate</a> () const</td></tr>
 <tr class="memdesc:aea54cccd84b3b11f01cb54d5e448b41a"><td class="mdescLeft">&#160;</td><td class="mdescRight">平行移動を取得  <br /></td></tr>
-<tr class="separator:aea54cccd84b3b11f01cb54d5e448b41a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93e7596281903043e248c52ffedf7c9c"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a93e7596281903043e248c52ffedf7c9c">axisVectorX</a> ()</td></tr>
+<tr class="memitem:a93e7596281903043e248c52ffedf7c9c" id="r_a93e7596281903043e248c52ffedf7c9c"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93e7596281903043e248c52ffedf7c9c">axisVectorX</a> ()</td></tr>
 <tr class="memdesc:a93e7596281903043e248c52ffedf7c9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">X軸ベクトル参照を取得  <br /></td></tr>
-<tr class="separator:a93e7596281903043e248c52ffedf7c9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af26e34a9858c79655c828a0e82ca6f60"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#af26e34a9858c79655c828a0e82ca6f60">axisVectorY</a> ()</td></tr>
+<tr class="memitem:af26e34a9858c79655c828a0e82ca6f60" id="r_af26e34a9858c79655c828a0e82ca6f60"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af26e34a9858c79655c828a0e82ca6f60">axisVectorY</a> ()</td></tr>
 <tr class="memdesc:af26e34a9858c79655c828a0e82ca6f60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Y軸ベクトル参照を取得  <br /></td></tr>
-<tr class="separator:af26e34a9858c79655c828a0e82ca6f60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1aae7438793b15d6403e98fd27c1d324"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a1aae7438793b15d6403e98fd27c1d324">axisVectorZ</a> ()</td></tr>
+<tr class="memitem:a1aae7438793b15d6403e98fd27c1d324" id="r_a1aae7438793b15d6403e98fd27c1d324"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1aae7438793b15d6403e98fd27c1d324">axisVectorZ</a> ()</td></tr>
 <tr class="memdesc:a1aae7438793b15d6403e98fd27c1d324"><td class="mdescLeft">&#160;</td><td class="mdescRight">Z軸ベクトル参照を取得  <br /></td></tr>
-<tr class="separator:a1aae7438793b15d6403e98fd27c1d324"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61209a50a3cca44a15434beaf2db6b5b"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a61209a50a3cca44a15434beaf2db6b5b">translateVector</a> ()</td></tr>
+<tr class="memitem:a61209a50a3cca44a15434beaf2db6b5b" id="r_a61209a50a3cca44a15434beaf2db6b5b"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a61209a50a3cca44a15434beaf2db6b5b">translateVector</a> ()</td></tr>
 <tr class="memdesc:a61209a50a3cca44a15434beaf2db6b5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">平行移動ベクトル参照を取得  <br /></td></tr>
-<tr class="separator:a61209a50a3cca44a15434beaf2db6b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr><td colspan="2"><div class="groupHeader">DxLib関連</div></td></tr>
-<tr class="memitem:ad98201f67dd7c577ca05c84880d4698a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#ad98201f67dd7c577ca05c84880d4698a">matrix</a> (const DxLib::MATRIX &amp;<a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>)</td></tr>
+<tr id="pub-methods-1" class="groupHeader"><td colspan="2"><div class="groupHeader">DxLib関連</div></td></tr>
+<tr class="memitem:ad98201f67dd7c577ca05c84880d4698a" id="r_ad98201f67dd7c577ca05c84880d4698a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad98201f67dd7c577ca05c84880d4698a">matrix</a> (const DxLib::MATRIX &amp;<a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>)</td></tr>
 <tr class="memdesc:ad98201f67dd7c577ca05c84880d4698a"><td class="mdescLeft">&#160;</td><td class="mdescRight">[DxLib] DxLib::MATRIXから初期化  <br /></td></tr>
-<tr class="separator:ad98201f67dd7c577ca05c84880d4698a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2567c4cb61b2b1f05b4cd0ae655be83e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a2567c4cb61b2b1f05b4cd0ae655be83e">operator DxLib::MATRIX const</a> ()</td></tr>
+<tr class="memitem:a2567c4cb61b2b1f05b4cd0ae655be83e" id="r_a2567c4cb61b2b1f05b4cd0ae655be83e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2567c4cb61b2b1f05b4cd0ae655be83e">operator DxLib::MATRIX const</a> ()</td></tr>
 <tr class="memdesc:a2567c4cb61b2b1f05b4cd0ae655be83e"><td class="mdescLeft">&#160;</td><td class="mdescRight">[DxLib] DxLib::MATRIXへキャスト  <br /></td></tr>
-<tr class="separator:a2567c4cb61b2b1f05b4cd0ae655be83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+<tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 静的公開メンバ関数</h2></td></tr>
-<tr><td colspan="2"><div class="groupHeader">行列作成</div></td></tr>
-<tr class="memitem:a7a798d3438d4e94705a520bb41bd85d9"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a7a798d3438d4e94705a520bb41bd85d9">identity</a> ()</td></tr>
+<tr id="pub-static-methods-0" class="groupHeader"><td colspan="2"><div class="groupHeader">行列作成</div></td></tr>
+<tr class="memitem:a7a798d3438d4e94705a520bb41bd85d9" id="r_a7a798d3438d4e94705a520bb41bd85d9"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a798d3438d4e94705a520bb41bd85d9">identity</a> ()</td></tr>
 <tr class="memdesc:a7a798d3438d4e94705a520bb41bd85d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">単位行列  <br /></td></tr>
-<tr class="separator:a7a798d3438d4e94705a520bb41bd85d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2b5677c2f4ae2e615b4bab101e2c358"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#af2b5677c2f4ae2e615b4bab101e2c358">translate</a> (const float3 &amp;v)</td></tr>
+<tr class="memitem:af2b5677c2f4ae2e615b4bab101e2c358" id="r_af2b5677c2f4ae2e615b4bab101e2c358"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af2b5677c2f4ae2e615b4bab101e2c358">translate</a> (const float3 &amp;v)</td></tr>
 <tr class="memdesc:af2b5677c2f4ae2e615b4bab101e2c358"><td class="mdescLeft">&#160;</td><td class="mdescRight">平行移動行列  <br /></td></tr>
-<tr class="separator:af2b5677c2f4ae2e615b4bab101e2c358"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40fa573d5f967d090d227861112872dd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a40fa573d5f967d090d227861112872dd">translate</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> x, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> y, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> z)</td></tr>
-<tr class="separator:a40fa573d5f967d090d227861112872dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08d1d7a26f6b91ee3f9ad0190506b032"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a08d1d7a26f6b91ee3f9ad0190506b032">scale</a> (const float3 &amp;s)</td></tr>
+<tr class="memitem:a40fa573d5f967d090d227861112872dd" id="r_a40fa573d5f967d090d227861112872dd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a40fa573d5f967d090d227861112872dd">translate</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> x, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> y, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> z)</td></tr>
+<tr class="memitem:a08d1d7a26f6b91ee3f9ad0190506b032" id="r_a08d1d7a26f6b91ee3f9ad0190506b032"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08d1d7a26f6b91ee3f9ad0190506b032">scale</a> (const float3 &amp;s)</td></tr>
 <tr class="memdesc:a08d1d7a26f6b91ee3f9ad0190506b032"><td class="mdescLeft">&#160;</td><td class="mdescRight">スケール行列  <br /></td></tr>
-<tr class="separator:a08d1d7a26f6b91ee3f9ad0190506b032"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0878b2eb944909fbfd87effdc898e90f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a0878b2eb944909fbfd87effdc898e90f">scale</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> sx, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> sy, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> sz)</td></tr>
-<tr class="separator:a0878b2eb944909fbfd87effdc898e90f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1e15d6ff28acc7578a82a51f76a6861"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#ad1e15d6ff28acc7578a82a51f76a6861">scale</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> s)</td></tr>
-<tr class="separator:ad1e15d6ff28acc7578a82a51f76a6861"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58e09fb8ab743c1df7b463152cb7a7ca"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a58e09fb8ab743c1df7b463152cb7a7ca">rotateX</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> radian)</td></tr>
+<tr class="memitem:a0878b2eb944909fbfd87effdc898e90f" id="r_a0878b2eb944909fbfd87effdc898e90f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0878b2eb944909fbfd87effdc898e90f">scale</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> sx, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> sy, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> sz)</td></tr>
+<tr class="memitem:ad1e15d6ff28acc7578a82a51f76a6861" id="r_ad1e15d6ff28acc7578a82a51f76a6861"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1e15d6ff28acc7578a82a51f76a6861">scale</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> s)</td></tr>
+<tr class="memitem:a58e09fb8ab743c1df7b463152cb7a7ca" id="r_a58e09fb8ab743c1df7b463152cb7a7ca"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58e09fb8ab743c1df7b463152cb7a7ca">rotateX</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> radian)</td></tr>
 <tr class="memdesc:a58e09fb8ab743c1df7b463152cb7a7ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">X軸中心の回転行列  <br /></td></tr>
-<tr class="separator:a58e09fb8ab743c1df7b463152cb7a7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a345b415c27cd30fe0f1b92d28cd8c8ea"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a345b415c27cd30fe0f1b92d28cd8c8ea">rotateY</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> radian)</td></tr>
+<tr class="memitem:a345b415c27cd30fe0f1b92d28cd8c8ea" id="r_a345b415c27cd30fe0f1b92d28cd8c8ea"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a345b415c27cd30fe0f1b92d28cd8c8ea">rotateY</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> radian)</td></tr>
 <tr class="memdesc:a345b415c27cd30fe0f1b92d28cd8c8ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Y軸中心の回転行列  <br /></td></tr>
-<tr class="separator:a345b415c27cd30fe0f1b92d28cd8c8ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad64f1477499726d3d97b25ddef3ef9ac"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#ad64f1477499726d3d97b25ddef3ef9ac">rotateZ</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> radian)</td></tr>
+<tr class="memitem:ad64f1477499726d3d97b25ddef3ef9ac" id="r_ad64f1477499726d3d97b25ddef3ef9ac"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad64f1477499726d3d97b25ddef3ef9ac">rotateZ</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> radian)</td></tr>
 <tr class="memdesc:ad64f1477499726d3d97b25ddef3ef9ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Z軸中心の回転行列  <br /></td></tr>
-<tr class="separator:ad64f1477499726d3d97b25ddef3ef9ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a261342323c8242cae787a5699044b965"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a261342323c8242cae787a5699044b965">rotateAxis</a> (const float3 &amp;axis, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> radian)</td></tr>
+<tr class="memitem:a261342323c8242cae787a5699044b965" id="r_a261342323c8242cae787a5699044b965"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a261342323c8242cae787a5699044b965">rotateAxis</a> (const float3 &amp;axis, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> radian)</td></tr>
 <tr class="memdesc:a261342323c8242cae787a5699044b965"><td class="mdescLeft">&#160;</td><td class="mdescRight">任意軸中心の回転行列  <br /></td></tr>
-<tr class="separator:a261342323c8242cae787a5699044b965"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56c05b9fe6bcc4c817b583b476db6675"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#a56c05b9fe6bcc4c817b583b476db6675">lookAtLH</a> (const float3 &amp;eye, const float3 &amp;look_at, const float3 &amp;world_up=float3(0.0f, 1.0f, 0.0f))</td></tr>
+<tr class="memitem:a56c05b9fe6bcc4c817b583b476db6675" id="r_a56c05b9fe6bcc4c817b583b476db6675"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56c05b9fe6bcc4c817b583b476db6675">lookAtLH</a> (const float3 &amp;eye, const float3 &amp;look_at, const float3 &amp;world_up=float3(0.0f, 1.0f, 0.0f))</td></tr>
 <tr class="memdesc:a56c05b9fe6bcc4c817b583b476db6675"><td class="mdescLeft">&#160;</td><td class="mdescRight">[左手座標系] ビュー行列  <br /></td></tr>
-<tr class="separator:a56c05b9fe6bcc4c817b583b476db6675"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae492e6473134551b31e1c8f826dc2ee5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#ae492e6473134551b31e1c8f826dc2ee5">perspectiveFovLH</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> fovy, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> aspect_ratio, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> near_z, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> far_z)</td></tr>
+<tr class="memitem:ae492e6473134551b31e1c8f826dc2ee5" id="r_ae492e6473134551b31e1c8f826dc2ee5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae492e6473134551b31e1c8f826dc2ee5">perspectiveFovLH</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> fovy, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> aspect_ratio, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> near_z, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> far_z)</td></tr>
 <tr class="memdesc:ae492e6473134551b31e1c8f826dc2ee5"><td class="mdescLeft">&#160;</td><td class="mdescRight">[左手座標系] 投影行列  <br /></td></tr>
-<tr class="separator:ae492e6473134551b31e1c8f826dc2ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd1ff830a6a9fe8315d1c87acdf6f335"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#abd1ff830a6a9fe8315d1c87acdf6f335">perspectiveFovInfiniteFarPlaneLH</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> fovy, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> aspect_ratio, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> near_z)</td></tr>
+<tr class="memitem:abd1ff830a6a9fe8315d1c87acdf6f335" id="r_abd1ff830a6a9fe8315d1c87acdf6f335"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abd1ff830a6a9fe8315d1c87acdf6f335">perspectiveFovInfiniteFarPlaneLH</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> fovy, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> aspect_ratio, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> near_z)</td></tr>
 <tr class="memdesc:abd1ff830a6a9fe8315d1c87acdf6f335"><td class="mdescLeft">&#160;</td><td class="mdescRight">[左手座標系] 無限遠投影行列  <br /></td></tr>
-<tr class="separator:abd1ff830a6a9fe8315d1c87acdf6f335"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae0732713669f946baaee70b63a31245"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d8d/classmatrix.html#aae0732713669f946baaee70b63a31245">orthographicOffCenterLH</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> left, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> right, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> bottom, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> top, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> near_z, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> far_z)</td></tr>
+<tr class="memitem:aae0732713669f946baaee70b63a31245" id="r_aae0732713669f946baaee70b63a31245"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="../../d1/d8d/classmatrix.html">matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aae0732713669f946baaee70b63a31245">orthographicOffCenterLH</a> (<a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> left, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> right, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> bottom, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> top, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> near_z, <a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a> far_z)</td></tr>
 <tr class="memdesc:aae0732713669f946baaee70b63a31245"><td class="mdescLeft">&#160;</td><td class="mdescRight">[左手座標系] 平行投影行列  <br /></td></tr>
-<tr class="separator:aae0732713669f946baaee70b63a31245"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">詳解</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">詳解</h2>
 <div class="textblock"><p>4x4行列 </p>
 
 <p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00081">81</a> 行目に定義があります。</p>
-</div><h2 class="groupheader">構築子と解体子</h2>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">構築子と解体子</h2>
 <a id="a73ef15efc56465db46f2f36986da629d" name="a73ef15efc56465db46f2f36986da629d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73ef15efc56465db46f2f36986da629d">&#9670;&#160;</a></span>matrix() <span class="overload">[1/2]</span></h2>
 
@@ -204,14 +173,13 @@ matrix 連携図</div>
         <tr>
           <td class="memname">matrix::matrix </td>
           <td>(</td>
-          <td class="paramtype">const float4x4 &amp;&#160;</td>
-          <td class="paramname"><em>m</em></td><td>)</td>
+          <td class="paramtype">const float4x4 &amp;</td>          <td class="paramname"><span class="paramname"><em>m</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -219,6 +187,8 @@ matrix 連携図</div>
 <p>コンストラクタ </p>
 
 <p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">87</a> 行目に定義があります。</p>
+
+<p class="reference">参照元 <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00010">identity()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00131">lookAtLH()</a>, <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00216">matrix()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00191">orthographicOffCenterLH()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00172">perspectiveFovInfiniteFarPlaneLH()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00152">perspectiveFovLH()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00109">rotateAxis()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00061">rotateX()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00077">rotateY()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00093">rotateZ()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00040">scale()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00054">scale()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00050">scale()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00023">translate()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00033">translate()</a> (計15項目).</p>
 
 </div>
 </div>
@@ -234,25 +204,26 @@ matrix 連携図</div>
         <tr>
           <td class="memname">matrix::matrix </td>
           <td>(</td>
-          <td class="paramtype">const DxLib::MATRIX &amp;&#160;</td>
-          <td class="paramname"><em>matrix</em></td><td>)</td>
+          <td class="paramtype">const DxLib::MATRIX &amp;</td>          <td class="paramname"><span class="paramname"><em>matrix</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>[DxLib] DxLib::MATRIXから初期化 </p>
 
-<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00218">218</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00216">216</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">関数詳解</h2>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">関数詳解</h2>
 <a id="a93e7596281903043e248c52ffedf7c9c" name="a93e7596281903043e248c52ffedf7c9c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a93e7596281903043e248c52ffedf7c9c">&#9670;&#160;</a></span>axisVectorX()</h2>
 
@@ -265,20 +236,20 @@ matrix 連携図</div>
         <tr>
           <td class="memname">auto &amp; matrix::axisVectorX </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>X軸ベクトル参照を取得 </p>
 
-<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00192">192</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00190">190</a> 行目に定義があります。</p>
 
 </div>
 </div>
@@ -294,20 +265,20 @@ matrix 連携図</div>
         <tr>
           <td class="memname">auto &amp; matrix::axisVectorY </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Y軸ベクトル参照を取得 </p>
 
-<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00197">197</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00195">195</a> 行目に定義があります。</p>
 
 </div>
 </div>
@@ -323,20 +294,20 @@ matrix 連携図</div>
         <tr>
           <td class="memname">auto &amp; matrix::axisVectorZ </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Z軸ベクトル参照を取得 </p>
 
-<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00202">202</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00200">200</a> 行目に定義があります。</p>
 
 </div>
 </div>
@@ -349,7 +320,7 @@ matrix 連携図</div>
         <tr>
           <td class="memname">float3 matrix::axisX </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -359,7 +330,7 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00212">212</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00061">DecomposeMatrixToComponents()</a>, <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00116">IMatrix&lt; T &gt;::GetVectorAxisX()</a>, <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00128">IMatrix&lt; T &gt;::GetVectorAxisZ()</a>, <a class="el" href="../../d2/d82/_player_8cpp_source.html#l00267">LittleQuest::Player::InputHandle()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00303">Frustum::rayFromScreenPosition()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00061">Frustum::renderDebug()</a>.</p>
+<p class="reference">参照元 <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00060">DecomposeMatrixToComponents()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00697">ComponentModel::GetOldWorldMatrix()</a>, <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00097">IMatrix&lt; T &gt;::GetVectorAxisX()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00675">ComponentModel::GetWorldMatrix()</a>.</p>
 
 </div>
 </div>
@@ -372,7 +343,7 @@ matrix 連携図</div>
         <tr>
           <td class="memname">float3 matrix::axisY </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -382,7 +353,7 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00219">219</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00061">DecomposeMatrixToComponents()</a>, <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00122">IMatrix&lt; T &gt;::GetVectorAxisY()</a>, <a class="el" href="../../d8/da0/_component_collision_8cpp_source.html#l01004">ComponentCollision::isHit()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00303">Frustum::rayFromScreenPosition()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00061">Frustum::renderDebug()</a>.</p>
+<p class="reference">参照元 <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00060">DecomposeMatrixToComponents()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00697">ComponentModel::GetOldWorldMatrix()</a>, <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00103">IMatrix&lt; T &gt;::GetVectorAxisY()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00675">ComponentModel::GetWorldMatrix()</a>.</p>
 
 </div>
 </div>
@@ -395,7 +366,7 @@ matrix 連携図</div>
         <tr>
           <td class="memname">float3 matrix::axisZ </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -405,7 +376,7 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00226">226</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../df/d75/_boss_8cpp_source.html#l00494">LittleQuest::Boss::BackflipPunch()</a>, <a class="el" href="../../d1/d33/_camera_8cpp_source.html#l00052">LittleQuest::Camera::CameraForward()</a>, <a class="el" href="../../df/d75/_boss_8cpp_source.html#l00532">LittleQuest::Boss::ChargePunch()</a>, <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00061">DecomposeMatrixToComponents()</a>, <a class="el" href="../../d9/d14/_component_collision_line_8cpp_source.html#l00130">ComponentCollisionLine::GetLine()</a>, <a class="el" href="../../d8/dec/_debug_camera_8cpp_source.html#l00020">DebugCamera::DebugCamera::Init()</a>, <a class="el" href="../../d2/d82/_player_8cpp_source.html#l00267">LittleQuest::Player::InputHandle()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00303">Frustum::rayFromScreenPosition()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00061">Frustum::renderDebug()</a>, <a class="el" href="../../df/d75/_boss_8cpp_source.html#l00260">LittleQuest::Boss::SelectAction()</a>, <a class="el" href="../../df/d75/_boss_8cpp_source.html#l00329">LittleQuest::Boss::SelectAngryAction()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00170">Frustum::setLookAt()</a>.</p>
+<p class="reference">参照元 <a class="el" href="../../d4/d82/_maw_j_laygo_8cpp_source.html#l00500">LittleQuest::MawJLaygo::BackflipPunch()</a>, <a class="el" href="../../d1/d33/_camera_8cpp_source.html#l00093">LittleQuest::Camera::CameraForward()</a>, <a class="el" href="../../d4/d82/_maw_j_laygo_8cpp_source.html#l00538">LittleQuest::MawJLaygo::ChargePunch()</a>, <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00060">DecomposeMatrixToComponents()</a>, <a class="el" href="../../d9/d14/_component_collision_line_8cpp_source.html#l00128">ComponentCollisionLine::GetLine()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00697">ComponentModel::GetOldWorldMatrix()</a>, <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00109">IMatrix&lt; T &gt;::GetVectorAxisZ()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00675">ComponentModel::GetWorldMatrix()</a>, <a class="el" href="../../d8/dec/_debug_camera_8cpp_source.html#l00020">DebugCamera::DebugCamera::Init()</a>, <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html#l00477">ComponentPhysics::PostPhysics()</a>, <a class="el" href="../../d4/d82/_maw_j_laygo_8cpp_source.html#l00255">LittleQuest::MawJLaygo::SelectAction()</a>, <a class="el" href="../../d4/d82/_maw_j_laygo_8cpp_source.html#l00325">LittleQuest::MawJLaygo::SelectAngryAction()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00169">Frustum::setLookAt()</a>.</p>
 
 </div>
 </div>
@@ -421,13 +392,13 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::identity </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -436,7 +407,9 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00010">10</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00106">ComponentTransform::ComponentTransform()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00502">ComponentModel::GetNodeMatrix()</a>, <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00133">ComponentCamera::GetPosition()</a>, <a class="el" href="../../da/d85/_component_attach_model_8cpp_source.html#l00056">ComponentAttachModel::GetPutOnMatrix()</a>, <a class="el" href="../../d3/de8/_component_spring_arm_8cpp_source.html#l00059">ComponentSpringArm::GetPutOnMatrix()</a>, <a class="el" href="../../d8/d18/_component_collision_model_8cpp_source.html#l00181">ComponentCollisionModel::GetWorldMatrix()</a>, <a class="el" href="../../d8/da0/_component_collision_8cpp_source.html#l00224">ComponentCollision::guiCollisionDataAttach()</a>, <a class="el" href="../../d8/da0/_component_collision_8cpp_source.html#l00104">ComponentCollision::LateUpdate()</a>.</p>
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00105">ComponentTransform::ComponentTransform()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00748">ComponentModel::GetAttachMatrix()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00627">ComponentModel::GetNodeMatrix()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00697">ComponentModel::GetOldWorldMatrix()</a>, <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00131">ComponentCamera::GetPosition()</a>, <a class="el" href="../../da/d85/_component_attach_model_8cpp_source.html#l00054">ComponentAttachModel::GetPutOnMatrix()</a>, <a class="el" href="../../d3/de8/_component_spring_arm_8cpp_source.html#l00060">ComponentSpringArm::GetPutOnMatrix()</a>, <a class="el" href="../../d8/d18/_component_collision_model_8cpp_source.html#l00179">ComponentCollisionModel::GetWorldMatrix()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00675">ComponentModel::GetWorldMatrix()</a>, <a class="el" href="../../d8/da0/_component_collision_8cpp_source.html#l00227">ComponentCollision::guiCollisionDataAttach()</a>, <a class="el" href="../../d8/da0/_component_collision_8cpp_source.html#l00112">ComponentCollision::LateUpdate()</a>.</p>
 
 </div>
 </div>
@@ -452,30 +425,22 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::lookAtLH </td>
           <td>(</td>
-          <td class="paramtype">const float3 &amp;&#160;</td>
-          <td class="paramname"><em>eye</em>, </td>
+          <td class="paramtype">const float3 &amp;</td>          <td class="paramname"><span class="paramname"><em>eye</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const float3 &amp;&#160;</td>
-          <td class="paramname"><em>look_at</em>, </td>
+          <td class="paramtype">const float3 &amp;</td>          <td class="paramname"><span class="paramname"><em>look_at</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const float3 &amp;&#160;</td>
-          <td class="paramname"><em>world_up</em> = <code>float3(0.0f,&#160;1.0f,&#160;0.0f)</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype">const float3 &amp;</td>          <td class="paramname"><span class="paramname"><em>world_up</em></span><span class="paramdefsep"> = </span><span class="paramdefval">float3(0.0f,&#160;1.0f,&#160;0.0f)</span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -492,7 +457,9 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00131">131</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../d8/dec/_debug_camera_8cpp_source.html#l00037">DebugCamera::DebugCamera::PreDraw()</a>, <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00083">ComponentCamera::SetCameraTransform()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">Frustum::update()</a>.</p>
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d8/dec/_debug_camera_8cpp_source.html#l00037">DebugCamera::DebugCamera::PreDraw()</a>, <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00081">ComponentCamera::SetCameraTransform()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00028">Frustum::update()</a>.</p>
 
 </div>
 </div>
@@ -508,20 +475,20 @@ matrix 連携図</div>
         <tr>
           <td class="memname">matrix::operator DxLib::MATRIX const </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>[DxLib] DxLib::MATRIXへキャスト </p>
 
-<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00223">223</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00221">221</a> 行目に定義があります。</p>
 
 <p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00013">cast()</a>.</p>
 
@@ -539,48 +506,37 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::orthographicOffCenterLH </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>left</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>left</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>right</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>right</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>bottom</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>bottom</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>top</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>top</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>near_z</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>near_z</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>far_z</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>far_z</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -601,6 +557,8 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00191">191</a> 行目に定義があります。</p>
 
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
+
 </div>
 </div>
 <a id="abd1ff830a6a9fe8315d1c87acdf6f335" name="abd1ff830a6a9fe8315d1c87acdf6f335"></a>
@@ -615,30 +573,22 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::perspectiveFovInfiniteFarPlaneLH </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>fovy</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>fovy</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>aspect_ratio</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>aspect_ratio</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>near_z</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>near_z</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -658,7 +608,9 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00172">172</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">Frustum::update()</a>.</p>
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00028">Frustum::update()</a>.</p>
 
 </div>
 </div>
@@ -674,36 +626,27 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::perspectiveFovLH </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>fovy</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>fovy</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>aspect_ratio</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>aspect_ratio</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>near_z</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>near_z</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>far_z</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>far_z</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -722,7 +665,9 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00152">152</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00083">ComponentCamera::SetCameraTransform()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00029">Frustum::update()</a>.</p>
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de0/_component_camera_8cpp_source.html#l00081">ComponentCamera::SetCameraTransform()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00028">Frustum::update()</a>.</p>
 
 </div>
 </div>
@@ -738,24 +683,17 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::rotateAxis </td>
           <td>(</td>
-          <td class="paramtype">const float3 &amp;&#160;</td>
-          <td class="paramname"><em>axis</em>, </td>
+          <td class="paramtype">const float3 &amp;</td>          <td class="paramname"><span class="paramname"><em>axis</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>radian</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>radian</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -770,6 +708,8 @@ matrix 連携図</div>
 </dl>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00109">109</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
 
 <p class="reference">参照元 <a class="el" href="../../d8/dec/_debug_camera_8cpp_source.html#l00037">DebugCamera::DebugCamera::PreDraw()</a>.</p>
 
@@ -787,14 +727,13 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::rotateX </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>radian</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>radian</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -810,7 +749,9 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00061">61</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00170">Frustum::setLookAt()</a>.</p>
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00169">Frustum::setLookAt()</a>.</p>
 
 </div>
 </div>
@@ -826,14 +767,13 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::rotateY </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>radian</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>radian</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -848,7 +788,9 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00077">77</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../d8/dec/_debug_camera_8cpp_source.html#l00037">DebugCamera::DebugCamera::PreDraw()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00170">Frustum::setLookAt()</a>.</p>
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d8/dec/_debug_camera_8cpp_source.html#l00037">DebugCamera::DebugCamera::PreDraw()</a>, <a class="el" href="../../d4/d10/_frustum_8cpp_source.html#l00169">Frustum::setLookAt()</a>.</p>
 
 </div>
 </div>
@@ -864,14 +806,13 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::rotateZ </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>radian</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>radian</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -885,6 +826,8 @@ matrix 連携図</div>
 </dl>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00093">93</a> 行目に定義があります。</p>
+
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
 
 </div>
 </div>
@@ -900,14 +843,13 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::scale </td>
           <td>(</td>
-          <td class="paramtype">const float3 &amp;&#160;</td>
-          <td class="paramname"><em>s</em></td><td>)</td>
+          <td class="paramtype">const float3 &amp;</td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -922,7 +864,9 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00040">40</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00050">scale()</a>.</p>
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00054">scale()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00050">scale()</a>.</p>
 
 </div>
 </div>
@@ -938,21 +882,20 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::scale </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>s</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>s</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00054">54</a> 行目に定義があります。</p>
 
-<p class="reference">参照先 <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00040">scale()</a>.</p>
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00040">scale()</a>.</p>
 
 </div>
 </div>
@@ -968,37 +911,29 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::scale </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>sx</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>sx</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>sy</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>sy</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>sz</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>sz</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00050">50</a> 行目に定義があります。</p>
 
-<p class="reference">参照先 <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00040">scale()</a>.</p>
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00040">scale()</a>.</p>
 
 </div>
 </div>
@@ -1011,7 +946,7 @@ matrix 連携図</div>
         <tr>
           <td class="memname">float3 matrix::translate </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1021,7 +956,7 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00233">233</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../dc/d7b/_component_collision_capsule_8cpp_source.html#l00121">ComponentCollisionCapsule::Draw()</a>, <a class="el" href="../../d3/de8/_component_spring_arm_8cpp_source.html#l00059">ComponentSpringArm::GetPutOnMatrix()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00033">translate()</a>.</p>
+<p class="reference">参照元 <a class="el" href="../../d3/de8/_component_spring_arm_8cpp_source.html#l00060">ComponentSpringArm::GetPutOnMatrix()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00033">translate()</a>.</p>
 
 </div>
 </div>
@@ -1037,14 +972,13 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::translate </td>
           <td>(</td>
-          <td class="paramtype">const float3 &amp;&#160;</td>
-          <td class="paramname"><em>v</em></td><td>)</td>
+          <td class="paramtype">const float3 &amp;</td>          <td class="paramname"><span class="paramname"><em>v</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -1059,7 +993,9 @@ matrix 連携図</div>
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00023">23</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00061">DecomposeMatrixToComponents()</a>, <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00433">IMatrix&lt; T &gt;::GetDegreeToPosition()</a>, <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00104">IMatrix&lt; T &gt;::GetTranslate()</a>, <a class="el" href="../../d8/dec/_debug_camera_8cpp_source.html#l00020">DebugCamera::DebugCamera::Init()</a>, <a class="el" href="../../d8/da0/_component_collision_8cpp_source.html#l00728">ComponentCollision::isHit()</a>, <a class="el" href="../../dc/d7b/_component_collision_capsule_8cpp_source.html#l00043">ComponentCollisionCapsule::PrePhysics()</a>.</p>
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>.</p>
+
+<p class="reference">参照元 <a class="el" href="../../d2/de3/_component_transform_8cpp_source.html#l00060">DecomposeMatrixToComponents()</a>, <a class="el" href="../../dc/d7b/_component_collision_capsule_8cpp_source.html#l00119">ComponentCollisionCapsule::Draw()</a>, <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html#l00505">ComponentPhysics::Draw()</a>, <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00414">IMatrix&lt; T &gt;::GetDegreeToPosition()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00697">ComponentModel::GetOldWorldMatrix()</a>, <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00085">IMatrix&lt; T &gt;::GetTranslate()</a>, <a class="el" href="../../d4/d4d/_component_model_8cpp_source.html#l00675">ComponentModel::GetWorldMatrix()</a>, <a class="el" href="../../d8/dec/_debug_camera_8cpp_source.html#l00020">DebugCamera::DebugCamera::Init()</a>, <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html#l00888">ComponentPhysics::MoveTo()</a>, <a class="el" href="../../dc/d7b/_component_collision_capsule_8cpp_source.html#l00041">ComponentCollisionCapsule::PrePhysics()</a>, <a class="el" href="../../d0/d82/_component_physics_8cpp_source.html#l01014">ComponentPhysics::SetPhysicsMatrix()</a>.</p>
 
 </div>
 </div>
@@ -1075,37 +1011,29 @@ matrix 連携図</div>
         <tr>
           <td class="memname"><a class="el" href="../../d1/d8d/classmatrix.html">matrix</a> matrix::translate </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>x</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>y</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a>&#160;</td>
-          <td class="paramname"><em>z</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramtype"><a class="el" href="../../d2/db9/_typedef_8h.html#ad34d88453d37b65a09797bad37f2f527">f32</a></td>          <td class="paramname"><span class="paramname"><em>z</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel nodiscard">nodiscard</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p class="definition"> <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html">VectorMath.cpp</a> の <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00033">33</a> 行目に定義があります。</p>
 
-<p class="reference">参照先 <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00233">translate()</a>.</p>
+<p class="reference">参照先 <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00087">matrix()</a>, <a class="el" href="../../d7/d97/_vector_math_8cpp_source.html#l00233">translate()</a>.</p>
 
 </div>
 </div>
@@ -1121,22 +1049,22 @@ matrix 連携図</div>
         <tr>
           <td class="memname">auto &amp; matrix::translateVector </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>平行移動ベクトル参照を取得 </p>
 
-<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00207">207</a> 行目に定義があります。</p>
+<p class="definition"> <a class="el" href="../../de/d57/_vector_math_8h_source.html">VectorMath.h</a> の <a class="el" href="../../de/d57/_vector_math_8h_source.html#l00205">205</a> 行目に定義があります。</p>
 
-<p class="reference">参照元 <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00081">IMatrix&lt; T &gt;::SetTranslate()</a>.</p>
+<p class="reference">参照元 <a class="el" href="../../d0/d46/_component_transform_8h_source.html#l00062">IMatrix&lt; T &gt;::SetTranslate()</a>.</p>
 
 </div>
 </div>
@@ -1147,7 +1075,8 @@ matrix 連携図</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.6
+構築:&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.14.0
 </small></address>
+</div><!-- doc-content -->
 </body>
 </html>

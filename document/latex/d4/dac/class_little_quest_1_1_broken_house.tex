@@ -1,144 +1,352 @@
-\hypertarget{class_little_quest_1_1_broken_house}{}\doxysection{Little\+Quest\+::Broken\+House Class Reference}
-\label{class_little_quest_1_1_broken_house}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysection{Little\+Quest\+::Broken\+House クラス}
+\hypertarget{class_little_quest_1_1_broken_house}{}\label{class_little_quest_1_1_broken_house}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+
+
+壊れた家クラス  
+
+
 
 
 {\ttfamily \#include $<$Broken\+House.\+h$>$}
 
-Inheritance diagram for Little\+Quest\+::Broken\+House\+:\begin{figure}[H]
+Little\+Quest\+::Broken\+House の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{d4/dac/class_little_quest_1_1_broken_house}
+\includegraphics[height=3.000000cm]{d4/dac/class_little_quest_1_1_broken_house}
 \end{center}
 \end{figure}
-\doxysubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_little_quest_1_1_broken_house_a4df73ea0974e4e90080ffc5ec817aaf2}{BP\+\_\+\+OBJECT\+\_\+\+TYPE}} (\mbox{\hyperlink{class_little_quest_1_1_broken_house}{Broken\+House}}, Object)
+\mbox{\hyperlink{class_little_quest_1_1_broken_house_a994fc92649c31d9a559d6843ffb517f9}{BP\+\_\+\+OBJECT\+\_\+\+DECL}} (\mbox{\hyperlink{class_little_quest_1_1_broken_house}{Broken\+House}}, "{}Little\+Quest/Broken\+House"{})
 \item 
-bool \mbox{\hyperlink{class_little_quest_1_1_broken_house_a3da41e4ffe560e5fcb141d802b79a65f}{Init}} () override
+virtual bool \mbox{\hyperlink{class_little_quest_1_1_broken_house_a3da41e4ffe560e5fcb141d802b79a65f}{Init}} () override
 \item 
-void \mbox{\hyperlink{class_little_quest_1_1_broken_house_a57357028ab5ca66c5fdb3caca0df6594}{Update}} () override
+virtual void \mbox{\hyperlink{class_little_quest_1_1_broken_house_a57357028ab5ca66c5fdb3caca0df6594}{Update}} () override
+\begin{DoxyCompactList}\small\item\em 更新処理を行います。 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_little_quest_1_1_breakable_object_a59144b656413257545f4572bdc8368fa}{BP\+\_\+\+OBJECT\+\_\+\+DECL}} (\mbox{\hyperlink{class_little_quest_1_1_breakable_object}{Breakable\+Object}}, "{}Little\+Quest/Breakable\+Object"{})
 \item 
-void \mbox{\hyperlink{class_little_quest_1_1_broken_house_ac704060a6258cb6419fdd967d16afae6}{Late\+Draw}} () override
-\item 
-void \mbox{\hyperlink{class_little_quest_1_1_broken_house_a68c737aa94d4a48302c98a0186fc69b0}{GUI}} () override
-\item 
-void \mbox{\hyperlink{class_little_quest_1_1_broken_house_a7de9d979f7229097f862e5c41b4d8bd0}{On\+Hit}} (const Component\+Collision\+::\+Hit\+Info \&hit\+Info) override
+virtual void \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a14a6ad74bb8e1fca4d634b6161941666}{Get\+Hit}} (int damage=1)
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
-static Broken\+House\+Ptr \mbox{\hyperlink{class_little_quest_1_1_broken_house_a19a8e399e392246f5d96583f72cf784c}{Create}} (std\+::string name=\char`\"{}Broken\+House\char`\"{}, const float3 \&pos=\{0, 0, 0\})
+static Broken\+House\+Ptr \mbox{\hyperlink{class_little_quest_1_1_broken_house_a19a8e399e392246f5d96583f72cf784c}{Create}} (std\+::string name="{}Broken\+House"{}, const float3 \&pos=\{0, 0, 0\})
 \end{DoxyCompactItemize}
-\doxysubsection*{Private Attributes}
+\doxysubsubsection*{限定公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
-Object\+Ptr \mbox{\hyperlink{class_little_quest_1_1_broken_house_a4f209af7983f0dc648a4ec27e094157c}{m\+\_\+p\+Box}}
+virtual void \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a7b27357858e780ba5be135c4c41d313a}{Break}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{限定公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Model $>$ \mbox{\hyperlink{class_little_quest_1_1_broken_house_aade8f45ed089e5e6167d73fd644fedd9}{\+\_\+collision\+Model}}
+\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a8d55128c0f2f018bb37b50594d0c5205}{DEFAULT\+\_\+\+MAX\+\_\+\+HP}} = 5
+\item 
+const int \mbox{\hyperlink{class_little_quest_1_1_breakable_object_ab496960bdecb76e9f4d16a6eca170ab2}{MAX\+\_\+\+VOLUME}} = 255
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a9b7f0ac35db9948d850da32d51f03b9a}{\+\_\+max\+HP}} = \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a8d55128c0f2f018bb37b50594d0c5205}{DEFAULT\+\_\+\+MAX\+\_\+\+HP}}
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a2d35a496087b85b4d9654b85e1e661a3}{\+\_\+is\+Broke}} = false
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_breakable_object_aef3cd008773e735f1c610125e975e066}{\+\_\+break\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a505571e50ec6382ad6856f151d36b935}{\+\_\+playing\+Effect}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_breakable_object_adc6f02adba9c3499ab3161d9b0dab8aa}{\+\_\+damage\+SE}} = -\/1
+\item 
+int \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a13fdd1d3a12922ce4c9e2679be7b0622}{\+\_\+destroy\+SE}} = -\/1
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Collision\+Model $>$ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a62946d6919b1e6cf1a14f03b8a6cdb0f}{\+\_\+collision\+Box}}
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Model $>$ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a50808158102530ca65fa058c64c972b5}{\+\_\+model}}
+\item 
+std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}} $>$ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a40f3c6f62273a0b2173021cb2187cdac}{\+\_\+component\+HP}}
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
+壊れた家クラス 
+
+ \mbox{\hyperlink{_broken_house_8h_source}{Broken\+House.\+h}} の \mbox{\hyperlink{_broken_house_8h_source_l00011}{11}} 行目に定義があります。
 
 
-Definition at line \mbox{\hyperlink{_broken_house_8h_source_l00007}{7}} of file \mbox{\hyperlink{_broken_house_8h_source}{Broken\+House.\+h}}.
+
+\label{doc-func-members}
+\Hypertarget{class_little_quest_1_1_broken_house_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_little_quest_1_1_breakable_object_a59144b656413257545f4572bdc8368fa}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!BP\_OBJECT\_DECL@{BP\_OBJECT\_DECL}}
+\index{BP\_OBJECT\_DECL@{BP\_OBJECT\_DECL}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{BP\_OBJECT\_DECL()}{BP\_OBJECT\_DECL()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_a59144b656413257545f4572bdc8368fa} 
+Little\+Quest\+::\+Breakable\+Object\+::\+BP\+\_\+\+OBJECT\+\_\+\+DECL (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_breakable_object}{Breakable\+Object}}}]{}{, }\item[{"{}Little\+Quest/Breakable\+Object"{}}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+\Hypertarget{class_little_quest_1_1_broken_house_a994fc92649c31d9a559d6843ffb517f9}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!BP\_OBJECT\_DECL@{BP\_OBJECT\_DECL}}
+\index{BP\_OBJECT\_DECL@{BP\_OBJECT\_DECL}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{BP\_OBJECT\_DECL()}{BP\_OBJECT\_DECL()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_broken_house_a994fc92649c31d9a559d6843ffb517f9} 
+Little\+Quest\+::\+Broken\+House\+::\+BP\+\_\+\+OBJECT\+\_\+\+DECL (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_broken_house}{Broken\+House}}}]{}{, }\item[{"{}Little\+Quest/Broken\+House"{}}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{class_little_quest_1_1_breakable_object_a7b27357858e780ba5be135c4c41d313a}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!Break@{Break}}
+\index{Break@{Break}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{Break()}{Break()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_a7b27357858e780ba5be135c4c41d313a} 
+void Little\+Quest\+::\+Breakable\+Object\+::\+Break (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}, {\ttfamily [inherited]}}
 
 
 
-\doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_little_quest_1_1_broken_house_a4df73ea0974e4e90080ffc5ec817aaf2}\label{class_little_quest_1_1_broken_house_a4df73ea0974e4e90080ffc5ec817aaf2}} 
-\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!BP\_OBJECT\_TYPE@{BP\_OBJECT\_TYPE}}
-\index{BP\_OBJECT\_TYPE@{BP\_OBJECT\_TYPE}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
-\doxysubsubsection{\texorpdfstring{BP\_OBJECT\_TYPE()}{BP\_OBJECT\_TYPE()}}
-{\footnotesize\ttfamily Little\+Quest\+::\+Broken\+House\+::\+BP\+\_\+\+OBJECT\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_broken_house}{Broken\+House}}}]{,  }\item[{Object}]{ }\end{DoxyParamCaption})}
+ \mbox{\hyperlink{_breakable_object_8cpp_source}{Breakable\+Object.\+cpp}} の \mbox{\hyperlink{_breakable_object_8cpp_source_l00031}{31}} 行目に定義があります。
 
-\mbox{\Hypertarget{class_little_quest_1_1_broken_house_a19a8e399e392246f5d96583f72cf784c}\label{class_little_quest_1_1_broken_house_a19a8e399e392246f5d96583f72cf784c}} 
-\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!Create@{Create}}
+
+
+参照先 \mbox{\hyperlink{_breakable_object_8h_source_l00025}{\+\_\+break\+Effect}}, \mbox{\hyperlink{_breakable_object_8h_source_l00026}{\+\_\+playing\+Effect}}.
+
+
+
+参照元 \mbox{\hyperlink{_breakable_object_8cpp_source_l00017}{Get\+Hit()}}.
+
+\Hypertarget{class_little_quest_1_1_broken_house_a19a8e399e392246f5d96583f72cf784c}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!Create@{Create}}
 \index{Create@{Create}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
 \doxysubsubsection{\texorpdfstring{Create()}{Create()}}
-{\footnotesize\ttfamily Broken\+House\+Ptr Little\+Quest\+::\+Broken\+House\+::\+Create (\begin{DoxyParamCaption}\item[{std\+::string}]{name = {\ttfamily \char`\"{}BrokenHouse\char`\"{}},  }\item[{const float3 \&}]{pos = {\ttfamily \{0,~0,~0\}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_broken_house_a19a8e399e392246f5d96583f72cf784c} 
+Broken\+House\+Ptr Little\+Quest\+::\+Broken\+House\+::\+Create (\begin{DoxyParamCaption}\item[{std\+::string}]{name}{ = {\ttfamily "{}BrokenHouse"{}}, }\item[{const float3 \&}]{pos}{ = {\ttfamily \{0,~0,~0\}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line \mbox{\hyperlink{_broken_house_8cpp_source_l00009}{9}} of file \mbox{\hyperlink{_broken_house_8cpp_source}{Broken\+House.\+cpp}}.
+ \mbox{\hyperlink{_broken_house_8cpp_source}{Broken\+House.\+cpp}} の \mbox{\hyperlink{_broken_house_8cpp_source_l00011}{11}} 行目に定義があります。
 
 
 
-Referenced by \mbox{\hyperlink{_stage01_8cpp_source_l00035}{Little\+Quest\+::\+Stage01\+::\+Init()}}.
+参照元 \mbox{\hyperlink{_stage01_8cpp_source_l00028}{Little\+Quest\+::\+Stage01\+::\+Init()}}.
 
-\mbox{\Hypertarget{class_little_quest_1_1_broken_house_a68c737aa94d4a48302c98a0186fc69b0}\label{class_little_quest_1_1_broken_house_a68c737aa94d4a48302c98a0186fc69b0}} 
-\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!GUI@{GUI}}
-\index{GUI@{GUI}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
-\doxysubsubsection{\texorpdfstring{GUI()}{GUI()}}
-{\footnotesize\ttfamily void Little\+Quest\+::\+Broken\+House\+::\+GUI (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+\Hypertarget{class_little_quest_1_1_breakable_object_a14a6ad74bb8e1fca4d634b6161941666}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!GetHit@{GetHit}}
+\index{GetHit@{GetHit}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{GetHit()}{GetHit()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_a14a6ad74bb8e1fca4d634b6161941666} 
+void Little\+Quest\+::\+Breakable\+Object\+::\+Get\+Hit (\begin{DoxyParamCaption}\item[{int}]{damage}{ = {\ttfamily 1}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
 
 
 
-Definition at line \mbox{\hyperlink{_broken_house_8cpp_source_l00037}{37}} of file \mbox{\hyperlink{_broken_house_8cpp_source}{Broken\+House.\+cpp}}.
+ \mbox{\hyperlink{_breakable_object_8cpp_source}{Breakable\+Object.\+cpp}} の \mbox{\hyperlink{_breakable_object_8cpp_source_l00017}{17}} 行目に定義があります。
 
-\mbox{\Hypertarget{class_little_quest_1_1_broken_house_a3da41e4ffe560e5fcb141d802b79a65f}\label{class_little_quest_1_1_broken_house_a3da41e4ffe560e5fcb141d802b79a65f}} 
-\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!Init@{Init}}
+
+
+参照先 \mbox{\hyperlink{_breakable_object_8h_source_l00032}{\+\_\+component\+HP}}, \mbox{\hyperlink{_breakable_object_8h_source_l00027}{\+\_\+damage\+SE}}, \mbox{\hyperlink{_breakable_object_8h_source_l00028}{\+\_\+destroy\+SE}}, \mbox{\hyperlink{_breakable_object_8h_source_l00024}{\+\_\+is\+Broke}}, \mbox{\hyperlink{_breakable_object_8cpp_source_l00031}{Break()}}, \mbox{\hyperlink{_breakable_object_8h_source_l00021}{MAX\+\_\+\+VOLUME}}.
+
+
+
+参照元 \mbox{\hyperlink{_player_8cpp_source_l00241}{Little\+Quest\+::\+Player\+::\+On\+Hit()}}.
+
+\Hypertarget{class_little_quest_1_1_broken_house_a3da41e4ffe560e5fcb141d802b79a65f}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!Init@{Init}}
 \index{Init@{Init}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
 \doxysubsubsection{\texorpdfstring{Init()}{Init()}}
-{\footnotesize\ttfamily bool Little\+Quest\+::\+Broken\+House\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_broken_house_a3da41e4ffe560e5fcb141d802b79a65f} 
+bool Little\+Quest\+::\+Broken\+House\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Definition at line \mbox{\hyperlink{_broken_house_8cpp_source_l00025}{25}} of file \mbox{\hyperlink{_broken_house_8cpp_source}{Broken\+House.\+cpp}}.
-
-\mbox{\Hypertarget{class_little_quest_1_1_broken_house_ac704060a6258cb6419fdd967d16afae6}\label{class_little_quest_1_1_broken_house_ac704060a6258cb6419fdd967d16afae6}} 
-\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!LateDraw@{LateDraw}}
-\index{LateDraw@{LateDraw}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
-\doxysubsubsection{\texorpdfstring{LateDraw()}{LateDraw()}}
-{\footnotesize\ttfamily void Little\+Quest\+::\+Broken\+House\+::\+Late\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+\mbox{\hyperlink{class_little_quest_1_1_breakable_object_ac9707cb230f36b11aa2a34762d12ec75}{Little\+Quest\+::\+Breakable\+Object}}を再実装しています。
 
 
 
-Definition at line \mbox{\hyperlink{_broken_house_8cpp_source_l00035}{35}} of file \mbox{\hyperlink{_broken_house_8cpp_source}{Broken\+House.\+cpp}}.
-
-\mbox{\Hypertarget{class_little_quest_1_1_broken_house_a7de9d979f7229097f862e5c41b4d8bd0}\label{class_little_quest_1_1_broken_house_a7de9d979f7229097f862e5c41b4d8bd0}} 
-\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!OnHit@{OnHit}}
-\index{OnHit@{OnHit}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
-\doxysubsubsection{\texorpdfstring{OnHit()}{OnHit()}}
-{\footnotesize\ttfamily void Little\+Quest\+::\+Broken\+House\+::\+On\+Hit (\begin{DoxyParamCaption}\item[{const Component\+Collision\+::\+Hit\+Info \&}]{hit\+Info }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+ \mbox{\hyperlink{_broken_house_8cpp_source}{Broken\+House.\+cpp}} の \mbox{\hyperlink{_broken_house_8cpp_source_l00027}{27}} 行目に定義があります。
 
 
 
-Definition at line \mbox{\hyperlink{_broken_house_8cpp_source_l00041}{41}} of file \mbox{\hyperlink{_broken_house_8cpp_source}{Broken\+House.\+cpp}}.
+参照先 \mbox{\hyperlink{_breakable_object_8h_source_l00030}{Little\+Quest\+::\+Breakable\+Object\+::\+\_\+collision\+Box}}, \mbox{\hyperlink{_broken_house_8h_source_l00022}{\+\_\+collision\+Model}}, \mbox{\hyperlink{_breakable_object_8h_source_l00031}{Little\+Quest\+::\+Breakable\+Object\+::\+\_\+model}}.
 
-\mbox{\Hypertarget{class_little_quest_1_1_broken_house_a57357028ab5ca66c5fdb3caca0df6594}\label{class_little_quest_1_1_broken_house_a57357028ab5ca66c5fdb3caca0df6594}} 
-\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!Update@{Update}}
+\Hypertarget{class_little_quest_1_1_broken_house_a57357028ab5ca66c5fdb3caca0df6594}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!Update@{Update}}
 \index{Update@{Update}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
 \doxysubsubsection{\texorpdfstring{Update()}{Update()}}
-{\footnotesize\ttfamily void Little\+Quest\+::\+Broken\+House\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_broken_house_a57357028ab5ca66c5fdb3caca0df6594} 
+void Little\+Quest\+::\+Broken\+House\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Definition at line \mbox{\hyperlink{_broken_house_8cpp_source_l00029}{29}} of file \mbox{\hyperlink{_broken_house_8cpp_source}{Broken\+House.\+cpp}}.
+更新処理を行います。 
 
 
 
-References \mbox{\hyperlink{_broken_house_8h_source_l00018}{m\+\_\+p\+Box}}.
+ \mbox{\hyperlink{_broken_house_8cpp_source}{Broken\+House.\+cpp}} の \mbox{\hyperlink{_broken_house_8cpp_source_l00018}{18}} 行目に定義があります。
 
 
 
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{class_little_quest_1_1_broken_house_a4f209af7983f0dc648a4ec27e094157c}\label{class_little_quest_1_1_broken_house_a4f209af7983f0dc648a4ec27e094157c}} 
-\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!m\_pBox@{m\_pBox}}
-\index{m\_pBox@{m\_pBox}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
-\doxysubsubsection{\texorpdfstring{m\_pBox}{m\_pBox}}
-{\footnotesize\ttfamily Object\+Ptr Little\+Quest\+::\+Broken\+House\+::m\+\_\+p\+Box\hspace{0.3cm}{\ttfamily [private]}}
+参照先 \mbox{\hyperlink{_breakable_object_8h_source_l00030}{Little\+Quest\+::\+Breakable\+Object\+::\+\_\+collision\+Box}}, \mbox{\hyperlink{_broken_house_8h_source_l00022}{\+\_\+collision\+Model}}, \mbox{\hyperlink{_breakable_object_8h_source_l00024}{Little\+Quest\+::\+Breakable\+Object\+::\+\_\+is\+Broke}}, \mbox{\hyperlink{_breakable_object_8h_source_l00031}{Little\+Quest\+::\+Breakable\+Object\+::\+\_\+model}}.
 
 
 
-Definition at line \mbox{\hyperlink{_broken_house_8h_source_l00018}{18}} of file \mbox{\hyperlink{_broken_house_8h_source}{Broken\+House.\+h}}.
+\label{doc-variable-members}
+\Hypertarget{class_little_quest_1_1_broken_house_doc-variable-members}
+\doxysubsection{メンバ詳解}
+\Hypertarget{class_little_quest_1_1_breakable_object_aef3cd008773e735f1c610125e975e066}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!\_breakEffect@{\_breakEffect}}
+\index{\_breakEffect@{\_breakEffect}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{\_breakEffect}{\_breakEffect}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_aef3cd008773e735f1c610125e975e066} 
+int Little\+Quest\+::\+Breakable\+Object\+::\+\_\+break\+Effect = -\/1\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
 
 
 
-Referenced by \mbox{\hyperlink{_broken_house_8cpp_source_l00029}{Update()}}.
+ \mbox{\hyperlink{_breakable_object_8h_source}{Breakable\+Object.\+h}} の \mbox{\hyperlink{_breakable_object_8h_source_l00025}{25}} 行目に定義があります。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+参照元 \mbox{\hyperlink{_breakable_object_8cpp_source_l00031}{Break()}}, \mbox{\hyperlink{_breakable_object_8cpp_source_l00006}{Init()}}.
+
+\Hypertarget{class_little_quest_1_1_breakable_object_a62946d6919b1e6cf1a14f03b8a6cdb0f}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!\_collisionBox@{\_collisionBox}}
+\index{\_collisionBox@{\_collisionBox}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{\_collisionBox}{\_collisionBox}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_a62946d6919b1e6cf1a14f03b8a6cdb0f} 
+std\+::weak\+\_\+ptr$<$Component\+Collision\+Model$>$ Little\+Quest\+::\+Breakable\+Object\+::\+\_\+collision\+Box\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_breakable_object_8h_source}{Breakable\+Object.\+h}} の \mbox{\hyperlink{_breakable_object_8h_source_l00030}{30}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_abandon_house_8cpp_source_l00019}{Little\+Quest\+::\+Abandon\+House\+::\+Init()}}, \mbox{\hyperlink{_broken_house_8cpp_source_l00027}{Little\+Quest\+::\+Broken\+House\+::\+Init()}}, \mbox{\hyperlink{_destroyed_house_8cpp_source_l00016}{Little\+Quest\+::\+Destroyed\+House\+::\+Init()}}, \mbox{\hyperlink{_abandon_house_8cpp_source_l00032}{Little\+Quest\+::\+Abandon\+House\+::\+Update()}}, \mbox{\hyperlink{_broken_house_8cpp_source_l00018}{Little\+Quest\+::\+Broken\+House\+::\+Update()}}, \mbox{\hyperlink{_destroyed_house_8cpp_source_l00026}{Little\+Quest\+::\+Destroyed\+House\+::\+Update()}}.
+
+\Hypertarget{class_little_quest_1_1_broken_house_aade8f45ed089e5e6167d73fd644fedd9}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!\_collisionModel@{\_collisionModel}}
+\index{\_collisionModel@{\_collisionModel}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{\_collisionModel}{\_collisionModel}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_broken_house_aade8f45ed089e5e6167d73fd644fedd9} 
+std\+::weak\+\_\+ptr$<$Component\+Model$>$ Little\+Quest\+::\+Broken\+House\+::\+\_\+collision\+Model\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+ \mbox{\hyperlink{_broken_house_8h_source}{Broken\+House.\+h}} の \mbox{\hyperlink{_broken_house_8h_source_l00022}{22}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_broken_house_8cpp_source_l00027}{Init()}}, \mbox{\hyperlink{_broken_house_8cpp_source_l00018}{Update()}}.
+
+\Hypertarget{class_little_quest_1_1_breakable_object_a40f3c6f62273a0b2173021cb2187cdac}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!\_componentHP@{\_componentHP}}
+\index{\_componentHP@{\_componentHP}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{\_componentHP}{\_componentHP}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_a40f3c6f62273a0b2173021cb2187cdac} 
+std\+::weak\+\_\+ptr$<$\mbox{\hyperlink{class_little_quest_1_1_component_h_p}{Component\+HP}}$>$ Little\+Quest\+::\+Breakable\+Object\+::\+\_\+component\+HP\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_breakable_object_8h_source}{Breakable\+Object.\+h}} の \mbox{\hyperlink{_breakable_object_8h_source_l00032}{32}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_breakable_object_8cpp_source_l00017}{Get\+Hit()}}, \mbox{\hyperlink{_breakable_object_8cpp_source_l00006}{Init()}}.
+
+\Hypertarget{class_little_quest_1_1_breakable_object_adc6f02adba9c3499ab3161d9b0dab8aa}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!\_damageSE@{\_damageSE}}
+\index{\_damageSE@{\_damageSE}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{\_damageSE}{\_damageSE}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_adc6f02adba9c3499ab3161d9b0dab8aa} 
+int Little\+Quest\+::\+Breakable\+Object\+::\+\_\+damage\+SE = -\/1\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_breakable_object_8h_source}{Breakable\+Object.\+h}} の \mbox{\hyperlink{_breakable_object_8h_source_l00027}{27}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_breakable_object_8cpp_source_l00017}{Get\+Hit()}}, \mbox{\hyperlink{_breakable_object_8cpp_source_l00006}{Init()}}.
+
+\Hypertarget{class_little_quest_1_1_breakable_object_a13fdd1d3a12922ce4c9e2679be7b0622}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!\_destroySE@{\_destroySE}}
+\index{\_destroySE@{\_destroySE}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{\_destroySE}{\_destroySE}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_a13fdd1d3a12922ce4c9e2679be7b0622} 
+int Little\+Quest\+::\+Breakable\+Object\+::\+\_\+destroy\+SE = -\/1\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_breakable_object_8h_source}{Breakable\+Object.\+h}} の \mbox{\hyperlink{_breakable_object_8h_source_l00028}{28}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_breakable_object_8cpp_source_l00017}{Get\+Hit()}}, \mbox{\hyperlink{_breakable_object_8cpp_source_l00006}{Init()}}.
+
+\Hypertarget{class_little_quest_1_1_breakable_object_a2d35a496087b85b4d9654b85e1e661a3}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!\_isBroke@{\_isBroke}}
+\index{\_isBroke@{\_isBroke}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{\_isBroke}{\_isBroke}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_a2d35a496087b85b4d9654b85e1e661a3} 
+bool Little\+Quest\+::\+Breakable\+Object\+::\+\_\+is\+Broke = false\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_breakable_object_8h_source}{Breakable\+Object.\+h}} の \mbox{\hyperlink{_breakable_object_8h_source_l00024}{24}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_breakable_object_8cpp_source_l00017}{Get\+Hit()}}, \mbox{\hyperlink{_abandon_house_8cpp_source_l00032}{Little\+Quest\+::\+Abandon\+House\+::\+Update()}}, \mbox{\hyperlink{_broken_house_8cpp_source_l00018}{Little\+Quest\+::\+Broken\+House\+::\+Update()}}, \mbox{\hyperlink{_destroyed_house_8cpp_source_l00026}{Little\+Quest\+::\+Destroyed\+House\+::\+Update()}}.
+
+\Hypertarget{class_little_quest_1_1_breakable_object_a9b7f0ac35db9948d850da32d51f03b9a}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!\_maxHP@{\_maxHP}}
+\index{\_maxHP@{\_maxHP}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{\_maxHP}{\_maxHP}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_a9b7f0ac35db9948d850da32d51f03b9a} 
+int Little\+Quest\+::\+Breakable\+Object\+::\+\_\+max\+HP = \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a8d55128c0f2f018bb37b50594d0c5205}{DEFAULT\+\_\+\+MAX\+\_\+\+HP}}\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_breakable_object_8h_source}{Breakable\+Object.\+h}} の \mbox{\hyperlink{_breakable_object_8h_source_l00023}{23}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_breakable_object_8cpp_source_l00006}{Init()}}.
+
+\Hypertarget{class_little_quest_1_1_breakable_object_a50808158102530ca65fa058c64c972b5}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!\_model@{\_model}}
+\index{\_model@{\_model}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{\_model}{\_model}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_a50808158102530ca65fa058c64c972b5} 
+std\+::weak\+\_\+ptr$<$Component\+Model$>$ Little\+Quest\+::\+Breakable\+Object\+::\+\_\+model\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_breakable_object_8h_source}{Breakable\+Object.\+h}} の \mbox{\hyperlink{_breakable_object_8h_source_l00031}{31}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_abandon_house_8cpp_source_l00019}{Little\+Quest\+::\+Abandon\+House\+::\+Init()}}, \mbox{\hyperlink{_broken_house_8cpp_source_l00027}{Little\+Quest\+::\+Broken\+House\+::\+Init()}}, \mbox{\hyperlink{_destroyed_house_8cpp_source_l00016}{Little\+Quest\+::\+Destroyed\+House\+::\+Init()}}, \mbox{\hyperlink{_abandon_house_8cpp_source_l00032}{Little\+Quest\+::\+Abandon\+House\+::\+Update()}}, \mbox{\hyperlink{_broken_house_8cpp_source_l00018}{Little\+Quest\+::\+Broken\+House\+::\+Update()}}, \mbox{\hyperlink{_destroyed_house_8cpp_source_l00026}{Little\+Quest\+::\+Destroyed\+House\+::\+Update()}}.
+
+\Hypertarget{class_little_quest_1_1_breakable_object_a505571e50ec6382ad6856f151d36b935}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!\_playingEffect@{\_playingEffect}}
+\index{\_playingEffect@{\_playingEffect}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{\_playingEffect}{\_playingEffect}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_a505571e50ec6382ad6856f151d36b935} 
+int Little\+Quest\+::\+Breakable\+Object\+::\+\_\+playing\+Effect = -\/1\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_breakable_object_8h_source}{Breakable\+Object.\+h}} の \mbox{\hyperlink{_breakable_object_8h_source_l00026}{26}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_breakable_object_8cpp_source_l00031}{Break()}}.
+
+\Hypertarget{class_little_quest_1_1_breakable_object_a8d55128c0f2f018bb37b50594d0c5205}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!DEFAULT\_MAX\_HP@{DEFAULT\_MAX\_HP}}
+\index{DEFAULT\_MAX\_HP@{DEFAULT\_MAX\_HP}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{DEFAULT\_MAX\_HP}{DEFAULT\_MAX\_HP}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_a8d55128c0f2f018bb37b50594d0c5205} 
+const int Little\+Quest\+::\+Breakable\+Object\+::\+DEFAULT\+\_\+\+MAX\+\_\+\+HP = 5\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_breakable_object_8h_source}{Breakable\+Object.\+h}} の \mbox{\hyperlink{_breakable_object_8h_source_l00020}{20}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_breakable_object_ab496960bdecb76e9f4d16a6eca170ab2}\index{LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}!MAX\_VOLUME@{MAX\_VOLUME}}
+\index{MAX\_VOLUME@{MAX\_VOLUME}!LittleQuest::BrokenHouse@{LittleQuest::BrokenHouse}}
+\doxysubsubsection{\texorpdfstring{MAX\_VOLUME}{MAX\_VOLUME}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_breakable_object_ab496960bdecb76e9f4d16a6eca170ab2} 
+const int Little\+Quest\+::\+Breakable\+Object\+::\+MAX\+\_\+\+VOLUME = 255\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+ \mbox{\hyperlink{_breakable_object_8h_source}{Breakable\+Object.\+h}} の \mbox{\hyperlink{_breakable_object_8h_source_l00021}{21}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_breakable_object_8cpp_source_l00017}{Get\+Hit()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{_broken_house_8h}{Broken\+House.\+h}}\item 
 \mbox{\hyperlink{_broken_house_8cpp}{Broken\+House.\+cpp}}\end{DoxyCompactItemize}

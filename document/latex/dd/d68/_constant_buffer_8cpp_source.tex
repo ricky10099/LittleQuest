@@ -1,0 +1,72 @@
+\doxysection{Constant\+Buffer.\+cpp}
+\hypertarget{_constant_buffer_8cpp_source}{}\label{_constant_buffer_8cpp_source}\index{ConstantBuffer.cpp@{ConstantBuffer.cpp}}
+\mbox{\hyperlink{_constant_buffer_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ ConstantBuffer.cpp}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ 定数バッファ}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00004}00004\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_constant_buffer_8h}{ConstantBuffer.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00007}00007\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00008}00008\ \textcolor{comment}{//!\ 定数バッファ}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00009}00009\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00010}\mbox{\hyperlink{class_constant_buffer_impl}{00010}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_constant_buffer_impl_a96702575350c8c19f86a64be18acce72}{ConstantBufferImpl}}\ final}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00011}00011\ \ \ \ \ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_constant_buffer}{ConstantBuffer}}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00012}00012\ \ \ \ \ ,\ \mbox{\hyperlink{classnoncopyable_af76530d2e057d1a59f0d143cd810db2a}{noncopyable}}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00013}00013\ \ \ \ \ ,\ \mbox{\hyperlink{classnonmovable_a6cd281f48b97a59d28f79e651a2c1e9d}{nonmovable}}\ \{}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00014}00014\ \ \ \ \textcolor{keyword}{public}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00015}00015\ \textcolor{comment}{\ \ \ \ //!\ デフォルトコンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00016}\mbox{\hyperlink{class_constant_buffer_impl_a96702575350c8c19f86a64be18acce72}{00016}}\ \ \ \ \ \mbox{\hyperlink{class_constant_buffer_impl_a96702575350c8c19f86a64be18acce72}{ConstantBufferImpl}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00017}00017\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00018}00018\ \textcolor{comment}{\ \ \ \ //!\ コンストラクタ(サイズ指定)}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00019}00019\ \textcolor{comment}{\ \ \ \ //!\ @param\ [in]\ size\ \ \ \ 定数バッファサイズ\ (4の倍数が必要。16の倍数を推奨)}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00020}\mbox{\hyperlink{class_constant_buffer_impl_a4a3b3875af63fa2484f94d3f3edd2ed0}{00020}}\ \ \ \ \ \mbox{\hyperlink{class_constant_buffer_impl_a4a3b3875af63fa2484f94d3f3edd2ed0}{ConstantBufferImpl}}(\textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(size\ >\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_constant_buffer_impl_a5c9fb35712b8edfdc9e0f6d79a1eb9ab}{constant\_buffer\_}}\ =\ CreateShaderConstantBuffer(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(size));}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00024}00024\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00025}00025\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00026}00026\ \textcolor{comment}{\ \ \ \ //!\ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00027}\mbox{\hyperlink{class_constant_buffer_impl_a37080372546ac2b5dfa3ff531326ac49}{00027}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_constant_buffer_impl_a37080372546ac2b5dfa3ff531326ac49}{\string~ConstantBufferImpl}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 定数バッファを解放}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_constant_buffer_impl_a5c9fb35712b8edfdc9e0f6d79a1eb9ab}{constant\_buffer\_}}\ !=\ -\/1)\ \{}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ DeleteShaderConstantBuffer(\mbox{\hyperlink{class_constant_buffer_impl_a5c9fb35712b8edfdc9e0f6d79a1eb9ab}{constant\_buffer\_}});}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00033}00033\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00034}00034\ \textcolor{comment}{\ \ \ \ //!\ バッファを更新開始}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00035}00035\ \textcolor{comment}{\ \ \ \ //!\ @return\ 更新先のバッファのポインタ。このアドレスがバッファの先頭を指していますので書き換えてください。}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00036}\mbox{\hyperlink{class_constant_buffer_impl_a2270405a305341d64eb51b2537384fbd}{00036}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{class_constant_buffer_impl_a2270405a305341d64eb51b2537384fbd}{beginUpdate}}()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 更新に必要なワークメモリの場所を取得}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ GetBufferShaderConstantBuffer(\mbox{\hyperlink{class_constant_buffer_impl_a5c9fb35712b8edfdc9e0f6d79a1eb9ab}{constant\_buffer\_}});}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00039}00039\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00040}00040\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00041}00041\ \textcolor{comment}{\ \ \ \ //!\ バッファを更新終了}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00042}\mbox{\hyperlink{class_constant_buffer_impl_affb4a35267c90108b802cf473e8640be}{00042}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_constant_buffer_impl_affb4a35267c90108b802cf473e8640be}{endUpdate}}()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 定数バッファワークメモリをGPU側へ転送}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ UpdateShaderConstantBuffer(\mbox{\hyperlink{class_constant_buffer_impl_a5c9fb35712b8edfdc9e0f6d79a1eb9ab}{constant\_buffer\_}});}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00045}00045\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00046}00046\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00047}00047\ \textcolor{comment}{\ \ \ \ //!\ [DxLib]\ 定数バッファハンドルを取得}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00048}00048\ \textcolor{comment}{\ \ \ \ //!\ @return\ 定数バッファハンドル}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00049}\mbox{\hyperlink{class_constant_buffer_impl_a105932f200a021b8a088d3d236dc6694}{00049}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keyword}{operator}\ int()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_constant_buffer_impl_a5c9fb35712b8edfdc9e0f6d79a1eb9ab}{constant\_buffer\_}};}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00051}00051\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00053}00053\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00054}\mbox{\hyperlink{class_constant_buffer_impl_a5c9fb35712b8edfdc9e0f6d79a1eb9ab}{00054}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_constant_buffer_impl_a5c9fb35712b8edfdc9e0f6d79a1eb9ab}{constant\_buffer\_}}\ =\ -\/1;\ \ \ \ \textcolor{comment}{//!<\ [DxLib]\ 定数バッファハンドルを取得}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00055}00055\ \};}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00057}00057\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00058}00058\ \textcolor{comment}{//!\ 定数バッファを作成}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00059}00059\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00060}\mbox{\hyperlink{_constant_buffer_8cpp_aa787a5659f30b744534503a1733fa8bc}{00060}}\ std::shared\_ptr<ConstantBuffer>\ \mbox{\hyperlink{_constant_buffer_8cpp_aa787a5659f30b744534503a1733fa8bc}{createConstantBuffer}}(\textcolor{keywordtype}{size\_t}\ size)\ \{}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ std::make\_shared<ConstantBufferImpl>(size);}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00062}00062\ \ \ \ \ \textcolor{keywordflow}{if}(*p\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ p.reset();}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00064}00064\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{return}\ p;}
+\DoxyCodeLine{\Hypertarget{_constant_buffer_8cpp_source_l00066}00066\ \}}
+
+\end{DoxyCode}

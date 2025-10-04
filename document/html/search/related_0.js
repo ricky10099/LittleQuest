@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['component_0',['Component',['../d4/dac/struct_slot_proc.html#a90717717700965c100968cff0188e244',1,'SlotProc']]]
+  ['_3a_3aobject_0',['Object',['../d2/d00/class_component.html#a102ca7ec1e88704df783316011779205',1,'Component']]]
 ];

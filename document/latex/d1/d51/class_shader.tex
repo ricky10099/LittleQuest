@@ -1,0 +1,234 @@
+\doxysection{Shader クラス}
+\hypertarget{class_shader}{}\label{class_shader}\index{Shader@{Shader}}
+
+
+シェーダー基底  
+
+
+
+
+{\ttfamily \#include $<$Shader.\+h$>$}
+
+
+
+Shader の継承関係図
+% FIG 0
+
+
+Shader 連携図
+% FIG 1
+\doxysubsubsection*{クラス}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_shader_1_1_impl}{Impl}}
+\begin{DoxyCompactList}\small\item\em シェーダー実体 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{class_shader_aff01df87e8a102f270b5b135a295e59d}{\texorpdfstring{$\sim$}{\string~}\+Shader}} ()
+\begin{DoxyCompactList}\small\item\em デストラクタ \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_shader_a923b5310167557ae4a2eec65cad7641a}{Shader}} (std\+::string\+\_\+view \mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{path}}, \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} dxlib\+\_\+shader\+\_\+type, \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} variant\+\_\+count=0)
+\begin{DoxyCompactList}\small\item\em 作成 \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_shader_ab1a83c380130e5f0c5ae3318793a938e}{operator int}} () const
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} シェーダーハンドルを取得 \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{class_shader_ac90102e7d6b054e5840bef43521d6679}{variant}} (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} variant\+\_\+index) const
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} シェーダーハンドルを取得 (バリエーション指定) \end{DoxyCompactList}\item 
+std\+::tuple$<$ const void \texorpdfstring{$\ast$}{*}, size\+\_\+t $>$ \mbox{\hyperlink{class_shader_ae50a4dd87b8e4117d4b025b6dccf00bf}{shader\+\_\+bytecode}} (\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}} variant\+\_\+index=0) const
+\begin{DoxyCompactList}\small\item\em \mbox{[}Dx\+Lib\mbox{]} シェーダーバイトコードを取得(バリエーション指定) \end{DoxyCompactList}\item 
+const std\+::wstring \& \mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{path}} () const
+\begin{DoxyCompactList}\small\item\em ファイルパスを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{静的公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_shader_ad44c7f27faeeb7cab30ca10779c0903b}{update\+File\+Watcher}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{非公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_shader_1_1_impl}{Impl}} $>$ \mbox{\hyperlink{class_shader_a64b2bd447495606b491a9dfd4ba979c6}{impl\+\_\+}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{詳解}
+シェーダー基底 
+
+ \mbox{\hyperlink{_shader_8h_source}{Shader.\+h}} の \mbox{\hyperlink{_shader_8h_source_l00012}{12}} 行目に定義があります。
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_shader_doc-constructors}
+\doxysubsection{構築子と解体子}
+\Hypertarget{class_shader_aff01df87e8a102f270b5b135a295e59d}\index{Shader@{Shader}!````~Shader@{\texorpdfstring{$\sim$}{\string~}Shader}}
+\index{````~Shader@{\texorpdfstring{$\sim$}{\string~}Shader}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Shader()}{\string~Shader()}}
+{\footnotesize\ttfamily \label{class_shader_aff01df87e8a102f270b5b135a295e59d} 
+Shader\+::\texorpdfstring{$\sim$}{\string~}\+Shader (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+デストラクタ 
+
+
+
+ \mbox{\hyperlink{_shader_8cpp_source}{Shader.\+cpp}} の \mbox{\hyperlink{_shader_8cpp_source_l00294}{294}} 行目に定義があります。
+
+\Hypertarget{class_shader_a923b5310167557ae4a2eec65cad7641a}\index{Shader@{Shader}!Shader@{Shader}}
+\index{Shader@{Shader}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{Shader()}{Shader()}}
+{\footnotesize\ttfamily \label{class_shader_a923b5310167557ae4a2eec65cad7641a} 
+Shader\+::\+Shader (\begin{DoxyParamCaption}\item[{std\+::string\+\_\+view}]{path}{, }\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{dxlib\+\_\+shader\+\_\+type}{, }\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{variant\+\_\+count}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+
+
+作成 
+
+
+\begin{DoxyParams}[1]{引数}
+\mbox{\texttt{in}}  & {\em path} & ファイルパス \\
+\hline
+\mbox{\texttt{in}}  & {\em dxlib\+\_\+shader\+\_\+type} & \mbox{[}Dx\+Lib\mbox{]} シェーダーの種類(DX\+\_\+\+SHADERTYPE\+\_\+\+VERTEXなど) \\
+\hline
+\mbox{\texttt{in}}  & {\em variant\+\_\+count} & シェーダーバリエーション数(default\+:0) \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_shader_8cpp_source}{Shader.\+cpp}} の \mbox{\hyperlink{_shader_8cpp_source_l00220}{220}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_shader_8h_source_l00042}{impl\+\_\+}}, \mbox{\hyperlink{_shader_8cpp_source_l00325}{path()}}, \mbox{\hyperlink{_shader_8cpp_source_l00165}{Shader\+::\+Impl\+::shaders\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_shader_8h_source_l00068}{Shader\+Gs\+::\+Shader\+Gs()}}, \mbox{\hyperlink{_shader_8h_source_l00060}{Shader\+Ps\+::\+Shader\+Ps()}}, \mbox{\hyperlink{_shader_8h_source_l00050}{Shader\+Vs\+::\+Shader\+Vs()}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_shader_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_shader_ab1a83c380130e5f0c5ae3318793a938e}\index{Shader@{Shader}!operator int@{operator int}}
+\index{operator int@{operator int}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{operator int()}{operator int()}}
+{\footnotesize\ttfamily \label{class_shader_ab1a83c380130e5f0c5ae3318793a938e} 
+Shader\+::operator int (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} シェーダーハンドルを取得 
+
+
+
+ \mbox{\hyperlink{_shader_8cpp_source}{Shader.\+cpp}} の \mbox{\hyperlink{_shader_8cpp_source_l00299}{299}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_shader_8h_source_l00042}{impl\+\_\+}}.
+
+\Hypertarget{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}\index{Shader@{Shader}!path@{path}}
+\index{path@{path}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{path()}{path()}}
+{\footnotesize\ttfamily \label{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada} 
+const std\+::wstring \& Shader\+::path (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+ファイルパスを取得 
+
+
+
+ \mbox{\hyperlink{_shader_8cpp_source}{Shader.\+cpp}} の \mbox{\hyperlink{_shader_8cpp_source_l00325}{325}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_shader_8h_source_l00042}{impl\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_shader_8cpp_source_l00170}{Shader\+::\+Impl\+::\+Impl()}}, \mbox{\hyperlink{_shader_8cpp_source_l00220}{Shader()}}, \mbox{\hyperlink{_shader_8h_source_l00068}{Shader\+Gs\+::\+Shader\+Gs()}}, \mbox{\hyperlink{_shader_8h_source_l00060}{Shader\+Ps\+::\+Shader\+Ps()}}, \mbox{\hyperlink{_shader_8h_source_l00050}{Shader\+Vs\+::\+Shader\+Vs()}}.
+
+\Hypertarget{class_shader_ae50a4dd87b8e4117d4b025b6dccf00bf}\index{Shader@{Shader}!shader\_bytecode@{shader\_bytecode}}
+\index{shader\_bytecode@{shader\_bytecode}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{shader\_bytecode()}{shader\_bytecode()}}
+{\footnotesize\ttfamily \label{class_shader_ae50a4dd87b8e4117d4b025b6dccf00bf} 
+std\+::tuple$<$ const void \texorpdfstring{$\ast$}{*}, size\+\_\+t $>$ Shader\+::shader\+\_\+bytecode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{variant\+\_\+index}{ = {\ttfamily 0}}\end{DoxyParamCaption}) const}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} シェーダーバイトコードを取得(バリエーション指定) 
+
+
+
+ \mbox{\hyperlink{_shader_8cpp_source}{Shader.\+cpp}} の \mbox{\hyperlink{_shader_8cpp_source_l00313}{313}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_shader_8h_source_l00042}{impl\+\_\+}}, \mbox{\hyperlink{_shader_8cpp_source_l00313}{shader\+\_\+bytecode()}}.
+
+
+
+参照元 \mbox{\hyperlink{_shader_8cpp_source_l00313}{shader\+\_\+bytecode()}}.
+
+\Hypertarget{class_shader_ad44c7f27faeeb7cab30ca10779c0903b}\index{Shader@{Shader}!updateFileWatcher@{updateFileWatcher}}
+\index{updateFileWatcher@{updateFileWatcher}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{updateFileWatcher()}{updateFileWatcher()}}
+{\footnotesize\ttfamily \label{class_shader_ad44c7f27faeeb7cab30ca10779c0903b} 
+void Shader\+::update\+File\+Watcher (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+ \mbox{\hyperlink{_shader_8cpp_source}{Shader.\+cpp}} の \mbox{\hyperlink{_shader_8cpp_source_l00332}{332}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_win_main_8cpp_source_l00019}{Win\+Main()}}.
+
+\Hypertarget{class_shader_ac90102e7d6b054e5840bef43521d6679}\index{Shader@{Shader}!variant@{variant}}
+\index{variant@{variant}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{variant()}{variant()}}
+{\footnotesize\ttfamily \label{class_shader_ac90102e7d6b054e5840bef43521d6679} 
+int Shader\+::variant (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}}]{variant\+\_\+index}{}\end{DoxyParamCaption}) const}
+
+
+
+\mbox{[}Dx\+Lib\mbox{]} シェーダーハンドルを取得 (バリエーション指定) 
+
+
+
+ \mbox{\hyperlink{_shader_8cpp_source}{Shader.\+cpp}} の \mbox{\hyperlink{_shader_8cpp_source_l00306}{306}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_shader_8h_source_l00042}{impl\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_model_8cpp_source_l00252}{Model\+::render\+By\+Frame()}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_shader_doc-variable-members}
+\doxysubsection{メンバ詳解}
+\Hypertarget{class_shader_a64b2bd447495606b491a9dfd4ba979c6}\index{Shader@{Shader}!impl\_@{impl\_}}
+\index{impl\_@{impl\_}!Shader@{Shader}}
+\doxysubsubsection{\texorpdfstring{impl\_}{impl\_}}
+{\footnotesize\ttfamily \label{class_shader_a64b2bd447495606b491a9dfd4ba979c6} 
+std\+::shared\+\_\+ptr$<$\mbox{\hyperlink{struct_shader_1_1_impl}{Impl}}$>$ Shader\+::impl\+\_\+\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_shader_8h_source}{Shader.\+h}} の \mbox{\hyperlink{_shader_8h_source_l00042}{42}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_shader_8cpp_source_l00299}{operator int()}}, \mbox{\hyperlink{_shader_8cpp_source_l00325}{path()}}, \mbox{\hyperlink{_shader_8cpp_source_l00220}{Shader()}}, \mbox{\hyperlink{_shader_8cpp_source_l00313}{shader\+\_\+bytecode()}}, \mbox{\hyperlink{_shader_8cpp_source_l00306}{variant()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_shader_8h}{Shader.\+h}}\item 
+\mbox{\hyperlink{_shader_8cpp}{Shader.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,45 @@
+\doxysection{Breakable\+Object.\+cpp}
+\hypertarget{_breakable_object_8cpp_source}{}\label{_breakable_object_8cpp_source}\index{BreakableObject.cpp@{BreakableObject.cpp}}
+\mbox{\hyperlink{_breakable_object_8cpp}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_breakable_object_8h}{BreakableObject.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_h_p_8h}{LittleQuest/Components/ComponentHP.h}}>}}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00005}00005\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_little_quest}{LittleQuest}}\ \{}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00006}\mbox{\hyperlink{class_little_quest_1_1_breakable_object_ac9707cb230f36b11aa2a34762d12ec75}{00006}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_ac9707cb230f36b11aa2a34762d12ec75}{BreakableObject::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00007}00007\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a40f3c6f62273a0b2173021cb2187cdac}{\_componentHP}}\ =\ AddComponent<ComponentHP>();}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00008}00008\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a40f3c6f62273a0b2173021cb2187cdac}{\_componentHP}}.lock()-\/>SetType(\mbox{\hyperlink{class_little_quest_1_1_component_h_p_acb43c6ba5deafb62726668be6f01b947ad1d5e5925c2e7b43c1c844c51ee6bdf9}{ComponentHP::HP\_TYPE::NONE}});}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00009}00009\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a40f3c6f62273a0b2173021cb2187cdac}{\_componentHP}}.lock()-\/>SetHP(\mbox{\hyperlink{class_little_quest_1_1_breakable_object_a9b7f0ac35db9948d850da32d51f03b9a}{\_maxHP}});}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00011}00011\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_aef3cd008773e735f1c610125e975e066}{\_breakEffect}}\ =\ LoadEffekseerEffect(\textcolor{stringliteral}{"{}data/LittleQuest/Effect/ObjectBreak.efk"{}},\ 5.0f);}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00012}00012\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_adc6f02adba9c3499ab3161d9b0dab8aa}{\_damageSE}}\ \ \ \ =\ LoadSoundMem(\textcolor{stringliteral}{"{}data/LittleQuest/Audio/SE/BuildingDamaged.mp3"{}});}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00013}00013\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a13fdd1d3a12922ce4c9e2679be7b0622}{\_destroySE}}\ \ \ =\ LoadSoundMem(\textcolor{stringliteral}{"{}data/LittleQuest/Audio/SE/BuildingDestroyed.mp3"{}});}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00015}00015\ \ \ \ \ \textcolor{keywordflow}{return}\ Super::Init();}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00016}00016\ \}}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00017}\mbox{\hyperlink{class_little_quest_1_1_breakable_object_a14a6ad74bb8e1fca4d634b6161941666}{00017}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a14a6ad74bb8e1fca4d634b6161941666}{BreakableObject::GetHit}}(\textcolor{keywordtype}{int}\ damage)\ \{}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_breakable_object_a2d35a496087b85b4d9654b85e1e661a3}{\_isBroke}})\ \{}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a40f3c6f62273a0b2173021cb2187cdac}{\_componentHP}}.lock()-\/>TakeDamage(damage);}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ PlaySoundMem(\mbox{\hyperlink{class_little_quest_1_1_breakable_object_adc6f02adba9c3499ab3161d9b0dab8aa}{\_damageSE}},\ DX\_PLAYTYPE\_BACK);}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ ChangeVolumeSoundMem((\textcolor{keywordtype}{int})(\mbox{\hyperlink{class_little_quest_1_1_breakable_object_ab496960bdecb76e9f4d16a6eca170ab2}{MAX\_VOLUME}}\ *\ (Scene::GetSEVolume()\ /\ 100.0f)),\ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_adc6f02adba9c3499ab3161d9b0dab8aa}{\_damageSE}});}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00022}00022\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_breakable_object_a40f3c6f62273a0b2173021cb2187cdac}{\_componentHP}}.lock()-\/>GetHP()\ <=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a7b27357858e780ba5be135c4c41d313a}{Break}}();}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a2d35a496087b85b4d9654b85e1e661a3}{\_isBroke}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ PlaySoundMem(\mbox{\hyperlink{class_little_quest_1_1_breakable_object_a13fdd1d3a12922ce4c9e2679be7b0622}{\_destroySE}},\ DX\_PLAYTYPE\_BACK);}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ ChangeVolumeSoundMem((\textcolor{keywordtype}{int})(\mbox{\hyperlink{class_little_quest_1_1_breakable_object_ab496960bdecb76e9f4d16a6eca170ab2}{MAX\_VOLUME}}\ *\ (Scene::GetSEVolume()\ /\ 100.0f)),\ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a13fdd1d3a12922ce4c9e2679be7b0622}{\_destroySE}});}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00031}\mbox{\hyperlink{class_little_quest_1_1_breakable_object_a7b27357858e780ba5be135c4c41d313a}{00031}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a7b27357858e780ba5be135c4c41d313a}{BreakableObject::Break}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00032}00032\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_breakable_object_a505571e50ec6382ad6856f151d36b935}{\_playingEffect}}\ =\ PlayEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_breakable_object_aef3cd008773e735f1c610125e975e066}{\_breakEffect}});}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00033}00033\ \ \ \ \ SetPosPlayingEffekseer3DEffect(\mbox{\hyperlink{class_little_quest_1_1_breakable_object_a505571e50ec6382ad6856f151d36b935}{\_playingEffect}},\ GetWorldMatrix().translate().x,\ GetWorldMatrix().translate().y,}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GetWorldMatrix().translate().z);}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00035}00035\ \}}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00036}00036\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ LittleQuest}}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00038}00038\ CEREAL\_REGISTER\_TYPE(\mbox{\hyperlink{class_little_quest_1_1_breakable_object}{LittleQuest::BreakableObject}})}
+\DoxyCodeLine{\Hypertarget{_breakable_object_8cpp_source_l00039}00039\ CEREAL\_REGISTER\_POLYMORPHIC\_RELATION(Object,\ \mbox{\hyperlink{class_little_quest_1_1_breakable_object}{LittleQuest::BreakableObject}})}
+
+\end{DoxyCode}

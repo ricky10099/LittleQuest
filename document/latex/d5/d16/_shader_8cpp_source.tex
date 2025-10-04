@@ -1,274 +1,340 @@
-\hypertarget{_shader_8cpp_source}{}\doxysection{Shader.\+cpp}
-\label{_shader_8cpp_source}\index{Shader.cpp@{Shader.cpp}}
+\doxysection{Shader.\+cpp}
+\hypertarget{_shader_8cpp_source}{}\label{_shader_8cpp_source}\index{Shader.cpp@{Shader.cpp}}
 \mbox{\hyperlink{_shader_8cpp}{\mbox{[}詳解\mbox{]}}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ Shader.cpp}}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ シェーダー}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00004}00004\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <mutex>}}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00006}00006\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <d3d11.h>}\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DirectX11}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <d3dcompiler.h>}\ \ \ \ \textcolor{comment}{//\ シェーダーコンパイラ}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00009}00009\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_file_watcher_8h}{System/FileWatcher.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_shader_8h}{Shader.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00012}00012\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00013}00013\ \textcolor{comment}{//\ DirectX関連のリンク}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#pragma\ comment(lib,\ "{}d3d11.lib"{}})}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#pragma\ comment(lib,\ "{}dxgi.lib"{}})}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00016}00016\ \textcolor{preprocessor}{\#pragma\ comment(lib,\ "{}d3dcompiler.lib"{}})}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00017}00017\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00018}00018\ \textcolor{keyword}{namespace\ }\{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00019}00019\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00020}00020\ \mbox{\hyperlink{class_file_watcher}{FileWatcher}}\ \ \ \ file\_watcher\_;\ \ \ \ \ \ \ \textcolor{comment}{//!<\ シェーダーホットリロード時のためのファイル監視}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00021}00021\ std::once\_flag\ once\_initialize\_;\ \ \ \ \textcolor{comment}{//!<\ 初回実行用フラグ}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00022}00022\ \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00023}00023\ \textcolor{comment}{//!\ 現在アクティブなシェーダーリスト}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00024}00024\ \textcolor{comment}{//!\ @note\ 起動時の初期化順序の都合で固定長配列にしている}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00025}00025\ \textcolor{comment}{//!\ @note\ 個数が足りなくなった場合は適宜増やす}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00026}00026\ \textcolor{comment}{}std::array<ShaderBase*,\ 1024>\ shaders\_;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00027}00027\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shader\_count\_;\ \ \ \ \textcolor{comment}{//\ シェーダー個数}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00028}00028\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00029}00029\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00030}00030\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00031}00031\ \textcolor{comment}{//!\ コンストラクタ}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00032}00032\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00033}\mbox{\hyperlink{class_shader_base_a0204b5fedb7d930a1978c2e5cd7a76d8}{00033}}\ \mbox{\hyperlink{class_shader_base_a0204b5fedb7d930a1978c2e5cd7a76d8}{ShaderBase::ShaderBase}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00034}00034\ \ \ \ \ assert(shader\_count\_\ <\ shaders\_.size());}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00035}00035\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00036}00036\ \ \ \ \ \textcolor{comment}{//\ シェーダーリストに登録}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00037}00037\ \ \ \ \ shaders\_[shader\_count\_]\ =\ \textcolor{keyword}{this};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00038}00038\ \ \ \ \ shader\_count\_++;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00039}00039\ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00040}00040\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00041}00041\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00042}00042\ \textcolor{comment}{//!\ 作成}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00043}00043\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00044}\mbox{\hyperlink{class_shader_base_a7fc34b708652290e485e4b6b73ad74d9}{00044}}\ \mbox{\hyperlink{class_shader_base_a0204b5fedb7d930a1978c2e5cd7a76d8}{ShaderBase::ShaderBase}}(std::string\_view\ path,\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ type,\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ variant\_count):\ \mbox{\hyperlink{class_shader_base}{ShaderBase}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00045}00045\ \ \ \ \ assert(type\ <=\ DX\_SHADERTYPE\_HULL);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00046}00046\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00047}00047\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ 初回実行時にファイル監視を開始する}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00050}00050\ \ \ \ \ \textcolor{comment}{//\ ファイル変更時のコールバック関数}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00051}00051\ \ \ \ \ \textcolor{keyword}{auto}\ file\_modified\_callback\ =\ [](\textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ \mbox{\hyperlink{class_shader_base_a6b7abbaa0020555a5413d2957b10ac0e}{path}})\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ファイルパスの要素を分解}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{wchar\_t}\ drive[MAX\_PATH];}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{wchar\_t}\ dir[MAX\_PATH];}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{wchar\_t}\ name[MAX\_PATH];}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{wchar\_t}\ ext[MAX\_PATH];}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00057}00057\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \_wsplitpath\_s(\mbox{\hyperlink{class_shader_base_a6b7abbaa0020555a5413d2957b10ac0e}{path}},\ drive,\ dir,\ name,\ ext);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00059}00059\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダーソースコードだった場合}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(lstrcmpiW(ext,\ L\textcolor{stringliteral}{"{}.fx"{}})\ ==\ 0)\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ i\ =\ 0;\ i\ <\ shader\_count\_;\ ++i)\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ shader\ \ \ \ \ \ \ \ =\ shaders\_[i];}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ shader\_path\ \ \ =\ shader-\/>path()\ +\ L\textcolor{stringliteral}{"{}.fx"{}};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ notified\_path\ =\ std::wstring(\mbox{\hyperlink{class_shader_base_a6b7abbaa0020555a5413d2957b10ac0e}{path}});}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <d3dcompiler.h>}\ \ \ \ \textcolor{comment}{//\ シェーダーコンパイラ}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_file_watcher_8h}{System/FileWatcher.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_shader_8h}{Shader.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00012}00012\ \textcolor{comment}{//\ DirectX関連のリンク}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00013}00013\ \textcolor{preprocessor}{\#pragma\ comment(lib,\ "{}d3d11.lib"{})}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00014}00014\ \textcolor{preprocessor}{\#pragma\ comment(lib,\ "{}dxgi.lib"{})}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00015}00015\ \textcolor{preprocessor}{\#pragma\ comment(lib,\ "{}d3dcompiler.lib"{})}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00017}00017\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00018}00018\ \textcolor{comment}{//!\ シェーダーバリエーションの情報}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00019}00019\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00020}\mbox{\hyperlink{struct_variant}{00020}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_variant_a594b84b7c7a7e997aac3354bbdaa2d97}{Variant}}\ \{\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00021}00021\ \textcolor{comment}{\ \ \ \ //!\ デフォルトコンストラクタ}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00022}\mbox{\hyperlink{struct_variant_a594b84b7c7a7e997aac3354bbdaa2d97}{00022}}\ \ \ \ \ \mbox{\hyperlink{struct_variant_a594b84b7c7a7e997aac3354bbdaa2d97}{Variant}}()\ =\ \textcolor{keywordflow}{default};\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00023}00023\ \textcolor{comment}{\ \ \ \ //!\ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00024}\mbox{\hyperlink{struct_variant_afefce84ee3f94c9154c69e2e9a62f0b0}{00024}}\ \ \ \ \ \mbox{\hyperlink{struct_variant_afefce84ee3f94c9154c69e2e9a62f0b0}{\string~Variant}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{struct_variant_a83a03403b95893c34cc9c6d9f055e4e2}{handle\_}}\ !=\ -\/1)\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ DxLib::DeleteShader(\mbox{\hyperlink{struct_variant_a83a03403b95893c34cc9c6d9f055e4e2}{handle\_}});}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00028}00028\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00029}00029\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00030}00030\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ source\_path\ \ \ \ \ \ \ \ \ HLSLソースコードのファイルパス}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00031}00031\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ dxlib\_shader\_type\ \ \ [DxLib]\ シェーダーの種類(DX\_SHADERTYPE\_VERTEXなど)}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00032}\mbox{\hyperlink{struct_variant_a7d05fdf5cad1c33377d775492423c70d}{00032}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_variant_a7d05fdf5cad1c33377d775492423c70d}{compile}}(\textcolor{keyword}{const}\ std::wstring\&\ source\_path,\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ index,\ \textcolor{keywordtype}{int}\ dxlib\_shader\_type)\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ファイルからソースファイルを読み込み}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ std::vector<std::byte>\ source\_code;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ファイルから読み込み}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ std::ifstream\ file(}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ source\_path.c\_str(),}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::ios::in\ |\ std::ios::binary\ |\ std::ios::ate);\ \ \ \ \textcolor{comment}{//\ ateを指定すると最初からファイルポインタが末尾に移動}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!file.is\_open())\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ size\ =\ file.tellg();}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ source\_code.resize(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(size));}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ file.seekg(0,\ std::ios::beg);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ file.read(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(source\_code.data()),\ size);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ file.close();}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダーをコンパイル}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ compile\_flags\ =\ D3DCOMPILE\_OPTIMIZATION\_LEVEL3;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ compile\_flags\ |=\ D3DCOMPILE\_PACK\_MATRIX\_ROW\_MAJOR;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00059}00059\ \textcolor{preprocessor}{\#if\ defined(\_DEBUG)}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ GraphicDebuggingツール用にシェーダーデバッグ向け設定}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ compile\_flags\ |=\ D3DCOMPILE\_DEBUG\ |\ D3DCOMPILE\_SKIP\_OPTIMIZATION;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00062}00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#define\ SHADER\_VARIANT\ \ index\ の形式でプリプロセッサ定義}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ number\_string\ =\ std::to\_string(index);}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00066}00066\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 小文字に統一することで大文字小文字の差異をなくす}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::transform(shader\_path.begin(),\ shader\_path.end(),\ shader\_path.begin(),}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{wchar\_t}\ (*)(\textcolor{keywordtype}{wchar\_t})\textcolor{keyword}{>}(::tolower));}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::transform(notified\_path.begin(),\ notified\_path.end(),\ notified\_path.begin(),}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{wchar\_t}\ (*)(\textcolor{keywordtype}{wchar\_t})\textcolor{keyword}{>}(::tolower));}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00072}00072\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(shader\_path\ ==\ notified\_path)\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 該当するシェーダーが見つかったら再コンパイル}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shader-\/>compile();}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00079}00079\ \ \ \ \ \};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00080}00080\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00081}00081\ \ \ \ \ \textcolor{comment}{//\ ファイル監視開始}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00082}00082\ \ \ \ \ std::call\_once(once\_initialize\_,\ [\&]()\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ file\_watcher\_.initialize(L\textcolor{stringliteral}{"{}."{}},\ file\_modified\_callback);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00084}00084\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ dxlib\_version\ =\ std::format(\textcolor{stringliteral}{"{}\{:\#x\}"{}},\ DXLIB\_VERSION);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダーモデル名}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ target\_names[]\{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}vs\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_VERTEX\ \ \ //\ 頂点シェーダー}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ps\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_PIXEL\ \ \ \ //\ ピクセルシェーダー}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}gs\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_GEOMETRY\ //\ ジオメトリシェーダー}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cs\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_COMPUTE\ \ //\ コンピュートシェーダー}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ds\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_DOMAIN\ \ \ //\ ドメインシェーダー}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}hs\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_HULL\ \ \ \ \ //\ ハルシェーダー}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダー内で参照できる\ \#define\ マクロ定義}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D\_SHADER\_MACRO\ defines[]\{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}SHADER\_VARIANT"{}},\ number\_string.c\_str()\},}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \textcolor{stringliteral}{"{}DXLIB\_VERSION"{}},\ dxlib\_version.c\_str()\},}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr}\},}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \};}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00085}00085\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00086}00086\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//\ 初期設定}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00089}00089\ \ \ \ \ \mbox{\hyperlink{class_shader_base_a5dec857ba2d4ed847904b07364c177ff}{path\_}}\ =\ \mbox{\hyperlink{_precompile_8cpp_a519b42bb9e2e54f0a92b1a75678dea07}{convertTo}}(\mbox{\hyperlink{class_shader_base_a6b7abbaa0020555a5413d2957b10ac0e}{path}});}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00090}00090\ \ \ \ \ \mbox{\hyperlink{class_shader_base_a576b747d3445083d36b1ff7a96716f90}{type\_}}\ =\ type;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00091}00091\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00092}00092\ \ \ \ \ \textcolor{comment}{//\ 最低限1つのバリエーションを持つ}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00093}00093\ \ \ \ \ \textcolor{keywordflow}{if}(variant\_count\ ==\ 0)}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ variant\_count\ =\ 1;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00095}00095\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00096}00096\ \ \ \ \ \mbox{\hyperlink{class_shader_base_a51245f424c7149da9229df13629f53a9}{handles\_}}.resize(variant\_count);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00097}00097\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ x:\ \mbox{\hyperlink{class_shader_base_a51245f424c7149da9229df13629f53a9}{handles\_}})\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ x\ =\ -\/1;\ \ \ \ \textcolor{comment}{//\ デフォルト値}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00100}00100\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00101}00101\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00102}00102\ \ \ \ \ \mbox{\hyperlink{class_shader_base_ab1d4589b69640f0441028a0db68737bd}{compile}}();}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00103}00103\ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00104}00104\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00105}00105\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00106}00106\ \textcolor{comment}{//!\ デストラクタ}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00107}00107\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00108}\mbox{\hyperlink{class_shader_base_a568965693aa7bdea2e5f1e023c479aa7}{00108}}\ \mbox{\hyperlink{class_shader_base_a568965693aa7bdea2e5f1e023c479aa7}{ShaderBase::\string~ShaderBase}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00109}00109\ \ \ \ \ \textcolor{comment}{//\ シェーダーリストから登録解除}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00110}00110\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ std::find(std::begin(shaders\_),\ std::begin(shaders\_)\ +\ shader\_count\_,\ \textcolor{keyword}{this});}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(it\ !=\ std::begin(shaders\_)\ +\ shader\_count\_)\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ shader\_count\_-\/-\/;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ *it\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ std::swap(*it,\ shaders\_[shader\_count\_]);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3DBlob>\ byte\_code\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3DBlob>\ errors;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ hr\ =\ D3DCompile(source\_code.data(),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ ソースコードのメモリ上のアドレス}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ source\_code.size(),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ ソースコードサイズ}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_precompile_8cpp_a519b42bb9e2e54f0a92b1a75678dea07}{convertTo}}(source\_path).c\_str(),\ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ ソースコードのファイルパス(使用しない場合はnullptr)}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ defines,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ プリプロセッサマクロ定義}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ D3D\_COMPILE\_STANDARD\_FILE\_INCLUDE,\ \ \ \ \textcolor{comment}{//\ [in]\ \ カスタムインクルード処理}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}main"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ 関数名}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_names[dxlib\_shader\_type],\ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ シェーダーモデル名}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ compile\_flags,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ コンパイラフラグ\ \ (D3DCOMPILE\_xxxx)}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ コンパイラフラグ2\ (D3DCOMPILE\_FLAGS2\_xxxx)}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&byte\_code,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [out]\ コンパイルされたバイトコード}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&errors);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [out]\ エラーメッセージ}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ エラー警告出力}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(errors\ !=\ \textcolor{keyword}{nullptr})\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 「出力」ウィンドウに表示}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ OutputDebugStringA(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ OutputDebugStringA((\textcolor{keywordtype}{char}*)errors-\/>GetBufferPointer());}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ OutputDebugStringA(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ メッセージボックス}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ file\_name\ =\ \mbox{\hyperlink{_precompile_8cpp_a519b42bb9e2e54f0a92b1a75678dea07}{convertTo}}(source\_path);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ MessageBox(DxLib::GetMainWindowHandle(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(errors-\/>GetBufferPointer()),\ file\_name.c\_str(),}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MB\_ICONWARNING\ |\ MB\_OK);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(FAILED(hr))\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00117}00117\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00118}00118\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00119}00119\ \ \ \ \ \textcolor{comment}{//\ シェーダーを解放}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00120}00120\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\&\ x:\ \mbox{\hyperlink{class_shader_base_a51245f424c7149da9229df13629f53a9}{handles\_}})\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(x\ !=\ -\/1)\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ DeleteShader(x);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00124}00124\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00125}00125\ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00126}00126\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00127}00127\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00128}00128\ \textcolor{comment}{//\ \ ファイル監視を更新}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00129}00129\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00130}\mbox{\hyperlink{class_shader_base_acdb6390d6f38259727f2403bd04ec93e}{00130}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_base_acdb6390d6f38259727f2403bd04ec93e}{ShaderBase::updateFileWatcher}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00131}00131\ \ \ \ \ file\_watcher\_.update();}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00132}00132\ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00133}00133\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00134}00134\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00135}00135\ \textcolor{comment}{//!\ コンパイル実行}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00136}00136\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00137}\mbox{\hyperlink{class_shader_base_ab1d4589b69640f0441028a0db68737bd}{00137}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_shader_base_ab1d4589b69640f0441028a0db68737bd}{ShaderBase::compile}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00138}00138\ \ \ \ \ \textcolor{comment}{//\ シェーダーソースの拡張子のパスを作成}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00139}00139\ \ \ \ \ std::wstring\ source\_path\ =\ \mbox{\hyperlink{class_shader_base_a5dec857ba2d4ed847904b07364c177ff}{path\_}}\ +\ L\textcolor{stringliteral}{"{}.fx"{}};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00140}00140\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00141}00141\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00142}00142\ \ \ \ \ \textcolor{comment}{//\ ファイルからソースファイルを読み込み}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00143}00143\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00144}00144\ \ \ \ \ std::vector<std::byte>\ source;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00145}00145\ \ \ \ \ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ファイルから読み込み}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ std::ifstream\ file(}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ source\_path.c\_str(),}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ std::ios::in\ |\ std::ios::binary\ |\ std::ios::ate);\ \ \ \ \textcolor{comment}{//\ ateを指定すると最初からファイルポインタが末尾に移動}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!file.is\_open())\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ size\ =\ file.tellg();}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ source.resize(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{size\_t}\textcolor{keyword}{>}(size));}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00117}00117\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [DxLib]\ シェーダーを作成}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ shader\_bytecode\ =\ byte\_code-\/>GetBufferPointer();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダーバイトコードの先頭アドレス}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ shader\_size\ \ \ \ \ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(byte\_code-\/>GetBufferSize());\ \ \ \ \textcolor{comment}{//\ シェーダーバイトコードのサイズ}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダーバイトコードを保存}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_variant_a933ece9b2c247d70027c9dbfa7fa6204}{shader\_bytecode\_}}.resize(shader\_size);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ memcpy(\mbox{\hyperlink{struct_variant_a933ece9b2c247d70027c9dbfa7fa6204}{shader\_bytecode\_}}.data(),\ shader\_bytecode,\ shader\_size);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ handle\ =\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(dxlib\_shader\_type)\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DX\_SHADERTYPE\_VERTEX:\ \ \ \ \textcolor{comment}{//\ 頂点シェーダー}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ handle\ =\ LoadVertexShaderFromMem(shader\_bytecode,\ shader\_size);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DX\_SHADERTYPE\_PIXEL:\ \ \ \ \textcolor{comment}{//\ ピクセルシェーダー}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ handle\ =\ LoadPixelShaderFromMem(shader\_bytecode,\ shader\_size);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DX\_SHADERTYPE\_GEOMETRY:\ \ \ \ \textcolor{comment}{//\ ジオメトリシェーダー}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ handle\ =\ LoadGeometryShaderFromMem(shader\_bytecode,\ shader\_size);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 結果を出力}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_variant_a83a03403b95893c34cc9c6d9f055e4e2}{handle\_}}\ =\ handle;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00150}00150\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00152}\mbox{\hyperlink{struct_variant_a83a03403b95893c34cc9c6d9f055e4e2}{00152}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_variant_a83a03403b95893c34cc9c6d9f055e4e2}{handle\_}}\ =\ -\/1;\ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ [DxLib]\ シェーダーハンドル}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00153}\mbox{\hyperlink{struct_variant_a933ece9b2c247d70027c9dbfa7fa6204}{00153}}\ \ \ \ \ std::vector<std::byte>\ \mbox{\hyperlink{struct_variant_a933ece9b2c247d70027c9dbfa7fa6204}{shader\_bytecode\_}};\ \ \ \ \textcolor{comment}{//!<\ シェーダーバイトコード}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00154}00154\ \};}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00155}00155\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ file.seekg(0,\ std::ios::beg);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ file.read(\textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(source.data()),\ size);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ file.close();}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00159}00159\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00160}00160\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00161}00161\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00162}00162\ \ \ \ \ \textcolor{comment}{//\ シェーダーをコンパイル}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00163}00163\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00164}00164\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ compile\_flags\ =\ D3DCOMPILE\_OPTIMIZATION\_LEVEL3;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00165}00165\ \ \ \ \ compile\_flags\ |=\ D3DCOMPILE\_PACK\_MATRIX\_ROW\_MAJOR;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00156}00156\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00157}00157\ \textcolor{comment}{//!\ シェーダー実体}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00158}00158\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00159}\mbox{\hyperlink{struct_shader_1_1_impl}{00159}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_shader_1_1_impl}{Shader::Impl}}\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00160}\mbox{\hyperlink{struct_shader_1_1_impl_a3ff5ef1047ecaf58f8d9457d6e5f126e}{00160}}\ \ \ \ \ std::wstring\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_shader_1_1_impl_a3ff5ef1047ecaf58f8d9457d6e5f126e}{path\_}};\ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ ファイルパス}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00161}\mbox{\hyperlink{struct_shader_1_1_impl_aab88e3ee0440537d86f286a70ecb148e}{00161}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_shader_1_1_impl_aab88e3ee0440537d86f286a70ecb148e}{type\_}}\ =\ -\/1;\ \ \ \ \textcolor{comment}{//!<\ [DxLib]\ シェーダーの種類(DX\_SHADERTYPE\_VERTEXなど)}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00162}\mbox{\hyperlink{struct_shader_1_1_impl_a2e63745dbf8ed3c51d944a3e4bd25a73}{00162}}\ \ \ \ \ std::vector<Variant>\ \mbox{\hyperlink{struct_shader_1_1_impl_a2e63745dbf8ed3c51d944a3e4bd25a73}{variant\_}};\ \ \ \ \ \ \textcolor{comment}{//!<\ バリエーションごとの定義}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00163}00163\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00164}00164\ \textcolor{comment}{\ \ \ \ //!\ 現在アクティブなシェーダーリスト}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00165}\mbox{\hyperlink{struct_shader_1_1_impl_acfa68244d27a3b9e540957b15e0a0d32}{00165}}\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ std::unordered\_map<std::wstring,\ std::shared\_ptr<Shader::Impl>>\ \mbox{\hyperlink{struct_shader_1_1_impl_acfa68244d27a3b9e540957b15e0a0d32}{shaders\_}};}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00166}00166\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00167}00167\ \textcolor{preprocessor}{\#if\ defined(\_DEBUG)}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00168}00168\ \ \ \ \ \textcolor{comment}{//\ GraphicDebuggingツール用にシェーダーデバッグ向け設定}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00169}00169\ \ \ \ \ compile\_flags\ |=\ D3DCOMPILE\_DEBUG\ |\ D3DCOMPILE\_SKIP\_OPTIMIZATION;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00170}00170\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00171}00171\ \textcolor{comment}{}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00172}00172\ \textcolor{comment}{\ \ \ \ //!\ シェーダーモデル名}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00173}00173\ \textcolor{comment}{}\ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ target\_names[]\{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}vs\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_VERTEX\ \ \ //\ 頂点シェーダー}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ps\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_PIXEL\ \ \ \ //\ ピクセルシェーダー}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}gs\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_GEOMETRY\ //\ ジオメトリシェーダー}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}cs\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_COMPUTE\ \ //\ コンピュートシェーダー}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ds\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_DOMAIN\ \ \ //\ ドメインシェーダー}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00179}00179\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}hs\_5\_0"{}},\ \ \ \ \textcolor{comment}{//\ DX\_SHADERTYPE\_HULL\ \ \ \ \ //\ ハルシェーダー}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00180}00180\ \ \ \ \ \};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00181}00181\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00182}00182\ \ \ \ \ \textcolor{keyword}{auto}\ compile\_shader\_variant\ =\ [\&](\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ index)\ -\/>\ \textcolor{keywordtype}{int}\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#define\ SHADER\_VARIANT\ \ index\ の形式でプリプロセッサ定義}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ number\_string\ =\ std::to\_string(index);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00185}00185\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ D3D\_SHADER\_MACRO\ defines[]\{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{stringliteral}{"{}SHADER\_VARIANT"{}},\ number\_string.c\_str()\},}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{nullptr}\},}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00190}00190\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3DBlob>\ byte\_code\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ Microsoft::WRL::ComPtr<ID3DBlob>\ errors;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00193}00193\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ hr\ =\ D3DCompile(source.data(),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ ソースコードのメモリ上のアドレス}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ source.size(),\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ ソースコードサイズ}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_precompile_8cpp_a519b42bb9e2e54f0a92b1a75678dea07}{convertTo}}(source\_path).c\_str(),\ \ \ \ \textcolor{comment}{//\ [in]}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ソースコードのファイルパス(使用しない場合はnullptr)}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ defines,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ プリプロセッサマクロ定義}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ D3D\_COMPILE\_STANDARD\_FILE\_INCLUDE,\ \ \ \ \textcolor{comment}{//\ [in]}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ カスタムインクルード処理}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}main"{}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ 関数名}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_names[\mbox{\hyperlink{class_shader_base_a576b747d3445083d36b1ff7a96716f90}{type\_}}],\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ シェーダーモデル名}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ compile\_flags,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ コンパイラフラグ\ \ (D3DCOMPILE\_xxxx)}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [in]\ \ コンパイラフラグ2\ (D3DCOMPILE\_FLAGS2\_xxxx)}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&byte\_code,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [out]\ コンパイルされたバイトコード}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&errors);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [out]\ エラーメッセージ}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00207}00207\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ エラー警告出力}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(errors\ !=\ \textcolor{keyword}{nullptr})\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 「出力」ウィンドウに表示}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ OutputDebugStringA(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ OutputDebugStringA((\textcolor{keywordtype}{char}*)errors-\/>GetBufferPointer());}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ OutputDebugStringA(\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00167}00167\ \ \ \ \textcolor{keyword}{public}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00168}00168\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ path\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ HLSLソースコードのファイルパス}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00169}00169\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ dxlib\_shader\_type\ \ \ [DxLib]\ シェーダーの種類(DX\_SHADERTYPE\_VERTEXなど)}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00170}\mbox{\hyperlink{struct_shader_1_1_impl_a097fa0194fbed3e67db0fc23b6c3859d}{00170}}\ \ \ \ \ \mbox{\hyperlink{struct_shader_1_1_impl_a097fa0194fbed3e67db0fc23b6c3859d}{Impl}}(std::wstring\_view\ \mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{path}},\ \textcolor{keywordtype}{int}\ dxlib\_shader\_type,\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ variant\_count)\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_shader_1_1_impl_a3ff5ef1047ecaf58f8d9457d6e5f126e}{path\_}}\ =\ \mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{path}};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_shader_1_1_impl_aab88e3ee0440537d86f286a70ecb148e}{type\_}}\ =\ dxlib\_shader\_type;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 最低限1つのバリエーションを持つ}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(variant\_count\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ variant\_count\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_shader_1_1_impl_a2e63745dbf8ed3c51d944a3e4bd25a73}{variant\_}}.resize(variant\_count);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00180}00180\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_shader_1_1_impl_abef6c4e10bc65009805947fe33946996}{compile}}();}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00181}00181\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00183}\mbox{\hyperlink{struct_shader_1_1_impl_abef6c4e10bc65009805947fe33946996}{00183}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_shader_1_1_impl_abef6c4e10bc65009805947fe33946996}{compile}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダーソースの拡張子のパスを作成}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00185}00185\ \ \ \ \ \ \ \ \ std::wstring\ source\_path\ =\ \mbox{\hyperlink{struct_shader_1_1_impl_a3ff5ef1047ecaf58f8d9457d6e5f126e}{path\_}}\ +\ L\textcolor{stringliteral}{"{}.fx"{}};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00186}00186\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダーバリエーションコンパイル}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{struct_shader_1_1_impl_a2e63745dbf8ed3c51d944a3e4bd25a73}{variant\_}}.size();\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダーをコンパイル}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_variant}{Variant}}\ new\_variant;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ result\ =\ new\_variant.\mbox{\hyperlink{struct_variant_a7d05fdf5cad1c33377d775492423c70d}{compile}}(source\_path,\ i,\ \mbox{\hyperlink{struct_shader_1_1_impl_aab88e3ee0440537d86f286a70ecb148e}{type\_}});}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 失敗したらその先の更新をスキップ終了}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!result)\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 作成が成功したら旧シェーダーを解放して新しい結果に置換}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 代入ではなくstd::swapで行う理由は、交換されたあとのローカル変数が自動解放されるのを利用して}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 旧シェーダーをデストラクタで解放させることで簡潔に記述することができる。}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ std::swap(\mbox{\hyperlink{struct_shader_1_1_impl_a2e63745dbf8ed3c51d944a3e4bd25a73}{variant\_}}[i],\ new\_variant);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00207}00207\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00208}00208\ \};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00210}00210\ \textcolor{keyword}{namespace\ }\{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00212}00212\ \mbox{\hyperlink{class_file_watcher}{FileWatcher}}\ \ \ \ file\_watcher\_;\ \ \ \ \ \ \ \textcolor{comment}{//!<\ シェーダーホットリロード時のためのファイル監視}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00213}00213\ std::once\_flag\ once\_initialize\_;\ \ \ \ \textcolor{comment}{//!<\ 初回実行用フラグ}}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00214}00214\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ メッセージボックス}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ file\_name\ =\ \mbox{\hyperlink{_precompile_8cpp_a519b42bb9e2e54f0a92b1a75678dea07}{convertTo}}(source\_path);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ MessageBox(DxLib::GetMainWindowHandle(),\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{char}*\textcolor{keyword}{>}(errors-\/>GetBufferPointer()),\ file\_name.c\_str(),}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MB\_ICONWARNING\ |\ MB\_OK);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00219}00219\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00220}00220\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00221}00221\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(FAILED(hr))\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00224}00224\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ [DxLib]\ シェーダーを作成}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{void}*\ shader\_ptr\ \ =\ byte\_code-\/>GetBufferPointer();\ \ \ \ \textcolor{comment}{//\ シェーダーバイナリの先頭アドレス}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ shader\_size\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(byte\_code-\/>GetBufferSize());\ \ \ \ \textcolor{comment}{//\ シェーダーバイナリのサイズ}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ handle\ \ \ \ \ \ =\ -\/1;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00231}00231\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{class_shader_base_a576b747d3445083d36b1ff7a96716f90}{type\_}})\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DX\_SHADERTYPE\_VERTEX:\ \ \ \ \textcolor{comment}{//\ 頂点シェーダー}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ handle\ =\ LoadVertexShaderFromMem(shader\_ptr,\ shader\_size);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DX\_SHADERTYPE\_PIXEL:\ \ \ \ \textcolor{comment}{//\ ピクセルシェーダー}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ handle\ =\ LoadPixelShaderFromMem(shader\_ptr,\ shader\_size);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DX\_SHADERTYPE\_GEOMETRY:\ \ \ \ \textcolor{comment}{//\ ジオメトリシェーダー}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ handle\ =\ LoadGeometryShaderFromMem(shader\_ptr,\ shader\_size);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00245}00245\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ handle;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00247}00247\ \ \ \ \ \};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00248}00248\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00249}00249\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00250}00250\ \ \ \ \ \textcolor{comment}{//\ シェーダーバリエーションコンパイル}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00251}00251\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00252}00252\ \ \ \ \ \textcolor{keywordflow}{for}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{class_shader_base_a51245f424c7149da9229df13629f53a9}{handles\_}}.size();\ i++)\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ コンパイル}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ handle\ =\ compile\_shader\_variant(i);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00255}00255\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダー作成が成功したら旧シェーダーを解放して置換}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(handle\ ==\ -\/1)\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00215}00215\ \}\ \ \ \ \textcolor{comment}{//\ namespace}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00216}00216\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00217}00217\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00218}00218\ \textcolor{comment}{//!\ 作成}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00219}00219\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00220}\mbox{\hyperlink{class_shader_a923b5310167557ae4a2eec65cad7641a}{00220}}\ \mbox{\hyperlink{class_shader_a923b5310167557ae4a2eec65cad7641a}{Shader::Shader}}(std::string\_view\ source\_path,\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ dxlib\_shader\_type,\ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ variant\_count)\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00221}00221\ \ \ \ \ assert(dxlib\_shader\_type\ <=\ DX\_SHADERTYPE\_HULL);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00223}00223\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00224}00224\ \ \ \ \ \textcolor{comment}{//\ ファイルパス文字列を正規化}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00225}00225\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00226}00226\ \ \ \ \ std::filesystem::path\ \mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{path}}(source\_path);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00228}00228\ \ \ \ \ \textcolor{comment}{//\ 拡張子を除去したファイルパスを取得}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00229}00229\ \ \ \ \ \textcolor{keyword}{auto}\ shader\_path\ =\ \mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{path}}.parent\_path().wstring()\ +\ L\textcolor{stringliteral}{"{}/"{}}\ +\ \mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{path}}.stem().wstring();}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00231}00231\ \ \ \ \ \textcolor{keyword}{auto}\ normalize\_path\ =\ [](\textcolor{keywordtype}{wchar\_t}\ c)\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 小文字に統一することで大文字小文字の差異をなくす}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ c\ =\ ::towlower(c);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ファイルパス記号\ '\(\backslash\)\(\backslash\)'\ を\ '/'\ に統一}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(c\ ==\ \textcolor{charliteral}{'\(\backslash\)\(\backslash\)'})\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ c\ =\ \textcolor{charliteral}{'/'};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ c;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00240}00240\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00242}00242\ \ \ \ \ std::transform(shader\_path.begin(),\ shader\_path.end(),\ shader\_path.begin(),\ normalize\_path);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00243}00243\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00244}00244\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00245}00245\ \ \ \ \ \textcolor{comment}{//\ 初回実行時にファイル監視を開始する}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00246}00246\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00247}00247\ \ \ \ \ \textcolor{comment}{//\ ファイル変更時のコールバック関数}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00248}00248\ \ \ \ \ \textcolor{keyword}{auto}\ file\_modified\_callback\ =\ [=](\textcolor{keyword}{const}\ \textcolor{keywordtype}{wchar\_t}*\ full\_path)\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ファイルパスの要素を分解}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ std::filesystem::path\ \mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{path}}(full\_path);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\_path\ =\ \mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{path}}.parent\_path().wstring()\ +\ L\textcolor{stringliteral}{"{}/"{}}\ +\ \mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{path}}.stem().wstring();}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダーソースコードだった場合}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{path}}.extension()\ ==\ L\textcolor{stringliteral}{"{}.fx"{}})\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00255}00255\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ファイルパスを正規化}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ std::transform(file\_path.begin(),\ file\_path.end(),\ file\_path.begin(),\ normalize\_path);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 読み込み済のシェーダーパスと照合して一致したらホットリード対象}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ \mbox{\hyperlink{struct_shader_1_1_impl_acfa68244d27a3b9e540957b15e0a0d32}{Shader::Impl::shaders\_}}.find(file\_path);}
 \DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00260}00260\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_shader_base_a51245f424c7149da9229df13629f53a9}{handles\_}}[i]\ !=\ -\/1)\ \{}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ DeleteShader(\mbox{\hyperlink{class_shader_base_a51245f424c7149da9229df13629f53a9}{handles\_}}[i]);}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_shader_base_a51245f424c7149da9229df13629f53a9}{handles\_}}[i]\ =\ handle;}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00265}00265\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00266}00266\ }
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00267}00267\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
-\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00268}00268\ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(it\ !=\ std::end(\mbox{\hyperlink{struct_shader_1_1_impl_acfa68244d27a3b9e540957b15e0a0d32}{Shader::Impl::shaders\_}}))\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\&\ shader\_impl\ =\ it-\/>second;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shader\_impl-\/>compile();\ \ \ \ \textcolor{comment}{//\ 対象のシェーダーをコンパイル}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00266}00266\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00268}00268\ \ \ \ \ \textcolor{comment}{//\ ファイル監視開始}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00269}00269\ \ \ \ \ std::call\_once(once\_initialize\_,\ [\&]()\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00270}00270\ \ \ \ \ \ \ \ \ file\_watcher\_.initialize(L\textcolor{stringliteral}{"{}."{}},\ file\_modified\_callback);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00271}00271\ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00273}00273\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00274}00274\ \ \ \ \ \textcolor{comment}{//\ 初期設定}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00275}00275\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00276}00276\ \ \ \ \ \textcolor{comment}{//\ シェーダーリストを検索して既存のシェーダーの場合は再利用}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00277}00277\ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ \mbox{\hyperlink{struct_shader_1_1_impl_acfa68244d27a3b9e540957b15e0a0d32}{Shader::Impl::shaders\_}}.find(shader\_path);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00279}00279\ \ \ \ \ \textcolor{keywordflow}{if}(it\ ==\ std::end(\mbox{\hyperlink{struct_shader_1_1_impl_acfa68244d27a3b9e540957b15e0a0d32}{Shader::Impl::shaders\_}}))\ \{\ \ \ \ \textcolor{comment}{//\ 見つからなかった場合は新規作成}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00280}00280\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ p\ =\ std::make\_shared<Shader::Impl>(shader\_path,\ dxlib\_shader\_type,\ variant\_count);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00281}00281\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00282}00282\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ シェーダーリストに登録}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00283}00283\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_shader_1_1_impl_acfa68244d27a3b9e540957b15e0a0d32}{Shader::Impl::shaders\_}}[shader\_path]\ =\ p;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00284}00284\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00285}00285\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_shader_a64b2bd447495606b491a9dfd4ba979c6}{impl\_}}\ =\ std::move(p);}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00286}00286\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{\ \ \ \ \textcolor{comment}{//\ 見つかった場合は再利用}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00287}00287\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_shader_a64b2bd447495606b491a9dfd4ba979c6}{impl\_}}\ =\ it-\/>second;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00288}00288\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00289}00289\ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00291}00291\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00292}00292\ \textcolor{comment}{//!\ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00293}00293\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00294}\mbox{\hyperlink{class_shader_aff01df87e8a102f270b5b135a295e59d}{00294}}\ \mbox{\hyperlink{class_shader_aff01df87e8a102f270b5b135a295e59d}{Shader::\string~Shader}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00295}00295\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00296}00296\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00297}00297\ \textcolor{comment}{//!\ [DxLib]\ シェーダーハンドルを取得}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00298}00298\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00299}\mbox{\hyperlink{class_shader_ab1a83c380130e5f0c5ae3318793a938e}{00299}}\ Shader::operator\ int()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00300}00300\ \ \ \ \ \textcolor{keywordflow}{return}\ 0\ <\ \mbox{\hyperlink{class_shader_a64b2bd447495606b491a9dfd4ba979c6}{impl\_}}-\/>variant\_.size()\ ?\ \mbox{\hyperlink{class_shader_a64b2bd447495606b491a9dfd4ba979c6}{impl\_}}-\/>variant\_[0].handle\_\ :\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00301}00301\ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00303}00303\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00304}00304\ \textcolor{comment}{//!\ [DxLib]\ シェーダーハンドルを取得\ (バリエーション指定)}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00305}00305\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00306}\mbox{\hyperlink{class_shader_ac90102e7d6b054e5840bef43521d6679}{00306}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_shader_ac90102e7d6b054e5840bef43521d6679}{Shader::variant}}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ variant\_index)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00307}00307\ \ \ \ \ \textcolor{keywordflow}{return}\ variant\_index\ <\ \mbox{\hyperlink{class_shader_a64b2bd447495606b491a9dfd4ba979c6}{impl\_}}-\/>variant\_.size()\ ?\ \mbox{\hyperlink{class_shader_a64b2bd447495606b491a9dfd4ba979c6}{impl\_}}-\/>variant\_[variant\_index].handle\_\ :\ -\/1;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00308}00308\ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00309}00309\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00310}00310\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00311}00311\ \textcolor{comment}{//!\ [DxLib]\ シェーダーバイトコードを取得(バリエーション指定)}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00312}00312\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00313}\mbox{\hyperlink{class_shader_ae50a4dd87b8e4117d4b025b6dccf00bf}{00313}}\ std::tuple<const\ void*,\ size\_t>\ \mbox{\hyperlink{class_shader_ae50a4dd87b8e4117d4b025b6dccf00bf}{Shader::shader\_bytecode}}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ variant\_index)\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00314}00314\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_shader_a64b2bd447495606b491a9dfd4ba979c6}{impl\_}}-\/>variant\_.size()\ <=\ variant\_index)\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00315}00315\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\textcolor{keyword}{nullptr},\ 0\};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00316}00316\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00317}00317\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00318}00318\ \ \ \ \ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{class_shader_ae50a4dd87b8e4117d4b025b6dccf00bf}{shader\_bytecode}}\ =\ \mbox{\hyperlink{class_shader_a64b2bd447495606b491a9dfd4ba979c6}{impl\_}}-\/>variant\_[variant\_index].shader\_bytecode\_;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00319}00319\ \ \ \ \ \textcolor{keywordflow}{return}\ \{\mbox{\hyperlink{class_shader_ae50a4dd87b8e4117d4b025b6dccf00bf}{shader\_bytecode}}.data(),\ \mbox{\hyperlink{class_shader_ae50a4dd87b8e4117d4b025b6dccf00bf}{shader\_bytecode}}.size()\};}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00320}00320\ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00321}00321\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00322}00322\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00323}00323\ \textcolor{comment}{//!\ ファイルパスを取得}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00324}00324\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00325}\mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{00325}}\ \textcolor{keyword}{const}\ std::wstring\&\ \mbox{\hyperlink{class_shader_a3806b8f7f7ccbaa3825de95e1a4b0ada}{Shader::path}}()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00326}00326\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{class_shader_a64b2bd447495606b491a9dfd4ba979c6}{impl\_}}-\/>path\_;}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00327}00327\ \}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00328}00328\ }
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00329}00329\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00330}00330\ \textcolor{comment}{//\ \ ファイル監視を更新}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00331}00331\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00332}\mbox{\hyperlink{class_shader_ad44c7f27faeeb7cab30ca10779c0903b}{00332}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_shader_ad44c7f27faeeb7cab30ca10779c0903b}{Shader::updateFileWatcher}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00333}00333\ \ \ \ \ file\_watcher\_.update();}
+\DoxyCodeLine{\Hypertarget{_shader_8cpp_source_l00334}00334\ \}}
 
 \end{DoxyCode}

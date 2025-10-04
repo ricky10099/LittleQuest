@@ -1,0 +1,70 @@
+\doxysection{Job\+Scheduler.\+h}
+\hypertarget{_job_scheduler_8h_source}{}\label{_job_scheduler_8h_source}\index{JobScheduler.h@{JobScheduler.h}}
+\mbox{\hyperlink{_job_scheduler_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ JobScheduler.h}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ ジョブスケジューラー}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00004}00004\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00005}00005\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00007}00007\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00008}00008\ \textcolor{comment}{//!\ ジョブハンドル}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00009}00009\ \textcolor{comment}{//!\ @note\ 登録されたジョブを管理するためのハンドルです}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00010}00010\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00011}\mbox{\hyperlink{struct_job_handle}{00011}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_job_handle}{JobHandle}}\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00012}00012\ \ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00013}\mbox{\hyperlink{struct_job_handle_a1baecff277760eef8fa8f38b6bc6b16c}{00013}}\ \ \ \ \ \mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ \mbox{\hyperlink{struct_job_handle_a1baecff277760eef8fa8f38b6bc6b16c}{value\_}}\ =\ 0;\ \ \ \ \textcolor{comment}{//!<\ ハンドル値}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00014}00014\ \};}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00016}00016\ \textcolor{comment}{//===========================================================================}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00017}00017\ \textcolor{comment}{//!\ ジョブグループ}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00018}00018\ \textcolor{comment}{//===========================================================================}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00019}\mbox{\hyperlink{class_job_group}{00019}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_job_group_a563c88b786e3bebe668cc242898c8ff9}{JobGroup}}\ final}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00020}00020\ \ \ \ \ :\ \mbox{\hyperlink{classnoncopyable_af76530d2e057d1a59f0d143cd810db2a}{noncopyable}}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00021}00021\ \ \ \ \ ,\ \mbox{\hyperlink{classnonmovable_a6cd281f48b97a59d28f79e651a2c1e9d}{nonmovable}}\ \{}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00022}00022\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00023}00023\ \ \ \ \ \textcolor{comment}{//\ \ ジョブを一括実行します}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00024}00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_job_group_a30bbab267a7c076c7894044742bf1cf3}{execute}}();}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00026}00026\ \ \ \ \ \textcolor{comment}{//\ \ ジョブを登録します}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00027}00027\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ priority\ \ \ \ 実行優先順位}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00028}00028\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ func\ \ \ \ \ \ \ \ 実行する関数}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00029}00029\ \textcolor{comment}{\ \ \ \ //!\ @return\ 登録されたジョブハンドル\ (0なら登録失敗)}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00030}00030\ \textcolor{comment}{\ \ \ \ //!\ @note\ 一度登録状態になったジョブは常に登録されたままになります。}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00031}00031\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00032}00032\ \ \ \ \ \textcolor{comment}{//\ \ 【使用例】}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00033}00033\ \ \ \ \ \textcolor{comment}{//\ registerJob(Priority(カテゴリーTYPE,\ TYPEの中の優先度),\ []()\{\ ラムダ式\ \})}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00034}00034\ \ \ \ \ \mbox{\hyperlink{struct_job_handle}{JobHandle}}\ \mbox{\hyperlink{class_job_group_a66b72665825d66068ed3da48c65e2f3e}{registerJob}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_priority}{Priority}}\&\ priority,\ \textcolor{keyword}{const}\ std::function<\textcolor{keywordtype}{void}()>\&\ func);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00036}00036\ \ \ \ \ \textcolor{comment}{//\ \ ジョブを登録解除します}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00037}00037\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ ジョブハンドル}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00038}00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_job_group_a8b34a6d175b3e0d699716d3f300a5182}{unregisterJob}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_job_handle}{JobHandle}}\&\ job\_handle);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00040}00040\ \ \ \ \ \textcolor{comment}{//\ \ 対象のジョブを有効にする}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00041}00041\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ job\_handle\ \ ジョブハンドル}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00042}00042\ \textcolor{comment}{\ \ \ \ //!\ @note\ 初期状態は「有効」になっていますが、disableJob()で無効化されたジョブを再び有効化できます。}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00043}00043\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_job_group_adb2845cb194e0af55549e0c4838e38dd}{enableJob}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_job_handle}{JobHandle}}\&\ job\_handle);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00045}00045\ \ \ \ \ \textcolor{comment}{//\ \ 対象のジョブを無効にする}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00046}00046\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ job\_handle\ \ ジョブハンドル}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00047}00047\ \textcolor{comment}{\ \ \ \ //!\ @note\ 無効化されたジョブは登録状態のまま呼び出しが停止されます}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00048}00048\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_job_group_ad092361ce59002d8c17ca5942111bedd}{disableJob}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{struct_job_handle}{JobHandle}}\&\ job\_handle);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00050}00050\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00051}00051\ \ \ \ \ \textcolor{comment}{//\ コンストラクタ}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00052}00052\ \textcolor{comment}{\ \ \ \ //!\ @param\ \ [in]\ \ \ \ job\_max\_count\ \ \ ジョブ登録最大数}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00053}00053\ \ \ \ \ \mbox{\hyperlink{class_job_group_a563c88b786e3bebe668cc242898c8ff9}{JobGroup}}(\mbox{\hyperlink{_typedef_8h_a70c1fcc1a4e96af8f6580f708657cd41}{u32}}\ job\_max\_count\ =\ 10000);}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00054}00054\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00055}00055\ \textcolor{comment}{\ \ \ \ //!\ デストラクタ}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00056}\mbox{\hyperlink{class_job_group_aa7fca90d8c58bd00c456c8f78b59252b}{00056}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_job_group_aa7fca90d8c58bd00c456c8f78b59252b}{\string~JobGroup}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00058}00058\ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00059}\mbox{\hyperlink{class_job_group_aa86b51f982fbafa9991ab2eff40c93d2}{00059}}\ \ \ \ \ \textcolor{keyword}{using\ }\mbox{\hyperlink{class_job_group_aa86b51f982fbafa9991ab2eff40c93d2}{Job}}\ =\ std::pair<\mbox{\hyperlink{struct_priority}{Priority}},\ std::function<void()>>;}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00061}\mbox{\hyperlink{class_job_group_a4b1405e2b617426f68f7038b153d0c24}{00061}}\ \ \ \ \ std::vector<Job>\ \mbox{\hyperlink{class_job_group_a4b1405e2b617426f68f7038b153d0c24}{jobs\_}};\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//!<\ ジョブ実体}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00062}\mbox{\hyperlink{class_job_group_a12f17c619bf9d2802a03952523b6821a}{00062}}\ \ \ \ \ std::vector<u32>\ \mbox{\hyperlink{class_job_group_a12f17c619bf9d2802a03952523b6821a}{job\_free\_list\_}};\ \ \ \ \textcolor{comment}{//!<\ 空いているジョブスロットの一覧}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00063}\mbox{\hyperlink{class_job_group_a716faa9cc3044178ef5fffeb316b89bc}{00063}}\ \ \ \ \ std::vector<u32>\ \mbox{\hyperlink{class_job_group_a716faa9cc3044178ef5fffeb316b89bc}{job\_used\_list\_}};\ \ \ \ \textcolor{comment}{//!<\ 使用中ジョブスロットの一覧}}
+\DoxyCodeLine{\Hypertarget{_job_scheduler_8h_source_l00064}00064\ \};}
+
+\end{DoxyCode}

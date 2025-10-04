@@ -1,0 +1,459 @@
+\doxysection{Component\+Type\+Info クラス}
+\hypertarget{class_component_type_info}{}\label{class_component_type_info}\index{ComponentTypeInfo@{ComponentTypeInfo}}
+
+
+Componentルートの型情報  
+
+
+
+
+{\ttfamily \#include $<$Component.\+h$>$}
+
+
+
+Component\+Type\+Info の継承関係図
+% FIG 0
+
+
+Component\+Type\+Info 連携図
+% FIG 1
+\doxysubsubsection*{公開メンバ関数}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_component_type_info_a8aa249a0825d5259d84211c1c06326a0}{Component\+Type\+Info}} (const char \texorpdfstring{$\ast$}{*}class\+\_\+name, size\+\_\+t class\+\_\+size, \mbox{\hyperlink{class_component_type_info}{Component\+Type\+Info}} \texorpdfstring{$\ast$}{*}parent\+\_\+type=nullptr, const char \texorpdfstring{$\ast$}{*}desc\+\_\+name="{}"{})
+\item 
+virtual void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_component_type_info_a39ae7163b0a8398fe25b14b9ccfc8ee9}{create\+Component\+Ptr}} (const Object\+Ptr \&)
+\item 
+virtual void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_type_info_aca7e910e7b0d04bd46fb6fdf6a6c0205}{create\+Instance}} () const
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_type_info_a8017dcce1e0c96e71e719277a91c6e8b}{class\+Name}} () const
+\begin{DoxyCompactList}\small\item\em クラス名を取得 \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_type_info_a39cb0103e8ee2e0645625dcffa6ba747}{desc\+Name}} () const
+\begin{DoxyCompactList}\small\item\em 説明文字列を取得 \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_type_info_a4e7dfbbe51989519b1879b5b98ff0e0a}{class\+Size}} () const
+\begin{DoxyCompactList}\small\item\em クラスのサイズを取得 \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_type_info_a8be2922a8d831c706073a0a320fa3860}{parent}} () const
+\begin{DoxyCompactList}\small\item\em 親ノードを取得 \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_type_info_a7c25eb4cb6570d8d5c46d3715822adc8}{child}} () const
+\begin{DoxyCompactList}\small\item\em 子ノードを取得 \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_type_info_a5a7cd1c13530aca4cb9fb9d78fa5a6c0}{siblings}} () const
+\begin{DoxyCompactList}\small\item\em 次の兄弟ノードを取得 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+Component\+Ptr \mbox{\hyperlink{class_component_type_info_a495706543204ffd18b6037fa102796cd}{tmp}} = std\+::shared\+\_\+ptr$<$class \mbox{\hyperlink{class_component}{Component}}$>$((\mbox{\hyperlink{class_component}{Component}}\texorpdfstring{$\ast$}{*})\mbox{\hyperlink{class_type_info_aca7e910e7b0d04bd46fb6fdf6a6c0205}{create\+Instance}}())
+\item 
+Component\+Weak\+Ptr \mbox{\hyperlink{class_component_type_info_aaf09f6ba48b5a06a15efbe3ee9e90255}{ptr}} = \mbox{\hyperlink{class_component_type_info_a495706543204ffd18b6037fa102796cd}{tmp}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{静的公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_component_type_info}{Component\+Type\+Info}} \mbox{\hyperlink{class_component_type_info_ace392ab981bc38f45b302b52eecd1149}{component\+\_\+root}} = \mbox{\hyperlink{class_component_type_info}{Component\+Type\+Info}}("{}component\+\_\+root"{}, 0, nullptr)
+\begin{DoxyCompactList}\small\item\em ルートの型情報 \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{class_type_info}{Type\+Info}} \mbox{\hyperlink{class_type_info_a362a348448516fe28c6c3316d197fcf3}{Root}} = \mbox{\hyperlink{class_type_info}{Type\+Info}}("{}root"{}, 0, nullptr)
+\begin{DoxyCompactList}\small\item\em ルートの型情報 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{非公開変数類}
+\begin{DoxyCompactItemize}
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_type_info_a76dce93fa108ed8ccf7e1522224699dd}{class\+\_\+name\+\_\+}} = nullptr
+\begin{DoxyCompactList}\small\item\em クラス名 \end{DoxyCompactList}\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_type_info_a935701bc540b0ea59e935505d7152d79}{desc\+\_\+name\+\_\+}} = nullptr
+\begin{DoxyCompactList}\small\item\em 説明文 \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_type_info_a74ce7447c9e9701fb807cc460cd75e31}{class\+\_\+size\+\_\+}} = 0
+\begin{DoxyCompactList}\small\item\em クラスのサイズ \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{Indent}\textbf{ クラス階層のツリー構造}\par
+{\em この手法で生成するツリー構造は初期化順序が不同でも構築できる 但しグローバル変数領域に定義する場合のみ利用可能。
+
+\begin{DoxyAttention}{注意}
+変数の初期値は意図的に設定していません。グローバル変数の0クリア仕様で動作を想定しています。 
+
+ここにnullptr初期化を記述すると起動時初期化順序によっては上書きされてしまうため注意 
+\end{DoxyAttention}
+}\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_type_info_ae95a7561205761d0f1d5ee2ea2a366ef}{parent\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 親ノード \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_type_info_a2a8a1ea3410c9decc23070f76e57caf1}{child\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 子ノード \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_type_info_a78f80bf28ca9be1c019790212129d66a}{siblings\+\_\+}}
+\begin{DoxyCompactList}\small\item\em 次の兄弟ノード \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{詳解}
+Componentルートの型情報 
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00017}{17}} 行目に定義があります。
+
+
+
+\label{doc-constructors}
+\Hypertarget{class_component_type_info_doc-constructors}
+\doxysubsection{構築子と解体子}
+\Hypertarget{class_component_type_info_a8aa249a0825d5259d84211c1c06326a0}\index{ComponentTypeInfo@{ComponentTypeInfo}!ComponentTypeInfo@{ComponentTypeInfo}}
+\index{ComponentTypeInfo@{ComponentTypeInfo}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{ComponentTypeInfo()}{ComponentTypeInfo()}}
+{\footnotesize\ttfamily \label{class_component_type_info_a8aa249a0825d5259d84211c1c06326a0} 
+Component\+Type\+Info\+::\+Component\+Type\+Info (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{class\+\_\+name}{, }\item[{size\+\_\+t}]{class\+\_\+size}{, }\item[{\mbox{\hyperlink{class_component_type_info}{Component\+Type\+Info}} \texorpdfstring{$\ast$}{*}}]{parent\+\_\+type}{ = {\ttfamily nullptr}, }\item[{const char \texorpdfstring{$\ast$}{*}}]{desc\+\_\+name}{ = {\ttfamily "{}"{}}}\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_component_8cpp_source}{Component.\+cpp}} の \mbox{\hyperlink{_component_8cpp_source_l00013}{13}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_8cpp_source_l00013}{Component\+Type\+Info()}}, \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info\+::\+Type\+Info()}}.
+
+
+
+参照元 \mbox{\hyperlink{_component_8h_source_l00047}{Class\+Component\+Type$<$ T $>$\+::\+Class\+Component\+Type()}}, \mbox{\hyperlink{_component_8cpp_source_l00013}{Component\+Type\+Info()}}.
+
+
+
+\label{doc-func-members}
+\Hypertarget{class_component_type_info_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_type_info_a7c25eb4cb6570d8d5c46d3715822adc8}\index{ComponentTypeInfo@{ComponentTypeInfo}!child@{child}}
+\index{child@{child}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{child()}{child()}}
+{\footnotesize\ttfamily \label{class_type_info_a7c25eb4cb6570d8d5c46d3715822adc8} 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}} \texorpdfstring{$\ast$}{*} Type\+Info\+::child (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+子ノードを取得 
+
+\begin{DoxyReturn}{戻り値}
+ノードへのポインタ (存在しない場合はnullptr) 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_type_info_8cpp_source}{Type\+Info.\+cpp}} の \mbox{\hyperlink{_type_info_8cpp_source_l00084}{84}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_type_info_8h_source_l00064}{child\+\_\+}}, \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info()}}.
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00102}{Create\+Instance\+From\+Name()}}, \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info()}}.
+
+\Hypertarget{class_type_info_a8017dcce1e0c96e71e719277a91c6e8b}\index{ComponentTypeInfo@{ComponentTypeInfo}!className@{className}}
+\index{className@{className}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{className()}{className()}}
+{\footnotesize\ttfamily \label{class_type_info_a8017dcce1e0c96e71e719277a91c6e8b} 
+const char \texorpdfstring{$\ast$}{*} Type\+Info\+::class\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+クラス名を取得 
+
+
+
+ \mbox{\hyperlink{_type_info_8cpp_source}{Type\+Info.\+cpp}} の \mbox{\hyperlink{_type_info_8cpp_source_l00056}{56}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_type_info_8h_source_l00049}{class\+\_\+name\+\_\+}}.
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00102}{Create\+Instance\+From\+Name()}}.
+
+\Hypertarget{class_type_info_a4e7dfbbe51989519b1879b5b98ff0e0a}\index{ComponentTypeInfo@{ComponentTypeInfo}!classSize@{classSize}}
+\index{classSize@{classSize}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{classSize()}{classSize()}}
+{\footnotesize\ttfamily \label{class_type_info_a4e7dfbbe51989519b1879b5b98ff0e0a} 
+size\+\_\+t Type\+Info\+::class\+Size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+クラスのサイズを取得 
+
+
+
+ \mbox{\hyperlink{_type_info_8cpp_source}{Type\+Info.\+cpp}} の \mbox{\hyperlink{_type_info_8cpp_source_l00070}{70}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_type_info_8h_source_l00051}{class\+\_\+size\+\_\+}}.
+
+\Hypertarget{class_component_type_info_a39ae7163b0a8398fe25b14b9ccfc8ee9}\index{ComponentTypeInfo@{ComponentTypeInfo}!createComponentPtr@{createComponentPtr}}
+\index{createComponentPtr@{createComponentPtr}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{createComponentPtr()}{createComponentPtr()}}
+{\footnotesize\ttfamily \label{class_component_type_info_a39ae7163b0a8398fe25b14b9ccfc8ee9} 
+virtual void \texorpdfstring{$\ast$}{*} Component\+Type\+Info\+::create\+Component\+Ptr (\begin{DoxyParamCaption}\item[{const Object\+Ptr \&}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+\mbox{\hyperlink{class_class_component_type_a4033ca5e794b4f1c5cfc25aaecf25119}{Class\+Component\+Type$<$ T $>$}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00026}{26}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_component_8h_source_l00025}{ptr}}.
+
+\Hypertarget{class_type_info_aca7e910e7b0d04bd46fb6fdf6a6c0205}\index{ComponentTypeInfo@{ComponentTypeInfo}!createInstance@{createInstance}}
+\index{createInstance@{createInstance}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{createInstance()}{createInstance()}}
+{\footnotesize\ttfamily \label{class_type_info_aca7e910e7b0d04bd46fb6fdf6a6c0205} 
+void \texorpdfstring{$\ast$}{*} Type\+Info\+::create\+Instance (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [inherited]}}
+
+
+
+\mbox{\hyperlink{class_class_type_info_ab464619ad4ccd97114fb0cd331640d32}{Class\+Type\+Info$<$ T $>$}}で再実装されています。
+
+
+
+ \mbox{\hyperlink{_type_info_8cpp_source}{Type\+Info.\+cpp}} の \mbox{\hyperlink{_type_info_8cpp_source_l00049}{49}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00102}{Create\+Instance\+From\+Name()}}.
+
+\Hypertarget{class_type_info_a39cb0103e8ee2e0645625dcffa6ba747}\index{ComponentTypeInfo@{ComponentTypeInfo}!descName@{descName}}
+\index{descName@{descName}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{descName()}{descName()}}
+{\footnotesize\ttfamily \label{class_type_info_a39cb0103e8ee2e0645625dcffa6ba747} 
+const char \texorpdfstring{$\ast$}{*} Type\+Info\+::desc\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+説明文字列を取得 
+
+
+
+ \mbox{\hyperlink{_type_info_8cpp_source}{Type\+Info.\+cpp}} の \mbox{\hyperlink{_type_info_8cpp_source_l00063}{63}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_type_info_8h_source_l00050}{desc\+\_\+name\+\_\+}}.
+
+\Hypertarget{class_type_info_a8be2922a8d831c706073a0a320fa3860}\index{ComponentTypeInfo@{ComponentTypeInfo}!parent@{parent}}
+\index{parent@{parent}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{parent()}{parent()}}
+{\footnotesize\ttfamily \label{class_type_info_a8be2922a8d831c706073a0a320fa3860} 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}} \texorpdfstring{$\ast$}{*} Type\+Info\+::parent (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+親ノードを取得 
+
+\begin{DoxyReturn}{戻り値}
+ノードへのポインタ (存在しない場合はnullptr) 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_type_info_8cpp_source}{Type\+Info.\+cpp}} の \mbox{\hyperlink{_type_info_8cpp_source_l00077}{77}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_type_info_8h_source_l00063}{parent\+\_\+}}, \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info()}}.
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00102}{Create\+Instance\+From\+Name()}}.
+
+\Hypertarget{class_type_info_a5a7cd1c13530aca4cb9fb9d78fa5a6c0}\index{ComponentTypeInfo@{ComponentTypeInfo}!siblings@{siblings}}
+\index{siblings@{siblings}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{siblings()}{siblings()}}
+{\footnotesize\ttfamily \label{class_type_info_a5a7cd1c13530aca4cb9fb9d78fa5a6c0} 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}} \texorpdfstring{$\ast$}{*} Type\+Info\+::siblings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+次の兄弟ノードを取得 
+
+\begin{DoxyReturn}{戻り値}
+ノードへのポインタ (存在しない場合はnullptr) 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_type_info_8cpp_source}{Type\+Info.\+cpp}} の \mbox{\hyperlink{_type_info_8cpp_source_l00091}{91}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_type_info_8h_source_l00065}{siblings\+\_\+}}, \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info()}}.
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00102}{Create\+Instance\+From\+Name()}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_component_type_info_doc-variable-members}
+\doxysubsection{メンバ詳解}
+\Hypertarget{class_type_info_a2a8a1ea3410c9decc23070f76e57caf1}\index{ComponentTypeInfo@{ComponentTypeInfo}!child\_@{child\_}}
+\index{child\_@{child\_}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{child\_}{child\_}}
+{\footnotesize\ttfamily \label{class_type_info_a2a8a1ea3410c9decc23070f76e57caf1} 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}}\texorpdfstring{$\ast$}{*} Type\+Info\+::child\+\_\+\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+子ノード 
+
+
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00064}{64}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00084}{child()}}, \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info()}}.
+
+\Hypertarget{class_type_info_a76dce93fa108ed8ccf7e1522224699dd}\index{ComponentTypeInfo@{ComponentTypeInfo}!class\_name\_@{class\_name\_}}
+\index{class\_name\_@{class\_name\_}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{class\_name\_}{class\_name\_}}
+{\footnotesize\ttfamily \label{class_type_info_a76dce93fa108ed8ccf7e1522224699dd} 
+const char\texorpdfstring{$\ast$}{*} Type\+Info\+::class\+\_\+name\+\_\+ = nullptr\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+クラス名 
+
+
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00049}{49}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00056}{class\+Name()}}, \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info()}}.
+
+\Hypertarget{class_type_info_a74ce7447c9e9701fb807cc460cd75e31}\index{ComponentTypeInfo@{ComponentTypeInfo}!class\_size\_@{class\_size\_}}
+\index{class\_size\_@{class\_size\_}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{class\_size\_}{class\_size\_}}
+{\footnotesize\ttfamily \label{class_type_info_a74ce7447c9e9701fb807cc460cd75e31} 
+size\+\_\+t Type\+Info\+::class\+\_\+size\+\_\+ = 0\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+クラスのサイズ 
+
+
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00051}{51}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00070}{class\+Size()}}, \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info()}}.
+
+\Hypertarget{class_component_type_info_ace392ab981bc38f45b302b52eecd1149}\index{ComponentTypeInfo@{ComponentTypeInfo}!component\_root@{component\_root}}
+\index{component\_root@{component\_root}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{component\_root}{component\_root}}
+{\footnotesize\ttfamily \label{class_component_type_info_ace392ab981bc38f45b302b52eecd1149} 
+\mbox{\hyperlink{class_component_type_info}{Component\+Type\+Info}} Component\+Type\+Info\+::component\+\_\+root = \mbox{\hyperlink{class_component_type_info}{Component\+Type\+Info}}("{}component\+\_\+root"{}, 0, nullptr)\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+ルートの型情報 
+
+Componentルートの型情報 
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00022}{22}} 行目に定義があります。
+
+\Hypertarget{class_type_info_a935701bc540b0ea59e935505d7152d79}\index{ComponentTypeInfo@{ComponentTypeInfo}!desc\_name\_@{desc\_name\_}}
+\index{desc\_name\_@{desc\_name\_}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{desc\_name\_}{desc\_name\_}}
+{\footnotesize\ttfamily \label{class_type_info_a935701bc540b0ea59e935505d7152d79} 
+const char\texorpdfstring{$\ast$}{*} Type\+Info\+::desc\+\_\+name\+\_\+ = nullptr\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+説明文 
+
+
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00050}{50}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00063}{desc\+Name()}}, \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info()}}.
+
+\Hypertarget{class_type_info_ae95a7561205761d0f1d5ee2ea2a366ef}\index{ComponentTypeInfo@{ComponentTypeInfo}!parent\_@{parent\_}}
+\index{parent\_@{parent\_}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{parent\_}{parent\_}}
+{\footnotesize\ttfamily \label{class_type_info_ae95a7561205761d0f1d5ee2ea2a366ef} 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}}\texorpdfstring{$\ast$}{*} Type\+Info\+::parent\+\_\+\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+親ノード 
+
+
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00063}{63}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00077}{parent()}}, \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info()}}.
+
+\Hypertarget{class_component_type_info_aaf09f6ba48b5a06a15efbe3ee9e90255}\index{ComponentTypeInfo@{ComponentTypeInfo}!ptr@{ptr}}
+\index{ptr@{ptr}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{ptr}{ptr}}
+{\footnotesize\ttfamily \label{class_component_type_info_aaf09f6ba48b5a06a15efbe3ee9e90255} 
+Component\+Weak\+Ptr Component\+Type\+Info\+::ptr = \mbox{\hyperlink{class_component_type_info_a495706543204ffd18b6037fa102796cd}{tmp}}}
+
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00025}{25}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_component_8h_source_l00026}{create\+Component\+Ptr()}}.
+
+\Hypertarget{class_type_info_a362a348448516fe28c6c3316d197fcf3}\index{ComponentTypeInfo@{ComponentTypeInfo}!Root@{Root}}
+\index{Root@{Root}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{Root}{Root}}
+{\footnotesize\ttfamily \label{class_type_info_a362a348448516fe28c6c3316d197fcf3} 
+\mbox{\hyperlink{class_type_info}{Type\+Info}} Type\+Info\+::\+Root = \mbox{\hyperlink{class_type_info}{Type\+Info}}("{}root"{}, 0, nullptr)\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [inherited]}}
+
+
+
+ルートの型情報 
+
+
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00046}{46}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info()}}.
+
+\Hypertarget{class_type_info_a78f80bf28ca9be1c019790212129d66a}\index{ComponentTypeInfo@{ComponentTypeInfo}!siblings\_@{siblings\_}}
+\index{siblings\_@{siblings\_}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{siblings\_}{siblings\_}}
+{\footnotesize\ttfamily \label{class_type_info_a78f80bf28ca9be1c019790212129d66a} 
+const \mbox{\hyperlink{class_type_info}{Type\+Info}}\texorpdfstring{$\ast$}{*} Type\+Info\+::siblings\+\_\+\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+次の兄弟ノード 
+
+
+
+ \mbox{\hyperlink{_type_info_8h_source}{Type\+Info.\+h}} の \mbox{\hyperlink{_type_info_8h_source_l00065}{65}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_type_info_8cpp_source_l00091}{siblings()}}, \mbox{\hyperlink{_type_info_8cpp_source_l00020}{Type\+Info()}}.
+
+\Hypertarget{class_component_type_info_a495706543204ffd18b6037fa102796cd}\index{ComponentTypeInfo@{ComponentTypeInfo}!tmp@{tmp}}
+\index{tmp@{tmp}!ComponentTypeInfo@{ComponentTypeInfo}}
+\doxysubsubsection{\texorpdfstring{tmp}{tmp}}
+{\footnotesize\ttfamily \label{class_component_type_info_a495706543204ffd18b6037fa102796cd} 
+Component\+Ptr Component\+Type\+Info\+::tmp = std\+::shared\+\_\+ptr$<$class \mbox{\hyperlink{class_component}{Component}}$>$((\mbox{\hyperlink{class_component}{Component}}\texorpdfstring{$\ast$}{*})\mbox{\hyperlink{class_type_info_aca7e910e7b0d04bd46fb6fdf6a6c0205}{create\+Instance}}())}
+
+
+
+ \mbox{\hyperlink{_component_8h_source}{Component.\+h}} の \mbox{\hyperlink{_component_8h_source_l00024}{24}} 行目に定義があります。
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{_component_8h}{Component.\+h}}\item 
+\mbox{\hyperlink{_component_8cpp}{Component.\+cpp}}\end{DoxyCompactItemize}

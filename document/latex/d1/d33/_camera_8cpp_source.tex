@@ -1,73 +1,162 @@
-\hypertarget{_camera_8cpp_source}{}\doxysection{Camera.\+cpp}
-\label{_camera_8cpp_source}\index{Camera.cpp@{Camera.cpp}}
-\mbox{\hyperlink{_camera_8cpp}{Go to the documentation of this file.}}
+\doxysection{Camera.\+cpp}
+\hypertarget{_camera_8cpp_source}{}\label{_camera_8cpp_source}\index{Camera.cpp@{Camera.cpp}}
+\mbox{\hyperlink{_camera_8cpp}{\mbox{[}詳解\mbox{]}}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_camera_8h}{Camera.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00002}00002\ }
 \DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionSphere.h>}}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentModel.h>}}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentSpringArm.h>}}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00006}00006\ }
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00007}00007\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_little_quest}{LittleQuest}}\ \{}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00008}\mbox{\hyperlink{namespace_little_quest_ac17a010df13d3378edac463961dbc1bd}{00008}}\ \mbox{\hyperlink{namespace_little_quest_a4f4793ee72ca4c547385306dfeb36b35}{BP\_OBJECT\_IMPL}}(\mbox{\hyperlink{class_little_quest_1_1_camera}{Camera}},\ u8\textcolor{stringliteral}{"{}LittleQuest/Camera"{}});}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00009}00009\ }
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00010}\mbox{\hyperlink{class_little_quest_1_1_camera_adf68f2be4c08e319366b81f1e2cf78fb}{00010}}\ CameraPtr\ \mbox{\hyperlink{class_little_quest_1_1_camera_adf68f2be4c08e319366b81f1e2cf78fb}{Camera::Create}}(ObjectPtr\ obj)\ \{}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00011}00011\ \ \ \ \ \textcolor{keyword}{auto}\ pCamera\ \ \ \ \ \ \ =\ Scene::CreateObjectDelayInitialize<Camera>();}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00012}00012\ \ \ \ \ pCamera-\/>m\_pTarget\ =\ obj;}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{keywordflow}{return}\ pCamera;}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00014}00014\ \}}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00015}00015\ }
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00016}\mbox{\hyperlink{class_little_quest_1_1_camera_a540441d9cbcb07a59588de90367374a2}{00016}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_little_quest_1_1_camera_a540441d9cbcb07a59588de90367374a2}{Camera::Init}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00017}00017\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}\ =\ AddComponent<ComponentCamera>();}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00018}00018\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock()-\/>SetPositionAndTarget(\{0,\ 0,\ -\/1\},\ \{0,\ 0,\ 0\});}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00019}00019\ }
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{keyword}{auto}\ col\ =\ AddComponent<ComponentCollisionSphere>();}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00021}00021\ \ \ \ \ col-\/>SetRadius(1.0f);}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00022}00022\ \ \ \ \ col-\/>SetMass(0.0f);}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00023}00023\ \ \ \ \ col-\/>SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00024}00024\ \ \ \ \ col-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND\ |\ (u32)ComponentCollision::CollisionGroup::WALL);}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00025}00025\ }
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00026}00026\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}\ =\ AddComponent<ComponentSpringArm>();}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmObject(\mbox{\hyperlink{class_little_quest_1_1_camera_a8df2cf4a73a48ef82894aa80d4ae4736}{m\_pTarget}}.lock());}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00028}00028\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmRotate(\mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}});}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00029}00029\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmLength(50);}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00030}00030\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmOffset(\{0,\ 5,\ 0\});}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00031}00031\ }
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{return}\ Super::Init();}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00033}00033\ \}}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00034}00034\ }
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00035}\mbox{\hyperlink{class_little_quest_1_1_camera_adf20c1ef0229b8d7cfe1796eb45964f2}{00035}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_adf20c1ef0229b8d7cfe1796eb45964f2}{Camera::Update}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00036}00036\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock()-\/>GetCurrentCamera().lock()\ ==\ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock())\ \{}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ DINPUT\_JOYSTATE\ DInputState;}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(GetJoypadType(DX\_INPUT\_PAD1))\ \{}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DX\_PADTYPE\_DUAL\_SENSE:}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ GetJoypadDirectInputState(DX\_INPUT\_PAD1,\ \&DInputState);}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}}\ +=\ \{-\/DInputState.Rz\ *\ 0.001f,\ DInputState.Z\ *\ 0.001f,\ 0\};}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}}\ +=\ \{-\/GetMouseMoveY()\ *\ 0.1f,\ GetMouseMoveX()\ *\ 0.1f,\ 0\};}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}}.x\ =\ max(min(\mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}}.x,\ 40.0f),\ -\/70.0f);}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmRotate(\mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}});}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00049}00049\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00050}00050\ \}}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00051}00051\ }
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00052}\mbox{\hyperlink{class_little_quest_1_1_camera_a4147223bf45c640892f005d4f39d9379}{00052}}\ \textcolor{keyword}{const}\ float3\ \mbox{\hyperlink{class_little_quest_1_1_camera_a4147223bf45c640892f005d4f39d9379}{Camera::CameraForward}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{return}\ -\/this-\/>GetMatrix().axisZ();}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00054}00054\ \}}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00055}00055\ }
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00056}\mbox{\hyperlink{class_little_quest_1_1_camera_a32471d6befcc6ca898935eb6da015d93}{00056}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_a32471d6befcc6ca898935eb6da015d93}{Camera::SetCameraLookTarget}}(ObjectWeakPtr\ pTarget)\ \{}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmObject(pTarget.lock());}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00058}00058\ \}}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00059}00059\ }
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00060}\mbox{\hyperlink{class_little_quest_1_1_camera_a4844ba9f8ab02848ef7aba465c112412}{00060}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_a4844ba9f8ab02848ef7aba465c112412}{Camera::SetCameraLength}}(\textcolor{keywordtype}{float}\ length)\ \{}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00061}00061\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmLength(length);}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00062}00062\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentCollisionLine.h>}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentModel.h>}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentSpringArm.h>}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00008}00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_little_quest}{LittleQuest}}\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00009}\mbox{\hyperlink{class_little_quest_1_1_camera_adf68f2be4c08e319366b81f1e2cf78fb}{00009}}\ CameraPtr\ \mbox{\hyperlink{class_little_quest_1_1_camera_adf68f2be4c08e319366b81f1e2cf78fb}{Camera::Create}}(ObjectPtr\ obj)\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{keyword}{auto}\ pCamera\ \ \ \ \ \ \ =\ Scene::CreateObjectDelayInitialize<Camera>();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00011}00011\ \ \ \ \ pCamera-\/>m\_pTarget\ =\ obj;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{keywordflow}{return}\ pCamera;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00013}00013\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00015}\mbox{\hyperlink{class_little_quest_1_1_camera_a540441d9cbcb07a59588de90367374a2}{00015}}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_little_quest_1_1_camera_a540441d9cbcb07a59588de90367374a2}{Camera::Init}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00016}00016\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}\ =\ AddComponent<ComponentCamera>();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00017}00017\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock()-\/>SetPositionAndTarget(\{0,\ 0,\ 0\},\ \{0,\ 0,\ 50\});}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00019}00019\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a159ad5642ec38c6834d7c5939e0d2fc5}{m\_pCameraCollision}}\ =\ AddComponent<ComponentCollisionSphere>();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00020}00020\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a159ad5642ec38c6834d7c5939e0d2fc5}{m\_pCameraCollision}}.lock()-\/>SetRadius(1.0f);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00021}00021\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a159ad5642ec38c6834d7c5939e0d2fc5}{m\_pCameraCollision}}.lock()-\/>SetMass(0.0f);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00022}00022\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a159ad5642ec38c6834d7c5939e0d2fc5}{m\_pCameraCollision}}.lock()-\/>SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00023}00023\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a159ad5642ec38c6834d7c5939e0d2fc5}{m\_pCameraCollision}}.lock()-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::GROUND\ |}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (u32)ComponentCollision::CollisionGroup::WALL);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00025}00025\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a159ad5642ec38c6834d7c5939e0d2fc5}{m\_pCameraCollision}}.lock()-\/>SetName(\mbox{\hyperlink{class_little_quest_1_1_camera_ac453e33013c6cd713dac042c6dc8dacf}{COLLISION\_NAME}});}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a40ca4016b7a59ad4aa18a5b160ade441}{m\_pAnchorCollision}}\ =\ AddComponent<ComponentCollisionSphere>();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00028}00028\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a40ca4016b7a59ad4aa18a5b160ade441}{m\_pAnchorCollision}}.lock()-\/>SetRadius(1.0f);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00029}00029\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a40ca4016b7a59ad4aa18a5b160ade441}{m\_pAnchorCollision}}.lock()-\/>SetMass(0.0f);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00030}00030\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a40ca4016b7a59ad4aa18a5b160ade441}{m\_pAnchorCollision}}.lock()-\/>SetTranslate(\{0,\ 0,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00031}00031\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a40ca4016b7a59ad4aa18a5b160ade441}{m\_pAnchorCollision}}.lock()-\/>SetCollisionGroup(ComponentCollision::CollisionGroup::CAMERA);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00032}00032\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a40ca4016b7a59ad4aa18a5b160ade441}{m\_pAnchorCollision}}.lock()-\/>SetHitCollisionGroup((u32)ComponentCollision::CollisionGroup::ETC);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00033}00033\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a40ca4016b7a59ad4aa18a5b160ade441}{m\_pAnchorCollision}}.lock()-\/>SetOverlapCollisionGroup((u32)ComponentCollision::CollisionGroup::ETC);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00034}00034\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a40ca4016b7a59ad4aa18a5b160ade441}{m\_pAnchorCollision}}.lock()-\/>SetName(\mbox{\hyperlink{class_little_quest_1_1_camera_a660d6c943d9118f788a2f986bf5942e0}{ANCHOR\_NAME}});}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00036}00036\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}\ =\ AddComponent<ComponentSpringArm>();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00037}00037\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmObject(\mbox{\hyperlink{class_little_quest_1_1_camera_a8df2cf4a73a48ef82894aa80d4ae4736}{m\_pTarget}}.lock());}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00038}00038\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmRotate(\mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}});}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00039}00039\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmLength(50);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00040}00040\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmOffset(\{0,\ 10,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00041}00041\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmVector(\{1,\ 1,\ 1\});}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00043}00043\ \ \ \ \ srand(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\textcolor{keyword}{>}(time(\textcolor{keyword}{nullptr})));}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00045}00045\ \ \ \ \ \textcolor{keywordflow}{return}\ Super::Init();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00046}00046\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00048}\mbox{\hyperlink{class_little_quest_1_1_camera_adf20c1ef0229b8d7cfe1796eb45964f2}{00048}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_adf20c1ef0229b8d7cfe1796eb45964f2}{Camera::Update}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock()-\/>GetCurrentCamera().lock()\ ==\ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock()\ \&\&\ !\mbox{\hyperlink{class_little_quest_1_1_camera_a35b0e4864330ad150099ea57cd8bd95d}{m\_isLockOn}})\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a159ad5642ec38c6834d7c5939e0d2fc5}{m\_pCameraCollision}}.lock()-\/>SetTranslate(\mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock()-\/>GetLocalPosition());}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ DINPUT\_JOYSTATE\ DInputState;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(GetJoypadType(DX\_INPUT\_PAD1))\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ DX\_PADTYPE\_DUAL\_SENSE:}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ GetJoypadDirectInputState(DX\_INPUT\_PAD1,\ \&DInputState);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}}\ +=\ \{-\/DInputState.Rz\ *\ 0.001f,\ DInputState.Z\ *\ 0.001f,\ 0\};}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}}\ +=\ \{-\/GetMouseMoveY()\ *\ 0.1f,\ GetMouseMoveX()\ *\ 0.1f,\ 0\};}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}}.x\ =\ max(min(\mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}}.x,\ 40.0f),\ -\/70.0f);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmRotate(\mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}});}
 \DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00063}00063\ }
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00064}\mbox{\hyperlink{class_little_quest_1_1_camera_af119cea730dbb7a4a86f1f3687ab6fb2}{00064}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_af119cea730dbb7a4a86f1f3687ab6fb2}{Camera::SetCurrentCamera}}()\ \{}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00065}00065\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock()-\/>SetCurrentCamera();}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00066}00066\ \}}
-\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00067}00067\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ LittleQuest}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00064}00064\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_camera_a35b0e4864330ad150099ea57cd8bd95d}{m\_isLockOn}})\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ float3\ dir\ \ \ =\ (\mbox{\hyperlink{class_little_quest_1_1_camera_a7965f2a44d5f9fb61405a5a5fa906184}{m\_pLockOnTarget}}.lock()-\/>GetTranslate()\ -\/\ \mbox{\hyperlink{class_little_quest_1_1_camera_a8df2cf4a73a48ef82894aa80d4ae4736}{m\_pTarget}}.lock()-\/>GetTranslate());}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ dx\ \ \ \ =\ \mbox{\hyperlink{class_little_quest_1_1_camera_a7965f2a44d5f9fb61405a5a5fa906184}{m\_pLockOnTarget}}.lock()-\/>GetTranslate().x\ -\/\ \mbox{\hyperlink{class_little_quest_1_1_camera_a8df2cf4a73a48ef82894aa80d4ae4736}{m\_pTarget}}.lock()-\/>GetTranslate().x;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ dz\ \ \ \ =\ \mbox{\hyperlink{class_little_quest_1_1_camera_a7965f2a44d5f9fb61405a5a5fa906184}{m\_pLockOnTarget}}.lock()-\/>GetTranslate().z\ -\/\ \mbox{\hyperlink{class_little_quest_1_1_camera_a8df2cf4a73a48ef82894aa80d4ae4736}{m\_pTarget}}.lock()-\/>GetTranslate().z;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ angle\ =\ atan2(dz,\ dx);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ angle\ *=\ RadToDeg;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ float3\ new\_rot\ =\ \{-\/10,\ -\/100\ -\/\ angle,\ \mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\_rot}}.z\};}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmRotate(new\_rot);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmOffset(\{5,\ 5,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmLength(30);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00075}00075\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00076}00076\ \textcolor{preprocessor}{\#ifdef\ \_DEBUG}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00077}00077\ \ \ \ \ \textcolor{keywordflow}{if}(IsKeyOn(KEY\_INPUT\_P))\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_ab8d37717f1f8d9df9ff9c0a25f91e7e5}{SetCameraShake}}(60,\ 50);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00079}00079\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00080}00080\ \textcolor{preprocessor}{\#endif\ \ \ \ }\textcolor{comment}{//\ \ \_DEBUG}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_af966937da5bd4e7337bfd6af187a8436}{ShakeCamera}}();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00083}00083\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00085}\mbox{\hyperlink{class_little_quest_1_1_camera_ae1ac59a433e9c75e17ad8df36acc2ae7}{00085}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_ae1ac59a433e9c75e17ad8df36acc2ae7}{Camera::PostUpdate}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00087}\mbox{\hyperlink{class_little_quest_1_1_camera_a9ba57fc5cedf487c04503465304700d3}{00087}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_a9ba57fc5cedf487c04503465304700d3}{Camera::LateDraw}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00089}\mbox{\hyperlink{class_little_quest_1_1_camera_a98c93cade2e0e71cf2cf1f728a9e1f9c}{00089}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_a98c93cade2e0e71cf2cf1f728a9e1f9c}{Camera::OnHit}}([[maybe\_unused]]\ \textcolor{keyword}{const}\ ComponentCollision::HitInfo\&\ hitInfo)\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00090}00090\ \ \ \ \ Super::OnHit(hitInfo);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00091}00091\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00093}\mbox{\hyperlink{class_little_quest_1_1_camera_a4147223bf45c640892f005d4f39d9379}{00093}}\ \textcolor{keyword}{const}\ float3\ \mbox{\hyperlink{class_little_quest_1_1_camera_a4147223bf45c640892f005d4f39d9379}{Camera::CameraForward}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00094}00094\ \ \ \ \ \textcolor{keywordflow}{return}\ -\/this-\/>GetMatrix().axisZ();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00095}00095\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00097}\mbox{\hyperlink{class_little_quest_1_1_camera_a32471d6befcc6ca898935eb6da015d93}{00097}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_a32471d6befcc6ca898935eb6da015d93}{Camera::SetCameraLookTarget}}(ObjectWeakPtr\ pTarget)\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00098}00098\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmObject(pTarget.lock());}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00099}00099\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00101}\mbox{\hyperlink{class_little_quest_1_1_camera_a4844ba9f8ab02848ef7aba465c112412}{00101}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_a4844ba9f8ab02848ef7aba465c112412}{Camera::SetCameraLength}}(\textcolor{keywordtype}{float}\ length)\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock())\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmLength(length);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00104}00104\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00105}00105\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00107}\mbox{\hyperlink{class_little_quest_1_1_camera_af119cea730dbb7a4a86f1f3687ab6fb2}{00107}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_af119cea730dbb7a4a86f1f3687ab6fb2}{Camera::SetCurrentCamera}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00108}00108\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock()-\/>SetCurrentCamera();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00109}00109\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00111}\mbox{\hyperlink{class_little_quest_1_1_camera_a08655b2f67bbd7c94da0a4472dbf5510}{00111}}\ float3\ \mbox{\hyperlink{class_little_quest_1_1_camera_a08655b2f67bbd7c94da0a4472dbf5510}{Camera::SetLockOnTarget}}(ObjectWeakPtr\ pTarget,\ \textcolor{keywordtype}{bool}\ isLockOn)\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00112}00112\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a35b0e4864330ad150099ea57cd8bd95d}{m\_isLockOn}}\ \ \ \ \ \ \ =\ isLockOn;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00113}00113\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a7965f2a44d5f9fb61405a5a5fa906184}{m\_pLockOnTarget}}\ \ =\ pTarget;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00114}00114\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a3cb7d05d38cf0782550d1a4ff8bd7588}{m\_lockOnPosition}}\ =\ pTarget.lock()-\/>GetTranslate();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00115}00115\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\_pSpringArm}}.lock()-\/>SetSpringArmOffset(\{0,\ 5,\ 0\});}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00116}00116\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00117}00117\ \ \ \ \ \textcolor{keywordflow}{return}\ pTarget.lock()-\/>GetTranslate();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00118}00118\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00120}\mbox{\hyperlink{class_little_quest_1_1_camera_ab8d37717f1f8d9df9ff9c0a25f91e7e5}{00120}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_ab8d37717f1f8d9df9ff9c0a25f91e7e5}{Camera::SetCameraShake}}(\textcolor{keywordtype}{float}\ duration,\ \textcolor{keywordtype}{float}\ magnitude)\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00121}00121\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_ade21f31d9942525942765f83b3797871}{shakeDuration}}\ \ \ \ \ =\ duration;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00122}00122\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a85e2d02dfb5d203aaab2f7955443495b}{shakeMagnitude}}\ \ \ \ =\ magnitude;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00123}00123\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a73c83530c8eec9d3f26ae2df3fd54e1a}{shakeTimer}}\ \ \ \ \ \ \ \ =\ duration;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00124}00124\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a8e9a7516f4cf952172b6e707bc67b6f7}{originalCameraPos}}\ =\ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock()-\/>GetLocalPosition();}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00125}00125\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a364dcd9f4288e46c4d3ec904d98910b0}{m\_isShake}}\ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00126}00126\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00128}\mbox{\hyperlink{class_little_quest_1_1_camera_af966937da5bd4e7337bfd6af187a8436}{00128}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_camera_af966937da5bd4e7337bfd6af187a8436}{Camera::ShakeCamera}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00129}00129\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{class_little_quest_1_1_camera_a364dcd9f4288e46c4d3ec904d98910b0}{m\_isShake}})\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00131}00131\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00133}00133\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_camera_a73c83530c8eec9d3f26ae2df3fd54e1a}{shakeTimer}}\ >\ 0.0f)\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a73c83530c8eec9d3f26ae2df3fd54e1a}{shakeTimer}}\ -\/=\ GetDeltaTime60();\ \ \ \ \textcolor{comment}{//\ Assuming\ GetDeltaTime()\ gives\ the\ time\ elapsed\ since\ the\ last\ frame}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Calculate\ random\ offset\ for\ shake}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ offsetX\ =\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(rand())\ /\ RAND\_MAX\ -\/\ 0.5f)\ *\ \mbox{\hyperlink{class_little_quest_1_1_camera_a85e2d02dfb5d203aaab2f7955443495b}{shakeMagnitude}};}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ offsetY\ =\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(rand())\ /\ RAND\_MAX\ -\/\ 0.5f)\ *\ \mbox{\hyperlink{class_little_quest_1_1_camera_a85e2d02dfb5d203aaab2f7955443495b}{shakeMagnitude}};}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Apply\ offset\ to\ camera\ position}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ float3\ shakePos\ =\ \mbox{\hyperlink{class_little_quest_1_1_camera_a8e9a7516f4cf952172b6e707bc67b6f7}{originalCameraPos}}\ +\ float3\{offsetX,\ offsetY,\ 0\};}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock()-\/>SetPosition(shakePos);}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Gradually\ decrease\ shake\ magnitude}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a85e2d02dfb5d203aaab2f7955443495b}{shakeMagnitude}}\ *=\ 0.9f;}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ shake\ duration\ has\ ended}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_camera_a73c83530c8eec9d3f26ae2df3fd54e1a}{shakeTimer}}\ <=\ 0.0f)\ \{}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Reset\ the\ camera\ to\ its\ original\ position}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\_pCamera}}.lock()-\/>SetPosition(\mbox{\hyperlink{class_little_quest_1_1_camera_a8e9a7516f4cf952172b6e707bc67b6f7}{originalCameraPos}});}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_camera_a364dcd9f4288e46c4d3ec904d98910b0}{m\_isShake}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00154}00154\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00155}00155\ \}}
+\DoxyCodeLine{\Hypertarget{_camera_8cpp_source_l00156}00156\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ LittleQuest}}
 
 \end{DoxyCode}

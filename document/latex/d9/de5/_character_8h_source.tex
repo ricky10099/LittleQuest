@@ -1,0 +1,125 @@
+\doxysection{Character.\+h}
+\hypertarget{_character_8h_source}{}\label{_character_8h_source}\index{Character.h@{Character.h}}
+\mbox{\hyperlink{_character_8h}{\mbox{[}詳解\mbox{]}}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_tool_8h}{LittleQuest/Tool.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <System/Scene.h>}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <System/Component/ComponentModel.h>}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <\mbox{\hyperlink{_component_h_p_8h}{LittleQuest/Components/ComponentHP.h}}>}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00010}00010\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_little_quest}{LittleQuest}}\ \{}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00011}\mbox{\hyperlink{namespace_little_quest_a600ecdd17d58785ec1ceb6c0dc443f67}{00011}}\ \mbox{\hyperlink{namespace_little_quest_a9f4c7989543fbf91b22703ab67eec8e4}{USING\_PTR}}(\mbox{\hyperlink{class_little_quest_1_1_character}{Character}});}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00012}00012\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00013}00013\ \textcolor{comment}{//////////////////////////////////////////////////////////////}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00014}00014\ \textcolor{comment}{//!\ @brief\ キャラクタークラス}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00015}00015\ \textcolor{comment}{//////////////////////////////////////////////////////////////}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00016}\mbox{\hyperlink{class_little_quest_1_1_character}{00016}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_little_quest_1_1_character}{Character}}:\ \textcolor{keyword}{public}\ Object\ \{}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00017}00017\ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00018}\mbox{\hyperlink{class_little_quest_1_1_character_a668f7130a9c550233008f7d0a18d30bf}{00018}}\ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_a668f7130a9c550233008f7d0a18d30bf}{BP\_OBJECT\_DECL}}(\mbox{\hyperlink{class_little_quest_1_1_character}{Character}},\ \textcolor{stringliteral}{"{}LittleQuest/Character"{}});}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00019}\mbox{\hyperlink{class_little_quest_1_1_character_ab42a972c802e5f9982cdb556cdd9fa83}{00019}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_ab42a972c802e5f9982cdb556cdd9fa83}{LateDraw}}()\textcolor{keyword}{\ override\ }\{}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{class_little_quest_1_1_character_a16d41ef0cc76c8f07b5ffb0dcd0c62ac}{\_componentHP}}.lock()\ \&\&\ !\mbox{\hyperlink{class_little_quest_1_1_character_a4fee1a3c440ecac1d70a1426e9002322}{\_isHideHP}})\ \{}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_a16d41ef0cc76c8f07b5ffb0dcd0c62ac}{\_componentHP}}.lock()-\/>DrawHPBar();}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00023}00023\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00024}00024\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00025}00025\ \textcolor{comment}{\ \ \ \ //!\ @brief\ 攻撃される処理を行います。}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00026}00026\ \textcolor{comment}{\ \ \ \ //!}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00027}00027\ \textcolor{comment}{\ \ \ \ //!\ @param\ damage\ 受けるダメージ}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00028}00028\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00029}\mbox{\hyperlink{class_little_quest_1_1_character_a0c33efb7186e62285a6a26158cbbfe1f}{00029}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_a0c33efb7186e62285a6a26158cbbfe1f}{GetHit}}(\textcolor{keywordtype}{int}\ damage)\ \{\}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00030}00030\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00031}00031\ \textcolor{comment}{\ \ \ \ //!\ @brief\ スローモーションを行います。}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00032}00032\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00033}\mbox{\hyperlink{class_little_quest_1_1_character_a4cfa2424fcccb5c9b3af9a7d6be6cbe3}{00033}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_a4cfa2424fcccb5c9b3af9a7d6be6cbe3}{SlowMotion}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00034}00034\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00035}00035\ \textcolor{comment}{\ \ \ \ //!\ @brief\ スローモーションを終了します。}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00036}00036\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00037}\mbox{\hyperlink{class_little_quest_1_1_character_a5be48e9a670208a97b242aa476673e42}{00037}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_a5be48e9a670208a97b242aa476673e42}{EndSlowMotion}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00038}00038\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00039}00039\ \textcolor{comment}{\ \ \ \ //!\ @brief\ シーンの行動を設定します。}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00040}00040\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00041}\mbox{\hyperlink{class_little_quest_1_1_character_a21c4ffa0dd27e786f899b4d737382eba}{00041}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_a21c4ffa0dd27e786f899b4d737382eba}{SetSceneState}}(Scene::SceneState\ state)\ \{\}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00043}\mbox{\hyperlink{class_little_quest_1_1_character_a8892cce27bf24284e2a386ec1aa738db}{00043}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_a8892cce27bf24284e2a386ec1aa738db}{SetHideHP}}(\textcolor{keywordtype}{bool}\ isHideHP)\ \{}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00044}00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_a4fee1a3c440ecac1d70a1426e9002322}{\_isHideHP}}\ =\ isHideHP;}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00045}00045\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00046}00046\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00047}00047\ \textcolor{comment}{\ \ \ \ //!\ @brief\ プレイヤーが倒されたのか。}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00048}00048\ \textcolor{comment}{\ \ \ \ //!}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00049}00049\ \textcolor{comment}{\ \ \ \ //!\ @retval\ true\ 倒された}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00050}00050\ \textcolor{comment}{\ \ \ \ //!\ @retval\ false\ 倒されていない}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00051}00051\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00052}\mbox{\hyperlink{class_little_quest_1_1_character_a07b0d41679967d1a8bb7b4edd5d06a3a}{00052}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_little_quest_1_1_character_a07b0d41679967d1a8bb7b4edd5d06a3a}{IsDead}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00054}00054\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00056}00056\ \ \ \ \textcolor{keyword}{protected}:\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00057}00057\ \textcolor{comment}{\ \ \ \ //!\ 現在のシーン行動}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00058}\mbox{\hyperlink{class_little_quest_1_1_character_ab9289aa5143a35b54eed22845aaffc4e}{00058}}\ \ \ \ \ Scene::SceneState\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ab9289aa5143a35b54eed22845aaffc4e}{\_sceneState}}\ =\ Scene::SceneState::GAME;\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00059}00059\ \textcolor{comment}{\ \ \ \ //!\ アニメーション名とアニメーション情報のマップ}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00060}\mbox{\hyperlink{class_little_quest_1_1_character_aa74e71b7a27f1eb13d42b922ce820dca}{00060}}\ \ \ \ \ std::unordered\_map<std::string,\ AnimInfo>\ \mbox{\hyperlink{class_little_quest_1_1_character_aa74e71b7a27f1eb13d42b922ce820dca}{\_animList}};\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00061}00061\ \textcolor{comment}{\ \ \ \ //!\ 攻撃した敵のリスト}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00062}\mbox{\hyperlink{class_little_quest_1_1_character_a40357f90fb318b2c38cb66347ac769e4}{00062}}\ \ \ \ \ std::vector<std::string\_view>\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_a40357f90fb318b2c38cb66347ac769e4}{\_attackList}};\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00063}00063\ \textcolor{comment}{\ \ \ \ //!\ モデル}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00064}\mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{00064}}\ \ \ \ \ std::weak\_ptr<ComponentModel>\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_ae215b8c165e37a4e1dbad69afcc0dab1}{\_model}};\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00065}00065\ \textcolor{comment}{\ \ \ \ //!\ 体力コンポーネント}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00066}\mbox{\hyperlink{class_little_quest_1_1_character_a16d41ef0cc76c8f07b5ffb0dcd0c62ac}{00066}}\ \ \ \ \ std::weak\_ptr<ComponentHP>\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_a16d41ef0cc76c8f07b5ffb0dcd0c62ac}{\_componentHP}};\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00067}00067\ \textcolor{comment}{\ \ \ \ //!\ 体力コンポーネントを描画するかどうか}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00068}\mbox{\hyperlink{class_little_quest_1_1_character_a4fee1a3c440ecac1d70a1426e9002322}{00068}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_little_quest_1_1_character_a4fee1a3c440ecac1d70a1426e9002322}{\_isHideHP}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00069}00069\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00070}00070\ \textcolor{comment}{\ \ \ \ //!\ 自身マトリクス}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00071}\mbox{\hyperlink{class_little_quest_1_1_character_a15192de4ec78070b2049d2ba51764d41}{00071}}\ \ \ \ \ matrix\ \mbox{\hyperlink{class_little_quest_1_1_character_a15192de4ec78070b2049d2ba51764d41}{\_selfMatrix}}\ \ \ \ =\ \{\};\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00072}00072\ \textcolor{comment}{\ \ \ \ //!\ 移動ベクトル}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00073}\mbox{\hyperlink{class_little_quest_1_1_character_abee4aa0101a5ff6186b64b9edd87023e}{00073}}\ \ \ \ \ float3\ \mbox{\hyperlink{class_little_quest_1_1_character_abee4aa0101a5ff6186b64b9edd87023e}{\_movement}}\ \ \ \ \ \ =\ \{0,\ 0,\ 0\};\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00074}00074\ \textcolor{comment}{\ \ \ \ //!\ 移動倍数}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00075}\mbox{\hyperlink{class_little_quest_1_1_character_a85fe327664be7acc761e8f8b251df24a}{00075}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{class_little_quest_1_1_character_a85fe327664be7acc761e8f8b251df24a}{\_speedFactor}}\ \ \ =\ 1.0f;\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00076}00076\ \textcolor{comment}{\ \ \ \ //!\ ヒットストップのタイマー}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00077}\mbox{\hyperlink{class_little_quest_1_1_character_a0ebdc8cdce44f12e2a4f410071db0fc4}{00077}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{class_little_quest_1_1_character_a0ebdc8cdce44f12e2a4f410071db0fc4}{\_hitTimer}}\ \ \ \ \ \ =\ 0.0f;\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00078}00078\ \textcolor{comment}{\ \ \ \ //!\ 現在のアニメーションの速度}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00079}\mbox{\hyperlink{class_little_quest_1_1_character_a447b4f6b3e9f17784530b0b65f882333}{00079}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{class_little_quest_1_1_character_a447b4f6b3e9f17784530b0b65f882333}{\_currAnimSpeed}}\ =\ 1.0f;\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00080}00080\ \textcolor{comment}{\ \ \ \ //!\ 現在のアニメーションの時間（フレーム）}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00081}\mbox{\hyperlink{class_little_quest_1_1_character_a8bfb5f735884fd68e56bd2ce164990cf}{00081}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \mbox{\hyperlink{class_little_quest_1_1_character_a8bfb5f735884fd68e56bd2ce164990cf}{\_currAnimTime}}\ \ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00082}00082\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00083}00083\ \textcolor{comment}{\ \ \ \ //!\ 攻撃が当たっているのか}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00084}\mbox{\hyperlink{class_little_quest_1_1_character_a9b5c8d03dbbf306c5cdeb50e43488d65}{00084}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_little_quest_1_1_character_a9b5c8d03dbbf306c5cdeb50e43488d65}{\_isHit}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00086}\mbox{\hyperlink{class_little_quest_1_1_character_a91502e17c89b565cef9dd2f79aab9357}{00086}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_little_quest_1_1_character_a91502e17c89b565cef9dd2f79aab9357}{\_slowMotion}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00088}\mbox{\hyperlink{class_little_quest_1_1_character_ab81ebe3abcbcf20cd9f5002345eb7081}{00088}}\ \ \ \ \ std::string\ \mbox{\hyperlink{class_little_quest_1_1_character_ab81ebe3abcbcf20cd9f5002345eb7081}{\_currAnimName}}\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00090}00090\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00091}00091\ \textcolor{comment}{\ \ \ \ //!\ @brief\ 待機}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00092}00092\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00093}\mbox{\hyperlink{class_little_quest_1_1_character_aa55ed7763e85e7a7206524dea2ccb71c}{00093}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_aa55ed7763e85e7a7206524dea2ccb71c}{Idle}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00094}00094\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00095}00095\ \textcolor{comment}{\ \ \ \ //!\ @brief\ 倒された}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00096}00096\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00097}\mbox{\hyperlink{class_little_quest_1_1_character_aad09f20daf17269720f5bba272f56398}{00097}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_aad09f20daf17269720f5bba272f56398}{Die}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00098}00098\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00099}00099\ \textcolor{comment}{\ \ \ \ //!\ @brief\ プレイ中の行動。}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00100}00100\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00101}\mbox{\hyperlink{class_little_quest_1_1_character_a4329d15e52375855b5d1d5f005d95ee2}{00101}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_a4329d15e52375855b5d1d5f005d95ee2}{GameAction}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00102}00102\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00103}00103\ \textcolor{comment}{\ \ \ \ //!\ @brief\ シーンイントロの行動}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00104}00104\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00105}\mbox{\hyperlink{class_little_quest_1_1_character_a93233482141a6e829cad2df0491368e8}{00105}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_a93233482141a6e829cad2df0491368e8}{TransInAction}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00106}00106\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00107}00107\ \textcolor{comment}{\ \ \ \ //!\ @brief\ シーン終了の行動。}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00108}00108\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00109}\mbox{\hyperlink{class_little_quest_1_1_character_a6d7632f479a5e9f9ef6c33e85b6c2cd3}{00109}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_a6d7632f479a5e9f9ef6c33e85b6c2cd3}{TransOutAction}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00110}00110\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00111}00111\ \textcolor{comment}{\ \ \ \ //!\ @brief\ モデルの回転を設定します。}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00112}00112\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00113}\mbox{\hyperlink{class_little_quest_1_1_character_a04e87590a208f133c9e459fdb571d56b}{00113}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_a04e87590a208f133c9e459fdb571d56b}{SetModelRotation}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00114}00114\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00115}00115\ \textcolor{comment}{\ \ \ \ //!\ @brief\ アニメーションマップを設定します}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00116}00116\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00117}\mbox{\hyperlink{class_little_quest_1_1_character_a9d27524873cc2900b12c59a0f3c3ae07}{00117}}\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_little_quest_1_1_character_a9d27524873cc2900b12c59a0f3c3ae07}{SetAnimInfo}}()\ \{\}}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00118}00118\ \};}
+\DoxyCodeLine{\Hypertarget{_character_8h_source_l00119}00119\ \}\ \ \ \ \textcolor{comment}{//\ namespace\ LittleQuest}}
+
+\end{DoxyCode}

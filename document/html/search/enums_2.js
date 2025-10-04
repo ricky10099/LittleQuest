@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['enemystate_0',['EnemyState',['../db/d2a/class_little_quest_1_1_enemy.html#a911a547534f6dffb9d4b722175976db4',1,'LittleQuest::Enemy']]]
+  ['hp_5ftype_0',['HP_TYPE',['../df/db3/class_little_quest_1_1_component_h_p.html#acb43c6ba5deafb62726668be6f01b947',1,'LittleQuest::ComponentHP']]]
 ];

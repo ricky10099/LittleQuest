@@ -1,7 +1,14 @@
 var searchData=
 [
-  ['version_0',['VERSION',['../d4/df8/class_model_cache.html#a6580cc38b0b63ab7c5b9e63dd8eac39c',1,'ModelCache']]],
-  ['vertices_5f_1',['vertices_',['../d4/df8/class_model_cache.html#ad0bc6fde790d468736722f78776e6eb0',1,'ModelCache::vertices_()'],['../d3/d12/classshape_1_1_convex_hull.html#a42f128d53d823df440ef6795016473b7',1,'shape::ConvexHull::vertices_()'],['../de/d0d/classshape_1_1_mesh.html#ac33ce2433e59d084ecc254359f63e67e',1,'shape::Mesh::vertices_()']]],
-  ['video_5ftime_2',['VIDEO_TIME',['../d1/de9/class_little_quest_1_1_game_title_scene.html#a7857ce73a3d95dcc82cbf703bbb8d407',1,'LittleQuest::GameTitleScene']]],
-  ['vs_5fvariant_5fcount_3',['VS_VARIANT_COUNT',['../d0/de3/class_model.html#a9089cf0cf2bc2889181f46206967b718',1,'Model']]]
+  ['unused0_5f_0',['unused0_',['../d4/de7/struct_light_manager_1_1_light_spot.html#aa4a36277412a269a87c5e07542828c23',1,'LightManager::LightSpot']]],
+  ['unused1_5f_1',['unused1_',['../d2/d95/struct_light_manager_1_1_light_point.html#abd056c60f9e087c341ea105a295f831e',1,'LightManager::LightPoint']]],
+  ['unused2_5f_2',['unused2_',['../d2/d95/struct_light_manager_1_1_light_point.html#a3872b2bdd0c352c05a667e0c15ca5b4f',1,'LightManager::LightPoint']]],
+  ['unused3_5f_3',['unused3_',['../d2/d95/struct_light_manager_1_1_light_point.html#a3247f4baecd5b6215bc63f04a9621d4d',1,'LightManager::LightPoint']]],
+  ['up_5f_4',['up_',['../d9/d49/class_component_camera.html#a379e9665338af1ce050a6c695eb71c7c',1,'ComponentCamera']]],
+  ['update_5f_5',['update_',['../de/df5/class_component_collision_model.html#aeaacb12f9fc4e57f280e75ce8cce7500',1,'ComponentCollisionModel']]],
+  ['update_5fdelta_5ftime_5f_6',['update_delta_time_',['../d2/d00/class_component.html#af89da12b7dd26576a4b896a785103e04',1,'Component']]],
+  ['use_5fgravity_5f_7',['use_gravity_',['../d7/d33/class_component_collision.html#a06330f2567778636d147ee9038158d64',1,'ComponentCollision']]],
+  ['use_5fmodel_5fnode_5fscale_5f_8',['use_model_node_scale_',['../d0/de1/class_component_model.html#a92a3182b26ce2f788503289316a983ab',1,'ComponentModel']]],
+  ['use_5fmouse_5f_9',['use_mouse_',['../d1/d87/class_component_object_controller.html#aeb1c80b05125c0718aab178212815bba',1,'ComponentObjectController']]],
+  ['use_5fshader_5f_10',['use_shader_',['../d0/de3/class_model.html#a2d492e5e0790176ea959022926ba8529',1,'Model']]]
 ];

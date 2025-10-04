@@ -1,223 +1,668 @@
-\hypertarget{class_little_quest_1_1_camera}{}\doxysection{Little\+Quest\+::Camera Class Reference}
-\label{class_little_quest_1_1_camera}\index{LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysection{Little\+Quest\+::Camera クラス}
+\hypertarget{class_little_quest_1_1_camera}{}\label{class_little_quest_1_1_camera}\index{LittleQuest::Camera@{LittleQuest::Camera}}
+
+
+カメラクラス  
+
+
 
 
 {\ttfamily \#include $<$Camera.\+h$>$}
 
-Inheritance diagram for Little\+Quest\+::Camera\+:\begin{figure}[H]
+Little\+Quest\+::Camera の継承関係図\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=2.000000cm]{d7/daa/class_little_quest_1_1_camera}
 \end{center}
 \end{figure}
-\doxysubsection*{Public Member Functions}
+\doxysubsubsection*{公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 bool \mbox{\hyperlink{class_little_quest_1_1_camera_a540441d9cbcb07a59588de90367374a2}{Init}} () override
-\item 
+\begin{DoxyCompactList}\small\item\em 初期化処理を行います。 \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_little_quest_1_1_camera_adf20c1ef0229b8d7cfe1796eb45964f2}{Update}} () override
+\begin{DoxyCompactList}\small\item\em 更新処理を行います。 \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_little_quest_1_1_camera_ae1ac59a433e9c75e17ad8df36acc2ae7}{Post\+Update}} () override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_camera_a9ba57fc5cedf487c04503465304700d3}{Late\+Draw}} () override
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_camera_a98c93cade2e0e71cf2cf1f728a9e1f9c}{On\+Hit}} (const Component\+Collision\+::\+Hit\+Info \&hit\+Info) override
 \item 
 const float3 \mbox{\hyperlink{class_little_quest_1_1_camera_a4147223bf45c640892f005d4f39d9379}{Camera\+Forward}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em カメラの前ベクトルを取得します。 \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_little_quest_1_1_camera_a4844ba9f8ab02848ef7aba465c112412}{Set\+Camera\+Length}} (float length)
-\item 
+\begin{DoxyCompactList}\small\item\em カメラの距離を設定します。 \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_little_quest_1_1_camera_a32471d6befcc6ca898935eb6da015d93}{Set\+Camera\+Look\+Target}} (Object\+Weak\+Ptr p\+Target)
-\item 
+\begin{DoxyCompactList}\small\item\em カメラの目標を設定します。 \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{class_little_quest_1_1_camera_af119cea730dbb7a4a86f1f3687ab6fb2}{Set\+Current\+Camera}} ()
+\begin{DoxyCompactList}\small\item\em メインカメラに設定します。 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_little_quest_1_1_camera_af58b6195cc582a16659da529b2b9c247}{Get\+Camera\+Local\+Position}} () const
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_camera_aaf51b8ede39c92bc685362e8b100339c}{Set\+Camera\+Position\+And\+Target}} (float3 position, float3 target)
+\item 
+float3 \mbox{\hyperlink{class_little_quest_1_1_camera_a08655b2f67bbd7c94da0a4472dbf5510}{Set\+Lock\+On\+Target}} (Object\+Weak\+Ptr p\+Target, bool is\+Lock\+On)
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_camera_ab8d37717f1f8d9df9ff9c0a25f91e7e5}{Set\+Camera\+Shake}} (float duration, float magnitude)
+\item 
+void \mbox{\hyperlink{class_little_quest_1_1_camera_af966937da5bd4e7337bfd6af187a8436}{Shake\+Camera}} ()
+\item 
+std\+::string\+\_\+view \mbox{\hyperlink{class_little_quest_1_1_camera_af8316942faaab3dd0e95d7893ad36187}{Get\+Camera\+Collision\+Name}} () const
+\item 
+std\+::string\+\_\+view \mbox{\hyperlink{class_little_quest_1_1_camera_a9039e69399bba640e18160ee8e0d7cfd}{Get\+Anchor\+Collision\+Name}} () const
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions}
+\doxysubsubsection*{静的公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
 static Camera\+Ptr \mbox{\hyperlink{class_little_quest_1_1_camera_adf68f2be4c08e319366b81f1e2cf78fb}{Create}} (Object\+Ptr obj)
-\end{DoxyCompactItemize}
-\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactList}\small\item\em カメラを生成します。 \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{非公開メンバ関数}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{class_little_quest_1_1_camera_a82434e0f06fbefd4693b5254fe0ab6fd}{BP\+\_\+\+OBJECT\+\_\+\+TYPE}} (\mbox{\hyperlink{class_little_quest_1_1_camera}{Camera}}, Object)
+\mbox{\hyperlink{class_little_quest_1_1_camera_a2281990fbe91fbbcb63e6be0e77ab294}{BP\+\_\+\+OBJECT\+\_\+\+DECL}} (\mbox{\hyperlink{class_little_quest_1_1_camera}{Camera}}, u8"{}\+Little\+Quest/Camera"{})
 \end{DoxyCompactItemize}
-\doxysubsection*{Private Attributes}
+\doxysubsubsection*{非公開変数類}
 \begin{DoxyCompactItemize}
+\item 
+const std\+::string\+\_\+view \mbox{\hyperlink{class_little_quest_1_1_camera_ac453e33013c6cd713dac042c6dc8dacf}{COLLISION\+\_\+\+NAME}} = "{}Collision\+Sphere"{}
+\item 
+const std\+::string\+\_\+view \mbox{\hyperlink{class_little_quest_1_1_camera_a660d6c943d9118f788a2f986bf5942e0}{ANCHOR\+\_\+\+NAME}} = "{}Anchor\+Sphere"{}
 \item 
 float3 \mbox{\hyperlink{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}{m\+\_\+rot}} \{-\/20, -\/90, 0\}
+\begin{DoxyCompactList}\small\item\em カメラの回転 \end{DoxyCompactList}\item 
+float3 \mbox{\hyperlink{class_little_quest_1_1_camera_a3cb7d05d38cf0782550d1a4ff8bd7588}{m\+\_\+lock\+On\+Position}}
 \item 
 Object\+Weak\+Ptr \mbox{\hyperlink{class_little_quest_1_1_camera_a8df2cf4a73a48ef82894aa80d4ae4736}{m\+\_\+p\+Target}}
+\begin{DoxyCompactList}\small\item\em カメラの目標 \end{DoxyCompactList}\item 
+Object\+Weak\+Ptr \mbox{\hyperlink{class_little_quest_1_1_camera_a7965f2a44d5f9fb61405a5a5fa906184}{m\+\_\+p\+Lock\+On\+Target}}
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_camera_ade21f31d9942525942765f83b3797871}{shake\+Duration}} = 0.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_camera_a85e2d02dfb5d203aaab2f7955443495b}{shake\+Magnitude}} = 0.\+0f
+\item 
+float \mbox{\hyperlink{class_little_quest_1_1_camera_a73c83530c8eec9d3f26ae2df3fd54e1a}{shake\+Timer}} = 0.\+0f
+\item 
+float3 \mbox{\hyperlink{class_little_quest_1_1_camera_a8e9a7516f4cf952172b6e707bc67b6f7}{original\+Camera\+Pos}}
+\item 
+float3 \mbox{\hyperlink{class_little_quest_1_1_camera_a1d0faa25520d7b3447a1b6150c7f5f30}{original\+Camera\+Target}}
 \item 
 std\+::weak\+\_\+ptr$<$ Component\+Camera $>$ \mbox{\hyperlink{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}{m\+\_\+p\+Camera}}
-\item 
+\begin{DoxyCompactList}\small\item\em カメラコンポーネント \end{DoxyCompactList}\item 
 std\+::weak\+\_\+ptr$<$ Component\+Spring\+Arm $>$ \mbox{\hyperlink{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}{m\+\_\+p\+Spring\+Arm}}
+\begin{DoxyCompactList}\small\item\em スプリングアームコンポーネント \end{DoxyCompactList}\item 
+std\+::weak\+\_\+ptr$<$ Component\+Collision\+Sphere $>$ \mbox{\hyperlink{class_little_quest_1_1_camera_a159ad5642ec38c6834d7c5939e0d2fc5}{m\+\_\+p\+Camera\+Collision}}
+\item 
+std\+::weak\+\_\+ptr$<$ Component\+Collision\+Sphere $>$ \mbox{\hyperlink{class_little_quest_1_1_camera_a40ca4016b7a59ad4aa18a5b160ade441}{m\+\_\+p\+Anchor\+Collision}}
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_camera_a35b0e4864330ad150099ea57cd8bd95d}{m\+\_\+is\+Lock\+On}} = false
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_camera_a364dcd9f4288e46c4d3ec904d98910b0}{m\+\_\+is\+Shake}} = false
+\item 
+bool \mbox{\hyperlink{class_little_quest_1_1_camera_a22a1238cff96aff866f2403a523b212b}{m\+\_\+is\+On\+Hit}} = false
 \end{DoxyCompactItemize}
 
 
-\doxysubsection{Detailed Description}
+\doxysubsection{詳解}
+カメラクラス 
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00012}{12}} 行目に定義があります。
 
 
-Definition at line \mbox{\hyperlink{_camera_8h_source_l00009}{9}} of file \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}}.
 
+\label{doc-func-members}
+\Hypertarget{class_little_quest_1_1_camera_doc-func-members}
+\doxysubsection{関数詳解}
+\Hypertarget{class_little_quest_1_1_camera_a2281990fbe91fbbcb63e6be0e77ab294}\index{LittleQuest::Camera@{LittleQuest::Camera}!BP\_OBJECT\_DECL@{BP\_OBJECT\_DECL}}
+\index{BP\_OBJECT\_DECL@{BP\_OBJECT\_DECL}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{BP\_OBJECT\_DECL()}{BP\_OBJECT\_DECL()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a2281990fbe91fbbcb63e6be0e77ab294} 
+Little\+Quest\+::\+Camera\+::\+BP\+\_\+\+OBJECT\+\_\+\+DECL (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_camera}{Camera}}}]{}{, }\item[{u8"{}\+Little\+Quest/Camera"{}}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
-
-\doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{class_little_quest_1_1_camera_a82434e0f06fbefd4693b5254fe0ab6fd}\label{class_little_quest_1_1_camera_a82434e0f06fbefd4693b5254fe0ab6fd}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!BP\_OBJECT\_TYPE@{BP\_OBJECT\_TYPE}}
-\index{BP\_OBJECT\_TYPE@{BP\_OBJECT\_TYPE}!LittleQuest::Camera@{LittleQuest::Camera}}
-\doxysubsubsection{\texorpdfstring{BP\_OBJECT\_TYPE()}{BP\_OBJECT\_TYPE()}}
-{\footnotesize\ttfamily Little\+Quest\+::\+Camera\+::\+BP\+\_\+\+OBJECT\+\_\+\+TYPE (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_little_quest_1_1_camera}{Camera}}}]{,  }\item[{Object}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-\mbox{\Hypertarget{class_little_quest_1_1_camera_a4147223bf45c640892f005d4f39d9379}\label{class_little_quest_1_1_camera_a4147223bf45c640892f005d4f39d9379}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!CameraForward@{CameraForward}}
+\Hypertarget{class_little_quest_1_1_camera_a4147223bf45c640892f005d4f39d9379}\index{LittleQuest::Camera@{LittleQuest::Camera}!CameraForward@{CameraForward}}
 \index{CameraForward@{CameraForward}!LittleQuest::Camera@{LittleQuest::Camera}}
 \doxysubsubsection{\texorpdfstring{CameraForward()}{CameraForward()}}
-{\footnotesize\ttfamily const float3 Little\+Quest\+::\+Camera\+::\+Camera\+Forward (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a4147223bf45c640892f005d4f39d9379} 
+const float3 Little\+Quest\+::\+Camera\+::\+Camera\+Forward (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{_camera_8cpp_source_l00052}{52}} of file \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}}.
+カメラの前ベクトルを取得します。 
 
-\mbox{\Hypertarget{class_little_quest_1_1_camera_adf68f2be4c08e319366b81f1e2cf78fb}\label{class_little_quest_1_1_camera_adf68f2be4c08e319366b81f1e2cf78fb}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!Create@{Create}}
+\begin{DoxyReturn}{戻り値}
+カメラの前ベクトル 
+\end{DoxyReturn}
+
+
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00093}{93}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_camera_adf68f2be4c08e319366b81f1e2cf78fb}\index{LittleQuest::Camera@{LittleQuest::Camera}!Create@{Create}}
 \index{Create@{Create}!LittleQuest::Camera@{LittleQuest::Camera}}
 \doxysubsubsection{\texorpdfstring{Create()}{Create()}}
-{\footnotesize\ttfamily Camera\+Ptr Little\+Quest\+::\+Camera\+::\+Create (\begin{DoxyParamCaption}\item[{Object\+Ptr}]{obj }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_adf68f2be4c08e319366b81f1e2cf78fb} 
+Camera\+Ptr Little\+Quest\+::\+Camera\+::\+Create (\begin{DoxyParamCaption}\item[{Object\+Ptr}]{obj}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line \mbox{\hyperlink{_camera_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}}.
+カメラを生成します。 
 
 
 
-Referenced by \mbox{\hyperlink{_stage01_8cpp_source_l00035}{Little\+Quest\+::\+Stage01\+::\+Init()}}.
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00009}{9}} 行目に定義があります。
 
-\mbox{\Hypertarget{class_little_quest_1_1_camera_a540441d9cbcb07a59588de90367374a2}\label{class_little_quest_1_1_camera_a540441d9cbcb07a59588de90367374a2}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!Init@{Init}}
+
+
+参照元 \mbox{\hyperlink{_stage01_8cpp_source_l00028}{Little\+Quest\+::\+Stage01\+::\+Init()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a9039e69399bba640e18160ee8e0d7cfd}\index{LittleQuest::Camera@{LittleQuest::Camera}!GetAnchorCollisionName@{GetAnchorCollisionName}}
+\index{GetAnchorCollisionName@{GetAnchorCollisionName}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{GetAnchorCollisionName()}{GetAnchorCollisionName()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a9039e69399bba640e18160ee8e0d7cfd} 
+std\+::string\+\_\+view Little\+Quest\+::\+Camera\+::\+Get\+Anchor\+Collision\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00084}{84}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_camera_8h_source_l00090}{ANCHOR\+\_\+\+NAME}}.
+
+\Hypertarget{class_little_quest_1_1_camera_af8316942faaab3dd0e95d7893ad36187}\index{LittleQuest::Camera@{LittleQuest::Camera}!GetCameraCollisionName@{GetCameraCollisionName}}
+\index{GetCameraCollisionName@{GetCameraCollisionName}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{GetCameraCollisionName()}{GetCameraCollisionName()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_af8316942faaab3dd0e95d7893ad36187} 
+std\+::string\+\_\+view Little\+Quest\+::\+Camera\+::\+Get\+Camera\+Collision\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00081}{81}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_camera_8h_source_l00089}{COLLISION\+\_\+\+NAME}}.
+
+\Hypertarget{class_little_quest_1_1_camera_af58b6195cc582a16659da529b2b9c247}\index{LittleQuest::Camera@{LittleQuest::Camera}!GetCameraLocalPosition@{GetCameraLocalPosition}}
+\index{GetCameraLocalPosition@{GetCameraLocalPosition}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{GetCameraLocalPosition()}{GetCameraLocalPosition()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_af58b6195cc582a16659da529b2b9c247} 
+float3 Little\+Quest\+::\+Camera\+::\+Get\+Camera\+Local\+Position (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00067}{67}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_camera_8h_source_l00108}{m\+\_\+p\+Camera}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a540441d9cbcb07a59588de90367374a2}\index{LittleQuest::Camera@{LittleQuest::Camera}!Init@{Init}}
 \index{Init@{Init}!LittleQuest::Camera@{LittleQuest::Camera}}
 \doxysubsubsection{\texorpdfstring{Init()}{Init()}}
-{\footnotesize\ttfamily bool Little\+Quest\+::\+Camera\+::\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a540441d9cbcb07a59588de90367374a2} 
+bool Little\+Quest\+::\+Camera\+::\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
 
 
 
-Definition at line \mbox{\hyperlink{_camera_8cpp_source_l00016}{16}} of file \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}}.
+初期化処理を行います。 
+
+
+\begin{DoxyRetVals}{戻り値}
+{\em true} & 初期化成功 \\
+\hline
+{\em false} & 初期化失敗 \\
+\hline
+\end{DoxyRetVals}
+
+
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00015}{15}} 行目に定義があります。
 
 
 
-References \mbox{\hyperlink{_camera_8h_source_l00028}{m\+\_\+p\+Camera}}, \mbox{\hyperlink{_camera_8h_source_l00029}{m\+\_\+p\+Spring\+Arm}}, \mbox{\hyperlink{_camera_8h_source_l00026}{m\+\_\+p\+Target}}, and \mbox{\hyperlink{_camera_8h_source_l00025}{m\+\_\+rot}}.
+参照先 \mbox{\hyperlink{_camera_8h_source_l00090}{ANCHOR\+\_\+\+NAME}}, \mbox{\hyperlink{_camera_8h_source_l00089}{COLLISION\+\_\+\+NAME}}, \mbox{\hyperlink{_camera_8h_source_l00113}{m\+\_\+p\+Anchor\+Collision}}, \mbox{\hyperlink{_camera_8h_source_l00108}{m\+\_\+p\+Camera}}, \mbox{\hyperlink{_camera_8h_source_l00112}{m\+\_\+p\+Camera\+Collision}}, \mbox{\hyperlink{_camera_8h_source_l00110}{m\+\_\+p\+Spring\+Arm}}, \mbox{\hyperlink{_camera_8h_source_l00097}{m\+\_\+p\+Target}}, \mbox{\hyperlink{_camera_8h_source_l00093}{m\+\_\+rot}}.
 
-\mbox{\Hypertarget{class_little_quest_1_1_camera_a4844ba9f8ab02848ef7aba465c112412}\label{class_little_quest_1_1_camera_a4844ba9f8ab02848ef7aba465c112412}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!SetCameraLength@{SetCameraLength}}
+\Hypertarget{class_little_quest_1_1_camera_a9ba57fc5cedf487c04503465304700d3}\index{LittleQuest::Camera@{LittleQuest::Camera}!LateDraw@{LateDraw}}
+\index{LateDraw@{LateDraw}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{LateDraw()}{LateDraw()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a9ba57fc5cedf487c04503465304700d3} 
+void Little\+Quest\+::\+Camera\+::\+Late\+Draw (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00087}{87}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_camera_a98c93cade2e0e71cf2cf1f728a9e1f9c}\index{LittleQuest::Camera@{LittleQuest::Camera}!OnHit@{OnHit}}
+\index{OnHit@{OnHit}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{OnHit()}{OnHit()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a98c93cade2e0e71cf2cf1f728a9e1f9c} 
+void Little\+Quest\+::\+Camera\+::\+On\+Hit (\begin{DoxyParamCaption}\item[{const Component\+Collision\+::\+Hit\+Info \&}]{hit\+Info}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00089}{89}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_camera_ae1ac59a433e9c75e17ad8df36acc2ae7}\index{LittleQuest::Camera@{LittleQuest::Camera}!PostUpdate@{PostUpdate}}
+\index{PostUpdate@{PostUpdate}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{PostUpdate()}{PostUpdate()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_ae1ac59a433e9c75e17ad8df36acc2ae7} 
+void Little\+Quest\+::\+Camera\+::\+Post\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00085}{85}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_camera_a4844ba9f8ab02848ef7aba465c112412}\index{LittleQuest::Camera@{LittleQuest::Camera}!SetCameraLength@{SetCameraLength}}
 \index{SetCameraLength@{SetCameraLength}!LittleQuest::Camera@{LittleQuest::Camera}}
 \doxysubsubsection{\texorpdfstring{SetCameraLength()}{SetCameraLength()}}
-{\footnotesize\ttfamily void Little\+Quest\+::\+Camera\+::\+Set\+Camera\+Length (\begin{DoxyParamCaption}\item[{float}]{length }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a4844ba9f8ab02848ef7aba465c112412} 
+void Little\+Quest\+::\+Camera\+::\+Set\+Camera\+Length (\begin{DoxyParamCaption}\item[{float}]{length}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{_camera_8cpp_source_l00060}{60}} of file \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}}.
+カメラの距離を設定します。 
+
+
+\begin{DoxyParams}{引数}
+{\em length} & カメラの距離 \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00101}{101}} 行目に定義があります。
 
 
 
-References \mbox{\hyperlink{_camera_8h_source_l00029}{m\+\_\+p\+Spring\+Arm}}.
+参照先 \mbox{\hyperlink{_camera_8h_source_l00110}{m\+\_\+p\+Spring\+Arm}}.
 
-\mbox{\Hypertarget{class_little_quest_1_1_camera_a32471d6befcc6ca898935eb6da015d93}\label{class_little_quest_1_1_camera_a32471d6befcc6ca898935eb6da015d93}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!SetCameraLookTarget@{SetCameraLookTarget}}
+\Hypertarget{class_little_quest_1_1_camera_a32471d6befcc6ca898935eb6da015d93}\index{LittleQuest::Camera@{LittleQuest::Camera}!SetCameraLookTarget@{SetCameraLookTarget}}
 \index{SetCameraLookTarget@{SetCameraLookTarget}!LittleQuest::Camera@{LittleQuest::Camera}}
 \doxysubsubsection{\texorpdfstring{SetCameraLookTarget()}{SetCameraLookTarget()}}
-{\footnotesize\ttfamily void Little\+Quest\+::\+Camera\+::\+Set\+Camera\+Look\+Target (\begin{DoxyParamCaption}\item[{Object\+Weak\+Ptr}]{p\+Target }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a32471d6befcc6ca898935eb6da015d93} 
+void Little\+Quest\+::\+Camera\+::\+Set\+Camera\+Look\+Target (\begin{DoxyParamCaption}\item[{Object\+Weak\+Ptr}]{p\+Target}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{_camera_8cpp_source_l00056}{56}} of file \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}}.
+カメラの目標を設定します。 
+
+
+\begin{DoxyParams}{引数}
+{\em p\+Target} & 目標ポインター \\
+\hline
+\end{DoxyParams}
+
+
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00097}{97}} 行目に定義があります。
 
 
 
-References \mbox{\hyperlink{_camera_8h_source_l00029}{m\+\_\+p\+Spring\+Arm}}.
+参照先 \mbox{\hyperlink{_camera_8h_source_l00110}{m\+\_\+p\+Spring\+Arm}}.
 
-\mbox{\Hypertarget{class_little_quest_1_1_camera_af119cea730dbb7a4a86f1f3687ab6fb2}\label{class_little_quest_1_1_camera_af119cea730dbb7a4a86f1f3687ab6fb2}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!SetCurrentCamera@{SetCurrentCamera}}
+\Hypertarget{class_little_quest_1_1_camera_aaf51b8ede39c92bc685362e8b100339c}\index{LittleQuest::Camera@{LittleQuest::Camera}!SetCameraPositionAndTarget@{SetCameraPositionAndTarget}}
+\index{SetCameraPositionAndTarget@{SetCameraPositionAndTarget}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{SetCameraPositionAndTarget()}{SetCameraPositionAndTarget()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_aaf51b8ede39c92bc685362e8b100339c} 
+void Little\+Quest\+::\+Camera\+::\+Set\+Camera\+Position\+And\+Target (\begin{DoxyParamCaption}\item[{float3}]{position}{, }\item[{float3}]{target}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00071}{71}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_camera_8h_source_l00108}{m\+\_\+p\+Camera}}.
+
+\Hypertarget{class_little_quest_1_1_camera_ab8d37717f1f8d9df9ff9c0a25f91e7e5}\index{LittleQuest::Camera@{LittleQuest::Camera}!SetCameraShake@{SetCameraShake}}
+\index{SetCameraShake@{SetCameraShake}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{SetCameraShake()}{SetCameraShake()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_ab8d37717f1f8d9df9ff9c0a25f91e7e5} 
+void Little\+Quest\+::\+Camera\+::\+Set\+Camera\+Shake (\begin{DoxyParamCaption}\item[{float}]{duration}{, }\item[{float}]{magnitude}{}\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00120}{120}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_camera_8h_source_l00116}{m\+\_\+is\+Shake}}, \mbox{\hyperlink{_camera_8h_source_l00108}{m\+\_\+p\+Camera}}, \mbox{\hyperlink{_camera_8h_source_l00104}{original\+Camera\+Pos}}, \mbox{\hyperlink{_camera_8h_source_l00101}{shake\+Duration}}, \mbox{\hyperlink{_camera_8h_source_l00102}{shake\+Magnitude}}, \mbox{\hyperlink{_camera_8h_source_l00103}{shake\+Timer}}.
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00048}{Update()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_af119cea730dbb7a4a86f1f3687ab6fb2}\index{LittleQuest::Camera@{LittleQuest::Camera}!SetCurrentCamera@{SetCurrentCamera}}
 \index{SetCurrentCamera@{SetCurrentCamera}!LittleQuest::Camera@{LittleQuest::Camera}}
 \doxysubsubsection{\texorpdfstring{SetCurrentCamera()}{SetCurrentCamera()}}
-{\footnotesize\ttfamily void Little\+Quest\+::\+Camera\+::\+Set\+Current\+Camera (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_af119cea730dbb7a4a86f1f3687ab6fb2} 
+void Little\+Quest\+::\+Camera\+::\+Set\+Current\+Camera (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{_camera_8cpp_source_l00064}{64}} of file \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}}.
+メインカメラに設定します。 
 
 
 
-References \mbox{\hyperlink{_camera_8h_source_l00028}{m\+\_\+p\+Camera}}.
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00107}{107}} 行目に定義があります。
 
-\mbox{\Hypertarget{class_little_quest_1_1_camera_adf20c1ef0229b8d7cfe1796eb45964f2}\label{class_little_quest_1_1_camera_adf20c1ef0229b8d7cfe1796eb45964f2}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!Update@{Update}}
+
+
+参照先 \mbox{\hyperlink{_camera_8h_source_l00108}{m\+\_\+p\+Camera}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a08655b2f67bbd7c94da0a4472dbf5510}\index{LittleQuest::Camera@{LittleQuest::Camera}!SetLockOnTarget@{SetLockOnTarget}}
+\index{SetLockOnTarget@{SetLockOnTarget}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{SetLockOnTarget()}{SetLockOnTarget()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a08655b2f67bbd7c94da0a4472dbf5510} 
+float3 Little\+Quest\+::\+Camera\+::\+Set\+Lock\+On\+Target (\begin{DoxyParamCaption}\item[{Object\+Weak\+Ptr}]{p\+Target}{, }\item[{bool}]{is\+Lock\+On}{}\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00111}{111}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_camera_8h_source_l00115}{m\+\_\+is\+Lock\+On}}, \mbox{\hyperlink{_camera_8h_source_l00095}{m\+\_\+lock\+On\+Position}}, \mbox{\hyperlink{_camera_8h_source_l00099}{m\+\_\+p\+Lock\+On\+Target}}, \mbox{\hyperlink{_camera_8h_source_l00110}{m\+\_\+p\+Spring\+Arm}}.
+
+\Hypertarget{class_little_quest_1_1_camera_af966937da5bd4e7337bfd6af187a8436}\index{LittleQuest::Camera@{LittleQuest::Camera}!ShakeCamera@{ShakeCamera}}
+\index{ShakeCamera@{ShakeCamera}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{ShakeCamera()}{ShakeCamera()}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_af966937da5bd4e7337bfd6af187a8436} 
+void Little\+Quest\+::\+Camera\+::\+Shake\+Camera (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00128}{128}} 行目に定義があります。
+
+
+
+参照先 \mbox{\hyperlink{_camera_8h_source_l00116}{m\+\_\+is\+Shake}}, \mbox{\hyperlink{_camera_8h_source_l00108}{m\+\_\+p\+Camera}}, \mbox{\hyperlink{_camera_8h_source_l00104}{original\+Camera\+Pos}}, \mbox{\hyperlink{_camera_8h_source_l00102}{shake\+Magnitude}}, \mbox{\hyperlink{_camera_8h_source_l00103}{shake\+Timer}}.
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00048}{Update()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_adf20c1ef0229b8d7cfe1796eb45964f2}\index{LittleQuest::Camera@{LittleQuest::Camera}!Update@{Update}}
 \index{Update@{Update}!LittleQuest::Camera@{LittleQuest::Camera}}
 \doxysubsubsection{\texorpdfstring{Update()}{Update()}}
-{\footnotesize\ttfamily void Little\+Quest\+::\+Camera\+::\+Update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_adf20c1ef0229b8d7cfe1796eb45964f2} 
+void Little\+Quest\+::\+Camera\+::\+Update (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
 
 
 
-Definition at line \mbox{\hyperlink{_camera_8cpp_source_l00035}{35}} of file \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}}.
+更新処理を行います。 
 
 
 
-References \mbox{\hyperlink{_camera_8h_source_l00028}{m\+\_\+p\+Camera}}, \mbox{\hyperlink{_camera_8h_source_l00029}{m\+\_\+p\+Spring\+Arm}}, and \mbox{\hyperlink{_camera_8h_source_l00025}{m\+\_\+rot}}.
+ \mbox{\hyperlink{_camera_8cpp_source}{Camera.\+cpp}} の \mbox{\hyperlink{_camera_8cpp_source_l00048}{48}} 行目に定義があります。
 
 
 
-\doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}\label{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_pCamera@{m\_pCamera}}
+参照先 \mbox{\hyperlink{_camera_8h_source_l00115}{m\+\_\+is\+Lock\+On}}, \mbox{\hyperlink{_camera_8h_source_l00108}{m\+\_\+p\+Camera}}, \mbox{\hyperlink{_camera_8h_source_l00112}{m\+\_\+p\+Camera\+Collision}}, \mbox{\hyperlink{_camera_8h_source_l00099}{m\+\_\+p\+Lock\+On\+Target}}, \mbox{\hyperlink{_camera_8h_source_l00110}{m\+\_\+p\+Spring\+Arm}}, \mbox{\hyperlink{_camera_8h_source_l00097}{m\+\_\+p\+Target}}, \mbox{\hyperlink{_camera_8h_source_l00093}{m\+\_\+rot}}, \mbox{\hyperlink{_camera_8cpp_source_l00120}{Set\+Camera\+Shake()}}, \mbox{\hyperlink{_camera_8cpp_source_l00128}{Shake\+Camera()}}.
+
+
+
+\label{doc-variable-members}
+\Hypertarget{class_little_quest_1_1_camera_doc-variable-members}
+\doxysubsection{メンバ詳解}
+\Hypertarget{class_little_quest_1_1_camera_a660d6c943d9118f788a2f986bf5942e0}\index{LittleQuest::Camera@{LittleQuest::Camera}!ANCHOR\_NAME@{ANCHOR\_NAME}}
+\index{ANCHOR\_NAME@{ANCHOR\_NAME}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{ANCHOR\_NAME}{ANCHOR\_NAME}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a660d6c943d9118f788a2f986bf5942e0} 
+const std\+::string\+\_\+view Little\+Quest\+::\+Camera\+::\+ANCHOR\+\_\+\+NAME = "{}Anchor\+Sphere"{}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00090}{90}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8h_source_l00084}{Get\+Anchor\+Collision\+Name()}}, \mbox{\hyperlink{_camera_8cpp_source_l00015}{Init()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_ac453e33013c6cd713dac042c6dc8dacf}\index{LittleQuest::Camera@{LittleQuest::Camera}!COLLISION\_NAME@{COLLISION\_NAME}}
+\index{COLLISION\_NAME@{COLLISION\_NAME}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{COLLISION\_NAME}{COLLISION\_NAME}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_ac453e33013c6cd713dac042c6dc8dacf} 
+const std\+::string\+\_\+view Little\+Quest\+::\+Camera\+::\+COLLISION\+\_\+\+NAME = "{}Collision\+Sphere"{}\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00089}{89}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8h_source_l00081}{Get\+Camera\+Collision\+Name()}}, \mbox{\hyperlink{_camera_8cpp_source_l00015}{Init()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a35b0e4864330ad150099ea57cd8bd95d}\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_isLockOn@{m\_isLockOn}}
+\index{m\_isLockOn@{m\_isLockOn}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{m\_isLockOn}{m\_isLockOn}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a35b0e4864330ad150099ea57cd8bd95d} 
+bool Little\+Quest\+::\+Camera\+::m\+\_\+is\+Lock\+On = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00115}{115}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00111}{Set\+Lock\+On\+Target()}}, \mbox{\hyperlink{_camera_8cpp_source_l00048}{Update()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a22a1238cff96aff866f2403a523b212b}\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_isOnHit@{m\_isOnHit}}
+\index{m\_isOnHit@{m\_isOnHit}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{m\_isOnHit}{m\_isOnHit}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a22a1238cff96aff866f2403a523b212b} 
+bool Little\+Quest\+::\+Camera\+::m\+\_\+is\+On\+Hit = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00117}{117}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_camera_a364dcd9f4288e46c4d3ec904d98910b0}\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_isShake@{m\_isShake}}
+\index{m\_isShake@{m\_isShake}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{m\_isShake}{m\_isShake}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a364dcd9f4288e46c4d3ec904d98910b0} 
+bool Little\+Quest\+::\+Camera\+::m\+\_\+is\+Shake = false\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00116}{116}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00120}{Set\+Camera\+Shake()}}, \mbox{\hyperlink{_camera_8cpp_source_l00128}{Shake\+Camera()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a3cb7d05d38cf0782550d1a4ff8bd7588}\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_lockOnPosition@{m\_lockOnPosition}}
+\index{m\_lockOnPosition@{m\_lockOnPosition}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{m\_lockOnPosition}{m\_lockOnPosition}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a3cb7d05d38cf0782550d1a4ff8bd7588} 
+float3 Little\+Quest\+::\+Camera\+::m\+\_\+lock\+On\+Position\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00095}{95}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00111}{Set\+Lock\+On\+Target()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a40ca4016b7a59ad4aa18a5b160ade441}\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_pAnchorCollision@{m\_pAnchorCollision}}
+\index{m\_pAnchorCollision@{m\_pAnchorCollision}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{m\_pAnchorCollision}{m\_pAnchorCollision}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a40ca4016b7a59ad4aa18a5b160ade441} 
+std\+::weak\+\_\+ptr$<$Component\+Collision\+Sphere$>$ Little\+Quest\+::\+Camera\+::m\+\_\+p\+Anchor\+Collision\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00113}{113}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00015}{Init()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8}\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_pCamera@{m\_pCamera}}
 \index{m\_pCamera@{m\_pCamera}!LittleQuest::Camera@{LittleQuest::Camera}}
 \doxysubsubsection{\texorpdfstring{m\_pCamera}{m\_pCamera}}
-{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$Component\+Camera$>$ Little\+Quest\+::\+Camera\+::m\+\_\+p\+Camera\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a9387f66f9c8a57debcc13081a33bc9a8} 
+std\+::weak\+\_\+ptr$<$Component\+Camera$>$ Little\+Quest\+::\+Camera\+::m\+\_\+p\+Camera\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line \mbox{\hyperlink{_camera_8h_source_l00028}{28}} of file \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}}.
+カメラコンポーネント 
 
 
 
-Referenced by \mbox{\hyperlink{_camera_8cpp_source_l00016}{Init()}}, \mbox{\hyperlink{_camera_8cpp_source_l00064}{Set\+Current\+Camera()}}, and \mbox{\hyperlink{_camera_8cpp_source_l00035}{Update()}}.
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00108}{108}} 行目に定義があります。
 
-\mbox{\Hypertarget{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}\label{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_pSpringArm@{m\_pSpringArm}}
+
+
+参照元 \mbox{\hyperlink{_camera_8h_source_l00067}{Get\+Camera\+Local\+Position()}}, \mbox{\hyperlink{_camera_8cpp_source_l00015}{Init()}}, \mbox{\hyperlink{_camera_8h_source_l00071}{Set\+Camera\+Position\+And\+Target()}}, \mbox{\hyperlink{_camera_8cpp_source_l00120}{Set\+Camera\+Shake()}}, \mbox{\hyperlink{_camera_8cpp_source_l00107}{Set\+Current\+Camera()}}, \mbox{\hyperlink{_camera_8cpp_source_l00128}{Shake\+Camera()}}, \mbox{\hyperlink{_camera_8cpp_source_l00048}{Update()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a159ad5642ec38c6834d7c5939e0d2fc5}\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_pCameraCollision@{m\_pCameraCollision}}
+\index{m\_pCameraCollision@{m\_pCameraCollision}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{m\_pCameraCollision}{m\_pCameraCollision}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a159ad5642ec38c6834d7c5939e0d2fc5} 
+std\+::weak\+\_\+ptr$<$Component\+Collision\+Sphere$>$ Little\+Quest\+::\+Camera\+::m\+\_\+p\+Camera\+Collision\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00112}{112}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00015}{Init()}}, \mbox{\hyperlink{_camera_8cpp_source_l00048}{Update()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a7965f2a44d5f9fb61405a5a5fa906184}\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_pLockOnTarget@{m\_pLockOnTarget}}
+\index{m\_pLockOnTarget@{m\_pLockOnTarget}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{m\_pLockOnTarget}{m\_pLockOnTarget}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a7965f2a44d5f9fb61405a5a5fa906184} 
+Object\+Weak\+Ptr Little\+Quest\+::\+Camera\+::m\+\_\+p\+Lock\+On\+Target\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00099}{99}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00111}{Set\+Lock\+On\+Target()}}, \mbox{\hyperlink{_camera_8cpp_source_l00048}{Update()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60}\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_pSpringArm@{m\_pSpringArm}}
 \index{m\_pSpringArm@{m\_pSpringArm}!LittleQuest::Camera@{LittleQuest::Camera}}
 \doxysubsubsection{\texorpdfstring{m\_pSpringArm}{m\_pSpringArm}}
-{\footnotesize\ttfamily std\+::weak\+\_\+ptr$<$Component\+Spring\+Arm$>$ Little\+Quest\+::\+Camera\+::m\+\_\+p\+Spring\+Arm\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a9c97c5da6e562cc0ea74a4b5df8f3d60} 
+std\+::weak\+\_\+ptr$<$Component\+Spring\+Arm$>$ Little\+Quest\+::\+Camera\+::m\+\_\+p\+Spring\+Arm\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line \mbox{\hyperlink{_camera_8h_source_l00029}{29}} of file \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}}.
+スプリングアームコンポーネント 
 
 
 
-Referenced by \mbox{\hyperlink{_camera_8cpp_source_l00016}{Init()}}, \mbox{\hyperlink{_camera_8cpp_source_l00060}{Set\+Camera\+Length()}}, \mbox{\hyperlink{_camera_8cpp_source_l00056}{Set\+Camera\+Look\+Target()}}, and \mbox{\hyperlink{_camera_8cpp_source_l00035}{Update()}}.
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00110}{110}} 行目に定義があります。
 
-\mbox{\Hypertarget{class_little_quest_1_1_camera_a8df2cf4a73a48ef82894aa80d4ae4736}\label{class_little_quest_1_1_camera_a8df2cf4a73a48ef82894aa80d4ae4736}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_pTarget@{m\_pTarget}}
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00015}{Init()}}, \mbox{\hyperlink{_camera_8cpp_source_l00101}{Set\+Camera\+Length()}}, \mbox{\hyperlink{_camera_8cpp_source_l00097}{Set\+Camera\+Look\+Target()}}, \mbox{\hyperlink{_camera_8cpp_source_l00111}{Set\+Lock\+On\+Target()}}, \mbox{\hyperlink{_camera_8cpp_source_l00048}{Update()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a8df2cf4a73a48ef82894aa80d4ae4736}\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_pTarget@{m\_pTarget}}
 \index{m\_pTarget@{m\_pTarget}!LittleQuest::Camera@{LittleQuest::Camera}}
 \doxysubsubsection{\texorpdfstring{m\_pTarget}{m\_pTarget}}
-{\footnotesize\ttfamily Object\+Weak\+Ptr Little\+Quest\+::\+Camera\+::m\+\_\+p\+Target\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a8df2cf4a73a48ef82894aa80d4ae4736} 
+Object\+Weak\+Ptr Little\+Quest\+::\+Camera\+::m\+\_\+p\+Target\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line \mbox{\hyperlink{_camera_8h_source_l00026}{26}} of file \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}}.
+カメラの目標 
 
 
 
-Referenced by \mbox{\hyperlink{_camera_8cpp_source_l00016}{Init()}}.
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00097}{97}} 行目に定義があります。
 
-\mbox{\Hypertarget{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}\label{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}} 
-\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_rot@{m\_rot}}
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00015}{Init()}}, \mbox{\hyperlink{_camera_8cpp_source_l00048}{Update()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e}\index{LittleQuest::Camera@{LittleQuest::Camera}!m\_rot@{m\_rot}}
 \index{m\_rot@{m\_rot}!LittleQuest::Camera@{LittleQuest::Camera}}
 \doxysubsubsection{\texorpdfstring{m\_rot}{m\_rot}}
-{\footnotesize\ttfamily float3 Little\+Quest\+::\+Camera\+::m\+\_\+rot \{-\/20, -\/90, 0\}\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_aa2993f141a8524a82bbcc3682b166c7e} 
+float3 Little\+Quest\+::\+Camera\+::m\+\_\+rot \{-\/20, -\/90, 0\}\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line \mbox{\hyperlink{_camera_8h_source_l00025}{25}} of file \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}}.
+カメラの回転 
 
 
 
-Referenced by \mbox{\hyperlink{_camera_8cpp_source_l00016}{Init()}}, and \mbox{\hyperlink{_camera_8cpp_source_l00035}{Update()}}.
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00093}{93}} 行目に定義があります。
 
 
 
-The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00015}{Init()}}, \mbox{\hyperlink{_camera_8cpp_source_l00048}{Update()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a8e9a7516f4cf952172b6e707bc67b6f7}\index{LittleQuest::Camera@{LittleQuest::Camera}!originalCameraPos@{originalCameraPos}}
+\index{originalCameraPos@{originalCameraPos}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{originalCameraPos}{originalCameraPos}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a8e9a7516f4cf952172b6e707bc67b6f7} 
+float3 Little\+Quest\+::\+Camera\+::original\+Camera\+Pos\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00104}{104}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00120}{Set\+Camera\+Shake()}}, \mbox{\hyperlink{_camera_8cpp_source_l00128}{Shake\+Camera()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a1d0faa25520d7b3447a1b6150c7f5f30}\index{LittleQuest::Camera@{LittleQuest::Camera}!originalCameraTarget@{originalCameraTarget}}
+\index{originalCameraTarget@{originalCameraTarget}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{originalCameraTarget}{originalCameraTarget}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a1d0faa25520d7b3447a1b6150c7f5f30} 
+float3 Little\+Quest\+::\+Camera\+::original\+Camera\+Target\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00105}{105}} 行目に定義があります。
+
+\Hypertarget{class_little_quest_1_1_camera_ade21f31d9942525942765f83b3797871}\index{LittleQuest::Camera@{LittleQuest::Camera}!shakeDuration@{shakeDuration}}
+\index{shakeDuration@{shakeDuration}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{shakeDuration}{shakeDuration}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_ade21f31d9942525942765f83b3797871} 
+float Little\+Quest\+::\+Camera\+::shake\+Duration = 0.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00101}{101}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00120}{Set\+Camera\+Shake()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a85e2d02dfb5d203aaab2f7955443495b}\index{LittleQuest::Camera@{LittleQuest::Camera}!shakeMagnitude@{shakeMagnitude}}
+\index{shakeMagnitude@{shakeMagnitude}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{shakeMagnitude}{shakeMagnitude}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a85e2d02dfb5d203aaab2f7955443495b} 
+float Little\+Quest\+::\+Camera\+::shake\+Magnitude = 0.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00102}{102}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00120}{Set\+Camera\+Shake()}}, \mbox{\hyperlink{_camera_8cpp_source_l00128}{Shake\+Camera()}}.
+
+\Hypertarget{class_little_quest_1_1_camera_a73c83530c8eec9d3f26ae2df3fd54e1a}\index{LittleQuest::Camera@{LittleQuest::Camera}!shakeTimer@{shakeTimer}}
+\index{shakeTimer@{shakeTimer}!LittleQuest::Camera@{LittleQuest::Camera}}
+\doxysubsubsection{\texorpdfstring{shakeTimer}{shakeTimer}}
+{\footnotesize\ttfamily \label{class_little_quest_1_1_camera_a73c83530c8eec9d3f26ae2df3fd54e1a} 
+float Little\+Quest\+::\+Camera\+::shake\+Timer = 0.\+0f\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+ \mbox{\hyperlink{_camera_8h_source}{Camera.\+h}} の \mbox{\hyperlink{_camera_8h_source_l00103}{103}} 行目に定義があります。
+
+
+
+参照元 \mbox{\hyperlink{_camera_8cpp_source_l00120}{Set\+Camera\+Shake()}}, \mbox{\hyperlink{_camera_8cpp_source_l00128}{Shake\+Camera()}}.
+
+
+
+このクラス詳解は次のファイルから抽出されました\+:\begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{_camera_8h}{Camera.\+h}}\item 
 \mbox{\hyperlink{_camera_8cpp}{Camera.\+cpp}}\end{DoxyCompactItemize}

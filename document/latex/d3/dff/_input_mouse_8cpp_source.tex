@@ -1,11 +1,11 @@
-\hypertarget{_input_mouse_8cpp_source}{}\doxysection{Input\+Mouse.\+cpp}
-\label{_input_mouse_8cpp_source}\index{InputMouse.cpp@{InputMouse.cpp}}
+\doxysection{Input\+Mouse.\+cpp}
+\hypertarget{_input_mouse_8cpp_source}{}\label{_input_mouse_8cpp_source}\index{InputMouse.cpp@{InputMouse.cpp}}
 \mbox{\hyperlink{_input_mouse_8cpp}{\mbox{[}詳解\mbox{]}}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00001}00001\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}\textcolor{comment}{}}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00002}00002\ \textcolor{comment}{//!\ @file\ \ \ InputMouse.cpp}}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00003}00003\ \textcolor{comment}{//!\ @brief\ \ マウス入力管理}}
-\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00004}00004\ \textcolor{comment}{}\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00004}00004\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_input_mouse_8h}{InputMouse.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_win_main_8h}{WinMain.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00007}00007\ }
@@ -23,7 +23,7 @@
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00019}00019\ \ \ \ \ MOUSE\_INPUT\_2,\ \ \ \ MOUSE\_INPUT\_3,\ \ \ \ \ MOUSE\_INPUT\_4,\ \ \ \ \ \ MOUSE\_INPUT\_5,}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{comment}{//\ これ以降のマウスのボタンの押下状態を取得する場合は、}}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{comment}{//\ 事前にSetUseDirectInputFlagを実行する必要がある}}
-\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{comment}{//\ MOUSE\_INPUT\_6,\ \ \ \ MOUSE\_INPUT\_7,\ \ \ \ \ MOUSE\_INPUT\_8}}
+\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{comment}{//MOUSE\_INPUT\_6,\ \ \ \ MOUSE\_INPUT\_7,\ \ \ \ \ MOUSE\_INPUT\_8}}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00023}00023\ \};}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00024}00024\ }
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00025}00025\ \textcolor{keywordtype}{int}\ mouseX\ \ \ \ =\ 0;}
@@ -60,14 +60,14 @@
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00056}00056\ \ \ \ \ std::fill(mouseButtons.begin(),\ mouseButtons.end(),\ 0);}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00057}00057\ }
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00058}00058\ \ \ \ \ \textcolor{comment}{//\ 以下同じ意味です}}
-\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{comment}{//\ std::fill\_n(\ mouseButtons,\ MAX\_MOUSE\_BUTTON,\ 0\ );}}
+\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00059}00059\ \ \ \ \ \textcolor{comment}{//std::fill\_n(\ mouseButtons,\ MAX\_MOUSE\_BUTTON,\ 0\ );}}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00060}00060\ }
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00062}00062\ \textcolor{comment}{\ \ \ \ \ \ \ \ for(\ int\ i\ =\ 0;\ i\ <\ MAX\_MOUSE\_BUTTON;\ ++i\ )}}
-\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00063}00063\ \textcolor{comment}{\ \ \ \ \ \ \ \ \{}}
-\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00064}00064\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mouseButtons[\ i\ ]\ =\ 0;}}
-\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00065}00065\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
-\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00066}00066\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00062}00062\ \textcolor{comment}{\ \ \ \ for(\ int\ i\ =\ 0;\ i\ <\ MAX\_MOUSE\_BUTTON;\ ++i\ )}}
+\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00063}00063\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00064}00064\ \textcolor{comment}{\ \ \ \ \ \ \ \ mouseButtons[\ i\ ]\ =\ 0;}}
+\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00065}00065\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00066}00066\ \textcolor{comment}{\ \ \ \ */}}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00067}00067\ \}}
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00068}00068\ }
 \DoxyCodeLine{\Hypertarget{_input_mouse_8cpp_source_l00069}00069\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
